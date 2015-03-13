@@ -1,0 +1,83 @@
+body * {
+        font-family:"Seravek-Light","Helvetica","SegoeUI-Light","Arial","HiraginoSansGB-W3","NotoSansHans-Regular","MicrosoftYaHeiLight","STXihei","SimHei",sans-serif;
+    }
+    body {
+    background: white;
+    margin: 0;
+    padding: 0;
+    }
+
+    input{
+        -webkit-appearance: none;
+        font: 16px Arial,Tahoma,Verdana,sans-serif;
+    }
+    .nav{
+        color:#FFFFFF;
+        background-color: #4A90E2;
+        text-align: center;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        font-size: larger;
+    }
+    .container {
+    opacity: 0;
+    margin: 0 auto 0px;
+    margin-top: 0px;
+    /* margin-top: 300px; */
+    padding: 4px 10px;
+    overflow: visible;  border-radius: 4px 4px 4px 4px;
+    float: center;
+    width: 200px;
+    }
+    .user{
+        height: 70px;
+        border-bottom: 1px solid #808080;
+    }
+    .avatar{
+        float: left;
+    }
+    .profile{
+        float: left;
+        margin-left: 20px;
+    }
+    .profile_name{
+        font-size: 20px;
+        text-align: left;
+    }
+    .profile_location_industry{
+        font-size:12px;
+        text-align: left;
+    }
+    .profile_intro{
+        font-size: 12px;
+        color: #808080;
+        text-align: left;
+    }
+    .tag{
+        margin-top: 10px;
+        color:#4A90E2;
+        font-size: 12px;
+    }
+    .topic{
+        padding-bottom: 10px;
+        border-bottom: 1px solid #808080;
+    }
+    .invite{
+        margin-top: 10px;
+        font-size: 14px;
+        color: #808080;
+        text-align: center;
+    }
+    .transport{
+        margin-top: 10px;
+        background: #4A90E2;
+        border: 1px solid #4A90E2;
+        color: #ffffff;
+        font: 16px Arial,Tahoma,Verdana,sans-serif;
+        padding: 10px;
+        cursor: pointer;
+        overflow: visible;
+        border-radius: 2px 2px 2px 2px;
+        float: center;
+        width: 200px;
+    }

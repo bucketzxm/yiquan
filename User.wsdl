@@ -1,0 +1,713 @@
+<?xml version="1.0" ?>
+<definitions name="User" targetNamespace="urn:User" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="urn:User" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+<types xmlns="http://schemas.xmlsoap.org/wsdl/" />
+<portType name="UserPort"><operation name="reg">
+<input message="tns:regRequest" />
+<output message="tns:regResponse" />
+</operation>
+<operation name="checkNameExist">
+<input message="tns:checkNameExistRequest" />
+<output message="tns:checkNameExistResponse" />
+</operation>
+<operation name="checkMobileExist">
+<input message="tns:checkMobileExistRequest" />
+<output message="tns:checkMobileExistResponse" />
+</operation>
+<operation name="loginByUser">
+<input message="tns:loginByUserRequest" />
+<output message="tns:loginByUserResponse" />
+</operation>
+<operation name="getUserByName">
+<input message="tns:getUserByNameRequest" />
+<output message="tns:getUserByNameResponse" />
+</operation>
+<operation name="getUserStatsByName">
+<input message="tns:getUserStatsByNameRequest" />
+<output message="tns:getUserStatsByNameResponse" />
+</operation>
+<operation name="getUserByMobile">
+<input message="tns:getUserByMobileRequest" />
+<output message="tns:getUserByMobileResponse" />
+</operation>
+<operation name="getUserByID">
+<input message="tns:getUserByIDRequest" />
+<output message="tns:getUserByIDResponse" />
+</operation>
+<operation name="addFriendByID">
+<input message="tns:addFriendByIDRequest" />
+<output message="tns:addFriendByIDResponse" />
+</operation>
+<operation name="addFriendByName">
+<input message="tns:addFriendByNameRequest" />
+<output message="tns:addFriendByNameResponse" />
+</operation>
+<operation name="enhanceRelationshipById">
+<input message="tns:enhanceRelationshipByIdRequest" />
+<output message="tns:enhanceRelationshipByIdResponse" />
+</operation>
+<operation name="enhanceRelationshipByName">
+<input message="tns:enhanceRelationshipByNameRequest" />
+<output message="tns:enhanceRelationshipByNameResponse" />
+</operation>
+<operation name="changeSecondName">
+<input message="tns:changeSecondNameRequest" />
+<output message="tns:changeSecondNameResponse" />
+</operation>
+<operation name="changeSecondNameById">
+<input message="tns:changeSecondNameByIdRequest" />
+<output message="tns:changeSecondNameByIdResponse" />
+</operation>
+<operation name="queryFirstFriendsByID">
+<input message="tns:queryFirstFriendsByIDRequest" />
+<output message="tns:queryFirstFriendsByIDResponse" />
+</operation>
+<operation name="queryFirstFriendsByName">
+<input message="tns:queryFirstFriendsByNameRequest" />
+<output message="tns:queryFirstFriendsByNameResponse" />
+</operation>
+<operation name="countFirstFriendsByName">
+<input message="tns:countFirstFriendsByNameRequest" />
+<output message="tns:countFirstFriendsByNameResponse" />
+</operation>
+<operation name="addProfileByName">
+<input message="tns:addProfileByNameRequest" />
+<output message="tns:addProfileByNameResponse" />
+</operation>
+<operation name="queryAllFriendsByName">
+<input message="tns:queryAllFriendsByNameRequest" />
+<output message="tns:queryAllFriendsByNameResponse" />
+</operation>
+<operation name="countAllFriendsByName">
+<input message="tns:countAllFriendsByNameRequest" />
+<output message="tns:countAllFriendsByNameResponse" />
+</operation>
+<operation name="querySecondFriendsByName">
+<input message="tns:querySecondFriendsByNameRequest" />
+<output message="tns:querySecondFriendsByNameResponse" />
+</operation>
+<operation name="countSecondFriendsByName">
+<input message="tns:countSecondFriendsByNameRequest" />
+<output message="tns:countSecondFriendsByNameResponse" />
+</operation>
+<operation name="listSecondFriendsByName">
+<input message="tns:listSecondFriendsByNameRequest" />
+<output message="tns:listSecondFriendsByNameResponse" />
+</operation>
+<operation name="listAllFriendsByName">
+<input message="tns:listAllFriendsByNameRequest" />
+<output message="tns:listAllFriendsByNameResponse" />
+</operation>
+<operation name="queryCommonFriendsByName">
+<input message="tns:queryCommonFriendsByNameRequest" />
+<output message="tns:queryCommonFriendsByNameResponse" />
+</operation>
+<operation name="updateUserpicByUsername">
+<input message="tns:updateUserpicByUsernameRequest" />
+<output message="tns:updateUserpicByUsernameResponse" />
+</operation>
+<operation name="getRawuserPicByUsername">
+<input message="tns:getRawuserPicByUsernameRequest" />
+<output message="tns:getRawuserPicByUsernameResponse" />
+</operation>
+<operation name="deleteFriendByName">
+<input message="tns:deleteFriendByNameRequest" />
+<output message="tns:deleteFriendByNameResponse" />
+</operation>
+<operation name="changePassword">
+<input message="tns:changePasswordRequest" />
+<output message="tns:changePasswordResponse" />
+</operation>
+<operation name="changePasswordByID">
+<input message="tns:changePasswordByIDRequest" />
+<output message="tns:changePasswordByIDResponse" />
+</operation>
+<operation name="getSecondFriendStats">
+<input message="tns:getSecondFriendStatsRequest" />
+<output message="tns:getSecondFriendStatsResponse" />
+</operation>
+<operation name="getLastestVersion">
+<input message="tns:getLastestVersionRequest" />
+<output message="tns:getLastestVersionResponse" />
+</operation>
+<operation name="checkUpdate">
+<input message="tns:checkUpdateRequest" />
+<output message="tns:checkUpdateResponse" />
+</operation>
+<operation name="weihu">
+<input message="tns:weihuRequest" />
+<output message="tns:weihuResponse" />
+</operation>
+<operation name="checkagent">
+<input message="tns:checkagentRequest" />
+<output message="tns:checkagentResponse" />
+</operation>
+<operation name="checkToken">
+<input message="tns:checkTokenRequest" />
+<output message="tns:checkTokenResponse" />
+</operation>
+<operation name="logCallMethod">
+<input message="tns:logCallMethodRequest" />
+<output message="tns:logCallMethodResponse" />
+</operation>
+<operation name="getCurrentUsername">
+<input message="tns:getCurrentUsernameRequest" />
+<output message="tns:getCurrentUsernameResponse" />
+</operation>
+</portType>
+<binding name="UserBinding" type="tns:UserPort">
+<soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http" />
+<operation name="reg">
+<soap:operation soapAction="urn:User#User#reg" />
+<input><soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="checkNameExist">
+<soap:operation soapAction="urn:User#User#checkNameExist" />
+<input><soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="checkMobileExist">
+<soap:operation soapAction="urn:User#User#checkMobileExist" />
+<input><soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="loginByUser">
+<soap:operation soapAction="urn:User#User#loginByUser" />
+<input><soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="getUserByName">
+<soap:operation soapAction="urn:User#User#getUserByName" />
+<input><soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="getUserStatsByName">
+<soap:operation soapAction="urn:User#User#getUserStatsByName" />
+<input><soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="getUserByMobile">
+<soap:operation soapAction="urn:User#User#getUserByMobile" />
+<input><soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="getUserByID">
+<soap:operation soapAction="urn:User#User#getUserByID" />
+<input><soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="addFriendByID">
+<soap:operation soapAction="urn:User#User#addFriendByID" />
+<input><soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="addFriendByName">
+<soap:operation soapAction="urn:User#User#addFriendByName" />
+<input><soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="enhanceRelationshipById">
+<soap:operation soapAction="urn:User#User#enhanceRelationshipById" />
+<input><soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="enhanceRelationshipByName">
+<soap:operation soapAction="urn:User#User#enhanceRelationshipByName" />
+<input><soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="changeSecondName">
+<soap:operation soapAction="urn:User#User#changeSecondName" />
+<input><soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="changeSecondNameById">
+<soap:operation soapAction="urn:User#User#changeSecondNameById" />
+<input><soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="queryFirstFriendsByID">
+<soap:operation soapAction="urn:User#User#queryFirstFriendsByID" />
+<input><soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="queryFirstFriendsByName">
+<soap:operation soapAction="urn:User#User#queryFirstFriendsByName" />
+<input><soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="countFirstFriendsByName">
+<soap:operation soapAction="urn:User#User#countFirstFriendsByName" />
+<input><soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="addProfileByName">
+<soap:operation soapAction="urn:User#User#addProfileByName" />
+<input><soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="queryAllFriendsByName">
+<soap:operation soapAction="urn:User#User#queryAllFriendsByName" />
+<input><soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="countAllFriendsByName">
+<soap:operation soapAction="urn:User#User#countAllFriendsByName" />
+<input><soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="querySecondFriendsByName">
+<soap:operation soapAction="urn:User#User#querySecondFriendsByName" />
+<input><soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="countSecondFriendsByName">
+<soap:operation soapAction="urn:User#User#countSecondFriendsByName" />
+<input><soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="listSecondFriendsByName">
+<soap:operation soapAction="urn:User#User#listSecondFriendsByName" />
+<input><soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="listAllFriendsByName">
+<soap:operation soapAction="urn:User#User#listAllFriendsByName" />
+<input><soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="queryCommonFriendsByName">
+<soap:operation soapAction="urn:User#User#queryCommonFriendsByName" />
+<input><soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="updateUserpicByUsername">
+<soap:operation soapAction="urn:User#User#updateUserpicByUsername" />
+<input><soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="getRawuserPicByUsername">
+<soap:operation soapAction="urn:User#User#getRawuserPicByUsername" />
+<input><soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="deleteFriendByName">
+<soap:operation soapAction="urn:User#User#deleteFriendByName" />
+<input><soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="changePassword">
+<soap:operation soapAction="urn:User#User#changePassword" />
+<input><soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="changePasswordByID">
+<soap:operation soapAction="urn:User#User#changePasswordByID" />
+<input><soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="getSecondFriendStats">
+<soap:operation soapAction="urn:User#User#getSecondFriendStats" />
+<input><soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="getLastestVersion">
+<soap:operation soapAction="urn:User#User#getLastestVersion" />
+<input><soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="checkUpdate">
+<soap:operation soapAction="urn:User#User#checkUpdate" />
+<input><soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="weihu">
+<soap:operation soapAction="urn:User#User#weihu" />
+<input><soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="checkagent">
+<soap:operation soapAction="urn:User#User#checkagent" />
+<input><soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="checkToken">
+<soap:operation soapAction="urn:User#User#checkToken" />
+<input><soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="logCallMethod">
+<soap:operation soapAction="urn:User#User#logCallMethod" />
+<input><soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="getCurrentUsername">
+<soap:operation soapAction="urn:User#User#getCurrentUsername" />
+<input><soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+</binding>
+<service name="User">
+<documentation />
+<port name="UserPort" binding="tns:UserBinding"><soap:address location="http://127.0.0.1:8080/User_server.php" />
+</port>
+</service>
+<message name="regRequest">
+<part name="user_name" type="xsd:string" />
+<part name="user_pwd" type="xsd:string" />
+<part name="user_mobile" type="xsd:string" />
+</message>
+<message name="regResponse">
+<part name="reg" type="xsd:string" />
+</message>
+<message name="checkNameExistRequest">
+<part name="user_name" type="xsd:string" />
+</message>
+<message name="checkNameExistResponse">
+<part name="checkNameExist" type="xsd:string" />
+</message>
+<message name="checkMobileExistRequest">
+<part name="user_mobile" type="xsd:string" />
+</message>
+<message name="checkMobileExistResponse">
+<part name="checkMobileExist" type="xsd:string" />
+</message>
+<message name="loginByUserRequest">
+<part name="user_name" type="xsd:string" />
+<part name="user_pwd" type="xsd:string" />
+</message>
+<message name="loginByUserResponse">
+<part name="loginByUser" type="xsd:string" />
+</message>
+<message name="getUserByNameRequest">
+<part name="user_name" type="xsd:string" />
+</message>
+<message name="getUserByNameResponse">
+<part name="getUserByName" type="xsd:string" />
+</message>
+<message name="getUserStatsByNameRequest">
+<part name="user_name" type="xsd:string" />
+</message>
+<message name="getUserStatsByNameResponse">
+<part name="getUserStatsByName" type="xsd:string" />
+</message>
+<message name="getUserByMobileRequest">
+<part name="user_mobile" type="xsd:string" />
+</message>
+<message name="getUserByMobileResponse">
+<part name="getUserByMobile" type="xsd:string" />
+</message>
+<message name="getUserByIDRequest">
+<part name="user_id" type="xsd:string" />
+</message>
+<message name="getUserByIDResponse">
+<part name="getUserByID" type="xsd:string" />
+</message>
+<message name="addFriendByIDRequest">
+<part name="user_idA" type="xsd:string" />
+<part name="user_idB" type="xsd:string" />
+</message>
+<message name="addFriendByIDResponse">
+<part name="addFriendByID" type="xsd:string" />
+</message>
+<message name="addFriendByNameRequest">
+<part name="user_nameA" type="xsd:string" />
+<part name="user_nameB" type="xsd:string" />
+</message>
+<message name="addFriendByNameResponse">
+<part name="addFriendByName" type="xsd:string" />
+</message>
+<message name="enhanceRelationshipByIdRequest">
+<part name="usera_id" type="xsd:string" />
+<part name="userb_id" type="xsd:string" />
+<part name="value" type="xsd:string" />
+</message>
+<message name="enhanceRelationshipByIdResponse">
+<part name="enhanceRelationshipById" type="xsd:string" />
+</message>
+<message name="enhanceRelationshipByNameRequest">
+<part name="usera_name" type="xsd:string" />
+<part name="userb_name" type="xsd:string" />
+<part name="value" type="xsd:string" />
+</message>
+<message name="enhanceRelationshipByNameResponse">
+<part name="enhanceRelationshipByName" type="xsd:string" />
+</message>
+<message name="changeSecondNameRequest">
+<part name="user_name" type="xsd:string" />
+<part name="user_secondname" type="xsd:string" />
+<part name="user_nameChanged" type="xsd:string" />
+</message>
+<message name="changeSecondNameResponse">
+<part name="changeSecondName" type="xsd:string" />
+</message>
+<message name="changeSecondNameByIdRequest">
+<part name="usera_id" type="xsd:string" />
+<part name="userb_id" type="xsd:string" />
+<part name="user_secondname" type="xsd:string" />
+</message>
+<message name="changeSecondNameByIdResponse">
+<part name="changeSecondNameById" type="xsd:string" />
+</message>
+<message name="queryFirstFriendsByIDRequest">
+<part name="user_id" type="xsd:string" />
+</message>
+<message name="queryFirstFriendsByIDResponse">
+<part name="queryFirstFriendsByID" type="xsd:string" />
+</message>
+<message name="queryFirstFriendsByNameRequest">
+<part name="user_name" type="xsd:string" />
+</message>
+<message name="queryFirstFriendsByNameResponse">
+<part name="queryFirstFriendsByName" type="xsd:string" />
+</message>
+<message name="countFirstFriendsByNameRequest">
+<part name="user_name" type="xsd:string" />
+</message>
+<message name="countFirstFriendsByNameResponse">
+<part name="countFirstFriendsByName" type="xsd:string" />
+</message>
+<message name="addProfileByNameRequest">
+<part name="user_name" type="xsd:string" />
+<part name="user_profile" type="xsd:string" />
+</message>
+<message name="addProfileByNameResponse">
+<part name="addProfileByName" type="xsd:string" />
+</message>
+<message name="queryAllFriendsByNameRequest">
+<part name="user_name" type="xsd:string" />
+</message>
+<message name="queryAllFriendsByNameResponse">
+<part name="queryAllFriendsByName" type="xsd:string" />
+</message>
+<message name="countAllFriendsByNameRequest">
+<part name="user_name" type="xsd:string" />
+</message>
+<message name="countAllFriendsByNameResponse">
+<part name="countAllFriendsByName" type="xsd:string" />
+</message>
+<message name="querySecondFriendsByNameRequest">
+<part name="user_name" type="xsd:string" />
+</message>
+<message name="querySecondFriendsByNameResponse">
+<part name="querySecondFriendsByName" type="xsd:string" />
+</message>
+<message name="countSecondFriendsByNameRequest">
+<part name="user_name" type="xsd:string" />
+</message>
+<message name="countSecondFriendsByNameResponse">
+<part name="countSecondFriendsByName" type="xsd:string" />
+</message>
+<message name="listSecondFriendsByNameRequest">
+<part name="user_name" type="xsd:string" />
+</message>
+<message name="listSecondFriendsByNameResponse">
+<part name="listSecondFriendsByName" type="xsd:string" />
+</message>
+<message name="listAllFriendsByNameRequest">
+<part name="user_name" type="xsd:string" />
+</message>
+<message name="listAllFriendsByNameResponse">
+<part name="listAllFriendsByName" type="xsd:string" />
+</message>
+<message name="queryCommonFriendsByNameRequest">
+<part name="user_nameA" type="xsd:string" />
+<part name="user_nameB" type="xsd:string" />
+</message>
+<message name="queryCommonFriendsByNameResponse">
+<part name="queryCommonFriendsByName" type="xsd:string" />
+</message>
+<message name="updateUserpicByUsernameRequest">
+<part name="data" type="xsd:string" />
+<part name="user_name" type="xsd:string" />
+</message>
+<message name="updateUserpicByUsernameResponse">
+<part name="updateUserpicByUsername" type="xsd:string" />
+</message>
+<message name="getRawuserPicByUsernameRequest">
+<part name="user_name" type="xsd:string" />
+</message>
+<message name="getRawuserPicByUsernameResponse">
+<part name="getRawuserPicByUsername" type="xsd:string" />
+</message>
+<message name="deleteFriendByNameRequest">
+<part name="user_nameA" type="xsd:string" />
+<part name="user_nameB" type="xsd:string" />
+</message>
+<message name="deleteFriendByNameResponse">
+<part name="deleteFriendByName" type="xsd:string" />
+</message>
+<message name="changePasswordRequest">
+<part name="user_name" type="xsd:string" />
+<part name="user_oldpwd" type="xsd:string" />
+<part name="user_newpwd" type="xsd:string" />
+</message>
+<message name="changePasswordResponse">
+<part name="changePassword" type="xsd:string" />
+</message>
+<message name="changePasswordByIDRequest">
+<part name="user_id" type="xsd:string" />
+<part name="user_oldpwd" type="xsd:string" />
+<part name="user_newpwd" type="xsd:string" />
+</message>
+<message name="changePasswordByIDResponse">
+<part name="changePasswordByID" type="xsd:string" />
+</message>
+<message name="getSecondFriendStatsRequest">
+<part name="user_name" type="xsd:string" />
+</message>
+<message name="getSecondFriendStatsResponse">
+<part name="getSecondFriendStats" type="xsd:string" />
+</message>
+<message name="getLastestVersionRequest">
+</message>
+<message name="getLastestVersionResponse">
+<part name="getLastestVersion" type="xsd:string" />
+</message>
+<message name="checkUpdateRequest">
+</message>
+<message name="checkUpdateResponse">
+<part name="checkUpdate" type="xsd:string" />
+</message>
+<message name="weihuRequest">
+</message>
+<message name="weihuResponse">
+<part name="weihu" type="xsd:string" />
+</message>
+<message name="checkagentRequest">
+</message>
+<message name="checkagentResponse">
+<part name="checkagent" type="xsd:string" />
+</message>
+<message name="checkTokenRequest">
+</message>
+<message name="checkTokenResponse">
+<part name="checkToken" type="xsd:string" />
+</message>
+<message name="logCallMethodRequest">
+<part name="user_name" type="xsd:string" />
+<part name="classandname" type="xsd:string" />
+</message>
+<message name="logCallMethodResponse">
+<part name="logCallMethod" type="xsd:string" />
+</message>
+<message name="getCurrentUsernameRequest">
+</message>
+<message name="getCurrentUsernameResponse">
+<part name="getCurrentUsername" type="xsd:string" />
+</message>
+</definitions>

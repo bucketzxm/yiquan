@@ -1,0 +1,145 @@
+body * {
+        font-family:"Seravek-Light","Helvetica","SegoeUI-Light","Arial","HiraginoSansGB-W3","NotoSansHans-Regular","MicrosoftYaHeiLight","STXihei","SimHei",sans-serif;
+    }
+    body {
+    background: white;
+    margin: 0;
+    padding: 0;
+    }
+
+    input{
+        -webkit-appearance: none;
+        font: 16px Arial,Tahoma,Verdana,sans-serif;
+    }
+    .nav{
+        color:#FFFFFF;
+        background-color: #4A90E2;
+        text-align: center;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        font-size: larger;
+    }
+    .container {
+    opacity: 0;
+    
+    margin: 0 auto 0px;
+    margin-top: 0px;
+    /* margin-top: 300px; */
+    padding: 4px 10px;
+
+    overflow: visible;  border-radius: 4px 4px 4px 4px;
+    
+    }
+    .invite {
+      color: #808080;
+      text-align: center;
+      margin-bottom: 20px;
+      float: center;
+
+    }
+    .veriSend{
+        -webkit-appearance: none;
+      background: #f0f0f0;
+        border: 1px solid #f0f0f0;
+        color: #4A90E2;
+        font: 16px Arial,Tahoma,Verdana,sans-serif;
+        padding: 10px;
+        cursor: pointer;
+        overflow: visible;
+        border-radius: 2px 2px 2px 2px;
+        float: center;
+        width:102px;
+        text-align: center;
+
+    }
+    .phoneNumber{
+        -webkit-appearance: none;
+        border: 1px solid #CCCCCC;
+        color: #777777;
+        font: 16px Arial,Tahoma,Verdana,sans-serif;
+        padding: 10px;
+        overflow: visible;  border-radius: 4px 4px 4px 4px;
+        width: 220px;
+        margin-top:0px;
+        text-align: center;
+    }
+
+    .sendline{
+        text-align: center;
+    }
+    .sendline2{
+        text-align: center;
+        margin-top: -10px;
+    }
+    .sendline3{
+        text-align: center;
+        margin-top: 10px;
+    }
+    .sendline4{
+        text-align: center;
+        margin-top: 10px;
+    }
+    .sendline5{
+        text-align: center;
+        margin-top: 10px;
+    }
+    .veriCode{
+        -webkit-appearance: none;
+        border: 1px solid #CCCCCC;
+        color: #777777;
+        font: 16px Arial,Tahoma,Verdana,sans-serif;
+        padding: 10px;
+        overflow: visible;  border-radius: 4px 4px 4px 4px;
+        width: 105px;
+        margin-top:0px;
+        text-align: center;
+        visibility: hidden;
+        margin-right: 10px;
+    }
+    .reg_user{
+        -webkit-appearance: none;
+        border: 1px solid #CCCCCC;
+        color: #777777;
+        font: 16px Arial,Tahoma,Verdana,sans-serif;
+        padding: 10px;
+        overflow: visible;  border-radius: 4px 4px 4px 4px;
+        width: 220px;
+        margin-top:0px;
+        text-align: center;
+    }
+    .reg_pass{
+        -webkit-appearance: none;
+        border: 1px solid #CCCCCC;
+        color: #777777;
+        font: 16px Arial,Tahoma,Verdana,sans-serif;
+        padding: 10px;
+        overflow: visible;  border-radius: 4px 4px 4px 4px;
+        width: 220px;
+        margin-top:0px;
+        text-align: center;
+    }
+    .submit{
+        -webkit-appearance: none;
+        background: #4A90E2;
+        border: 1px solid #4A90E2;
+        color: #ffffff;
+        font: 16px Arial,Tahoma,Verdana,sans-serif;
+        padding: 10px;
+        cursor: pointer;
+        overflow: visible;
+        border-radius: 2px 2px 2px 2px;
+        float: center;
+        width: 240px;
+    }
+    .container2{
+        opacity: 0;
+        visibility: hidden;
+    }
+    .invitecode{
+        visibility: hidden;
+    }
+    .footer{
+        font: 12px Arial;
+        color: #808080;
+        text-align: center;
+    }

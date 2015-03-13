@@ -1,0 +1,253 @@
+<?xml version="1.0" ?>
+<definitions name="userclass" targetNamespace="urn:userclass" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="urn:userclass" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+<types xmlns="http://schemas.xmlsoap.org/wsdl/" />
+<portType name="userclassPort"><operation name="__destruct">
+<input message="tns:__destructRequest" />
+<output message="tns:__destructResponse" />
+</operation>
+<operation name="mid">
+<input message="tns:midRequest" />
+<output message="tns:midResponse" />
+</operation>
+<operation name="reg">
+<input message="tns:regRequest" />
+<output message="tns:regResponse" />
+</operation>
+<operation name="username_exist">
+<input message="tns:username_existRequest" />
+<output message="tns:username_existResponse" />
+</operation>
+<operation name="mobile_exist">
+<input message="tns:mobile_existRequest" />
+<output message="tns:mobile_existResponse" />
+</operation>
+<operation name="user_login">
+<input message="tns:user_loginRequest" />
+<output message="tns:user_loginResponse" />
+</operation>
+<operation name="getuserbyname_xml">
+<input message="tns:getuserbyname_xmlRequest" />
+<output message="tns:getuserbyname_xmlResponse" />
+</operation>
+<operation name="getuserby_id_xml">
+<input message="tns:getuserby_id_xmlRequest" />
+<output message="tns:getuserby_id_xmlResponse" />
+</operation>
+<operation name="makefriendwithby_id">
+<input message="tns:makefriendwithby_idRequest" />
+<output message="tns:makefriendwithby_idResponse" />
+</operation>
+<operation name="makefriendwithbyuname">
+<input message="tns:makefriendwithbyunameRequest" />
+<output message="tns:makefriendwithbyunameResponse" />
+</operation>
+<operation name="findAllfriendsby_id">
+<input message="tns:findAllfriendsby_idRequest" />
+<output message="tns:findAllfriendsby_idResponse" />
+</operation>
+<operation name="findAllfriendsby_uname">
+<input message="tns:findAllfriendsby_unameRequest" />
+<output message="tns:findAllfriendsby_unameResponse" />
+</operation>
+<operation name="addProfilebyuname">
+<input message="tns:addProfilebyunameRequest" />
+<output message="tns:addProfilebyunameResponse" />
+</operation>
+</portType>
+<binding name="userclassBinding" type="tns:userclassPort">
+<soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http" />
+<operation name="__destruct">
+<soap:operation soapAction="urn:userclass#userclass#__destruct" />
+<input><soap:body use="encoded" namespace="urn:userclass" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:userclass" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="mid">
+<soap:operation soapAction="urn:userclass#userclass#mid" />
+<input><soap:body use="encoded" namespace="urn:userclass" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:userclass" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="reg">
+<soap:operation soapAction="urn:userclass#userclass#reg" />
+<input><soap:body use="encoded" namespace="urn:userclass" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:userclass" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="username_exist">
+<soap:operation soapAction="urn:userclass#userclass#username_exist" />
+<input><soap:body use="encoded" namespace="urn:userclass" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:userclass" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="mobile_exist">
+<soap:operation soapAction="urn:userclass#userclass#mobile_exist" />
+<input><soap:body use="encoded" namespace="urn:userclass" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:userclass" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="user_login">
+<soap:operation soapAction="urn:userclass#userclass#user_login" />
+<input><soap:body use="encoded" namespace="urn:userclass" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:userclass" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="getuserbyname_xml">
+<soap:operation soapAction="urn:userclass#userclass#getuserbyname_xml" />
+<input><soap:body use="encoded" namespace="urn:userclass" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:userclass" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="getuserby_id_xml">
+<soap:operation soapAction="urn:userclass#userclass#getuserby_id_xml" />
+<input><soap:body use="encoded" namespace="urn:userclass" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:userclass" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="makefriendwithby_id">
+<soap:operation soapAction="urn:userclass#userclass#makefriendwithby_id" />
+<input><soap:body use="encoded" namespace="urn:userclass" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:userclass" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="makefriendwithbyuname">
+<soap:operation soapAction="urn:userclass#userclass#makefriendwithbyuname" />
+<input><soap:body use="encoded" namespace="urn:userclass" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:userclass" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="findAllfriendsby_id">
+<soap:operation soapAction="urn:userclass#userclass#findAllfriendsby_id" />
+<input><soap:body use="encoded" namespace="urn:userclass" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:userclass" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="findAllfriendsby_uname">
+<soap:operation soapAction="urn:userclass#userclass#findAllfriendsby_uname" />
+<input><soap:body use="encoded" namespace="urn:userclass" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:userclass" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="addProfilebyuname">
+<soap:operation soapAction="urn:userclass#userclass#addProfilebyuname" />
+<input><soap:body use="encoded" namespace="urn:userclass" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:userclass" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+</binding>
+<service name="userclass">
+<documentation />
+<port name="userclassPort" binding="tns:userclassBinding"><soap:address location="http://my.test/haozi/userclass_server.php" />
+</port>
+</service>
+<message name="__destructRequest">
+</message>
+<message name="__destructResponse">
+<part name="__destruct" type="xsd:string" />
+</message>
+<message name="midRequest">
+<part name="name" type="xsd:string" />
+<part name="db" type="xsd:string" />
+</message>
+<message name="midResponse">
+<part name="mid" type="xsd:string" />
+</message>
+<message name="regRequest">
+<part name="uname" type="xsd:string" />
+<part name="pwd" type="xsd:string" />
+<part name="mobile" type="xsd:string" />
+</message>
+<message name="regResponse">
+<part name="reg" type="xsd:string" />
+</message>
+<message name="username_existRequest">
+<part name="uname" type="xsd:string" />
+</message>
+<message name="username_existResponse">
+<part name="username_exist" type="xsd:string" />
+</message>
+<message name="mobile_existRequest">
+<part name="mb" type="xsd:string" />
+</message>
+<message name="mobile_existResponse">
+<part name="mobile_exist" type="xsd:string" />
+</message>
+<message name="user_loginRequest">
+<part name="uname" type="xsd:string" />
+<part name="pw" type="xsd:string" />
+</message>
+<message name="user_loginResponse">
+<part name="user_login" type="xsd:string" />
+</message>
+<message name="getuserbyname_xmlRequest">
+<part name="uname" type="xsd:string" />
+</message>
+<message name="getuserbyname_xmlResponse">
+<part name="getuserbyname_xml" type="xsd:string" />
+</message>
+<message name="getuserby_id_xmlRequest">
+<part name="id" type="xsd:string" />
+</message>
+<message name="getuserby_id_xmlResponse">
+<part name="getuserby_id_xml" type="xsd:string" />
+</message>
+<message name="makefriendwithby_idRequest">
+<part name="a_id" type="xsd:string" />
+<part name="b_id" type="xsd:string" />
+</message>
+<message name="makefriendwithby_idResponse">
+<part name="makefriendwithby_id" type="xsd:string" />
+</message>
+<message name="makefriendwithbyunameRequest">
+<part name="unamea" type="xsd:string" />
+<part name="unameb" type="xsd:string" />
+</message>
+<message name="makefriendwithbyunameResponse">
+<part name="makefriendwithbyuname" type="xsd:string" />
+</message>
+<message name="findAllfriendsby_idRequest">
+<part name="id" type="xsd:string" />
+</message>
+<message name="findAllfriendsby_idResponse">
+<part name="findAllfriendsby_id" type="xsd:string" />
+</message>
+<message name="findAllfriendsby_unameRequest">
+<part name="uname" type="xsd:string" />
+</message>
+<message name="findAllfriendsby_unameResponse">
+<part name="findAllfriendsby_uname" type="xsd:string" />
+</message>
+<message name="addProfilebyunameRequest">
+<part name="uname" type="xsd:string" />
+<part name="jsondata" type="xsd:string" />
+</message>
+<message name="addProfilebyunameResponse">
+<part name="addProfilebyuname" type="xsd:string" />
+</message>
+</definitions>

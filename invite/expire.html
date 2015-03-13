@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>一圈</title>
+
+<script src="http://libs.baidu.com/jquery/2.0.3/jquery.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="status_style.css">
+</head>
+<body>
+
+<!-- HTML -->
+<div class="container">
+  <div class="title">一圈<br></div>
+  <div class="notify">验证码过期<br></div>
+</div>
+<!-- Javascript -->
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+
+            $(".container").animate({
+                opacity:'1',
+                marginTop: '200px'
+            },1000);
+
+        });
+    </script>
+
+</body>
+</html>
