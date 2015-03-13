@@ -1,0 +1,126 @@
+<?xml version="1.0" ?>
+<definitions name="Reply" targetNamespace="urn:Reply" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="urn:Reply" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+<types xmlns="http://schemas.xmlsoap.org/wsdl/" />
+<portType name="ReplyPort"><operation name="__destruct">
+<input message="tns:__destructRequest" />
+<output message="tns:__destructResponse" />
+</operation>
+<operation name="getAllReply">
+<input message="tns:getAllReplyRequest" />
+<output message="tns:getAllReplyResponse" />
+</operation>
+<operation name="insertReply">
+<input message="tns:insertReplyRequest" />
+<output message="tns:insertReplyResponse" />
+</operation>
+<operation name="likeReply">
+<input message="tns:likeReplyRequest" />
+<output message="tns:likeReplyResponse" />
+</operation>
+<operation name="getReplyNum">
+<input message="tns:getReplyNumRequest" />
+<output message="tns:getReplyNumResponse" />
+</operation>
+<operation name="getRepliedTopic">
+<input message="tns:getRepliedTopicRequest" />
+<output message="tns:getRepliedTopicResponse" />
+</operation>
+</portType>
+<binding name="ReplyBinding" type="tns:ReplyPort">
+<soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http" />
+<operation name="__destruct">
+<soap:operation soapAction="urn:Reply#Reply#__destruct" />
+<input><soap:body use="encoded" namespace="urn:Reply" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:Reply" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="getAllReply">
+<soap:operation soapAction="urn:Reply#Reply#getAllReply" />
+<input><soap:body use="encoded" namespace="urn:Reply" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:Reply" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="insertReply">
+<soap:operation soapAction="urn:Reply#Reply#insertReply" />
+<input><soap:body use="encoded" namespace="urn:Reply" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:Reply" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="likeReply">
+<soap:operation soapAction="urn:Reply#Reply#likeReply" />
+<input><soap:body use="encoded" namespace="urn:Reply" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:Reply" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="getReplyNum">
+<soap:operation soapAction="urn:Reply#Reply#getReplyNum" />
+<input><soap:body use="encoded" namespace="urn:Reply" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:Reply" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="getRepliedTopic">
+<soap:operation soapAction="urn:Reply#Reply#getRepliedTopic" />
+<input><soap:body use="encoded" namespace="urn:Reply" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:Reply" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+</binding>
+<service name="Reply">
+<documentation />
+<port name="ReplyPort" binding="tns:ReplyBinding"><soap:address location="http://127.0.0.1/Reply_server.php" />
+</port>
+</service>
+<message name="__destructRequest">
+</message>
+<message name="__destructResponse">
+<part name="__destruct" type="xsd:string" />
+</message>
+<message name="getAllReplyRequest">
+<part name="topic_id" type="xsd:string" />
+<part name="user_name" type="xsd:string" />
+</message>
+<message name="getAllReplyResponse">
+<part name="getAllReply" type="xsd:string" />
+</message>
+<message name="insertReplyRequest">
+<part name="topic_id" type="xsd:string" />
+<part name="reply_sender_name" type="xsd:string" />
+<part name="reply_content" type="xsd:string" />
+<part name="reply_visibility" type="xsd:string" />
+</message>
+<message name="insertReplyResponse">
+<part name="insertReply" type="xsd:string" />
+</message>
+<message name="likeReplyRequest">
+<part name="reply_id" type="xsd:string" />
+<part name="user_name" type="xsd:string" />
+</message>
+<message name="likeReplyResponse">
+<part name="likeReply" type="xsd:string" />
+</message>
+<message name="getReplyNumRequest">
+<part name="user_name" type="xsd:string" />
+</message>
+<message name="getReplyNumResponse">
+<part name="getReplyNum" type="xsd:string" />
+</message>
+<message name="getRepliedTopicRequest">
+<part name="user_name" type="xsd:string" />
+<part name="time" type="xsd:string" />
+</message>
+<message name="getRepliedTopicResponse">
+<part name="getRepliedTopic" type="xsd:string" />
+</message>
+</definitions>
