@@ -10,7 +10,7 @@ function connectDb() {
 		try {
 			/* 建立连接后，在进行集合操作前，需要先select使用的数据库，并进行auth */
 			
-			$mongoClient = new MongoClient ( "mongodb://{$host}:{$port}" );
+			$mongoClient = new MongoClient ( "mongodb://{$host}:{$port}",array("persist" => "x"));
 			
 			return $mongoClient;
 		} catch ( Exception $e ) {

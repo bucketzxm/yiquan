@@ -28,7 +28,9 @@ class YqBase {
 	function __construct() {
 		try {
 			if (self::$yidb == null) {
-				self::$yidb = connectDbTwo ( $this->user, $this->pwd, $this->dbname );
+//				self::$yidb = new Mongo("mongodb://$this->user:$this->pwd@$this->dbname");
+
+			self::$yidb = connectDbTwo ( $this->user, $this->pwd, $this->dbname );
 			}
 			self::$yidb->connect ();
 		} catch ( Exception $e ) {
