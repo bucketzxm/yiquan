@@ -13,9 +13,9 @@ $soap = new SoapClient ( "http://yiquanhost.oneto-tech.com/User.wsdl", array (
 var_dump($soap);
 
 $file='a.jpg';
-$st=base64_encode(file_get_contents($file));
-echo $st;
-$res = $soap->updateUserpicByUsername($st,'abc1');
+//$st=base64_encode(file_get_contents($file));
+//echo $st;
+$res = $soap->reg('abc33','111','111');
 var_dump($res);
 echo $res;
 

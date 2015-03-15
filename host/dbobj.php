@@ -20,11 +20,11 @@ function connectDb() {
 	}
 }
 function connectDbTwo($username, $password, $dbname) {
-	$host = 'mongo.duapp.com';
-	$port = '8908';
+//	$host = 'mongo.duapp.com';
+//	$port = '8908';
 	
-// 	$host = 'localhost';
-// 	$port = '27017';
+ 	$host = 'localhost';
+ 	$port = '27017';
 	while ( 1 ) {
 		try {
 			/* 建立连接后，在进行集合操作前，需要先select使用的数据库，并进行auth */

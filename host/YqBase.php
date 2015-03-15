@@ -12,14 +12,14 @@ class YqBase {
 	static $yidb;
 	static $yilogdb;
 	protected $db;
-	protected $user = 'hGQdTvvG8oiEFe3EseT4aoLT';
-	protected $pwd = 'TT1tVoot4Neo8lXRclxP0xIimqR7QnA1';
+//	protected $user = 'hGQdTvvG8oiEFe3EseT4aoLT';
+//	protected $pwd = 'TT1tVoot4Neo8lXRclxP0xIimqR7QnA1';
 	protected $ak = 'hGQdTvvG8oiEFe3EseT4aoLT';
 	protected $sk = 'TT1tVoot4Neo8lXRclxP0xIimqR7QnA1';
-	// protected $user = 'test';
-	// protected $pwd = 'test';
-	protected $dbname = 'YiDDTYNSihVFhKGsicHU';
-	// protected $dbname = 'yiquan';
+        protected $user = 'test';
+	protected $pwd = 'test';
+	//protected $dbname = 'YiDDTYNSihVFhKGsicHU';
+	protected $dbname = 'yiquan';
 	protected $yiquan_version = 0;
 	protected $yiquan_platform = 'unknown';
 	/*
