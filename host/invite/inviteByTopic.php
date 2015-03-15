@@ -6,7 +6,7 @@
 	
 	$headers['User-Agent'] = 'YiQuan/0.1.0 iOS/8.1\r\n';
 	//$headers['SOAPAction'] = 'urn:User#User#reg\r\n';
-	$headers['Host'] = 'yiquanhost.duapp.com';
+	$headers['Host'] = 'yiquanhost.oneto-tech.com';
 	$headers['Content-Type']= 'text/xml; charset=utf-8';
 	
 	$headerArr = array(); 
@@ -14,7 +14,7 @@
     	$headerArr[] = $n .':' . $v;
 	}
 
-	curl_setopt($ch, CURLOPT_URL, "http://yiquanhost.duapp.com/Topic_server.php");
+	curl_setopt($ch, CURLOPT_URL, "http://yiquanhost.oneto-tech.com/Topic_server.php");
 	//curl_setopt($curl, CURLOPT_USERAGENT, 'YiQuan/0.1.0 iOS/8.1'); 
 	curl_setopt($ch, CURLOPT_POST, 1);
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -90,7 +90,8 @@
 	
 	$headers['User-Agent'] = 'YiQuan/0.1.0 iOS/8.1\r\n';
 	//$headers['SOAPAction'] = 'urn:User#User#reg\r\n';
-	$headers['Host'] = 'yiquanhost.duapp.com';
+	$headers['Host'] = 'yiquanhost.oneto-tech.com
+';
 	$headers['Content-Type']= 'text/xml; charset=utf-8';
 	
 	$headerArr = array(); 
@@ -98,7 +99,7 @@
     	$headerArr[] = $n .':' . $v;
 	}
 
-	curl_setopt($ch, CURLOPT_URL, "http://yiquanhost.duapp.com/User_server.php");
+	curl_setopt($ch, CURLOPT_URL, "http://yiquanhost.oneto-tech.com/User_server.php");
 	//curl_setopt($curl, CURLOPT_USERAGENT, 'YiQuan/0.1.0 iOS/8.1'); 
 	curl_setopt($ch, CURLOPT_POST, 1);
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
