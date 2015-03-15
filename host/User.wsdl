@@ -73,6 +73,10 @@
 <input message="tns:addProfileByNameRequest" />
 <output message="tns:addProfileByNameResponse" />
 </operation>
+<operation name="updateProfileByName">
+<input message="tns:updateProfileByNameRequest" />
+<output message="tns:updateProfileByNameResponse" />
+</operation>
 <operation name="queryAllFriendsByName">
 <input message="tns:queryAllFriendsByNameRequest" />
 <output message="tns:queryAllFriendsByNameResponse" />
@@ -125,6 +129,10 @@
 <input message="tns:getSecondFriendStatsRequest" />
 <output message="tns:getSecondFriendStatsResponse" />
 </operation>
+<operation name="getAllFriendStats">
+<input message="tns:getAllFriendStatsRequest" />
+<output message="tns:getAllFriendStatsResponse" />
+</operation>
 <operation name="getLastestVersion">
 <input message="tns:getLastestVersionRequest" />
 <output message="tns:getLastestVersionResponse" />
@@ -132,6 +140,38 @@
 <operation name="checkUpdate">
 <input message="tns:checkUpdateRequest" />
 <output message="tns:checkUpdateResponse" />
+</operation>
+<operation name="addInvitation">
+<input message="tns:addInvitationRequest" />
+<output message="tns:addInvitationResponse" />
+</operation>
+<operation name="checkInvitation">
+<input message="tns:checkInvitationRequest" />
+<output message="tns:checkInvitationResponse" />
+</operation>
+<operation name="expireInvitation">
+<input message="tns:expireInvitationRequest" />
+<output message="tns:expireInvitationResponse" />
+</operation>
+<operation name="getRegisterCode">
+<input message="tns:getRegisterCodeRequest" />
+<output message="tns:getRegisterCodeResponse" />
+</operation>
+<operation name="checkRegisterCode">
+<input message="tns:checkRegisterCodeRequest" />
+<output message="tns:checkRegisterCodeResponse" />
+</operation>
+<operation name="resetPassword">
+<input message="tns:resetPasswordRequest" />
+<output message="tns:resetPasswordResponse" />
+</operation>
+<operation name="expireRegistercode">
+<input message="tns:expireRegistercodeRequest" />
+<output message="tns:expireRegistercodeResponse" />
+</operation>
+<operation name="regByInvitation">
+<input message="tns:regByInvitationRequest" />
+<output message="tns:regByInvitationResponse" />
 </operation>
 <operation name="weihu">
 <input message="tns:weihuRequest" />
@@ -300,6 +340,14 @@
 <soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
 </output>
 </operation>
+<operation name="updateProfileByName">
+<soap:operation soapAction="urn:User#User#updateProfileByName" />
+<input><soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
 <operation name="queryAllFriendsByName">
 <soap:operation soapAction="urn:User#User#queryAllFriendsByName" />
 <input><soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
@@ -404,6 +452,14 @@
 <soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
 </output>
 </operation>
+<operation name="getAllFriendStats">
+<soap:operation soapAction="urn:User#User#getAllFriendStats" />
+<input><soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
 <operation name="getLastestVersion">
 <soap:operation soapAction="urn:User#User#getLastestVersion" />
 <input><soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
@@ -414,6 +470,70 @@
 </operation>
 <operation name="checkUpdate">
 <soap:operation soapAction="urn:User#User#checkUpdate" />
+<input><soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="addInvitation">
+<soap:operation soapAction="urn:User#User#addInvitation" />
+<input><soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="checkInvitation">
+<soap:operation soapAction="urn:User#User#checkInvitation" />
+<input><soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="expireInvitation">
+<soap:operation soapAction="urn:User#User#expireInvitation" />
+<input><soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="getRegisterCode">
+<soap:operation soapAction="urn:User#User#getRegisterCode" />
+<input><soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="checkRegisterCode">
+<soap:operation soapAction="urn:User#User#checkRegisterCode" />
+<input><soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="resetPassword">
+<soap:operation soapAction="urn:User#User#resetPassword" />
+<input><soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="expireRegistercode">
+<soap:operation soapAction="urn:User#User#expireRegistercode" />
+<input><soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="regByInvitation">
+<soap:operation soapAction="urn:User#User#regByInvitation" />
 <input><soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
 </input>
 <output>
@@ -463,7 +583,7 @@
 </binding>
 <service name="User">
 <documentation />
-<port name="UserPort" binding="tns:UserBinding"><soap:address location="http://127.0.0.1:8080/User_server.php" />
+<port name="UserPort" binding="tns:UserBinding"><soap:address location="http://yiquanhost.oneto-tech.com/User_server.php" />
 </port>
 </service>
 <message name="regRequest">
@@ -588,6 +708,13 @@
 <message name="addProfileByNameResponse">
 <part name="addProfileByName" type="xsd:string" />
 </message>
+<message name="updateProfileByNameRequest">
+<part name="user_name" type="xsd:string" />
+<part name="user_profile" type="xsd:string" />
+</message>
+<message name="updateProfileByNameResponse">
+<part name="updateProfileByName" type="xsd:string" />
+</message>
 <message name="queryAllFriendsByNameRequest">
 <part name="user_name" type="xsd:string" />
 </message>
@@ -673,6 +800,12 @@
 <message name="getSecondFriendStatsResponse">
 <part name="getSecondFriendStats" type="xsd:string" />
 </message>
+<message name="getAllFriendStatsRequest">
+<part name="user_name" type="xsd:string" />
+</message>
+<message name="getAllFriendStatsResponse">
+<part name="getAllFriendStats" type="xsd:string" />
+</message>
 <message name="getLastestVersionRequest">
 </message>
 <message name="getLastestVersionResponse">
@@ -682,6 +815,62 @@
 </message>
 <message name="checkUpdateResponse">
 <part name="checkUpdate" type="xsd:string" />
+</message>
+<message name="addInvitationRequest">
+<part name="invitation_senderName" type="xsd:string" />
+</message>
+<message name="addInvitationResponse">
+<part name="addInvitation" type="xsd:string" />
+</message>
+<message name="checkInvitationRequest">
+<part name="invcode" type="xsd:string" />
+</message>
+<message name="checkInvitationResponse">
+<part name="checkInvitation" type="xsd:string" />
+</message>
+<message name="expireInvitationRequest">
+<part name="invcode" type="xsd:string" />
+</message>
+<message name="expireInvitationResponse">
+<part name="expireInvitation" type="xsd:string" />
+</message>
+<message name="getRegisterCodeRequest">
+<part name="mobilenumber" type="xsd:string" />
+<part name="expireMinute" type="xsd:string" />
+</message>
+<message name="getRegisterCodeResponse">
+<part name="getRegisterCode" type="xsd:string" />
+</message>
+<message name="checkRegisterCodeRequest">
+<part name="mobilenumber" type="xsd:string" />
+<part name="code" type="xsd:string" />
+</message>
+<message name="checkRegisterCodeResponse">
+<part name="checkRegisterCode" type="xsd:string" />
+</message>
+<message name="resetPasswordRequest">
+<part name="mobilenumber" type="xsd:string" />
+<part name="code" type="xsd:string" />
+<part name="newpassword" type="xsd:string" />
+</message>
+<message name="resetPasswordResponse">
+<part name="resetPassword" type="xsd:string" />
+</message>
+<message name="expireRegistercodeRequest">
+<part name="mob" type="xsd:string" />
+<part name="code" type="xsd:string" />
+</message>
+<message name="expireRegistercodeResponse">
+<part name="expireRegistercode" type="xsd:string" />
+</message>
+<message name="regByInvitationRequest">
+<part name="user_name" type="xsd:string" />
+<part name="user_pwd" type="xsd:string" />
+<part name="user_mobile" type="xsd:string" />
+<part name="invcode" type="xsd:string" />
+</message>
+<message name="regByInvitationResponse">
+<part name="regByInvitation" type="xsd:string" />
 </message>
 <message name="weihuRequest">
 </message>

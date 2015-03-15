@@ -13,18 +13,18 @@ function access_url($url) {
 	return $file;
 }
 
-access_url ( 'http://yiquanhost.duapp.com/Topic_server.php?reb' );
+access_url ( 'http://yiquanhost.oneto-tech.com/Topic_server.php?reb' );
 
-access_url ( 'http://yiquanhost.duapp.com/Message_server.php?reb' );
+access_url ( 'http://yiquanhost.oneto-tech.com/Message_server.php?reb' );
 
 // access_url ( 'http://yiquanhost.duapp.com/userclass_server.php?reb' );
 
-access_url ( 'http://yiquanhost.duapp.com/Reply_server.php?reb' );
+access_url ( 'http://yiquanhost.oneto-tech.com/Reply_server.php?reb' );
 
-access_url ( 'http://yiquanhost.duapp.com/User_server.php?reb' );
+access_url ( 'http://yiquanhost.oneto-tech.com/User_server.php?reb' );
 
-access_url ( 'http://yiquanhost.duapp.com/testclass_server.php?reb' );
+access_url ( 'http://yiquanhost.oneto-tech.com/testclass_server.php?reb' );
 
-access_url ( 'http://yiquanhost.duapp.com/Label_server.php?reb' );
+access_url ( 'http://yiquanhost.oneto-tech.com/Label_server.php?reb' );
 echo 'ok';
 ?>

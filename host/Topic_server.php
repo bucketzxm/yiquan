@@ -5,7 +5,7 @@ $p = explode ( "/", $w );
 $q = explode ( "_", $p [count($p) - 1] );
 // $p = array(4) { [0]=> string(0) "" [1]=> string(15) "appiduea6ns5q1g" [2]=> string(5) "haozi" [3]=> string(16) "Topic_server.php" }
 include ($q [0] . ".php"); // 你要生成的文件
-                           // 包含提供服务的类进来
+// 包含提供服务的类进来
 include ("SoapDiscovery.class.php");
 function wdo() {
 	global $q;
@@ -29,7 +29,7 @@ if (isset ( $_GET ['reb'] )) {
 	// Enciende el servidor o despliega WSDL
 	// $servidorSoap = new SoapServer(null,array("uri"=>"server.php"));
 	$servidorSoap = new SoapServer ( "$q[0].wsdl" );
-	
+
 	// $servidorSoap = new SoapServer ( null, array (
 	// "location" => "http://127.0.0.1/$p[1].php",
 	// "uri" => "$p[1].php"

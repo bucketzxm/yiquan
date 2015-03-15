@@ -1259,10 +1259,13 @@ class User extends YqBase {
 			}
 			$this->db->user->save ( $rowa );
 			$this->db->user->save ( $rowb );
-			$resatob = $this->db->userRelationship->remove ( array (
+			$resatob = $this->db->userRelationship->findOne ( array (
 					'usera_id' => $rowa ['_id'],
 					'userb_id' => $rowb ['_id'] 
 			) );
+			
+			$resatob['relation_type'] = 0;
+			$this->db->userRelationship->save($resatob);
 			
 			$resbtoa = $this->db->userRelationship->remove ( array (
 					'usera_id' => $rowb ['_id'],

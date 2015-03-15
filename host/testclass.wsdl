@@ -1,0 +1,150 @@
+<?xml version="1.0" ?>
+<definitions name="testclass" targetNamespace="urn:testclass" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="urn:testclass" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+<types xmlns="http://schemas.xmlsoap.org/wsdl/" />
+<portType name="testclassPort"><operation name="show">
+<input message="tns:showRequest" />
+<output message="tns:showResponse" />
+</operation>
+<operation name="showapp">
+<input message="tns:showappRequest" />
+<output message="tns:showappResponse" />
+</operation>
+<operation name="showapp333">
+<input message="tns:showapp333Request" />
+<output message="tns:showapp333Response" />
+</operation>
+<operation name="showjson">
+<input message="tns:showjsonRequest" />
+<output message="tns:showjsonResponse" />
+</operation>
+<operation name="showurl">
+<input message="tns:showurlRequest" />
+<output message="tns:showurlResponse" />
+</operation>
+<operation name="cookieSet">
+<input message="tns:cookieSetRequest" />
+<output message="tns:cookieSetResponse" />
+</operation>
+<operation name="showmycookie">
+<input message="tns:showmycookieRequest" />
+<output message="tns:showmycookieResponse" />
+</operation>
+<operation name="showmyagent">
+<input message="tns:showmyagentRequest" />
+<output message="tns:showmyagentResponse" />
+</operation>
+</portType>
+<binding name="testclassBinding" type="tns:testclassPort">
+<soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http" />
+<operation name="show">
+<soap:operation soapAction="urn:testclass#testclass#show" />
+<input><soap:body use="encoded" namespace="urn:testclass" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:testclass" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="showapp">
+<soap:operation soapAction="urn:testclass#testclass#showapp" />
+<input><soap:body use="encoded" namespace="urn:testclass" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:testclass" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="showapp333">
+<soap:operation soapAction="urn:testclass#testclass#showapp333" />
+<input><soap:body use="encoded" namespace="urn:testclass" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:testclass" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="showjson">
+<soap:operation soapAction="urn:testclass#testclass#showjson" />
+<input><soap:body use="encoded" namespace="urn:testclass" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:testclass" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="showurl">
+<soap:operation soapAction="urn:testclass#testclass#showurl" />
+<input><soap:body use="encoded" namespace="urn:testclass" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:testclass" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="cookieSet">
+<soap:operation soapAction="urn:testclass#testclass#cookieSet" />
+<input><soap:body use="encoded" namespace="urn:testclass" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:testclass" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="showmycookie">
+<soap:operation soapAction="urn:testclass#testclass#showmycookie" />
+<input><soap:body use="encoded" namespace="urn:testclass" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:testclass" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="showmyagent">
+<soap:operation soapAction="urn:testclass#testclass#showmyagent" />
+<input><soap:body use="encoded" namespace="urn:testclass" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:testclass" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+</binding>
+<service name="testclass">
+<documentation />
+<port name="testclassPort" binding="tns:testclassBinding"><soap:address location="http://yiquanhost.oneto-tech.com/testclass_server.php" />
+</port>
+</service>
+<message name="showRequest">
+</message>
+<message name="showResponse">
+<part name="show" type="xsd:string" />
+</message>
+<message name="showappRequest">
+</message>
+<message name="showappResponse">
+<part name="showapp" type="xsd:string" />
+</message>
+<message name="showapp333Request">
+<part name="a" type="xsd:string" />
+</message>
+<message name="showapp333Response">
+<part name="showapp333" type="xsd:string" />
+</message>
+<message name="showjsonRequest">
+</message>
+<message name="showjsonResponse">
+<part name="showjson" type="xsd:string" />
+</message>
+<message name="showurlRequest">
+</message>
+<message name="showurlResponse">
+<part name="showurl" type="xsd:string" />
+</message>
+<message name="cookieSetRequest">
+</message>
+<message name="cookieSetResponse">
+<part name="cookieSet" type="xsd:string" />
+</message>
+<message name="showmycookieRequest">
+</message>
+<message name="showmycookieResponse">
+<part name="showmycookie" type="xsd:string" />
+</message>
+<message name="showmyagentRequest">
+</message>
+<message name="showmyagentResponse">
+<part name="showmyagent" type="xsd:string" />
+</message>
+</definitions>

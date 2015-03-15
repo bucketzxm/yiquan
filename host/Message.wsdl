@@ -1,0 +1,144 @@
+<?xml version="1.0" ?>
+<definitions name="Message" targetNamespace="urn:Message" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="urn:Message" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+<types xmlns="http://schemas.xmlsoap.org/wsdl/" />
+<portType name="MessagePort"><operation name="addMessage">
+<input message="tns:addMessageRequest" />
+<output message="tns:addMessageResponse" />
+</operation>
+<operation name="queryMessageByName">
+<input message="tns:queryMessageByNameRequest" />
+<output message="tns:queryMessageByNameResponse" />
+</operation>
+<operation name="readMessage">
+<input message="tns:readMessageRequest" />
+<output message="tns:readMessageResponse" />
+</operation>
+<operation name="checkagent">
+<input message="tns:checkagentRequest" />
+<output message="tns:checkagentResponse" />
+</operation>
+<operation name="checkToken">
+<input message="tns:checkTokenRequest" />
+<output message="tns:checkTokenResponse" />
+</operation>
+<operation name="logCallMethod">
+<input message="tns:logCallMethodRequest" />
+<output message="tns:logCallMethodResponse" />
+</operation>
+<operation name="getCurrentUsername">
+<input message="tns:getCurrentUsernameRequest" />
+<output message="tns:getCurrentUsernameResponse" />
+</operation>
+</portType>
+<binding name="MessageBinding" type="tns:MessagePort">
+<soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http" />
+<operation name="addMessage">
+<soap:operation soapAction="urn:Message#Message#addMessage" />
+<input><soap:body use="encoded" namespace="urn:Message" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:Message" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="queryMessageByName">
+<soap:operation soapAction="urn:Message#Message#queryMessageByName" />
+<input><soap:body use="encoded" namespace="urn:Message" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:Message" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="readMessage">
+<soap:operation soapAction="urn:Message#Message#readMessage" />
+<input><soap:body use="encoded" namespace="urn:Message" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:Message" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="checkagent">
+<soap:operation soapAction="urn:Message#Message#checkagent" />
+<input><soap:body use="encoded" namespace="urn:Message" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:Message" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="checkToken">
+<soap:operation soapAction="urn:Message#Message#checkToken" />
+<input><soap:body use="encoded" namespace="urn:Message" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:Message" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="logCallMethod">
+<soap:operation soapAction="urn:Message#Message#logCallMethod" />
+<input><soap:body use="encoded" namespace="urn:Message" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:Message" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="getCurrentUsername">
+<soap:operation soapAction="urn:Message#Message#getCurrentUsername" />
+<input><soap:body use="encoded" namespace="urn:Message" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:Message" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+</binding>
+<service name="Message">
+<documentation />
+<port name="MessagePort" binding="tns:MessageBinding"><soap:address location="http://yiquanhost.oneto-tech.com/Message_server.php" />
+</port>
+</service>
+<message name="addMessageRequest">
+<part name="message_senderId" type="xsd:string" />
+<part name="message_receiverId" type="xsd:string" />
+<part name="message_type" type="xsd:string" />
+<part name="message_title" type="xsd:string" />
+<part name="message_labels" type="xsd:string" />
+<part name="message_topicID" type="xsd:string" />
+<part name="message_topicTitle" type="xsd:string" />
+</message>
+<message name="addMessageResponse">
+<part name="addMessage" type="xsd:string" />
+</message>
+<message name="queryMessageByNameRequest">
+<part name="message_receiverId" type="xsd:string" />
+<part name="time" type="xsd:string" />
+</message>
+<message name="queryMessageByNameResponse">
+<part name="queryMessageByName" type="xsd:string" />
+</message>
+<message name="readMessageRequest">
+<part name="message_id" type="xsd:string" />
+</message>
+<message name="readMessageResponse">
+<part name="readMessage" type="xsd:string" />
+</message>
+<message name="checkagentRequest">
+</message>
+<message name="checkagentResponse">
+<part name="checkagent" type="xsd:string" />
+</message>
+<message name="checkTokenRequest">
+</message>
+<message name="checkTokenResponse">
+<part name="checkToken" type="xsd:string" />
+</message>
+<message name="logCallMethodRequest">
+<part name="user_name" type="xsd:string" />
+<part name="classandname" type="xsd:string" />
+</message>
+<message name="logCallMethodResponse">
+<part name="logCallMethod" type="xsd:string" />
+</message>
+<message name="getCurrentUsernameRequest">
+</message>
+<message name="getCurrentUsernameResponse">
+<part name="getCurrentUsername" type="xsd:string" />
+</message>
+</definitions>

@@ -7,11 +7,16 @@ session_start ();
 // 来说不够灵活
 // $soap = new SoapClient('http://'.$_SERVER['SERVER_NAME'].':'.$_SERVER['SERVER_PORT'].'/test.wsdl');
 // $soap = new SoapClient ( "http://yiquanhost.duapp.com/userclass.wsdl" );
-$soap = new SoapClient ( "http://yiquanhost.duapp.com/User.wsdl", array (
+$soap = new SoapClient ( "http://yiquanhost.oneto-tech.com/User.wsdl", array (
 		'user_agent' => 'YiQuan/0.1.0 Android/4.0.3' 
 ) );
+var_dump($soap);
 
-$res = $soap->weihu ();
+$file='a.jpg';
+$st=base64_encode(file_get_contents($file));
+echo $st;
+$res = $soap->updateUserpicByUsername($st,'abc1');
+var_dump($res);
 echo $res;
 
 // $soap = new SoapClient ( "http://yiquanhost.duapp.com/Topic.wsdl", array (

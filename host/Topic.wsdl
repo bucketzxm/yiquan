@@ -1,0 +1,352 @@
+<?xml version="1.0" ?>
+<definitions name="Topic" targetNamespace="urn:Topic" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="urn:Topic" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+<types xmlns="http://schemas.xmlsoap.org/wsdl/" />
+<portType name="TopicPort"><operation name="addTopic">
+<input message="tns:addTopicRequest" />
+<output message="tns:addTopicResponse" />
+</operation>
+<operation name="queryTopicByName">
+<input message="tns:queryTopicByNameRequest" />
+<output message="tns:queryTopicByNameResponse" />
+</operation>
+<operation name="queryTopicByKeyword">
+<input message="tns:queryTopicByKeywordRequest" />
+<output message="tns:queryTopicByKeywordResponse" />
+</operation>
+<operation name="queryTopicByLabel">
+<input message="tns:queryTopicByLabelRequest" />
+<output message="tns:queryTopicByLabelResponse" />
+</operation>
+<operation name="queryMyTopicByName">
+<input message="tns:queryMyTopicByNameRequest" />
+<output message="tns:queryMyTopicByNameResponse" />
+</operation>
+<operation name="countTopicByName">
+<input message="tns:countTopicByNameRequest" />
+<output message="tns:countTopicByNameResponse" />
+</operation>
+<operation name="queryTopicByRoomID">
+<input message="tns:queryTopicByRoomIDRequest" />
+<output message="tns:queryTopicByRoomIDResponse" />
+</operation>
+<operation name="queryTopicByRoomIDprivate">
+<input message="tns:queryTopicByRoomIDprivateRequest" />
+<output message="tns:queryTopicByRoomIDprivateResponse" />
+</operation>
+<operation name="likeTopic">
+<input message="tns:likeTopicRequest" />
+<output message="tns:likeTopicResponse" />
+</operation>
+<operation name="dislikeTopic">
+<input message="tns:dislikeTopicRequest" />
+<output message="tns:dislikeTopicResponse" />
+</operation>
+<operation name="deleteTopic">
+<input message="tns:deleteTopicRequest" />
+<output message="tns:deleteTopicResponse" />
+</operation>
+<operation name="countMyTopicAgreeByName">
+<input message="tns:countMyTopicAgreeByNameRequest" />
+<output message="tns:countMyTopicAgreeByNameResponse" />
+</operation>
+<operation name="addReply">
+<input message="tns:addReplyRequest" />
+<output message="tns:addReplyResponse" />
+</operation>
+<operation name="logWeixinShare">
+<input message="tns:logWeixinShareRequest" />
+<output message="tns:logWeixinShareResponse" />
+</operation>
+<operation name="checkagent">
+<input message="tns:checkagentRequest" />
+<output message="tns:checkagentResponse" />
+</operation>
+<operation name="checkToken">
+<input message="tns:checkTokenRequest" />
+<output message="tns:checkTokenResponse" />
+</operation>
+<operation name="logCallMethod">
+<input message="tns:logCallMethodRequest" />
+<output message="tns:logCallMethodResponse" />
+</operation>
+<operation name="getCurrentUsername">
+<input message="tns:getCurrentUsernameRequest" />
+<output message="tns:getCurrentUsernameResponse" />
+</operation>
+</portType>
+<binding name="TopicBinding" type="tns:TopicPort">
+<soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http" />
+<operation name="addTopic">
+<soap:operation soapAction="urn:Topic#Topic#addTopic" />
+<input><soap:body use="encoded" namespace="urn:Topic" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:Topic" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="queryTopicByName">
+<soap:operation soapAction="urn:Topic#Topic#queryTopicByName" />
+<input><soap:body use="encoded" namespace="urn:Topic" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:Topic" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="queryTopicByKeyword">
+<soap:operation soapAction="urn:Topic#Topic#queryTopicByKeyword" />
+<input><soap:body use="encoded" namespace="urn:Topic" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:Topic" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="queryTopicByLabel">
+<soap:operation soapAction="urn:Topic#Topic#queryTopicByLabel" />
+<input><soap:body use="encoded" namespace="urn:Topic" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:Topic" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="queryMyTopicByName">
+<soap:operation soapAction="urn:Topic#Topic#queryMyTopicByName" />
+<input><soap:body use="encoded" namespace="urn:Topic" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:Topic" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="countTopicByName">
+<soap:operation soapAction="urn:Topic#Topic#countTopicByName" />
+<input><soap:body use="encoded" namespace="urn:Topic" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:Topic" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="queryTopicByRoomID">
+<soap:operation soapAction="urn:Topic#Topic#queryTopicByRoomID" />
+<input><soap:body use="encoded" namespace="urn:Topic" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:Topic" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="queryTopicByRoomIDprivate">
+<soap:operation soapAction="urn:Topic#Topic#queryTopicByRoomIDprivate" />
+<input><soap:body use="encoded" namespace="urn:Topic" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:Topic" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="likeTopic">
+<soap:operation soapAction="urn:Topic#Topic#likeTopic" />
+<input><soap:body use="encoded" namespace="urn:Topic" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:Topic" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="dislikeTopic">
+<soap:operation soapAction="urn:Topic#Topic#dislikeTopic" />
+<input><soap:body use="encoded" namespace="urn:Topic" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:Topic" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="deleteTopic">
+<soap:operation soapAction="urn:Topic#Topic#deleteTopic" />
+<input><soap:body use="encoded" namespace="urn:Topic" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:Topic" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="countMyTopicAgreeByName">
+<soap:operation soapAction="urn:Topic#Topic#countMyTopicAgreeByName" />
+<input><soap:body use="encoded" namespace="urn:Topic" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:Topic" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="addReply">
+<soap:operation soapAction="urn:Topic#Topic#addReply" />
+<input><soap:body use="encoded" namespace="urn:Topic" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:Topic" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="logWeixinShare">
+<soap:operation soapAction="urn:Topic#Topic#logWeixinShare" />
+<input><soap:body use="encoded" namespace="urn:Topic" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:Topic" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="checkagent">
+<soap:operation soapAction="urn:Topic#Topic#checkagent" />
+<input><soap:body use="encoded" namespace="urn:Topic" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:Topic" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="checkToken">
+<soap:operation soapAction="urn:Topic#Topic#checkToken" />
+<input><soap:body use="encoded" namespace="urn:Topic" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:Topic" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="logCallMethod">
+<soap:operation soapAction="urn:Topic#Topic#logCallMethod" />
+<input><soap:body use="encoded" namespace="urn:Topic" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:Topic" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="getCurrentUsername">
+<soap:operation soapAction="urn:Topic#Topic#getCurrentUsername" />
+<input><soap:body use="encoded" namespace="urn:Topic" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:Topic" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+</binding>
+<service name="Topic">
+<documentation />
+<port name="TopicPort" binding="tns:TopicBinding"><soap:address location="http://yiquanhost.oneto-tech.com/Topic_server.php" />
+</port>
+</service>
+<message name="addTopicRequest">
+<part name="topic_networks" type="xsd:string" />
+<part name="topic_ownerName" type="xsd:string" />
+<part name="topic_type" type="xsd:string" />
+<part name="topic_title" type="xsd:string" />
+<part name="topic_labels" type="xsd:string" />
+</message>
+<message name="addTopicResponse">
+<part name="addTopic" type="xsd:string" />
+</message>
+<message name="queryTopicByNameRequest">
+<part name="topic_user" type="xsd:string" />
+<part name="topic_networks" type="xsd:string" />
+<part name="topic_direction" type="xsd:string" />
+<part name="topic_time" type="xsd:string" />
+<part name="topic_type" type="xsd:string" />
+</message>
+<message name="queryTopicByNameResponse">
+<part name="queryTopicByName" type="xsd:string" />
+</message>
+<message name="queryTopicByKeywordRequest">
+<part name="topic_user" type="xsd:string" />
+<part name="topic_keyword" type="xsd:string" />
+<part name="topic_time" type="xsd:string" />
+</message>
+<message name="queryTopicByKeywordResponse">
+<part name="queryTopicByKeyword" type="xsd:string" />
+</message>
+<message name="queryTopicByLabelRequest">
+<part name="topic_user" type="xsd:string" />
+<part name="topic_label" type="xsd:string" />
+<part name="topic_time" type="xsd:string" />
+</message>
+<message name="queryTopicByLabelResponse">
+<part name="queryTopicByLabel" type="xsd:string" />
+</message>
+<message name="queryMyTopicByNameRequest">
+<part name="topic_ownerName" type="xsd:string" />
+<part name="topic_time" type="xsd:string" />
+</message>
+<message name="queryMyTopicByNameResponse">
+<part name="queryMyTopicByName" type="xsd:string" />
+</message>
+<message name="countTopicByNameRequest">
+<part name="topic_ownerName" type="xsd:string" />
+</message>
+<message name="countTopicByNameResponse">
+<part name="countTopicByName" type="xsd:string" />
+</message>
+<message name="queryTopicByRoomIDRequest">
+<part name="topic_roomID" type="xsd:string" />
+</message>
+<message name="queryTopicByRoomIDResponse">
+<part name="queryTopicByRoomID" type="xsd:string" />
+</message>
+<message name="queryTopicByRoomIDprivateRequest">
+<part name="topic_roomID" type="xsd:string" />
+</message>
+<message name="queryTopicByRoomIDprivateResponse">
+<part name="queryTopicByRoomIDprivate" type="xsd:string" />
+</message>
+<message name="likeTopicRequest">
+<part name="topic_id" type="xsd:string" />
+<part name="user_name" type="xsd:string" />
+</message>
+<message name="likeTopicResponse">
+<part name="likeTopic" type="xsd:string" />
+</message>
+<message name="dislikeTopicRequest">
+<part name="topic_id" type="xsd:string" />
+<part name="user_name" type="xsd:string" />
+</message>
+<message name="dislikeTopicResponse">
+<part name="dislikeTopic" type="xsd:string" />
+</message>
+<message name="deleteTopicRequest">
+<part name="topic_id" type="xsd:string" />
+<part name="topic_networks" type="xsd:string" />
+</message>
+<message name="deleteTopicResponse">
+<part name="deleteTopic" type="xsd:string" />
+</message>
+<message name="countMyTopicAgreeByNameRequest">
+<part name="user_name" type="xsd:string" />
+</message>
+<message name="countMyTopicAgreeByNameResponse">
+<part name="countMyTopicAgreeByName" type="xsd:string" />
+</message>
+<message name="addReplyRequest">
+<part name="topic_id" type="xsd:string" />
+</message>
+<message name="addReplyResponse">
+<part name="addReply" type="xsd:string" />
+</message>
+<message name="logWeixinShareRequest">
+<part name="user_name" type="xsd:string" />
+<part name="topic_id" type="xsd:string" />
+</message>
+<message name="logWeixinShareResponse">
+<part name="logWeixinShare" type="xsd:string" />
+</message>
+<message name="checkagentRequest">
+</message>
+<message name="checkagentResponse">
+<part name="checkagent" type="xsd:string" />
+</message>
+<message name="checkTokenRequest">
+</message>
+<message name="checkTokenResponse">
+<part name="checkToken" type="xsd:string" />
+</message>
+<message name="logCallMethodRequest">
+<part name="user_name" type="xsd:string" />
+<part name="classandname" type="xsd:string" />
+</message>
+<message name="logCallMethodResponse">
+<part name="logCallMethod" type="xsd:string" />
+</message>
+<message name="getCurrentUsernameRequest">
+</message>
+<message name="getCurrentUsernameResponse">
+<part name="getCurrentUsername" type="xsd:string" />
+</message>
+</definitions>
