@@ -79,8 +79,8 @@ class YqBase {
 		return $ua->version ();
 	}
 	function checkToken() {
-		return 1;
-		/*
+		//return 1;
+		
 		try {
 			if (isset ( $_COOKIE ['user'] ) && isset ( $_SESSION ['user'] ) && isset ( $_COOKIE ['user_token'] ) && isset ( $_SESSION ['user_token'] ) && $_COOKIE ['user'] == $_SESSION ['user'] && $_COOKIE ['user_token'] == $_SESSION ['user_token']) {
 				return 1;
@@ -89,7 +89,7 @@ class YqBase {
 			}
 		} catch ( Exception $e ) {
 			return 0;
-		}*/
+		}
 	}
 	function logCallMethod($user_name, $classandname) {
 		$month = intval ( date ( 'm' ) );

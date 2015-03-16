@@ -103,4 +103,19 @@ function yqinvcode($length, $num = 1) {
 	}
 	return $code_arr;
 }
+    
+function yqregcode($length, $num = 1) {
+    $chars = '0123456789';
+    $j = 0;
+    $code_arr = array ();
+    while ( $j < $num ) {
+        $random = '';
+        for($i = 0; $i < $length; $i ++) {
+            $random .= $chars [mt_rand ( 0, strlen ( $chars ) - 1 )];
+        }
+        $code_arr [$j] = $random;
+        $j ++;
+    }
+    return $code_arr;
+}
 ?>
