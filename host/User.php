@@ -1568,7 +1568,7 @@ class User extends YqBase {
 		curl_setopt ( $ch, CURLOPT_POST, TRUE );
 		curl_setopt ( $ch, CURLOPT_POSTFIELDS, array (
 				'mobile' => $mobilenumber,
-				'message' => '【一圈】验证码：' . $tp . '	' . $expireMinute . '分钟有效,区分大小写'
+				'message' => '验证码：' . $tp . '	' . $expireMinute . '分钟有效,区分大小写【一圈】'
 		) );
 		
 		$res = curl_exec ( $ch );
