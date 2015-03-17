@@ -12,21 +12,21 @@ class YqUser extends YqBase {
 	private function mid($name, $db) {
 		$update = array (
 				'$inc' => array (
-						"id" => 1
-				)
+						"id" => 1 
+				) 
 		);
-	
+		
 		$query = array (
-				"name" => $name
+				"name" => $name 
 		);
 		$command = array (
 				"findandmodify" => 'ids',
 				"update" => $update,
 				"query" => $query,
 				"new" => true,
-				"upsert" => true
+				"upsert" => true 
 		);
-	
+		
 		$id = $db->command ( $command );
 		return $id ['value'] ['id'];
 	}
@@ -47,11 +47,11 @@ class YqUser extends YqBase {
 		if ($this->checkNameExist ( $user_name ) || $this->checkMobileExist ( $user_mobile )) {
 			return 0;
 		}
-	
+		
 		$this->logCallMethod ( $user_name, __METHOD__ );
 		try {
 			$id = $this->mid ( 'user', $this->db );
-				
+			
 			$neo = array (
 					'uid' => $id,
 					'user_name' => $user_name,
@@ -62,18 +62,20 @@ class YqUser extends YqBase {
 					'user_relationships' => array (),
 					'user_blocklist' => array (),
 					'user_state' => 1,
-					'user_regdate' => new MongoDate ()
+					'user_regdate' => new MongoDate (),
+					'user_privilege' => 0,
+					'user_exp' => 0 
 			);
 			$this->db->user->save ( $neo );
-				
+			
 			$profile = array (
 					'profile_intro' => '保密',
 					'profile_city' => '保密',
 					'profile_industry' => '保密',
 					'profile_org' => '保密',
-					'profile_position' => '保密'
+					'profile_position' => '保密' 
 			);
-				
+			
 			return $this->addProfileByName ( $user_name, json_encode ( $profile ) );
 		} catch ( Exception $e ) {
 			return - 1;
@@ -93,9 +95,9 @@ class YqUser extends YqBase {
 			}
 			$this->logCallMethod ( 'anonymous', __METHOD__ );
 			$ans = $this->db->user->findOne ( array (
-					'user_name' => "$user_name"
+					'user_name' => "$user_name" 
 			) );
-				
+			
 			self::$yidb->close ();
 			if ($ans != null) {
 				return 1;
@@ -120,9 +122,9 @@ class YqUser extends YqBase {
 			}
 			$this->logCallMethod ( 'anonymous ', __METHOD__ );
 			$ans = $this->db->user->findOne ( array (
-					'user_mobile' => "$user_mobile"
+					'user_mobile' => "$user_mobile" 
 			) );
-				
+			
 			if ($ans != null) {
 				return 1;
 			} else {
@@ -146,15 +148,15 @@ class YqUser extends YqBase {
 			}
 			$this->logCallMethod ( $user_name, __METHOD__ );
 			$ans = $this->db->user->findOne ( array (
-					'user_name' => "$user_name"
+					'user_name' => "$user_name" 
 			) );
-				
+			
 			if ($ans == null) {
 				$ans = $this->db->user->findOne ( array (
-						'user_mobile' => "$user_name"
+						'user_mobile' => "$user_name" 
 				) );
 			}
-				
+			
 			if ($ans == null)
 				return 2; // no user
 			else if ($ans ['user_pin'] != crypt ( $user_pwd, $ans ['user_pin'] ))
@@ -185,28 +187,28 @@ class YqUser extends YqBase {
 		if ($this->yiquan_version == 0) {
 			return - 2;
 		}
-	
+		
 		if ($this->checkToken () == 0) {
 			return - 3;
 		}
-	
+		
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
 		$ans = $this->db->user->findOne ( array (
-				'user_name' => "$user_name"
+				'user_name' => "$user_name" 
 		) );
 		if ($ans == null)
 			return 2;
 		$t = $ans ['_id'];
 		// echo $t;
 		$ans2 = $this->db->userProfile->findOne ( array (
-				'user_objid' => $t
+				'user_objid' => $t 
 		) );
-	
+		
 		// echo var_dump ( $ans2 );
 		if ($ans2 != null) {
 			$ans ['userProfile'] = $ans2;
 		}
-	
+		
 		$ans ['countMyRepliedTopicByName'] = (new Reply ())->countMyRepliedTopicByName ( $user_name );
 		$ans ['countTopicByName'] = (new Topic ())->countTopicByName ( $user_name );
 		$ans ['countFirstFriendsByName'] = $this->countFirstFriendsByName ( $user_name );
@@ -218,11 +220,11 @@ class YqUser extends YqBase {
 		if ($this->yiquan_version == 0) {
 			return - 2;
 		}
-	
+		
 		if ($this->checkToken () == 0) {
 			return - 3;
 		}
-	
+		
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
 		/*$ans = $this->db->user->findOne ( array (
 		 'user_name' => "$user_name"
@@ -248,27 +250,27 @@ class YqUser extends YqBase {
 		if ($this->yiquan_version == 0) {
 			return - 2;
 		}
-	
+		
 		if ($this->checkToken () == 0) {
 			return - 3;
 		}
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
 		$ans = $this->db->user->findOne ( array (
-				'user_mobile' => "$user_mobile"
+				'user_mobile' => "$user_mobile" 
 		) );
 		if ($ans == null)
 			return 4;
 		$t = $ans ['_id'];
 		// echo $t;
 		$ans2 = $this->db->userProfile->findOne ( array (
-				'user_objid' => $t
+				'user_objid' => $t 
 		) );
-	
+		
 		// echo var_dump ( $ans2 );
 		if ($ans2 != null) {
 			$ans ['userProfile'] = $ans2;
 		}
-	
+		
 		$ans ['countMyRepliedTopicByName'] = (new Reply ())->countMyRepliedTopicByName ( $user_name );
 		$ans ['countTopicByName'] = (new Topic ())->countTopicByName ( $user_name );
 		$ans ['countFirstFriendsByName'] = $this->countFirstFriendsByName ( $user_name );
@@ -287,33 +289,33 @@ class YqUser extends YqBase {
 		if ($this->yiquan_version == 0) {
 			return - 2;
 		}
-	
+		
 		if ($this->checkToken () == 0) {
 			return - 3;
 		}
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
 		$ans = $this->db->user->findOne ( array (
-				'_id' => new MongoId ( $user_id )
+				'_id' => new MongoId ( $user_id ) 
 		) );
-	
+		
 		if ($ans == null)
 			return 4;
 		$t = $ans ['_id'];
 		// echo $t;
 		$ans2 = $this->db->userProfile->findOne ( array (
-				'user_objid' => $t
+				'user_objid' => $t 
 		) );
-	
+		
 		// echo var_dump ( $ans2 );
 		if ($ans2 != null) {
 			$ans ['userProfile'] = $ans2;
 		}
-	
-		$ans ['countMyRepliedTopicByName'] = (new Reply ())->countMyRepliedTopicByName ( $ans['user_name'] );
-		$ans ['countTopicByName'] = (new Topic ())->countTopicByName ( $ans['user_name'] );
-		$ans ['countFirstFriendsByName'] = $this->countFirstFriendsByName ( $ans['user_name'] );
-		$ans ['countAllFriendsByName'] = $this->countAllFriendsByName ( $ans['user_name'] );
-		$ans ['countMyReplyAgreeByName'] = (new Reply ())->countMyReplyAgreeByName ( $ans['user_name'] );
+		
+		$ans ['countMyRepliedTopicByName'] = (new YqReply ())->countMyRepliedTopicByName ( $ans ['user_name'] );
+		$ans ['countTopicByName'] = (new YqTopic ())->countTopicByName ( $ans ['user_name'] );
+		$ans ['countFirstFriendsByName'] = $this->countFirstFriendsByName ( $ans ['user_name'] );
+		$ans ['countAllFriendsByName'] = $this->countAllFriendsByName ( $ans ['user_name'] );
+		$ans ['countMyReplyAgreeByName'] = (new YqReply ())->countMyReplyAgreeByName ( $ans ['user_name'] );
 		return json_encode ( $ans );
 	}
 	
@@ -326,135 +328,135 @@ class YqUser extends YqBase {
 		if ($this->yiquan_version == 0) {
 			return - 2;
 		}
-	
+		
 		if ($this->checkToken () == 0) {
 			return - 3;
 		}
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
 		$ans = $this->db->userRelationship->findOne ( array (
 				'usera_id' => new MongoId ( $user_idA ),
-				'userb_id' => new MongoId ( $user_idB )
+				'userb_id' => new MongoId ( $user_idB ) 
 		) );
-	
+		
 		if ($ans == null) {
 			$ans = array (
 					'usera_id' => new MongoId ( $user_idA ),
 					'userb_id' => new MongoId ( $user_idB ),
 					'remark' => '',
 					'relation_type' => 1,
-					'weight' => 0
+					'weight' => 0 
 			);
 		} else {
 			$ans ['relation_type'] = 1;
 		}
 		$this->db->userRelationship->save ( $ans );
 		$tp = $this->db->user->findOne ( array (
-				'_id' => new MongoId ( $user_idA )
+				'_id' => new MongoId ( $user_idA ) 
 		) );
-	
+		
 		if (! isset ( $tp ['user_relationships'] )) {
 			$tp ['user_relationships'] = array ();
 		}
-	
+		
 		$tp ['user_relationships'] [$ans ['userb_id']->{'$id'}] = $ans;
-	
+		
 		// echo var_dump ( $tp );
 		$this->db->user->save ( $tp );
 		// ============================================
 		$ans = $this->db->userRelationship->findOne ( array (
 				'usera_id' => new MongoId ( $user_idB ),
-				'userb_id' => new MongoId ( $user_idA )
+				'userb_id' => new MongoId ( $user_idA ) 
 		) );
-	
+		
 		if ($ans == null) {
 			$ans = array (
 					'usera_id' => new MongoId ( $user_idB ),
 					'userb_id' => new MongoId ( $user_idA ),
 					'remark' => '',
 					'relation_type' => 1,
-					'weight' => 0
+					'weight' => 0 
 			);
 		} else {
 			$ans ['relation_type'] = 1;
 		}
 		$this->db->userRelationship->save ( $ans );
-	
+		
 		$tp = $this->db->user->findOne ( array (
-				'_id' => new MongoId ( $user_idB )
+				'_id' => new MongoId ( $user_idB ) 
 		) );
-	
+		
 		if (! isset ( $tp ['user_relationships'] )) {
 			$tp ['user_relationships'] = array ();
 		}
-	
+		
 		$tp ['user_relationships'] [$ans ['userb_id']->{'$id'}] = $ans;
-	
+		
 		$this->db->user->save ( $tp );
-	
+		
 		// 双向好友关系的建立 正反都做一次
 		return 1;
 	}
 	private function addFriendByIDv2($user_idA, $user_idB) {
 		$ans = $this->db->userRelationship->findOne ( array (
 				'usera_id' => new MongoId ( $user_idA ),
-				'userb_id' => new MongoId ( $user_idB )
+				'userb_id' => new MongoId ( $user_idB ) 
 		) );
-	
+		
 		if ($ans == null) {
 			$ans = array (
 					'usera_id' => new MongoId ( $user_idA ),
 					'userb_id' => new MongoId ( $user_idB ),
 					'remark' => '',
 					'relation_type' => 1,
-					'weight' => 0
+					'weight' => 0 
 			);
 		} else {
 			$ans ['relation_type'] = 1;
 		}
 		$this->db->userRelationship->save ( $ans );
 		$tp = $this->db->user->findOne ( array (
-				'_id' => new MongoId ( $user_idA )
+				'_id' => new MongoId ( $user_idA ) 
 		) );
-	
+		
 		if (! isset ( $tp ['user_relationships'] )) {
 			$tp ['user_relationships'] = array ();
 		}
-	
+		
 		$tp ['user_relationships'] [$ans ['userb_id']->{'$id'}] = $ans;
-	
+		
 		// echo var_dump ( $tp );
 		$this->db->user->save ( $tp );
 		// ============================================
 		$ans = $this->db->userRelationship->findOne ( array (
 				'usera_id' => new MongoId ( $user_idB ),
-				'userb_id' => new MongoId ( $user_idA )
+				'userb_id' => new MongoId ( $user_idA ) 
 		) );
-	
+		
 		if ($ans == null) {
 			$ans = array (
 					'usera_id' => new MongoId ( $user_idB ),
 					'userb_id' => new MongoId ( $user_idA ),
 					'remark' => '',
 					'relation_type' => 1,
-					'weight' => 0
+					'weight' => 0 
 			);
 		} else {
 			$ans ['relation_type'] = 1;
 		}
 		$this->db->userRelationship->save ( $ans );
-	
+		
 		$tp = $this->db->user->findOne ( array (
-				'_id' => new MongoId ( $user_idB )
+				'_id' => new MongoId ( $user_idB ) 
 		) );
-	
+		
 		if (! isset ( $tp ['user_relationships'] )) {
 			$tp ['user_relationships'] = array ();
 		}
-	
+		
 		$tp ['user_relationships'] [$ans ['userb_id']->{'$id'}] = $ans;
-	
+		
 		$this->db->user->save ( $tp );
-	
+		
 		// 双向好友关系的建立 正反都做一次
 		return 1;
 	}
@@ -476,11 +478,11 @@ class YqUser extends YqBase {
 		}
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
 		$a_id = $this->db->user->findOne ( array (
-				'user_name' => $user_nameA
+				'user_name' => $user_nameA 
 		) )['_id'];
-	
+		
 		$b_id = $this->db->user->findOne ( array (
-				'user_name' => $user_nameB
+				'user_name' => $user_nameB 
 		) )['_id'];
 		// 找到各自的_id
 		if ($a_id == null || $b_id == null) {
@@ -490,11 +492,11 @@ class YqUser extends YqBase {
 	}
 	private function addFriendByNamev2($user_nameA, $user_nameB) {
 		$a_id = $this->db->user->findOne ( array (
-				'user_name' => $user_nameA
+				'user_name' => $user_nameA 
 		) )['_id'];
-	
+		
 		$b_id = $this->db->user->findOne ( array (
-				'user_name' => $user_nameB
+				'user_name' => $user_nameB 
 		) )['_id'];
 		// 找到各自的_id
 		if ($a_id == null || $b_id == null) {
@@ -513,16 +515,16 @@ class YqUser extends YqBase {
 		$value = ( int ) $value;
 		$ans = $this->db->userRelationship->findOne ( array (
 				'usera_id' => new MongoId ( $usera_id ),
-				'userb_id' => new MongoId ( $userb_id )
+				'userb_id' => new MongoId ( $userb_id ) 
 		) );
-	
+		
 		if ($ans == null) {
 			$ans = array (
 					'usera_id' => new MongoId ( $usera_id ),
 					'userb_id' => new MongoId ( $userb_id ),
 					'remark' => '',
 					'relation_type' => 0,
-					'weight' => $value
+					'weight' => $value 
 			);
 		} else {
 			if (isset ( $ans ['weight'] )) {
@@ -531,7 +533,7 @@ class YqUser extends YqBase {
 				$ans ['weight'] = $value;
 			}
 		}
-	
+		
 		$this->db->userRelationship->save ( $ans );
 		return 1;
 	}
@@ -544,13 +546,13 @@ class YqUser extends YqBase {
 		}
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
 		$rowa = $this->db->user->findOne ( array (
-				'user_name' => $usera_name
+				'user_name' => $usera_name 
 		) );
-	
+		
 		$rowb = $this->db->user->findOne ( array (
-				'user_name' => $userb_name
+				'user_name' => $userb_name 
 		) );
-	
+		
 		// var_dump ( $rowa );
 		// var_dump ( $rowb );
 		if ($rowa == null || $rowb == null)
@@ -564,13 +566,13 @@ class YqUser extends YqBase {
 			return - 4;
 		}
 		$ra = $this->db->user->findOne ( array (
-				'user_name' => $user_name
+				'user_name' => $user_name 
 		) );
-	
+		
 		$rb = $this->db->user->findOne ( array (
-				'user_name' => $user_nameChanged
+				'user_name' => $user_nameChanged 
 		) );
-	
+		
 		if ($ra == null || $rb == null) {
 			return 0;
 		}
@@ -579,26 +581,26 @@ class YqUser extends YqBase {
 	function changeSecondNameById($usera_id, $userb_id, $user_secondname) {
 		$row2 = $this->db->userRelationship->findOne ( array (
 				'usera_id' => $usera_id,
-				'userb_id' => $userb_id
+				'userb_id' => $userb_id 
 		) );
-	
+		
 		if (is_null ( $row2 ))
 			return 0;
-	
+		
 		$row2 ['remark'] = $user_secondname;
 		$this->db->userRelationship->save ( $row2 );
-	
+		
 		$row = $this->db->user->findOne ( array (
-				'_id' => new MongoId ( $usera_id )
+				'_id' => new MongoId ( $usera_id ) 
 		) );
 		if (! isset ( $row ['user_relationships'] ) || $row == null)
 			return 0;
-	
+		
 		if (! array_key_exists ( $userb_id->{'$id'}, $row ['user_relationships'] ))
 			return 0;
 		$row ['user_relationships'] [$userb_id->{'$id'}] ['remark'] = $user_secondname;
 		$this->db->user->save ( $row );
-	
+		
 		return 1;
 	}
 	
@@ -615,31 +617,31 @@ class YqUser extends YqBase {
 		if ($this->checkToken () == 0) {
 			return - 3;
 		}
-	
+		
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
 		$ans = $this->db->user->findOne ( array (
-				'_id' => new MongoId ( $user_id )
+				'_id' => new MongoId ( $user_id ) 
 		) );
-	
+		
 		$res = Array ();
-	
+		
 		if (isset ( $ans ['user_relationships'] )) {
-				
+			
 			// 遍历$ans 指针
 			foreach ( $ans ['user_relationships'] as $k => $v ) {
 				$tkp = $this->db->user->findOne ( array (
-						'_id' => $v ['userb_id']
+						'_id' => $v ['userb_id'] 
 				), array (
 						'_id' => 1,
 						'user_name' => 1,
 						'user_mobile' => 1,
 						'user_nickname' => 1,
-						'user_pic' => 1
+						'user_pic' => 1 
 				) );
 				$res [] = $tkp;
 			}
 		}
-	
+		
 		usort ( $res, 'arrcmp1' );
 		return json_encode ( $res );
 	}
@@ -661,27 +663,27 @@ class YqUser extends YqBase {
 		}
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
 		$ans = $this->db->user->findOne ( array (
-				'user_name' => $user_name
+				'user_name' => $user_name 
 		) );
-	
+		
 		/*
 		 * $ans = $this->db->userRelationship->find ( array ( 'usera_id' => new MongoId ( $id ) ) );
 		*/
-	
+		
 		$res = Array ();
-	
+		
 		if (isset ( $ans ['user_relationships'] )) {
 			// 遍历$ans 指针
 			foreach ( $ans ['user_relationships'] as $k => $v ) {
-	
+				
 				$tkp = $this->db->user->findOne ( array (
-						'_id' => $v ['userb_id']
+						'_id' => $v ['userb_id'] 
 				), array (
 						'_id' => 1,
 						'user_name' => 1,
 						'user_mobile' => 1,
 						'user_nickname' => 1,
-						'user_pic' => 1
+						'user_pic' => 1 
 				) );
 				$res [] = $tkp;
 			}
@@ -704,9 +706,9 @@ class YqUser extends YqBase {
 		}
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
 		$res = $this->db->user->findOne ( array (
-				'user_name' => $user_name
+				'user_name' => $user_name 
 		) );
-	
+		
 		if (isset ( $res ['user_relationships'] ))
 			return count ( $res ['user_relationships'] );
 		else
@@ -727,15 +729,15 @@ class YqUser extends YqBase {
 			$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
 			$arr = json_decode ( $user_profile, true ); // 将json数据变成php的数组
 			$ob = $this->db->user->findOne ( array (
-					'user_name' => $user_name
+					'user_name' => $user_name 
 			) );
-				
+			
 			$arr ['user_objid'] = $ob ['_id']; // 给arr数组加一个字段user_objid arr数组是后面整体要做更新的数组
-				
+			
 			$update = $arr;
-				
+			
 			$query = array (
-					"user_objid" => $ob ['_id']
+					"user_objid" => $ob ['_id'] 
 			);
 			// 注意看这里 mongodb支持一个叫findandmodify的操作 就是先修改后查询 很好用
 			// 我这里代码的意图是 $query指定的数据 用$update里面的数据更新掉
@@ -744,16 +746,16 @@ class YqUser extends YqBase {
 					"update" => $update,
 					"query" => $query,
 					"new" => true,
-					"upsert" => true
+					"upsert" => true 
 			);
-				
+			
 			$id = $this->db->command ( $command ); // 执行更新
-				
+			
 			if (isset ( $arr ['user_nickname'] )) {
 				$ob ['user_nickname'] = $arr ['user_nickname'];
 				$this->db->user->save ( $ob );
 			}
-				
+			
 			return 1;
 		} catch ( Exception $e ) {
 			return - 1;
@@ -773,15 +775,15 @@ class YqUser extends YqBase {
 			$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
 			$arr = json_decode ( $user_profile, true ); // 将json数据变成php的数组
 			$ob = $this->db->user->findOne ( array (
-					'user_name' => $user_name
+					'user_name' => $user_name 
 			) );
-				
+			
 			$arr ['user_objid'] = $ob ['_id']; // 给arr数组加一个字段user_objid arr数组是后面整体要做更新的数组
-				
+			
 			$update = $arr;
-				
+			
 			$query = array (
-					"user_objid" => $ob ['_id']
+					"user_objid" => $ob ['_id'] 
 			);
 			// 注意看这里 mongodb支持一个叫findandmodify的操作 就是先修改后查询 很好用
 			// 我这里代码的意图是 $query指定的数据 用$update里面的数据更新掉
@@ -790,16 +792,16 @@ class YqUser extends YqBase {
 					"update" => $update,
 					"query" => $query,
 					"new" => true,
-					"upsert" => true
+					"upsert" => true 
 			);
-				
+			
 			$id = $this->db->command ( $command ); // 执行更新
-				
+			
 			if (isset ( $arr ['user_nickname'] )) {
 				$ob ['user_nickname'] = $arr ['user_nickname'];
 				$this->db->user->save ( $ob );
 			}
-				
+			
 			return 1;
 		} catch ( Exception $e ) {
 			return - 1;
@@ -833,14 +835,14 @@ class YqUser extends YqBase {
 	*/
 	private function findAllfriendsby_id_usearray_except($id, $fromid) {
 		$ans = $this->db->user->findOne ( array (
-				'_id' => new MongoId ( $id )
+				'_id' => new MongoId ( $id ) 
 		) );
-	
+		
 		$res = Array ();
 		// 遍历$ans 指针
 		if (isset ( $ans ['user_relationships'] )) {
 			foreach ( $ans ['user_relationships'] as $k => $v ) {
-	
+				
 				if ($v ['userb_id'] == $fromid) {
 					continue;
 				}
@@ -856,40 +858,40 @@ class YqUser extends YqBase {
 	*/
 	private function get_AllFriends_of_Myfriends_info_by_uname_usearray($user_name) {
 		$row = $this->db->user->findOne ( array (
-				'user_name' => $user_name
+				'user_name' => $user_name 
 		) );
-	
+		
 		$user_namerels = [ ];
 		if (isset ( $row ['user_relationships'] ))
 			$user_namerels = $row ['user_relationships'];
-	
+		
 		$res = Array ();
-	
+		
 		foreach ( $user_namerels as $k => $v ) {
 			$res [] = $v ['userb_id']->{'$id'};
 			// echo var_dump($this->objarray_to_array($v['userb_id'])).'<br/>';
 			$res = array_merge ( $res, $this->findAllfriendsby_id_usearray_except ( $v ['userb_id'], $row ['_id'] ) );
 		}
-	
+		
 		return array_flip ( array_flip ( $res ) );
 	}
 	private function get_AllFriends_of_Myfriends_info_by_uname_usearray_bfs($user_name) {
 		$row = $this->db->user->findOne ( array (
-				'user_name' => $user_name
+				'user_name' => $user_name 
 		) );
-	
+		
 		$user_namerels = [ ];
 		if (isset ( $row ['user_relationships'] ))
 			$user_namerels = $row ['user_relationships'];
-	
+		
 		$res = Array ();
-	
+		
 		foreach ( $user_namerels as $k => $v ) {
 			$res [] = $v ['userb_id']->{'$id'};
 			// echo var_dump($this->objarray_to_array($v['userb_id'])).'<br/>';
 			$res = array_merge ( $res, $this->findAllfriendsby_id_usearray_except ( $v ['userb_id'], $row ['_id'] ) );
 		}
-	
+		
 		return array_flip ( array_flip ( $res ) );
 	}
 	
@@ -899,13 +901,13 @@ class YqUser extends YqBase {
 	*/
 	private function get_All_erdu_Friends_of_Myfriends_info_by_uname_usearray($user_name) {
 		$row = $this->db->user->findOne ( array (
-				'user_name' => $user_name
+				'user_name' => $user_name 
 		) );
-	
+		
 		$user_namerels = [ ];
 		if (isset ( $row ['user_relationships'] ))
 			$user_namerels = $row ['user_relationships'];
-	
+		
 		$res = Array ();
 		$res2 = Array ();
 		foreach ( $user_namerels as $k => $v ) {
@@ -913,7 +915,7 @@ class YqUser extends YqBase {
 			// echo var_dump($this->objarray_to_array($v['userb_id'])).'<br/>';
 			$res = array_merge ( $res, $this->findAllfriendsby_id_usearray_except ( $v ['userb_id'], $row ['_id'] ) );
 		}
-	
+		
 		$res = array_flip ( array_flip ( $res ) );
 		return array_diff ( $res, $res2 );
 	}
@@ -934,13 +936,13 @@ class YqUser extends YqBase {
 		$pt = $this->get_AllFriends_of_Myfriends_info_by_uname_usearray ( $user_name );
 		foreach ( $pt as $v ) {
 			$pkt = $this->db->user->findOne ( array (
-					'_id' => new MongoId ( $v )
+					'_id' => new MongoId ( $v ) 
 			), array (
 					'_id' => 1,
 					'user_name' => 1,
 					'user_mobile' => 1,
 					'user_nickname' => 1,
-					'user_pic' => 1
+					'user_pic' => 1 
 			) );
 			$res [] = $pkt;
 		}
@@ -979,13 +981,13 @@ class YqUser extends YqBase {
 		$pt = $this->get_All_erdu_Friends_of_Myfriends_info_by_uname_usearray ( $user_name );
 		foreach ( $pt as $v ) {
 			$pkt = $this->db->user->findOne ( array (
-					'_id' => new MongoId ( $v )
+					'_id' => new MongoId ( $v ) 
 			), array (
 					'_id' => 1,
 					'user_name' => 1,
 					'user_mobile' => 1,
 					'user_nickname' => 1,
-					'user_pic' => 1
+					'user_pic' => 1 
 			) );
 			$res [] = $pkt;
 		}
@@ -1029,10 +1031,10 @@ class YqUser extends YqBase {
 		$pt = $this->get_All_erdu_Friends_of_Myfriends_info_by_uname_usearray ( $user_name );
 		foreach ( $pt as $v ) {
 			$pkt = $this->db->user->findOne ( array (
-					'_id' => new MongoId ( $v )
+					'_id' => new MongoId ( $v ) 
 			), array (
 					'_id' => 1,
-					'user_name' => 1
+					'user_name' => 1 
 			) );
 			$res .= $pkt ['user_name'];
 			$res .= ',';
@@ -1060,10 +1062,10 @@ class YqUser extends YqBase {
 		$pt = $this->get_AllFriends_of_Myfriends_info_by_uname_usearray ( $user_name );
 		foreach ( $pt as $v ) {
 			$pkt = $this->db->user->findOne ( array (
-					'_id' => new MongoId ( $v )
+					'_id' => new MongoId ( $v ) 
 			), array (
 					'_id' => 1,
-					'user_name' => 1
+					'user_name' => 1 
 			) );
 			$res .= $pkt ['user_name'];
 			$res .= ',';
@@ -1083,29 +1085,29 @@ class YqUser extends YqBase {
 		}
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
 		$friendsofarow = $this->db->user->findOne ( array (
-				'user_name' => $user_nameA
+				'user_name' => $user_nameA 
 		), array (
-				'user_relationships' => 1
+				'user_relationships' => 1 
 		) );
 		$friendsofbrow = $this->db->user->findOne ( array (
-				'user_name' => $user_nameB
+				'user_name' => $user_nameB 
 		), array (
-				'user_relationships' => 1
+				'user_relationships' => 1 
 		) );
-	
+		
 		$friendsofa = [ ];
 		$friendsofb = [ ];
-	
+		
 		if (isset ( $friendsofarow ['user_relationships'] )) {
 			$friendsofa = $friendsofarow ['user_relationships'];
 		}
-	
+		
 		if (isset ( $friendsofbrow ['user_relationships'] )) {
 			$friendsofb = $friendsofbrow ['user_relationships'];
 		}
-	
+		
 		$duibi = array ();
-	
+		
 		foreach ( $friendsofa as $key => $v ) {
 			// echo var_dump($v['userb_id']);
 			$k = $v ['userb_id']->{'$id'};
@@ -1114,7 +1116,7 @@ class YqUser extends YqBase {
 			else
 				$duibi [$k] = 1;
 		}
-	
+		
 		foreach ( $friendsofb as $key => $v ) {
 			// echo var_dump($v['userb_id']);
 			$k = $v ['userb_id']->{'$id'};
@@ -1124,19 +1126,19 @@ class YqUser extends YqBase {
 				$duibi [$k] = 1;
 		}
 		// var_dump($duibi);
-	
+		
 		$ans = array ();
-	
+		
 		foreach ( $duibi as $k => $v ) {
 			if ($v == 2) {
 				$tkp = $this->db->user->findOne ( array (
-						'_id' => new MongoId ( $k )
+						'_id' => new MongoId ( $k ) 
 				), array (
 						'_id' => 1,
 						'user_name' => 1,
 						'user_mobile' => 1,
 						'user_nickname' => 1,
-						'user_pic' => 1
+						'user_pic' => 1 
 				) );
 				$ans [] = $tkp;
 			}
@@ -1160,7 +1162,7 @@ class YqUser extends YqBase {
 		}
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
 		$row = $this->db->user->findOne ( array (
-				'user_name' => $user_name
+				'user_name' => $user_name 
 		) );
 		if ($row == null)
 			return 2;
@@ -1173,7 +1175,7 @@ class YqUser extends YqBase {
 		if (! $response->isOK ()) {
 			return 3; // bcs error
 		}
-	
+		
 		$im = new Imagick ();
 		$im->readImageBlob ( $rawpic );
 		$geo = $im->getImageGeometry ();
@@ -1181,7 +1183,7 @@ class YqUser extends YqBase {
 		$h = $geo ['height'];
 		$maxWidth = $maxHeight = 100;
 		$fitbyWidth = (($maxWidth / $w) < ($maxHeight / $h)) ? true : false;
-	
+		
 		if ($fitbyWidth) {
 			$im->thumbnailImage ( $maxWidth, 0, false );
 		} else {
@@ -1205,19 +1207,19 @@ class YqUser extends YqBase {
 		}
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
 		$row = $this->db->user->findOne ( array (
-				'user_name' => $user_name
+				'user_name' => $user_name 
 		) );
-	
+		
 		if ($row == null)
 			return 2;
 			
-		// return $row ['user_pic'];
+			// return $row ['user_pic'];
 		$bucket = 'yiquan';
-	
+		
 		$object = '/userPics/' . $row ['_id'];
-	
+		
 		$baiduBCS = new BaiduBCS ( $this->ak, $this->sk, $this->bcs_host );
-	
+		
 		$response = $baiduBCS->get_object ( $bucket, $object );
 		// var_dump($response);
 		if (! $response->isOK ()) {
@@ -1239,11 +1241,11 @@ class YqUser extends YqBase {
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
 		try {
 			$rowa = $this->db->user->findOne ( array (
-					'user_name' => $user_nameA
+					'user_name' => $user_nameA 
 			) );
-				
+			
 			$rowb = $this->db->user->findOne ( array (
-					'user_name' => $user_nameB
+					'user_name' => $user_nameB 
 			) );
 			if ($rowa == null || $rowb == null) {
 				return 2;
@@ -1252,7 +1254,7 @@ class YqUser extends YqBase {
 				if (isset ( $rowa ['user_relationships'] [$rowb ['_id']->{'$id'}] ))
 					unset ( $rowa ['user_relationships'] [$rowb ['_id']->{'$id'}] );
 			}
-				
+			
 			if (isset ( $rowb ['user_relationships'] )) {
 				if (isset ( $rowb ['user_relationships'] [$rowa ['_id']->{'$id'}] ))
 					unset ( $rowb ['user_relationships'] [$rowa ['_id']->{'$id'}] );
@@ -1261,12 +1263,12 @@ class YqUser extends YqBase {
 			$this->db->user->save ( $rowb );
 			$resatob = $this->db->userRelationship->remove ( array (
 					'usera_id' => $rowa ['_id'],
-					'userb_id' => $rowb ['_id']
+					'userb_id' => $rowb ['_id'] 
 			) );
-				
+			
 			$resbtoa = $this->db->userRelationship->remove ( array (
 					'usera_id' => $rowb ['_id'],
-					'userb_id' => $rowa ['_id']
+					'userb_id' => $rowa ['_id'] 
 			) );
 			return 1;
 		} catch ( Exception $e ) {
@@ -1285,12 +1287,12 @@ class YqUser extends YqBase {
 		}
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
 		$row = $this->db->user->findOne ( array (
-				'user_name' => $user_name
+				'user_name' => $user_name 
 		) );
-	
+		
 		if ($row == null)
 			return 2;
-	
+		
 		return $this->changePasswordByID ( $row ['_id'], $user_oldpwd, $user_newpwd );
 	}
 	function changePasswordByID($user_id, $user_oldpwd, $user_newpwd) {
@@ -1303,18 +1305,18 @@ class YqUser extends YqBase {
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
 		try {
 			$row = $this->db->user->findOne ( array (
-					'_id' => $user_id
+					'_id' => $user_id 
 			) );
-				
+			
 			if ($row == null) {
 				return 4;
 			}
 			if ($row ['user_pin'] != crypt ( $user_oldpwd, $row ['user_pin'] )) {
 				return 3;
 			}
-				
+			
 			$row ['user_pin'] = crypt ( $user_newpwd );
-				
+			
 			$this->db->user->save ( $row );
 			return 1;
 		} catch ( Exception $e ) {
@@ -1338,9 +1340,9 @@ class YqUser extends YqBase {
 		$ans_industry = Array ();
 		foreach ( $res1 as $v ) {
 			$tpa = $this->db->userProfile->findOne ( array (
-					'user_objid' => new MongoId ( $v )
+					'user_objid' => new MongoId ( $v ) 
 			) );
-				
+			
 			if ($tpa == null)
 				continue;
 			$city = $tpa ['profile_city'];
@@ -1356,7 +1358,7 @@ class YqUser extends YqBase {
 				$ans_industry ["$industry"] ++;
 			}
 		}
-	
+		
 		arsort ( $ans_city );
 		arsort ( $ans_industry );
 		array_push ( $ans, $ans_city );
@@ -1380,9 +1382,9 @@ class YqUser extends YqBase {
 		$ans_industry = Array ();
 		foreach ( $res1 as $v ) {
 			$tpa = $this->db->userProfile->findOne ( array (
-					'user_objid' => new MongoId ( $v )
+					'user_objid' => new MongoId ( $v ) 
 			) );
-				
+			
 			if ($tpa == null)
 				continue;
 			$city = $tpa ['profile_city'];
@@ -1398,7 +1400,7 @@ class YqUser extends YqBase {
 				$ans_industry ["$industry"] ++;
 			}
 		}
-	
+		
 		arsort ( $ans_city );
 		arsort ( $ans_industry );
 		array_push ( $ans, $ans_city );
@@ -1413,14 +1415,14 @@ class YqUser extends YqBase {
 			return - 3;
 		}
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
-	
+		
 		if ($this->yiquan_platform == 'Android') {
 			$row = $this->db->generalSettings->findOne ( array (
-					'name' => 'lastestVersion_Android'
+					'name' => 'lastestVersion_Android' 
 			) );
 		} elseif ($this->yiquan_platform == 'IOS') {
 			$row = $this->db->generalSettings->findOne ( array (
-					'name' => 'lastestVersion_IOS'
+					'name' => 'lastestVersion_IOS' 
 			) );
 		}
 		if ($row == null)
@@ -1436,12 +1438,12 @@ class YqUser extends YqBase {
 		}
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
 		$row = $this->db->generalSettings->findOne ( array (
-				'name' => 'lastestVersion'
+				'name' => 'lastestVersion' 
 		) );
-	
+		
 		if ($row == null)
 			return - 1;
-	
+		
 		if ($row ['value'] > $this->yiquan_version)
 			return 1;
 		else
@@ -1459,17 +1461,17 @@ class YqUser extends YqBase {
 		}
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
 		$ans = [ ];
-	
+		
 		$ans ['senderName'] = $invitation_senderName;
-	
+		
 		$tp = yqinvcode ( 6 )[0];
 		while ( $this->db->invcode->findOne ( array (
-				'invcode' => $tp
+				'invcode' => $tp 
 		) ) != null ) {
 			$tp = yqinvcode ( 6 )[0];
 		}
 		$ans ['invcode'] = $tp;
-	
+		
 		$todb = $ans;
 		$todb ['expired'] = false;
 		$todb ['creatDate'] = new MongoDate ();
@@ -1489,9 +1491,9 @@ class YqUser extends YqBase {
 		*/
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
 		$row = $this->db->invcode->findOne ( array (
-				'invcode' => $invcode
+				'invcode' => $invcode 
 		) );
-	
+		
 		if (is_null ( $row ) || $row ['expired'] == true)
 			return 0;
 		else
@@ -1509,9 +1511,9 @@ class YqUser extends YqBase {
 		*/
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
 		$row = $this->db->invcode->findOne ( array (
-				'invcode' => $invcode
+				'invcode' => $invcode 
 		) );
-	
+		
 		if (is_null ( $row )) {
 			return 0;
 		}
@@ -1524,13 +1526,13 @@ class YqUser extends YqBase {
 		$tp = yqinvcode ( 4 )[0];
 		$endtime = new MongoDate ( strtotime ( '+' . $expireMinute . ' minute' ) );
 		$row = $this->db->regcode->findOne ( array (
-				'mobilenumber' => $mobilenumber
+				'mobilenumber' => $mobilenumber 
 		) );
-	
+		
 		if (is_null ( $row )) {
 			$row = array (
 					'mobilenumber' => $mobilenumber,
-					'count' => 0
+					'count' => 0 
 			);
 		} else {
 			$intvalhour = floor ( (time () - $row ['expiredDate']->sec) % 86400 / 3600 );
@@ -1547,39 +1549,39 @@ class YqUser extends YqBase {
 				$row ['count'] = 1;
 			}
 		}
-	
+		
 		$row ['regcode'] = $tp;
 		$row ['expiredDate'] = $endtime;
 		$this->db->regcode->save ( $row );
-	
+		
 		$ch = curl_init ();
 		curl_setopt ( $ch, CURLOPT_URL, "http://sms-api.luosimao.com/v1/send.json" );
-	
+		
 		curl_setopt ( $ch, CURLOPT_CONNECTTIMEOUT, 30 );
 		curl_setopt ( $ch, CURLOPT_RETURNTRANSFER, TRUE );
 		curl_setopt ( $ch, CURLOPT_HEADER, FALSE );
-	
+		
 		curl_setopt ( $ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC );
 		curl_setopt ( $ch, CURLOPT_USERPWD, 'api:key-61cb2ba0c4b3c5d7aa9e05182df6dbc9' );
-	
+		
 		curl_setopt ( $ch, CURLOPT_POST, TRUE );
 		curl_setopt ( $ch, CURLOPT_POSTFIELDS, array (
-		'mobile' => $mobilenumber,
-		'message' => '验证码：' . $tp . '	' . $expireMinute . '分钟有效,区分大小写	【一圈】'
-				) );
-	
+				'mobile' => $mobilenumber,
+				'message' => '验证码：' . $tp . '	' . $expireMinute . '分钟有效,区分大小写	【一圈】' 
+		) );
+		
 		$res = curl_exec ( $ch );
 		curl_close ( $ch );
 		// $res = curl_error( $ch );
 		// var_dump($res);
-	
+		
 		return $res;
 	}
 	function checkRegisterCode($mobilenumber, $code) {
 		$row = $this->db->regcode->findOne ( array (
-				'mobilenumber' => $mobilenumber
+				'mobilenumber' => $mobilenumber 
 		) );
-	
+		
 		if (is_null ( $row )) {
 			return 0;
 		} else if ($row ['regcode'] == $code) {
@@ -1598,40 +1600,40 @@ class YqUser extends YqBase {
 		$check = $this->checkRegisterCode ( $mobilenumber, $code );
 		if ($check != 1)
 			return $check;
-	
+		
 		$row = $this->db->user->findOne ( array (
-				'user_mobile' => $mobilenumber
+				'user_mobile' => $mobilenumber 
 		) );
 		if (is_null ( $row )) {
 			return 4;
 		}
-	
+		
 		$row ['user_pin'] = crypt ( $newpassword );
-	
+		
 		$this->db->user->save ( $row );
-	
+		
 		return $this->expireRegistercode ( $mobilenumber, $code );
 	}
 	function expireRegistercode($mob, $code) {
 		$row = $this->db->regcode->findOne ( array (
 				'mobilenumber' => $mob,
-				'regcode' => $code
+				'regcode' => $code 
 		) );
-	
+		
 		if (is_null ( $row ))
 			return 0;
-	
+		
 		$row ['expiredDate'] = new MongoDate ();
 		$this->db->regcode->save ( $row );
 		return 1;
 	}
 	function regByInvitation($user_name, $user_pwd, $user_mobile, $invcode) {
 		$row = $this->db->invcode->findOne ( array (
-				'invcode' => $invcode
+				'invcode' => $invcode 
 		) );
 		if (is_null ( $row ))
 			return 0;
-	
+		
 		$step1 = $this->reg ( $user_name, $user_pwd, $user_mobile );
 		$step2 = $this->addFriendByNamev2 ( $user_name, $row ['senderName'] );
 		$step3 = $this->expireInvitation ( $invcode );
@@ -1639,7 +1641,7 @@ class YqUser extends YqBase {
 	}
 	function weihu() {
 		$cus = $this->db->user->find ();
-	
+		
 		while ( $cus->hasNext () ) {
 			$doc = $cus->getNext ();
 			if (! isset ( $doc ['user_relationships'] ))
@@ -1649,45 +1651,45 @@ class YqUser extends YqBase {
 				$repl [$v ['userb_id']->{'$id'}] = $v;
 			}
 			$doc ['user_relationships'] = $repl;
-				
+			
 			if (! isset ( $doc ['user_state'] ))
 				$doc ['user_state'] = 1;
-				
+			
 			if (! isset ( $doc ['user_blocklist'] )) {
 				$doc ['user_blocklist'] = [ ];
 			}
-				
+			
 			if (! isset ( $doc ['user_regdate'] )) {
 				$doc ['user_regdate'] = new MongoDate ();
 			}
 			$this->db->user->save ( $doc );
-				
+			
 			$t = $doc ['_id'];
 			// echo $t;
 			$ans2 = $this->db->userProfile->findOne ( array (
-					'user_objid' => $t
+					'user_objid' => $t 
 			) );
-				
+			
 			if (is_null ( $ans2 )) {
 				$profile = array (
 						'profile_intro' => '保密',
 						'profile_city' => '保密',
 						'profile_industry' => '保密',
 						'profile_org' => '保密',
-						'profile_position' => '保密'
+						'profile_position' => '保密' 
 				);
-	
+				
 				$this->addProfileByName ( $doc ['user_name'], json_encode ( $profile ) );
 			}
 		}
 		$cus = $this->db->userRelationship->find ();
-	
+		
 		while ( $cus->hasNext () ) {
 			$doc = $cus->getNext ();
 			if (! isset ( $doc ['weight'] )) {
 				$doc ['weight'] = 0;
 			}
-				
+			
 			if (! isset ( $doc ['remark'] )) {
 				$doc ['remark'] = '';
 			}
@@ -1760,7 +1762,6 @@ class YqUser extends YqBase {
 		
 		return json_encode ( $ans );
 	}
-	
 	function getUserNameByID($user_id) {
 		// var_dump($user_id);
 		$ans = $this->db->user->findOne ( array (
@@ -1773,7 +1774,6 @@ class YqUser extends YqBase {
 			return null;
 		}
 	}
-	
 	function htDeleteUserById($user_id) {
 		try {
 			var_dump ( $user_id );
@@ -1805,7 +1805,8 @@ class YqUser extends YqBase {
 		$row ['user_name'] = $arr ['user_name'];
 		$row ['user_mobile'] = $arr ['user_mobile'];
 		$row ['user_nickname'] = $arr ['user_nickname'];
-		
+		$row ['user_exp'] = $arr ['user_exp'];
+		$row ['user_privilege'] = $arr ['user_privilege'];
 		$this->db->user->save ( $row );
 	}
 	function hteditUserProfileInfo($arr) {
@@ -1953,7 +1954,6 @@ class YqUser extends YqBase {
 		
 		return $res;
 	}
-	
 	function htgetAllUserState() {
 		$ans = Array ();
 		$ans_city = Array ();
@@ -1990,7 +1990,6 @@ class YqUser extends YqBase {
 		array_push ( $ans, $ans_industry );
 		return $ans;
 	}
-	
 }
 
 // // $a = new YqUser ();

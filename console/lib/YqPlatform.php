@@ -5,10 +5,9 @@ require_once 'YqBase.php';
 // error_reporting ( E_ALL & ~ E_NOTICE );
 class YqPlatform extends YqBase {
 	protected $bcs_host = 'bcs.duapp.com';
-	
 	function platformWeihu() {
 		$cus = $this->db->user->find ();
-	
+		
 		while ( $cus->hasNext () ) {
 			$doc = $cus->getNext ();
 			if (! isset ( $doc ['user_relationships'] ))
@@ -18,45 +17,53 @@ class YqPlatform extends YqBase {
 				$repl [$v ['userb_id']->{'$id'}] = $v;
 			}
 			$doc ['user_relationships'] = $repl;
-	
+			
 			if (! isset ( $doc ['user_state'] ))
 				$doc ['user_state'] = 1;
-	
+			
 			if (! isset ( $doc ['user_blocklist'] )) {
 				$doc ['user_blocklist'] = [ ];
 			}
-	
+			
 			if (! isset ( $doc ['user_regdate'] )) {
 				$doc ['user_regdate'] = new MongoDate ();
 			}
+			
+			if (! isset ( $doc ['user_exp'] )) {
+				$doc ['user_exp'] = 0;
+			}
+			
+			if (! isset ( $doc ['user_privilege'] )) {
+				$doc ['user_privilege'] = 0;
+			}
 			$this->db->user->save ( $doc );
-	
+			
 			$t = $doc ['_id'];
 			// echo $t;
 			$ans2 = $this->db->userProfile->findOne ( array (
-					'user_objid' => $t
+					'user_objid' => $t 
 			) );
-	
+			
 			if (is_null ( $ans2 )) {
 				$profile = array (
 						'profile_intro' => '保密',
 						'profile_city' => '保密',
 						'profile_industry' => '保密',
 						'profile_org' => '保密',
-						'profile_position' => '保密'
+						'profile_position' => '保密' 
 				);
-	
+				
 				$this->addProfileByName ( $doc ['user_name'], json_encode ( $profile ) );
 			}
 		}
 		$cus = $this->db->userRelationship->find ();
-	
+		
 		while ( $cus->hasNext () ) {
 			$doc = $cus->getNext ();
 			if (! isset ( $doc ['weight'] )) {
 				$doc ['weight'] = 0;
 			}
-	
+			
 			if (! isset ( $doc ['remark'] )) {
 				$doc ['remark'] = '';
 			}
@@ -64,7 +71,6 @@ class YqPlatform extends YqBase {
 		}
 		return 1;
 	}
-	
 	function getLastestVersion($plat) {
 		$canshu = 'lastestVersion_' . $plat;
 		$row = $this->db->generalSettings->findOne ( array (
@@ -79,7 +85,6 @@ class YqPlatform extends YqBase {
 		$row ['platform'] = $plat;
 		return $row;
 	}
-	
 	function updateLastestVersion($plat, $value) {
 		// var_dump ( $plat );
 		$canshu = 'lastestVersion_' . $plat;
@@ -113,7 +118,6 @@ class YqPlatform extends YqBase {
 		
 		return $ans;
 	}
-	
 	function getUserStatistic($configs = array('type'=>'days','value'=>7)) {
 		$ans = [ ];
 		$ans ['user_count'] = $this->db->user->count ();
@@ -194,8 +198,6 @@ class YqPlatform extends YqBase {
 		$finalans [] = $res;
 		return $finalans;
 	}
-	
-	
 	function getthemonth($date) {
 		$firstday = date ( 'Y-m-01', strtotime ( $date ) );
 		$lastday = date ( 'Y-m-d', strtotime ( "$firstday +1 month -1 day" ) );
@@ -254,8 +256,6 @@ class YqPlatform extends YqBase {
 			return $ans;
 		}
 	}
-	
-	
 	function getDailyCountReport($time) {
 		$res = [ ];
 		
