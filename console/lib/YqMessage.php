@@ -1,6 +1,6 @@
 <?php
 require_once 'YqBase.php';
-class Message extends YqBase {
+class YqMessage extends YqBase {
 	private $collection;
 	// static $conn; // 连接
 	// function __construct() {

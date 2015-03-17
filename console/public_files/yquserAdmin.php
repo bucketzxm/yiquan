@@ -1,7 +1,7 @@
 <?php
 include_once '../lib/common.php';
 include_once '../lib/functions.php';
-include_once '../lib/YqUser.php';
+include_once '../lib/YqUserView.php';
 include_once '../lib/User.php';
 
 // 401 file referenced since user should be logged in to view this page
@@ -35,7 +35,7 @@ ob_start ();
 				if (isset ( $_GET ['action'] )) {
 					switch ($_GET ['action']) {
 						case 'view' :
-							$a = new YqUser ();
+							$a = new YqUserView ();
 							if (! isset ( $_SESSION ['pagelimit'] ) || ! isset ( $_SESSION ['pagearrs'] )) {
 								$_SESSION ['pagelimit'] = 20;
 								$_SESSION ['pagearrs'] = $a->htlistallUserPages ( $_SESSION ['pagelimit'] );
@@ -45,11 +45,11 @@ ob_start ();
 							break;
 						case 'edit' :
 							if ($_SERVER ['REQUEST_METHOD'] == 'GET' && isset ( $_GET ['uid'] )) {
-								$a = new YqUser ();
+								$a = new YqUserView ();
 								$a->htEditUserById_form ( $a->getUserByID ( $_GET ['uid'] ) );
 							}
 							if ($_SERVER ['REQUEST_METHOD'] == 'POST' && isset ( $_POST ['_id'] ) && isset ( $_POST ['edittype'] )) {
-								$a = new YqUser ();
+								$a = new YqUserView ();
 								switch ($_POST ['edittype']) {
 									case 'basic' :
 										$a->hteditUserBasicInfo ( $_POST );
@@ -71,10 +71,10 @@ ob_start ();
 							break;
 						case 'delete' :
 							if ($_SERVER ['REQUEST_METHOD'] == 'GET' && isset ( $_GET ['uid'] )) {
-								$a = new YqUser ();
+								$a = new YqUserView ();
 								$a->htDeleteUserById_form ( $a->getUserByID ( $_GET ['uid'] ) );
 							} else if ($_SERVER ['REQUEST_METHOD'] == 'POST' && isset ( $_POST ['uid'] )) {
-								$a = new YqUser ();
+								$a = new YqUserView ();
 								if ($a->htDeleteUserById ( $_POST ['uid'] )) {
 									echo 'Delete Success!';
 								} else {
@@ -85,7 +85,7 @@ ob_start ();
 						
 						case 'behavior' :
 							if ($_SERVER ['REQUEST_METHOD'] == 'GET' && isset ( $_GET ['uid'] ) && isset ( $_GET ['type'] ) && isset ( $_GET ['value'] )) {
-								$a = new YqUser ();
+								$a = new YqUserView ();
 								$t1 = $a->htgetBehaviorsByid ( $_GET ['uid'], array (
 										'type' => $_GET ['type'],
 										'value' => $_GET ['value'] 
@@ -96,7 +96,7 @@ ob_start ();
 							break;
 						
 						case 'statistics' :
-							$a = new YqUser ();
+							$a = new YqUserView ();
 							$t1 = $a->htgetAllUserState ();
 							$a->htgetAllUserState_showtable ( $t1, 1 );
 							break;

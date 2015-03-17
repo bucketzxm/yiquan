@@ -1,6 +1,6 @@
 <?php
 require_once 'YqBase.php';
-class Topic extends YqBase {
+class YqTopic extends YqBase {
 	// private $dbname = 'test';
 	private $table = 'topic';
 	// static $conn; // 连接
@@ -48,7 +48,7 @@ class Topic extends YqBase {
 		}
 		
 		if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $topic_ownerName) {
-			return - 4;
+			//return - 4;
 		}
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
 		$topic_postTime = time ();
@@ -380,7 +380,7 @@ class Topic extends YqBase {
 	}
 	
 	// 按照ID查询
-	function queryTopicByRoomID($topic_roomID) {
+	function queryTopicByRoomID ($topic_roomID) {
 		try {
 			if ($this->yiquan_version == 0) {
 				return - 2;
@@ -404,11 +404,41 @@ class Topic extends YqBase {
 			return - 1;
 		}
 	}
-	
+	// 按照ID查询话题，无token验证和user-agent验证
+	function queryTopicByRoomIDprivate($topic_roomID) {
+		try {
+			$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
+			$result = $this->db->topic->findOne ( array (
+					'_id' => new MongoID ( $topic_roomID )
+			) );
+			$user_nickname = $this->db->user->findOne ( array (
+					'user_name' => $result ['topic_ownerName']
+			), array (
+					'user_nickname' => 1,
+					'user_pic' => 1
+			) );
+			$result ['user_nickname'] = $user_nickname ['user_nickname'];
+			$result ['user_pic'] = $user_nickname ['user_pic'];
+			
+			$t = $user_nickname ['_id'];
+			// echo $t;
+			$ans2 = $this->db->userProfile->findOne ( array (
+					'user_objid' => $t
+			) );
+			
+			$result ['user_gender'] = $ans2 ['profile_gender'];
+			$result ['user_city'] = $ans2 ['profile_city'];
+			$result ['user_industry'] = $ans2 ['profile_industry'];
+			$result ['user_intro'] = $ans2 ['profile_intro'];
+			return json_encode ( $result );
+		} catch ( Exception $e ) {
+			return - 1;
+		}
+	}
 	// 喜欢该话题
 	function likeTopic($topic_id, $user_name) {
 		if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $user_name) {
-			return - 4;
+			//return - 4;
 		}
 		try {
 			if ($this->yiquan_version == 0) {
@@ -438,7 +468,7 @@ class Topic extends YqBase {
 	// 不喜欢该话题
 	function dislikeTopic($topic_id, $user_name) {
 		if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $user_name) {
-			return - 4;
+			//return - 4;
 		}
 		try {
 			if ($this->yiquan_version == 0) {

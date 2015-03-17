@@ -309,11 +309,11 @@ class YqUser extends YqBase {
 			$ans ['userProfile'] = $ans2;
 		}
 	
-		$ans ['countMyRepliedTopicByName'] = (new Reply ())->countMyRepliedTopicByName ( $user_name );
-		$ans ['countTopicByName'] = (new Topic ())->countTopicByName ( $user_name );
-		$ans ['countFirstFriendsByName'] = $this->countFirstFriendsByName ( $user_name );
-		$ans ['countAllFriendsByName'] = $this->countAllFriendsByName ( $user_name );
-		$ans ['countMyReplyAgreeByName'] = (new Reply ())->countMyReplyAgreeByName ( $user_name );
+		$ans ['countMyRepliedTopicByName'] = (new Reply ())->countMyRepliedTopicByName ( $ans['user_name'] );
+		$ans ['countTopicByName'] = (new Topic ())->countTopicByName ( $ans['user_name'] );
+		$ans ['countFirstFriendsByName'] = $this->countFirstFriendsByName ( $ans['user_name'] );
+		$ans ['countAllFriendsByName'] = $this->countAllFriendsByName ( $ans['user_name'] );
+		$ans ['countMyReplyAgreeByName'] = (new Reply ())->countMyReplyAgreeByName ( $ans['user_name'] );
 		return json_encode ( $ans );
 	}
 	

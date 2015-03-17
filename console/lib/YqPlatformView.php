@@ -4,6 +4,13 @@ require_once 'YqPlatform.php';
 /* Report all errors except E_NOTICE */
 // error_reporting ( E_ALL & ~ E_NOTICE );
 class YqPlatformView extends YqPlatform {
+	function getWeihuButton()
+	{
+		echo '<div><form method="post" action="?action=weihu">';
+		echo '<input type="submit" value="点击维护" />';
+		echo '</form></div>';
+	}
+	
 	function getLastestVersion_showform($arr) {
 		echo '<div><form method="post" action="?action=version">';
 		echo '<div class="form-group"><h2>最新' . $arr ['platform'] . '版本号</h2></div>';

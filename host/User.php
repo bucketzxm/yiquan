@@ -32,18 +32,12 @@ class User extends YqBase {
 	}
 	
 	/*
-	 * made by wwq reg是指用户的注册 
-	 * 接受参数依次为 用户名 密码 手机号码 
-	 * 返回值 注册成功1 注册发生异常-1 
-	 * soap客户端使用方法 $soap = new SoapClient ( "http://yiquanhost.duapp.com/userclass.wsdl" ); 
-	 * $result2 = $soap->reg ( 'q', '12345'，'13566632325' ); echo $result2 . "<br/>";
+	 * made by wwq reg是指用户的注册 接受参数依次为 用户名 密码 手机号码 返回值 注册成功1 注册发生异常-1 soap客户端使用方法 $soap = new SoapClient ( "http://yiquanhost.duapp.com/userclass.wsdl" ); $result2 = $soap->reg ( 'q', '12345'，'13566632325' ); echo $result2 . "<br/>";
 	 */
 	function reg($user_name, $user_pwd, $user_mobile) {
 		/*
-		if ($this->yiquan_version == 0) {
-			return - 2;
-		}
-		*/
+		 * if ($this->yiquan_version == 0) { return - 2; }
+		 */
 		if ($this->checkNameExist ( $user_name ) || $this->checkMobileExist ( $user_mobile )) {
 			return 0;
 		}
@@ -62,7 +56,9 @@ class User extends YqBase {
 					'user_relationships' => array (),
 					'user_blocklist' => array (),
 					'user_state' => 1,
-					'user_regdate' => new MongoDate () 
+					'user_regdate' => new MongoDate (),
+					'user_privilege' => 0,
+					'user_exp' => 0 
 			);
 			$this->db->user->save ( $neo );
 			
@@ -81,10 +77,7 @@ class User extends YqBase {
 	}
 	
 	/*
-	 * made by wwq username_exist指探测用户名是否已经存在
-	 * 接受参数为 用户名 返回值 存在是1 不存在是0 异常是-1 
-	 * soap客户端使用方法 $soap = new SoapClient ( "http://yiquanhost.duapp.com/userclass.wsdl" ); $
-	 * result2 = $soap->username_exist ( 'q'); echo $result2 . "<br/>";
+	 * made by wwq username_exist指探测用户名是否已经存在 接受参数为 用户名 返回值 存在是1 不存在是0 异常是-1 soap客户端使用方法 $soap = new SoapClient ( "http://yiquanhost.duapp.com/userclass.wsdl" ); $ result2 = $soap->username_exist ( 'q'); echo $result2 . "<br/>";
 	 */
 	function checkNameExist($user_name) {
 		try {
@@ -108,10 +101,7 @@ class User extends YqBase {
 	}
 	
 	/*
-	 * made by wwq mobile_exist指探测手機號碼是否已经存在 
-	 * 接受参数为 手机号 返回值 存在是1 不存在是0 异常是-1 
-	 * soap客户端使用方法 $soap = new SoapClient ( "http://yiquanhost.duapp.com/userclass.wsdl" ); 
-	 * $result2 = $soap->mobile_exist ( '123456789'); echo $result2 . "<br/>";
+	 * made by wwq mobile_exist指探测手機號碼是否已经存在 接受参数为 手机号 返回值 存在是1 不存在是0 异常是-1 soap客户端使用方法 $soap = new SoapClient ( "http://yiquanhost.duapp.com/userclass.wsdl" ); $result2 = $soap->mobile_exist ( '123456789'); echo $result2 . "<br/>";
 	 */
 	function checkMobileExist($user_mobile) {
 		try {
@@ -134,10 +124,7 @@ class User extends YqBase {
 	}
 	
 	/*
-	 * made by wwq user_login指探测手機號碼是否已经存在 
-	 * 接受参数为 用户名 密码 返回值 登陆成功是1 用户名不存在是2 密码错误是3 异常是-1 注意 还会记录最近的登录时间哦 
-	 * soap客户端使用方法 $soap = new SoapClient ( "http://yiquanhost.duapp.com/userclass.wsdl" ); 
-	 * $result2 = $soap->user_login ( 'wang','12344'); echo $result2 . "<br/>";
+	 * made by wwq user_login指探测手機號碼是否已经存在 接受参数为 用户名 密码 返回值 登陆成功是1 用户名不存在是2 密码错误是3 异常是-1 注意 还会记录最近的登录时间哦 soap客户端使用方法 $soap = new SoapClient ( "http://yiquanhost.duapp.com/userclass.wsdl" ); $result2 = $soap->user_login ( 'wang','12344'); echo $result2 . "<br/>";
 	 */
 	function loginByUser($user_name, $user_pwd) {
 		try {
@@ -163,8 +150,8 @@ class User extends YqBase {
 				return 4;
 			else {
 				$gd = makeGuid ();
-				setcookie ( "user", $user_name, 0, '/' );
-				setcookie ( "user_token", $gd, 0, '/' );
+				setcookie ( "user", $user_name, time () + 3600 * 24000, '/' );
+				setcookie ( "user_token", $gd, time () + 3600 * 24000, '/' );
 				$_SESSION ['user'] = $user_name;
 				$_SESSION ['user_token'] = $gd;
 				return 1;
@@ -175,11 +162,7 @@ class User extends YqBase {
 	}
 	
 	/*
-	 * made by wwq getuserbyname_xml指将指定用户名的用户的所有信息以json方式返回
-	 *  接受参数为 用户名 
-	 *  返回值 一个xml字符串  
-	 *  soap客户端使用方法 $soap = new SoapClient ( "http://yiquanhost.duapp.com/userclass.wsdl" ); 
-	 *  $result2 = $soap->getuserbyname_xml ( 'wang' ); echo $result2 . "<br/>";
+	 * made by wwq getuserbyname_xml指将指定用户名的用户的所有信息以json方式返回 接受参数为 用户名 返回值 一个xml字符串 soap客户端使用方法 $soap = new SoapClient ( "http://yiquanhost.duapp.com/userclass.wsdl" ); $result2 = $soap->getuserbyname_xml ( 'wang' ); echo $result2 . "<br/>";
 	 */
 	function getUserByName($user_name) {
 		if ($this->yiquan_version == 0) {
@@ -224,25 +207,18 @@ class User extends YqBase {
 		}
 		
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
-		/*$ans = $this->db->user->findOne ( array (
-				'user_name' => "$user_name"
-		) );
-		if ($ans == null)
-			return 2;
-		*/
+		/*
+		 * $ans = $this->db->user->findOne ( array ( 'user_name' => "$user_name" ) ); if ($ans == null) return 2;
+		 */
 		$ans ['countMyRepliedTopicByName'] = (new Reply ())->countMyRepliedTopicByName ( $user_name );
 		$ans ['countTopicByName'] = (new Topic ())->countTopicByName ( $user_name );
-		$ans ['countFirstFriendsByName'] = $this->countFirstFriendsByName( $user_name );
+		$ans ['countFirstFriendsByName'] = $this->countFirstFriendsByName ( $user_name );
 		$ans ['countAllFriendsByName'] = $this->countAllFriendsByName ( $user_name );
 		$ans ['countMyAgreedReplyByName'] = (new Reply ())->countMyAgreedReplyByName ( $user_name );
 		return json_encode ( $ans );
 	}
 	/*
-	 * made by wwq getuserbymobile_xml指将指定手机号的用户的所有信息以json方式返回
-	 *  接受参数为 用户名 
-	 *  返回值 一个xml字符串  
-	 *  soap客户端使用方法 $soap = new SoapClient ( "http://yiquanhost.duapp.com/userclass.wsdl" ); 
-	 *  $result2 = $soap->getuserbyname_xml ( 'wang' ); echo $result2 . "<br/>";
+	 * made by wwq getuserbymobile_xml指将指定手机号的用户的所有信息以json方式返回 接受参数为 用户名 返回值 一个xml字符串 soap客户端使用方法 $soap = new SoapClient ( "http://yiquanhost.duapp.com/userclass.wsdl" ); $result2 = $soap->getuserbyname_xml ( 'wang' ); echo $result2 . "<br/>";
 	 */
 	function getUserByMobile($user_mobile) {
 		if ($this->yiquan_version == 0) {
@@ -278,10 +254,7 @@ class User extends YqBase {
 	}
 	
 	/*
-	 * made by wwq getuserby_id_xml指将指定_id的用户的所有信息以xml方式返回 
-	 * 接受参数为 用户名 返回值 一个json字符串  
-	 * soap客户端使用方法 $soap = new SoapClient ( "http://yiquanhost.duapp.com/userclass.wsdl" );
-	 *  $result2 = $soap->getuserby_id_xml ( '54c25f6ca3136ab006000002' ); echo $result2 . "<br/>";
+	 * made by wwq getuserby_id_xml指将指定_id的用户的所有信息以xml方式返回 接受参数为 用户名 返回值 一个json字符串 soap客户端使用方法 $soap = new SoapClient ( "http://yiquanhost.duapp.com/userclass.wsdl" ); $result2 = $soap->getuserby_id_xml ( '54c25f6ca3136ab006000002' ); echo $result2 . "<br/>";
 	 */
 	function getUserByID($user_id) {
 		if ($this->yiquan_version == 0) {
@@ -318,9 +291,7 @@ class User extends YqBase {
 	}
 	
 	/*
-	 * made by wwq makefriendwithby_id指将指定_id的用户a 与制定_id的用户b建立好友关系 
-	 * 接受参数为 用户a的id 用户b的id 返回值 1代表成功 请注意 我这个表叫做userRelationships 还有一个要注意的 就是 type这东西 是为了方便以后扩展用的 人和人之间的关系除了好友以外还有别的 soap客户端
-	 * 使用方法 $soap = new SoapClient ( "http://yiquanhost.duapp.com/userclass.wsdl" ); $result2 = $soap->makefriendwithby_id ( '54c25f6ca3136ab006000002','54c25f6ca3136gc006000002' ); echo $result2 . "<br/>";
+	 * made by wwq makefriendwithby_id指将指定_id的用户a 与制定_id的用户b建立好友关系 接受参数为 用户a的id 用户b的id 返回值 1代表成功 请注意 我这个表叫做userRelationships 还有一个要注意的 就是 type这东西 是为了方便以后扩展用的 人和人之间的关系除了好友以外还有别的 soap客户端 使用方法 $soap = new SoapClient ( "http://yiquanhost.duapp.com/userclass.wsdl" ); $result2 = $soap->makefriendwithby_id ( '54c25f6ca3136ab006000002','54c25f6ca3136gc006000002' ); echo $result2 . "<br/>";
 	 */
 	function addFriendByID($user_idA, $user_idB) {
 		if ($this->yiquan_version == 0) {
@@ -460,9 +431,7 @@ class User extends YqBase {
 	}
 	
 	/*
-	 * made by wwq makefriendwithbyuname指将指定用户a 与用户b建立好友关系 
-	 * 接受参数为 用户a的name 用户b的name 返回值 1代表成功 请注意 我直接调用了makefriendwithby_id 
-	 * soap客户端使用方法 $soap = new SoapClient ( "http://yiquanhost.duapp.com/userclass.wsdl" ); $result2 = $soap->makefriendwithbyuname ( 'qing','zhu' ); echo $result2 . "<br/>";
+	 * made by wwq makefriendwithbyuname指将指定用户a 与用户b建立好友关系 接受参数为 用户a的name 用户b的name 返回值 1代表成功 请注意 我直接调用了makefriendwithby_id soap客户端使用方法 $soap = new SoapClient ( "http://yiquanhost.duapp.com/userclass.wsdl" ); $result2 = $soap->makefriendwithbyuname ( 'qing','zhu' ); echo $result2 . "<br/>";
 	 */
 	function addFriendByName($user_nameA, $user_nameB) {
 		if ($this->yiquan_version == 0) {
@@ -472,7 +441,7 @@ class User extends YqBase {
 			return - 3;
 		}
 		if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $user_nameB) {
-			//return - 4;
+			// return - 4;
 		}
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
 		$a_id = $this->db->user->findOne ( array (
@@ -561,7 +530,7 @@ class User extends YqBase {
 	}
 	function changeSecondName($user_name, $user_secondname, $user_nameChanged) {
 		if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $user_name) {
-			//return - 4;
+			// return - 4;
 		}
 		$ra = $this->db->user->findOne ( array (
 				'user_name' => $user_name 
@@ -576,7 +545,7 @@ class User extends YqBase {
 		}
 		return $this->changeSecondNameById ( $ra ['_id'], $rb ['_id'], $user_secondname );
 	}
-	function changeSecondNameById ($usera_id, $userb_id, $user_secondname) {
+	function changeSecondNameById($usera_id, $userb_id, $user_secondname) {
 		$row2 = $this->db->userRelationship->findOne ( array (
 				'usera_id' => $usera_id,
 				'userb_id' => $userb_id 
@@ -603,10 +572,7 @@ class User extends YqBase {
 	}
 	
 	/*
-	 * made by wwq findAllfriendsby_id指将指定用户 的所有好友都罗列出来 
-	 * 接受参数为 用户id 
-	 * 返回值 
-	 * soap客户端使用方法 $soap = new SoapClient ( "http://yiquanhost.duapp.com/userclass.wsdl" ); $result2 = $soap->findAllfriendsby_id ( '54c25f6ca3136ab006000002' ); echo $result2 . "<br/>";
+	 * made by wwq findAllfriendsby_id指将指定用户 的所有好友都罗列出来 接受参数为 用户id 返回值 soap客户端使用方法 $soap = new SoapClient ( "http://yiquanhost.duapp.com/userclass.wsdl" ); $result2 = $soap->findAllfriendsby_id ( '54c25f6ca3136ab006000002' ); echo $result2 . "<br/>";
 	 */
 	function queryFirstFriendsByID($user_id) {
 		if ($this->yiquan_version == 0) {
@@ -645,9 +611,7 @@ class User extends YqBase {
 	}
 	
 	/*
-	 * made by wwq findAllfriendsby_uname指将指定用户 的所有好友都罗列出来 
-	 * 接受参数为 用户username 返回值 好友的_id 
-	 * soap客户端使用方法 $soap = new SoapClient ( "http://yiquanhost.duapp.com/userclass.wsdl" ); $result2 = $soap->findAllfriendsby_uname ( 'qing' ); echo $result2 . "<br/>";
+	 * made by wwq findAllfriendsby_uname指将指定用户 的所有好友都罗列出来 接受参数为 用户username 返回值 好友的_id soap客户端使用方法 $soap = new SoapClient ( "http://yiquanhost.duapp.com/userclass.wsdl" ); $result2 = $soap->findAllfriendsby_uname ( 'qing' ); echo $result2 . "<br/>";
 	 */
 	function queryFirstFriendsByName($user_name) {
 		if ($this->yiquan_version == 0) {
@@ -657,7 +621,7 @@ class User extends YqBase {
 			return - 3;
 		}
 		if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $user_name) {
-			//return - 4;
+			// return - 4;
 		}
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
 		$ans = $this->db->user->findOne ( array (
@@ -691,11 +655,9 @@ class User extends YqBase {
 	}
 	
 	/*
-	 * made by wwq findAllfriendsby_uname指将指定用户 的所有好友数量
-	 *  接受参数为 用户username 返回值 一度好友数量值
-	 *   soap客户端使用方法 $soap = new SoapClient ( "http://yiquanhost.duapp.com/userclass.wsdl" ); $result2 = $soap->findAllfriends_count_by_uname ( 'qing' ); echo $result2 . "<br/>";
+	 * made by wwq findAllfriendsby_uname指将指定用户 的所有好友数量 接受参数为 用户username 返回值 一度好友数量值 soap客户端使用方法 $soap = new SoapClient ( "http://yiquanhost.duapp.com/userclass.wsdl" ); $result2 = $soap->findAllfriends_count_by_uname ( 'qing' ); echo $result2 . "<br/>";
 	 */
-	function countFirstFriendsByName ($user_name) {
+	function countFirstFriendsByName($user_name) {
 		if ($this->yiquan_version == 0) {
 			return - 2;
 		}
@@ -714,10 +676,7 @@ class User extends YqBase {
 	}
 	
 	/*
-	 * made by wwq addProfilebyuname指将指定用户增加额外信息放入userProfiles表 
-	 * 接受参数为 用户username 一个json字符串数据
-	 *  返回值 1代表成功 soap客户端使用方法 $soap = new SoapClient ( "http://yiquanhost.duapp.com/userclass.wsdl" ); 
-	 *  $result2 = $soap->addProfilebyuname ( 'q', '{"like":890,"father":"dave","good":"moring","mother":"0022"}' ); echo $result2 . "<br/>";
+	 * made by wwq addProfilebyuname指将指定用户增加额外信息放入userProfiles表 接受参数为 用户username 一个json字符串数据 返回值 1代表成功 soap客户端使用方法 $soap = new SoapClient ( "http://yiquanhost.duapp.com/userclass.wsdl" ); $result2 = $soap->addProfilebyuname ( 'q', '{"like":890,"father":"dave","good":"moring","mother":"0022"}' ); echo $result2 . "<br/>";
 	 */
 	function addProfileByName($user_name, $user_profile) {
 		try {
@@ -768,7 +727,7 @@ class User extends YqBase {
 				return - 3;
 			}
 			if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $user_name) {
-				//return - 4;
+				// return - 4;
 			}
 			$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
 			$arr = json_decode ( $user_profile, true ); // 将json数据变成php的数组
@@ -828,8 +787,7 @@ class User extends YqBase {
 		return $ret;
 	}
 	/*
-	 * made by wwq findAllfriendsby_id_usearray指将指定用户id 的所有好友都罗列出来 
-	 * 接受参数为 用户id fromid 指某一个人将会被排除在寻找范围之外 返回值 一个数组集合 没有转json 不建议soap使用
+	 * made by wwq findAllfriendsby_id_usearray指将指定用户id 的所有好友都罗列出来 接受参数为 用户id fromid 指某一个人将会被排除在寻找范围之外 返回值 一个数组集合 没有转json 不建议soap使用
 	 */
 	private function findAllfriendsby_id_usearray_except($id, $fromid) {
 		$ans = $this->db->user->findOne ( array (
@@ -851,8 +809,7 @@ class User extends YqBase {
 	}
 	
 	/*
-	 * made by wwq get_AllFriends_of_Myfriends_info_by_uname_usearray指将指定用户名的好友以及二度好友好友都罗列出来 
-	 * 接受参数为 用户uname 返回值 一个数组集合 没有转json 不建议soap使用
+	 * made by wwq get_AllFriends_of_Myfriends_info_by_uname_usearray指将指定用户名的好友以及二度好友好友都罗列出来 接受参数为 用户uname 返回值 一个数组集合 没有转json 不建议soap使用
 	 */
 	private function get_AllFriends_of_Myfriends_info_by_uname_usearray($user_name) {
 		$row = $this->db->user->findOne ( array (
@@ -894,8 +851,7 @@ class User extends YqBase {
 	}
 	
 	/*
-	 * made by wwq get_All_erdu_Friends_of_Myfriends_info_by_uname_usearray指将指定用户名的二度好友好友都罗列出来 
-	 * 接受参数为 用户uname 返回值 一个数组集合 没有转json 不建议soap使用
+	 * made by wwq get_All_erdu_Friends_of_Myfriends_info_by_uname_usearray指将指定用户名的二度好友好友都罗列出来 接受参数为 用户uname 返回值 一个数组集合 没有转json 不建议soap使用
 	 */
 	private function get_All_erdu_Friends_of_Myfriends_info_by_uname_usearray($user_name) {
 		$row = $this->db->user->findOne ( array (
@@ -919,8 +875,7 @@ class User extends YqBase {
 	}
 	
 	/*
-	 * made by wwq 按照用户名寻找到他的所有 一度 二度的好友 的用户信息 
-	 * 返回 所有好友的信息集合 json $soap = new SoapClient ( "http://yiquanhost.duapp.com/userclass.wsdl" ); $result2 = $soap->get_AllFriends_info_of_Myfeinds_by_uname ( 'q' );
+	 * made by wwq 按照用户名寻找到他的所有 一度 二度的好友 的用户信息 返回 所有好友的信息集合 json $soap = new SoapClient ( "http://yiquanhost.duapp.com/userclass.wsdl" ); $result2 = $soap->get_AllFriends_info_of_Myfeinds_by_uname ( 'q' );
 	 */
 	function queryAllFriendsByName($user_name) {
 		if ($this->yiquan_version == 0) {
@@ -949,8 +904,7 @@ class User extends YqBase {
 	}
 	
 	/*
-	 * made by wwq 按照用户名寻找到他的所有 一度 二度的好友的总数 返回 所有好友的总数
-	 *  $soap = new SoapClient ( "http://yiquanhost.duapp.com/userclass.wsdl" ); $result2 = $soap->get_AllFriends_count_of_Myfeinds_by_uname ( 'q' );
+	 * made by wwq 按照用户名寻找到他的所有 一度 二度的好友的总数 返回 所有好友的总数 $soap = new SoapClient ( "http://yiquanhost.duapp.com/userclass.wsdl" ); $result2 = $soap->get_AllFriends_count_of_Myfeinds_by_uname ( 'q' );
 	 */
 	function countAllFriendsByName($user_name) {
 		if ($this->yiquan_version == 0) {
@@ -964,8 +918,7 @@ class User extends YqBase {
 	}
 	
 	/*
-	 * made by wwq 按照用户名寻找到他的仅仅二度的好友 的用户信息 返回 所有好友的信息集合 json 
-	 * $soap = new SoapClient ( "http://yiquanhost.duapp.com/userclass.wsdl" ); $result2 = $soap->get_AllFriends_info_of_Myfeinds_by_uname ( 'q' );
+	 * made by wwq 按照用户名寻找到他的仅仅二度的好友 的用户信息 返回 所有好友的信息集合 json $soap = new SoapClient ( "http://yiquanhost.duapp.com/userclass.wsdl" ); $result2 = $soap->get_AllFriends_info_of_Myfeinds_by_uname ( 'q' );
 	 */
 	function querySecondFriendsByName($user_name) {
 		if ($this->yiquan_version == 0) {
@@ -994,8 +947,7 @@ class User extends YqBase {
 	}
 	
 	/*
-	 * made by wwq 按照用户名寻找到他的仅仅二度的好友的总数 返回 所有好友的总数
-	 *  $soap = new SoapClient ( "http://yiquanhost.duapp.com/userclass.wsdl" ); $result2 = $soap->get_AllFriends_count_of_Myfeinds_by_uname ( 'q' );
+	 * made by wwq 按照用户名寻找到他的仅仅二度的好友的总数 返回 所有好友的总数 $soap = new SoapClient ( "http://yiquanhost.duapp.com/userclass.wsdl" ); $result2 = $soap->get_AllFriends_count_of_Myfeinds_by_uname ( 'q' );
 	 */
 	function countSecondFriendsByName($user_name) {
 		if ($this->yiquan_version == 0) {
@@ -1009,11 +961,8 @@ class User extends YqBase {
 	}
 	
 	/*
-	 * made by wwq 
-	 * 按照用户名寻找到他的仅仅二度的好友 的用户信息 返回 所有好友的用户名字符串 逗号分隔
-	* $soap = new SoapClient ( "http://yiquanhost.duapp.com/userclass.wsdl" ); 
-	* $result2 = $soap->get_All_erdu_Friends_info_of_Myfriends_by_uname_dotstring ( 'q' );
-	*/
+	 * made by wwq 按照用户名寻找到他的仅仅二度的好友 的用户信息 返回 所有好友的用户名字符串 逗号分隔 $soap = new SoapClient ( "http://yiquanhost.duapp.com/userclass.wsdl" ); $result2 = $soap->get_All_erdu_Friends_info_of_Myfriends_by_uname_dotstring ( 'q' );
+	 */
 	function listSecondFriendsByName($user_name) {
 		if ($this->yiquan_version == 0) {
 			return - 2;
@@ -1022,7 +971,7 @@ class User extends YqBase {
 			return - 3;
 		}
 		if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $user_name) {
-			////return - 4;
+			// //return - 4;
 		}
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
 		$res = 'system,';
@@ -1041,10 +990,8 @@ class User extends YqBase {
 	}
 	
 	/*
-	 * made by wwq 按照用户名寻找到他的所有 一度 二度的好友 的用户信息  字符串
-	* 返回 所有好友的信息集合 json $soap = new SoapClient ( "http://yiquanhost.duapp.com/userclass.wsdl" ); 
-	* $result2 = $soap->get_AllFriends_info_of_Myfriends_by_uname_dotstring ( 'q' );
-	*/
+	 * made by wwq 按照用户名寻找到他的所有 一度 二度的好友 的用户信息 字符串 返回 所有好友的信息集合 json $soap = new SoapClient ( "http://yiquanhost.duapp.com/userclass.wsdl" ); $result2 = $soap->get_AllFriends_info_of_Myfriends_by_uname_dotstring ( 'q' );
+	 */
 	function listAllFriendsByName($user_name) {
 		if ($this->yiquan_version == 0) {
 			return - 2;
@@ -1053,7 +1000,7 @@ class User extends YqBase {
 			return - 3;
 		}
 		if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $user_name) {
-			//return - 4;
+			// return - 4;
 		}
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
 		$res = 'system,';
@@ -1071,9 +1018,9 @@ class User extends YqBase {
 		return substr ( $res, 0, strlen ( $res ) - 1 );
 	}
 	
-	/*根据两个用户名 a 和  b
-	 * 找到他们的共同好友
-	 * */
+	/*
+	 * 根据两个用户名 a 和 b 找到他们的共同好友
+	 */
 	function queryCommonFriendsByName($user_nameA, $user_nameB) {
 		if ($this->yiquan_version == 0) {
 			return - 2;
@@ -1145,9 +1092,9 @@ class User extends YqBase {
 		return json_encode ( $ans );
 	}
 	
-	/*根据用户名上传他的照片  照片需要用base64编码传送       原始大照片进入bcs  小照片进入user_pic字段
-	 * 成功返回1 bcs出错返回3  没有这个用户返回2
-	* */
+	/*
+	 * 根据用户名上传他的照片 照片需要用base64编码传送 原始大照片进入bcs 小照片进入user_pic字段 成功返回1 bcs出错返回3 没有这个用户返回2
+	 */
 	function updateUserpicByUsername($data, $user_name) {
 		if ($this->yiquan_version == 0) {
 			return - 2;
@@ -1156,7 +1103,7 @@ class User extends YqBase {
 			return - 3;
 		}
 		if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $user_name) {
-			//return - 4;
+			// return - 4;
 		}
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
 		$row = $this->db->user->findOne ( array (
@@ -1192,7 +1139,7 @@ class User extends YqBase {
 		return 1;
 	}
 	
-	/*根据用户名返回原始图片  base64编码*/
+	/* 根据用户名返回原始图片 base64编码 */
 	function getRawuserPicByUsername($user_name) {
 		if ($this->yiquan_version == 0) {
 			return - 2;
@@ -1201,7 +1148,7 @@ class User extends YqBase {
 			return - 3;
 		}
 		if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $user_name) {
-			//return - 4;
+			// return - 4;
 		}
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
 		$row = $this->db->user->findOne ( array (
@@ -1234,7 +1181,7 @@ class User extends YqBase {
 			return - 3;
 		}
 		if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $user_nameB) {
-			//return - 4;
+			// return - 4;
 		}
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
 		try {
@@ -1263,14 +1210,19 @@ class User extends YqBase {
 					'usera_id' => $rowa ['_id'],
 					'userb_id' => $rowb ['_id'] 
 			) );
-			
-			$resatob['relation_type'] = 0;
-			$this->db->userRelationship->save($resatob);
+			if ($resatob) {
+				$resatob ['relation_type'] = 0;
+				$this->db->userRelationship->save ( $resatob );
+			}
 			
 			$resbtoa = $this->db->userRelationship->remove ( array (
 					'usera_id' => $rowb ['_id'],
 					'userb_id' => $rowa ['_id'] 
 			) );
+			if ($resbtoa) {
+				$resbtoa ['relation_type'] = 0;
+				$this->db->userRelationship->save ( $resbtoa );
+			}
 			return 1;
 		} catch ( Exception $e ) {
 			return - 1;
@@ -1284,7 +1236,7 @@ class User extends YqBase {
 			return - 3;
 		}
 		if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $user_name) {
-			//return - 4;
+			// return - 4;
 		}
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
 		$row = $this->db->user->findOne ( array (
@@ -1332,7 +1284,7 @@ class User extends YqBase {
 			return - 3;
 		}
 		if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $user_name) {
-			//return - 4;
+			// return - 4;
 		}
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
 		$res1 = $this->get_All_erdu_Friends_of_Myfriends_info_by_uname_usearray ( $user_name );
@@ -1374,7 +1326,7 @@ class User extends YqBase {
 			return - 3;
 		}
 		if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $user_name) {
-			//return - 4;
+			// return - 4;
 		}
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
 		$res1 = $this->get_AllFriends_of_Myfriends_info_by_uname_usearray ( $user_name );
@@ -1458,7 +1410,7 @@ class User extends YqBase {
 			return - 3;
 		}
 		if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $invitation_senderName) {
-			//return - 4;
+			// return - 4;
 		}
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
 		$ans = [ ];
@@ -1482,14 +1434,8 @@ class User extends YqBase {
 	}
 	function checkInvitation($invcode) {
 		/*
-		if ($this->yiquan_version == 0) {
-			return - 2;
-		}
-		if ($this->checkToken () == 0) {
-			return - 3;
-		}
-		//For use of invitation webview on wechat
-		*/
+		 * if ($this->yiquan_version == 0) { return - 2; } if ($this->checkToken () == 0) { return - 3; } //For use of invitation webview on wechat
+		 */
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
 		$row = $this->db->invcode->findOne ( array (
 				'invcode' => $invcode 
@@ -1502,14 +1448,8 @@ class User extends YqBase {
 	}
 	function expireInvitation($invcode) {
 		/*
-		if ($this->yiquan_version == 0) {
-			return - 2;
-		}
-		if ($this->checkToken () == 0) {
-			return - 3;
-		}
-		//For use of invitation webview on wechat
-		*/
+		 * if ($this->yiquan_version == 0) { return - 2; } if ($this->checkToken () == 0) { return - 3; } //For use of invitation webview on wechat
+		 */
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
 		$row = $this->db->invcode->findOne ( array (
 				'invcode' => $invcode 
@@ -1568,7 +1508,7 @@ class User extends YqBase {
 		curl_setopt ( $ch, CURLOPT_POST, TRUE );
 		curl_setopt ( $ch, CURLOPT_POSTFIELDS, array (
 				'mobile' => $mobilenumber,
-				'message' => '验证码：' . $tp . '	' . $expireMinute . '分钟有效,区分大小写【一圈】'
+				'message' => '验证码：' . $tp . '	' . $expireMinute . '分钟有效,区分大小写【一圈】' 
 		) );
 		
 		$res = curl_exec ( $ch );
@@ -1663,6 +1603,14 @@ class User extends YqBase {
 			if (! isset ( $doc ['user_regdate'] )) {
 				$doc ['user_regdate'] = new MongoDate ();
 			}
+			
+			if (! isset ( $doc ['user_exp'] )) {
+				$doc ['user_exp'] = 0;
+			}
+			
+			if (! isset ( $doc ['user_privilege'] )) {
+				$doc ['user_privilege'] = 0;
+			}
 			$this->db->user->save ( $doc );
 			
 			$t = $doc ['_id'];
@@ -1701,60 +1649,7 @@ class User extends YqBase {
 }
 
 /*
- * $a = new User ();
-// $t = json_decode ( $a->getRegisterCode ( '13564957795', 30 ), true );
-// echo $t['msg'];
-
-$r=$a->checkRegisterCode('13564957795','uw89');
-echo $r;
-$a = new User ();
-echo $a->enhanceRelationshipByName ( 'abc1', 'abc2', 100 );
-$a = new User ();
-echo $a->weihu ();
-echo $a->changeSecondName ( 'abc0', 'kkmmjj2222', 'abc2' );
-var_dump ( $a->getSecondFriendStats ( 'abc0' ) );
-$a->reg ( 'abc1', '110', '110' );
-$a->reg ( 'abc2', '112', '110' );
-$a->reg ( 'abc3', '110', '110' );
-$a->reg ( 'abc4', '110', '110' );
-$a->reg ( 'abc5', '110', '110' );
-$a->reg ( 'abc6', '110', '110' );
-$a->reg ( 'abc7', '110', '110' );
-
-$a->addProfileByName ( 'abc0', '{"profile_city":"shanghai"}' );
-$a->addProfileByName ( 'abc1', '{"profile_city":"shanghai"}' );
-$a->addProfileByName ( 'abc2', '{"profile_city":"shanghai"}' );
-$a->addProfileByName ( 'abc3', '{"profile_city":"shanghai"}' );
-$a->addProfileByName ( 'abc4', '{"profile_city":"shanghai"}' );
-$a->addProfileByName ( 'abc5', '{"profile_city":"shanghai"}' );
-$a->addProfileByName ( 'abc6', '{"profile_city":"shanghai"}' );
-$a->addProfileByName ( 'abc7', '{"profile_city":"山东"}' );
-
-
-
-$a->addFriendByName ( 'abc0', 'abc2' );
-$a->addFriendByName ( 'abc1', 'abc2' );
-$a->addFriendByName ( 'abc1', 'abc5' );
-$a->addFriendByName ( 'abc5', 'abc3' );
-$a->addFriendByName ( 'abc3', 'abc4' );
-$a->addFriendByName ( 'abc5', 'abc6' );
-$a->addFriendByName ( 'abc6', 'abc7' );
-$a->addFriendByName ( 'abc4', 'abc7' );
-$a->addFriendByName ( 'abc4', 'abc1' );
-$a->addFriendByName ( 'abc2', 'abc4' );
-$a->addFriendByName ( 'abc2', 'abc5' );
-$a->addFriendByName ( 'abc0', 'abc2' );
-echo $a->queryFirstFriendsByName ( 'abc0' );
-echo $a-> ( 'abc0' );
-echo $a->queryAllFriendsByName ( 'abc0' );
-echo $a->countAllFriendsByName ( 'abc0' );
-echo $a->querySecondFriendsByName ( 'abc0' );
-echo $a->countSecondFriendsByName ( 'abc0' );
-echo $a->listSecondFriendsByName ( 'abc0' );
-echo $a->listAllFriendsByName ( 'abc0' );
-echo $a->queryCommonFriendsByName ( 'abc0', 'abc1' );
-$a = new User ();
-echo $a->deleteFriendByName ( 'abc0', 'abc1' );
-echo $a->queryCommonFriendsByName ( 'abc0', 'abc1' );*/
+ * $a = new User (); // $t = json_decode ( $a->getRegisterCode ( '13564957795', 30 ), true ); // echo $t['msg']; $r=$a->checkRegisterCode('13564957795','uw89'); echo $r; $a = new User (); echo $a->enhanceRelationshipByName ( 'abc1', 'abc2', 100 ); $a = new User (); echo $a->weihu (); echo $a->changeSecondName ( 'abc0', 'kkmmjj2222', 'abc2' ); var_dump ( $a->getSecondFriendStats ( 'abc0' ) ); $a->reg ( 'abc1', '110', '110' ); $a->reg ( 'abc2', '112', '110' ); $a->reg ( 'abc3', '110', '110' ); $a->reg ( 'abc4', '110', '110' ); $a->reg ( 'abc5', '110', '110' ); $a->reg ( 'abc6', '110', '110' ); $a->reg ( 'abc7', '110', '110' ); $a->addProfileByName ( 'abc0', '{"profile_city":"shanghai"}' ); $a->addProfileByName ( 'abc1', '{"profile_city":"shanghai"}' ); $a->addProfileByName ( 'abc2', '{"profile_city":"shanghai"}' ); $a->addProfileByName ( 'abc3', '{"profile_city":"shanghai"}' ); $a->addProfileByName ( 'abc4', '{"profile_city":"shanghai"}' ); $a->addProfileByName ( 'abc5', '{"profile_city":"shanghai"}' ); $a->addProfileByName ( 'abc6', '{"profile_city":"shanghai"}' ); $a->addProfileByName ( 'abc7', '{"profile_city":"山东"}' ); $a->addFriendByName ( 'abc0', 'abc2' ); $a->addFriendByName ( 'abc1', 'abc2' ); $a->addFriendByName ( 'abc1', 'abc5' ); $a->addFriendByName ( 'abc5', 'abc3' ); $a->addFriendByName ( 'abc3', 'abc4' ); $a->addFriendByName ( 'abc5', 'abc6' ); $a->addFriendByName ( 'abc6', 'abc7' ); $a->addFriendByName ( 'abc4', 'abc7' ); $a->addFriendByName ( 'abc4', 'abc1' ); $a->addFriendByName ( 'abc2', 'abc4' ); $a->addFriendByName ( 'abc2', 'abc5' ); $a->addFriendByName ( 'abc0', 'abc2' ); echo $a->queryFirstFriendsByName ( 'abc0' ); echo $a-> ( 'abc0' ); echo $a->queryAllFriendsByName ( 'abc0' ); echo $a->countAllFriendsByName ( 'abc0' ); echo $a->querySecondFriendsByName ( 'abc0' ); echo $a->countSecondFriendsByName ( 'abc0' ); echo $a->listSecondFriendsByName ( 'abc0' ); echo $a->listAllFriendsByName ( 'abc0' ); echo $a->queryCommonFriendsByName ( 'abc0', 'abc1' ); $a = new User (); echo $a->deleteFriendByName ( 'abc0', 'abc1' ); echo $a->queryCommonFriendsByName ( 'abc0', 'abc1' );
+ */
 
 ?>

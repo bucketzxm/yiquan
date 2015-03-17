@@ -74,6 +74,7 @@ class YqUserView extends YqUser {
 	}
 	function htEditUserById_form($jsondata) {
 		$p = json_decode ( $jsondata, true );
+		//var_dump($p);
 		// =================================================
 		echo '<div><form method="post" action="?action=edit">';
 		echo '<div class="form-group"><h2>基本信息</h2></div>';

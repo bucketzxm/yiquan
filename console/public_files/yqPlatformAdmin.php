@@ -3,7 +3,7 @@ include_once '../lib/common.php';
 include_once '../lib/functions.php';
 include_once '../lib/YqUser.php';
 include_once '../lib/User.php';
-include_once '../lib/YqPlatform.php';
+include_once '../lib/YqPlatformView.php';
 
 // 401 file referenced since user should be logged in to view this page
 include_once '401.php';
@@ -17,6 +17,7 @@ ob_start ();
 		<div class="col-sm-3 col-md-2 sidebar">
 			<ul class="nav nav-sidebar">
 				<li><a href="?action=version">一圈版本控制 <span class="sr-only">(current)</span></a></li>
+				<li><a href="?action=weihu">一圈数据完整性维护 <span class="sr-only">(current)</span></a></li>
 				<li><a href="?action=statistic">一圈平台信息 <span class="sr-only">(current)</span></a></li>
 				<li><a href="?action=statisticforuser">一圈用户注册数量统计 <span
 						class="sr-only">(current)</span></a></li>
@@ -39,9 +40,9 @@ ob_start ();
           <div class="row">
 				<?php
 				if (isset ( $_GET ['action'] )) {
+					$a = new YqPlatformView ();
 					switch ($_GET ['action']) {
 						case 'version' :
-							$a = new YqPlatform ();
 							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
 								
 								$a->getLastestVersion_showform ( $a->getLastestVersion ( 'Android' ) );
@@ -66,6 +67,14 @@ ob_start ();
 							break;
 						case 'report' :
 							
+							break;
+						case 'weihu' :
+							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
+								$a->getWeihuButton ();
+							} elseif ($_SERVER ['REQUEST_METHOD'] == 'POST') {
+								$a->platformWeihu ();
+								echo '维护完毕';
+							}
 							break;
 					}
 				}
