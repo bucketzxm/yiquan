@@ -1895,7 +1895,7 @@ class YqUser extends YqBase {
 		$geo = $im->getImageGeometry ();
 		$w = $geo ['width'];
 		$h = $geo ['height'];
-		$maxWidth = $maxHeight = 100;
+		$maxWidth = $maxHeight = 160;
 		$fitbyWidth = (($maxWidth / $w) < ($maxHeight / $h)) ? true : false;
 		
 		if ($fitbyWidth) {

@@ -43,6 +43,9 @@ ob_start ();
 						case 'delete' :
 							
 							break;
+						case 'addsystemtopic' :
+							
+							break;
 					}
 				}
 				?>

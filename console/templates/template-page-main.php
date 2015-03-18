@@ -39,6 +39,7 @@ if (! empty ( $GLOBALS ['TEMPLATE'] ['extra_head'] )) {
 					<li><a href="yqPlatformAdmin.php">平台参数管理</a></li>
 					<li><a href="yquserAdmin.php">用户管理</a></li>
 					<li><a href="yqLabelAdmin.php">标签管理</a></li>
+					<li><a href="yqSystemtopicAdmin.php">系统话题管理</a></li>
 					<li><a href="login.php?logout">退出</a></li>
 
 				</ul>
