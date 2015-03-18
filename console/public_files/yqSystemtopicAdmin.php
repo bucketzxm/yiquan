@@ -33,6 +33,7 @@ ob_start ();
           <div class="row">
 				<?php
 				if (isset ( $_GET ['action'] )) {
+					$a = new YqSystemTopicView ();
 					switch ($_GET ['action']) {
 						case 'view' :
 							
@@ -44,7 +45,15 @@ ob_start ();
 							
 							break;
 						case 'addsystemtopic' :
-							
+							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
+								$a->showaddSystemtopic_form ();
+							} else {
+								if ($a->addSystemtopic ( 'second', 'system', 'dialogue', $_POST ['title'], $_POST ['labels'] )) {
+									echo '添加成功';
+								} else {
+									echo '粗了点问题';
+								}
+							}
 							break;
 					}
 				}

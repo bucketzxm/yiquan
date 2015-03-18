@@ -45,6 +45,18 @@ class YqSystemTopicView extends YqSystemTopic {
 			echo '</tr>';
 		}
 	}
+	
+	
+	function showaddSystemtopic_form()
+	{
+		echo '<div><form method="post" action="?action=addsystemtopic">';
+		echo '<div class="form-group"><h2>请输入话题内容</h2>';
+		echo '<textarea class="form-control" rows="3" cols="80" name="title"></textarea></div>';
+		echo '<div class="form-group"><h2>请输入标签</h2>';
+		echo '<input class="form-control" type="text"  name="labels" /></div>';
+		echo '<div class="form-group"><input type="submit" value="提交" /></div>';
+		echo '</form></div>';
+	}
 }
 
 ?>
