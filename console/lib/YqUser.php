@@ -1968,22 +1968,21 @@ class YqUser extends YqBase {
 				continue;
 			if (isset ( $tpa ['profile_city'] )) {
 				$city = $tpa ['profile_city'];
-				if (! isset ( $ans ["$city"] )) {
-					$ans_city ["$city"] = 1;
+				if (isset ( $ans_city [$city] ) == false) {
+					$ans_city [$city] = 1;
 				} else {
-					$ans_city ["$city"] ++;
+					$ans_city [$city] += 1;
 				}
 			}
 			if (isset ( $tpa ['profile_industry'] )) {
 				$industry = $tpa ['profile_industry'];
-				if (! isset ( $ans ["$industry"] )) {
+				if (! isset ( $ans_industry ["$industry"] )) {
 					$ans_industry ["$industry"] = 1;
 				} else {
 					$ans_industry ["$industry"] ++;
 				}
 			}
 		}
-		
 		arsort ( $ans_city );
 		arsort ( $ans_industry );
 		array_push ( $ans, $ans_city );

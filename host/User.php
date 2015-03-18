@@ -1299,13 +1299,13 @@ class User extends YqBase {
 			if ($tpa == null)
 				continue;
 			$city = $tpa ['profile_city'];
-			if (! isset ( $ans ["$city"] )) {
+			if (! isset ( $ans_city ["$city"] )) {
 				$ans_city ["$city"] = 1;
 			} else {
 				$ans_city ["$city"] ++;
 			}
 			$industry = $tpa ['profile_industry'];
-			if (! isset ( $ans ["$industry"] )) {
+			if (! isset ( $ans_industry ["$industry"] )) {
 				$ans_industry ["$industry"] = 1;
 			} else {
 				$ans_industry ["$industry"] ++;
@@ -1341,13 +1341,13 @@ class User extends YqBase {
 			if ($tpa == null)
 				continue;
 			$city = $tpa ['profile_city'];
-			if (! isset ( $ans ["$city"] )) {
+			if (! isset ( $ans_city ["$city"] )) {
 				$ans_city ["$city"] = 1;
 			} else {
 				$ans_city ["$city"] ++;
 			}
 			$industry = $tpa ['profile_industry'];
-			if (! isset ( $ans ["$industry"] )) {
+			if (! isset ( $ans_industry ["$industry"] )) {
 				$ans_industry ["$industry"] = 1;
 			} else {
 				$ans_industry ["$industry"] ++;
