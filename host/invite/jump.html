@@ -5,6 +5,50 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <title>一圈</title>
 <script src="http://libs.baidu.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+
+            $(".container").animate({
+                opacity:'1',
+                marginTop: '100px'
+            },1000);
+
+        });
+
+
+
+        var browser={
+            versions:function(){
+                    var u = navigator.userAgent, app = navigator.appVersion;
+                    return {         //移动终端浏览器版本信息
+                        trident: u.indexOf('Trident') > -1, //IE内核
+                        presto: u.indexOf('Presto') > -1, //opera内核
+                        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+                        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+                        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+                        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+                        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或uc浏览器
+                        iPhone: u.indexOf('iPhone') > -1 , //是否为iPhone或者QQHD浏览器
+                        iPad: u.indexOf('iPad') > -1, //是否iPad
+                        webApp: u.indexOf('Safari') == -1 //是否web应该程序，没有头部与底部
+                    };
+                }(),
+                language:(navigator.browserLanguage || navigator.language).toLowerCase()
+        }
+        //document.writeln("<br>是否为移动终端: "+browser.versions.mobile);
+        //document.writeln("<br>ios终端: "+browser.versions.ios);
+        if (browser.versions.ios == true){
+            self.location="http://fir.im/oneto";
+        }
+        //document.writeln("<br>android终端: "+browser.versions.android);
+        if (browser.versions.android == true){
+            alert("Android版本即将发布");
+        }
+        //document.writeln("<br>是否为iPhone: "+browser.versions.iPhone);
+        //document.writeln("<br>是否iPad: "+browser.versions.iPad);
+    </script>
 <style>
 body * {
         font-family:"Seravek-Light","Helvetica","SegoeUI-Light","Arial","HiraginoSansGB-W3","NotoSansHans-Regular","MicrosoftYaHeiLight","STXihei","SimHei",sans-serif;
@@ -58,48 +102,7 @@ body * {
   <div class="jump">3秒后跳转<br></div>
 </div>
 <!-- Javascript -->
-    <script type="text/javascript">
-        $(document).ready(function(){
 
-            $(".container").animate({
-                opacity:'1',
-                marginTop: '100px'
-            },1000);
-
-        });
-
-
-
-        var browser={
-            versions:function(){
-                    var u = navigator.userAgent, app = navigator.appVersion;
-                    return {         //移动终端浏览器版本信息
-                        trident: u.indexOf('Trident') > -1, //IE内核
-                        presto: u.indexOf('Presto') > -1, //opera内核
-                        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
-                        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
-                        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
-                        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
-                        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或uc浏览器
-                        iPhone: u.indexOf('iPhone') > -1 , //是否为iPhone或者QQHD浏览器
-                        iPad: u.indexOf('iPad') > -1, //是否iPad
-                        webApp: u.indexOf('Safari') == -1 //是否web应该程序，没有头部与底部
-                    };
-                }(),
-                language:(navigator.browserLanguage || navigator.language).toLowerCase()
-        }
-        //document.writeln("<br>是否为移动终端: "+browser.versions.mobile);
-        //document.writeln("<br>ios终端: "+browser.versions.ios);
-        if (browser.versions.ios == true){
-            header("location: http://fir.im/oneto");
-        }
-        //document.writeln("<br>android终端: "+browser.versions.android);
-        if (browser.versions.android == true){
-            alert("Android版本即将发布");
-        }
-        //document.writeln("<br>是否为iPhone: "+browser.versions.iPhone);
-        //document.writeln("<br>是否iPad: "+browser.versions.iPad);
-    </script>
 
 
 </body>
