@@ -19,7 +19,7 @@ body * {
     }
     .container>.title {
     color: #8C8C8C;
-    font-weight: bold;
+    /*font-weight: bold;*/
     background: #FFF;
     padding: 15px 15px;
     text-align: center;
@@ -29,7 +29,7 @@ body * {
     }
     .notify {
       color: #000;
-      font-weight: bold;
+      /*font-weight: bold;*/
       text-align: center;
       margin-bottom: 10px;
     }
