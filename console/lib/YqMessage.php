@@ -43,7 +43,7 @@ class YqMessage extends YqBase {
 	// type
 	// postTime
 	// title
-	function addMessage($message_senderId, $message_receiverId, $message_type, $message_title, $message_labels, $message_topicID,$message_topicTitle) {
+	function addMessage($message_senderId, $message_receiverId, $message_type, $message_title, $message_labels, $message_topicID, $message_topicTitle) {
 		if ($this->yiquan_version == 0) {
 			return - 2;
 		}
@@ -65,35 +65,71 @@ class YqMessage extends YqBase {
 				'message_postTime' => $message_postTime,
 				'message_labels' => $m_labels,
 				'message_topicID' => $message_topicID,
-				'message_topicTitle' => $message_topicTitle
-				
-				
+				'message_topicTitle' => $message_topicTitle 
 		);
-
 		
 		try {
-			$cursor = $this->db->message->findOne ( 
-					array (
-						'message_receiverId' => $message_receiverId,
-						'message_topicID'	 => $message_topicID,
-						'message_type' => 'newReply',
-						'message_life'		 => 1
-					)
-				);
-			if ( $cursor == NULL ) {
+			$cursor = $this->db->message->findOne ( array (
+					'message_receiverId' => $message_receiverId,
+					'message_topicID' => $message_topicID,
+					'message_type' => 'newReply',
+					'message_life' => 1 
+			) );
+			if ($cursor == NULL) {
 				$result = $this->db->message->insert ( $data );
 				return 1;
-			}
-			else
+			} else
 				return 0;
+		} catch ( Exception $e ) {
+			return - 1;
+		}
+	}
+	function addMessagev2($message_senderId, $message_receiverId, $message_type, $message_title, $message_labels, $message_topicID, $message_topicTitle, $message_detail) {
+		if ($this->yiquan_version == 0) {
+			return - 2;
+		}
 		
+		if ($this->checkToken () == 0) {
+			return - 3;
+		}
+		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
+		$message_postTime = time ();
+		
+		$m_labels = explode ( ',', $message_labels );
+		
+		$data = array (
+				'message_senderId' => $message_senderId,
+				'message_receiverId' => $message_receiverId,
+				'message_type' => $message_type,
+				'message_title' => $message_title,
+				'message_detail' => $message_detail,
+				'message_life' => 1,
+				'message_postTime' => $message_postTime,
+				'message_labels' => $m_labels,
+				'message_topicID' => $message_topicID,
+				'message_topicTitle' => $message_topicTitle 
+		)
+		;
+		
+		try {
+			$cursor = $this->db->message->findOne ( array (
+					'message_receiverId' => $message_receiverId,
+					'message_topicID' => $message_topicID,
+					'message_type' => 'newReply',
+					'message_life' => 1 
+			) );
+			if ($cursor == NULL) {
+				$result = $this->db->message->insert ( $data );
+				return 1;
+			} else
+				return 0;
 		} catch ( Exception $e ) {
 			return - 1;
 		}
 	}
 	
 	// 查询用户收到的
-	function queryMessageByName($message_receiverId,$time) {
+	function queryMessageByName($message_receiverId, $time) {
 		try {
 			if ($this->yiquan_version == 0) {
 				return - 2;
@@ -103,14 +139,13 @@ class YqMessage extends YqBase {
 				return - 3;
 			}
 			$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
-			$time = ( int ) $time; 
+			$time = ( int ) $time;
 			$result = $this->db->message->find ( array (
 					'message_receiverId' => $message_receiverId,
 					'message_postTime' => array (
-							'$lt' => $time
+							'$lt' => $time 
 					),
-					'message_life' => 1
-					
+					'message_life' => 1 
 			) )->sort ( array (
 					'message_postTime' => - 1 
 			) );
