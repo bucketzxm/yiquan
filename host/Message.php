@@ -80,7 +80,7 @@ class Message extends YqBase {
 						'message_life'		 => 1
 					)
 				);
-			if ( $cursor == NULL ) {
+			if ( ($cursor == NULL) || ($cursor['message_type'] != 'newReply')) {
 				$result = $this->db->message->insert ( $data );
 				return 1;
 			}
