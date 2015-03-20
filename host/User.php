@@ -55,6 +55,7 @@ class User extends YqBase {
 					'user_pic' => null,
 					'user_relationships' => array (),
 					'user_blocklist' => array (),
+                    'user_blockTopic' => array (),
 					'user_state' => 1,
 					'user_regdate' => new MongoDate (),
 					'user_privilege' => 0,
@@ -1611,6 +1612,11 @@ class User extends YqBase {
 			if (! isset ( $doc ['user_privilege'] )) {
 				$doc ['user_privilege'] = 0;
 			}
+            
+            if (! isset ( $doc ['user_blockTopic'] )) {
+                $doc ['user_blockTopic'] = [ ];
+            }
+            
 			$this->db->user->save ( $doc );
 			
 			$t = $doc ['_id'];
