@@ -25,6 +25,10 @@ class YqPlatform extends YqBase {
 				$doc ['user_blocklist'] = [ ];
 			}
 			
+            if (! isset ( $doc ['user_blockTopic'] )) {
+                $doc ['user_blockTopic'] = [ ];
+            }
+            
 			if (! isset ( $doc ['user_regdate'] )) {
 				$doc ['user_regdate'] = new MongoDate ();
 			}

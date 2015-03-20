@@ -489,6 +489,18 @@ class Topic extends YqBase {
 			);
 			
 			$result = $this->db->topic->update ( $where, $param );
+            
+            $where1 = array (
+                            "user_name" => $user_name
+                            );
+            $param1 = array (
+                            "\$addToSet" => array (
+                                                   'user_blockTopic' => new MongoID ( $topic_id )
+                                                   ) 
+                            );
+            
+            $result1 = $this->db->user->update ( $where1, $param1 );
+            
 			return 1;
 		} catch ( Exception $e ) {
 			return - 1;
