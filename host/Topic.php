@@ -247,16 +247,26 @@ class Topic extends YqBase {
 		try {
 			$result = $this->db->topic->find ( $query )->sort ( array (
 					"topic_postTime" => - 1 
-			) )->limit ( 30 );
-			$res = array ();
+            ) );//->limit ( 30 );
+            $count = 0;
+            $res = array ();
 			foreach ( $result as $key => $value ) {
-				$user_nickname = $this->db->user->findOne ( array (
-						'user_name' => $value ['topic_ownerName'] 
-				), array (
-						'user_nickname' => 1 
-				) );
-				$value ['user_nickname'] = $user_nickname ['user_nickname'];
-				array_push ( $res, $value );
+                //判断是否有被用户Block
+                if (in_array ($_COOKIE['user'],$value ['topic_dislikeNames'])){
+                    
+                }else{
+                    $user_nickname = $this->db->user->findOne ( array (
+                            'user_name' => $value ['topic_ownerName'] 
+                    ), array (
+                            'user_nickname' => 1 
+                    ) );
+                    $value ['user_nickname'] = $user_nickname ['user_nickname'];
+                    array_push ( $res, $value );
+                    $count ++;
+                }
+                if ($count == 30){
+                    break;
+                }
 			}
 			return json_encode ( $res );
 		} catch ( Exception $e ) {
@@ -313,21 +323,25 @@ class Topic extends YqBase {
 			$count = 0;
 			foreach ( $result as $key => $value ) {
 				if (in_array ( $topic_label, $value ["topic_labels"], true )) {
-					
-					$user_nickname = $this->db->user->findOne ( array (
-							'user_name' => $value ['topic_ownerName'] 
-					), array (
-							'user_nickname' => 1 
-					) );
-					$value ['user_nickname'] = $user_nickname ['user_nickname'];
-					
-					array_push ( $res, $value );
-					if ($count >= $maxCount) {
-						break;
-					} else {
-						$count ++;
-					}
+                    //判断是否有被用户Block
+                    if (in_array ($_COOKIE['user'],$value ['topic_dislikeNames'])){
+                        
+                    }else{
+                        $user_nickname = $this->db->user->findOne ( array (
+                                'user_name' => $value ['topic_ownerName'] 
+                        ), array (
+                                'user_nickname' => 1 
+                        ) );
+                        $value ['user_nickname'] = $user_nickname ['user_nickname'];
+                        
+                        array_push ( $res, $value );
+                    }
 				}
+                if ($count >= $maxCount) {
+                    break;
+                } else {
+                    $count ++;
+                }
 			}
 			return json_encode ( $res );
 		} catch ( Exception $e ) {
