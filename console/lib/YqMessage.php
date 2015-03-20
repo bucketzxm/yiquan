@@ -108,8 +108,7 @@ class YqMessage extends YqBase {
 				'message_labels' => $m_labels,
 				'message_topicID' => $message_topicID,
 				'message_topicTitle' => $message_topicTitle 
-		)
-		;
+		);
 		
 		try {
 			$cursor = $this->db->message->findOne ( array (

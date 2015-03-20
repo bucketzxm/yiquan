@@ -16,8 +16,10 @@ ob_start ();
 	<div class="row">
 		<div class="col-sm-3 col-md-2 sidebar">
 			<ul class="nav nav-sidebar">
-				<li><a href="?action=view&page=0">查看系统消息 <span class="sr-only"></span></a></li>
-				<li><a href="?action=viewsend">查看已发送的系统消息 <span class="sr-only"></span></a></li>
+				<li><a href="?action=view&page=0&limit=30">查看发给我的消息 <span
+						class="sr-only"></span></a></li>
+				<li><a href="?action=viewsend&page=0&limit=30">查看已发送的系统消息 <span
+						class="sr-only"></span></a></li>
 				<li><a href="?action=addSystemMessage">新建系统消息 <span class="sr-only"></span></a></li>
 			</ul>
 		</div>
@@ -37,10 +39,37 @@ ob_start ();
 					$a = new YqSystemMessageView ();
 					switch ($_GET ['action']) {
 						case 'view' :
-							
+							if (isset ( $_GET ['page'] )) {
+								if ($_GET ['page'] == 0) {
+									$_SESSION ['systemMessage'] = $a->getSystemMessage ( 'recive', '', strtotime ( '-1000 days' ), time () );
+									$_SESSION ['systemMessagePages'] = $a->getSystemMessagePages ( $_SESSION ['systemMessage'], 30 );
+									// var_dump ( $_SESSION ['systemMessage'] );
+								}
+								if (! empty ( $_SESSION ['systemMessage'] )) {
+									$a->showMessage_table ( $_SESSION ['systemMessage'], $_SESSION ['systemMessagePages'] [$_GET ['page']], 30 );
+									$a->showMessagePages_div ( $_SESSION ['systemMessagePages'], 'view' );
+								}
+							}
 							break;
 						case 'edit' :
 							
+							break;
+						case 'detail' :
+							if (isset ( $_GET ['mindex'] ) && isset ( $_GET ['messageid'] )) {
+								$a->readMessage ( $_GET ['messageid'] );
+								$a->showMessageDetail ( $_SESSION ['systemMessage'], $_GET ['mindex'] );
+							}
+							break;
+						case 'viewsend' :
+							if (isset ( $_GET ['page'] )) {
+								if ($_GET ['page'] == 0) {
+									$_SESSION ['systemMessage'] = $a->getSystemMessage ( 'send', '', strtotime ( '-1000 days' ), time () );
+									$_SESSION ['systemMessagePages'] = $a->getSystemMessagePages ( $_SESSION ['systemMessage'], 30 );
+									// var_dump ( $_SESSION ['systemMessage'] );
+								}
+								$a->showMessage_table ( $_SESSION ['systemMessage'], $_SESSION ['systemMessagePages'] [$_GET ['page']], 30 );
+								$a->showMessagePages_div ( $_SESSION ['systemMessagePages'], 'viewsend' );
+							}
 							break;
 						case 'delete' :
 							
@@ -49,11 +78,9 @@ ob_start ();
 							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
 								$a->addSystemMessage_form ();
 							} else {
-								if ($a->addSystemtopic ( 'second', 'system', 'dialogue', $_POST ['title'], $_POST ['labels'] )) {
-									echo '添加成功';
-								} else {
-									echo '粗了点问题';
-								}
+								// var_dump ( $_POST );
+								$res = $a->addSystemMessage ( isset ( $_POST ['forall'] ), $_POST ['reciver'], $_POST ['type'], $_POST ['title'], $_POST ['labels'], $_POST ['detail'] );
+								echo '已经发送给' . $res . '人';
 							}
 							break;
 					}
