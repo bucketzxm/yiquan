@@ -163,23 +163,35 @@ class Topic extends YqBase {
 			if ($direction_int == 1)
 				$result = $this->db->topic->find ( $query )->sort ( array (
 						"topic_postTime" => - 1 
-				) )->limit ( 30 );
+                ) );//->limit ( 30 );
 			else
 				$result = $this->db->topic->find ( $query )->sort ( array (
 						"topic_postTime" => - 1 
 				) );
+            $count = 0;
 			$res = array ();
 			foreach ( $result as $key => $value ) {
 				// 判断network_type
 				if (in_array ( $topic_networks, $value ['topic_networks'] )) {
-					$user_nickname = $this->db->user->findOne ( array (
-							'user_name' => $value ['topic_ownerName'] 
-					), array (
-							'user_nickname' => 1 
-					) );
-					$value ['user_nickname'] = $user_nickname ['user_nickname'];
-					array_push ( $res, $value );
+                    
+                    //判断是否有被用户Block
+                    if (in_array ($_COOKIE['user'],$value ['topic_dislikeNames'])){
+                        
+                    }else{
+                    
+                        $user_nickname = $this->db->user->findOne ( array (
+                                'user_name' => $value ['topic_ownerName'] 
+                        ), array (
+                                'user_nickname' => 1 
+                        ) );
+                        $value ['user_nickname'] = $user_nickname ['user_nickname'];
+                        array_push ( $res, $value );
+                        $count ++;
+                    }
 				}
+                if ($count == 30){
+                    break;
+                }
 			}
 			return json_encode ( $res );
 		} catch ( Exception $e ) {
