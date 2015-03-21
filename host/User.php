@@ -1673,11 +1673,11 @@ class User extends YqBase {
 				return - 3;
 			}
 			$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
-			$row = $this->db->user->findOne ( array (
-					'user_name' => $user_name 
-			) );
-            array_push ($row['user_blocklist'],$block_name);
-			//$row ['user_blocklist'] [$block_name] = $block_name;
+            $row = $this->db->user->findOne ( array (
+                                                     'user_name' => $user_name
+                                                     ) );
+            
+            $row ['user_blocklist'] [$block_name] = $block_name;
 			$this->db->user->save ( $row );
 			return 1;
 		} catch ( Exception $e ) {
@@ -1693,13 +1693,9 @@ class User extends YqBase {
 				return - 3;
 			}
 			$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
-            $where = array ( 'user_name' => $user_name );
-            $param = array (
-                            '$pull' => array('user_blocklist' => $unblock_name)
-            );
             $row = $this->db->user->findOne ( array (
-					
-			) );
+                                                     'user_name' => $user_name
+                                                     ) );
 			
 			if (isset ( $row ['user_blocklist'] [$unblock_name] )) {
 				unset ( $row ['user_blocklist'] [$unblock_name] );
