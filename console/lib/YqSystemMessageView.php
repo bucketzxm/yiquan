@@ -4,7 +4,7 @@ class YqSystemMessageView extends YqSystemMessage {
 	function showMessagetype($name) {
 		echo '<select name="' . $name . '">';
 		echo '<option value="userMessage">userMessage</option>';
-		echo '<option value="webview">webview</option>';
+		echo '<option value="webview">webView</option>';
 		echo '<option value="systemNotice">systemNotice</option>';
 		echo '<option value="invitation">invitation</option>';
 		echo '</select>';
@@ -22,6 +22,12 @@ class YqSystemMessageView extends YqSystemMessage {
 		echo '<div class="form-group"><h2>请选择消息类型</h2>';
 		$this->showMessagetype ( 'type' );
 		echo '</div>';
+		
+		echo '<div class="form-group"><h2>message_webViewHeader</h2>';
+		echo '<input class="form-control" type="text"  name="message_webViewHeader" /></div>';
+		
+		echo '<div class="form-group"><h2>message_webViewURL</h2>';
+		echo '<input class="form-control" type="text"  name="message_webViewURL" /></div>';
 		echo '<div class="form-group"><h2>是否群发</h2>';
 		echo '<input class="form-control" type="checkbox"  name="forall" /></div>';
 		echo '<div class="form-group"><input type="submit" value="提交" /></div>';

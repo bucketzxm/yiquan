@@ -1,14 +1,14 @@
 <?php
 require_once 'YqMessage.php';
 class YqSystemMessage extends YqMessage {
-	function addSystemMessage($toall = 0, $message_receiverId = '', $message_type, $message_title, $message_labels, $message_detail) {
+	function addSystemMessage($toall = 0, $message_receiverId = '', $message_type, $message_title, $message_labels, $message_detail, $message_webViewHeader, $message_webViewURL) {
 		if ($toall == 1) {
 			$cus = $this->db->user->find ();
 			$con = 0;
 			while ( $cus->hasNext () ) {
 				$doc = $cus->getNext ();
 				if ($doc ['user_name'] != 'system') {
-					if ($this->addMessagev2 ( 'system', $doc ['user_name'], $message_type, $message_title, $message_labels, '', '', $message_detail )) {
+					if ($this->addMessagev2 ( 'system', $doc ['user_name'], $message_type, $message_title, $message_labels, '', '', $message_detail, $message_webViewHeader, $message_webViewURL )) {
 						$con ++;
 					}
 				}

@@ -65,7 +65,9 @@ class YqMessage extends YqBase {
 				'message_postTime' => $message_postTime,
 				'message_labels' => $m_labels,
 				'message_topicID' => $message_topicID,
-				'message_topicTitle' => $message_topicTitle 
+				'message_topicTitle' => $message_topicTitle,
+				'message_webViewHeader' => '',
+				'message_webViewURL' => '' 
 		);
 		
 		try {
@@ -84,7 +86,7 @@ class YqMessage extends YqBase {
 			return - 1;
 		}
 	}
-	function addMessagev2($message_senderId, $message_receiverId, $message_type, $message_title, $message_labels, $message_topicID, $message_topicTitle, $message_detail) {
+	function addMessagev2($message_senderId, $message_receiverId, $message_type, $message_title, $message_labels, $message_topicID, $message_topicTitle, $message_detail, $message_webViewHeader, $message_webViewURL) {
 		if ($this->yiquan_version == 0) {
 			return - 2;
 		}
@@ -107,7 +109,9 @@ class YqMessage extends YqBase {
 				'message_postTime' => $message_postTime,
 				'message_labels' => $m_labels,
 				'message_topicID' => $message_topicID,
-				'message_topicTitle' => $message_topicTitle 
+				'message_topicTitle' => $message_topicTitle,
+				'message_webViewHeader' => $message_webViewHeader,
+				'message_webViewURL' => $message_webViewURL 
 		);
 		
 		try {

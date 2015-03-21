@@ -67,8 +67,10 @@ ob_start ();
 									$_SESSION ['systemMessagePages'] = $a->getSystemMessagePages ( $_SESSION ['systemMessage'], 30 );
 									// var_dump ( $_SESSION ['systemMessage'] );
 								}
-								$a->showMessage_table ( $_SESSION ['systemMessage'], $_SESSION ['systemMessagePages'] [$_GET ['page']], 30 );
-								$a->showMessagePages_div ( $_SESSION ['systemMessagePages'], 'viewsend' );
+								if (! empty ( $_SESSION ['systemMessage'] )) {
+									$a->showMessage_table ( $_SESSION ['systemMessage'], $_SESSION ['systemMessagePages'] [$_GET ['page']], 30 );
+									$a->showMessagePages_div ( $_SESSION ['systemMessagePages'], 'viewsend' );
+								}
 							}
 							break;
 						case 'delete' :
@@ -78,8 +80,8 @@ ob_start ();
 							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
 								$a->addSystemMessage_form ();
 							} else {
-								// var_dump ( $_POST );
-								$res = $a->addSystemMessage ( isset ( $_POST ['forall'] ), $_POST ['reciver'], $_POST ['type'], $_POST ['title'], $_POST ['labels'], $_POST ['detail'] );
+									// var_dump ( $_POST );
+								$res = $a->addSystemMessage ( isset ( $_POST ['forall'] ), $_POST ['reciver'], $_POST ['type'], $_POST ['title'], $_POST ['labels'], $_POST ['detail'], $_POST ['message_webViewHeader'], $_POST ['message_webViewURL'] );
 								echo '已经发送给' . $res . '人';
 							}
 							break;
