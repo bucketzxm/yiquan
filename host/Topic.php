@@ -317,7 +317,7 @@ class Topic extends YqBase {
 				'$and' => array (
 						$lastUserQueryArray,
 						$timeQueryArray 
-				)
+				),
                 'topic_networks' => array (
                         '$ne' => [ ]
                 )
