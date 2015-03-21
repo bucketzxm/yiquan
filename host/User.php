@@ -1695,7 +1695,7 @@ class User extends YqBase {
 			$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
             $where = array ( 'user_name' => $user_name );
             $param = array (
-                            '$pull' => array('user_blocklist' => $unblock_name);
+                            '$pull' => array('user_blocklist' => $unblock_name)
             );
             $row = $this->db->user->findOne ( array (
 					
