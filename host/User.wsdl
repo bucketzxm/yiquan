@@ -177,6 +177,14 @@
 <input message="tns:weihuRequest" />
 <output message="tns:weihuResponse" />
 </operation>
+<operation name="blockUser">
+<input message="tns:blockUserRequest" />
+<output message="tns:blockUserResponse" />
+</operation>
+<operation name="unBlockUser">
+<input message="tns:unBlockUserRequest" />
+<output message="tns:unBlockUserResponse" />
+</operation>
 <operation name="checkagent">
 <input message="tns:checkagentRequest" />
 <output message="tns:checkagentResponse" />
@@ -548,6 +556,22 @@
 <soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
 </output>
 </operation>
+<operation name="blockUser">
+<soap:operation soapAction="urn:User#User#blockUser" />
+<input><soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="unBlockUser">
+<soap:operation soapAction="urn:User#User#unBlockUser" />
+<input><soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
 <operation name="checkagent">
 <soap:operation soapAction="urn:User#User#checkagent" />
 <input><soap:body use="encoded" namespace="urn:User" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
@@ -876,6 +900,20 @@
 </message>
 <message name="weihuResponse">
 <part name="weihu" type="xsd:string" />
+</message>
+<message name="blockUserRequest">
+<part name="block_name" type="xsd:string" />
+<part name="user_name" type="xsd:string" />
+</message>
+<message name="blockUserResponse">
+<part name="blockUser" type="xsd:string" />
+</message>
+<message name="unBlockUserRequest">
+<part name="unblock_name" type="xsd:string" />
+<part name="user_name" type="xsd:string" />
+</message>
+<message name="unBlockUserResponse">
+<part name="unBlockUser" type="xsd:string" />
 </message>
 <message name="checkagentRequest">
 </message>
