@@ -55,7 +55,7 @@ class User extends YqBase {
 					'user_pic' => null,
 					'user_relationships' => array (),
 					'user_blocklist' => array (),
-                    'user_blockTopic' => array (),
+					'user_blockTopic' => array (),
 					'user_state' => 1,
 					'user_regdate' => new MongoDate (),
 					'user_privilege' => 0,
@@ -1006,6 +1006,10 @@ class User extends YqBase {
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
 		$res = 'system,';
 		$pt = $this->get_AllFriends_of_Myfriends_info_by_uname_usearray ( $user_name );
+		$row = $this->db->user->findOne ( array (
+				'user_name' => $user_name 
+		) );
+		$blist = $row ['user_blocklist'];
 		foreach ( $pt as $v ) {
 			$pkt = $this->db->user->findOne ( array (
 					'_id' => new MongoId ( $v ) 
@@ -1013,6 +1017,8 @@ class User extends YqBase {
 					'_id' => 1,
 					'user_name' => 1 
 			) );
+			if (isset ( $blist [$pkt ['user_name']] ))
+				continue;
 			$res .= $pkt ['user_name'];
 			$res .= ',';
 		}
@@ -1612,11 +1618,11 @@ class User extends YqBase {
 			if (! isset ( $doc ['user_privilege'] )) {
 				$doc ['user_privilege'] = 0;
 			}
-            
-            if (! isset ( $doc ['user_blockTopic'] )) {
-                $doc ['user_blockTopic'] = [ ];
-            }
-            
+			
+			if (! isset ( $doc ['user_blockTopic'] )) {
+				$doc ['user_blockTopic'] = [ ];
+			}
+			
 			$this->db->user->save ( $doc );
 			
 			$t = $doc ['_id'];
@@ -1651,6 +1657,48 @@ class User extends YqBase {
 			$this->db->userRelationship->save ( $doc );
 		}
 		return 1;
+	}
+	function blockUser($block_name, $user_name) {
+		try {
+			if ($this->yiquan_version == 0) {
+				return - 2;
+			}
+			if ($this->checkToken () == 0) {
+				return - 3;
+			}
+			$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
+			$row = $this->db->user->findOne ( array (
+					'user_name' => $user_name 
+			) );
+			
+			$row ['user_blocklist'] [$block_name] = $block_name;
+			$this->db->user->save ( $row );
+			return 1;
+		} catch ( Exception $e ) {
+			return - 1;
+		}
+	}
+	function unBlockUser($unblock_name, $user_name) {
+		try {
+			if ($this->yiquan_version == 0) {
+				return - 2;
+			}
+			if ($this->checkToken () == 0) {
+				return - 3;
+			}
+			$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
+			$row = $this->db->user->findOne ( array (
+					'user_name' => $user_name 
+			) );
+			
+			if (isset ( $row ['user_blocklist'] [$unblock_name] )) {
+				unset ( $row ['user_blocklist'] [$unblock_name] );
+			}
+			$this->db->user->save ( $row );
+			return 1;
+		} catch ( Exception $e ) {
+			return - 1;
+		}
 	}
 }
 
