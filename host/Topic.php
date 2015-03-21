@@ -155,7 +155,10 @@ class Topic extends YqBase {
 					'$and' => array (
 							$lastUserQueryArray,
 							$timeQueryArray 
-					) 
+					),
+                    'topic_networks' => array (
+                            '$ne' => [ ]
+                    )
 			);
 			
 			// 执行查询
@@ -241,7 +244,10 @@ class Topic extends YqBase {
 						$keyWordQueryArray,
 						$lastUserQueryArray,
 						$timeQueryArray 
-				) 
+				),
+                'topic_networks' => array (
+                        '$ne' => [ ]
+                )
 		);
 		
 		try {
@@ -311,12 +317,15 @@ class Topic extends YqBase {
 				'$and' => array (
 						$lastUserQueryArray,
 						$timeQueryArray 
-				) 
+				)
+                'topic_networks' => array (
+                        '$ne' => [ ]
+                )
 		);
 		
 		try {
 			$result = $this->db->topic->find ( $query )->sort ( array (
-					"topic_postTime" => - 1 
+					"topic_postTime" => - 1
 			) ); // 感觉效率会很低。
 			$res = array ();
 			$maxCount = 30;
@@ -400,7 +409,10 @@ class Topic extends YqBase {
 			}
 			$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
 			$count = $this->db->topic->find ( array (
-					'topic_ownerName' => $topic_ownerName 
+					'topic_ownerName' => $topic_ownerName,
+                    'topic_networks' => array (
+                                    '$ne' => [ ]
+                    )
 			) )->count ();
 			return $count;
 		} catch ( Exception $e ) {
