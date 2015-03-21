@@ -116,18 +116,24 @@ class Message extends YqBase {
 			) );
 			$count = 0;
 			$res = array ();
+            $receiver = $this->db->user->findOne ( array(
+                        'user_name' => $message_receiverrId
+            ) );
 			foreach ( $result as $key => $value ) {
-				$user = $this->db->user->findOne ( array (
-						'user_name' => $value ['message_senderId'] 
-				) );
-				$value ['sender_nickname'] = $user ['user_nickname'];
-				$value ['sender_pic'] = $user ['user_pic'];
-				array_push ( $res, $value );
-				if ($count >= 30) {
-					break;
-				} else {
-					$count ++;
-				}
+                if (in_array ($value ['message_senderId'], $receiver ['user_blocklist'])){
+                }else{
+                    $user = $this->db->user->findOne ( array (
+                            'user_name' => $value ['message_senderId'] 
+                    ) );
+                    $value ['sender_nickname'] = $user ['user_nickname'];
+                    $value ['sender_pic'] = $user ['user_pic'];
+                    array_push ( $res, $value );
+                    if ($count >= 30) {
+                        break;
+                    } else {
+                        $count ++;
+                    }
+                }
 			}
 			return json_encode ( $res );
 		} catch ( Exception $e ) {
