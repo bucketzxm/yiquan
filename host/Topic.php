@@ -365,7 +365,10 @@ class Topic extends YqBase {
 					'topic_ownerName' => $topic_ownerName,
 					'topic_postTime' => array (
 							'$lt' => $time_int 
-					) 
+					),
+                    'topic_networks' => array (
+                            '$ne' => [ ]
+                    )
 			) )->sort ( array (
 					"topic_postTime" => - 1 
 			) )->limit ( 30 );
