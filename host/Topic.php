@@ -545,14 +545,12 @@ class Topic extends YqBase {
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
 		if ($topic_networks == null) {
 			try {
-                $where = array (
-                                '_id' => new MongoID ( $topic_id )
-                                );
-                $param = array (
-                                'topic_networks' => [ ]
-                                );
+                $cursor = $this->db->topic->findOne( array(
+                    '_id' => new MongoID ( $topic_id ))
+                );
+                $cursor ['topic_networks'] => [ ];
                 
-                $this->db->topic->update ( $where, $param );
+                $this->db->topic->save ( $cursor );
 				return 1;
 			} catch ( Exception $e ) {
 				return - 1;
