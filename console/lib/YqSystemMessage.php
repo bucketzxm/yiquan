@@ -14,8 +14,17 @@ class YqSystemMessage extends YqMessage {
 				}
 			}
 			return $con;
+		} else {
+			$m_recivers = explode ( ',', $message_receiverId );
+			$con = 0;
+			for($i = 0; $i < count ( $m_recivers ); $i ++) {
+				if ($this->addMessagev2 ( 'system', $m_recivers [$i], $message_type, $message_title, $message_labels, '', '', $message_detail, $message_webViewHeader, $message_webViewURL )) {
+					$con ++;
+				}
+			}
+			return $con;
 		}
-		return $this->addMessagev2 ( 'system', $message_receiverId, $message_type, $message_title, $message_labels, '', '', $message_detail );
+		return 0;
 	}
 	function getSystemMessage($way, $type = '', $starttime = 0, $endtime) {
 		try {
