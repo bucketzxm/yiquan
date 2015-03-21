@@ -4,7 +4,7 @@ class YqSystemMessageView extends YqSystemMessage {
 	function showMessagetype($name) {
 		echo '<select name="' . $name . '">';
 		echo '<option value="userMessage">userMessage</option>';
-		echo '<option value="webview">webView</option>';
+		echo '<option value="webView">webView</option>';
 		echo '<option value="systemNotice">systemNotice</option>';
 		echo '<option value="invitation">invitation</option>';
 		echo '</select>';
