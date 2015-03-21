@@ -120,7 +120,7 @@ class Message extends YqBase {
                         'user_name' => $message_receiverrId
             ) );
 			foreach ( $result as $key => $value ) {
-                if (in_array ($value ['message_senderId'], $receiver ['user_blocklist'])){
+                if (isset ($receiver ['user_blocklist'][$value ['message_senderId']])){
                 }else{
                     $user = $this->db->user->findOne ( array (
                             'user_name' => $value ['message_senderId'] 
