@@ -977,6 +977,10 @@ class User extends YqBase {
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
 		$res = 'system,';
 		$pt = $this->get_All_erdu_Friends_of_Myfriends_info_by_uname_usearray ( $user_name );
+		$row = $this->db->user->findOne ( array (
+				'user_name' => $user_name 
+		) );
+		$blist = $row ['user_blocklist'];
 		foreach ( $pt as $v ) {
 			$pkt = $this->db->user->findOne ( array (
 					'_id' => new MongoId ( $v ) 
@@ -984,6 +988,8 @@ class User extends YqBase {
 					'_id' => 1,
 					'user_name' => 1 
 			) );
+			if (isset ( $blist [$pkt ['user_name']] ))
+				continue;
 			$res .= $pkt ['user_name'];
 			$res .= ',';
 		}
