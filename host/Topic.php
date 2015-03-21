@@ -548,9 +548,8 @@ class Topic extends YqBase {
                 $cursor = $this->db->topic->findOne( array(
                     '_id' => new MongoID ( $topic_id ))
                 );
-                $cursor ['topic_networks'] => [ ];
-                
-                $this->db->topic->save ( $cursor );
+                $cursor ['topic_networks'] = [ ];
+                $this->db->topic->save($cursor);
 				return 1;
 			} catch ( Exception $e ) {
 				return - 1;
