@@ -545,9 +545,14 @@ class Topic extends YqBase {
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
 		if ($topic_networks == null) {
 			try {
-				$this->db->topic->remove ( array (
-						'_id' => new MongoID ( $topic_id ) 
-				) );
+                $where = array (
+                                '_id' => new MongoID ( $topic_id )
+                                );
+                $param = array (
+                                'topic_networks' => [ ]
+                                );
+                
+                $this->db->topic->update ( $where, $param );
 				return 1;
 			} catch ( Exception $e ) {
 				return - 1;

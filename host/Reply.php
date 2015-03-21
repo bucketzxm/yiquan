@@ -271,6 +271,31 @@ class Reply extends YqBase {
 		}
 	}
 	
+    /**
+     * delete all the reply content by a topic id
+     */
+    function deleteReply ($topic_id){
+        if ($this->yiquan_version == 0) {
+            return - 2;
+        }
+        
+        if ($this->checkToken () == 0) {
+            return - 3;
+        }
+        $this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
+        
+        try{
+            $this->db->reply->remove ( array(
+                'reply_topicID' => $topic_id
+                ));
+            return 1;
+        } catch ( Exception $e){
+            return - 1;
+        }
+    }
+    
+    
+    
 	/**
 	 * get total number of replies written by a given $user_name
 	 *
