@@ -177,16 +177,27 @@ class User extends YqBase {
             return - 4;
         }
         $this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
-        $data = array (
-                "user_name" => $user_name,
-                "getui_clientID" => $getui_clientID
-        );
+        
+        $cursor = $this->db->getuiClientID->findOne ( array ('user_name' => $user_name));
         try {
-            $result = $this->db->getuiClientID->insert ( $data );
-            return 1;
+            if ($cursor == null){
+                $data = array (
+                            "user_name" => $user_name,
+                            "getui_clientID" => $getui_clientID,
+                            "platform" => $this->yiquan_platform
+                );
+                $result = $this->db->getuiClientID->save ( $data );
+                return 1;
+            }else{
+                $cursor ['getui_clientID'] = $getui_clientID;
+                $cursor ['platform'] = $this->yiquan_platform;
+                $this->db->getuiClientID->save ($cursor);
+                return 1;
+            }
         } catch ( Exception $e ){
             return -1;
         }
+        
     }
     
     
