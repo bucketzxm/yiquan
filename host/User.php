@@ -165,7 +165,7 @@ class User extends YqBase {
     /*
      *注册设备
      */
-    function registerDeviceToken ($user_name,$device_token){
+    function registerGetuiClientID ($user_name,$getui_clientID){
         if ($this->yiquan_version == 0) {
             return - 2;
         }
@@ -174,15 +174,15 @@ class User extends YqBase {
             return - 3;
         }
         if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $topic_ownerName) {
-            //return - 4;
+            return - 4;
         }
         $this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
         $data = array {
                 "user_name" => $user_name,
-                "device_token" => $device_token
+                "getui_clientID" => $getui_clientID
         };
         try {
-            $result = $this->db->deviceToken->insert ( $data );
+            $result = $this->db->getuiClientID->insert ( $data );
             return 1;
         } catch ( Exception $e ){
             return -1;
