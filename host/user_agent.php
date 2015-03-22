@@ -28,7 +28,7 @@
  */
 class CI_User_agent {
 	var $platforms = array (
-			'IOS' => 'IOS',
+			'iOS' => 'iOS',
 			'Android' => 'Android',
 			'windows nt 6.2' => 'Win8',
 			'windows nt 6.1' => 'Win7',
