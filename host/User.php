@@ -162,6 +162,35 @@ class User extends YqBase {
 		}
 	}
 	
+    /*
+     *注册设备
+     */
+    function registerDeviceToken ($user_name,$device_token){
+        if ($this->yiquan_version == 0) {
+            return - 2;
+        }
+        
+        if ($this->checkToken () == 0) {
+            return - 3;
+        }
+        if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $topic_ownerName) {
+            //return - 4;
+        }
+        $this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
+        $data = array {
+                "user_name" => $user_name,
+                "device_token" => $device_token
+        };
+        try {
+            $result = $this->db->deviceToken->insert ( $data );
+            return 1;
+        } catch ( Exception $e ){
+            return -1;
+        }
+    }
+    
+    
+    
 	/*
 	 * made by wwq getuserbyname_xml指将指定用户名的用户的所有信息以json方式返回 接受参数为 用户名 返回值 一个xml字符串 soap客户端使用方法 $soap = new SoapClient ( "http://yiquanhost.duapp.com/userclass.wsdl" ); $result2 = $soap->getuserbyname_xml ( 'wang' ); echo $result2 . "<br/>";
 	 */
