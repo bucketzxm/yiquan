@@ -177,10 +177,10 @@ class User extends YqBase {
             return - 4;
         }
         $this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
-        $data = array {
+        $data = array (
                 "user_name" => $user_name,
                 "getui_clientID" => $getui_clientID
-        };
+        );
         try {
             $result = $this->db->getuiClientID->insert ( $data );
             return 1;
