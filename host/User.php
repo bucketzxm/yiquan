@@ -165,7 +165,7 @@ class User extends YqBase {
     /*
      *注册设备
      */
-    function registerGetuiClientID ($user_name,$getui_clientID){
+    function registerGetuiClientID($user_name,$getui_clientID){
         if ($this->yiquan_version == 0) {
             return - 2;
         }
