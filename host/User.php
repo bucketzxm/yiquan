@@ -173,7 +173,7 @@ class User extends YqBase {
         if ($this->checkToken () == 0) {
             return - 3;
         }
-        if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $topic_ownerName) {
+        if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $user_name) {
             return - 4;
         }
         $this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
