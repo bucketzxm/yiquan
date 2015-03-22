@@ -217,16 +217,15 @@ class User extends YqBase {
         $this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
         
         $cursor = $this->db->getuiClientID->findOne ( array ('user_name' => $user_name));
-        try {
-            if ($cursor ！= null){
-                $this->db->getuiClientID->remove ($cursor);
-                return 1;
-            }
-
-        } catch ( Exception $e ){
-            return -1;
-        }
         
+            if ($cursor != null){
+                try {
+                    $this->db->getuiClientID->remove (array ('_id' => $cursor ['_id']));
+                    return 1;
+                } catch ( Exception $e ){
+                    return -1;
+            }
+        }
     }
     
 	/*
