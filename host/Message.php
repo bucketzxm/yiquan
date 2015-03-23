@@ -101,7 +101,7 @@ class Message extends YqBase {
 
                     $platform = $cursor ['platform'];
                     $clientID = $cursor ['getui_clientID'];
-                    $user = $this->db->user->findOne (array('user_name'=>$message_receiverId));
+                    $user = $this->db->user->findOne (array('user_name'=>$message_senderId));
                     $nickname = $user ['user_nickname'];
                     if ($platform == 'iOS'){
                         $this->pushiOSMessage($clientID,$nickname,$message_title);
@@ -136,7 +136,7 @@ class Message extends YqBase {
         ECHO 'Connected to APNS' . PHP_EOL;
         
         $body['aps'] = array (
-            'alert' => $senderName . $message_Title,
+            'alert' => $senderName . ': ' . $message_Title,
             'sound' => 'default'
         );
         
