@@ -103,8 +103,12 @@ class Message extends YqBase {
                     $clientID = $cursor ['getui_clientID'];
                     $user = $this->db->user->findOne (array('user_name'=>$message_senderId));
                     $nickname = $user ['user_nickname'];
+                    $unreadCount = $this->db->message->find (array(
+                                                             'message_receiverId' => $message_receiverId,
+                                                             'message_life' => 1
+                                                                   ))->count ();
                     if ($platform == 'iOS'){
-                        $this->pushiOSMessage($clientID,$nickname,$message_title);
+                        $this->pushiOSMessage($clientID,$nickname,$message_title,$unreadCount);
                     }
                 }
                 
@@ -120,7 +124,7 @@ class Message extends YqBase {
     
     
     //发送新消息通知给相应的人
-    function pushiOSMessage($clientID,$senderName,$message_Title){
+    function pushiOSMessage($clientID,$senderName,$message_Title,$unreadCount){
         
         $ctx = stream_context_create();
         stream_context_set_option($ctx,'ssl','local_cert','yqAPNS.pem');
@@ -134,7 +138,8 @@ class Message extends YqBase {
         
         $body['aps'] = array (
             'alert' => $senderName . ': ' . $message_Title,
-            'sound' => 'default'
+            'sound' => 'default',
+            'badge' => $unreadCount
         );
         
         $payload = json_encode($body);
