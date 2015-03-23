@@ -103,6 +103,8 @@ class Message extends YqBase {
                     if ($platform == 'iOS'){
                         $this->pushiOSMessage($clientID);
                     }
+                }else{
+                    return 5;
                 }
                 
 				//return 1;
