@@ -98,10 +98,13 @@ class Message extends YqBase {
                 
                 $cursor = $this->db->getuiClientID->findOne(array ('user_name' => $message_receiverId));
                 if ($cursor != null) {
+
                     $platform = $cursor ['platform'];
                     $clientID = $cursor ['getui_clientID'];
+                    $user = $this->db->user->findOne (array('user_name'=>$message_receiverId));
+                    $nickname = $user ['user_nickname'];
                     if ($platform == 'iOS'){
-                        $this->pushiOSMessage($clientID);
+                        $this->pushiOSMessage($clientID,$nickname,$message_title);
                     }
                 }else{
                     return 5;
@@ -119,12 +122,12 @@ class Message extends YqBase {
     
     
     //发送新消息通知给相应的人
-    function pushiOSMessage($clientID){
+    function pushiOSMessage($clientID,$senderName,$message_Title){
         
         $ctx = stream_context_create();
         stream_context_set_option($ctx,'ssl','local_cert','yqAPNS.pem');
         stream_context_set_option($ctx,'ssl','passphrase','2015oneto');
-        $fp = stream_socket_client('ssl://gateway.push.apple.com:2195',$err,$errstr,60,STREAM_CLIENT_CONNECT|STREAM_CLIENT_PERSISTENT, $ctx);
+        $fp = stream_socket_client('ssl://gateway.sandbox.push.apple.com:2195',$err,$errstr,60,STREAM_CLIENT_CONNECT|STREAM_CLIENT_PERSISTENT, $ctx);
         
         if (!$fp)
             return 2;
@@ -133,7 +136,7 @@ class Message extends YqBase {
         ECHO 'Connected to APNS' . PHP_EOL;
         
         $body['aps'] = array (
-            'alert' => '今天天气真好',
+            'alert' => $senderName . $message_Title,
             'sound' => 'default'
         );
         
