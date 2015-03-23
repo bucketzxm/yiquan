@@ -106,11 +106,9 @@ class Message extends YqBase {
                     if ($platform == 'iOS'){
                         $this->pushiOSMessage($clientID,$nickname,$message_title);
                     }
-                }else{
-                    return 5;
                 }
                 
-				//return 1;
+				return 1;
 			}
 			else
 				return 0;
@@ -130,8 +128,7 @@ class Message extends YqBase {
         $fp = stream_socket_client('ssl://gateway.sandbox.push.apple.com:2195',$err,$errstr,60,STREAM_CLIENT_CONNECT|STREAM_CLIENT_PERSISTENT, $ctx);
         
         if (!$fp)
-            return 2;
-            //exit("Failed to connect: $err $errstr" . PHP_EOL);
+            exit("Failed to connect: $err $errstr" . PHP_EOL);
         
         ECHO 'Connected to APNS' . PHP_EOL;
         
@@ -149,11 +146,9 @@ class Message extends YqBase {
         $result = fwrite($fp, $msg, strlen($msg));
         
         if (!$result)
-            return 3;
-            //echo 'Message not delivered' . PHP_EOL;
+            echo 'Message not delivered' . PHP_EOL;
         else
-            return 1;
-            //echo 'Message successfully delivered' . PHP_EOL;
+            echo 'Message successfully delivered' . PHP_EOL;
         
         // Close the connection to the server
         fclose($fp);
