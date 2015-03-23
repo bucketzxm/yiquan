@@ -117,7 +117,7 @@ class Message extends YqBase {
     
     
     //发送新消息通知给相应的人
-    function pushiOSMessage（$clientID）{
+    function pushiOSMessage($clientID){
         
         $ctx = stream_context_create();
         stream_context_set_option($ctx,'ssl','local_cert','yqAPNS.pem');
