@@ -126,7 +126,7 @@
 		echo $inviteName;
 		echo "'\"/>";
 	}else{
-		echo "<div class=\"invite\">您可以向您的好友"; echo $_GET['name']; echo"索取一圈的邀请注册资格</div>";
+		echo "<div class=\"invite\">您可以向您的好友"; echo $_GET['name'].$result; echo"索取一圈的邀请注册资格</div>";
 	}
 
 	?>
