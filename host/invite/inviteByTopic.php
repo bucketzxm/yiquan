@@ -85,48 +85,48 @@
 	$inviteName = $_GET['name'];
 	//$invitationCode = 'mlq6k1';
 
-	$ch = curl_init();
-	$data_in = "<?xml version=\"1.0\" encoding=\"utf-8\"?><soap:Envelope xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\"> <soap:Body><checkInvitation><invcode>".$invitationCode."</invcode></checkInvitation></soap:Body></soap:Envelope>";
+	$ch2 = curl_init();
+	$data_in2 = "<?xml version=\"1.0\" encoding=\"utf-8\"?><soap:Envelope xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\"> <soap:Body><checkInvitation><invcode>".$invitationCode."</invcode></checkInvitation></soap:Body></soap:Envelope>";
 	
 	$headers['User-Agent'] = 'YiQuan/0.1.0 iOS/8.1\r\n';
 	//$headers['SOAPAction'] = 'urn:User#User#reg\r\n';
-	$headers['Host'] = 'yiquanhost.oneto-tech.com
-';
+	$headers['Host'] = 'yiquanhost.oneto-tech.com';
 	$headers['Content-Type']= 'text/xml; charset=utf-8';
 	
 	$headerArr = array(); 
 	foreach( $headers as $n => $v ) {
     	$headerArr[] = $n .':' . $v;
 	}
+	//echo $data_in2;
 
-	curl_setopt($ch, CURLOPT_URL, "http://yiquanhost.oneto-tech.com/User_server.php");
+	curl_setopt($ch2, CURLOPT_URL, "http://yiquanhost.oneto-tech.com/User_server.php");
 	//curl_setopt($curl, CURLOPT_USERAGENT, 'YiQuan/0.1.0 iOS/8.1'); 
-	curl_setopt($ch, CURLOPT_POST, 1);
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-	curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 300);
-	curl_setopt($ch, CURLOPT_POSTFIELDS, $data_in);
-	curl_setopt ($ch, CURLOPT_HTTPHEADER , $headerArr);
-	$data = curl_exec($ch);
-	curl_close($ch);
+	curl_setopt($ch2, CURLOPT_POST, 1);
+	curl_setopt($ch2, CURLOPT_RETURNTRANSFER, 1);
+	curl_setopt($ch2, CURLOPT_CONNECTTIMEOUT, 300);
+	curl_setopt($ch2, CURLOPT_POSTFIELDS, $data_in2);
+	curl_setopt ($ch2, CURLOPT_HTTPHEADER , $headerArr);
+	$data2 = curl_exec($ch2);
+	curl_close($ch2);
 
-	$data = (string) $data;
-	//echo $data;
+	$data2 = (string) $data2;
+	//echo $data2;
 
-	$pos = strpos($data,"</checkInvitation>");
-	$result = substr($data, $pos-1, 1); 
+	$pos2 = strpos($data2,"</checkInvitation>");
+	$result2 = substr($data2, $pos2-1, 1); 
 	//result = 1时为有邀请
-	//echo $result;
+	//echo $result2;
 	
-	if ($result == '1'){
+	if ($result2 == '1'){
 		echo "<div class=\"invite\">您被  "; echo $_GET['name']; echo"  邀请加入一圈</div>";
 		
-		echo "<input type=\"button\" class=\"transport\" value=\"注册\" onclick=\"window.location.href='reg.php?invitationCode=";
+		echo "<div class=\"transportClass\"><input type=\"button\" class=\"transport\" value=\"注册\" onclick=\"window.location.href='reg.php?invitationCode=";
 		echo $invitationCode;
 		echo "&name=";
 		echo $inviteName;
-		echo "'\"/>";
+		echo "'\"/></div>";
 	}else{
-		echo "<div class=\"invite\">您可以向您的好友"; echo $_GET['name'].$result; echo"索取一圈的邀请注册资格</div>";
+		echo "<div class=\"invite\">您可以向您的好友"; echo $_GET['name']; echo"索取一圈的邀请注册资格</div>";
 	}
 
 	?>
