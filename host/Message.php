@@ -1,8 +1,8 @@
 <?php
 require_once 'YqBase.php';
-require_once 'getui/IGt.Push.php');
-require_once 'getui/igetui/IGt.AppMessage.php');
-require_once 'getui/igetui/template/IGt.BaseTemplate.php');
+require_once 'getui/IGt.Push.php';
+require_once 'getui/igetui/IGt.AppMessage.php';
+require_once 'getui/igetui/template/IGt.BaseTemplate.php';
     
 define('APPKEY','Fswp6NteiyAgshqIjY4UTA');
 define('APPID','ksCvaUMV9D7rhBA1vMydXA');
