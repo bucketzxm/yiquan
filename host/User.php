@@ -1,5 +1,7 @@
 <?php
 require_once 'YqBase.php';
+use Qiniu\Auth;
+use Qiniu\Storage\UploadManager;
 
 /* Report all errors except E_NOTICE */
 // error_reporting ( E_ALL & ~ E_NOTICE );
@@ -59,7 +61,9 @@ class User extends YqBase {
 					'user_state' => 1,
 					'user_regdate' => new MongoDate (),
 					'user_privilege' => 0,
-					'user_exp' => 0 
+					'user_exp' => 0,
+					'user_smallavatar' => '',
+					'user_bigavatar' => '' 
 			);
 			$this->db->user->save ( $neo );
 			
@@ -162,72 +166,77 @@ class User extends YqBase {
 		}
 	}
 	
-    /*
-     *注册设备
-     */
-    function registerGetuiClientID($user_name,$getui_clientID){
-        if ($this->yiquan_version == 0) {
-            return - 2;
-        }
-        
-        if ($this->checkToken () == 0) {
-            return - 3;
-        }
-        if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $user_name) {
-            return - 4;
-        }
-        $this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
-        
-        $cursor = $this->db->getuiClientID->findOne ( array ('user_name' => $user_name));
-        try {
-            if ($cursor == null){
-                $data = array (
-                            "user_name" => $user_name,
-                            "getui_clientID" => $getui_clientID,
-                            "platform" => $this->yiquan_platform
-                );
-                $result = $this->db->getuiClientID->save ( $data );
-                return 1;
-            }else{
-                $cursor ['getui_clientID'] = $getui_clientID;
-                $cursor ['platform'] = $this->yiquan_platform;
-                $this->db->getuiClientID->save ($cursor);
-                return 1;
-            }
-        } catch ( Exception $e ){
-            return -1;
-        }
-        
-    }
-    
-    /*
-     *注销设备
-     */
-    function removeGetuiClientID($user_name){
-        if ($this->yiquan_version == 0) {
-            return - 2;
-        }
-        
-        if ($this->checkToken () == 0) {
-            return - 3;
-        }
-        if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $user_name) {
-            return - 4;
-        }
-        $this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
-        
-        $cursor = $this->db->getuiClientID->findOne ( array ('user_name' => $user_name));
-        
-            if ($cursor != null){
-                try {
-                    $this->db->getuiClientID->remove (array ('_id' => $cursor ['_id']));
-                    return 1;
-                } catch ( Exception $e ){
-                    return -1;
-            }
-        }
-    }
-    
+	/*
+	 * 注册设备
+	 */
+	function registerGetuiClientID($user_name, $getui_clientID) {
+		if ($this->yiquan_version == 0) {
+			return - 2;
+		}
+		
+		if ($this->checkToken () == 0) {
+			return - 3;
+		}
+		if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $user_name) {
+			return - 4;
+		}
+		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
+		
+		$cursor = $this->db->getuiClientID->findOne ( array (
+				'user_name' => $user_name 
+		) );
+		try {
+			if ($cursor == null) {
+				$data = array (
+						"user_name" => $user_name,
+						"getui_clientID" => $getui_clientID,
+						"platform" => $this->yiquan_platform 
+				);
+				$result = $this->db->getuiClientID->save ( $data );
+				return 1;
+			} else {
+				$cursor ['getui_clientID'] = $getui_clientID;
+				$cursor ['platform'] = $this->yiquan_platform;
+				$this->db->getuiClientID->save ( $cursor );
+				return 1;
+			}
+		} catch ( Exception $e ) {
+			return - 1;
+		}
+	}
+	
+	/*
+	 * 注销设备
+	 */
+	function removeGetuiClientID($user_name) {
+		if ($this->yiquan_version == 0) {
+			return - 2;
+		}
+		
+		if ($this->checkToken () == 0) {
+			return - 3;
+		}
+		if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $user_name) {
+			return - 4;
+		}
+		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
+		
+		$cursor = $this->db->getuiClientID->findOne ( array (
+				'user_name' => $user_name 
+		) );
+		
+		if ($cursor != null) {
+			try {
+				$this->db->getuiClientID->remove ( array (
+						'_id' => $cursor ['_id'] 
+				) );
+				return 1;
+			} catch ( Exception $e ) {
+				return - 1;
+			}
+		}
+	}
+	
 	/*
 	 * made by wwq getuserbyname_xml指将指定用户名的用户的所有信息以json方式返回 接受参数为 用户名 返回值 一个xml字符串 soap客户端使用方法 $soap = new SoapClient ( "http://yiquanhost.duapp.com/userclass.wsdl" ); $result2 = $soap->getuserbyname_xml ( 'wang' ); echo $result2 . "<br/>";
 	 */
@@ -241,9 +250,19 @@ class User extends YqBase {
 		}
 		
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
-		$ans = $this->db->user->findOne ( array (
-				'user_name' => "$user_name" 
-		) );
+		
+		if ($this->yiquan_version == '0.1.0') {
+			$ans = $this->db->user->findOne ( array (
+					'user_name' => "$user_name" 
+			) );
+		} else {
+			$ans = $this->db->user->findOne ( array (
+					'user_name' => "$user_name" 
+			), array (
+					'user_pic' => false 
+			) );
+		}
+		
 		if ($ans == null)
 			return 2;
 		$t = $ans ['_id'];
@@ -296,9 +315,18 @@ class User extends YqBase {
 			return - 3;
 		}
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
-		$ans = $this->db->user->findOne ( array (
-				'user_mobile' => "$user_mobile" 
-		) );
+		
+		if ($this->yiquan_version == '0.1.0') {
+			$ans = $this->db->user->findOne ( array (
+					'user_mobile' => "$user_mobile" 
+			) );
+		} else {
+			$ans = $this->db->user->findOne ( array (
+					'user_mobile' => "$user_mobile" 
+			), array (
+					'user_pic' => false 
+			) );
+		}
 		if ($ans == null)
 			return 4;
 		$t = $ans ['_id'];
@@ -332,9 +360,18 @@ class User extends YqBase {
 			return - 3;
 		}
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
-		$ans = $this->db->user->findOne ( array (
-				'_id' => new MongoId ( $user_id ) 
-		) );
+		
+		if ($this->yiquan_version == '0.1.0') {
+			$ans = $this->db->user->findOne ( array (
+					'_id' => new MongoId ( $user_id ) 
+			) );
+		} else {
+			$ans = $this->db->user->findOne ( array (
+					'_id' => new MongoId ( $user_id ) 
+			), array (
+					'user_pic' => false 
+			) );
+		}
 		
 		if ($ans == null)
 			return 4;
@@ -1185,37 +1222,101 @@ class User extends YqBase {
 			// return - 4;
 		}
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
+		
 		$row = $this->db->user->findOne ( array (
 				'user_name' => $user_name 
 		) );
 		if ($row == null)
 			return 2;
-		$rawpic = base64_decode ( $data );
-		$bucket = 'yiquan';
-		$object = '/userPics/' . $row ['_id'];
-		// echo $object;
-		$baiduBCS = new BaiduBCS ( $this->ak, $this->sk, $this->bcs_host );
-		$response = $baiduBCS->create_object_by_content ( $bucket, $object, $rawpic );
-		if (! $response->isOK ()) {
-			return 3; // bcs error
-		}
-		
-		$im = new Imagick ();
-		$im->readImageBlob ( $rawpic );
-		$geo = $im->getImageGeometry ();
-		$w = $geo ['width'];
-		$h = $geo ['height'];
-		$maxWidth = $maxHeight = 160;
-		$fitbyWidth = (($maxWidth / $w) < ($maxHeight / $h)) ? true : false;
-		
-		if ($fitbyWidth) {
-			$im->thumbnailImage ( $maxWidth, 0, false );
+		if ($this->yiquan_version == '0.1.0') {
+			$rawpic = base64_decode ( $data );
+			// save big to bcs also
+			$bucket = 'yiquan';
+			$object = '/userPics/' . $row ['_id'];
+			// echo $object;
+			$baiduBCS = new BaiduBCS ( $this->ak, $this->sk, $this->bcs_host );
+			$response = $baiduBCS->create_object_by_content ( $bucket, $object, $rawpic );
+			if (! $response->isOK ()) {
+				return 3; // bcs error
+			}
+			// save big to qiniu
+			$auth = new Auth ( $this->qiniuAK, $this->qiniuSK );
+			$bucket = 'yiquanhost-avatar';
+			$token = $auth->uploadToken ( $bucket );
+			$uploadMgr = new UploadManager ();
+			$fnamebig = $row ['user_name'] . '_big';
+			list ( $ret, $err ) = $uploadMgr->put ( $token, md5 ( $fnamebig ), $rawpic );
+			if ($err !== null) {
+				return json_encode ( $err );
+			}
+			
+			$row ['user_bigavatar'] = $this->userpicbucketUrl . '/' . $ret ['key'];
+			
+			// save small to mongo db
+			$im = new Imagick ();
+			$im->readImageBlob ( $rawpic );
+			$geo = $im->getImageGeometry ();
+			$w = $geo ['width'];
+			$h = $geo ['height'];
+			$maxWidth = $maxHeight = 160;
+			$fitbyWidth = (($maxWidth / $w) < ($maxHeight / $h)) ? true : false;
+			
+			if ($fitbyWidth) {
+				$im->thumbnailImage ( $maxWidth, 0, false );
+			} else {
+				$im->thumbnailImage ( 0, $maxHeight, false );
+			}
+			$row ['user_pic'] = base64_encode ( $im );
+			
+			// save small to qiniu
+			$fnamesmall = $row ['user_name'] . '_small';
+			list ( $ret, $err ) = $uploadMgr->put ( $token, md5 ( $fnamesmall ), $im );
+			if ($err !== null) {
+				return json_encode ( $err );
+			}
+			
+			$row ['user_smallavatar'] = $this->userpicbucketUrl . '/' . $ret ['key'];
+			
+			$this->db->user->save ( $row );
+			return 1;
 		} else {
-			$im->thumbnailImage ( 0, $maxHeight, false );
+			$rawpic = base64_decode ( $data );
+			$auth = new Auth ( $this->qiniuAK, $this->qiniuSK );
+			$bucket = 'yiquanhost-avatar';
+			$token = $auth->uploadToken ( $bucket );
+			$uploadMgr = new UploadManager ();
+			$fnamebig = $row ['user_name'] . '_big';
+			list ( $ret, $err ) = $uploadMgr->put ( $token, md5 ( $fnamebig ), $rawpic );
+			if ($err !== null) {
+				return json_encode ( $err );
+			}
+			
+			$row ['user_bigavatar'] = $this->userpicbucketUrl . '/' . $ret ['key'];
+			
+			$im = new Imagick ();
+			$im->readImageBlob ( $rawpic );
+			$geo = $im->getImageGeometry ();
+			$w = $geo ['width'];
+			$h = $geo ['height'];
+			$maxWidth = $maxHeight = 160;
+			$fitbyWidth = (($maxWidth / $w) < ($maxHeight / $h)) ? true : false;
+			
+			if ($fitbyWidth) {
+				$im->thumbnailImage ( $maxWidth, 0, false );
+			} else {
+				$im->thumbnailImage ( 0, $maxHeight, false );
+			}
+			
+			$fnamesmall = $row ['user_name'] . '_small';
+			list ( $ret, $err ) = $uploadMgr->put ( $token, md5 ( $fnamesmall ), $im );
+			if ($err !== null) {
+				return json_encode ( $err );
+			}
+			
+			$row ['user_smallavatar'] = $this->userpicbucketUrl . '/' . $ret ['key'];
+			$this->db->user->save ( $row );
+			return 1;
 		}
-		$row ['user_pic'] = base64_encode ( $im );
-		$this->db->user->save ( $row );
-		return 1;
 	}
 	
 	/* 根据用户名返回原始图片 base64编码 */
@@ -1236,21 +1337,24 @@ class User extends YqBase {
 		
 		if ($row == null)
 			return 2;
+		
+		if ($this->yiquan_version == '0.1.0') {
+			$bucket = 'yiquan';
 			
-			// return $row ['user_pic'];
-		$bucket = 'yiquan';
-		
-		$object = '/userPics/' . $row ['_id'];
-		
-		$baiduBCS = new BaiduBCS ( $this->ak, $this->sk, $this->bcs_host );
-		
-		$response = $baiduBCS->get_object ( $bucket, $object );
-		// var_dump($response);
-		if (! $response->isOK ()) {
-			return null;
+			$object = '/userPics/' . $row ['_id'];
+			
+			$baiduBCS = new BaiduBCS ( $this->ak, $this->sk, $this->bcs_host );
+			
+			$response = $baiduBCS->get_object ( $bucket, $object );
+			// var_dump($response);
+			if (! $response->isOK ()) {
+				return null;
+			}
+			// echo $response->body;
+			return base64_encode ( $response->body );
+		} else {
+			return $row ['user_bigavatar'];
 		}
-		// echo $response->body;
-		return base64_encode ( $response->body );
 	}
 	function deleteFriendByName($user_nameA, $user_nameB) {
 		if ($this->yiquan_version == 0) {
@@ -1679,6 +1783,10 @@ class User extends YqBase {
 				$doc ['user_blocklist'] = [ ];
 			}
 			
+			if (! isset ( $doc ['user_blockTopic'] )) {
+				$doc ['user_blockTopic'] = [ ];
+			}
+			
 			if (! isset ( $doc ['user_regdate'] )) {
 				$doc ['user_regdate'] = new MongoDate ();
 			}
@@ -1691,8 +1799,12 @@ class User extends YqBase {
 				$doc ['user_privilege'] = 0;
 			}
 			
-			if (! isset ( $doc ['user_blockTopic'] )) {
-				$doc ['user_blockTopic'] = [ ];
+			if (! isset ( $doc ['user_smallavatar'] )) {
+				$doc ['user_smallavatar'] = '';
+			}
+			
+			if (! isset ( $doc ['user_bigavatar'] )) {
+				$doc ['user_bigavatar'] = '';
 			}
 			
 			$this->db->user->save ( $doc );
@@ -1739,11 +1851,11 @@ class User extends YqBase {
 				return - 3;
 			}
 			$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
-            $row = $this->db->user->findOne ( array (
-                                                     'user_name' => $user_name
-                                                     ) );
-            
-            $row ['user_blocklist'] [$block_name] = $block_name;
+			$row = $this->db->user->findOne ( array (
+					'user_name' => $user_name 
+			) );
+			
+			$row ['user_blocklist'] [$block_name] = $block_name;
 			$this->db->user->save ( $row );
 			return 1;
 		} catch ( Exception $e ) {
@@ -1759,9 +1871,9 @@ class User extends YqBase {
 				return - 3;
 			}
 			$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
-            $row = $this->db->user->findOne ( array (
-                                                     'user_name' => $user_name
-                                                     ) );
+			$row = $this->db->user->findOne ( array (
+					'user_name' => $user_name 
+			) );
 			
 			if (isset ( $row ['user_blocklist'] [$unblock_name] )) {
 				unset ( $row ['user_blocklist'] [$unblock_name] );
