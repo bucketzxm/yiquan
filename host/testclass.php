@@ -3,21 +3,23 @@ include_once 'user_agent.php';
 include_once 'YqBase.php';
 use Qiniu\Auth;
 use Qiniu\Storage\UploadManager;
-class testclass extends YqBase{
+use Qiniu\Storage\BucketManager;
+class testclass extends YqBase {
 	/**
 	 *
 	 * @return string
 	 */
 	function show() {
-		return 'hello world!';
+		$str = "Hello";
+		echo md5 ( $str );
 	}
 	function showapp() {
 		$auth = new Auth ( $this->qiniuAK, $this->qiniuSK );
 		$bucket = 'yiquanhost-avatar';
 		$token = $auth->uploadToken ( $bucket );
 		$uploadMgr = new UploadManager ();
-		
-		list ( $ret, $err ) = $uploadMgr->putfile ( $token, null, 'a.jpg' );
+		$data = file_get_contents ( 'a.jpg' );
+		list ( $ret, $err ) = $uploadMgr->put ( $token, md5 ( 'bk2.jpg' ), $data );
 		echo "\n====> put result: \n";
 		if ($err !== null) {
 			var_dump ( $err );
@@ -59,6 +61,6 @@ class testclass extends YqBase{
 		return '软件名：' . $ua->platform () . '系统：' . $ua->browser () . '软件版本：' . $ua->version () . '系统版本：' . $ua->platform_version ();
 	}
 }
-$a = new testclass ();
-$a->showapp ();
+// $a = new testclass ();
+// $a->showapp ();
 ?>

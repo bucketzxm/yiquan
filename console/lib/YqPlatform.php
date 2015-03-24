@@ -1,10 +1,40 @@
 <?php
 require_once 'YqBase.php';
-
+use Qiniu\Auth;
+use Qiniu\Storage\UploadManager;
+use Qiniu\Storage\BucketManager;
 /* Report all errors except E_NOTICE */
 // error_reporting ( E_ALL & ~ E_NOTICE );
 class YqPlatform extends YqBase {
 	protected $bcs_host = 'bcs.duapp.com';
+	function uploadSmallPicForUser(&$arr) {
+		$auth = new Auth ( $this->qiniuAK, $this->qiniuSK );
+		$bucket = 'yiquanhost-avatar';
+		$token = $auth->uploadToken ( $bucket );
+		$uploadMgr = new UploadManager ();
+		if (isset ( $arr ['user_pic'] )) {
+			$fnamesmall = $arr ['user_name'] . '_small';
+			list ( $ret, $err ) = $uploadMgr->put ( $token, md5 ( $fnamesmall ), base64_decode ( $arr ['user_pic'] ) );
+			if ($err === null) {
+				$arr ['user_smallavatar'] = $this->userpicbucketUrl . '/' . $ret ['key'];
+			}
+		}
+		
+		$bucket = 'yiquan';
+		$object = '/userPics/' . $arr ['_id'];
+		$baiduBCS = new BaiduBCS ( $this->ak, $this->sk, $this->bcs_host );
+		
+		$response = $baiduBCS->get_object ( $bucket, $object );
+		// var_dump($response);
+		if ($response->isOK ()) {
+			$fnamebig = $arr ['user_name'] . '_big';
+			list ( $ret, $err ) = $uploadMgr->put ( $token, md5 ( $fnamebig ), $response->body );
+			if ($err === null) {
+				$arr ['user_bigavatar'] = $this->userpicbucketUrl . '/' . $ret ['key'];
+			}
+		}
+		// echo $response->body;
+	}
 	function platformWeihu() {
 		$cus = $this->db->user->find ();
 		
@@ -25,10 +55,10 @@ class YqPlatform extends YqBase {
 				$doc ['user_blocklist'] = [ ];
 			}
 			
-            if (! isset ( $doc ['user_blockTopic'] )) {
-                $doc ['user_blockTopic'] = [ ];
-            }
-            
+			if (! isset ( $doc ['user_blockTopic'] )) {
+				$doc ['user_blockTopic'] = [ ];
+			}
+			
 			if (! isset ( $doc ['user_regdate'] )) {
 				$doc ['user_regdate'] = new MongoDate ();
 			}
@@ -40,6 +70,17 @@ class YqPlatform extends YqBase {
 			if (! isset ( $doc ['user_privilege'] )) {
 				$doc ['user_privilege'] = 0;
 			}
+			
+			if (! isset ( $doc ['user_smallavatar'] )) {
+				$doc ['user_smallavatar'] = '';
+			}
+			
+			if (! isset ( $doc ['user_bigavatar'] )) {
+				$doc ['user_bigavatar'] = '';
+			}
+			
+			$this->uploadSmallPicForUser ( $doc );
+			
 			$this->db->user->save ( $doc );
 			
 			$t = $doc ['_id'];
