@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 session_start ();
 // error_reporting ( E_ALL );
 // ini_set ( 'display_errors', '1' );
@@ -10,13 +10,15 @@ session_start ();
 $soap = new SoapClient ( "http://yiquanhost.oneto-tech.com/User.wsdl", array (
 		'user_agent' => 'YiQuan/0.1.0 Android/4.0.3' 
 ) );
-var_dump($soap);
+//var_dump ( $soap );
+$soap->loginByUser ( 'abc33', '111' );
+$file = 'a.jpg';
+$st = base64_encode ( file_get_contents ( $file ) );
+echo $st;
 
-$file='a.jpg';
-//$st=base64_encode(file_get_contents($file));
-//echo $st;
-$res = $soap->reg('abc33','111','111');
-var_dump($res);
+$res = $soap->updateUserpicByUsername ( $st, 'abc33' );
+// $res = $soap->reg('abc33','111','111');
+var_dump ( $res );
 echo $res;
 
 // $soap = new SoapClient ( "http://yiquanhost.duapp.com/Topic.wsdl", array (
