@@ -13,11 +13,11 @@ class testclass extends YqBase{
 	}
 	function showapp() {
 		$auth = new Auth ( $this->qiniuAK, $this->qiniuSK );
-		$bucket = 'phpsdk';
+		$bucket = 'yiquanhost-avatar';
 		$token = $auth->uploadToken ( $bucket );
 		$uploadMgr = new UploadManager ();
 		
-		list ( $ret, $err ) = $uploadMgr->put ( $token, null, 'content string' );
+		list ( $ret, $err ) = $uploadMgr->putfile ( $token, null, 'a.jpg' );
 		echo "\n====> put result: \n";
 		if ($err !== null) {
 			var_dump ( $err );

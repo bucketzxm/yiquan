@@ -20,7 +20,6 @@ require_once 'Qiniu/Config.php';
 require_once 'Qiniu/Etag.php';
 require_once 'Qiniu/functions.php';
 
-
 /* Report all errors except E_NOTICE */
 // error_reporting ( E_ALL & ~ E_NOTICE );
 class YqBase {
@@ -37,8 +36,9 @@ class YqBase {
 	protected $dbname = 'yiquan';
 	protected $yiquan_version = 0;
 	protected $yiquan_platform = 'unknown';
-	protected $qiniuAK='brOfo9rKPPpkaDy9JCyTqNwRWR8wDsgwTrEezgHz';
-	protected $qiniuSK='Tb41FAE5cPiZI_hNIxhh8auO1g_Pfd693Tk6yGQL';
+	protected $qiniuAK = 'brOfo9rKPPpkaDy9JCyTqNwRWR8wDsgwTrEezgHz';
+	protected $qiniuSK = 'Tb41FAE5cPiZI_hNIxhh8auO1g_Pfd693Tk6yGQL';
+	protected $userpicbucketUrl = '7xi71p.com1.z0.glb.clouddn.com';
 	/*
 	 * made by wwq 构造函数 疯狂连接与认证 实属无奈
 	 */
@@ -55,7 +55,7 @@ class YqBase {
 			} catch ( Exception $e ) {
 				writeLog ( 'Exceptions', 'ex1 happened' );
 			}
-			sleep(1);
+			sleep ( 1 );
 			self::$yidb = connectDbTwo ( $this->user, $this->pwd, $this->dbname );
 		}
 		while ( 1 ) {
@@ -78,7 +78,7 @@ class YqBase {
 	 * made by wwq 析构函数 顺便关闭连接 mongo的无奈
 	 */
 	function __destruct() {
-		//self::$yidb->close ();
+		// self::$yidb->close ();
 	}
 	function checkagent() {
 		$user_agent = $_SERVER ['HTTP_USER_AGENT'];
