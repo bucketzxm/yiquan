@@ -10,10 +10,10 @@ class YqPlatform extends YqBase {
 	function uploadSmallPicForUser(&$arr) {
 		$auth = new Auth ( $this->qiniuAK, $this->qiniuSK );
 		$bucket = 'yiquanhost-avatar';
-		$token = $auth->uploadToken ( $bucket );
 		$uploadMgr = new UploadManager ();
 		if (isset ( $arr ['user_pic'] )) {
 			$fnamesmall = $arr ['user_name'] . '_small';
+			$token = $auth->uploadToken ( $bucket, md5 ( $fnamesmall ) );
 			list ( $ret, $err ) = $uploadMgr->put ( $token, md5 ( $fnamesmall ), base64_decode ( $arr ['user_pic'] ) );
 			if ($err === null) {
 				$arr ['user_smallavatar'] = $this->userpicbucketUrl . '/' . $ret ['key'];
@@ -28,6 +28,7 @@ class YqPlatform extends YqBase {
 		// var_dump($response);
 		if ($response->isOK ()) {
 			$fnamebig = $arr ['user_name'] . '_big';
+			$token = $auth->uploadToken ( $bucket, md5 ( $fnamebig ) );
 			list ( $ret, $err ) = $uploadMgr->put ( $token, md5 ( $fnamebig ), $response->body );
 			if ($err === null) {
 				$arr ['user_bigavatar'] = $this->userpicbucketUrl . '/' . $ret ['key'];

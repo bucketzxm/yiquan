@@ -1242,9 +1242,9 @@ class User extends YqBase {
 			// save big to qiniu
 			$auth = new Auth ( $this->qiniuAK, $this->qiniuSK );
 			$bucket = 'yiquanhost-avatar';
-			$token = $auth->uploadToken ( $bucket );
 			$uploadMgr = new UploadManager ();
 			$fnamebig = $row ['user_name'] . '_big';
+			$token = $auth->uploadToken ( $bucket,md5 ( $fnamebig ) );
 			list ( $ret, $err ) = $uploadMgr->put ( $token, md5 ( $fnamebig ), $rawpic );
 			if ($err !== null) {
 				return json_encode ( $err );
@@ -1270,6 +1270,7 @@ class User extends YqBase {
 			
 			// save small to qiniu
 			$fnamesmall = $row ['user_name'] . '_small';
+			$token = $auth->uploadToken ( $bucket,md5 ( $fnamesmall ) );
 			list ( $ret, $err ) = $uploadMgr->put ( $token, md5 ( $fnamesmall ), $im );
 			if ($err !== null) {
 				return json_encode ( $err );
@@ -1283,9 +1284,9 @@ class User extends YqBase {
 			$rawpic = base64_decode ( $data );
 			$auth = new Auth ( $this->qiniuAK, $this->qiniuSK );
 			$bucket = 'yiquanhost-avatar';
-			$token = $auth->uploadToken ( $bucket );
 			$uploadMgr = new UploadManager ();
 			$fnamebig = $row ['user_name'] . '_big';
+			$token = $auth->uploadToken ( $bucket,md5 ( $fnamebig ) );
 			list ( $ret, $err ) = $uploadMgr->put ( $token, md5 ( $fnamebig ), $rawpic );
 			if ($err !== null) {
 				return json_encode ( $err );
@@ -1308,6 +1309,7 @@ class User extends YqBase {
 			}
 			
 			$fnamesmall = $row ['user_name'] . '_small';
+			$token = $auth->uploadToken ( $bucket,md5 ( $fnamesmall ) );
 			list ( $ret, $err ) = $uploadMgr->put ( $token, md5 ( $fnamesmall ), $im );
 			if ($err !== null) {
 				return json_encode ( $err );
