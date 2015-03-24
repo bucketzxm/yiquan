@@ -5,20 +5,20 @@ require_once 'bcs.class.php';
 require_once 'Topic.php';
 require_once 'Message.php';
 require_once 'Reply.php';
-require_once '/Qiniu/Http/Request.php';
-require_once '/Qiniu/Http/Client.php';
-require_once '/Qiniu/Http/Error.php';
-require_once '/Qiniu/Http/Response.php';
-require_once '/Qiniu/Processing/Operation.php';
-require_once '/Qiniu/Processing/PersistentFop.php';
-require_once '/Qiniu/Storage/BucketManager.php';
-require_once '/Qiniu/Storage/FormUploader.php';
-require_once '/Qiniu/Storage/ResumeUploader.php';
-require_once '/Qiniu/Storage/UploadManager.php';
-require_once '/Qiniu/Auth.php';
-require_once '/Qiniu/Config.php';
-require_once '/Qiniu/Etag.php';
-require_once '/Qiniu/functions.php';
+require_once 'Qiniu/Http/Request.php';
+require_once 'Qiniu/Http/Client.php';
+require_once 'Qiniu/Http/Error.php';
+require_once 'Qiniu/Http/Response.php';
+require_once 'Qiniu/Processing/Operation.php';
+require_once 'Qiniu/Processing/PersistentFop.php';
+require_once 'Qiniu/Storage/BucketManager.php';
+require_once 'Qiniu/Storage/FormUploader.php';
+require_once 'Qiniu/Storage/ResumeUploader.php';
+require_once 'Qiniu/Storage/UploadManager.php';
+require_once 'Qiniu/Auth.php';
+require_once 'Qiniu/Config.php';
+require_once 'Qiniu/Etag.php';
+require_once 'Qiniu/functions.php';
 
 
 /* Report all errors except E_NOTICE */
