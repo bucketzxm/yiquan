@@ -5,6 +5,20 @@ require_once 'bcs.class.php';
 require_once 'Topic.php';
 require_once 'Message.php';
 require_once 'Reply.php';
+require_once 'Qiniu/Http/Request.php';
+require_once 'Qiniu/Http/Client.php';
+require_once 'Qiniu/Http/Error.php';
+require_once 'Qiniu/Http/Response.php';
+require_once 'Qiniu/Processing/Operation.php';
+require_once 'Qiniu/Processing/PersistentFop.php';
+require_once 'Qiniu/Storage/BucketManager.php';
+require_once 'Qiniu/Storage/FormUploader.php';
+require_once 'Qiniu/Storage/ResumeUploader.php';
+require_once 'Qiniu/Storage/UploadManager.php';
+require_once 'Qiniu/Auth.php';
+require_once 'Qiniu/Config.php';
+require_once 'Qiniu/Etag.php';
+require_once 'Qiniu/functions.php';
 
 /* Report all errors except E_NOTICE */
 // error_reporting ( E_ALL & ~ E_NOTICE );
@@ -22,6 +36,9 @@ class YqBase {
 	protected $dbname = 'yiquan';
 	protected $yiquan_version = 0;
 	protected $yiquan_platform = 'unknown';
+	protected $qiniuAK = 'brOfo9rKPPpkaDy9JCyTqNwRWR8wDsgwTrEezgHz';
+	protected $qiniuSK = 'Tb41FAE5cPiZI_hNIxhh8auO1g_Pfd693Tk6yGQL';
+	protected $userpicbucketUrl = '7xi71p.com1.z0.glb.clouddn.com';
 	/*
 	 * made by wwq 构造函数 疯狂连接与认证 实属无奈
 	 */
@@ -38,7 +55,7 @@ class YqBase {
 			} catch ( Exception $e ) {
 				writeLog ( 'Exceptions', 'ex1 happened' );
 			}
-			sleep(1);
+			sleep ( 1 );
 			self::$yidb = connectDbTwo ( $this->user, $this->pwd, $this->dbname );
 		}
 		while ( 1 ) {
@@ -61,7 +78,7 @@ class YqBase {
 	 * made by wwq 析构函数 顺便关闭连接 mongo的无奈
 	 */
 	function __destruct() {
-		//self::$yidb->close ();
+		// self::$yidb->close ();
 	}
 	function checkagent() {
 		$user_agent = $_SERVER ['HTTP_USER_AGENT'];
