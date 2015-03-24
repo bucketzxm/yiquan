@@ -310,10 +310,12 @@
 
 
  $(function() {
-    $('.scrollto, .gototop').bind('click',function(event){
+    $('.scrollto').bind('click',function(event){
 		 var $anchor = $(this);
+		 //alert($anchor.offset().top);
 		 $('html, body').stop().animate({
-         scrollTop: $($anchor.attr('href')).offset().top
+
+         scrollTop: $anchor.offset().top + 190
           }, 1500,'easeInOutExpo');
      event.preventDefault();
       });
