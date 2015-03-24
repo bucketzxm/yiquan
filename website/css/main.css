@@ -104,7 +104,7 @@ a:hover,a:focus{color:#5173bd;}
 	}
 .breath{margin:50px auto;}
 
-.highlight{background:#f4f4f4;margin-top:40px;}
+.highlight{background:#f4f4f4;}
 
 .masthead{
 	position:relative;
@@ -407,6 +407,21 @@ to {
 	-ms-transform:scale(1.05);
 	transform:scale(1.05);
 	z-index:2;
+}
+.userbg{
+	position:relative;
+	padding-top: 300px;
+	padding-bottom: 300px;
+	color:#FFF;
+	text-align:center;
+	text-shadow:0 2px 0 rgba(0,0,0,0.5);
+	background-image:url("../images/userback.png");
+	background-repeat:no-repeat;
+	background-position:center center;
+	-webkit-background-size:cover;
+	-moz-background-size:cover;
+	-o-background-size:cover;
+	background-size:cover;
 }
 /*========== 6. PLANS AND PRICING ==============*/
 
