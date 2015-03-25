@@ -20,7 +20,7 @@
     	$headerArr[] = $n .':' . $v;
 	}
 
-	curl_setopt($ch, CURLOPT_URL, "http://yiquanhost.oneto-tech.com/User_server.php");
+	curl_setopt($ch, CURLOPT_URL, "https://yiquanhost.oneto-tech.com/User_server.php");
 	//curl_setopt($curl, CURLOPT_USERAGENT, 'YiQuan/0.1.0 iOS/8.1'); 
 	curl_setopt($ch, CURLOPT_POST, 1);
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -44,7 +44,7 @@
 		$ch2 = curl_init();
 		$data_in2 = "<?xml version=\"1.0\" encoding=\"utf-8\"?><soap:Envelope xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\"> <soap:Body><regByInvitation><user_name>".$reg_user."</user_name><user_pwd>".$reg_pass."</user_pwd><user_mobile>".$phoneNumber."</user_mobile><invcode>".$invCode."</invcode></regByInvitation></soap:Body></soap:Envelope>";
 	
-		curl_setopt($ch2, CURLOPT_URL, "http://yiquanhost.oneto-tech.com/User_server.php");
+		curl_setopt($ch2, CURLOPT_URL, "https://yiquanhost.oneto-tech.com/User_server.php");
 		//curl_setopt($curl, CURLOPT_USERAGENT, 'YiQuan/0.1.0 iOS/8.1'); 
 		curl_setopt($ch2, CURLOPT_POST, 1);
 		curl_setopt($ch2, CURLOPT_RETURNTRANSFER, 1);

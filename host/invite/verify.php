@@ -16,7 +16,7 @@
     	$headerArr[] = $n .':' . $v;
 	}
 
-	curl_setopt($ch, CURLOPT_URL, "http://yiquanhost.oneto-tech.com/User_server.php");
+	curl_setopt($ch, CURLOPT_URL, "https://yiquanhost.oneto-tech.com/User_server.php");
 	//curl_setopt($curl, CURLOPT_USERAGENT, 'YiQuan/0.1.0 iOS/8.1'); 
 	curl_setopt($ch, CURLOPT_POST, 1);
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
