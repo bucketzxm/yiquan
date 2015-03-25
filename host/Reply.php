@@ -111,7 +111,8 @@ class Reply extends YqBase {
 							"user_name" => $document ['reply_senderName'] 
 					), array (
 							"user_nickname" => 1,
-							"user_pic" => 1 
+							"user_pic" => 1,
+                            "user_smallavatar" => 1
 					) );
 				} catch ( Exception $e ) {
 					return - 102;
