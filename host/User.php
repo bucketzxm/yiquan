@@ -63,7 +63,9 @@ class User extends YqBase {
 					'user_privilege' => 0,
 					'user_exp' => 0,
 					'user_smallavatar' => '',
-					'user_bigavatar' => '' 
+					'user_bigavatar' => '',
+					'user_bigavatarname' => '',
+					'user_smallavatarname' => '' 
 			);
 			$this->db->user->save ( $neo );
 			
@@ -1223,6 +1225,37 @@ class User extends YqBase {
 		usort ( $ans, 'arrcmp1' );
 		return json_encode ( $ans );
 	}
+	protected function QiniuUploadpic(&$arr, $bigdata, $smalldata) {
+		$auth = new Auth ( $this->qiniuAK, $this->qiniuSK );
+		$bucket = 'yiquanhost-avatar';
+		$uploadMgr = new UploadManager ();
+		$bucketMgr = new BucketManager ( $auth );
+		
+		if (isset ( $arr ['user_bigavatarname'] )) {
+			list ( $ret, $err ) = $bucketMgr->delete ( $bucket, $arr ['user_bigavatarname'] );
+		}
+		if (isset ( $arr ['user_smallavatarname'] )) {
+			list ( $ret, $err ) = $bucketMgr->delete ( $bucket, $arr ['user_smallavatarname'] );
+		}
+		
+		$token = $auth->uploadToken ( $bucket );
+		list ( $ret, $err ) = $uploadMgr->put ( $token, null, $bigdata );
+		if ($err == null) {
+			$arr ['user_bigavatarname'] = $ret ['key'];
+			$arr ['user_bigavatar'] = $this->userpicbucketUrl . '/' . $ret ['key'];
+		} else {
+			return $err;
+		}
+		
+		list ( $ret, $err ) = $uploadMgr->put ( $token, null, $smalldata );
+		if ($err == null) {
+			$arr ['user_smallavatarname'] = $ret ['key'];
+			$arr ['user_smallavatar'] = $this->userpicbucketUrl . '/' . $ret ['key'];
+		} else {
+			return $err;
+		}
+		return 1;
+	}
 	
 	/*
 	 * 根据用户名上传他的照片 照片需要用base64编码传送 原始大照片进入bcs 小照片进入user_pic字段 成功返回1 bcs出错返回3 没有这个用户返回2
@@ -1255,25 +1288,6 @@ class User extends YqBase {
 			if (! $response->isOK ()) {
 				return 3; // bcs error
 			}
-			// save big to qiniu
-			$auth = new Auth ( $this->qiniuAK, $this->qiniuSK );
-			$bucket = 'yiquanhost-avatar';
-			$uploadMgr = new UploadManager ();
-			$fnamebig = $row ['user_name'] . '_big';
-			$bucketMgr = new BucketManager ( $auth );
-			list ( $ret, $err ) = $bucketMgr->stat ( $bucket, md5 ( $fnamebig ) );
-			if ($err !== null) {
-			} else {
-				list ( $ret, $err ) = $bucketMgr->delete ( $bucket, md5 ( $fnamebig ) );
-			}
-			
-			$token = $auth->uploadToken ( $bucket, md5 ( $fnamebig ) );
-			list ( $ret, $err ) = $uploadMgr->put ( $token, md5 ( $fnamebig ), $rawpic );
-			if ($err !== null) {
-				return json_encode ( $err );
-			}
-			
-			$row ['user_bigavatar'] = $this->userpicbucketUrl . '/' . $ret ['key'];
 			
 			// save small to mongo db
 			$im = new Imagick ();
@@ -1291,44 +1305,16 @@ class User extends YqBase {
 			}
 			$row ['user_pic'] = base64_encode ( $im );
 			
-			// save small to qiniu
-			$fnamesmall = $row ['user_name'] . '_small';
-			
-			list ( $ret, $err ) = $bucketMgr->stat ( $bucket, md5 ( $fnamesmall ) );
-			if ($err !== null) {
-			} else {
-				list ( $ret, $err ) = $bucketMgr->delete ( $bucket, md5 ( $fnamesmall ) );
+			// save to qiniu
+			$rep = $this->QiniuUploadpic ( $row, $rawpic, $im );
+			if ($rep != 1) {
+				return $rep;
 			}
-			$token = $auth->uploadToken ( $bucket, md5 ( $fnamesmall ) );
-			list ( $ret, $err ) = $uploadMgr->put ( $token, md5 ( $fnamesmall ), $im );
-			if ($err !== null) {
-				return json_encode ( $err );
-			}
-			
-			$row ['user_smallavatar'] = $this->userpicbucketUrl . '/' . $ret ['key'];
 			
 			$this->db->user->save ( $row );
 			return 1;
 		} else {
 			$rawpic = base64_decode ( $data );
-			$auth = new Auth ( $this->qiniuAK, $this->qiniuSK );
-			$bucket = 'yiquanhost-avatar';
-			$uploadMgr = new UploadManager ();
-			$bucketMgr = new BucketManager ( $auth );
-			$fnamebig = $row ['user_name'] . '_big';
-			
-			list ( $ret, $err ) = $bucketMgr->stat ( $bucket, md5 ( $fnamebig ) );
-			if ($err !== null) {
-			} else {
-				list ( $ret, $err ) = $bucketMgr->delete ( $bucket, md5 ( $fnamebig ) );
-			}
-			$token = $auth->uploadToken ( $bucket, md5 ( $fnamebig ) );
-			list ( $ret, $err ) = $uploadMgr->put ( $token, md5 ( $fnamebig ), $rawpic );
-			if ($err !== null) {
-				return json_encode ( $err );
-			}
-			
-			$row ['user_bigavatar'] = $this->userpicbucketUrl . '/' . $ret ['key'];
 			
 			$im = new Imagick ();
 			$im->readImageBlob ( $rawpic );
@@ -1344,20 +1330,11 @@ class User extends YqBase {
 				$im->thumbnailImage ( 0, $maxHeight, false );
 			}
 			
-			$fnamesmall = $row ['user_name'] . '_small';
-			
-			list ( $ret, $err ) = $bucketMgr->stat ( $bucket, md5 ( $fnamesmall ) );
-			if ($err !== null) {
-			} else {
-				list ( $ret, $err ) = $bucketMgr->delete ( $bucket, md5 ( $fnamesmall ) );
+			// save to qiniu
+			$rep = $this->QiniuUploadpic ( $row, $rawpic, $im );
+			if ($rep != 1) {
+				return $rep;
 			}
-			$token = $auth->uploadToken ( $bucket, md5 ( $fnamesmall ) );
-			list ( $ret, $err ) = $uploadMgr->put ( $token, md5 ( $fnamesmall ), $im );
-			if ($err !== null) {
-				return json_encode ( $err );
-			}
-			
-			$row ['user_smallavatar'] = $this->userpicbucketUrl . '/' . $ret ['key'];
 			$this->db->user->save ( $row );
 			return 1;
 		}

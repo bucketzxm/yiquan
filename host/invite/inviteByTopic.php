@@ -14,7 +14,7 @@
     	$headerArr[] = $n .':' . $v;
 	}
 
-	curl_setopt($ch, CURLOPT_URL, "http://yiquanhost.oneto-tech.com/Topic_server.php");
+	curl_setopt($ch, CURLOPT_URL, "https://yiquanhost.oneto-tech.com/Topic_server.php");
 	//curl_setopt($curl, CURLOPT_USERAGENT, 'YiQuan/0.1.0 iOS/8.1'); 
 	curl_setopt($ch, CURLOPT_POST, 1);
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -44,7 +44,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	<title>话题分享</title>
-	<script src="http://libs.baidu.com/jquery/2.0.3/jquery.min.js"></script>
+	<script src="https://lib.sinaapp.com/js/jquery/2.0.3/jquery-2.0.3.min.js"></script>
 	<script src="sha1.min.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function(){
@@ -99,7 +99,7 @@
 	}
 	//echo $data_in2;
 
-	curl_setopt($ch2, CURLOPT_URL, "http://yiquanhost.oneto-tech.com/User_server.php");
+	curl_setopt($ch2, CURLOPT_URL, "https://yiquanhost.oneto-tech.com/User_server.php");
 	//curl_setopt($curl, CURLOPT_USERAGENT, 'YiQuan/0.1.0 iOS/8.1'); 
 	curl_setopt($ch2, CURLOPT_POST, 1);
 	curl_setopt($ch2, CURLOPT_RETURNTRANSFER, 1);
