@@ -456,10 +456,10 @@ class Topic extends YqBase {
 					'user_name' => $result ['topic_ownerName']
 			), array (
 					'user_nickname' => 1,
-					'user_pic' => 1
+					'user_smallavatar' => 1
 			) );
 			$result ['user_nickname'] = $user_nickname ['user_nickname'];
-			$result ['user_pic'] = $user_nickname ['user_pic'];
+			$result ['user_smallavatar'] = $user_nickname ['user_smallavatar'];
 			
 			$t = $user_nickname ['_id'];
 			// echo $t;
