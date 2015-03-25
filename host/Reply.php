@@ -118,6 +118,7 @@ class Reply extends YqBase {
 				}
 				$document ['user_nickname'] = $userCursor ['user_nickname'];
 				$document ['user_pic'] = $userCursor ['user_pic'];
+                $document ['user_smallavatar'] = $userCursor ['user_smallavatar'];
 				array_push ( $re, $document );
 				$count ++;
 			}
