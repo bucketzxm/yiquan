@@ -38,7 +38,7 @@ class YqBase {
 	protected $yiquan_platform = 'unknown';
 	protected $qiniuAK = 'brOfo9rKPPpkaDy9JCyTqNwRWR8wDsgwTrEezgHz';
 	protected $qiniuSK = 'Tb41FAE5cPiZI_hNIxhh8auO1g_Pfd693Tk6yGQL';
-	protected $userpicbucketUrl = '7xi71p.com1.z0.glb.clouddn.com';
+	protected $userpicbucketUrl = 'dn-yiquanhost-avatar.qbox.me';
 	/*
 	 * made by wwq 构造函数 疯狂连接与认证 实属无奈
 	 */
