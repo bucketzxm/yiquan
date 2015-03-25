@@ -704,7 +704,7 @@ class User extends YqBase {
 						'user_name' => 1,
 						'user_mobile' => 1,
 						'user_nickname' => 1,
-						'user_pic' => 1,
+						//'user_pic' => 1,
                         'user_smallavatar' => 1
                           
 				) );
@@ -751,7 +751,7 @@ class User extends YqBase {
 						'user_name' => 1,
 						'user_mobile' => 1,
 						'user_nickname' => 1,
-						'user_pic' => 1,
+						//'user_pic' => 1,
                         'user_smallavatar' => 1
 				) );
 				$res [] = $tkp;
@@ -1002,7 +1002,8 @@ class User extends YqBase {
 					'user_name' => 1,
 					'user_mobile' => 1,
 					'user_nickname' => 1,
-					'user_pic' => 1 
+					//'user_pic' => 1,
+                    'user_smallavatar' => 1
 			) );
 			$res [] = $pkt;
 		}
@@ -1045,7 +1046,8 @@ class User extends YqBase {
 					'user_name' => 1,
 					'user_mobile' => 1,
 					'user_nickname' => 1,
-					'user_pic' => 1 
+					//'user_pic' => 1,
+                    'user_smallavatar' => 1
 			) );
 			$res [] = $pkt;
 		}
@@ -1202,7 +1204,7 @@ class User extends YqBase {
 						'user_name' => 1,
 						'user_mobile' => 1,
 						'user_nickname' => 1,
-						'user_pic' => 1,
+						//'user_pic' => 1,
                         'user_smallavatar' => 1
 				) );
 				$ans [] = $tkp;

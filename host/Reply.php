@@ -111,14 +111,14 @@ class Reply extends YqBase {
 							"user_name" => $document ['reply_senderName'] 
 					), array (
 							"user_nickname" => 1,
-							"user_pic" => 1,
+							//"user_pic" => 1,
                             "user_smallavatar" => 1
 					) );
 				} catch ( Exception $e ) {
 					return - 102;
 				}
 				$document ['user_nickname'] = $userCursor ['user_nickname'];
-				$document ['user_pic'] = $userCursor ['user_pic'];
+				//$document ['user_pic'] = $userCursor ['user_pic'];
                 $document ['user_smallavatar'] = $userCursor ['user_smallavatar'];
 				array_push ( $re, $document );
 				$count ++;
@@ -401,13 +401,13 @@ class Reply extends YqBase {
 						"user_name" => $topic_document ['topic_ownerName'] 
 				), array (
 						"user_nickname" => 1,
-						"user_pic" => 1 
+						//"user_pic" => 1
 				) );
 			} catch ( Exception $e ) {
 				return - 1;
 			}
 			$topic_document ['user_nickname'] = $userCursor ['user_nickname'];
-			$topic_document ['user_pic'] = $userCursor ['user_pic'];
+			//$topic_document ['user_pic'] = $userCursor ['user_pic'];
 			array_push ( $re, $topic_document );
 			if ($count >= 30) {
 				break;
@@ -486,13 +486,13 @@ class Reply extends YqBase {
 						"user_name" => $topic_document ['topic_ownerName'] 
 				), array (
 						"user_nickname" => 1,
-						"user_pic" => 1 
+						//"user_pic" => 1
 				) );
 			} catch ( Exception $e ) {
 				return - 1;
 			}
 			$topic_document ['user_nickname'] = $userCursor ['user_nickname'];
-			$topic_document ['user_pic'] = $userCursor ['user_pic'];
+			//$topic_document ['user_pic'] = $userCursor ['user_pic'];
 			array_push ( $re, $topic_document );
 			if ($count >= 30) {
 				break;
@@ -558,7 +558,7 @@ class Reply extends YqBase {
 						"user_name" => $replyAgreedTopic_id['reply_senderName']
 				), array (
 						"user_nickname" => 1,
-						"user_pic" => 1
+						//"user_pic" => 1
 				) );
 			} catch ( Exception $e ) {
 				return - 1;
@@ -571,7 +571,7 @@ class Reply extends YqBase {
 				return - 1;
 			}
 			$replyAgreedTopic_id ['user_nickname'] = $userCursor ['user_nickname'];
-			$replyAgreedTopic_id ['user_pic'] = $userCursor ['user_pic'];
+			//$replyAgreedTopic_id ['user_pic'] = $userCursor ['user_pic'];
 			$replyAgreedTopic_id ['reply_topicTitle'] = $topicCursor ['topic_title'];
 			
 			array_push ( $re, $replyAgreedTopic_id );

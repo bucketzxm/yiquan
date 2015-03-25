@@ -227,7 +227,7 @@ class Message extends YqBase {
                             'user_name' => $value ['message_senderId'] 
                     ) );
                     $value ['sender_nickname'] = $user ['user_nickname'];
-                    $value ['sender_pic'] = $user ['user_pic'];
+                    $value ['sender_smallavatar'] = $user ['user_smallavatar'];
                     array_push ( $res, $value );
                     if ($count >= 30) {
                         break;
