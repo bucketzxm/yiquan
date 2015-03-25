@@ -223,10 +223,10 @@ class User extends YqBase {
 		if ($this->yiquan_version == 0) {
 			return - 2;
 		}
-		
+		/*
 		if ($this->checkToken () == 0) {
 			return - 3;
-		}
+		}*/
 		if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $user_name) {
 			return - 4;
 		}
