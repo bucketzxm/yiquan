@@ -93,8 +93,20 @@ class YqBase {
 	function checkToken() {
 		// return 1;
 		try {
-			if (isset ( $_COOKIE ['user'] ) && isset ( $_SESSION ['user'] ) && isset ( $_COOKIE ['user_token'] ) && isset ( $_SESSION ['user_token'] ) && $_COOKIE ['user'] == $_SESSION ['user'] && $_COOKIE ['user_token'] == $_SESSION ['user_token']) {
-				return 1;
+			if (isset ( $_COOKIE ['user'] ) && isset ( $_SESSION ['user'] ) && isset ( $_COOKIE ['user_token'] ) && $_COOKIE ['user'] == $_SESSION ['user']) {
+				$rt = $this->db->usertoken->findOne ( array (
+						'user_name' => $_SESSION ['user'] 
+				) );
+				
+				if ($rt == null) {
+					return 0;
+				} else {
+					if ($rt ['user_token'] == $_COOKIE ['user_token']) {
+						return 1;
+					} else {
+						return 0;
+					}
+				}
 			} else {
 				return 0;
 			}

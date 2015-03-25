@@ -155,10 +155,21 @@ class User extends YqBase {
 				return 4;
 			else {
 				$gd = makeGuid ();
-				setcookie ( "user", $user_name, time () + 3600 * 24000, '/' );
-				setcookie ( "user_token", $gd, time () + 3600 * 24000, '/' );
+				setcookie ( "user", $user_name, time () + 3600 * 2400, '/' );
+				setcookie ( "user_token", $gd, time () + 3600 * 2400, '/' );
 				$_SESSION ['user'] = $user_name;
-				$_SESSION ['user_token'] = $gd;
+				// $_SESSION ['user_token'] = $gd;
+				$rt = $this->db->usertoken->findOne ( array (
+						'user_name' => $user_name 
+				) );
+				if ($rt == null) {
+					$rt = array (
+							'user_name' => $user_name 
+					);
+				}
+				
+				$rt ['user_token'] = $gd;
+				$this->db->usertoken->save ( $rt );
 				return 1;
 			}
 		} catch ( Exception $e ) {
@@ -704,9 +715,8 @@ class User extends YqBase {
 						'user_name' => 1,
 						'user_mobile' => 1,
 						'user_nickname' => 1,
-						//'user_pic' => 1,
-                        'user_smallavatar' => 1
-                          
+						// 'user_pic' => 1,
+						'user_smallavatar' => 1 
 				) );
 				$res [] = $tkp;
 			}
@@ -751,8 +761,8 @@ class User extends YqBase {
 						'user_name' => 1,
 						'user_mobile' => 1,
 						'user_nickname' => 1,
-						//'user_pic' => 1,
-                        'user_smallavatar' => 1
+						// 'user_pic' => 1,
+						'user_smallavatar' => 1 
 				) );
 				$res [] = $tkp;
 			}
@@ -1002,8 +1012,8 @@ class User extends YqBase {
 					'user_name' => 1,
 					'user_mobile' => 1,
 					'user_nickname' => 1,
-					//'user_pic' => 1,
-                    'user_smallavatar' => 1
+					// 'user_pic' => 1,
+					'user_smallavatar' => 1 
 			) );
 			$res [] = $pkt;
 		}
@@ -1046,8 +1056,8 @@ class User extends YqBase {
 					'user_name' => 1,
 					'user_mobile' => 1,
 					'user_nickname' => 1,
-					//'user_pic' => 1,
-                    'user_smallavatar' => 1
+					// 'user_pic' => 1,
+					'user_smallavatar' => 1 
 			) );
 			$res [] = $pkt;
 		}
@@ -1204,8 +1214,8 @@ class User extends YqBase {
 						'user_name' => 1,
 						'user_mobile' => 1,
 						'user_nickname' => 1,
-						//'user_pic' => 1,
-                        'user_smallavatar' => 1
+						// 'user_pic' => 1,
+						'user_smallavatar' => 1 
 				) );
 				$ans [] = $tkp;
 			}
@@ -1250,7 +1260,7 @@ class User extends YqBase {
 			$bucket = 'yiquanhost-avatar';
 			$uploadMgr = new UploadManager ();
 			$fnamebig = $row ['user_name'] . '_big';
-			$token = $auth->uploadToken ( $bucket,md5 ( $fnamebig ) );
+			$token = $auth->uploadToken ( $bucket, md5 ( $fnamebig ) );
 			list ( $ret, $err ) = $uploadMgr->put ( $token, md5 ( $fnamebig ), $rawpic );
 			if ($err !== null) {
 				return json_encode ( $err );
@@ -1276,7 +1286,7 @@ class User extends YqBase {
 			
 			// save small to qiniu
 			$fnamesmall = $row ['user_name'] . '_small';
-			$token = $auth->uploadToken ( $bucket,md5 ( $fnamesmall ) );
+			$token = $auth->uploadToken ( $bucket, md5 ( $fnamesmall ) );
 			list ( $ret, $err ) = $uploadMgr->put ( $token, md5 ( $fnamesmall ), $im );
 			if ($err !== null) {
 				return json_encode ( $err );
@@ -1292,7 +1302,7 @@ class User extends YqBase {
 			$bucket = 'yiquanhost-avatar';
 			$uploadMgr = new UploadManager ();
 			$fnamebig = $row ['user_name'] . '_big';
-			$token = $auth->uploadToken ( $bucket,md5 ( $fnamebig ) );
+			$token = $auth->uploadToken ( $bucket, md5 ( $fnamebig ) );
 			list ( $ret, $err ) = $uploadMgr->put ( $token, md5 ( $fnamebig ), $rawpic );
 			if ($err !== null) {
 				return json_encode ( $err );
@@ -1315,7 +1325,7 @@ class User extends YqBase {
 			}
 			
 			$fnamesmall = $row ['user_name'] . '_small';
-			$token = $auth->uploadToken ( $bucket,md5 ( $fnamesmall ) );
+			$token = $auth->uploadToken ( $bucket, md5 ( $fnamesmall ) );
 			list ( $ret, $err ) = $uploadMgr->put ( $token, md5 ( $fnamesmall ), $im );
 			if ($err !== null) {
 				return json_encode ( $err );
