@@ -16,10 +16,23 @@ class testclass extends YqBase {
 	function showapp() {
 		$auth = new Auth ( $this->qiniuAK, $this->qiniuSK );
 		$bucket = 'yiquanhost-avatar';
-		$token = $auth->uploadToken ( $bucket, md5 ( 'bk2.jpg' ));
-		var_dump ( $token );
+		$token = $auth->uploadToken ( $bucket );
+		// var_dump ( $token );
 		$uploadMgr = new UploadManager ();
-		$data = file_get_contents ( 'a.jpg' );
+		$bucketMgr = new BucketManager ( $auth );
+		list ( $ret, $err ) = $bucketMgr->stat ( $bucket, md5 ( 'bk2.jpg' ) );
+		if ($err !== null) {
+		} else {
+			echo 'del!!';
+			list ( $ret, $err ) = $bucketMgr->delete ( $bucket, md5 ( 'bk2.jpg' ) );
+			echo "\n====> delete result: \n";
+			if ($err !== null) {
+				var_dump($err);
+			} else {
+				echo "Success!";
+			}
+		}
+		$data = file_get_contents ( 'b.jpg' );
 		list ( $ret, $err ) = $uploadMgr->put ( $token, md5 ( 'bk2.jpg' ), $data );
 		echo "\n====> put result: \n";
 		if ($err !== null) {

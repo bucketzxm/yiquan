@@ -1260,6 +1260,13 @@ class User extends YqBase {
 			$bucket = 'yiquanhost-avatar';
 			$uploadMgr = new UploadManager ();
 			$fnamebig = $row ['user_name'] . '_big';
+			$bucketMgr = new BucketManager ( $auth );
+			list ( $ret, $err ) = $bucketMgr->stat ( $bucket, md5 ( $fnamebig ) );
+			if ($err !== null) {
+			} else {
+				list ( $ret, $err ) = $bucketMgr->delete ( $bucket, md5 ( $fnamebig ) );
+			}
+			
 			$token = $auth->uploadToken ( $bucket, md5 ( $fnamebig ) );
 			list ( $ret, $err ) = $uploadMgr->put ( $token, md5 ( $fnamebig ), $rawpic );
 			if ($err !== null) {
@@ -1286,6 +1293,12 @@ class User extends YqBase {
 			
 			// save small to qiniu
 			$fnamesmall = $row ['user_name'] . '_small';
+			
+			list ( $ret, $err ) = $bucketMgr->stat ( $bucket, md5 ( $fnamesmall ) );
+			if ($err !== null) {
+			} else {
+				list ( $ret, $err ) = $bucketMgr->delete ( $bucket, md5 ( $fnamesmall ) );
+			}
 			$token = $auth->uploadToken ( $bucket, md5 ( $fnamesmall ) );
 			list ( $ret, $err ) = $uploadMgr->put ( $token, md5 ( $fnamesmall ), $im );
 			if ($err !== null) {
@@ -1301,7 +1314,14 @@ class User extends YqBase {
 			$auth = new Auth ( $this->qiniuAK, $this->qiniuSK );
 			$bucket = 'yiquanhost-avatar';
 			$uploadMgr = new UploadManager ();
+			$bucketMgr = new BucketManager ( $auth );
 			$fnamebig = $row ['user_name'] . '_big';
+			
+			list ( $ret, $err ) = $bucketMgr->stat ( $bucket, md5 ( $fnamebig ) );
+			if ($err !== null) {
+			} else {
+				list ( $ret, $err ) = $bucketMgr->delete ( $bucket, md5 ( $fnamebig ) );
+			}
 			$token = $auth->uploadToken ( $bucket, md5 ( $fnamebig ) );
 			list ( $ret, $err ) = $uploadMgr->put ( $token, md5 ( $fnamebig ), $rawpic );
 			if ($err !== null) {
@@ -1325,6 +1345,12 @@ class User extends YqBase {
 			}
 			
 			$fnamesmall = $row ['user_name'] . '_small';
+			
+			list ( $ret, $err ) = $bucketMgr->stat ( $bucket, md5 ( $fnamesmall ) );
+			if ($err !== null) {
+			} else {
+				list ( $ret, $err ) = $bucketMgr->delete ( $bucket, md5 ( $fnamesmall ) );
+			}
 			$token = $auth->uploadToken ( $bucket, md5 ( $fnamesmall ) );
 			list ( $ret, $err ) = $uploadMgr->put ( $token, md5 ( $fnamesmall ), $im );
 			if ($err !== null) {
