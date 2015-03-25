@@ -69,7 +69,7 @@
 <div class="nav"> 由 <?php echo $result_json["user_nickname"]; ?> 发送的话题 </div>
 <div class="container">
 	<div class="user">
-		<img class="avatar" src= <?php echo "\""; echo $result_json["user_smallavatar"]; echo "\""?>  alt ="Avatar" width="60" height="60"/>  
+		<img class="avatar" src= <?php echo "\"https://"; echo $result_json["user_smallavatar"]; echo "\""?>  alt ="Avatar" width="60" height="60"/>  
 		<div class="profile">
 			<div class="profile_name"> <?php echo $result_json["user_nickname"]; ?> </div>
 			<div class="profile_location_industry"> <?php echo $result_json["user_city"]; echo " ";echo $result_json["user_industry"];?> </div>
