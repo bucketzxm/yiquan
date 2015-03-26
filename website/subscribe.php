@@ -22,7 +22,7 @@
 <!-- HTML -->
 <div class="container">
   <div class="title">一圈<br></div>
-  <div class="notify">我们已收到您的申请，我们会尽快联系您<br></div>
+  <div class="notify">我们已收到您的申请，产品将于近期上线，届时我们将联系您<br></div>
   <div class="jump">3秒后跳转<br></div>
 </div>
 <!-- Javascript -->
