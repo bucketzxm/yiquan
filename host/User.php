@@ -247,7 +247,9 @@ class User extends YqBase {
 			} catch ( Exception $e ) {
 				return - 1;
 			}
-		}
+        }else{
+            return 1;
+        }
 	}
 	
 	/*
