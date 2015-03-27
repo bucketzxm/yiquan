@@ -90,10 +90,6 @@ class YqMessage extends YqBase {
 		if ($this->yiquan_version == 0) {
 			return - 2;
 		}
-		
-		if ($this->checkToken () == 0) {
-			return - 3;
-		}
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
 		$message_postTime = time ();
 		
