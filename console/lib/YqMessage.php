@@ -87,14 +87,6 @@ class YqMessage extends YqBase {
 		}
 	}
 	function addMessagev2($message_senderId, $message_receiverId, $message_type, $message_title, $message_labels, $message_topicID, $message_topicTitle, $message_detail, $message_webViewHeader, $message_webViewURL) {
-		if ($this->yiquan_version == 0) {
-			return - 2;
-		}
-		
-		if ($this->checkToken () == 0) {
-			return - 3;
-		}
-		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
 		$message_postTime = time ();
 		
 		$m_labels = explode ( ',', $message_labels );
