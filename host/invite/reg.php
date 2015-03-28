@@ -104,7 +104,7 @@
         	var password = regform.reg_pass;
         	var usern = /^[a-z0-9]{1,}$/;
         	if (!username.value.match(usern)) {
-                msg += "用户名只能由小写字母数字组成\n";
+                msg += "用户名只能由字母数字组成\n";
                 alert(msg);
                 username.value = '';
                 username.focus();
