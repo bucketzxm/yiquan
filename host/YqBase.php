@@ -94,16 +94,14 @@ class YqBase {
 		// return 1;
 		try {
 			if (isset ( $_COOKIE ['user'] ) && isset ( $_SESSION ['user'] ) && isset ( $_COOKIE ['user_token'] ) && $_COOKIE ['user'] == $_SESSION ['user']) {
-				/*$rt = $this->db->usertoken->findOne ( array (
+				$rt = $this->db->usertoken->findOne ( array (
 						'user_name' => $_SESSION ['user'] 
-				) );*/
+				) );
 				
-				$rdt = $this->getRedis ( $_SESSION ['user'] );
-				
-				if ($rdt == false) {
+				if ($rt == null) {
 					return 0;
 				} else {
-					if ($rdt == $_COOKIE ['user_token']) {
+					if ($rt ['user_token'] == $_COOKIE ['user_token']) {
 						return 1;
 					} else {
 						return 0;
@@ -157,17 +155,5 @@ class YqBase {
 		} else {
 			return 'anonymous';
 		}
-	}
-	function setRedis($key, $value) {
-		$redis = new redis ();
-		$redis->connect ( '127.0.0.1', 6379 );
-		$result = $redis->set ( $key, $value );
-		return $result;
-	}
-	function getRedis($key) {
-		$redis = new redis ();
-		$redis->connect ( '127.0.0.1', 6379 );
-		$result = $redis->get ( $key );
-		return $result;
 	}
 }
