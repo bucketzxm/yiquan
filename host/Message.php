@@ -261,6 +261,11 @@ class Message extends YqBase {
 					) 
 			) ); // 把life set为0
 			
+            $this->db->oldMessage->insert ( $result );
+            $this->db->message->remove ( array (
+                                                '_id' => new Mongoid ( $message_id )
+                                                ));
+            
 			return 1;
 		} catch ( Exception $e ) {
 			return - 1;
