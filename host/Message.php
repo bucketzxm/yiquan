@@ -127,9 +127,9 @@ class Message extends YqBase {
     function pushiOSMessage($clientID,$senderName,$message_Title,$unreadCount){
         
         $ctx = stream_context_create();
-        stream_context_set_option($ctx,'ssl','local_cert','yqAPNS.pem');
+        stream_context_set_option($ctx,'ssl','local_cert','yqProAPNS.pem');
         stream_context_set_option($ctx,'ssl','passphrase','2015oneto');
-        $fp = stream_socket_client('ssl://gateway.sandbox.push.apple.com:2195',$err,$errstr,60,STREAM_CLIENT_CONNECT|STREAM_CLIENT_PERSISTENT, $ctx);
+        $fp = stream_socket_client('ssl://gateway.push.apple.com:2195',$err,$errstr,60,STREAM_CLIENT_CONNECT|STREAM_CLIENT_PERSISTENT, $ctx);
         
         if (!$fp)
             exit("Failed to connect: $err $errstr" . PHP_EOL);
