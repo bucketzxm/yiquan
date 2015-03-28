@@ -77,4 +77,14 @@ class testclass extends YqBase {
 }
 // $a = new testclass ();
 // $a->showapp ();
+
+
+
+// $redis = new redis();  
+// $redis->connect('127.0.0.1', 6379);  
+// $result = $redis->set('test','wwwaadd');
+// var_dump($result);   //结果：string(11) "11111111111"
+// $result = $redis->get('test');  
+// var_dump($result);   //结果：string(11) "11111111111"  
+
 ?>

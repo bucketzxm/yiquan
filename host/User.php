@@ -172,6 +172,10 @@ class User extends YqBase {
 				
 				$rt ['user_token'] = $gd;
 				$this->db->usertoken->save ( $rt );
+				
+				if ($this->setRedis ( $user_name, $gd ) == false) {
+					return - 5; // redis wrong
+				}
 				return 1;
 			}
 		} catch ( Exception $e ) {
@@ -247,9 +251,9 @@ class User extends YqBase {
 			} catch ( Exception $e ) {
 				return - 1;
 			}
-        }else{
-            return 1;
-        }
+		} else {
+			return 1;
+		}
 	}
 	
 	/*
