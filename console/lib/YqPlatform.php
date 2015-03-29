@@ -36,6 +36,42 @@ class YqPlatform extends YqBase {
 		}
 		// echo $response->body;
 	}
+	function addProfileByName($user_name, $user_profile) {
+		try {
+			$arr = json_decode ( $user_profile, true ); // 将json数据变成php的数组
+			$ob = $this->db->user->findOne ( array (
+					'user_name' => $user_name 
+			) );
+			
+			$arr ['user_objid'] = $ob ['_id']; // 给arr数组加一个字段user_objid arr数组是后面整体要做更新的数组
+			
+			$update = $arr;
+			
+			$query = array (
+					"user_objid" => $ob ['_id'] 
+			);
+			// 注意看这里 mongodb支持一个叫findandmodify的操作 就是先修改后查询 很好用
+			// 我这里代码的意图是 $query指定的数据 用$update里面的数据更新掉
+			$command = array (
+					"findandmodify" => 'userProfile',
+					"update" => $update,
+					"query" => $query,
+					"new" => true,
+					"upsert" => true 
+			);
+			
+			$id = $this->db->command ( $command ); // 执行更新
+			
+			if (isset ( $arr ['user_nickname'] )) {
+				$ob ['user_nickname'] = $arr ['user_nickname'];
+				$this->db->user->save ( $ob );
+			}
+			
+			return 1;
+		} catch ( Exception $e ) {
+			return - 1;
+		}
+	}
 	function platformWeihu() {
 		$cus = $this->db->user->find ();
 		
@@ -80,7 +116,7 @@ class YqPlatform extends YqBase {
 				$doc ['user_bigavatar'] = '';
 			}
 			
-			$this->uploadSmallPicForUser ( $doc );
+			// $this->uploadSmallPicForUser ( $doc );
 			
 			$this->db->user->save ( $doc );
 			
@@ -115,6 +151,19 @@ class YqPlatform extends YqBase {
 			}
 			$this->db->userRelationship->save ( $doc );
 		}
+		
+		$cus = $this->db->message->find ( array (
+				'message_life' => 0 
+		) );
+		
+		while ( $cus->hasNext () ) {
+			$doc = $cus->getNext ();
+			$this->db->oldMessage->save ( $doc );
+		}
+		
+		$this->db->message->remove ( array (
+				'message_life' => 0 
+		) );
 		return 1;
 	}
 	function getLastestVersion($plat) {

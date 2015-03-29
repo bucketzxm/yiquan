@@ -12,20 +12,11 @@ class YqUserView extends YqUser {
 		echo '<div class="table-responsive"><table class="table table-striped">';
 		echo '<thead><tr>';
 		
-		foreach ( $su ['data'] [0] as $key => $v ) {
-			switch ($key) {
-				case 'user_relationships' :
-					break;
-				case 'user_blocklist' :
-					break;
-				case 'user_pin' :
-					break;
-				case '_id' :
-					break;
-				default :
-					echo '<th>' . $key . '</th>';
-			}
-		}
+		echo '<th>id</th>';
+		echo '<th>用戶名</th>';
+		echo '<th>手机号</th>';
+		echo '<th>昵称</th>';
+		echo '<th>头像</th>';
 		echo '<th>' . '操作1' . '</th>';
 		echo '<th>' . '操作2' . '</th>';
 		echo '<th>' . '操作3' . '</th>';
@@ -35,27 +26,15 @@ class YqUserView extends YqUser {
 		foreach ( $su ['data'] as $row ) {
 			echo '<tr>';
 			$pid = $row ['_id'] ['$id'];
-			foreach ( $row as $key => $v ) {
-				switch ($key) {
-					case 'user_pic' :
-						echo '<td>' . '<img class="img-responsive" src="data:image/jpeg;base64,' . $v . '"' . ' data-holder-rendered="true"/>' . '</td>';
-						break;
-					case 'user_relationships' :
-						break;
-					case 'user_pin' :
-						break;
-					case '_id' :
-						break;
-					case 'user_blocklist' :
-						break;
-					case 'user_regdate' :
-						echo '<td>' . date ( 'Y-m-d h:i:s', $v ['sec'] ) . '</td>';
-						break;
-					default :
-						echo '<td>' . $v . '</td>';
-				}
+			echo '<td>' . (isset ( $row ['uid'] ) ? $row ['uid'] : '') . '</td>';
+			echo '<td>' . (isset ( $row ['user_name'] ) ? $row ['user_name'] : '') . '</td>';
+			echo '<td>' . (isset ( $row ['user_mobile'] ) ? $row ['user_mobile'] : '') . '</td>';
+			echo '<td>' . (isset ( $row ['user_nickname'] ) ? $row ['user_nickname'] : '') . '</td>';
+			if (isset ( $row ['user_smallavatar'] )) {
+				echo '<td>' . '<img width="40px" src="http://' . $row ['user_smallavatar'] . '" /></td>';
+			} else {
+				echo '<td></td>';
 			}
-			
 			echo '<td><a href="?action=edit' . '&uid=' . $pid . '">编辑</a>';
 			echo '<td><a href="?action=delete' . '&uid=' . $pid . '">删除</a>';
 			echo '<td><a href="?action=behavior' . '&uid=' . $pid . '&type=days' . '&value=7' . '">行为分析</a>';
@@ -74,7 +53,7 @@ class YqUserView extends YqUser {
 	}
 	function htEditUserById_form($jsondata) {
 		$p = json_decode ( $jsondata, true );
-		//var_dump($p);
+		// var_dump($p);
 		// =================================================
 		echo '<div><form method="post" action="?action=edit">';
 		echo '<div class="form-group"><h2>基本信息</h2></div>';
