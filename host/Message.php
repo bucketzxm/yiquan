@@ -253,7 +253,7 @@ class Message extends YqBase {
 			}
 			$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
 			$result = $this->db->message->update ( array (
-					'_id' => new Mongoid ( $message_id ) 
+					'_id' => new MongoId ( $message_id )
 			), 			// 条件
 			array (
 					'$set' => array (
@@ -261,9 +261,12 @@ class Message extends YqBase {
 					) 
 			) ); // 把life set为0
 			
-            $this->db->oldMessage->insert ( $result );
+            $theMessage = $this->db->message->findOne( array (
+                                                              '_id' => new MongoId ( $message_id )
+                                                              ));
+            $this->db->oldMessage->save ( $theMessage );
             $this->db->message->remove ( array (
-                                                '_id' => new Mongoid ( $message_id )
+                                                '_id' => new MongoId ( $message_id )
                                                 ));
             
 			return 1;
