@@ -240,15 +240,7 @@ class YqUser extends YqBase {
 	 * made by wwq getuserbyname_xml指将指定用户名的用户的所有信息以json方式返回 接受参数为 用户名 返回值 一个xml字符串 soap客户端使用方法 $soap = new SoapClient ( "http://yiquanhost.duapp.com/userclass.wsdl" ); $result2 = $soap->getuserbyname_xml ( 'wang' ); echo $result2 . "<br/>";
 	 */
 	function getUserByName($user_name) {
-		if ($this->yiquan_version == 0) {
-			return - 2;
-		}
-		
-		if ($this->checkToken () == 0) {
-			return - 3;
-		}
-		
-		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
+	
 		
 		if ($this->yiquan_version == '0.1.0') {
 			$ans = $this->db->user->findOne ( array (
@@ -283,15 +275,6 @@ class YqUser extends YqBase {
 		return json_encode ( $ans );
 	}
 	function getUserStatsByName($user_name) {
-		if ($this->yiquan_version == 0) {
-			return - 2;
-		}
-		
-		if ($this->checkToken () == 0) {
-			return - 3;
-		}
-		
-		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
 		/*
 		 * $ans = $this->db->user->findOne ( array ( 'user_name' => "$user_name" ) ); if ($ans == null) return 2;
 		 */
@@ -342,14 +325,7 @@ class YqUser extends YqBase {
 	 * made by wwq getuserby_id_xml指将指定_id的用户的所有信息以xml方式返回 接受参数为 用户名 返回值 一个json字符串 soap客户端使用方法 $soap = new SoapClient ( "http://yiquanhost.duapp.com/userclass.wsdl" ); $result2 = $soap->getuserby_id_xml ( '54c25f6ca3136ab006000002' ); echo $result2 . "<br/>";
 	 */
 	function getUserByID($user_id) {
-		if ($this->yiquan_version == 0) {
-			return - 2;
-		}
 		
-		if ($this->checkToken () == 0) {
-			return - 3;
-		}
-		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
 		$ans = $this->db->user->findOne ( array (
 				'_id' => new MongoId ( $user_id ) 
 		) );
@@ -367,11 +343,11 @@ class YqUser extends YqBase {
 			$ans ['userProfile'] = $ans2;
 		}
 		
-		$ans ['countMyRepliedTopicByName'] = (new Reply ())->countMyRepliedTopicByName ( $user_name );
-		$ans ['countTopicByName'] = (new Topic ())->countTopicByName ( $user_name );
-		$ans ['countFirstFriendsByName'] = $this->countFirstFriendsByName ( $user_name );
-		$ans ['countAllFriendsByName'] = $this->countAllFriendsByName ( $user_name );
-		$ans ['countMyReplyAgreeByName'] = (new Reply ())->countMyReplyAgreeByName ( $user_name );
+		$ans ['countMyRepliedTopicByName'] = (new YqReply ())->countMyRepliedTopicByName ( $ans['user_name'] );
+		$ans ['countTopicByName'] = (new YqTopic ())->countTopicByName ( $ans['user_name'] );
+		$ans ['countFirstFriendsByName'] = $this->countFirstFriendsByName ( $ans['user_name'] );
+		$ans ['countAllFriendsByName'] = $this->countAllFriendsByName ( $ans['user_name'] );
+		$ans ['countMyReplyAgreeByName'] = (new YqReply ())->countMyReplyAgreeByName ( $ans['user_name'] );
 		return json_encode ( $ans );
 	}
 	
