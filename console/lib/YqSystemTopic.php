@@ -6,7 +6,7 @@ class YqSystemTopic extends YqTopic {
 		$i = 0;
 		foreach ( $arr as $v ) {
 			if ($i % $limit == 0) {
-				$pages [] = i;
+				$pages [] = $i;
 			}
 			$i ++;
 		}

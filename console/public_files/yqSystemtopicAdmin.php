@@ -36,7 +36,17 @@ ob_start ();
 					$a = new YqSystemTopicView ();
 					switch ($_GET ['action']) {
 						case 'view' :
-							
+							if (isset ( $_GET ['page'] )) {
+								if ($_GET ['page'] == 0) {
+									$_SESSION ['systemTopic'] = $a->getSystemTopics ( 'recive', '', strtotime ( '-10 days' ), time () );
+									$_SESSION ['systemTopicPages'] = $a->listallsystemTopicPages ( $_SESSION ['systemTopic'], 30 );
+									//var_dump ( $_SESSION ['systemTopic'] );
+								}
+								if (! empty ( $_SESSION ['systemTopic'] )) {
+									$a->showSystemTopic_table ( $_SESSION ['systemTopic'], $_SESSION ['systemTopicPages'] [$_GET ['page']], 30 );
+									$a->showTopicPageLink ( $_SESSION ['systemTopicPages'], 'view' );
+								}
+							}
 							break;
 						case 'edit' :
 							
