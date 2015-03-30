@@ -87,7 +87,6 @@ class YqMessage extends YqBase {
 		}
 	}
 	function addMessagev2($message_senderId, $message_receiverId, $message_type, $message_title, $message_labels, $message_topicID, $message_topicTitle, $message_detail, $message_webViewHeader, $message_webViewURL) {
-
 		if ($this->yiquan_version == 0) {
 			return - 2;
 		}
@@ -172,23 +171,21 @@ class YqMessage extends YqBase {
 	// 表示用户收到了数据（就是查看了）
 	function readMessage($message_id) {
 		try {
-			if ($this->yiquan_version == 0) {
-				return - 2;
-			}
-			
-			if ($this->checkToken () == 0) {
-				return - 3;
-			}
-			$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
 			$result = $this->db->message->update ( array (
-					'_id' => new Mongoid ( $message_id ) 
+					'_id' => new MongoId ( $message_id ) 
 			), 			// 条件
 			array (
 					'$set' => array (
 							'message_life' => 0 
 					) 
 			) ); // 把life set为0
-			
+			$theMessage = $this->db->message->findOne ( array (
+					'_id' => new MongoId ( $message_id ) 
+			) );
+			$this->db->oldMessage->save ( $theMessage );
+			$this->db->message->remove ( array (
+					'_id' => new MongoId ( $message_id ) 
+			) );
 			return 1;
 		} catch ( Exception $e ) {
 			return - 1;

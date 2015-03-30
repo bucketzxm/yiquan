@@ -40,7 +40,7 @@ ob_start ();
 								if ($_GET ['page'] == 0) {
 									$_SESSION ['systemTopic'] = $a->getSystemTopics ( 'recive', '', strtotime ( '-10 days' ), time () );
 									$_SESSION ['systemTopicPages'] = $a->listallsystemTopicPages ( $_SESSION ['systemTopic'], 30 );
-									//var_dump ( $_SESSION ['systemTopic'] );
+									// var_dump ( $_SESSION ['systemTopic'] );
 								}
 								if (! empty ( $_SESSION ['systemTopic'] )) {
 									$a->showSystemTopic_table ( $_SESSION ['systemTopic'], $_SESSION ['systemTopicPages'] [$_GET ['page']], 30 );
@@ -49,10 +49,30 @@ ob_start ();
 							}
 							break;
 						case 'edit' :
-							
+							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
+								if (isset ( $_GET ['tid'] )) {
+									$a->showeditSystemtopic_form ( $a->queryTopicByRoomID($_GET ['tid']) );
+								}
+							} else {
+								if ($a->updateSystemTopic ( $_POST )) {
+									echo '更新成功';
+								} else {
+									echo '粗了点问题';
+								}
+							}
 							break;
 						case 'delete' :
-							
+							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
+								if (isset ( $_GET ['tid'] )) {
+									$a->DeleteSysTopicById_form ( $_GET ['tid'] );
+								}
+							} else {
+								if ($a->deleteTopic ( $_POST ['topicid'] )) {
+									echo '删除成功';
+								} else {
+									echo '粗了点问题';
+								}
+							}
 							break;
 						case 'addsystemtopic' :
 							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {

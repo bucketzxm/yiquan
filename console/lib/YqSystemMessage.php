@@ -1,8 +1,43 @@
 <?php
 require_once 'YqMessage.php';
 class YqSystemMessage extends YqMessage {
+	function addMessagetolog($message_senderId, $message_receiverId, $message_type, $message_title, $message_labels, $message_topicID, $message_topicTitle, $message_detail, $message_webViewHeader, $message_webViewURL) {
+		$m_labels = explode ( ',', $message_labels );
+		
+		$data = array (
+				'message_senderId' => $message_senderId,
+				'message_receiverId' => $message_receiverId,
+				'message_type' => $message_type,
+				'message_title' => $message_title,
+				'message_detail' => $message_detail,
+				'message_life' => 1,
+				'message_postTime' => $message_postTime,
+				'message_labels' => $m_labels,
+				'message_topicID' => $message_topicID,
+				'message_topicTitle' => $message_topicTitle,
+				'message_webViewHeader' => $message_webViewHeader,
+				'message_webViewURL' => $message_webViewURL 
+		);
+		
+		try {
+			$cursor = $this->db->sysmessagelog->findOne ( array (
+					'message_receiverId' => $message_receiverId,
+					'message_topicID' => $message_topicID,
+					'message_type' => 'newReply',
+					'message_life' => 1 
+			) );
+			if ($cursor == NULL) {
+				$result = $this->db->sysmessagelog->insert ( $data );
+				return 1;
+			} else
+				return 0;
+		} catch ( Exception $e ) {
+			return - 1;
+		}
+	}
 	function addSystemMessage($toall = 0, $message_receiverId = '', $message_type, $message_title, $message_labels, $message_detail, $message_webViewHeader, $message_webViewURL) {
 		if ($toall == 1) {
+			$this->addMessagetolog ( 'system', 'systemToAll', $message_type, $message_title, $message_labels, '', '', $message_detail, $message_webViewHeader, $message_webViewURL );
 			$cus = $this->db->user->find ();
 			$con = 0;
 			while ( $cus->hasNext () ) {
@@ -15,6 +50,7 @@ class YqSystemMessage extends YqMessage {
 			}
 			return $con;
 		} else {
+			$this->addMessagetolog ( 'system', $message_receiverId, $message_type, $message_title, $message_labels, '', '', $message_detail, $message_webViewHeader, $message_webViewURL );
 			$m_recivers = explode ( ',', $message_receiverId );
 			$con = 0;
 			for($i = 0; $i < count ( $m_recivers ); $i ++) {
@@ -30,7 +66,7 @@ class YqSystemMessage extends YqMessage {
 		try {
 			$endtime = ( int ) $endtime;
 			$starttime = ( int ) $starttime;
-			if ($way == 'recive') {
+			if ($way == 'unread') {
 				if ($type == '') {
 					$result = $this->db->message->find ( array (
 							'message_receiverId' => 'system',
@@ -54,10 +90,10 @@ class YqSystemMessage extends YqMessage {
 							'message_postTime' => - 1 
 					) );
 				}
-			} else if ($way == 'send') {
+			} elseif ($way == 'readed') {
 				if ($type == '') {
-					$result = $this->db->message->find ( array (
-							'message_senderId' => 'system',
+					$result = $this->db->oldMessage->find ( array (
+							'message_receiverId' => 'system',
 							'message_postTime' => array (
 									'$lt' => $endtime,
 									'$gte' => $starttime 
@@ -66,8 +102,8 @@ class YqSystemMessage extends YqMessage {
 							'message_postTime' => - 1 
 					) );
 				} else {
-					$result = $this->db->message->find ( array (
-							'message_senderId' => 'system',
+					$result = $this->db->oldMessage->find ( array (
+							'message_receiverId' => 'system',
 							'message_postTime' => array (
 									'$lt' => $endtime,
 									'$gte' => $starttime 
@@ -75,6 +111,31 @@ class YqSystemMessage extends YqMessage {
 							'message_type' => $type 
 					) )->sort ( array (
 							'message_postTime' => - 1 
+					) );
+				}
+			}
+			elseif ($way=='send')
+			{
+				if ($type == '') {
+					$result = $this->db->sysmessagelog->find ( array (
+							'message_receiverId' => 'system',
+							'message_postTime' => array (
+									'$lt' => $endtime,
+									'$gte' => $starttime
+							)
+					) )->sort ( array (
+							'message_postTime' => - 1
+					) );
+				} else {
+					$result = $this->db->sysmessagelog->find ( array (
+							'message_receiverId' => 'system',
+							'message_postTime' => array (
+									'$lt' => $endtime,
+									'$gte' => $starttime
+							),
+							'message_type' => $type
+					) )->sort ( array (
+							'message_postTime' => - 1
 					) );
 				}
 			}

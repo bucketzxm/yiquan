@@ -16,7 +16,9 @@ ob_start ();
 	<div class="row">
 		<div class="col-sm-3 col-md-2 sidebar">
 			<ul class="nav nav-sidebar">
-				<li><a href="?action=view&page=0&limit=30">查看发给我的消息 <span
+				<li><a href="?action=view&page=0&limit=30">查看发给我的未读消息 <span
+						class="sr-only"></span></a></li>
+				<li><a href="?action=viewreaded&page=0&limit=30">查看发给我的已读消息 <span
 						class="sr-only"></span></a></li>
 				<li><a href="?action=viewsend&page=0&limit=30">查看已发送的系统消息 <span
 						class="sr-only"></span></a></li>
@@ -41,13 +43,26 @@ ob_start ();
 						case 'view' :
 							if (isset ( $_GET ['page'] )) {
 								if ($_GET ['page'] == 0) {
-									$_SESSION ['systemMessage'] = $a->getSystemMessage ( 'recive', '', strtotime ( '-1000 days' ), time () );
+									$_SESSION ['systemMessage'] = $a->getSystemMessage ( 'unread', '', strtotime ( '-1000 days' ), time () );
 									$_SESSION ['systemMessagePages'] = $a->getSystemMessagePages ( $_SESSION ['systemMessage'], 30 );
 									// var_dump ( $_SESSION ['systemMessage'] );
 								}
 								if (! empty ( $_SESSION ['systemMessage'] )) {
 									$a->showMessage_table ( $_SESSION ['systemMessage'], $_SESSION ['systemMessagePages'] [$_GET ['page']], 30 );
 									$a->showMessagePages_div ( $_SESSION ['systemMessagePages'], 'view' );
+								}
+							}
+							break;
+						case 'viewreaded' :
+							if (isset ( $_GET ['page'] )) {
+								if ($_GET ['page'] == 0) {
+									$_SESSION ['systemMessage'] = $a->getSystemMessage ( 'readed', '', strtotime ( '-1000 days' ), time () );
+									$_SESSION ['systemMessagePages'] = $a->getSystemMessagePages ( $_SESSION ['systemMessage'], 30 );
+									// var_dump ( $_SESSION ['systemMessage'] );
+								}
+								if (! empty ( $_SESSION ['systemMessage'] )) {
+									$a->showMessage_table ( $_SESSION ['systemMessage'], $_SESSION ['systemMessagePages'] [$_GET ['page']], 30 );
+									$a->showMessagePages_div ( $_SESSION ['systemMessagePages'], 'viewreaded' );
 								}
 							}
 							break;
