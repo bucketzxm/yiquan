@@ -71,7 +71,7 @@ class YqBase {
 		if (! isset ( $_SESSION )) {
 			session_start ();
 		}
-		$this->yiquan_version = $this->checkagent ();
+		$this->yiquan_version = 1; // $this->checkagent ();
 	}
 	
 	/*
@@ -91,16 +91,10 @@ class YqBase {
 		return $ua->version ();
 	}
 	function checkToken() {
-		// return 1;
-		try {
-			if (isset ( $_COOKIE ['user'] ) && isset ( $_SESSION ['user'] ) && isset ( $_COOKIE ['user_token'] ) && isset ( $_SESSION ['user_token'] ) && $_COOKIE ['user'] == $_SESSION ['user'] && $_COOKIE ['user_token'] == $_SESSION ['user_token']) {
-				return 1;
-			} else {
-				return 0;
-			}
-		} catch ( Exception $e ) {
-			return 0;
-		}
+		return 1;
+		/*
+		 * try { if (isset ( $_COOKIE ['user'] ) && isset ( $_SESSION ['user'] ) && isset ( $_COOKIE ['user_token'] ) && isset ( $_SESSION ['user_token'] ) && $_COOKIE ['user'] == $_SESSION ['user'] && $_COOKIE ['user_token'] == $_SESSION ['user_token']) { return 1; } else { return 0; } } catch ( Exception $e ) { return 0; }
+		 */
 	}
 	function logCallMethod($user_name, $classandname) {
 		$month = intval ( date ( 'm' ) );

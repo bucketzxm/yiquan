@@ -4,13 +4,11 @@ require_once 'YqPlatform.php';
 /* Report all errors except E_NOTICE */
 // error_reporting ( E_ALL & ~ E_NOTICE );
 class YqPlatformView extends YqPlatform {
-	function getWeihuButton()
-	{
+	function getWeihuButton() {
 		echo '<div><form method="post" action="?action=weihu">';
 		echo '<input type="submit" value="点击维护" />';
 		echo '</form></div>';
 	}
-	
 	function getLastestVersion_showform($arr) {
 		echo '<div><form method="post" action="?action=version">';
 		echo '<div class="form-group"><h2>最新' . $arr ['platform'] . '版本号</h2></div>';
@@ -36,6 +34,14 @@ class YqPlatformView extends YqPlatform {
 		}
 		echo '</table></div>';
 	}
+	function getstatisticforActiveuser_showtable($arr) {
+		echo '<div class="table-responsive"><table class="table table-striped">';
+		echo '<thead><tr><th>内容</th><th>值</th></tr></thead>';
+		foreach ( $arr as $key => $v ) {
+			echo '<tr><td>' . $key . '</td><td>' . $v . '</td></tr>';
+		}
+		echo '</table></div>';
+	}
 	function getUserStatistic_showsearchform() {
 		echo '<div class="table-responsive"><table class="table table-striped">';
 		
@@ -51,7 +57,13 @@ class YqPlatformView extends YqPlatform {
 		
 		echo '</ul></div>';
 	}
-	function getdailyreport_showtable() {
+	function getdailyreport_showtable($arr) {
+		echo '<div class="table-responsive"><table class="table table-striped">';
+		echo '<thead><tr><th>内容</th><th>值</th></tr></thead>';
+		foreach ( $arr as $key => $v ) {
+			echo '<tr><td>' . $key . '</td><td>' . $v . '</td></tr>';
+		}
+		echo '</table></div>';
 	}
 }
 

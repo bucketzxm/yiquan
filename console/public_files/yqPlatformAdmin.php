@@ -66,7 +66,15 @@ ob_start ();
 							}
 							break;
 						case 'report' :
-							
+							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
+								//var_dump ( $a->getDailyBehavierReport ( time () ) );
+								$a->getdailyreport_showtable ($a->getDailyBehavierReport ( time () ));
+							}
+							break;
+						case 'statisticforActiveuser' :
+							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
+								$a->getstatisticforActiveuser_showtable ( $a->getStatisticforActiveuser () );
+							}
 							break;
 						case 'weihu' :
 							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {

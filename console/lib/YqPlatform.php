@@ -481,12 +481,13 @@ class YqPlatform extends YqBase {
 		// 平均每个用户的圈友数量
 		$sum = 0;
 		
-		$cus = $this->db->user - find ();
+		$cus = $this->db->user->find ();
 		while ( $cus->hasNext () ) {
 			$doc = $cus->getNext ();
 			$arr1 = $doc ['user_relationships'];
 			$arr2 = [ ];
-			$arr3 = $doc ['_id']->{'$id'};
+			$arr3 = [ ];
+			$arr3 [] = $doc ['_id']->{'$id'};
 			
 			foreach ( $doc ['user_relationships'] as $v ) {
 				$row = $this->db->user->findOne ( array (
@@ -499,7 +500,7 @@ class YqPlatform extends YqBase {
 			}
 			
 			$arr2 = array_flip ( array_flip ( $arr2 ) );
-			
+			//var_dump ( $arr3 );
 			$sum += count ( array_diff ( $arr2, $arr3 ) );
 		}
 		
