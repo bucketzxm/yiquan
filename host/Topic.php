@@ -607,24 +607,28 @@ class Topic extends YqBase {
                 return - 3;
             }
             $this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
-            $row = $this->db->topic->findOne ( array (
+            $where = array (
                             "_id" => new MongoID ( $topic_id )
-                            ));
-            if (isset ( $row ['topic_followNames'] [$user_name] )) {
-                unset ( $row ['topic_followNames'] [$user_name] );
-            }
+                            );
+            $param = array (
+                            "\$pull" => array (
+                                                   'topic_followNames' => $user_name
+                                                   )
+                            
+                            );
             
-            $this->db->topic->save ( $row );
+            $result = $this->db->topic->update ( $where, $param );
             
-            $row1 = $this->db->user->findOne ( array (
-                                                     'user_name' => $user_name
-                                                     ) );
+            $where1 = array (
+                             "user_name" => $user_name
+                             );
+            $param1 = array (
+                             "\$pull" => array (
+                                                    'user_followTopic' => new MongoID ( $topic_id )
+                                                    )
+                             );
             
-            if (isset ( $row1 ['user_followTopic'] [new MongoID ( $topic_id )] )) {
-                unset ( $row1 ['user_followTopic'] [new MongoID ( $topic_id )] );
-            }
-            $this->db->user->save ( $row1 );
-            
+            $result1 = $this->db->user->update ( $where1, $param1 );
             return 1;
         } catch ( Exception $e ) {
             return - 1;
@@ -698,14 +702,16 @@ class Topic extends YqBase {
             
             $result = $this->db->topic->update ( $where, $param );
             
-            $row = $this->db->user->findOne ( array (
-                                                     'user_name' => $user_name
-                                                     ) );
+            $where1 = array (
+                             "user_name" => $user_name
+                             );
+            $param1 = array (
+                             "\$pull" => array (
+                                                    'user_archiveTopic' => new MongoID ( $topic_id )
+                                                    )
+                             );
             
-            if (isset ( $row ['user_archiveTopic'] [new MongoID ( $topic_id )] )) {
-                unset ( $row ['user_archiveTopic'] [new MongoID ( $topic_id )] );
-            }
-            $this->db->user->save ( $row );
+            $result1 = $this->db->user->update ( $where1, $param1 );
             
             return 1;
         } catch ( Exception $e ) {
