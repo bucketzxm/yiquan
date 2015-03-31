@@ -481,7 +481,7 @@ class Topic extends YqBase {
 	// 喜欢该话题
 	function likeTopic($topic_id, $user_name) {
 		if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $user_name) {
-			//return - 4;
+			return - 4;
 		}
 		try {
 			if ($this->yiquan_version == 0) {
@@ -511,7 +511,7 @@ class Topic extends YqBase {
 	// 不喜欢该话题
 	function dislikeTopic($topic_id, $user_name) {
 		if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $user_name) {
-			//return - 4;
+			return - 4;
 		}
 		try {
 			if ($this->yiquan_version == 0) {

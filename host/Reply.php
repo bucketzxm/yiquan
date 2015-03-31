@@ -144,7 +144,7 @@ class Reply extends YqBase {
 	 */
 	function addReply($topic_id, $reply_senderName, $reply_content, $reply_visibility) {
 		if (!isset ( $_COOKIE ['user'] )|| $_COOKIE['user'] != $reply_senderName){
-			//return - 4;
+			return - 4;
 		}
 		$state = $this->verifyUserAndWriteLog ( __METHOD__ );
 		if ($state != 1) {
@@ -201,7 +201,7 @@ class Reply extends YqBase {
 	 */
 	function likeReply($reply_id, $user_name) {
 		if (!isset ( $_COOKIE ['user'] )|| $_COOKIE['user'] != $user_name){
-			//return - 4;
+			return - 4;
 		}
 		$state = $this->verifyUserAndWriteLog ( __METHOD__ );
 		if ($state != 1) {
@@ -342,7 +342,7 @@ class Reply extends YqBase {
 	 */
 	function queryRepliedTopicByName($user_name, $time) {
 		if (!isset ( $_COOKIE ['user'] )|| $_COOKIE['user'] != $user_name){
-			//return - 4;
+			return - 4;
 		}
 		$state = $this->verifyUserAndWriteLog ( __METHOD__ );
 		if ($state != 1) {
@@ -419,7 +419,7 @@ class Reply extends YqBase {
 	}
 	function queryMyReplyAgreedTopicByName($user_name, $time) {
 		if (!isset ( $_COOKIE ['user'] )|| $_COOKIE['user'] != $user_name){
-			//return - 4;
+			return - 4;
 		}
 		$state = $this->verifyUserAndWriteLog ( __METHOD__ );
 		if ($state != 1) {
@@ -505,7 +505,7 @@ class Reply extends YqBase {
 	
 	function queryMyAgreedReplyByName($user_name, $time) {
 		if (!isset ( $_COOKIE ['user'] )|| $_COOKIE['user'] != $user_name){
-			//return - 4;
+			return - 4;
 		}
 		$state = $this->verifyUserAndWriteLog ( __METHOD__ );
 		if ($state != 1) {

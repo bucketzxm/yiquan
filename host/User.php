@@ -569,7 +569,7 @@ class User extends YqBase {
 			return - 3;
 		}
 		if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $user_nameB) {
-			// return - 4;
+			return - 4;
 		}
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
 		$a_id = $this->db->user->findOne ( array (
@@ -750,7 +750,7 @@ class User extends YqBase {
 			return - 3;
 		}
 		if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $user_name) {
-			// return - 4;
+			return - 4;
 		}
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
 		$ans = $this->db->user->findOne ( array (
@@ -857,7 +857,7 @@ class User extends YqBase {
 				return - 3;
 			}
 			if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $user_name) {
-				// return - 4;
+				return - 4;
 			}
 			$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
 			$arr = json_decode ( $user_profile, true ); // 将json数据变成php的数组
@@ -1103,7 +1103,7 @@ class User extends YqBase {
 			return - 3;
 		}
 		if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $user_name) {
-			// //return - 4;
+			return - 4;
 		}
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
 		$res = 'system,';
@@ -1138,7 +1138,7 @@ class User extends YqBase {
 			return - 3;
 		}
 		if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $user_name) {
-			// return - 4;
+			return - 4;
 		}
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
 		$res = 'system,';
@@ -1279,7 +1279,7 @@ class User extends YqBase {
 			return - 3;
 		}
 		if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $user_name) {
-			// return - 4;
+			return - 4;
 		}
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
 		
@@ -1360,7 +1360,7 @@ class User extends YqBase {
 			return - 3;
 		}
 		if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $user_name) {
-			// return - 4;
+			return - 4;
 		}
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
 		$row = $this->db->user->findOne ( array (
@@ -1396,7 +1396,7 @@ class User extends YqBase {
 			return - 3;
 		}
 		if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $user_nameB) {
-			// return - 4;
+			return - 4;
 		}
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
 		try {
@@ -1451,7 +1451,7 @@ class User extends YqBase {
 			return - 3;
 		}
 		if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $user_name) {
-			// return - 4;
+			return - 4;
 		}
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
 		$row = $this->db->user->findOne ( array (
@@ -1499,7 +1499,7 @@ class User extends YqBase {
 			return - 3;
 		}
 		if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $user_name) {
-			// return - 4;
+			return - 4;
 		}
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
 		$res1 = $this->get_All_erdu_Friends_of_Myfriends_info_by_uname_usearray ( $user_name );
@@ -1541,7 +1541,7 @@ class User extends YqBase {
 			return - 3;
 		}
 		if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $user_name) {
-			// return - 4;
+			return - 4;
 		}
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
 		$res1 = $this->get_AllFriends_of_Myfriends_info_by_uname_usearray ( $user_name );
@@ -1625,7 +1625,7 @@ class User extends YqBase {
 			return - 3;
 		}
 		if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $invitation_senderName) {
-			// return - 4;
+			return - 4;
 		}
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
 		$ans = [ ];
