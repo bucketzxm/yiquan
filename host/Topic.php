@@ -550,6 +550,170 @@ class Topic extends YqBase {
 		}
 	}
 	
+    // 关注某话题
+    function followTopic($topic_id, $user_name) {
+        if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $user_name) {
+            return - 4;
+        }
+        try {
+            if ($this->yiquan_version == 0) {
+                return - 2;
+            }
+            
+            if ($this->checkToken () == 0) {
+                return - 3;
+            }
+            $this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
+            $where = array (
+                            "_id" => new MongoID ( $topic_id )
+                            );
+            $param = array (
+                            '$inc' => array (
+                                                   'topic_followCounts' => 1
+                                                   )
+                            );
+            
+            $result = $this->db->topic->update ( $where, $param );
+            
+            $where1 = array (
+                             "user_name" => $user_name
+                             );
+            $param1 = array (
+                             "\$addToSet" => array (
+                                                    'user_followTopic' => new MongoID ( $topic_id )
+                                                    ) 
+                             );
+            
+            $result1 = $this->db->user->update ( $where1, $param1 );
+            
+            return 1;
+        } catch ( Exception $e ) {
+            return - 1;
+        }
+    }
+    
+    // 取消关注某话题
+    function disfollowTopic($topic_id, $user_name) {
+        if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $user_name) {
+            return - 4;
+        }
+        try {
+            if ($this->yiquan_version == 0) {
+                return - 2;
+            }
+            
+            if ($this->checkToken () == 0) {
+                return - 3;
+            }
+            $this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
+            $where = array (
+                            "_id" => new MongoID ( $topic_id )
+                            );
+            $param = array (
+                            '$inc' => array (
+                                             'topic_followCounts' => -1
+                                             )
+                            );
+            
+            $result = $this->db->topic->update ( $where, $param );
+            
+            $row = $this->db->user->findOne ( array (
+                                                     'user_name' => $user_name
+                                                     ) );
+            
+            if (isset ( $row ['user_followTopic'] [new MongoID ( $topic_id )] )) {
+                unset ( $row ['user_followTopic'] [new MongoID ( $topic_id )] );
+            }
+            $this->db->user->save ( $row );
+            
+            return 1;
+        } catch ( Exception $e ) {
+            return - 1;
+        }
+    }
+    
+    // 收藏某话题
+    function archiveTopic($topic_id, $user_name) {
+        if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $user_name) {
+            return - 4;
+        }
+        try {
+            if ($this->yiquan_version == 0) {
+                return - 2;
+            }
+            
+            if ($this->checkToken () == 0) {
+                return - 3;
+            }
+            $this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
+            $where = array (
+                            "_id" => new MongoID ( $topic_id )
+                            );
+            $param = array (
+                            '$inc' => array (
+                                             'topic_archiveCounts' => 1
+                                             )
+                            );
+            
+            $result = $this->db->topic->update ( $where, $param );
+            
+            $where1 = array (
+                             "user_name" => $user_name
+                             );
+            $param1 = array (
+                             "\$addToSet" => array (
+                                                    'user_archiveTopic' => new MongoID ( $topic_id )
+                                                    )
+                             );
+            
+            $result1 = $this->db->user->update ( $where1, $param1 );
+            
+            return 1;
+        } catch ( Exception $e ) {
+            return - 1;
+        }
+    }
+    
+    // 取消收藏某话题
+    function unarchiveTopic($topic_id, $user_name) {
+        if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $user_name) {
+            return - 4;
+        }
+        try {
+            if ($this->yiquan_version == 0) {
+                return - 2;
+            }
+            
+            if ($this->checkToken () == 0) {
+                return - 3;
+            }
+            $this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
+            $where = array (
+                            "_id" => new MongoID ( $topic_id )
+                            );
+            $param = array (
+                            '$inc' => array (
+                                             'topic_archiveCounts' => -1
+                                             )
+                            );
+            
+            $result = $this->db->topic->update ( $where, $param );
+            
+            $row = $this->db->user->findOne ( array (
+                                                     'user_name' => $user_name
+                                                     ) );
+            
+            if (isset ( $row ['user_archiveTopic'] [new MongoID ( $topic_id )] )) {
+                unset ( $row ['user_archiveTopic'] [new MongoID ( $topic_id )] );
+            }
+            $this->db->user->save ( $row );
+            
+            return 1;
+        } catch ( Exception $e ) {
+            return - 1;
+        }
+    }
+    
 	// 删除某个话题
 	function deleteTopic($topic_id, $topic_networks = null) {
 		if ($this->yiquan_version == 0) {
