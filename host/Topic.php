@@ -614,7 +614,7 @@ class Topic extends YqBase {
                 unset ( $row ['topic_followNames'] [$user_name] );
             }
             
-            $this->db->user->save ( $row );
+            $this->db->topic->save ( $row );
             
             $row1 = $this->db->user->findOne ( array (
                                                      'user_name' => $user_name
