@@ -157,6 +157,20 @@ class YqPlatform extends YqBase {
 			$this->db->userRelationship->save ( $doc );
 		}
 		
+        $cus = $this->db->topic->find ();
+        
+        while ( $cus->hasNext () ) {
+            $doc = $cus->getNext ();
+            if (! isset ( $doc ['topic_followCounts'] )) {
+                $doc ['topic_followCounts'] = 0;
+            }
+            if (! isset ( $doc ['topic_archiveCounts'] )) {
+                $doc ['topic_archiveCounts'] = 0;
+            }
+            $this->db->topic->save ( $doc );
+        }
+        
+        
 		$cus = $this->db->message->find ( array (
 				'message_life' => 0 
 		) );

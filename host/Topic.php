@@ -65,7 +65,9 @@ class Topic extends YqBase {
 				"topic_postTime" => $topic_postTime,
 				"topic_replyCount" => $topic_replyCount,
 				"topic_likeNames" => array (),
-				"topic_dislikeNames" => array () 
+				"topic_dislikeNames" => array (),
+                "topic_followCounts" => 0,
+                "topic_archiveCounts" => 0
 		);
 		try {
 			$result = $this->db->topic->insert ( $data );
