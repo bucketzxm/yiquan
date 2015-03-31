@@ -3,7 +3,7 @@ require_once 'YqMessage.php';
 class YqSystemMessage extends YqMessage {
 	function addMessagetolog($message_senderId, $message_receiverId, $message_type, $message_title, $message_labels, $message_topicID, $message_topicTitle, $message_detail, $message_webViewHeader, $message_webViewURL) {
 		$m_labels = explode ( ',', $message_labels );
-		
+		$message_postTime = time ();
 		$data = array (
 				'message_senderId' => $message_senderId,
 				'message_receiverId' => $message_receiverId,
