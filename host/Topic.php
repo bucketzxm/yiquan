@@ -399,6 +399,51 @@ class Topic extends YqBase {
 		}
 	}
 	
+    // 查询我收藏的话题
+    function queryMyArchiveByName($archive_ownerName, $topic_time) {
+        if ($this->yiquan_version == 0) {
+            return - 2;
+        }
+        
+        if ($this->checkToken () == 0) {
+            return - 3;
+        }
+        $this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
+        $time_int = ( int ) $topic_time;
+        $cursor = $this->db->user->findone (array ( "user_name" => $archive_ownerName));
+        $archive = $cursor ['user_archiveTopic'];
+        $idArray = array ();
+        foreach ($archive as $topicID){
+            array_push ($idArray, new MongoId($topicID));
+        }
+        try {
+            $result = $this->db->topic->find ( array (
+                                                      '_id' => array ( '$in' => $idArray),
+                                                      'topic_postTime' => array (
+                                                                                 '$lt' => $time_int
+                                                                                 ),
+                                                      'topic_networks' => array (
+                                                                                 '$ne' => [ ]
+                                                                                 )
+                                                      ) )->sort ( array (
+                                                                         "topic_postTime" => - 1 
+                                                                         ) )->limit ( 30 );
+            $res = array ();
+            foreach ( $result as $key => $value ) {
+                $user_nickname = $this->db->user->findOne ( array (
+                                                                   'user_name' => $value ['topic_ownerName']
+                                                                   ), array (
+                                                                             'user_nickname' => 1 
+                                                                             ) );
+                $value ['user_nickname'] = $user_nickname ['user_nickname'];
+                array_push ( $res, $value );
+            }
+            return json_encode ( $res );
+        } catch ( Exception $e ) {
+            return - 1;
+        }
+    }
+    
 	// 查询用户话题数量
 	function countTopicByName($topic_ownerName) {
 		try {
