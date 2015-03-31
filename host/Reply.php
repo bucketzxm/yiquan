@@ -184,8 +184,10 @@ class Reply extends YqBase {
 			}
             
             foreach ($followers as $follower){
-                $message = new Message ();
-                $message->addMessage ($reply_senderName,$follower,'newReply',reply_content,'新的回复',$topic_id,$repliedTopic ['topic_title']);
+                if ($follow != $reply_senderName){
+                    $message = new Message ();
+                    $message->addMessage ($reply_senderName,$follower,'newReply',$reply_content,'新的回复',$topic_id,$repliedTopic ['topic_title']);
+                }
             }
             
 			return 1;
