@@ -93,7 +93,7 @@ class YqBase {
 	function checkToken() {
 		// return 1;
 		try {
-			if (isset ( $_COOKIE ['user'] )&& isset ( $_COOKIE ['user_token'] ) ) {//&& $_COOKIE ['user'] == $_SESSION ['user'] // && isset ( $_SESSION ['user'] )
+			if (isset ( $_COOKIE ['user'] ) && isset ( $_COOKIE ['user_token'] )) { // && $_COOKIE ['user'] == $_SESSION ['user'] // && isset ( $_SESSION ['user'] )
 				
 				$rdt = $this->getRedis ( $_COOKIE ['user'] );
 				
@@ -167,4 +167,49 @@ class YqBase {
 		$result = $redis->get ( $key );
 		return $result;
 	}
+	function delRedis($key) {
+		$redis = new redis ();
+		$redis->connect ( '127.0.0.1', 6379 );
+		$result = $redis->delete ( $key );
+		return $result;
+	}
+	function checkUsernameLegal($name) {
+		$rname = strtolower ( trim ( $name ) );
+		// //var_dump ( $rname );
+		if ($name == 'sencetiveList')
+			return 0;
+		$this->delRedis ( 'sencetiveList' );
+		// die();
+		$arr = unserialize ( $this->getRedis ( 'sencetiveList' ) );
+		// var_dump($arr);
+		if ($arr == false || empty ( $arr )) {
+			$arr = [ ];
+			$file = 'sensetive.txt';
+			$handle = fopen ( $file, 'r' );
+			if ($handle) {
+				while ( ! feof ( $handle ) ) {
+					$buffer = fgets ( $handle, 4096 );
+					// echo $buffer;
+					if (strtolower ( trim ( $buffer ) ) != '')
+						$arr [strtolower ( trim ( $buffer ) )] = 1;
+				}
+				fclose ( $handle );
+				// var_dump ( $arr );
+			}
+			$this->setRedis ( 'sencetiveList', serialize ( $arr ) );
+		}
+		if (isset ( $arr [$rname] )) {
+			return 0;
+		}
+		
+		foreach ( $arr as $key => $value ) {
+			if (strstr ( $rname, $key )) {
+				// echo $rname, ' ', $key . '<br/>';
+				return 0;
+			}
+		}
+		
+		return 1;
+	}
 }
+?>

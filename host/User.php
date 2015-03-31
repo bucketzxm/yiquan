@@ -44,6 +44,10 @@ class User extends YqBase {
 			return 0;
 		}
 		
+		if ($this->checkUsernameLegal ( $user_name ) == 0) {
+			return 0;
+		}
+		
 		$this->logCallMethod ( $user_name, __METHOD__ );
 		try {
 			$id = $this->mid ( 'user', $this->db );
@@ -230,9 +234,8 @@ class User extends YqBase {
 			return - 2;
 		}
 		/*
-		if ($this->checkToken () == 0) {
-			return - 3;
-		}*/
+		 * if ($this->checkToken () == 0) { return - 3; }
+		 */
 		if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $user_name) {
 			return - 4;
 		}
@@ -405,11 +408,11 @@ class User extends YqBase {
 			$ans ['userProfile'] = $ans2;
 		}
 		
-		$ans ['countMyRepliedTopicByName'] = (new Reply ())->countMyRepliedTopicByName ( $ans['user_name'] );
-		$ans ['countTopicByName'] = (new Topic ())->countTopicByName ( $ans['user_name'] );
-		$ans ['countFirstFriendsByName'] = $this->countFirstFriendsByName ( $ans['user_name'] );
-		$ans ['countAllFriendsByName'] = $this->countAllFriendsByName ( $ans['user_name'] );
-		$ans ['countMyReplyAgreeByName'] = (new Reply ())->countMyReplyAgreeByName ( $ans['user_name'] );
+		$ans ['countMyRepliedTopicByName'] = (new Reply ())->countMyRepliedTopicByName ( $ans ['user_name'] );
+		$ans ['countTopicByName'] = (new Topic ())->countTopicByName ( $ans ['user_name'] );
+		$ans ['countFirstFriendsByName'] = $this->countFirstFriendsByName ( $ans ['user_name'] );
+		$ans ['countAllFriendsByName'] = $this->countAllFriendsByName ( $ans ['user_name'] );
+		$ans ['countMyReplyAgreeByName'] = (new Reply ())->countMyReplyAgreeByName ( $ans ['user_name'] );
 		return json_encode ( $ans );
 	}
 	
