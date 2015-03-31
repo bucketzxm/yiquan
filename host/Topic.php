@@ -614,16 +614,16 @@ class Topic extends YqBase {
                 unset ( $row ['topic_followNames'] [$user_name] );
             }
             
-            $result = $this->db->topic->update ( $where, $param );
+            $this->db->user->save ( $row );
             
-            $row = $this->db->user->findOne ( array (
+            $row1 = $this->db->user->findOne ( array (
                                                      'user_name' => $user_name
                                                      ) );
             
-            if (isset ( $row ['user_followTopic'] [new MongoID ( $topic_id )] )) {
-                unset ( $row ['user_followTopic'] [new MongoID ( $topic_id )] );
+            if (isset ( $row1 ['user_followTopic'] [new MongoID ( $topic_id )] )) {
+                unset ( $row1 ['user_followTopic'] [new MongoID ( $topic_id )] );
             }
-            $this->db->user->save ( $row );
+            $this->db->user->save ( $row1 );
             
             return 1;
         } catch ( Exception $e ) {
