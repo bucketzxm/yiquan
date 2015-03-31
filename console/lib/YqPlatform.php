@@ -161,8 +161,10 @@ class YqPlatform extends YqBase {
         
         while ( $cus->hasNext () ) {
             $doc = $cus->getNext ();
-            if (! isset ( $doc ['topic_followCounts'] )) {
-                $doc ['topic_followCounts'] = 0;
+            if (! isset ( $doc ['topic_followNames'] )) {
+                $doc ['topic_followNames'] = [ ];
+            }else{
+                $doc ['topic_followNames'] = [ ];
             }
             if (! isset ( $doc ['topic_archiveCounts'] )) {
                 $doc ['topic_archiveCounts'] = 0;

@@ -66,7 +66,7 @@ class Topic extends YqBase {
 				"topic_replyCount" => $topic_replyCount,
 				"topic_likeNames" => array (),
 				"topic_dislikeNames" => array (),
-                "topic_followCounts" => 0,
+                "topic_followNames" => array (),
                 "topic_archiveCounts" => 0
 		);
 		try {
@@ -568,9 +568,10 @@ class Topic extends YqBase {
                             "_id" => new MongoID ( $topic_id )
                             );
             $param = array (
-                            '$inc' => array (
-                                                   'topic_followCounts' => 1
+                            "\$addToSet" => array (
+                                                   'topic_followNames' => $user_name
                                                    )
+
                             );
             
             $result = $this->db->topic->update ( $where, $param );
@@ -606,14 +607,12 @@ class Topic extends YqBase {
                 return - 3;
             }
             $this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
-            $where = array (
+            $row = $this->db->topic->findOne ( array (
                             "_id" => new MongoID ( $topic_id )
-                            );
-            $param = array (
-                            '$inc' => array (
-                                             'topic_followCounts' => -1
-                                             )
-                            );
+                            ));
+            if (isset ( $row ['topic_followNames'] [$user_name] )) {
+                unset ( $row ['topic_followNames'] [$user_name] );
+            }
             
             $result = $this->db->topic->update ( $where, $param );
             
