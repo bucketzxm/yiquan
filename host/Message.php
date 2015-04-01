@@ -197,9 +197,11 @@ class Message extends YqBase {
     protected function pushMessageToSingle($CID,$title,$count){
         $igt = new IGeTui(HOST,APPKEY,MASTERSECRET);
      
-        $template = $this->IGtNotyPopLoadTemplate($title,$count);
+        $template = $this->IGtNotificationTemplate($title,$count);
 
 	    $message = new IGtSingleMessage();
+	    $message->set_isOffline(true);//是否离线
+		$message->set_offlineExpireTime(3600*12*1000);//离线时间
 	    $message->set_data($template);//设置推送消息类型
 	    $message->set_PushNetWorkType(0);//设置是否根据WIFI推送消息，1为wifi推送，0为不限制推送
 	    //接收方
@@ -207,7 +209,6 @@ class Message extends YqBase {
 	    $target->set_appId(APPID);
 	    $target->set_clientId($CID);
 	    $rep = $igt->pushMessageToSingle($message,$target);
-	    
 	}
 
 	function IGtNotyPopLoadTemplate($title,$count){
@@ -221,8 +222,27 @@ class Message extends YqBase {
         $template ->set_isBelled(true);//是否响铃
         $template ->set_isVibrationed(true);//是否震动
         $template ->set_isCleared(true);//通知栏是否可清除
- 
+ 		
+ 		$begin = "2015-02-28 15:26:22";
+        $end = "2015-02-28 15:31:24";
+        $template->set_duration($begin,$end);
         return $template;
+	}
+
+
+	function IGtNotificationTemplate($title,$count){
+	    $template =  new IGtNotificationTemplate();
+	    $template->set_appId(APPID);//应用appid
+	    $template->set_appkey(APPKEY);//应用appkey
+	    $template->set_transmissionType(1);//透传消息类型
+	    $template->set_transmissionContent("");//透传内容
+	    $template->set_title("你有".$count."条未读消息");//通知栏标题
+	    $template->set_text($title);//通知栏内容
+	    $template->set_logo("");//通知栏logo
+	    $template->set_isRing(true);//是否响铃
+	    $template->set_isVibrate(true);//是否震动
+	    $template->set_isClearable(true);//通知栏是否可清除
+	    return $template;
 	}
     
 	
