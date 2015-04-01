@@ -934,7 +934,7 @@ class Topic extends YqBase {
 	}
 	protected function QiniuUploadhtml_url(&$arr, $html) {
 		$auth = new Auth ( $this->qiniuAK, $this->qiniuSK );
-		$bucket = 'yiquanhost-topics';
+		$bucket = 'yiquan-topics';
 		$uploadMgr = new UploadManager ();
 		$bucketMgr = new BucketManager ( $auth );
 		$token = $auth->uploadToken ( $bucket );
