@@ -1,0 +1,14 @@
+body,div,p{
+	line-height:170%;
+	margin-bottom: 10px;
+	font-family: "Seravek-Light","Helvetica","SegoeUI-Light","Arial","HiraginoSansGB-W3","NotoSansHans-Regular","MicrosoftYaHeiLight","STXihei","SimHei",sans-serif;
+	color: #505050;
+}
+body{
+	margin-left: 16px;
+	margin-right: 16px;
+}
+img{
+	max-width:100%;
+	height:auto; 
+}
