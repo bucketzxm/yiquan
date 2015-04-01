@@ -109,7 +109,7 @@ class Message extends YqBase {
                     if ($platform == 'iOS'){
                         $this->pushiOSMessage($clientID,$nickname,$message_title,$unreadCount);
                     }
-                    if （$platform == 'Android'){
+                    if ($platform == 'Android'){
 						$this->pushMessageToSingle($clientID,$message_title,$unreadCount);
 					}
                 }
