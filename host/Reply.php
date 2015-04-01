@@ -173,6 +173,8 @@ class Reply extends YqBase {
 				"reply_guestAgreeNames" => array () 
 		);
 		
+        $repliedTopic = $this->db->topic->findOne(array('_id' => new MongoId($topic_id)));
+        $followers = $repliedTopic ['topic_followNames'];
 		try {
 			$this->db->reply->insert ( $data );
 			$topic = new Topic ();
@@ -180,6 +182,14 @@ class Reply extends YqBase {
 			if ($state != 1) {
 				return - 1;
 			}
+            
+            foreach ($followers as $follower){
+                if ($follow != $reply_senderName){
+                    $message = new Message ();
+                    $message->addMessage ($reply_senderName,$follower,'newReply',$reply_content,'新的回复',$topic_id,$repliedTopic ['topic_title']);
+                }
+            }
+            
 			return 1;
 		} catch ( Exception $e ) {
 			return - 1;

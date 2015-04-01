@@ -33,6 +33,31 @@ class YqSystemMessageView extends YqSystemMessage {
 		echo '<div class="form-group"><input type="submit" value="提交" /></div>';
 		echo '</form></div>';
 	}
+	function replySystemMessage_form($messageid, $reciverid) {
+		echo '<div><form method="post" action="?action=replySystemMessage">';
+		echo '<input type="hidden" class="form-control" name="messageid" value="' . $messageid . '"/>';
+		echo '<div class="form-group"><h2>请输入消息标题</h2>';
+		echo '<textarea class="form-control" rows="3" cols="80" name="title"></textarea></div>';
+		echo '<div class="form-group"><h2>请输入消息内容</h2>';
+		echo '<textarea class="form-control" rows="3" cols="80" name="detail"></textarea></div>';
+		echo '<div class="form-group"><h2>请输入接收人</h2>';
+		echo '<input class="form-control" type="text"  name="reciver" value="' . $reciverid . '"/></div>';
+		echo '<div class="form-group"><h2>请输入标签</h2>';
+		echo '<input class="form-control" type="text"  name="labels" /></div>';
+		echo '<div class="form-group"><h2>请选择消息类型</h2>';
+		$this->showMessagetype ( 'type' );
+		echo '</div>';
+		
+		echo '<div class="form-group"><h2>message_webViewHeader</h2>';
+		echo '<input class="form-control" type="text"  name="message_webViewHeader" /></div>';
+		
+		echo '<div class="form-group"><h2>message_webViewURL</h2>';
+		echo '<input class="form-control" type="text"  name="message_webViewURL" /></div>';
+		echo '<div class="form-group"><h2>是否群发</h2>';
+		echo '<input class="form-control" type="checkbox"  name="forall" /></div>';
+		echo '<div class="form-group"><input type="submit" value="提交" /></div>';
+		echo '</form></div>';
+	}
 	function showMessage_table($arr, $start, $limit) {
 		echo '<div class="table-responsive"><table class="table table-striped">';
 		echo '<thead><tr><th>发件人</th><th>收件人</th><th>标题</th><th>发送时间</th><th>类型</th><th>未读</th><th>操作1</th></tr></thead>';
@@ -44,7 +69,7 @@ class YqSystemMessageView extends YqSystemMessage {
 			echo '<td>' . date ( "Y-m-d h:m:s", $arr [$i] ['message_postTime'] ) . '</td>';
 			echo '<td>' . $arr [$i] ['message_type'] . '</td>';
 			echo '<td>' . $arr [$i] ['message_life'] . '</td>';
-			echo '<td><a href="?action=detail&mindex=' . $i . '&messageid=' . ($arr [$i] ['_id']->{'$id'}) . '">详细</a></td>';
+			echo '<td><a href="?action=detail&mindex=' . $i . '&messageid=' . ($arr [$i] ['_id']->{'$id'}) . '&sendid=' . ($arr [$i] ['message_senderId']) . '">详细</a></td>';
 			echo '</tr>';
 		}
 		echo '</table></div>';
