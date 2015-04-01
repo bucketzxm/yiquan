@@ -19,7 +19,7 @@
             $headerArr[] = $n .':' . $v;
         }
 
-        curl_setopt($ch, CURLOPT_URL, "http://yiquanhost.oneto-tech.com/Topic_server.php");
+        curl_setopt($ch, CURLOPT_URL, "https://yiquanhost.oneto-tech.com/Topic_server.php");
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 300);
