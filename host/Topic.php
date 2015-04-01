@@ -38,7 +38,7 @@ class Topic extends YqBase {
 	// 参数：$network_type, $owner_name, $room_type, $room_title, $room_labels
 	// 类型：number, string, string, string, string(with '.')
 	// 如果执行成功，返回1，否则，返回0
-	function addTopic($topic_networks, $topic_ownerName, $topic_type, $topic_title, $topic_labels) {
+	function addTopic($topic_networks, $topic_ownerName, $topic_type, $topic_title, $topic_labels,$topic_detail) {
 		if ($this->yiquan_version == 0) {
 			return - 2;
 		}
