@@ -905,29 +905,34 @@ class Topic extends YqBase {
 		}
 	}
 	function addRichTopic($username, $passwordHash, $topic_title, $topic_type, $topic_labels, $topic_networks, $html) {
-		if ($this->checkUsernameAndPassword ( $username, $passwordHash ) == 0)
+		try{
+			if ($this->checkUsernameAndPassword ( $username, $passwordHash ) == 0)
 			return 0;
 		
-		$topic_postTime = time ();
-		$topic_replyCount = 0;
-		$m_network = explode ( ',', $topic_networks );
-		$m_labels = explode ( ',', $topic_labels );
+			$topic_postTime = time ();
+			$topic_replyCount = 0;
+			$m_network = explode ( ',', $topic_networks );
+			$m_labels = explode ( ',', $topic_labels );
+			
+			$data = array (
+					"topic_ownerName" => $username,
+					"topic_type" => $topic_type,
+					"topic_title" => $topic_title,
+					"topic_labels" => $m_labels,
+					"topic_networks" => $m_network,
+					"topic_postTime" => $topic_postTime,
+					"topic_replyCount" => $topic_replyCount,
+					"topic_likeNames" => array (),
+					"topic_dislikeNames" => array (),
+					"topic_followNames" => array (),
+					"topic_archiveCounts" => 0,
+					"topic_detailname" => '',
+					"topic_detail" => '' 
+			);
+		}catch(Exception $e){
+			return $e;
+		}
 		
-		$data = array (
-				"topic_ownerName" => $username,
-				"topic_type" => 'dialogue',
-				"topic_title" => $topic_title,
-				"topic_labels" => $m_labels,
-				"topic_networks" => $m_network,
-				"topic_postTime" => $topic_postTime,
-				"topic_replyCount" => $topic_replyCount,
-				"topic_likeNames" => array (),
-				"topic_dislikeNames" => array (),
-				"topic_followNames" => array (),
-				"topic_archiveCounts" => 0,
-				"topic_detailname" => '',
-				"topic_detail" => '' 
-		);
 		
 		if ($this->QiniuUploadhtml_url ( $data, $html ) == 1) {
 			try {
