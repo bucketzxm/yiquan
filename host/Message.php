@@ -7,7 +7,6 @@ require_once 'getui/igetui/template/IGt.BaseTemplate.php';
 define('APPKEY','Fswp6NteiyAgshqIjY4UTA');
 define('APPID','ksCvaUMV9D7rhBA1vMydXA');
 define('MASTERSECRET','Ava39nShg88cpX8DydftJ3');
-define('CID','');
 
 define('DEVICETOKEN','');
 define('HOST','http://sdk.open.api.igexin.com/apiex.htm');
@@ -110,6 +109,9 @@ class Message extends YqBase {
                     if ($platform == 'iOS'){
                         $this->pushiOSMessage($clientID,$nickname,$message_title,$unreadCount);
                     }
+                    if （$platform == 'Android'){
+						$this->pushMessageToSingle($clientID,$message_title,$unreadCount);
+					}
                 }
                 
 				return 1;
@@ -124,7 +126,7 @@ class Message extends YqBase {
     
     
     //发送新消息通知给相应的人
-    function pushiOSMessage($clientID,$senderName,$message_Title,$unreadCount){
+    protected function pushiOSMessage($clientID,$senderName,$message_Title,$unreadCount){
         
         $ctx = stream_context_create();
         stream_context_set_option($ctx,'ssl','local_cert','yqProAPNS.pem');
@@ -191,6 +193,36 @@ class Message extends YqBase {
          */
         
     }
+
+    protected function pushMessageToSingle($CID,$title,$count){
+        $igt = new IGeTui(HOST,APPKEY,MASTERSECRET);
+     
+        $template = IGtNotyPopLoadTemplateDemo($title,$count);
+
+	    $message = new IGtSingleMessage();
+	    $message->set_data($template);//设置推送消息类型
+	    $message->set_PushNetWorkType(0);//设置是否根据WIFI推送消息，1为wifi推送，0为不限制推送
+	    //接收方
+	    $target = new IGtTarget();
+	    $target->set_appId(APPID);
+	    $target->set_clientId($CID);
+	    $rep = $igt->pushMessageToSingle($message,$target);
+	    
+	}
+	protected function IGtNotyPopLoadTemplateDemo($title,$count){
+        $template =  new IGtNotyPopLoadTemplate();
+        $template ->set_appId(APPID);//应用appid
+        $template ->set_appkey(APPKEY);//应用appkey
+        //通知栏
+        $template ->set_notyTitle("你有".$count."条未读消息");//通知栏标题
+        $template ->set_notyContent($title);//通知栏内容
+        $template ->set_notyIcon("");//通知栏logo
+        $template ->set_isBelled(true);//是否响铃
+        $template ->set_isVibrationed(true);//是否震动
+        $template ->set_isCleared(true);//通知栏是否可清除
+ 
+        return $template;
+	}
     
 	
 	// 查询用户收到的
