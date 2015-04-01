@@ -167,7 +167,7 @@ class YqPlatform extends YqBase {
                 $doc ['topic_followNames'] = [ ];
             }
             if (isset ($doc ['topic_followCounts'])){
-                unset ($doc ['topic_followCounts'])
+                unset ($doc ['topic_followCounts']);
             }
             if (! isset ( $doc ['topic_archiveCounts'] )) {
                 $doc ['topic_archiveCounts'] = 0;
