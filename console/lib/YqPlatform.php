@@ -95,12 +95,12 @@ class YqPlatform extends YqBase {
 			if (! isset ( $doc ['user_blockTopic'] )) {
 				$doc ['user_blockTopic'] = [ ];
 			}
-            if (! isset ( $doc ['user_archiveTopic'] )) {
-                $doc ['user_archiveTopic'] = [ ];
-            }
-            if (! isset ( $doc ['user_followTopic'] )) {
-                $doc ['user_followTopic'] = [ ];
-            }
+			if (! isset ( $doc ['user_archiveTopic'] )) {
+				$doc ['user_archiveTopic'] = [ ];
+			}
+			if (! isset ( $doc ['user_followTopic'] )) {
+				$doc ['user_followTopic'] = [ ];
+			}
 			if (! isset ( $doc ['user_regdate'] )) {
 				$doc ['user_regdate'] = new MongoDate ();
 			}
@@ -157,25 +157,24 @@ class YqPlatform extends YqBase {
 			$this->db->userRelationship->save ( $doc );
 		}
 		
-        $cus = $this->db->topic->find ();
-        
-        while ( $cus->hasNext () ) {
-            $doc = $cus->getNext ();
-            if (! isset ( $doc ['topic_followNames'] )) {
-                $doc ['topic_followNames'] = [ ];
-            }else{
-                $doc ['topic_followNames'] = [ ];
-            }
-            if (isset ($doc ['topic_followCounts'])){
-                unset ($doc ['topic_followCounts']);
-            }
-            if (! isset ( $doc ['topic_archiveCounts'] )) {
-                $doc ['topic_archiveCounts'] = 0;
-            }
-            $this->db->topic->save ( $doc );
-        }
-        
-        
+		$cus = $this->db->topic->find ();
+		
+		while ( $cus->hasNext () ) {
+			$doc = $cus->getNext ();
+			if (! isset ( $doc ['topic_followNames'] )) {
+				$doc ['topic_followNames'] = [ ];
+			} else {
+				$doc ['topic_followNames'] = [ ];
+			}
+			if (isset ( $doc ['topic_followCounts'] )) {
+				unset ( $doc ['topic_followCounts'] );
+			}
+			if (! isset ( $doc ['topic_archiveCounts'] )) {
+				$doc ['topic_archiveCounts'] = 0;
+			}
+			$this->db->topic->save ( $doc );
+		}
+		
 		$cus = $this->db->message->find ( array (
 				'message_life' => 0 
 		) );
@@ -188,6 +187,21 @@ class YqPlatform extends YqBase {
 		$this->db->message->remove ( array (
 				'message_life' => 0 
 		) );
+		
+		// ======topic
+		$cus = $this->db->topic->find ();
+		while ( $cus->hasNext () ) {
+			$doc = $cus->getNext ();
+			if (! isset ( $doc ['topic_detailname'] )) {
+				$doc ['topic_detailname'] = '';
+			}
+			
+			if (! isset ( $doc ['topic_detail'] )) {
+				$doc ['topic_detail'] = '';
+			}
+			$this->db->topic->save ( $doc );
+		}
+		
 		return 1;
 	}
 	function getLastestVersion($plat) {
@@ -524,7 +538,7 @@ class YqPlatform extends YqBase {
 			}
 			
 			$arr2 = array_flip ( array_flip ( $arr2 ) );
-			//var_dump ( $arr3 );
+			// var_dump ( $arr3 );
 			$sum += count ( array_diff ( $arr2, $arr3 ) );
 		}
 		

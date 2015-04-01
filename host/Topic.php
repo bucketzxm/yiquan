@@ -48,7 +48,7 @@ class Topic extends YqBase {
 		}
 		
 		if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $topic_ownerName) {
-			//return - 4;
+			// return - 4;
 		}
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
 		$topic_postTime = time ();
@@ -66,8 +66,10 @@ class Topic extends YqBase {
 				"topic_replyCount" => $topic_replyCount,
 				"topic_likeNames" => array (),
 				"topic_dislikeNames" => array (),
-                "topic_followNames" => array (),
-                "topic_archiveCounts" => 0
+				"topic_followNames" => array (),
+				"topic_archiveCounts" => 0,
+				"topic_detailname" => '',
+				"topic_detail" => '' 
 		);
 		try {
 			$result = $this->db->topic->insert ( $data );
@@ -158,9 +160,9 @@ class Topic extends YqBase {
 							$lastUserQueryArray,
 							$timeQueryArray 
 					),
-                    'topic_networks' => array (
-                            '$ne' => [ ]
-                    )
+					'topic_networks' => array (
+							'$ne' => [ ] 
+					) 
 			);
 			
 			// 执行查询
@@ -168,35 +170,34 @@ class Topic extends YqBase {
 			if ($direction_int == 1)
 				$result = $this->db->topic->find ( $query )->sort ( array (
 						"topic_postTime" => - 1 
-                ) );//->limit ( 30 );
+				) ); // ->limit ( 30 );
 			else
 				$result = $this->db->topic->find ( $query )->sort ( array (
 						"topic_postTime" => - 1 
 				) );
-            $count = 0;
+			$count = 0;
 			$res = array ();
 			foreach ( $result as $key => $value ) {
 				// 判断network_type
 				if (in_array ( $topic_networks, $value ['topic_networks'] )) {
-                    
-                    //判断是否有被用户Block
-                    if (in_array ($_COOKIE['user'],$value ['topic_dislikeNames'])){
-                        
-                    }else{
-                    
-                        $user_nickname = $this->db->user->findOne ( array (
-                                'user_name' => $value ['topic_ownerName'] 
-                        ), array (
-                                'user_nickname' => 1 
-                        ) );
-                        $value ['user_nickname'] = $user_nickname ['user_nickname'];
-                        array_push ( $res, $value );
-                        $count ++;
-                    }
+					
+					// 判断是否有被用户Block
+					if (in_array ( $_COOKIE ['user'], $value ['topic_dislikeNames'] )) {
+					} else {
+						
+						$user_nickname = $this->db->user->findOne ( array (
+								'user_name' => $value ['topic_ownerName'] 
+						), array (
+								'user_nickname' => 1 
+						) );
+						$value ['user_nickname'] = $user_nickname ['user_nickname'];
+						array_push ( $res, $value );
+						$count ++;
+					}
 				}
-                if ($count == 30){
-                    break;
-                }
+				if ($count == 30) {
+					break;
+				}
 			}
 			return json_encode ( $res );
 		} catch ( Exception $e ) {
@@ -247,34 +248,33 @@ class Topic extends YqBase {
 						$lastUserQueryArray,
 						$timeQueryArray 
 				),
-                'topic_networks' => array (
-                        '$ne' => [ ]
-                )
+				'topic_networks' => array (
+						'$ne' => [ ] 
+				) 
 		);
 		
 		try {
 			$result = $this->db->topic->find ( $query )->sort ( array (
 					"topic_postTime" => - 1 
-            ) );//->limit ( 30 );
-            $count = 0;
-            $res = array ();
+			) ); // ->limit ( 30 );
+			$count = 0;
+			$res = array ();
 			foreach ( $result as $key => $value ) {
-                //判断是否有被用户Block
-                if (in_array ($_COOKIE['user'],$value ['topic_dislikeNames'])){
-                    
-                }else{
-                    $user_nickname = $this->db->user->findOne ( array (
-                            'user_name' => $value ['topic_ownerName'] 
-                    ), array (
-                            'user_nickname' => 1 
-                    ) );
-                    $value ['user_nickname'] = $user_nickname ['user_nickname'];
-                    array_push ( $res, $value );
-                    $count ++;
-                }
-                if ($count == 30){
-                    break;
-                }
+				// 判断是否有被用户Block
+				if (in_array ( $_COOKIE ['user'], $value ['topic_dislikeNames'] )) {
+				} else {
+					$user_nickname = $this->db->user->findOne ( array (
+							'user_name' => $value ['topic_ownerName'] 
+					), array (
+							'user_nickname' => 1 
+					) );
+					$value ['user_nickname'] = $user_nickname ['user_nickname'];
+					array_push ( $res, $value );
+					$count ++;
+				}
+				if ($count == 30) {
+					break;
+				}
 			}
 			return json_encode ( $res );
 		} catch ( Exception $e ) {
@@ -320,39 +320,38 @@ class Topic extends YqBase {
 						$lastUserQueryArray,
 						$timeQueryArray 
 				),
-                'topic_networks' => array (
-                        '$ne' => [ ]
-                )
+				'topic_networks' => array (
+						'$ne' => [ ] 
+				) 
 		);
 		
 		try {
 			$result = $this->db->topic->find ( $query )->sort ( array (
-					"topic_postTime" => - 1
+					"topic_postTime" => - 1 
 			) ); // 感觉效率会很低。
 			$res = array ();
 			$maxCount = 30;
 			$count = 0;
 			foreach ( $result as $key => $value ) {
 				if (in_array ( $topic_label, $value ["topic_labels"], true )) {
-                    //判断是否有被用户Block
-                    if (in_array ($_COOKIE['user'],$value ['topic_dislikeNames'])){
-                        
-                    }else{
-                        $user_nickname = $this->db->user->findOne ( array (
-                                'user_name' => $value ['topic_ownerName'] 
-                        ), array (
-                                'user_nickname' => 1 
-                        ) );
-                        $value ['user_nickname'] = $user_nickname ['user_nickname'];
-                        
-                        array_push ( $res, $value );
-                    }
+					// 判断是否有被用户Block
+					if (in_array ( $_COOKIE ['user'], $value ['topic_dislikeNames'] )) {
+					} else {
+						$user_nickname = $this->db->user->findOne ( array (
+								'user_name' => $value ['topic_ownerName'] 
+						), array (
+								'user_nickname' => 1 
+						) );
+						$value ['user_nickname'] = $user_nickname ['user_nickname'];
+						
+						array_push ( $res, $value );
+					}
 				}
-                if ($count >= $maxCount) {
-                    break;
-                } else {
-                    $count ++;
-                }
+				if ($count >= $maxCount) {
+					break;
+				} else {
+					$count ++;
+				}
 			}
 			return json_encode ( $res );
 		} catch ( Exception $e ) {
@@ -377,9 +376,9 @@ class Topic extends YqBase {
 					'topic_postTime' => array (
 							'$lt' => $time_int 
 					),
-                    'topic_networks' => array (
-                            '$ne' => [ ]
-                    )
+					'topic_networks' => array (
+							'$ne' => [ ] 
+					) 
 			) )->sort ( array (
 					"topic_postTime" => - 1 
 			) )->limit ( 30 );
@@ -399,51 +398,55 @@ class Topic extends YqBase {
 		}
 	}
 	
-    // 查询我收藏的话题
-    function queryMyArchiveByName($archive_ownerName, $topic_time) {
-        if ($this->yiquan_version == 0) {
-            return - 2;
-        }
-        
-        if ($this->checkToken () == 0) {
-            return - 3;
-        }
-        $this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
-        $time_int = ( int ) $topic_time;
-        $cursor = $this->db->user->findone (array ( "user_name" => $archive_ownerName));
-        $archive = $cursor ['user_archiveTopic'];
-        $idArray = array ();
-        foreach ($archive as $topicID){
-            array_push ($idArray, new MongoId($topicID));
-        }
-        try {
-            $result = $this->db->topic->find ( array (
-                                                      '_id' => array ( '$in' => $idArray),
-                                                      'topic_postTime' => array (
-                                                                                 '$lt' => $time_int
-                                                                                 ),
-                                                      'topic_networks' => array (
-                                                                                 '$ne' => [ ]
-                                                                                 )
-                                                      ) )->sort ( array (
-                                                                         "topic_postTime" => - 1 
-                                                                         ) )->limit ( 30 );
-            $res = array ();
-            foreach ( $result as $key => $value ) {
-                $user_nickname = $this->db->user->findOne ( array (
-                                                                   'user_name' => $value ['topic_ownerName']
-                                                                   ), array (
-                                                                             'user_nickname' => 1 
-                                                                             ) );
-                $value ['user_nickname'] = $user_nickname ['user_nickname'];
-                array_push ( $res, $value );
-            }
-            return json_encode ( $res );
-        } catch ( Exception $e ) {
-            return - 1;
-        }
-    }
-    
+	// 查询我收藏的话题
+	function queryMyArchiveByName($archive_ownerName, $topic_time) {
+		if ($this->yiquan_version == 0) {
+			return - 2;
+		}
+		
+		if ($this->checkToken () == 0) {
+			return - 3;
+		}
+		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
+		$time_int = ( int ) $topic_time;
+		$cursor = $this->db->user->findone ( array (
+				"user_name" => $archive_ownerName 
+		) );
+		$archive = $cursor ['user_archiveTopic'];
+		$idArray = array ();
+		foreach ( $archive as $topicID ) {
+			array_push ( $idArray, new MongoId ( $topicID ) );
+		}
+		try {
+			$result = $this->db->topic->find ( array (
+					'_id' => array (
+							'$in' => $idArray 
+					),
+					'topic_postTime' => array (
+							'$lt' => $time_int 
+					),
+					'topic_networks' => array (
+							'$ne' => [ ] 
+					) 
+			) )->sort ( array (
+					"topic_postTime" => - 1 
+			) )->limit ( 30 );
+			$res = array ();
+			foreach ( $result as $key => $value ) {
+				$user_nickname = $this->db->user->findOne ( array (
+						'user_name' => $value ['topic_ownerName'] 
+				), array (
+						'user_nickname' => 1 
+				) );
+				$value ['user_nickname'] = $user_nickname ['user_nickname'];
+				array_push ( $res, $value );
+			}
+			return json_encode ( $res );
+		} catch ( Exception $e ) {
+			return - 1;
+		}
+	}
+	
 	// 查询用户话题数量
 	function countTopicByName($topic_ownerName) {
 		try {
@@ -457,9 +460,9 @@ class Topic extends YqBase {
 			$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
 			$count = $this->db->topic->find ( array (
 					'topic_ownerName' => $topic_ownerName,
-                    'topic_networks' => array (
-                                    '$ne' => [ ]
-                    )
+					'topic_networks' => array (
+							'$ne' => [ ] 
+					) 
 			) )->count ();
 			return $count;
 		} catch ( Exception $e ) {
@@ -468,7 +471,7 @@ class Topic extends YqBase {
 	}
 	
 	// 按照ID查询
-	function queryTopicByRoomID ($topic_roomID) {
+	function queryTopicByRoomID($topic_roomID) {
 		try {
 			if ($this->yiquan_version == 0) {
 				return - 2;
@@ -497,13 +500,13 @@ class Topic extends YqBase {
 		try {
 			$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
 			$result = $this->db->topic->findOne ( array (
-					'_id' => new MongoID ( $topic_roomID )
+					'_id' => new MongoID ( $topic_roomID ) 
 			) );
 			$user_nickname = $this->db->user->findOne ( array (
-					'user_name' => $result ['topic_ownerName']
+					'user_name' => $result ['topic_ownerName'] 
 			), array (
 					'user_nickname' => 1,
-					'user_smallavatar' => 1
+					'user_smallavatar' => 1 
 			) );
 			$result ['user_nickname'] = $user_nickname ['user_nickname'];
 			$result ['user_smallavatar'] = $user_nickname ['user_smallavatar'];
@@ -511,7 +514,7 @@ class Topic extends YqBase {
 			$t = $user_nickname ['_id'];
 			// echo $t;
 			$ans2 = $this->db->userProfile->findOne ( array (
-					'user_objid' => $t
+					'user_objid' => $t 
 			) );
 			
 			$result ['user_gender'] = $ans2 ['profile_gender'];
@@ -577,193 +580,191 @@ class Topic extends YqBase {
 			);
 			
 			$result = $this->db->topic->update ( $where, $param );
-            
-            $where1 = array (
-                            "user_name" => $user_name
-                            );
-            $param1 = array (
-                            "\$addToSet" => array (
-                                                   'user_blockTopic' => new MongoID ( $topic_id )
-                                                   ) 
-                            );
-            
-            $result1 = $this->db->user->update ( $where1, $param1 );
-            
+			
+			$where1 = array (
+					"user_name" => $user_name 
+			);
+			$param1 = array (
+					"\$addToSet" => array (
+							'user_blockTopic' => new MongoID ( $topic_id ) 
+					) 
+			);
+			
+			$result1 = $this->db->user->update ( $where1, $param1 );
+			
 			return 1;
 		} catch ( Exception $e ) {
 			return - 1;
 		}
 	}
 	
-    // 关注某话题
-    function followTopic($topic_id, $user_name) {
-        if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $user_name) {
-            return - 4;
-        }
-        try {
-            if ($this->yiquan_version == 0) {
-                return - 2;
-            }
-            
-            if ($this->checkToken () == 0) {
-                return - 3;
-            }
-            $this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
-            $where = array (
-                            "_id" => new MongoID ( $topic_id )
-                            );
-            $param = array (
-                            "\$addToSet" => array (
-                                                   'topic_followNames' => $user_name
-                                                   )
-
-                            );
-            
-            $result = $this->db->topic->update ( $where, $param );
-            
-            $where1 = array (
-                             "user_name" => $user_name
-                             );
-            $param1 = array (
-                             "\$addToSet" => array (
-                                                    'user_followTopic' => new MongoID ( $topic_id )
-                                                    ) 
-                             );
-            
-            $result1 = $this->db->user->update ( $where1, $param1 );
-            
-            return 1;
-        } catch ( Exception $e ) {
-            return - 1;
-        }
-    }
-    
-    // 取消关注某话题
-    function disfollowTopic($topic_id, $user_name) {
-        if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $user_name) {
-            return - 4;
-        }
-        try {
-            if ($this->yiquan_version == 0) {
-                return - 2;
-            }
-            
-            if ($this->checkToken () == 0) {
-                return - 3;
-            }
-            $this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
-            $where = array (
-                            "_id" => new MongoID ( $topic_id )
-                            );
-            $param = array (
-                            "\$pull" => array (
-                                                   'topic_followNames' => $user_name
-                                                   )
-                            
-                            );
-            
-            $result = $this->db->topic->update ( $where, $param );
-            
-            $where1 = array (
-                             "user_name" => $user_name
-                             );
-            $param1 = array (
-                             "\$pull" => array (
-                                                    'user_followTopic' => new MongoID ( $topic_id )
-                                                    )
-                             );
-            
-            $result1 = $this->db->user->update ( $where1, $param1 );
-            return 1;
-        } catch ( Exception $e ) {
-            return - 1;
-        }
-    }
-    
-    // 收藏某话题
-    function archiveTopic($topic_id, $user_name) {
-        if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $user_name) {
-            return - 4;
-        }
-        try {
-            if ($this->yiquan_version == 0) {
-                return - 2;
-            }
-            
-            if ($this->checkToken () == 0) {
-                return - 3;
-            }
-            $this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
-            $where = array (
-                            "_id" => new MongoID ( $topic_id )
-                            );
-            $param = array (
-                            '$inc' => array (
-                                             'topic_archiveCounts' => 1
-                                             )
-                            );
-            
-            $result = $this->db->topic->update ( $where, $param );
-            
-            $where1 = array (
-                             "user_name" => $user_name
-                             );
-            $param1 = array (
-                             "\$addToSet" => array (
-                                                    'user_archiveTopic' => new MongoID ( $topic_id )
-                                                    )
-                             );
-            
-            $result1 = $this->db->user->update ( $where1, $param1 );
-            
-            return 1;
-        } catch ( Exception $e ) {
-            return - 1;
-        }
-    }
-    
-    // 取消收藏某话题
-    function unarchiveTopic($topic_id, $user_name) {
-        if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $user_name) {
-            return - 4;
-        }
-        try {
-            if ($this->yiquan_version == 0) {
-                return - 2;
-            }
-            
-            if ($this->checkToken () == 0) {
-                return - 3;
-            }
-            $this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
-            $where = array (
-                            "_id" => new MongoID ( $topic_id )
-                            );
-            $param = array (
-                            '$inc' => array (
-                                             'topic_archiveCounts' => -1
-                                             )
-                            );
-            
-            $result = $this->db->topic->update ( $where, $param );
-            
-            $where1 = array (
-                             "user_name" => $user_name
-                             );
-            $param1 = array (
-                             "\$pull" => array (
-                                                    'user_archiveTopic' => new MongoID ( $topic_id )
-                                                    )
-                             );
-            
-            $result1 = $this->db->user->update ( $where1, $param1 );
-            
-            return 1;
-        } catch ( Exception $e ) {
-            return - 1;
-        }
-    }
-    
+	// 关注某话题
+	function followTopic($topic_id, $user_name) {
+		if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $user_name) {
+			return - 4;
+		}
+		try {
+			if ($this->yiquan_version == 0) {
+				return - 2;
+			}
+			
+			if ($this->checkToken () == 0) {
+				return - 3;
+			}
+			$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
+			$where = array (
+					"_id" => new MongoID ( $topic_id ) 
+			);
+			$param = array (
+					"\$addToSet" => array (
+							'topic_followNames' => $user_name 
+					) 
+			);
+			
+			$result = $this->db->topic->update ( $where, $param );
+			
+			$where1 = array (
+					"user_name" => $user_name 
+			);
+			$param1 = array (
+					"\$addToSet" => array (
+							'user_followTopic' => new MongoID ( $topic_id ) 
+					) 
+			);
+			
+			$result1 = $this->db->user->update ( $where1, $param1 );
+			
+			return 1;
+		} catch ( Exception $e ) {
+			return - 1;
+		}
+	}
+	
+	// 取消关注某话题
+	function disfollowTopic($topic_id, $user_name) {
+		if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $user_name) {
+			return - 4;
+		}
+		try {
+			if ($this->yiquan_version == 0) {
+				return - 2;
+			}
+			
+			if ($this->checkToken () == 0) {
+				return - 3;
+			}
+			$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
+			$where = array (
+					"_id" => new MongoID ( $topic_id ) 
+			);
+			$param = array (
+					"\$pull" => array (
+							'topic_followNames' => $user_name 
+					) 
+			);
+			
+			$result = $this->db->topic->update ( $where, $param );
+			
+			$where1 = array (
+					"user_name" => $user_name 
+			);
+			$param1 = array (
+					"\$pull" => array (
+							'user_followTopic' => new MongoID ( $topic_id ) 
+					) 
+			);
+			
+			$result1 = $this->db->user->update ( $where1, $param1 );
+			return 1;
+		} catch ( Exception $e ) {
+			return - 1;
+		}
+	}
+	
+	// 收藏某话题
+	function archiveTopic($topic_id, $user_name) {
+		if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $user_name) {
+			return - 4;
+		}
+		try {
+			if ($this->yiquan_version == 0) {
+				return - 2;
+			}
+			
+			if ($this->checkToken () == 0) {
+				return - 3;
+			}
+			$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
+			$where = array (
+					"_id" => new MongoID ( $topic_id ) 
+			);
+			$param = array (
+					'$inc' => array (
+							'topic_archiveCounts' => 1 
+					) 
+			);
+			
+			$result = $this->db->topic->update ( $where, $param );
+			
+			$where1 = array (
+					"user_name" => $user_name 
+			);
+			$param1 = array (
+					"\$addToSet" => array (
+							'user_archiveTopic' => new MongoID ( $topic_id ) 
+					) 
+			);
+			
+			$result1 = $this->db->user->update ( $where1, $param1 );
+			
+			return 1;
+		} catch ( Exception $e ) {
+			return - 1;
+		}
+	}
+	
+	// 取消收藏某话题
+	function unarchiveTopic($topic_id, $user_name) {
+		if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $user_name) {
+			return - 4;
+		}
+		try {
+			if ($this->yiquan_version == 0) {
+				return - 2;
+			}
+			
+			if ($this->checkToken () == 0) {
+				return - 3;
+			}
+			$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
+			$where = array (
+					"_id" => new MongoID ( $topic_id ) 
+			);
+			$param = array (
+					'$inc' => array (
+							'topic_archiveCounts' => - 1 
+					) 
+			);
+			
+			$result = $this->db->topic->update ( $where, $param );
+			
+			$where1 = array (
+					"user_name" => $user_name 
+			);
+			$param1 = array (
+					"\$pull" => array (
+							'user_archiveTopic' => new MongoID ( $topic_id ) 
+					) 
+			);
+			
+			$result1 = $this->db->user->update ( $where1, $param1 );
+			
+			return 1;
+		} catch ( Exception $e ) {
+			return - 1;
+		}
+	}
+	
 	// 删除某个话题
 	function deleteTopic($topic_id, $topic_networks = null) {
 		if ($this->yiquan_version == 0) {
@@ -776,11 +777,11 @@ class Topic extends YqBase {
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
 		if ($topic_networks == null) {
 			try {
-                $cursor = $this->db->topic->findOne( array(
-                    '_id' => new MongoID ( $topic_id ))
-                );
-                $cursor ['topic_networks'] = [ ];
-                $this->db->topic->save($cursor);
+				$cursor = $this->db->topic->findOne ( array (
+						'_id' => new MongoID ( $topic_id ) 
+				) );
+				$cursor ['topic_networks'] = [ ];
+				$this->db->topic->save ( $cursor );
 				return 1;
 			} catch ( Exception $e ) {
 				return - 1;
@@ -896,6 +897,56 @@ class Topic extends YqBase {
 		} catch ( Exception $e ) {
 			return - 1;
 		}
+	}
+	function addRichTopic($username, $passwordHash, $topic, $topic_labels, $topic_networks, $html) {
+		if ($this->checkUsernameAndPassword ( $username, $passwordHash ) == 0)
+			return 0;
+		
+		$topic_postTime = time ();
+		$topic_replyCount = 0;
+		$m_network = explode ( ',', $topic_networks );
+		$m_labels = explode ( ',', $topic_labels );
+		
+		$data = array (
+				"topic_ownerName" => $username,
+				"topic_type" => $topic_type,
+				"topic_title" => $topic_title,
+				"topic_labels" => $m_labels,
+				"topic_networks" => $m_network,
+				"topic_postTime" => $topic_postTime,
+				"topic_replyCount" => $topic_replyCount,
+				"topic_likeNames" => array (),
+				"topic_dislikeNames" => array (),
+				"topic_followNames" => array (),
+				"topic_archiveCounts" => 0,
+				"topic_detailname" => '',
+				"topic_detail" => '' 
+		);
+		
+		if ($this->QiniuUploadhtml_url ( $data, $html ) == 1) {
+			try {
+				$result = $this->db->topic->insert ( $data );
+				return 1;
+			} catch ( Exception $e ) {
+				return - 1;
+			}
+		}
+	}
+	protected function QiniuUploadhtml_url(&$arr, $html) {
+		$auth = new Auth ( $this->qiniuAK, $this->qiniuSK );
+		$bucket = 'yiquanhost-topics';
+		$uploadMgr = new UploadManager ();
+		$bucketMgr = new BucketManager ( $auth );
+		$token = $auth->uploadToken ( $bucket );
+		
+		list ( $ret, $err ) = $uploadMgr->put ( $token, null, $html );
+		if ($err == null) {
+			$arr ['topic_detailname'] = $ret ['key'];
+			$arr ['topic_detail'] = $this->$topicsbucketUrl . '/' . $ret ['key'];
+		} else {
+			return $err;
+		}
+		return 1;
 	}
 }
 
