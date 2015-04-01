@@ -37,9 +37,10 @@ class User extends YqBase {
 	 * made by wwq reg是指用户的注册 接受参数依次为 用户名 密码 手机号码 返回值 注册成功1 注册发生异常-1 soap客户端使用方法 $soap = new SoapClient ( "http://yiquanhost.duapp.com/userclass.wsdl" ); $result2 = $soap->reg ( 'q', '12345'，'13566632325' ); echo $result2 . "<br/>";
 	 */
 	function reg($user_name, $user_pwd, $user_mobile) {
-		/*
-		 * if ($this->yiquan_version == 0) { return - 2; }
-		 */
+		if ($this->yiquan_version == 0) {
+			return - 2;
+		}
+		
 		if ($this->checkNameExist ( $user_name ) || $this->checkMobileExist ( $user_mobile )) {
 			return 0;
 		}
@@ -62,8 +63,8 @@ class User extends YqBase {
 					'user_relationships' => array (),
 					'user_blocklist' => array (),
 					'user_blockTopic' => array (),
-                    'user_archiveTopic' => array (),
-                    'user_followTopic' => array (),
+					'user_archiveTopic' => array (),
+					'user_followTopic' => array (),
 					'user_state' => 1,
 					'user_regdate' => new MongoDate (),
 					'user_privilege' => 0,
@@ -363,7 +364,7 @@ class User extends YqBase {
 		if ($ans2 != null) {
 			$ans ['userProfile'] = $ans2;
 		}
-		
+		$user_name = $ans ['user_name'];
 		$ans ['countMyRepliedTopicByName'] = (new Reply ())->countMyRepliedTopicByName ( $user_name );
 		$ans ['countTopicByName'] = (new Topic ())->countTopicByName ( $user_name );
 		$ans ['countFirstFriendsByName'] = $this->countFirstFriendsByName ( $user_name );

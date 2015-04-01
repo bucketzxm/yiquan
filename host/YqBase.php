@@ -39,6 +39,7 @@ class YqBase {
 	protected $qiniuAK = 'brOfo9rKPPpkaDy9JCyTqNwRWR8wDsgwTrEezgHz';
 	protected $qiniuSK = 'Tb41FAE5cPiZI_hNIxhh8auO1g_Pfd693Tk6yGQL';
 	protected $userpicbucketUrl = 'dn-yiquanhost-avatar.qbox.me';
+	protected $topicsbucketUrl = '7xid8v.com2.z0.glb.qiniucdn.com';
 	/*
 	 * made by wwq 构造函数 疯狂连接与认证 实属无奈
 	 */
@@ -210,6 +211,19 @@ class YqBase {
 		}
 		
 		return 1;
+	}
+	function checkUsernameAndPassword($uname, $pwd) {
+		$row = $this->db->user->findOne ( array (
+				'user_name' => $uname 
+		) );
+		
+		if ($row == null)
+			return 0;
+		
+		if ($row ['user_pin'] == crypt ( $pwd, $row ['user_pin'] ))
+			return 1; // right pwd
+		
+		return 0;
 	}
 }
 ?>
