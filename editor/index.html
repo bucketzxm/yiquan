@@ -14,6 +14,7 @@
     <script src="external/google-code-prettify/prettify.js"></script>
 		<link href="index.css" rel="stylesheet">
     <script src="bootstrap-wysiwyg.js"></script>
+    <script src="sha1.min.js"></script>
   </head>
   <body>
 
@@ -175,12 +176,12 @@
     } else if( password.length == 0 ){
       alert("请填写密码");
     } else {
-      $.post('up.php',{text:editor},function(d){
-        alert("提交成功");
+      password = sha1(sha1(sha1(sha1(password+"yiquan")+"yidaquan")));
+      alert(password);
+      $.post('up.php',{editor:editor,tag:row1+","+row2,title:title,username:username,password:password},function(d){
+        alert(row1+","+row2);
       });
     }
-
-    
   }
 </script>
 

@@ -909,7 +909,7 @@ class Topic extends YqBase {
 		
 		$data = array (
 				"topic_ownerName" => $username,
-				"topic_type" => $topic_type,
+				"topic_type" => 'dialogue',
 				"topic_title" => $topic_title,
 				"topic_labels" => $m_labels,
 				"topic_networks" => $m_network,
