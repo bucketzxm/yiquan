@@ -79,7 +79,7 @@ class Topic extends YqBase {
 				"topic_detail" => '' 
 		);
         if (($topic_detailText != nil) && ($topic_detailText != '')){
-            if ($this->QiniuUploadhtml_url ( $data, $html ) == 1) {
+            if ($this->QiniuUploadhtml_url ( $data, $detailHtmlText ) == 1) {
                 try {
                     $result = $this->db->topic->insert ( $data );
                     return 1;
