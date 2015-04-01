@@ -73,6 +73,7 @@ ob_start ();
 							if (isset ( $_GET ['mindex'] ) && isset ( $_GET ['messageid'] )) {
 								$a->readMessage ( $_GET ['messageid'] );
 								$a->showMessageDetail ( $_SESSION ['systemMessage'], $_GET ['mindex'] );
+								$a->replySystemMessage_form ( $_GET ['messageid'], $_GET ['sendid'] );
 							}
 							break;
 						case 'viewsend' :
@@ -96,6 +97,12 @@ ob_start ();
 								$a->addSystemMessage_form ();
 							} else {
 								// var_dump ( $_POST );
+								$res = $a->addSystemMessage ( isset ( $_POST ['forall'] ), $_POST ['reciver'], $_POST ['type'], $_POST ['title'], $_POST ['labels'], $_POST ['detail'], $_POST ['message_webViewHeader'], $_POST ['message_webViewURL'] );
+								echo '已经发送给' . $res . '人';
+							}
+							break;
+						case 'replySystemMessage' :
+							if ($_SERVER ['REQUEST_METHOD'] == 'POST') {
 								$res = $a->addSystemMessage ( isset ( $_POST ['forall'] ), $_POST ['reciver'], $_POST ['type'], $_POST ['title'], $_POST ['labels'], $_POST ['detail'], $_POST ['message_webViewHeader'], $_POST ['message_webViewURL'] );
 								echo '已经发送给' . $res . '人';
 							}

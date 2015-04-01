@@ -65,9 +65,7 @@ class YqMessage extends YqBase {
 				'message_postTime' => $message_postTime,
 				'message_labels' => $m_labels,
 				'message_topicID' => $message_topicID,
-				'message_topicTitle' => $message_topicTitle,
-				'message_webViewHeader' => '',
-				'message_webViewURL' => '' 
+				'message_topicTitle' => $message_topicTitle 
 		);
 		
 		try {
@@ -77,8 +75,29 @@ class YqMessage extends YqBase {
 					'message_type' => 'newReply',
 					'message_life' => 1 
 			) );
-			if ($cursor == NULL) {
+			if (($cursor == NULL) || ($message_type != 'newReply')) {
 				$result = $this->db->message->insert ( $data );
+				
+				$cursor = $this->db->getuiClientID->findOne ( array (
+						'user_name' => $message_receiverId 
+				) );
+				if ($cursor != null) {
+					
+					$platform = $cursor ['platform'];
+					$clientID = $cursor ['getui_clientID'];
+					$user = $this->db->user->findOne ( array (
+							'user_name' => $message_senderId 
+					) );
+					$nickname = $user ['user_nickname'];
+					$unreadCount = $this->db->message->find ( array (
+							'message_receiverId' => $message_receiverId,
+							'message_life' => 1 
+					) )->count ();
+					if ($platform == 'iOS') {
+						$this->pushiOSMessage ( $clientID, $nickname, $message_title, $unreadCount );
+					}
+				}
+				
 				return 1;
 			} else
 				return 0;
@@ -86,45 +105,44 @@ class YqMessage extends YqBase {
 			return - 1;
 		}
 	}
-	function addMessagev2($message_senderId, $message_receiverId, $message_type, $message_title, $message_labels, $message_topicID, $message_topicTitle, $message_detail, $message_webViewHeader, $message_webViewURL) {
-		if ($this->yiquan_version == 0) {
-			return - 2;
-		}
-		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
-		$message_postTime = time ();
+	
+	// 发送新消息通知给相应的人
+	function pushiOSMessage($clientID, $senderName, $message_Title, $unreadCount) {
+		$ctx = stream_context_create ();
+		stream_context_set_option ( $ctx, 'ssl', 'local_cert', 'yqProAPNS.pem' );
+		stream_context_set_option ( $ctx, 'ssl', 'passphrase', '2015oneto' );
+		$fp = stream_socket_client ( 'ssl://gateway.push.apple.com:2195', $err, $errstr, 60, STREAM_CLIENT_CONNECT | STREAM_CLIENT_PERSISTENT, $ctx );
 		
-		$m_labels = explode ( ',', $message_labels );
+		if (! $fp)
+			exit ( "Failed to connect: $err $errstr" . PHP_EOL );
 		
-		$data = array (
-				'message_senderId' => $message_senderId,
-				'message_receiverId' => $message_receiverId,
-				'message_type' => $message_type,
-				'message_title' => $message_title,
-				'message_detail' => $message_detail,
-				'message_life' => 1,
-				'message_postTime' => $message_postTime,
-				'message_labels' => $m_labels,
-				'message_topicID' => $message_topicID,
-				'message_topicTitle' => $message_topicTitle,
-				'message_webViewHeader' => $message_webViewHeader,
-				'message_webViewURL' => $message_webViewURL 
+		ECHO 'Connected to APNS' . PHP_EOL;
+		
+		$body ['aps'] = array (
+				'alert' => $senderName . ': ' . $message_Title,
+				'sound' => 'default',
+				'badge' => $unreadCount 
 		);
 		
-		try {
-			$cursor = $this->db->message->findOne ( array (
-					'message_receiverId' => $message_receiverId,
-					'message_topicID' => $message_topicID,
-					'message_type' => 'newReply',
-					'message_life' => 1 
-			) );
-			if ($cursor == NULL) {
-				$result = $this->db->message->insert ( $data );
-				return 1;
-			} else
-				return 0;
-		} catch ( Exception $e ) {
-			return - 1;
-		}
+		$payload = json_encode ( $body );
+		
+		// Build the binary notification
+		$msg = chr ( 0 ) . pack ( 'n', 32 ) . pack ( 'H*', $clientID ) . pack ( 'n', strlen ( $payload ) ) . $payload;
+		
+		// Send it to the server
+		$result = fwrite ( $fp, $msg, strlen ( $msg ) );
+		
+		if (! $result)
+			echo 'Message not delivered' . PHP_EOL;
+		else
+			echo 'Message successfully delivered' . PHP_EOL;
+			
+			// Close the connection to the server
+		fclose ( $fp );
+		
+		/*
+		 * $igt = new IGeTui("",APPKEY,MASTERSECRET); $template = new IGtTransmissionTemplate(); //应用appid $template->set_appId(APPID); //应用appkey $template->set_appkey(APPKEY); //透传消息类型 $template->set_transmissionType(1); //透传内容 $template->set_transmissionContent("新的消息"); $template->set_pushInfo("actionLocKey","0","message", "sound","payload","locKey","locArgs","launchImage"); $begin = "2015-03-06 13:18:00"; $end = "2015-03-06 13:24:00"; $template ->set_duration($begin,$end); $message = new IGtSingleMessage(); $message->set_isOffline(true);//是否离线 $message->set_offlineExpireTime(3600*12*1000);//离线时间 $message->set_data($template);//设置推送消息类型 //接收方 $target = new IGtTarget(); $target->set_appId(APPID); $target->set_clientId($clientID); $rep = $igt->pushMessageToSingle($message,$target); var_dump($rep);
+		 */
 	}
 	
 	// 查询用户收到的
@@ -150,17 +168,23 @@ class YqMessage extends YqBase {
 			) );
 			$count = 0;
 			$res = array ();
+			$receiver = $this->db->user->findOne ( array (
+					'user_name' => $message_receiverId 
+			) );
 			foreach ( $result as $key => $value ) {
-				$user = $this->db->user->findOne ( array (
-						'user_name' => $value ['message_senderId'] 
-				) );
-				$value ['sender_nickname'] = $user ['user_nickname'];
-				$value ['sender_pic'] = $user ['user_pic'];
-				array_push ( $res, $value );
-				if ($count >= 30) {
-					break;
+				if (isset ( $receiver ['user_blocklist'] [$value ['message_senderId']] )) {
 				} else {
-					$count ++;
+					$user = $this->db->user->findOne ( array (
+							'user_name' => $value ['message_senderId'] 
+					) );
+					$value ['sender_nickname'] = $user ['user_nickname'];
+					$value ['sender_smallavatar'] = $user ['user_smallavatar'];
+					array_push ( $res, $value );
+					if ($count >= 30) {
+						break;
+					} else {
+						$count ++;
+					}
 				}
 			}
 			return json_encode ( $res );
@@ -171,22 +195,87 @@ class YqMessage extends YqBase {
 	// 表示用户收到了数据（就是查看了）
 	function readMessage($message_id) {
 		try {
-			$result = $this->db->message->update ( array (
-					'_id' => new MongoId ( $message_id ) 
-			), 			// 条件
-			array (
-					'$set' => array (
-							'message_life' => 0 
-					) 
-			) ); // 把life set为0
-			$theMessage = $this->db->message->findOne ( array (
+			if ($this->yiquan_version == 0) {
+				return - 2;
+			}
+			
+			if ($this->checkToken () == 0) {
+				return - 3;
+			}
+			$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
+			
+			/*
+			 * $result = $this->db->message->update ( array ( '_id' => new MongoId ( $message_id ) ), 			// 条件 array ( '$set' => array ( 'message_life' => 0 ) ) ); // 把life set为0
+			 */
+			
+			$result = $this->db->message->findOne ( array (
 					'_id' => new MongoId ( $message_id ) 
 			) );
-			$this->db->oldMessage->save ( $theMessage );
+			
+			if ($result == null)
+				return 1;
+			
+			$result ['message_life'] = 0;
+			$this->db->oldMessage->save ( $result );
 			$this->db->message->remove ( array (
 					'_id' => new MongoId ( $message_id ) 
 			) );
+			
 			return 1;
+		} catch ( Exception $e ) {
+			return - 1;
+		}
+	}
+	function addMessagev2($message_senderId, $message_receiverId, $message_type, $message_title, $message_labels, $message_topicID, $message_topicTitle, $message_detail, $message_webViewHeader, $message_webViewURL) {
+		$message_postTime = time ();
+		
+		$m_labels = explode ( ',', $message_labels );
+		
+		$data = array (
+				'message_senderId' => $message_senderId,
+				'message_receiverId' => $message_receiverId,
+				'message_type' => $message_type,
+				'message_title' => $message_title,
+				'message_life' => 1,
+				'message_postTime' => $message_postTime,
+				'message_labels' => $m_labels,
+				'message_topicID' => $message_topicID,
+				'message_topicTitle' => $message_topicTitle 
+		);
+		
+		try {
+			$cursor = $this->db->message->findOne ( array (
+					'message_receiverId' => $message_receiverId,
+					'message_topicID' => $message_topicID,
+					'message_type' => 'newReply',
+					'message_life' => 1 
+			) );
+			if (($cursor == NULL) || ($message_type != 'newReply')) {
+				$result = $this->db->message->insert ( $data );
+				
+				$cursor = $this->db->getuiClientID->findOne ( array (
+						'user_name' => $message_receiverId 
+				) );
+				if ($cursor != null) {
+					
+					$platform = $cursor ['platform'];
+					$clientID = $cursor ['getui_clientID'];
+					$user = $this->db->user->findOne ( array (
+							'user_name' => $message_senderId 
+					) );
+					$nickname = $user ['user_nickname'];
+					$unreadCount = $this->db->message->find ( array (
+							'message_receiverId' => $message_receiverId,
+							'message_life' => 1 
+					) )->count ();
+					if ($platform == 'iOS') {
+						$this->pushiOSMessage ( $clientID, $nickname, $message_title, $unreadCount );
+					}
+				}
+				
+				return 1;
+			} else
+				return 0;
 		} catch ( Exception $e ) {
 			return - 1;
 		}
