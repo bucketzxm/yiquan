@@ -116,7 +116,7 @@ class YqSystemMessage extends YqMessage {
 			} elseif ($way == 'send') {
 				if ($type == '') {
 					$result = $this->db->sysmessagelog->find ( array (
-							'message_receiverId' => 'system',
+							'message_senderId' => 'system',
 							'message_postTime' => array (
 									'$lt' => $endtime,
 									'$gte' => $starttime 
@@ -126,7 +126,7 @@ class YqSystemMessage extends YqMessage {
 					) );
 				} else {
 					$result = $this->db->sysmessagelog->find ( array (
-							'message_receiverId' => 'system',
+							'message_senderId' => 'system',
 							'message_postTime' => array (
 									'$lt' => $endtime,
 									'$gte' => $starttime 
@@ -162,7 +162,7 @@ class YqSystemMessage extends YqMessage {
 		}
 		return $res;
 	}
-	function replySystemMessage($message_id, $reciver, $message_type, $message_title, $message_labels, $message_detail, $message_webViewHeader, $message_webViewURL) {
+	function replySystemMessage($toall, $message_id, $reciver, $message_type, $message_title, $message_labels, $message_detail, $message_webViewHeader, $message_webViewURL) {
 		$row = $this->db->oldMessage->findOne ( array (
 				'_id' => new MongoId ( $message_id ) 
 		) );
@@ -171,7 +171,8 @@ class YqSystemMessage extends YqMessage {
 		
 		if ($row ['message_senderId'] != $reciver)
 			return 0;
-		$this->addMessagev2 ( 'system', $reciver, $message_type, $message_title, $message_labels, '', '', $message_detail, $message_webViewHeader, $message_webViewURL );
+		
+		return $this->addSystemMessage ( $toall, $reciver, $message_type, $message_title, $message_labels, '', '', $message_detail, $message_webViewHeader, $message_webViewURL );
 	}
 }
 

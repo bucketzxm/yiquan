@@ -103,7 +103,7 @@ ob_start ();
 							break;
 						case 'replySystemMessage' :
 							if ($_SERVER ['REQUEST_METHOD'] == 'POST') {
-								$res = $a->addSystemMessage ( isset ( $_POST ['forall'] ), $_POST ['reciver'], $_POST ['type'], $_POST ['title'], $_POST ['labels'], $_POST ['detail'], $_POST ['message_webViewHeader'], $_POST ['message_webViewURL'] );
+								$res = $a->replySystemMessage ( isset ( $_POST ['forall'] ), $_POST ['messageid'], $_POST ['reciver'], $_POST ['type'], $_POST ['title'], $_POST ['labels'], $_POST ['detail'], $_POST ['message_webViewHeader'], $_POST ['message_webViewURL'] );
 								echo '已经发送给' . $res . '人';
 							}
 							break;
