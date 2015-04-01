@@ -364,7 +364,7 @@ class User extends YqBase {
 		if ($ans2 != null) {
 			$ans ['userProfile'] = $ans2;
 		}
-		
+		$user_name = $ans ['user_name'];
 		$ans ['countMyRepliedTopicByName'] = (new Reply ())->countMyRepliedTopicByName ( $user_name );
 		$ans ['countTopicByName'] = (new Topic ())->countTopicByName ( $user_name );
 		$ans ['countFirstFriendsByName'] = $this->countFirstFriendsByName ( $user_name );
