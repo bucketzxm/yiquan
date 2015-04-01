@@ -44,7 +44,7 @@ class Topic extends YqBase {
 	// 参数：$network_type, $owner_name, $room_type, $room_title, $room_labels
 	// 类型：number, string, string, string, string(with '.')
 	// 如果执行成功，返回1，否则，返回0
-	function addTopic($topic_networks, $topic_ownerName, $topic_type, $topic_title, $topic_labels,$topic_detail) {
+	function addTopic($topic_networks, $topic_ownerName, $topic_type, $topic_title, $topic_labels,$topic_detailText) {
 		if ($this->yiquan_version == 0) {
 			return - 2;
 		}
@@ -61,7 +61,8 @@ class Topic extends YqBase {
 		$topic_replyCount = 0;
 		$m_network = explode ( ',', $topic_networks );
 		$m_labels = explode ( ',', $topic_labels );
-		
+		$detailHtmlText = '<html xmlns=http://www.w3.org/1999/xhtml><head><meta http-equiv=Content-Type content="text/html;charset=utf-8"><link href="http://7xid8v.com2.z0.glb.qiniucdn.com/style.css" rel="stylesheet"></head><body>'.$topic_detailText.'</body></html>';
+        
 		$data = array (
 				"topic_ownerName" => $topic_ownerName,
 				"topic_type" => $topic_type,
@@ -77,12 +78,23 @@ class Topic extends YqBase {
 				"topic_detailname" => '',
 				"topic_detail" => '' 
 		);
-		try {
-			$result = $this->db->topic->insert ( $data );
-			return 1;
-		} catch ( Exception $e ) {
-			return - 1;
-		}
+        if (($topic_detailText != nil) && ($topic_detailText != '')){
+            if ($this->QiniuUploadhtml_url ( $data, $html ) == 1) {
+                try {
+                    $result = $this->db->topic->insert ( $data );
+                    return 1;
+                } catch ( Exception $e ) {
+                    return - 1;
+                }
+            }
+        }else{
+            try {
+                $result = $this->db->topic->insert ( $data );
+                return 1;
+            } catch ( Exception $e ) {
+                return - 1;
+            }
+        }
 	}
 	
 	// 此函数为查询话题列表 by haozi
