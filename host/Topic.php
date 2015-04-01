@@ -1,5 +1,11 @@
 <?php
 require_once 'YqBase.php';
+
+use Qiniu\Auth;
+use Qiniu\Storage\UploadManager;
+use Qiniu\Storage\BucketManager;
+
+
 class Topic extends YqBase {
 	// private $dbname = 'test';
 	private $table = 'topic';
@@ -898,7 +904,7 @@ class Topic extends YqBase {
 			return - 1;
 		}
 	}
-	function addRichTopic($username, $passwordHash, $topic, $topic_labels, $topic_networks, $html) {
+	function addRichTopic($username, $passwordHash, $topic_title, $topic_type, $topic_labels, $topic_networks, $html) {
 		if ($this->checkUsernameAndPassword ( $username, $passwordHash ) == 0)
 			return 0;
 		
@@ -940,14 +946,17 @@ class Topic extends YqBase {
 		$token = $auth->uploadToken ( $bucket );
 		
 		list ( $ret, $err ) = $uploadMgr->put ( $token, null, $html );
+		//var_dump($ret);
+		//var_dump($err);
 		if ($err == null) {
 			$arr ['topic_detailname'] = $ret ['key'];
-			$arr ['topic_detail'] = $this->$topicsbucketUrl . '/' . $ret ['key'];
+			$arr ['topic_detail'] = $this->topicsbucketUrl . '/' . $ret ['key'];
 		} else {
 			return $err;
 		}
 		return 1;
 	}
 }
-
+// $a = new Topic ();
+// var_dump($a->addRichTopic ( 'abc2', '11', 'wuliaohuati','', 'qiuzhidao,qiujiaowang', '', 'thacnk' ));
 ?>
