@@ -913,7 +913,8 @@ class Topic extends YqBase {
 			$topic_replyCount = 0;
 			$m_network = explode ( ',', $topic_networks );
 			$m_labels = explode ( ',', $topic_labels );
-			
+			$html = base64_decode($html);
+
 			$data = array (
 					"topic_ownerName" => $username,
 					"topic_type" => $topic_type,
