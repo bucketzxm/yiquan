@@ -197,7 +197,7 @@ class Message extends YqBase {
     protected function pushMessageToSingle($CID,$title,$count){
         $igt = new IGeTui(HOST,APPKEY,MASTERSECRET);
      
-        $template = IGtNotyPopLoadTemplateDemo($title,$count);
+        $template = IGtNotyPopLoadTemplate($title,$count);
 
 	    $message = new IGtSingleMessage();
 	    $message->set_data($template);//设置推送消息类型
@@ -209,7 +209,7 @@ class Message extends YqBase {
 	    $rep = $igt->pushMessageToSingle($message,$target);
 	    
 	}
-	protected function IGtNotyPopLoadTemplateDemo($title,$count){
+	function IGtNotyPopLoadTemplate($title,$count){
         $template =  new IGtNotyPopLoadTemplate();
         $template ->set_appId(APPID);//应用appid
         $template ->set_appkey(APPKEY);//应用appkey
