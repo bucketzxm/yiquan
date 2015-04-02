@@ -503,7 +503,7 @@ class Topic extends YqBase {
 					'_id' => new MongoID ( $topic_roomID ) 
 			) );
             if (($result == nil) || (count ($result['topic_networks']) == 0)){
-                return 2
+                return 2;
             }else{
                 $user_nickname = $this->db->user->findOne ( array (
                         'user_name' => $result ['topic_ownerName'] 
