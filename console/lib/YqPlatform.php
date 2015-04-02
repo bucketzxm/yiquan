@@ -251,7 +251,7 @@ class YqPlatform extends YqBase {
 		
 		return $ans;
 	}
-	function getUserStatistic($configs = array('type'=>'days','value'=>7)) {
+	function getUserStatistic($configs = array('type'=>'days','value'=>30)) {
 		$ans = [ ];
 		$ans ['user_count'] = $this->db->user->count ();
 		$ans ['user_active_count'] = $this->db->user->count ( array (
@@ -275,6 +275,8 @@ class YqPlatform extends YqBase {
 							'$gte' => new MongoDate ( $st ),
 							'$lte' => new MongoDate ( $ed ) 
 					) 
+			) )->sort ( array (
+					'user_regdate' => -1 
 			) );
 			
 			while ( $cus->hasNext () ) {
@@ -356,7 +358,7 @@ class YqPlatform extends YqBase {
 			return $fm_forward_month = date ( "Y-m", $tmp_forwardmonth );
 		}
 	}
-	function getStatisticforActiveuser($configs = array('type'=>'days','value'=>7)) {
+	function getStatisticforActiveuser($configs = array('type'=>'days','value'=>30)) {
 		$st = time ();
 		$ed = time ();
 		if ($configs ['type'] == 'days') {
@@ -373,7 +375,7 @@ class YqPlatform extends YqBase {
 					'date' => true,
 					'user_name' => true 
 			) )->sort ( array (
-					'date' => 1 
+					'date' => -1 
 			) );
 			
 			while ( $cus->hasNext () ) {
