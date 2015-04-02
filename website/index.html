@@ -7,8 +7,13 @@
 	<meta name="description" content="">
 	<title>一圈</title>
 	 
+     <script src="js/jquery.js"></script>
+     <script src="js/bootstrap.js"></script>
+     <script src="js/easing.js"></script>
+     <script src="js/nicescroll.js"></script>
+     <script src="js/stickUp.min.js"></script>
+     
 	<link href="css/bootstrap.css" rel="stylesheet">
-	 
 	<link href="css/main.css" rel="stylesheet">
  
 	<!--[if lt IE 9]>
@@ -19,14 +24,19 @@
 	<link rel="shortcut icon" href="images/favicon.png">
 	<script src="js/pace.js"></script>
 	
+
+
 </head>
 
 <body>
 <!--[if lt IE 9]>
 	<div class="preloader"></div>
 	<![endif]-->
-	
-    <! -- ******************** MASTHEAD SECTION ******************** -->	
+    <div>
+    <button type="button" class="newTopic">发起话题</button>
+    </div>
+    
+    <! -- ******************** MASTHEAD SECTION ******************** -->
 	<main id="top" class="masthead" role="main">
 		<div class="container">
 			<div class="logo"> <a href="index.html#"><img src="images/logo.png" alt="logo"></a>
@@ -300,12 +310,18 @@
  
  
  
-<script src="js/jquery.js"></script>
-<script src="js/bootstrap.js"></script>
-<script src="js/easing.js"></script>
-<script src="js/nicescroll.js"></script>
- 
- 
+
+<script type="text/javascript">
+    //initiating jQuery
+    jQuery(function($) {
+           $(document).ready( function() {
+                             //enabling stickUp on the '.navbar-wrapper' class
+                             $('.newTopic').stickUp();
+                             });
+           });
+           
+    </script>
+
 <script>
 
 
