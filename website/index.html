@@ -32,16 +32,20 @@
 <!--[if lt IE 9]>
 	<div class="preloader"></div>
 	<![endif]-->
-    <div>
-    <button type="button" class="newTopic">发起话题</button>
-    </div>
+
+	
+
     
     <! -- ******************** MASTHEAD SECTION ******************** -->
 	<main id="top" class="masthead" role="main">
+		<div class="newTopicDiv">
+    		<button type="button" class="btn btn-success btn-lg" onclick="location.href='http://1quan.me/editor/'">发送话题</button>
+    	</div>
+    <br>
+    	
 		<div class="container">
 			<div class="logo"> <a href="index.html#"><img src="images/logo.png" alt="logo"></a>
 			</div>
- 
 			<h1>朋友们新的聚集地</h1>
 			
  
@@ -307,8 +311,8 @@
 				</div>
 			</section><! --/section -->
 		</div><! --/container -->
- 
- 
+ 	
+ 		
  
 
 <script type="text/javascript">
@@ -316,7 +320,7 @@
     jQuery(function($) {
            $(document).ready( function() {
                              //enabling stickUp on the '.navbar-wrapper' class
-                             $('.newTopic').stickUp();
+                             $('.newTopicDiv').stickUp();
                              });
            });
            

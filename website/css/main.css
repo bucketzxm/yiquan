@@ -43,6 +43,14 @@ a:hover,a:focus{color:#5173bd;text-decoration: none;}
 	z-index:9999999;
 	}
 
+.newTopicDiv{
+	float:left;
+	display:block;
+	z-index :10;
+	margin-top: 20px;
+}
+
+
 .pace{
 	-webkit-pointer-events:none;
 	pointer-events:none;
