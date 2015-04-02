@@ -161,6 +161,9 @@ class YqPlatform extends YqBase {
 		
 		while ( $cus->hasNext () ) {
 			$doc = $cus->getNext ();
+            if (count($doc['topic_labels']) == 2 && $doc['topic_detail'] != ''){
+                array_push ($doc['topic_labels'],"长话题");
+            }
 			if (! isset ( $doc ['topic_followNames'] )) {
 				$doc ['topic_followNames'] = [ ];
 			} else {
