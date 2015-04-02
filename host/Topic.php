@@ -81,6 +81,7 @@ class Topic extends YqBase {
         if (($topic_detailText != nil) && ($topic_detailText != '')){
             if ($this->QiniuUploadhtml_url ( $data, $detailHtmlText ) == 1) {
                 try {
+                    array_push ($data['topic_labels'],"长话题");
                     $result = $this->db->topic->insert ( $data );
                     return 1;
                 } catch ( Exception $e ) {
@@ -953,6 +954,7 @@ class Topic extends YqBase {
 		
 		if ($this->QiniuUploadhtml_url ( $data, $html ) == 1) {
 			try {
+                array_push ($data['topic_labels'],"长话题");
 				$result = $this->db->topic->insert ( $data );
 				return 1;
 			} catch ( Exception $e ) {
