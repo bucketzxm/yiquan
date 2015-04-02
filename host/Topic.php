@@ -502,13 +502,17 @@ class Topic extends YqBase {
 			$result = $this->db->topic->findOne ( array (
 					'_id' => new MongoID ( $topic_roomID ) 
 			) );
-			$user_nickname = $this->db->user->findOne ( array (
-					'user_name' => $result ['topic_ownerName'] 
-			), array (
-					'user_nickname' => 1 
-			) );
-			$result ['user_nickname'] = $user_nickname ['user_nickname'];
-			return json_encode ( $result );
+            if (($result == nil) || (count ($result['topic_networks']) == 0)){
+                return 2
+            }else{
+                $user_nickname = $this->db->user->findOne ( array (
+                        'user_name' => $result ['topic_ownerName'] 
+                ), array (
+                        'user_nickname' => 1 
+                ) );
+                $result ['user_nickname'] = $user_nickname ['user_nickname'];
+                return json_encode ( $result );
+            }
 		} catch ( Exception $e ) {
 			return - 1;
 		}
