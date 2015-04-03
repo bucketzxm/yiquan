@@ -96,7 +96,7 @@ ob_start ();
 							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
 								$a->addSystemMessage_form ();
 							} else {
-								// var_dump ( $_POST );
+								//var_dump ( $_POST );
 								$res = $a->addSystemMessage ( isset ( $_POST ['forall'] ), $_POST ['reciver'], $_POST ['type'], $_POST ['title'], $_POST ['labels'], $_POST ['detail'], $_POST ['message_webViewHeader'], $_POST ['message_webViewURL'] );
 								echo '已经发送给' . $res . '人';
 							}

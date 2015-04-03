@@ -24,6 +24,8 @@ ob_start ();
 				<li><a href="?action=statisticforActiveuser">一圈用户活跃数量统计 <span
 						class="sr-only">(current)</span></a></li>
 				<li><a href="?action=report">一圈统计报告 <span class="sr-only">(current)</span></a></li>
+				<li><a href="?action=reportOfInterfaceCount">一圈接口调用统计报告（暂时计算一月内） <span
+						class="sr-only">(current)</span></a></li>
 
 			</ul>
 		</div>
@@ -42,6 +44,18 @@ ob_start ();
 				if (isset ( $_GET ['action'] )) {
 					$a = new YqPlatformView ();
 					switch ($_GET ['action']) {
+						case 'reportOfInterfaceCount' :
+							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
+								
+								$a->getLastestVersion_showform ( $a->getLastestVersion ( 'Android' ) );
+								$a->getLastestVersion_showform ( $a->getLastestVersion ( 'IOS' ) );
+							}
+							if ($_SERVER ['REQUEST_METHOD'] == 'POST') {
+								$a->updateLastestVersion ( $_POST ['plat'], $_POST ['lastestVersion'] );
+								$a->getLastestVersion_showform ( $a->getLastestVersion ( 'Android' ) );
+								$a->getLastestVersion_showform ( $a->getLastestVersion ( 'IOS' ) );
+							}
+							break;
 						case 'version' :
 							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
 								
@@ -67,8 +81,8 @@ ob_start ();
 							break;
 						case 'report' :
 							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
-								//var_dump ( $a->getDailyBehavierReport ( time () ) );
-								$a->getdailyreport_showtable ($a->getDailyBehavierReport ( time () ));
+								// var_dump ( $a->getDailyBehavierReport ( time () ) );
+								$a->getdailyreport_showtable ( $a->getDailyBehavierReport ( time () ) );
 							}
 							break;
 						case 'statisticforActiveuser' :

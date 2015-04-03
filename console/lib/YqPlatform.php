@@ -161,9 +161,13 @@ class YqPlatform extends YqBase {
 		
 		while ( $cus->hasNext () ) {
 			$doc = $cus->getNext ();
-            if ((count($doc['topic_labels']) == 2) && ($doc['topic_detail'] != '')){
-                array_push ($doc['topic_labels'],"长话题");
-            }
+			if (! isset ( $doc ['topic_labels'] )) {
+				$doc ['topic_labels'] = [ ];
+			}
+			
+			if ((count ( $doc ['topic_labels'] ) == 2) && ($doc ['topic_detail'] != '')) {
+				array_push ( $doc ['topic_labels'], "长话题" );
+			}
 			if (! isset ( $doc ['topic_followNames'] )) {
 				$doc ['topic_followNames'] = [ ];
 			} else {
@@ -203,6 +207,17 @@ class YqPlatform extends YqBase {
 				$doc ['topic_detail'] = '';
 			}
 			$this->db->topic->save ( $doc );
+		}
+		
+		// ======message
+		$cus = $this->db->message->find ();
+		while ( $cus->hasNext () ) {
+			$doc = $cus->getNext ();
+			if (! isset ( $doc ['message_detail'] )) {
+				$doc ['message_detail'] = '';
+			}
+			
+			$this->db->message->save ( $doc );
 		}
 		
 		return 1;
@@ -279,7 +294,7 @@ class YqPlatform extends YqBase {
 							'$lte' => new MongoDate ( $ed ) 
 					) 
 			) )->sort ( array (
-					'user_regdate' => -1 
+					'user_regdate' => - 1 
 			) );
 			
 			while ( $cus->hasNext () ) {
@@ -378,7 +393,7 @@ class YqPlatform extends YqBase {
 					'date' => true,
 					'user_name' => true 
 			) )->sort ( array (
-					'date' => -1 
+					'date' => - 1 
 			) );
 			
 			while ( $cus->hasNext () ) {
