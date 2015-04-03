@@ -49,7 +49,6 @@ class YqPlatformView extends YqPlatform {
 	}
 	function searchingRegex_showlist() {
 		echo '<div class="table-responsive"><ul>';
-		
 		echo '<li><a href="?action=report&type=day&value=7">7天内</a></li>';
 		echo '<li><a href="?action=report&type=day&value=14">14天内</a></li>';
 		echo '<li><a href="?action=report&type=month&value=1">本月内</a></li>';
@@ -64,6 +63,36 @@ class YqPlatformView extends YqPlatform {
 			echo '<tr><td>' . $key . '</td><td>' . $v . '</td></tr>';
 		}
 		echo '</table></div>';
+	}
+	function getMethodsCallStatSearchform() {
+		echo '<div><form method="post" action="?action=reportOfInterfaceCount">';
+		echo '<script language=javascript src="images/DatePicker.js"></script>';
+		echo '<div class="form-group"><h2>选择开始时间</h2></div>';
+		echo '<input name="starttime" id="sttime" type="text" onfocus="setday(this)" readonly="readonly" />';
+		echo '<input type="submit" value="查询" />';
+		echo '</form></div>';
+	}
+	function showMethodsCallStatTable($arr, $level) {
+		if ($level == 1) {
+			echo '<div class="table-responsive"><table class="table table-striped">';
+			echo '<thead><tr><th>类</th><th>具体</th></tr></thead>';
+			foreach ( $arr as $key => $v ) {
+				echo '<tr><td>' . $key . '</td><td>';
+				$this->showMethodsCallStatTable ( $v, $level + 1 );
+				echo '</td></tr>';
+			}
+			echo '</table></div>';
+		}
+		else if($level==2)
+		{
+			echo '<table class="table table-striped">';
+			echo '<thead><tr><th>方法名</th><th>次数</th></tr></thead>';
+			foreach ( $arr as $key => $v ) {
+				echo '<tr><td>' . $key . '</td><td>' . $v . '</td></tr>';
+			}
+			echo '</table>';
+		}
+		
 	}
 }
 

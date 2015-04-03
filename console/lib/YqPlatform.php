@@ -569,6 +569,27 @@ class YqPlatform extends YqBase {
 		// ========================================
 		return $res;
 	}
+	function getMethodsCallStat($st) {
+		$cus = $this->db->callmethodlog->find ( array (
+				'date' => array (
+						'$gte' => new MongoDate ( $st ) 
+				) 
+		) );
+		
+		$ans = [ ];
+		while ( $cus->hasNext () ) {
+			$doc = $cus->getNext ();
+			
+			foreach ( $doc ['methods'] as $key => $v ) {
+				if (! isset ( $ans [$doc ['class']] [$key] )) {
+					$ans [$doc ['class']] [$key] = $v;
+				} else {
+					$ans [$doc ['class']] [$key] += $v;
+				}
+			}
+		}
+		return $ans;
+	}
 }
 
 ?>

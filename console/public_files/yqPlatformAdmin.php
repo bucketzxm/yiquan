@@ -24,7 +24,7 @@ ob_start ();
 				<li><a href="?action=statisticforActiveuser">一圈用户活跃数量统计 <span
 						class="sr-only">(current)</span></a></li>
 				<li><a href="?action=report">一圈统计报告 <span class="sr-only">(current)</span></a></li>
-				<li><a href="?action=reportOfInterfaceCount">一圈接口调用统计报告（暂时计算一月内） <span
+				<li><a href="?action=reportOfInterfaceCount">一圈接口调用统计报告 <span
 						class="sr-only">(current)</span></a></li>
 
 			</ul>
@@ -46,14 +46,10 @@ ob_start ();
 					switch ($_GET ['action']) {
 						case 'reportOfInterfaceCount' :
 							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
-								
-								$a->getLastestVersion_showform ( $a->getLastestVersion ( 'Android' ) );
-								$a->getLastestVersion_showform ( $a->getLastestVersion ( 'IOS' ) );
+								$a->getMethodsCallStatSearchform ();
 							}
 							if ($_SERVER ['REQUEST_METHOD'] == 'POST') {
-								$a->updateLastestVersion ( $_POST ['plat'], $_POST ['lastestVersion'] );
-								$a->getLastestVersion_showform ( $a->getLastestVersion ( 'Android' ) );
-								$a->getLastestVersion_showform ( $a->getLastestVersion ( 'IOS' ) );
+								$a->showMethodsCallStatTable ( $a->getMethodsCallStat ( strtotime ( $_POST ['starttime'] ) ), 1 );
 							}
 							break;
 						case 'version' :
