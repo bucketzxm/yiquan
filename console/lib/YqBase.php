@@ -97,6 +97,7 @@ class YqBase {
 		 */
 	}
 	function logCallMethod($user_name, $classandname) {
+		return 1;
 		$month = intval ( date ( 'm' ) );
 		$day = intval ( date ( 'd' ) );
 		$year = intval ( date ( 'Y' ) );
