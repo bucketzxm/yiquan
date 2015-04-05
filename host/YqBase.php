@@ -179,8 +179,8 @@ class YqBase {
 		// //var_dump ( $rname );
 		if ($name == 'sencetiveList')
 			return 0;
-		$this->delRedis ( 'sencetiveList' );
-		// die();
+			// $this->delRedis ( 'sencetiveList' );
+			// die();
 		$arr = unserialize ( $this->getRedis ( 'sencetiveList' ) );
 		// var_dump($arr);
 		if ($arr == false || empty ( $arr )) {
