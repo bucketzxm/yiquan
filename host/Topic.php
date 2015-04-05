@@ -432,14 +432,14 @@ class Topic extends YqBase {
 				"user_name" => $archive_ownerName 
 		) );
 		$archive = $cursor ['user_archiveTopic'];
-		$idArray = array ();
-		foreach ( $archive as $topicID ) {
-			array_push ( $idArray, new MongoId ( $topicID ) );
-		}
+//		$idArray = array ();
+//		foreach ( $archive as $topicID ) {
+//			array_push ( $idArray, new MongoId ( $topicID ) );
+//		}
 		try {
 			$result = $this->db->topic->find ( array (
 					'_id' => array (
-							'$in' => $idArray 
+							'$in' => $archive
 					),
 					'topic_postTime' => array (
 							'$lt' => $time_int 
