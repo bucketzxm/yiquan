@@ -309,8 +309,7 @@ class User extends YqBase {
 		$ans ['countMyArchiveByName'] = (new User ())->countMyArchiveByName ( $user_name );
 		return json_encode ( $ans );
 	}
-
-	function countMyArchiveByName($user_name){
+	function countMyArchiveByName($user_name) {
 		if ($this->yiquan_version == 0) {
 			return - 2;
 		}
@@ -319,12 +318,12 @@ class User extends YqBase {
 			return - 3;
 		}
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
-
-		$ans = $this->db->user->findOne( array('user_name'=> $user_name));
-		return count($ans['user_archiveTopic']);
-
+		
+		$ans = $this->db->user->findOne ( array (
+				'user_name' => $user_name 
+		) );
+		return count ( $ans ['user_archiveTopic'] );
 	}
-
 	function getUserStatsByName($user_name) {
 		if ($this->yiquan_version == 0) {
 			return - 2;
@@ -860,7 +859,12 @@ class User extends YqBase {
 			$id = $this->db->command ( $command ); // 执行更新
 			
 			if (isset ( $arr ['user_nickname'] )) {
-				$ob ['user_nickname'] = $arr ['user_nickname'];
+				
+				if ($this->checkUsernameLegal ( $arr ['user_nickname'] )) {
+					$ob ['user_nickname'] = $arr ['user_nickname'];
+				} else {
+					$ob ['user_nickname'] = '讲文明守法律';
+				}
 				$this->db->user->save ( $ob );
 			}
 			
