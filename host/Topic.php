@@ -451,7 +451,7 @@ class Topic extends YqBase {
 					"topic_postTime" => - 1 
 			) )->limit ( 30 );
 			$res = array ();
-			foreach ( $result as $key => $value ) {
+			foreach ( $result as $value ) {
 				$user_nickname = $this->db->user->findOne ( array (
 						'user_name' => $value ['topic_ownerName'] 
 				), array (
