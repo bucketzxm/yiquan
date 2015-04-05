@@ -428,7 +428,7 @@ class Topic extends YqBase {
 		}
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
 		$time_int = ( int ) $topic_time;
-		$cursor = $this->db->user->findone ( array (
+		$cursor = $this->db->user->findOne ( array (
 				"user_name" => $archive_ownerName 
 		) );
 		$archive = $cursor ['user_archiveTopic'];
