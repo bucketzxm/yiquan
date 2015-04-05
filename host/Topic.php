@@ -4,8 +4,6 @@ require_once 'YqBase.php';
 use Qiniu\Auth;
 use Qiniu\Storage\UploadManager;
 use Qiniu\Storage\BucketManager;
-
-
 class Topic extends YqBase {
 	// private $dbname = 'test';
 	private $table = 'topic';
@@ -44,7 +42,7 @@ class Topic extends YqBase {
 	// 参数：$network_type, $owner_name, $room_type, $room_title, $room_labels
 	// 类型：number, string, string, string, string(with '.')
 	// 如果执行成功，返回1，否则，返回0
-	function addTopic($topic_networks, $topic_ownerName, $topic_type, $topic_title, $topic_labels,$topic_detailText) {
+	function addTopic($topic_networks, $topic_ownerName, $topic_type, $topic_title, $topic_labels, $topic_detailText) {
 		if ($this->yiquan_version == 0) {
 			return - 2;
 		}
@@ -61,8 +59,8 @@ class Topic extends YqBase {
 		$topic_replyCount = 0;
 		$m_network = explode ( ',', $topic_networks );
 		$m_labels = explode ( ',', $topic_labels );
-		$detailHtmlText = '<html xmlns=http://www.w3.org/1999/xhtml><head><meta http-equiv=Content-Type content="text/html;charset=utf-8"><link href="http://7xid8v.com2.z0.glb.qiniucdn.com/style.css" rel="stylesheet"></head><body>'.$topic_detailText.'</body></html>';
-        
+		$detailHtmlText = '<html xmlns=http://www.w3.org/1999/xhtml><head><meta http-equiv=Content-Type content="text/html;charset=utf-8"><link href="http://7xid8v.com2.z0.glb.qiniucdn.com/style.css" rel="stylesheet"></head><body>' . $topic_detailText . '</body></html>';
+		
 		$data = array (
 				"topic_ownerName" => $topic_ownerName,
 				"topic_type" => $topic_type,
@@ -78,24 +76,24 @@ class Topic extends YqBase {
 				"topic_detailname" => '',
 				"topic_detail" => '' 
 		);
-        if (($topic_detailText != nil) && ($topic_detailText != '')){
-            if ($this->QiniuUploadhtml_url ( $data, $detailHtmlText ) == 1) {
-                try {
-                    array_push ($data['topic_labels'],"长话题");
-                    $result = $this->db->topic->insert ( $data );
-                    return 1;
-                } catch ( Exception $e ) {
-                    return - 1;
-                }
-            }
-        }else{
-            try {
-                $result = $this->db->topic->insert ( $data );
-                return 1;
-            } catch ( Exception $e ) {
-                return - 1;
-            }
-        }
+		if (($topic_detailText != nil) && ($topic_detailText != '')) {
+			if ($this->QiniuUploadhtml_url ( $data, $detailHtmlText ) == 1) {
+				try {
+					array_push ( $data ['topic_labels'], "长话题" );
+					$result = $this->db->topic->insert ( $data );
+					return 1;
+				} catch ( Exception $e ) {
+					return - 1;
+				}
+			}
+		} else {
+			try {
+				$result = $this->db->topic->insert ( $data );
+				return 1;
+			} catch ( Exception $e ) {
+				return - 1;
+			}
+		}
 	}
 	
 	// 此函数为查询话题列表 by haozi
@@ -432,14 +430,14 @@ class Topic extends YqBase {
 				"user_name" => $archive_ownerName 
 		) );
 		$archive = $cursor ['user_archiveTopic'];
-//		$idArray = array ();
-//		foreach ( $archive as $topicID ) {
-//			array_push ( $idArray, new MongoId ( $topicID ) );
-//		}
+		// $idArray = array ();
+		// foreach ( $archive as $topicID ) {
+		// array_push ( $idArray, new MongoId ( $topicID ) );
+		// }
 		try {
 			$result = $this->db->topic->find ( array (
 					'_id' => array (
-							'$in' => $archive
+							'$in' => $archive 
 					),
 					'topic_postTime' => array (
 							'$lt' => $time_int 
@@ -503,17 +501,17 @@ class Topic extends YqBase {
 			$result = $this->db->topic->findOne ( array (
 					'_id' => new MongoID ( $topic_roomID ) 
 			) );
-            if (($result == nil) || (count ($result['topic_networks']) == 0)){
-                return 2;
-            }else{
-                $user_nickname = $this->db->user->findOne ( array (
-                        'user_name' => $result ['topic_ownerName'] 
-                ), array (
-                        'user_nickname' => 1 
-                ) );
-                $result ['user_nickname'] = $user_nickname ['user_nickname'];
-                return json_encode ( $result );
-            }
+			if (($result == nil) || (count ( $result ['topic_networks'] ) == 0)) {
+				return 2;
+			} else {
+				$user_nickname = $this->db->user->findOne ( array (
+						'user_name' => $result ['topic_ownerName'] 
+				), array (
+						'user_nickname' => 1 
+				) );
+				$result ['user_nickname'] = $user_nickname ['user_nickname'];
+				return json_encode ( $result );
+			}
 		} catch ( Exception $e ) {
 			return - 1;
 		}
@@ -922,16 +920,16 @@ class Topic extends YqBase {
 		}
 	}
 	function addRichTopic($username, $passwordHash, $topic_title, $topic_type, $topic_labels, $topic_networks, $html) {
-		try{
+		try {
 			if ($this->checkUsernameAndPassword ( $username, $passwordHash ) == 0)
-			return 0;
-		
+				return 0;
+			
 			$topic_postTime = time ();
 			$topic_replyCount = 0;
 			$m_network = explode ( ',', $topic_networks );
 			$m_labels = explode ( ',', $topic_labels );
-			$html = base64_decode($html);
-
+			$html = base64_decode ( $html );
+			
 			$data = array (
 					"topic_ownerName" => $username,
 					"topic_type" => $topic_type,
@@ -947,14 +945,13 @@ class Topic extends YqBase {
 					"topic_detailname" => '',
 					"topic_detail" => '' 
 			);
-		}catch(Exception $e){
+		} catch ( Exception $e ) {
 			return $e;
 		}
 		
-		
 		if ($this->QiniuUploadhtml_url ( $data, $html ) == 1) {
 			try {
-                array_push ($data['topic_labels'],"长话题");
+				array_push ( $data ['topic_labels'], "长话题" );
 				$result = $this->db->topic->insert ( $data );
 				return 1;
 			} catch ( Exception $e ) {
@@ -970,8 +967,8 @@ class Topic extends YqBase {
 		$token = $auth->uploadToken ( $bucket );
 		
 		list ( $ret, $err ) = $uploadMgr->put ( $token, null, $html );
-		//var_dump($ret);
-		//var_dump($err);
+		// var_dump($ret);
+		// var_dump($err);
 		if ($err == null) {
 			$arr ['topic_detailname'] = $ret ['key'];
 			$arr ['topic_detail'] = $this->topicsbucketUrl . '/' . $ret ['key'];

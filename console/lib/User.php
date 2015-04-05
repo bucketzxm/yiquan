@@ -11,7 +11,7 @@ class User {
 			'100' => [ 
 					'uid' => '100',
 					'username' => 'admin',
-					'password' => 'admin',
+					'password' => 'yiquanTodo',
 					'authKey' => 'test100key',
 					'accessToken' => '100-token',
 					'isActive' => true,
@@ -21,7 +21,7 @@ class User {
 			'101' => [ 
 					'uid' => '101',
 					'username' => 'demo',
-					'password' => 'demo',
+					'password' => 'yiquanTodo',
 					'authKey' => 'test101key',
 					'accessToken' => '101-token',
 					'isActive' => true,

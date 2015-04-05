@@ -199,6 +199,7 @@ class YqPlatform extends YqBase {
 		$cus = $this->db->topic->find ();
 		while ( $cus->hasNext () ) {
 			$doc = $cus->getNext ();
+			
 			if (! isset ( $doc ['topic_detailname'] )) {
 				$doc ['topic_detailname'] = '';
 			}
@@ -206,6 +207,11 @@ class YqPlatform extends YqBase {
 			if (! isset ( $doc ['topic_detail'] )) {
 				$doc ['topic_detail'] = '';
 			}
+			
+			if (isset ( $doc ['topic_detailname'] ) && $doc ['topic_detailname'] != '') {
+				$doc ['topic_detail'] = $this->topicsbucketUrl . '/' . $doc ['topic_detailname'];
+			}
+			
 			$this->db->topic->save ( $doc );
 		}
 		
