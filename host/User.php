@@ -1818,8 +1818,8 @@ class User extends YqBase {
 		$step1 = $this->reg ( $user_name, $user_pwd, $user_mobile );
 		$step2 = $this->addFriendByNamev2 ( $user_name, $row ['senderName'] );
 		$step3 = $this->expireInvitation ( $invcode );
-		$step4 = (new YqSystemMessage ())->addSystemMessage ( 0, $user_name, 'webView', '欢迎来到一圈！这里是简要用户指南。', '系统消息', '', '用户指南', 'https://yiquanhost.oneto-tech.com/guidance' );
-		return $step1 & $step2 & $step3 & step4;
+		$step4 = (new YqSystemMessage ())->addSystemMessage ( 0, $user_name, 'webView', '欢迎来到一圈！这里是简要用户指南。', '系统消息', '', '用户指南', 'https://yiquanhost.oneto-tech.com/guidance/index.html' );
+		return $step1 & $step2 & $step3 & $step4;
 	}
 	function weihu() {
 		$cus = $this->db->user->find ();
