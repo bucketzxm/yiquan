@@ -61,7 +61,7 @@
 		if ($result2 == '1'){
 			header("location: jump.html");
 		}else{
-			header("location: samename.html");
+			header("location: sameName.html");
 		}
 	}else{
 		header("location: wrongVeri.html");
