@@ -5,6 +5,7 @@ require_once 'bcs.class.php';
 require_once 'Topic.php';
 require_once 'Message.php';
 require_once 'Reply.php';
+require_once 'YqSystemMessage.php';
 require_once 'Qiniu/Http/Request.php';
 require_once 'Qiniu/Http/Client.php';
 require_once 'Qiniu/Http/Error.php';
