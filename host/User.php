@@ -461,10 +461,12 @@ class User extends YqBase {
 					'userb_id' => new MongoId ( $user_idB ),
 					'remark' => '',
 					'relation_type' => 1,
-					'weight' => 0 
+					'weight' => 0,
+					'date' => new MongoDate () 
 			);
 		} else {
 			$ans ['relation_type'] = 1;
+			$ans ['date'] = new MongoDate ();
 		}
 		$this->db->userRelationship->save ( $ans );
 		$tp = $this->db->user->findOne ( array (
@@ -491,10 +493,12 @@ class User extends YqBase {
 					'userb_id' => new MongoId ( $user_idA ),
 					'remark' => '',
 					'relation_type' => 1,
-					'weight' => 0 
+					'weight' => 0,
+					'date' => new MongoDate () 
 			);
 		} else {
 			$ans ['relation_type'] = 1;
+			$ans ['date'] = new MongoDate ();
 		}
 		$this->db->userRelationship->save ( $ans );
 		
@@ -525,10 +529,12 @@ class User extends YqBase {
 					'userb_id' => new MongoId ( $user_idB ),
 					'remark' => '',
 					'relation_type' => 1,
-					'weight' => 0 
+					'weight' => 0,
+					'date' => new MongoDate () 
 			);
 		} else {
 			$ans ['relation_type'] = 1;
+			$ans ['date'] = new MongoDate ();
 		}
 		$this->db->userRelationship->save ( $ans );
 		$tp = $this->db->user->findOne ( array (
@@ -555,10 +561,12 @@ class User extends YqBase {
 					'userb_id' => new MongoId ( $user_idA ),
 					'remark' => '',
 					'relation_type' => 1,
-					'weight' => 0 
+					'weight' => 0,
+					'date' => new MongoDate () 
 			);
 		} else {
 			$ans ['relation_type'] = 1;
+			$ans ['date'] = new MongoDate ();
 		}
 		$this->db->userRelationship->save ( $ans );
 		
@@ -639,7 +647,8 @@ class User extends YqBase {
 					'userb_id' => new MongoId ( $userb_id ),
 					'remark' => '',
 					'relation_type' => 0,
-					'weight' => $value 
+					'weight' => $value,
+					'date' => new MongoDate () 
 			);
 		} else {
 			if (isset ( $ans ['weight'] )) {
@@ -647,6 +656,7 @@ class User extends YqBase {
 			} else {
 				$ans ['weight'] = $value;
 			}
+			$ans ['date'] = new MongoDate ();
 		}
 		
 		$this->db->userRelationship->save ( $ans );

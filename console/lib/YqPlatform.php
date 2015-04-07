@@ -481,7 +481,7 @@ class YqPlatform extends YqBase {
 		$res = [ ];
 		// =======================================
 		// 日话题总数
-		$start = strtotime ( date ( "Y-m-d " ) );
+		$start = strtotime ( date ( "Y-m-d ", $time ) );
 		$endday = $start + 86400;
 		
 		$row = $this->db->topic->count ( array (

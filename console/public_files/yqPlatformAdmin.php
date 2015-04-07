@@ -77,8 +77,10 @@ ob_start ();
 							break;
 						case 'report' :
 							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
-								// var_dump ( $a->getDailyBehavierReport ( time () ) );
-								$a->getdailyreport_showtable ( $a->getDailyBehavierReport ( time () ) );
+								$a->getDailyReportSearchform ();
+							}
+							if ($_SERVER ['REQUEST_METHOD'] == 'POST') {
+								$a->showDailyReportsByntimes ( strtotime ( $_POST ['starttime'] ) );
 							}
 							break;
 						case 'statisticforActiveuser' :

@@ -72,6 +72,14 @@ class YqPlatformView extends YqPlatform {
 		echo '<input type="submit" value="查询" />';
 		echo '</form></div>';
 	}
+	function getDailyReportSearchform() {
+		echo '<div><form method="post" action="?action=report">';
+		echo '<script language=javascript src="images/DatePicker.js"></script>';
+		echo '<div class="form-group"><h2>选择开始时间</h2></div>';
+		echo '<input name="starttime" id="sttime" type="text" onfocus="setday(this)" readonly="readonly" />';
+		echo '<input type="submit" value="查询" />';
+		echo '</form></div>';
+	}
 	function showMethodsCallStatTable($arr, $level) {
 		if ($level == 1) {
 			echo '<div class="table-responsive"><table class="table table-striped">';
@@ -82,9 +90,7 @@ class YqPlatformView extends YqPlatform {
 				echo '</td></tr>';
 			}
 			echo '</table></div>';
-		}
-		else if($level==2)
-		{
+		} else if ($level == 2) {
 			echo '<table class="table table-striped">';
 			echo '<thead><tr><th>方法名</th><th>次数</th></tr></thead>';
 			foreach ( $arr as $key => $v ) {
@@ -92,7 +98,15 @@ class YqPlatformView extends YqPlatform {
 			}
 			echo '</table>';
 		}
-		
+	}
+	function showDailyReportsByntimes($time) {
+		$start = strtotime ( date ( "Y-m-d ", $time ) );
+		while ( $start <= time () ) {
+			echo '<h2>' . date ( "Y-m-d ", $start ) . '</h2>';
+			$this->getdailyreport_showtable ( $this->getDailyBehavierReport ( $start ) );
+			$start += 86401;
+			$start = strtotime ( date ( "Y-m-d ", $start ) );
+		}
 	}
 }
 
