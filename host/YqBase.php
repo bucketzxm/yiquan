@@ -178,11 +178,11 @@ class YqBase {
 	function checkUsernameLegal($name) {
 		$rname = strtolower ( trim ( $name ) );
 		// //var_dump ( $rname );
-		if ($name == 'sencetiveList')
+		if ($name == 'sencetivelist')
 			return 0;
 			// $this->delRedis ( 'sencetiveList' );
 			// die();
-		$arr = unserialize ( $this->getRedis ( 'sencetiveList' ) );
+		$arr = unserialize ( $this->getRedis ( 'sencetivelist' ) );
 		// var_dump($arr);
 		if ($arr == false || empty ( $arr )) {
 			$arr = [ ];
@@ -198,7 +198,7 @@ class YqBase {
 				fclose ( $handle );
 				// var_dump ( $arr );
 			}
-			$this->setRedis ( 'sencetiveList', serialize ( $arr ) );
+			$this->setRedis ( 'sencetivelist', serialize ( $arr ) );
 		}
 		if (isset ( $arr [$rname] )) {
 			return 0;
