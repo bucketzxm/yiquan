@@ -45,9 +45,9 @@ class User extends YqBase {
 			return 0;
 		}
 		
-// 		if ($this->checkUsernameLegal ( $user_name ) == 0) {
-// 			return 0;
-// 		}
+		// if ($this->checkUsernameLegal ( $user_name ) == 0) {
+		// return 0;
+		// }
 		
 		$this->logCallMethod ( $user_name, __METHOD__ );
 		try {
@@ -870,7 +870,7 @@ class User extends YqBase {
 			
 			if (isset ( $arr ['user_nickname'] )) {
 				
-				if ($this->checkUsernameLegal ( $arr ['user_nickname'] )) {
+				if ($this->checkUsernameLegal ( $arr ['user_nickname'] ) == 1) {
 					$ob ['user_nickname'] = $arr ['user_nickname'];
 				} else {
 					$ob ['user_nickname'] = '讲文明守法律';
@@ -1828,7 +1828,7 @@ class User extends YqBase {
 		$step1 = $this->reg ( $user_name, $user_pwd, $user_mobile );
 		$step2 = $this->addFriendByNamev2 ( $user_name, $row ['senderName'] );
 		$step3 = $this->expireInvitation ( $invcode );
-		//$step4 = (new YqSystemMessage ())->addSystemMessage ( 0, $user_name, 'webView', '欢迎来到一圈！这里是简要用户指南。', '系统消息', '', '用户指南', 'https://yiquanhost.oneto-tech.com/guidance/index.html' );
+		// $step4 = (new YqSystemMessage ())->addSystemMessage ( 0, $user_name, 'webView', '欢迎来到一圈！这里是简要用户指南。', '系统消息', '', '用户指南', 'https://yiquanhost.oneto-tech.com/guidance/index.html' );
 		return $step1 & $step2 & $step3;
 	}
 	function weihu() {
@@ -1955,7 +1955,6 @@ class User extends YqBase {
 }
 
 /*
- * $a = new User (); // $t = json_decode ( $a->getRegisterCode ( '13564957795', 30 ), true ); // echo $t['msg']; $r=$a->checkRegisterCode('13564957795','uw89'); echo $r; $a = new User (); echo $a->enhanceRelationshipByName ( 'abc1', 'abc2', 100 ); $a = new User (); echo $a->weihu (); echo $a->changeSecondName ( 'abc0', 'kkmmjj2222', 'abc2' ); var_dump ( $a->getSecondFriendStats ( 'abc0' ) ); $a->reg ( 'abc1', '110', '110' ); $a->reg ( 'abc2', '112', '110' ); $a->reg ( 'abc3', '110', '110' ); $a->reg ( 'abc4', '110', '110' ); $a->reg ( 'abc5', '110', '110' ); $a->reg ( 'abc6', '110', '110' ); $a->reg ( 'abc7', '110', '110' ); $a->addProfileByName ( 'abc0', '{"profile_city":"shanghai"}' ); $a->addProfileByName ( 'abc1', '{"profile_city":"shanghai"}' ); $a->addProfileByName ( 'abc2', '{"profile_city":"shanghai"}' ); $a->addProfileByName ( 'abc3', '{"profile_city":"shanghai"}' ); $a->addProfileByName ( 'abc4', '{"profile_city":"shanghai"}' ); $a->addProfileByName ( 'abc5', '{"profile_city":"shanghai"}' ); $a->addProfileByName ( 'abc6', '{"profile_city":"shanghai"}' ); $a->addProfileByName ( 'abc7', '{"profile_city":"山东"}' ); $a->addFriendByName ( 'abc0', 'abc2' ); $a->addFriendByName ( 'abc1', 'abc2' ); $a->addFriendByName ( 'abc1', 'abc5' ); $a->addFriendByName ( 'abc5', 'abc3' ); $a->addFriendByName ( 'abc3', 'abc4' ); $a->addFriendByName ( 'abc5', 'abc6' ); $a->addFriendByName ( 'abc6', 'abc7' ); $a->addFriendByName ( 'abc4', 'abc7' ); $a->addFriendByName ( 'abc4', 'abc1' ); $a->addFriendByName ( 'abc2', 'abc4' ); $a->addFriendByName ( 'abc2', 'abc5' ); $a->addFriendByName ( 'abc0', 'abc2' ); echo $a->queryFirstFriendsByName ( 'abc0' ); echo $a-> ( 'abc0' ); echo $a->queryAllFriendsByName ( 'abc0' ); echo $a->countAllFriendsByName ( 'abc0' ); echo $a->querySecondFriendsByName ( 'abc0' ); echo $a->countSecondFriendsByName ( 'abc0' ); echo $a->listSecondFriendsByName ( 'abc0' ); echo $a->listAllFriendsByName ( 'abc0' ); echo $a->queryCommonFriendsByName ( 'abc0', 'abc1' ); $a = new User (); echo $a->deleteFriendByName ( 'abc0', 'abc1' ); echo $a->queryCommonFriendsByName ( 'abc0', 'abc1' );
+ * $a = new User (); echo $a->checkUsernameLegal('sencetiveLis');
  */
-
 ?>

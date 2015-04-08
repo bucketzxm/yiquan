@@ -177,14 +177,14 @@ class YqBase {
 	}
 	function checkUsernameLegal($name) {
 		$rname = strtolower ( trim ( $name ) );
-		// //var_dump ( $rname );
-		if ($name == 'sencetivelist')
+		//var_dump ( $rname );
+		if ($rname == 'sencetivelist')
 			return 0;
 			// $this->delRedis ( 'sencetiveList' );
 			// die();
 		$arr = unserialize ( $this->getRedis ( 'sencetivelist' ) );
 		// var_dump($arr);
-		if (true) {
+		if ($arr == false || empty ( $arr )) {
 			$arr = [ ];
 			$file = 'sensetive.txt';
 			$handle = fopen ( $file, 'r' );
