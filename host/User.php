@@ -1954,7 +1954,7 @@ class User extends YqBase {
 	}
 }
 
-/*
- * $a = new User (); echo $a->checkUsernameLegal('sencetiveLis');
- */
+
+//$a = new User (); echo $a->checkUsernameLegal('鞑子');
+ 
 ?>

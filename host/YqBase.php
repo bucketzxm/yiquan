@@ -176,8 +176,8 @@ class YqBase {
 		return $result;
 	}
 	function checkUsernameLegal($name) {
-		$rname = strtolower ( trim ( $name ) );
-		//var_dump ( $rname );
+		$rname = utf8_decode(strtolower ( trim ( $name ) ));
+		var_dump ( $rname );
 		if ($rname == 'sencetivelist')
 			return 0;
 			// $this->delRedis ( 'sencetiveList' );
