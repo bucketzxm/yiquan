@@ -176,7 +176,7 @@ class YqBase {
 		return $result;
 	}
 	function checkUsernameLegal($name) {
-		$rname = utf8_encode(strtolower ( trim ( $name ) ));
+		$rname = strtolower ( trim ( $name ) );
 		var_dump ( $rname );
 		if ($rname == 'sencetivelist')
 			return 0;
