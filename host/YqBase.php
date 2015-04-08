@@ -184,7 +184,7 @@ class YqBase {
 			// die();
 		$arr = unserialize ( $this->getRedis ( 'sencetivelist' ) );
 		// var_dump($arr);
-		if ($arr == false || empty ( $arr )) {
+		if (true) {
 			$arr = [ ];
 			$file = 'sensetive.txt';
 			$handle = fopen ( $file, 'r' );
