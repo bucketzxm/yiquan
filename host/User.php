@@ -45,9 +45,9 @@ class User extends YqBase {
 			return 0;
 		}
 		
-		if ($this->checkUsernameLegal ( $user_name ) == 0) {
-			return 0;
-		}
+// 		if ($this->checkUsernameLegal ( $user_name ) == 0) {
+// 			return 0;
+// 		}
 		
 		$this->logCallMethod ( $user_name, __METHOD__ );
 		try {
