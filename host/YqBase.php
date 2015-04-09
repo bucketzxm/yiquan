@@ -234,6 +234,6 @@ class YqBase {
 	}
 }
 
-$a = new YqBase ();
-$a->checkUsernameLegal ( 'aaa' );
+// $a = new YqBase ();
+// $a->checkUsernameLegal ( 'aaa' );
 ?>
