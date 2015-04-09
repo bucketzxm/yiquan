@@ -356,10 +356,10 @@ class YqMessage extends YqBase {
 							'message_life' => 1 
 					) )->count ();
 					if ($platform == 'iOS') {
-						$this->pushiOSMessage ( $clientID, $nickname, $message_title, $unreadCount );
+						//$this->pushiOSMessage ( $clientID, $nickname, $message_title, $unreadCount );
 					}
 					if ($platform == 'Android') {
-						$this->pushMessageToSingle ( $clientID, $message_title, $unreadCount );
+						//$this->pushMessageToSingle ( $clientID, $message_title, $unreadCount );
 					}
 				}
 				
