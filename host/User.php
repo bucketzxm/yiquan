@@ -45,9 +45,9 @@ class User extends YqBase {
 			return 0;
 		}
 		
-// 		if ($this->checkUsernameLegal ( $user_name ) == 0) {
-// 			return 0;
-// 		}
+		// if ($this->checkUsernameLegal ( $user_name ) == 0) {
+		// return 0;
+		// }
 		
 		$this->logCallMethod ( $user_name, __METHOD__ );
 		try {
@@ -869,12 +869,7 @@ class User extends YqBase {
 			$id = $this->db->command ( $command ); // 执行更新
 			
 			if (isset ( $arr ['user_nickname'] )) {
-				
-				if ($this->checkUsernameLegal ( $arr ['user_nickname'] )) {
-					$ob ['user_nickname'] = $arr ['user_nickname'];
-				} else {
-					$ob ['user_nickname'] = '讲文明守法律';
-				}
+				$ob ['user_nickname'] = $arr ['user_nickname'];
 				$this->db->user->save ( $ob );
 			}
 			
@@ -1828,7 +1823,7 @@ class User extends YqBase {
 		$step1 = $this->reg ( $user_name, $user_pwd, $user_mobile );
 		$step2 = $this->addFriendByNamev2 ( $user_name, $row ['senderName'] );
 		$step3 = $this->expireInvitation ( $invcode );
-		//$step4 = (new YqSystemMessage ())->addSystemMessage ( 0, $user_name, 'webView', '欢迎来到一圈！这里是简要用户指南。', '系统消息', '', '用户指南', 'https://yiquanhost.oneto-tech.com/guidance/index.html' );
+		// $step4 = (new YqSystemMessage ())->addSystemMessage ( 0, $user_name, 'webView', '欢迎来到一圈！这里是简要用户指南。', '系统消息', '', '用户指南', 'https://yiquanhost.oneto-tech.com/guidance/index.html' );
 		return $step1 & $step2 & $step3;
 	}
 	function weihu() {
