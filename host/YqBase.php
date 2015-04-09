@@ -176,14 +176,13 @@ class YqBase {
 		return $result;
 	}
 	function checkUsernameLegal($name) {
-		$this->writeTofile ( 'debug.dat', $name );
 		$rname = strtolower ( trim ( $name ) );
-		var_dump ( $rname );
-		if ($rname == 'sencetivelist')
+		// //var_dump ( $rname );
+		if ($name == 'sencetiveList')
 			return 0;
 			// $this->delRedis ( 'sencetiveList' );
 			// die();
-		$arr = unserialize ( $this->getRedis ( 'sencetivelist' ) );
+		$arr = unserialize ( $this->getRedis ( 'sencetiveList' ) );
 		// var_dump($arr);
 		if ($arr == false || empty ( $arr )) {
 			$arr = [ ];
@@ -199,7 +198,7 @@ class YqBase {
 				fclose ( $handle );
 				// var_dump ( $arr );
 			}
-			$this->setRedis ( 'sencetivelist', serialize ( $arr ) );
+			$this->setRedis ( 'sencetiveList', serialize ( $arr ) );
 		}
 		if (isset ( $arr [$rname] )) {
 			return 0;
@@ -227,13 +226,5 @@ class YqBase {
 		
 		return 0;
 	}
-	function writeTofile($filename, $data) {
-		$handle = fopen ( $filename, "a" );
-		fwrite ( $handle, date ( 'Y-m-d H:i:s' ) . '  ' . $data . "\n" );
-		fclose ( $handle );
-	}
 }
-
-// $a = new YqBase ();
-// $a->checkUsernameLegal ( 'aaa' );
 ?>
