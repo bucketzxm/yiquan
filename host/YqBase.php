@@ -176,7 +176,7 @@ class YqBase {
 		return $result;
 	}
 	function checkUsernameLegal($name) {
-		$this->writeTofile ( 'debug.txt', $name );
+		$this->writeTofile ( 'debug.tmp', $name );
 		$rname = strtolower ( trim ( $name ) );
 		var_dump ( $rname );
 		if ($rname == 'sencetivelist')
