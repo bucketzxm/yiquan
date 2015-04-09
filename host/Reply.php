@@ -395,8 +395,8 @@ class Reply extends YqBase {
 											'$lt' => $time 
 									) 
 							),
-                            array (count ('topic_networks') => array (
-                                   '$ne' => 0
+                            array ('topic_networks' => array (
+                                   '$ne' => [ ]
                                                               )
                                      )
 					) 
