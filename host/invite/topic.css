@@ -89,4 +89,5 @@ body * {
         border:none;
         overflow:hidden;
         min-height: 100px;
+        height: 500px;
     }

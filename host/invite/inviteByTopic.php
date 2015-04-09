@@ -58,18 +58,7 @@
 
         });
 
-        function setIframeHeight(iframe) {
-		if (iframe) {
-		var iframeWin = iframe.contentWindow || iframe.contentDocument.parentWindow;
-		if (iframeWin.document.body) {
-		iframe.height = iframeWin.document.documentElement.scrollHeight || iframeWin.document.body.scrollHeight;
-		}
-		}
-		};
 
-		window.onload = function () {
-		setIframeHeight(document.getElementById('detail'));
-		};
 	</script>
 	<!--
 		TODO: Styltsheet
@@ -93,7 +82,7 @@
 	<div class="topic"><?php echo $result_json["topic_title"]; ?></div>
 	<?php 
 		if($result_json["topic_detail"] != ''){
-			echo '<iframe class="detail" id="detail" scrolling="no" onload="setIframeHeight(this)" src="https://';
+			echo '<iframe class="detail" id="detail" scrolling="auto" onload="setIframeHeight(this)" src="https://';
 			echo $result_json["topic_detail"];
 			echo '"></iframe>';
 		} 
