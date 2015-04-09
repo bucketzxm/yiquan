@@ -103,6 +103,7 @@
         	var username = regform.reg_user;
         	var password = regform.reg_pass;
         	var usern = /^[a-z0-9]{1,}$/;
+        	var passn = /^[a-zA-Z0-9]{1,}$/;
         	if (!username.value.match(usern)) {
                 msg += "用户名只能由字母数字组成\n";
                 alert(msg);
@@ -110,7 +111,7 @@
                 username.focus();
                 return false;
         	}
-        	if (!password.value.match(usern)) {
+        	if (!password.value.match(passn)) {
                 msg += "密码只能由字母数字组成\n";
                 alert(msg);
                 username.value = '';
