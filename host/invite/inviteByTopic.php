@@ -57,6 +57,19 @@
 
 
         });
+
+        function setIframeHeight(iframe) {
+		if (iframe) {
+		var iframeWin = iframe.contentWindow || iframe.contentDocument.parentWindow;
+		if (iframeWin.document.body) {
+		iframe.height = iframeWin.document.documentElement.scrollHeight || iframeWin.document.body.scrollHeight;
+		}
+		}
+		};
+
+		window.onload = function () {
+		setIframeHeight(document.getElementById('detail'));
+		};
 	</script>
 	<!--
 		TODO: Styltsheet
@@ -77,8 +90,14 @@
 		</div>
 	</div>
 
-	<div class="tag" ><?php echo $result_json["topic_labels"][0]; echo "  ";echo $result_json["topic_labels"][1]; ?></div>
 	<div class="topic"><?php echo $result_json["topic_title"]; ?></div>
+	<?php 
+		if($result_json["topic_detail"] != ''){
+			echo '<iframe class="detail" id="detail" scrolling="no" onload="setIframeHeight(this)" src="https://';
+			echo $result_json["topic_detail"];
+			echo '"></iframe>';
+		} 
+	?>
 
 	<?php
 	$invitationCode = $_GET['invitationCode'];
@@ -119,7 +138,6 @@
 	
 	if ($result2 == '1'){
 		echo "<div class=\"invite\">您被  "; echo $_GET['name']; echo"  邀请加入一圈</div>";
-		
 		echo "<div class=\"transportClass\"><input type=\"button\" class=\"transport\" value=\"注册\" onclick=\"window.location.href='reg.php?invitationCode=";
 		echo $invitationCode;
 		echo "&name=";

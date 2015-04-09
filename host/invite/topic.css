@@ -59,7 +59,6 @@ body * {
     }
     .topic{
         padding-bottom: 10px;
-        border-bottom: 1px solid #808080;
     }
     .invite{
         margin-top: 10px;
@@ -83,4 +82,11 @@ body * {
     .transportClass{
         float: center;
         text-align: center;
+    }
+    .detail{
+        float: center;
+        width: 100%;
+        border:none;
+        overflow:hidden;
+        min-height: 100px;
     }
