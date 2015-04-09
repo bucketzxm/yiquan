@@ -704,17 +704,17 @@ class Topic extends YqBase {
 	
 	// 收藏某话题
 	function archiveTopic($topic_id, $user_name) {
-		if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $user_name) {
-			return - 4;
-		}
+// 		if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $user_name) {
+// 			return - 4;
+// 		}
 		try {
-			if ($this->yiquan_version == 0) {
-				return - 2;
-			}
+// 			if ($this->yiquan_version == 0) {
+// 				return - 2;
+// 			}
 			
-			if ($this->checkToken () == 0) {
-				return - 3;
-			}
+// 			if ($this->checkToken () == 0) {
+// 				return - 3;
+// 			}
 			$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
 			$where = array (
 					"_id" => new MongoID ( $topic_id ) 
