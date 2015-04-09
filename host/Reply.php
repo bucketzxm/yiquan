@@ -394,7 +394,11 @@ class Reply extends YqBase {
 									'topic_postTime' => array (
 											'$lt' => $time 
 									) 
-							) 
+							),
+                            array ('topic_networks' => array (
+                                   '$ne' => [ ]
+                                                              )
+                                     )
 					) 
 			) )->sort ( array (
 					'topic_postTime' => - 1 
