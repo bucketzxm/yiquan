@@ -218,7 +218,7 @@ class Message extends YqBase {
         //通知栏
         $template ->set_notyTitle("你有".$count."条未读消息");//通知栏标题
         $template ->set_notyContent($title);//通知栏内容
-        $template ->set_notyIcon("");//通知栏logo
+        $template ->set_notyIcon("https://yiquanhost.oneto-tech.com/Yiquan_logo.png");//通知栏logo
         $template ->set_isBelled(true);//是否响铃
         $template ->set_isVibrationed(true);//是否震动
         $template ->set_isCleared(true);//通知栏是否可清除
