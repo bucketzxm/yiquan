@@ -65,14 +65,19 @@ ob_start ();
 							}
 							break;
 						case 'statistic' :
-							
 							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
 								$a->getPlatformStatistic_showtable ( $a->getPlatformStatistic () );
 							}
 							break;
 						case 'statisticforuser' :
 							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
-								$a->getUserStatistic_showtable ( $a->getUserStatistic () );
+								$a->getUserRegStatSearchform ();
+							} else {
+								$configs = array (
+										'type' => $_POST ['searchtype'],
+										'value' => $_POST ['value'] 
+								);
+								$a->getUserStatistic_showtable ( $a->getUserStatistic ( $configs ) );
 							}
 							break;
 						case 'report' :
@@ -85,7 +90,13 @@ ob_start ();
 							break;
 						case 'statisticforActiveuser' :
 							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
-								$a->getstatisticforActiveuser_showtable ( $a->getStatisticforActiveuser () );
+								$a->getActiveUserStatSearchform ();
+							} else {
+								$configs = array (
+										'type' => $_POST ['searchtype'],
+										'value' => $_POST ['value'] 
+								);
+								$a->getstatisticforActiveuser_showtable ( $a->getStatisticforActiveuser ( $configs ) );
 							}
 							break;
 						case 'weihu' :

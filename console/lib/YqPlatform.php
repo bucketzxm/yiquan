@@ -74,13 +74,16 @@ class YqPlatform extends YqBase {
 	}
 	function platformWeihu() {
 		$cus = $this->db->user->find ();
-		
+		$datetime = new MongoDate ();
 		while ( $cus->hasNext () ) {
 			$doc = $cus->getNext ();
 			if (! isset ( $doc ['user_relationships'] ))
 				$doc ['user_relationships'] = [ ];
 			$repl = [ ];
 			foreach ( $doc ['user_relationships'] as $k => $v ) {
+				if (! isset ( $v ['date'] )) {
+					$v ['date'] = $datetime;
+				}
 				$repl [$v ['userb_id']->{'$id'}] = $v;
 			}
 			$doc ['user_relationships'] = $repl;
@@ -153,6 +156,10 @@ class YqPlatform extends YqBase {
 			
 			if (! isset ( $doc ['remark'] )) {
 				$doc ['remark'] = '';
+			}
+			
+			if (! isset ( $doc ['date'] )) {
+				$doc ['date'] = $datetime;
 			}
 			$this->db->userRelationship->save ( $doc );
 		}
@@ -290,10 +297,17 @@ class YqPlatform extends YqBase {
 		$st = time ();
 		$ed = time ();
 		if ($configs ['type'] == 'days') {
-			$querystr = '-' . $configs ['value'] . ' day';
+			$querystr = '-' . ($configs ['value'] - 1) . ' day';
 			$st = strtotime ( $querystr );
 			
 			$res = [ ];
+			
+			$kt = time ();
+			while ( $kt >= $st ) {
+				$res [date ( 'Y-m-d', $kt )] = 0;
+				$kt = strtotime ( '-1 day', $kt );
+			}
+			
 			$cus = $this->db->user->find ( array (
 					'user_regdate' => array (
 							'$gte' => new MongoDate ( $st ),
@@ -306,35 +320,30 @@ class YqPlatform extends YqBase {
 			while ( $cus->hasNext () ) {
 				$doc = $cus->getNext ();
 				if (! isset ( $res [date ( 'Y-M-d', $doc ['user_regdate']->sec )] )) {
-					$res [date ( 'Y-M-d', $doc ['user_regdate']->sec )] = 1;
+					$res [date ( 'Y-m-d', $doc ['user_regdate']->sec )] = 1;
 				} else {
-					$res [date ( 'Y-M-d', $doc ['user_regdate']->sec )] += 1;
+					$res [date ( 'Y-m-d', $doc ['user_regdate']->sec )] += 1;
 				}
 			}
 		} else if ($configs ['type'] == 'weeks') {
-			
 			$date = date ( 'Y-m-d' ); // 当前日期
-			
 			$first = 1; // $first =1 表示每周星期一为开始日期 0表示每周日为开始日期
-			
 			$w = date ( 'w', strtotime ( $date ) ); // 获取当前周的第几天 周日是 0 周一到周六是 1 - 6
-			
-			$now_start = date ( 'Y-m-d', strtotime ( "$date -" . ($w ? $w - $first : 6) . ' days' ) ); // 获取本周开始日期，如果$w是0，则表示周日，减去 6 天
-			
-			$now_end = date ( 'Y-m-d', strtotime ( "$now_start +6 days" ) ); // 本周结束日期
+			$now_start = strtotime ( date ( 'Y-m-d', strtotime ( "$date -" . ($w ? $w - $first : 6) . ' day' ) ) ); // 获取本周开始日期，如果$w是0，则表示周日，减去 6 天
+			$now_end = strtotime ( date ( 'Y-m-d', strtotime ( ' +6 day', $now_start ) ) ); // 本周结束日期
 			
 			$res = [ ];
 			
-			for($i = 1; $i <= $config ['value']; $i ++) {
+			for($i = 1; $i <= $configs ['value']; $i ++) {
 				$cus = $this->db->user->count ( array (
 						'user_regdate' => array (
 								'$gte' => new MongoDate ( $now_start ),
 								'$lte' => new MongoDate ( $now_end ) 
 						) 
 				) );
-				$res [$now_start . '-' . $now_end] = $cus;
-				$now_start = date ( 'Y-m-d', strtotime ( "$now_start -7 days" ) );
-				$now_end = date ( 'Y-m-d', strtotime ( "$now_end -7 days" ) );
+				$res [date ( 'Y-m-d', $now_start ) . '-->' . date ( 'Y-m-d', $now_end )] = $cus;
+				$now_start = strtotime ( "-7 days", $now_start );
+				$now_end = strtotime ( "-7 days", $now_end );
 			}
 		} elseif ($configs ['type'] == 'months') {
 			$res = [ ];
@@ -348,7 +357,7 @@ class YqPlatform extends YqBase {
 						) 
 				) );
 				$res ["$tp[0]" . '-' . "$tp[1]"] = $cus;
-				$day = date ( "Y-m-01", strtotime ( "$day -1 month" ) );
+				$day = date ( "Y-m-01", strtotime ( "-1 month", $day ) );
 			}
 		}
 		
@@ -386,8 +395,8 @@ class YqPlatform extends YqBase {
 		$st = time ();
 		$ed = time ();
 		if ($configs ['type'] == 'days') {
-			$querystr = '-' . $configs ['value'] . ' day';
-			$st = strtotime ( $querystr );
+			$querystr = '-' . ($configs ['value'] - 1) . ' day';
+			$st = strtotime ( date ( 'Y-m-d', strtotime ( $querystr ) ) );
 			
 			$res = [ ];
 			$cus = $this->db->callmethodlog->find ( array (
@@ -410,9 +419,58 @@ class YqPlatform extends YqBase {
 			$ans = array ();
 			
 			foreach ( $res as $key => $v ) {
-				$ans [$key] = count ( $v );
+				$ans [$key] ['activecount'] = count ( $v );
+				$dt = strtotime ( "+1 day", strtotime ( $key ) );
+				$usercount = $this->db->user->count ( array (
+						'user_regdate' => array (
+								'$lte' => new MongoDate ( $dt ) 
+						) 
+				) );
+				$ans [$key] ['user_count'] = $usercount;
 			}
+			// var_dump($ans);
 			return $ans;
+		} else if ($configs ['type'] == 'weeks') {
+			$querystr = '-' . ($configs ['value']) . ' week Monday';
+			$st = strtotime ( $querystr );
+			$i = $configs ['value'];
+			$zong = [ ];
+			while ( $i ) {
+				$res = [ ];
+				$cus = $this->db->callmethodlog->find ( array (
+						'date' => array (
+								'$gte' => new MongoDate ( $st ),
+								'$lt' => new MongoDate ( strtotime ( '+1 week Monday', $st ) ) 
+						) 
+				), array (
+						'date' => true,
+						'user_name' => true 
+				) )->sort ( array (
+						'date' => - 1 
+				) );
+				
+				while ( $cus->hasNext () ) {
+					$doc = $cus->getNext ();
+					$res [date ( 'Y-m-d', $st )] [$doc ['user_name']] = 1;
+				}
+				
+				$ans = array ();
+				// var_dump ($res);
+				foreach ( $res as $key => $v ) {
+					$ans ['activecount'] = count ( $v );
+					$dt = strtotime ( '+1 week Monday', $st );
+					$usercount = $this->db->user->count ( array (
+							'user_regdate' => array (
+									'$lt' => new MongoDate ( $dt ) 
+							) 
+					) );
+					$ans ['user_count'] = $usercount;
+				}
+				$zong [date ( 'Y-m-d', $st ) . '-->' . date ( 'Y-m-d', strtotime ( '+1 week Monday', $st ) )] = $ans;
+				$st = strtotime ( '+1 week Monday', $st );
+				$i --;
+			}
+			return $zong;
 		}
 	}
 	function getDailyCountReport($time) {

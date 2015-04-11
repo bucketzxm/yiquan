@@ -34,11 +34,36 @@ class YqPlatformView extends YqPlatform {
 		}
 		echo '</table></div>';
 	}
+	function getActiveUserStatSearchform() {
+		echo '<div><form method="post" action="?action=statisticforActiveuser">';
+		echo '<div class="form-group"><h2>选择查询方式</h2></div>';
+		echo '<input name="searchtype" type="radio" value="days" checked="checked" />天<input type="radio" name="searchtype" value="weeks" />周';
+		echo '<div class="form-group"><h2>选择量</h2></div>';
+		echo '<input name="value" id="sttime" type="text" />';
+		echo '<input type="submit" value="查询" />';
+		echo '</form></div>';
+		// echo date ( "Y-m-d", strtotime ( "-1 week Monday" ) ), ""; // 离现在最近的周一
+	}
+	function getUserRegStatSearchform() {
+		echo '<div><form method="post" action="?action=statisticforuser">';
+		echo '<div class="form-group"><h2>选择查询方式</h2></div>';
+		echo '<input name="searchtype" type="radio" value="days" checked="checked" />天<input type="radio" name="searchtype" value="weeks" />周';
+		echo '<div class="form-group"><h2>选择量</h2></div>';
+		echo '<input name="value" id="sttime" type="text" />';
+		echo '<input type="submit" value="查询" />';
+		echo '</form></div>';
+		// echo date ( "Y-m-d", strtotime ( "-1 week Monday" ) ), ""; // 离现在最近的周一
+	}
 	function getstatisticforActiveuser_showtable($arr) {
 		echo '<div class="table-responsive"><table class="table table-striped">';
-		echo '<thead><tr><th>内容</th><th>值</th></tr></thead>';
+		echo '<thead><tr><th>内容</th><th>活跃数</th><th>用户总数</th><th>活跃比</th></tr></thead>';
 		foreach ( $arr as $key => $v ) {
-			echo '<tr><td>' . $key . '</td><td>' . $v . '</td></tr>';
+			if (! empty ( $v )) {
+				$pp = round ( $v ['activecount'] / $v ['user_count'] * 100, 2 ) . "%";
+				echo '<tr><td>' . $key . '</td><td>' . $v ['activecount'] . '</td><td>' . $v ['user_count'] . '</td><td>' . $pp . '</td></tr>';
+			} else {
+				echo '<tr><td>' . $key . '</td><td>' . 0 . '</td><td>' . 0 . '</td><td>' . '0%' . '</td></tr>';
+			}
 		}
 		echo '</table></div>';
 	}
