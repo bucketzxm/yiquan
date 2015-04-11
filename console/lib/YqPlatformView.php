@@ -58,12 +58,11 @@ class YqPlatformView extends YqPlatform {
 		echo '<div class="table-responsive"><table class="table table-striped">';
 		echo '<thead><tr><th>内容</th><th>活跃数</th><th>用户总数</th><th>活跃比</th></tr></thead>';
 		foreach ( $arr as $key => $v ) {
-			if (! empty ( $v )) {
+			$pp = '??%';
+			if ($v ['user_count'] > 0) {
 				$pp = round ( $v ['activecount'] / $v ['user_count'] * 100, 2 ) . "%";
-				echo '<tr><td>' . $key . '</td><td>' . $v ['activecount'] . '</td><td>' . $v ['user_count'] . '</td><td>' . $pp . '</td></tr>';
-			} else {
-				echo '<tr><td>' . $key . '</td><td>' . 0 . '</td><td>' . 0 . '</td><td>' . '0%' . '</td></tr>';
 			}
+			echo '<tr><td>' . $key . '</td><td>' . $v ['activecount'] . '</td><td>' . $v ['user_count'] . '</td><td>' . $pp . '</td></tr>';
 		}
 		echo '</table></div>';
 	}

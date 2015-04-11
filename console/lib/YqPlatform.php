@@ -394,11 +394,26 @@ class YqPlatform extends YqBase {
 	function getStatisticforActiveuser($configs = array('type'=>'days','value'=>30)) {
 		$st = time ();
 		$ed = time ();
+		// echo 'aaa';
 		if ($configs ['type'] == 'days') {
 			$querystr = '-' . ($configs ['value'] - 1) . ' day';
 			$st = strtotime ( date ( 'Y-m-d', strtotime ( $querystr ) ) );
 			
 			$res = [ ];
+			$ans = array ();
+			$kt = strtotime ( date ( 'Y-m-d', time () ) );
+			while ( $kt >= $st ) {
+				$ans [date ( 'Y-m-d', $kt )] ['activecount'] = 0;
+				$dt = strtotime ( "+1 day", $kt );
+				$usercount = $this->db->user->count ( array (
+						'user_regdate' => array (
+								'$lte' => new MongoDate ( $dt ) 
+						) 
+				) );
+				$ans [date ( 'Y-m-d', $kt )] ['user_count'] = $usercount;
+				$kt = strtotime ( '-1 day', $kt );
+			}
+			// var_dump ( $ans );
 			$cus = $this->db->callmethodlog->find ( array (
 					'date' => array (
 							'$gte' => new MongoDate ( $st ),
@@ -416,17 +431,8 @@ class YqPlatform extends YqBase {
 				$res [date ( 'Y-m-d', $doc ['date']->sec )] [$doc ['user_name']] = 1;
 			}
 			
-			$ans = array ();
-			
 			foreach ( $res as $key => $v ) {
 				$ans [$key] ['activecount'] = count ( $v );
-				$dt = strtotime ( "+1 day", strtotime ( $key ) );
-				$usercount = $this->db->user->count ( array (
-						'user_regdate' => array (
-								'$lte' => new MongoDate ( $dt ) 
-						) 
-				) );
-				$ans [$key] ['user_count'] = $usercount;
 			}
 			// var_dump($ans);
 			return $ans;
