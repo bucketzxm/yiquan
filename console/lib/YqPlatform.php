@@ -476,11 +476,14 @@ class YqPlatform extends YqBase {
 	function getDailyCountReport($time) {
 		$res = [ ];
 		
-		$row = $this->db->user->count ();
-		$res ['user_count'] = $row;
-		
-		$start = strtotime ( date ( "Y-m-d " ) );
+		$start = strtotime ( date ( "Y-m-d ", $time ) );
 		$endday = $start + 86400;
+		$row = $this->db->user->count ( array (
+				'user_regdate' => array (
+						'$lte' => new MongoDate ( $endday ) 
+				) 
+		) );
+		$res ['user_count'] = $row;
 		
 		$cus = $this->db->callmethodlog->find ( array (
 				'date' => array (

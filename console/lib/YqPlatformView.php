@@ -126,11 +126,16 @@ class YqPlatformView extends YqPlatform {
 	}
 	function showDailyReportsByntimes($time) {
 		$start = strtotime ( date ( "Y-m-d ", $time ) );
-		while ( $start <= time () ) {
-			echo '<h2>' . date ( "Y-m-d ", $start ) . '</h2>';
-			$this->getdailyreport_showtable ( $this->getDailyBehavierReport ( $start ) );
-			$start += 86401;
-			$start = strtotime ( date ( "Y-m-d ", $start ) );
+		$end = time ();
+		while ( $start <= $end ) {
+			echo '<h2>' . date ( "Y-m-d ", $end ) . '</h2>';
+			echo '<h4>' . '行为的统计' . '</h4>';
+			$this->getdailyreport_showtable ( $this->getDailyBehavierReport ( $end ) );
+			echo '<h4>' . '数量的统计' . '</h4>';
+			$this->getdailyreport_showtable ( $this->getDailyCountReport ( $end ) );
+			echo '<hr/>';
+			$end -= 86400;
+			$end = strtotime ( date ( "Y-m-d ", $end ) );
 		}
 	}
 }
