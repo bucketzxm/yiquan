@@ -319,7 +319,7 @@ class YqPlatform extends YqBase {
 			
 			while ( $cus->hasNext () ) {
 				$doc = $cus->getNext ();
-				if (! isset ( $res [date ( 'Y-M-d', $doc ['user_regdate']->sec )] )) {
+				if (! isset ( $res [date ( 'Y-m-d', $doc ['user_regdate']->sec )] )) {
 					$res [date ( 'Y-m-d', $doc ['user_regdate']->sec )] = 1;
 				} else {
 					$res [date ( 'Y-m-d', $doc ['user_regdate']->sec )] += 1;
