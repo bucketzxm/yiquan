@@ -55,66 +55,82 @@ class Group extends YqBase {
 			return - 4;
 		}
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
-		$group_foundTime = time ();
-		$group_memberList = array ();
-        array_push ($group_memberList,$group_founder);
-        //Upload the group_avatar:
-        $rawpic = base64_decode ( $group_avatar );
         
-        $im = new Imagick ();
-        $im->readImageBlob ( $rawpic );
-        $geo = $im->getImageGeometry ();
-        $w = $geo ['width'];
-        $h = $geo ['height'];
-        $maxWidth = $maxHeight = 160;
-        $fitbyWidth = (($maxWidth / $w) < ($maxHeight / $h)) ? true : false;
+        $group_foundTime = time ();
         
-        if ($fitbyWidth) {
-            $im->thumbnailImage ( $maxWidth, 0, false );
-        } else {
-            $im->thumbnailImage ( 0, $maxHeight, false );
-        }
+        $former = $this->db->group->findOne (
+            array (
+                'group_founder' =>$group_founder,
+                'group_name' => $group_name,
+                'group_foundTime' => array (
+                   '$gt' => group_foundTime - 60
+                   )
+                                             )
+        )
         
-        // save to qiniu
-        $auth = new Auth ( $this->qiniuAK, $this->qiniuSK );
-        $bucket = 'yiquanhost-avatar';
-        $uploadMgr = new UploadManager ();
-        $bucketMgr = new BucketManager ( $auth );
-        
-        $token = $auth->uploadToken ( $bucket );
-        list ( $ret, $err ) = $uploadMgr->put ( $token, null, $rawpic );
-        if ($err == null) {
-             $bigAvatar = $this->userpicbucketUrl . '/' . $ret ['key'];
-        } else {
-            return $err;
-        }
-        
-        list ( $ret, $err ) = $uploadMgr->put ( $token, null, $im );
-        if ($err == null) {
-            $smallAvatar = $this->userpicbucketUrl . '/' . $ret ['key'];
-        } else {
-            return $err;
-        }
+        if ($former == null){
 
-        
-		$data = array (
-				"group_founder" => $group_founder,
-				"group_name" => $group_name,
-				"group_intro" => $group_intro,
-				"group_publicType" => $group_publicType,
-				"group_smallAvatar" => $smallAvatar,
-				"group_bigAvatar" => $bigAvatar,
-				"group_foundTime" => $group_foundTime,
-				"group_memberList" => $group_memberList
-		);
+            $group_memberList = array ();
+            array_push ($group_memberList,$group_founder);
+            //Upload the group_avatar:
+            $rawpic = base64_decode ( $group_avatar );
+            
+            $im = new Imagick ();
+            $im->readImageBlob ( $rawpic );
+            $geo = $im->getImageGeometry ();
+            $w = $geo ['width'];
+            $h = $geo ['height'];
+            $maxWidth = $maxHeight = 160;
+            $fitbyWidth = (($maxWidth / $w) < ($maxHeight / $h)) ? true : false;
+            
+            if ($fitbyWidth) {
+                $im->thumbnailImage ( $maxWidth, 0, false );
+            } else {
+                $im->thumbnailImage ( 0, $maxHeight, false );
+            }
+            
+            // save to qiniu
+            $auth = new Auth ( $this->qiniuAK, $this->qiniuSK );
+            $bucket = 'yiquanhost-avatar';
+            $uploadMgr = new UploadManager ();
+            $bucketMgr = new BucketManager ( $auth );
+            
+            $token = $auth->uploadToken ( $bucket );
+            list ( $ret, $err ) = $uploadMgr->put ( $token, null, $rawpic );
+            if ($err == null) {
+                 $bigAvatar = $this->userpicbucketUrl . '/' . $ret ['key'];
+            } else {
+                return $err;
+            }
+            
+            list ( $ret, $err ) = $uploadMgr->put ( $token, null, $im );
+            if ($err == null) {
+                $smallAvatar = $this->userpicbucketUrl . '/' . $ret ['key'];
+            } else {
+                return $err;
+            }
 
-			try {
-				$result = $this->db->group->insert ( $data );
-				return 1;
-			} catch ( Exception $e ) {
-				return - 1;
-			}
-		
+            
+            $data = array (
+                    "group_founder" => $group_founder,
+                    "group_name" => $group_name,
+                    "group_intro" => $group_intro,
+                    "group_publicType" => $group_publicType,
+                    "group_smallAvatar" => $smallAvatar,
+                    "group_bigAvatar" => $bigAvatar,
+                    "group_foundTime" => $group_foundTime,
+                    "group_memberList" => $group_memberList
+            );
+
+                try {
+                    $result = $this->db->group->insert ( $data );
+                    return 1;
+                } catch ( Exception $e ) {
+                    return - 1;
+                }
+        }else{
+            return 1;
+        }
 	}
     /*
     protected function QiniuUploadpic(&$arr, $bigdata, $smalldata) {
