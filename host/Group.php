@@ -51,7 +51,7 @@ class Group extends YqBase {
 			return - 3;
 		}
 		
-		if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $topic_ownerName) {
+		if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $group_founder) {
 			return - 4;
 		}
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );

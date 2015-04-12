@@ -26,5 +26,7 @@ access_url ( 'http://yiquanhost.oneto-tech.com/User_server.php?reb' );
 access_url ( 'http://yiquanhost.oneto-tech.com/testclass_server.php?reb' );
 
 access_url ( 'http://yiquanhost.oneto-tech.com/Label_server.php?reb' );
+    
+access_url ( 'http://yiquanhost.oneto-tech.com/Group_server.php?reb' );
 echo 'ok';
 ?>
