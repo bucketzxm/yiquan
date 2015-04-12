@@ -158,7 +158,7 @@ class Group extends YqBase {
         }
     }
     
-    function queryMyGroups ($user_name){
+    function queryMyGroups ($user_name,$update_time){
         if ($this->yiquan_version == 0) {
             return - 2;
         }
@@ -178,7 +178,7 @@ class Group extends YqBase {
             
             $res_array = array ();
             foreach ($groups as $group){
-                $res = $this->db->group->findOne (array('_id'=>$group));
+                $res = $this->db->group->findOne (array('_id'=>$group))->sort ( array ('group_latestUpdate' => -1))->limit (30);
                 array_push ($res_array,$res);
             }
             return json_encode ($res_array);
