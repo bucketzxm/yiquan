@@ -66,7 +66,7 @@ class Group extends YqBase {
                    '$gt' => group_foundTime - 60
                    )
                                              )
-        )
+                                             );
         
         if ($former == null){
 
