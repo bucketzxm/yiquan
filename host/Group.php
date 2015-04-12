@@ -122,23 +122,14 @@ class Group extends YqBase {
                     "group_memberList" => $group_memberList
             );
 
-            $user = $this->db->user->findOne(
-                array ( 'user_name' => $group_founder)
-            );
+            
             
             $user = $this->db->user->findOne(array('user_name'=>$group_founder));
                 try {
                     $result = $this->db->group->insert ( $data );
+                    return $this->addGroupInFounder($group_founder,$group_foundTime,$group_name);
                     
-                    $group = $this->db->group->findOne (
-                        array (
-                            'group_founder' => $group_founder,
-                            'group_foundTime' => $group_foundTime,
-                            'group_name' =>$group_name
-                                                        )
-                    );
                     
-                    array_push ($user['user_groups'],$group['_id']);
                     
                     
                     return 1;
@@ -149,6 +140,26 @@ class Group extends YqBase {
             return 1;
         }
 	}
+    
+    function addgroupInFounder ($group_founder,$group_foundTime,$group_name){
+        $user = $this->db->user->findOne(
+                                         array ( 'user_name' => $group_founder)
+                                         );
+        $group = $this->db->group->findOne (
+                                            array (
+                                                   'group_founder' => $group_founder,
+                                                   'group_foundTime' => $group_foundTime,
+                                                   'group_name' =>$group_name
+                                                   )
+                                            );
+        if ($group != null){
+            array_push ($user['user_groups'],$group['_id']);
+            return 1;
+        }else{
+            return -2;
+        }
+    }
+    
     /*
     protected function QiniuUploadpic(&$arr, $bigdata, $smalldata) {
         $auth = new Auth ( $this->qiniuAK, $this->qiniuSK );
