@@ -109,7 +109,7 @@ class Group extends YqBase {
 		);
 
 			try {
-				$result = $this->db->topic->insert ( $data );
+				$result = $this->db->group->insert ( $data );
 				return 1;
 			} catch ( Exception $e ) {
 				return - 1;
