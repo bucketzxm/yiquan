@@ -122,8 +122,25 @@ class Group extends YqBase {
                     "group_memberList" => $group_memberList
             );
 
+            $user = $this->db->user->findOne(
+                array ( 'user_name' => $group_founder)
+            );
+            
+            $user = $this->db->user->findOne(array('user_name'=>$group_founder));
                 try {
                     $result = $this->db->group->insert ( $data );
+                    
+                    $group = $this->db->group->findOne (
+                        array (
+                            'group_founder' => $group_founder,
+                            'group_foundTime' => $group_foundTime,
+                            'group_name' =>$group_name
+                                                        )
+                    );
+                    
+                    array_push ($user['user_groups'],$group['_id']);
+                    
+                    
                     return 1;
                 } catch ( Exception $e ) {
                     return - 1;

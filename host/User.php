@@ -65,6 +65,7 @@ class User extends YqBase {
 					'user_blockTopic' => array (),
 					'user_archiveTopic' => array (),
 					'user_followTopic' => array (),
+                    'user_groups' => array (),
 					'user_state' => 1,
 					'user_regdate' => new MongoDate (),
 					'user_privilege' => 0,

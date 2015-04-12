@@ -94,7 +94,9 @@ class YqPlatform extends YqBase {
 			if (! isset ( $doc ['user_blocklist'] )) {
 				$doc ['user_blocklist'] = [ ];
 			}
-			
+            if (! isset ( $doc ['user_groups'] )) {
+                $doc ['user_groups'] = [ ];
+            }
 			if (! isset ( $doc ['user_blockTopic'] )) {
 				$doc ['user_blockTopic'] = [ ];
 			}
