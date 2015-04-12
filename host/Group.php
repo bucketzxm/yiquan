@@ -157,6 +157,37 @@ class Group extends YqBase {
         }
     }
     
+    function queryMyGroups ($user_name){
+        if ($this->yiquan_version == 0) {
+            return - 2;
+        }
+        
+        if ($this->checkToken () == 0) {
+            return - 3;
+        }
+        
+        if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $user_name) {
+            return - 4;
+        }
+        $this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
+        
+        try {
+            $user = $this->db->user->findOne (array ('user_name'=> $user_name));
+            $groups = $user['user_groups'];
+            
+            $res_array = array ();
+            foreach ($groups as $group){
+                $res = $this->db->group->findOne (array('_id'=>$group));
+                array_push ($res_array,$res);
+            }
+            return json_encode ($res_array);
+        }catch (Exception $e){
+            return -1;
+        }
+    }
+    
+    
+    
     /*
     protected function QiniuUploadpic(&$arr, $bigdata, $smalldata) {
         $auth = new Auth ( $this->qiniuAK, $this->qiniuSK );
