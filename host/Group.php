@@ -128,11 +128,7 @@ class Group extends YqBase {
                 try {
                     $result = $this->db->group->insert ( $data );
                     return $this->addGroupInFounder($group_founder,$group_foundTime,$group_name);
-                    
-                    
-                    
-                    
-                    return 1;
+
                 } catch ( Exception $e ) {
                     return - 1;
                 }
@@ -141,7 +137,7 @@ class Group extends YqBase {
         }
 	}
     
-    function addgroupInFounder ($group_founder,$group_foundTime,$group_name){
+    function addGroupInFounder ($group_founder,$group_foundTime,$group_name){
         $user = $this->db->user->findOne(
                                          array ( 'user_name' => $group_founder)
                                          );
