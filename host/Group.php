@@ -176,7 +176,7 @@ class Group extends YqBase {
             $user = $this->db->user->findOne (array ('user_name'=> $user_name));
             $groups = $user['user_groups'];
         
-            $res = $this->db->group->find (array('_id'=> array ('$in' =>$groups)))->sort ( array ('group_latestUpdate' => -1))->limit (30);
+            $res = $this->db->group->find (array('_id'=> array ('$in' =>$groups)),array('group_latestUpdate'=>array('$lt'=>$update_time)))->sort ( array ('group_latestUpdate' => -1))->limit (30);
 
             return json_encode ($res);
         }catch (Exception $e){
