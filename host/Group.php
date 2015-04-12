@@ -150,6 +150,7 @@ class Group extends YqBase {
                                             );
         if ($group != null){
             array_push ($user['user_groups'],$group['_id']);
+            $this->db->user->save ($user);
             return 1;
         }else{
             return -2;
