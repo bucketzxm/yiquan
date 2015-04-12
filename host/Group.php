@@ -175,13 +175,10 @@ class Group extends YqBase {
         try {
             $user = $this->db->user->findOne (array ('user_name'=> $user_name));
             $groups = $user['user_groups'];
-            
-            $res_array = array ();
-            foreach ($groups as $group){
-                $res = $this->db->group->findOne (array('_id'=>$group))->sort ( array ('group_latestUpdate' => -1))->limit (30);
-                array_push ($res_array,$res);
-            }
-            return json_encode ($res_array);
+        
+            $res = $this->db->group->find (array('_id'=> array ('$in' =>$groups)))->sort ( array ('group_latestUpdate' => -1))->limit (30);
+
+            return json_encode ($res);
         }catch (Exception $e){
             return -1;
         }
