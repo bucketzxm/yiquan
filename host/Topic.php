@@ -432,7 +432,7 @@ class Topic extends YqBase {
                                                       'topic_postTime' => array (
                                                                                  '$lt' => $time_int
                                                                                  ),
-                                                      'topic_networks'[0] => $group_id
+                                                      'topic_group' => $group_id
                                                       
                                                       ) )->sort ( array (
                                                                          "topic_postTime" => - 1 
