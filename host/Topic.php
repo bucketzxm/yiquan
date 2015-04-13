@@ -113,13 +113,18 @@ class Topic extends YqBase {
         $topic_replyCount = 0;
         $m_labels = explode ( ',', $topic_labels );
         $detailHtmlText = '<html xmlns=http://www.w3.org/1999/xhtml><head><meta http-equiv=Content-Type content="text/html;charset=utf-8"><link href="http://7xid8v.com2.z0.glb.qiniucdn.com/style.css" rel="stylesheet"></head><body>' . $topic_detailText . '</body></html>';
+        if ($topic_group != 'second'){
+            $group = new MongoId ($topic_gropu);
+        }else{
+            $group = $topic_group;
+        }
         
         $data = array (
                        "topic_ownerName" => $topic_ownerName,
                        "topic_type" => $topic_type,
                        "topic_title" => $topic_title,
                        "topic_labels" => $m_labels,
-                       "topic_group" => new MongoId ($topic_group),
+                       "topic_group" => $group,
                        "topic_postTime" => $topic_postTime,
                        "topic_replyCount" => $topic_replyCount,
                        "topic_likeNames" => array (),
