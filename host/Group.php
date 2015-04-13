@@ -222,7 +222,7 @@ class Group extends YqBase {
         }
     }
     
-    function queryMemberByGroup ($group_id){
+    function queryMemberByGroup ($user_name,$group_id){
         if ($this->yiquan_version == 0) {
             return - 2;
         }
