@@ -120,7 +120,7 @@ class Group extends YqBase {
                     "group_bigAvatar" => $bigAvatar,
                     "group_foundTime" => $group_foundTime,
                     "group_memberList" => $group_memberList,
-                    "group_latestUpdate" =>group_foundTime
+                    "group_latestUpdate" =>$group_foundTime
             );
 
             

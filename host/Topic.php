@@ -415,6 +415,45 @@ class Topic extends YqBase {
 		}
 	}
 	
+    // 按照组别查询
+    function queryMyTopicByGroup($group_user, $group_id,$topic_time) {
+        if ($this->yiquan_version == 0) {
+            return - 2;
+        }
+        
+        if ($this->checkToken () == 0) {
+            return - 3;
+        }
+        $this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
+        $time_int = ( int ) $topic_time;
+        try {
+            $result = $this->db->topic->find ( array (
+                                                      
+                                                      'topic_postTime' => array (
+                                                                                 '$lt' => $time_int
+                                                                                 ),
+                                                      $group_id => array (
+                                                                                 '$in' => 'topic_networks'
+                                                                                 )
+                                                      ) )->sort ( array (
+                                                                         "topic_postTime" => - 1 
+                                                                         ) )->limit ( 30 );
+            $res = array ();
+            foreach ( $result as $key => $value ) {
+                $user_nickname = $this->db->user->findOne ( array (
+                                                                   'user_name' => $value ['topic_ownerName'] 
+                                                                   ), array (
+                                                                             'user_nickname' => 1 
+                                                                             ) );
+                $value ['user_nickname'] = $user_nickname ['user_nickname'];
+                array_push ( $res, $value );
+            }
+            return json_encode ( $res );
+        } catch ( Exception $e ) {
+            return - 1;
+        }
+    }
+    
 	// 查询我收藏的话题
 	function queryMyArchiveByName($archive_ownerName, $topic_time) {
 		if ($this->yiquan_version == 0) {
