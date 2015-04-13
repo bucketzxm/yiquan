@@ -416,7 +416,7 @@ class Topic extends YqBase {
 	}
 	
     // 按照组别查询
-    function queryMyTopicByGroup($group_user, $group_id,$topic_time) {
+    function queryTopicByGroup($group_user, $group_id,$topic_time) {
         if ($this->yiquan_version == 0) {
             return - 2;
         }
