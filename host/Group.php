@@ -222,7 +222,40 @@ class Group extends YqBase {
         }
     }
     
-    
+    function queryMemberByGroup ($group_id){
+        if ($this->yiquan_version == 0) {
+            return - 2;
+        }
+        
+        if ($this->checkToken () == 0) {
+            return - 3;
+        }
+        
+        if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $user_name) {
+            return - 4;
+        }
+        $this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
+
+        try {
+            $group = $this->db->group->findOne (array ('_id' => new MongoId ($group_id)));
+            $memberList = $group['group_memberList'];
+            
+            $res = array ();
+            foreach ($memberList as $member){
+                $user = $this->db->user->findOne ( array ('user_name' => $member),array (
+                                                                                         '_id' => 1,
+                                                                                         'user_name' => 1,
+                                                                                         'user_mobile' => 1,
+                                                                                         'user_nickname' => 1,
+                                                                                         // 'user_pic' => 1,
+                                                                                         'user_smallavatar' => 1 ));
+                array_push ($res, $user);
+            }
+            return json_encode ($res);
+        }catch (Exception $e)
+        {
+            return $e;
+        }}
     
     /*
     protected function QiniuUploadpic(&$arr, $bigdata, $smalldata) {
