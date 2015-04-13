@@ -493,7 +493,9 @@ class Topic extends YqBase {
         
         $userclass = new User ();
         $firstList = $userclass->listFirstFriendsByName ($user_name);
-        $first_array = explode (',',$firstList);
+        $firstListWithMe = $user_name . ',' . $firstList;
+        $first_array = explode (',',$firstListWithMe);
+
         
         try {
             $cursor = $this->db->topic->find (array (
