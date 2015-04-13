@@ -493,7 +493,7 @@ class Topic extends YqBase {
             $cursor = $this->db->topic->find (array (
                                            '$or' => array (
                                                            array (
-                                                                  'topic_group' => array ('$in' => $groups),
+                                                                  new MongoId('topic_group') => array ('$in' => $groups),
                                                                   'topic_postTime' => array ('$lt' => $time_int)
                                                         ),
                                                            array (
