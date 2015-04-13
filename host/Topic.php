@@ -450,7 +450,7 @@ class Topic extends YqBase {
             }
             return json_encode ( $res );
         } catch ( Exception $e ) {
-            return - 1;
+            return $e;
         }
     }
     
