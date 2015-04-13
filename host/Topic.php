@@ -360,6 +360,89 @@ class Topic extends YqBase {
 		}
 	}
 	
+    function queryTopicByKeywordInAllGroup ($user_name, $topic_keyword, $topic_time) {
+        if ($this->yiquan_version == 0) {
+            return - 2;
+        }
+        
+        if ($this->checkToken () == 0) {
+            return - 3;
+        }
+        $this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
+        $user = new User();
+        $secondList = $user->listAllFriendsByName($user_name);
+        $secondListWithMe = $user_name . ',' . $secondList;
+        $userArray = explode ( ',', $secondListWithMe );
+        
+        $cursor = $this->db->user->findOne(array ('user_name' => $user_name));
+        $groups = $cursor['user_groups'];
+        
+        $time_int = ( int ) $topic_time;
+        
+        $lastUserQueryArray = array (
+                                     '$or' => array (
+                                        array (
+                                            'topic_group' => array ('$in' => $groups)
+                                                     ),
+                                        array (
+                                            'topic_ownerName' => array ('$in' => $userArray),
+                                            'topic_group' => 'second'
+                                                     )
+                                     )
+                                     );
+        
+        $timeQueryArray = array (
+                                 'topic_postTime' => array (
+                                                            '$lt' => $time_int
+                                                            )
+                                 );
+        
+        $keyWordQueryArray = array (
+                                    'topic_title' => new MongoRegex ( "/$topic_keyword/" )
+                                    );
+        
+        $query = array (
+                        '$and' => array (
+                                         $keyWordQueryArray,
+                                         $lastUserQueryArray,
+                                         $timeQueryArray
+                                         ),
+                        'topic_networks' => array (
+                                                   '$ne' => [ ]
+                                                   ) 
+                        );
+        
+        try {
+            $result = $this->db->topic->find ( $query )->sort ( array (
+                                                                       "topic_postTime" => - 1 
+                                                                       ) ); // ->limit ( 30 );
+            $count = 0;
+            $res = array ();
+            foreach ( $result as $key => $value ) {
+                // 判断是否有被用户Block
+                if (in_array ( $_COOKIE ['user'], $value ['topic_dislikeNames'] )) {
+                } else {
+                    $user_nickname = $this->db->user->findOne ( array (
+                                                                       'user_name' => $value ['topic_ownerName'] 
+                                                                       ), array (
+                                                                                 'user_nickname' => 1 
+                                                                                 ) );
+                    $value ['user_nickname'] = $user_nickname ['user_nickname'];
+                    array_push ( $res, $value );
+                    $count ++;
+                }
+                if ($count == 30) {
+                    break;
+                }
+            }
+            return json_encode ( $res );
+        } catch ( Exception $e ) {
+            return - 1;
+        }
+    }
+    
+    
+    
 	// 按照label查询
 	function queryTopicByLabel($topic_user, $topic_label, $topic_time) {
 		if ($this->yiquan_version == 0) {
