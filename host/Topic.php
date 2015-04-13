@@ -489,7 +489,8 @@ class Topic extends YqBase {
             }else if ($group_id == 'second'){
                 $user = new User ();
                 $secondList = $user->listAllFriendsByName ($group_user);
-                $res = $this->queryTopicByName ($secondList, 'second', '1', $topic_time);
+                $secondListWithMe = $group_user . '.' . $secondList;
+                $res = $this->queryTopicByName ($secondListWithMe, 'second', '1', $topic_time);
                 return $res;
                 
             }else{
