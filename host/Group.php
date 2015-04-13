@@ -187,7 +187,7 @@ class Group extends YqBase {
                                                                               '$lt' => $update_int
                                                                               )
                                                  )
-                                        )->sort ( array ('group_latestUpdate' => -1))->limit (30);
+                                        )->sort ( array ('group_latestUpdate' => -1));
             $res_array = array ();
             foreach ($res as $key => $value){
                 array_push ($res_array, $value);
