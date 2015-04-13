@@ -203,7 +203,7 @@ class Group extends YqBase {
                             );
             array_push ($res_array, $first);
             $second = array (
-                            "_id" => 'first',
+                            "_id" => 'second',
                             "group_founder" => $user_name,
                             "group_name" => '朋友和他们的朋友们',
                             "group_intro" => '朋友的朋友最靠谱，找人帮忙认识新朋友的好去处',
