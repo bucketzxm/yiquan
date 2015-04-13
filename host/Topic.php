@@ -483,27 +483,40 @@ class Topic extends YqBase {
         $this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
         $time_int = ( int ) $topic_time;
         try {
-            $result = $this->db->topic->find ( array (
-                                                      
-                                                      'topic_postTime' => array (
-                                                                                 '$lt' => $time_int
-                                                                                 ),
-                                                      'topic_group' => $group_id
-                                                      
-                                                      ) )->sort ( array (
-                                                                         "topic_postTime" => - 1 
-                                                                         ) )->limit ( 30 );
-            $res = array ();
-            foreach ( $result as $key => $value ) {
-                $user_nickname = $this->db->user->findOne ( array (
-                                                                   'user_name' => $value ['topic_ownerName'] 
-                                                                   ), array (
-                                                                             'user_nickname' => 1 
-                                                                             ) );
-                $value ['user_nickname'] = $user_nickname ['user_nickname'];
-                array_push ( $res, $value );
+            
+            if ($group_id == 'first'){
+                
+            }else if ($group_id == 'second'){
+                $user = new User ();
+                $secondList = $user->listAllFriendsByName ($group_user);
+                $res = $this->queryTopicByName ($secondList, 'second', '1', $topic_time);
+                return $res;
+                
+            }else{
+            
+                //QueryTopic BY ID
+                $result = $this->db->topic->find ( array (
+                                                          
+                                                          'topic_postTime' => array (
+                                                                                     '$lt' => $time_int
+                                                                                     ),
+                                                          'topic_group' => $group_id
+                                                          
+                                                          ) )->sort ( array (
+                                                                             "topic_postTime" => - 1 
+                                                                             ) )->limit ( 30 );
+                $res = array ();
+                foreach ( $result as $key => $value ) {
+                    $user_nickname = $this->db->user->findOne ( array (
+                                                                       'user_name' => $value ['topic_ownerName'] 
+                                                                       ), array (
+                                                                                 'user_nickname' => 1 
+                                                                                 ) );
+                    $value ['user_nickname'] = $user_nickname ['user_nickname'];
+                    array_push ( $res, $value );
+                }
+                return json_encode ( $res );
             }
-            return json_encode ( $res );
         } catch ( Exception $e ) {
             return $e;
         }
