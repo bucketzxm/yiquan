@@ -189,6 +189,28 @@ class Group extends YqBase {
                                                  )
                                         )->sort ( array ('group_latestUpdate' => -1));
             $res_array = array ();
+            
+            $user = new User ();
+            $firstCount = $user->countFirstFriendsByName ( $user_name );
+            $secondCount = $user->countAllFriendsByName ( $user_name );
+            //增加一度好友圈和二度好友圈的数据
+            $first = array (
+                            "_id" => 'first',
+                            "group_founder" => $user_name,
+                            "group_name" => '我的好友圈',
+                            "group_intro" => '我和所有好友交流的场所',
+                            "group_memberCount" => $firstCount
+                            );
+            array_push ($res_array, $first);
+            $second = array (
+                            "_id" => 'first',
+                            "group_founder" => $user_name,
+                            "group_name" => '朋友和他们的朋友们',
+                            "group_intro" => '朋友的朋友最靠谱，找人帮忙认识新朋友的好去处',
+                             "group_memberCount" => $secondCount
+                            );
+            array_push ($res_array, $second);
+            
             foreach ($res as $key => $value){
                 array_push ($res_array, $value);
             }
