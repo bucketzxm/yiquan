@@ -171,7 +171,7 @@ class Group extends YqBase {
             return - 4;
         }
         $this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
-        $update_time = int ($update_time);
+        $update_time = (int) $update_time;
         
         try {
             $user = $this->db->user->findOne (array ('user_name'=> $user_name));
