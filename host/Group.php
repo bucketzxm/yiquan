@@ -179,8 +179,8 @@ class Group extends YqBase {
         
             $res = $this->db->group->find (array('_id'=> array ('$in' =>$user['user_groups'])),array('group_latestUpdate'=>array('$lt'=>$update_time)))->sort ( array ('group_latestUpdate' => -1))->limit (30);
             $res_array = array ();
-            foreach ($res as $group){
-                array_push ($res_array, $group);
+            foreach ($res as $key => $value){
+                array_push ($res_array, $value);
             }
             
             
