@@ -257,7 +257,7 @@ class Topic extends YqBase {
 			$res = array ();
 			foreach ( $result as $key => $value ) {
 				// 判断network_type
-				if (in_array ( $topic_networks, $value ['topic_networks'] )) {
+				//if (in_array ( $topic_networks, $value ['topic_networks'] )) {
 					
 					// 判断是否有被用户Block
 					if (in_array ( $_COOKIE ['user'], $value ['topic_dislikeNames'] )) {
@@ -272,7 +272,7 @@ class Topic extends YqBase {
 						array_push ( $res, $value );
 						$count ++;
 					}
-				}
+				//}
 				if ($count == 30) {
 					break;
 				}
@@ -454,8 +454,8 @@ class Topic extends YqBase {
 					'topic_postTime' => array (
 							'$lt' => $time_int 
 					),
-					'topic_networks' => array (
-							'$ne' => [ ] 
+					'topic_group' => array (
+							'$ne' => ''
 					) 
 			) )->sort ( array (
 					"topic_postTime" => - 1 
@@ -618,8 +618,8 @@ class Topic extends YqBase {
 					'topic_postTime' => array (
 							'$lt' => $time_int 
 					),
-					'topic_networks' => array (
-							'$ne' => [ ] 
+					'topic_group' => array (
+							'$ne' => ''
 					) 
 			) )->sort ( array (
 					"topic_postTime" => - 1 
@@ -653,8 +653,8 @@ class Topic extends YqBase {
 			$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
 			$count = $this->db->topic->find ( array (
 					'topic_ownerName' => $topic_ownerName,
-					'topic_networks' => array (
-							'$ne' => [ ] 
+					'topic_group' => array (
+							'$ne' => ''
 					) 
 			) )->count ();
 			return $count;
@@ -677,7 +677,7 @@ class Topic extends YqBase {
 			$result = $this->db->topic->findOne ( array (
 					'_id' => new MongoID ( $topic_roomID ) 
 			) );
-			if (($result == nil) || (count ( $result ['topic_networks'] ) == 0)) {
+			if (($result == nil) || ($result ['topic_networks'] == '')) {
 				return 2;
 			} else {
 				$user_nickname = $this->db->user->findOne ( array (
