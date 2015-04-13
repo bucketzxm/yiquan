@@ -502,7 +502,7 @@ class Topic extends YqBase {
                                                                   'topic_group' => 'second'
                                                            )
                                                   )
-                                           ))->sort ( 'topic_postTime' => -1)->limit (30);
+                                           ))->sort (array( 'topic_postTime' => -1))->limit (30);
             
             $res = array ();
             foreach ( $cursor as $key => $value ) {
