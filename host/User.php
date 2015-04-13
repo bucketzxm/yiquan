@@ -950,7 +950,23 @@ class User extends YqBase {
 	/*
 	 * made by wwq findAllfriendsby_id_usearray指将指定用户id 的所有好友都罗列出来 接受参数为 用户id fromid 指某一个人将会被排除在寻找范围之外 返回值 一个数组集合 没有转json 不建议soap使用
 	 */
-	private function findAllfriendsby_id_usearray_except($id, $fromid) {
+    private function findAllfriendsby_name_usearray_except($name) {
+        $ans = $this->db->user->findOne ( array (
+                                                 'user_name' => $name
+                                                 ) );
+        
+        $res = Array ();
+        // 遍历$ans 指针
+        if (isset ( $ans ['user_relationships'] )) {
+            foreach ( $ans ['user_relationships'] as $k => $v ) {
+                
+                $res [] = $v ['userb_id']->{'$id'};
+            }
+        }
+        return $res;
+    }
+    
+    private function findAllfriendsby_id_usearray_except($id, $fromid) {
 		$ans = $this->db->user->findOne ( array (
 				'_id' => new MongoId ( $id ) 
 		) );
@@ -1176,7 +1192,8 @@ class User extends YqBase {
         }
         $this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
         $res = 'system,';
-        $pt = $this->findAllfriendsby_id_usearray_except ( $user_name,'' );
+        
+        $pt = $this->findAllfriendsby_name_usearray_except ($user_name);
         $row = $this->db->user->findOne ( array (
                                                  'user_name' => $user_name
                                                  ) );
