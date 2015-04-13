@@ -184,7 +184,7 @@ class Group extends YqBase {
                                                                 '$in' =>$user['user_groups']
                                                                 ),
                                                  'group_latestUpdate'=> array(
-                                                                              '$lt'=>$update_int
+                                                                              '$gt' => $update_int
                                                                               )
                                                  )
                                         )->sort ( array ('group_latestUpdate' => -1))->limit (30);
