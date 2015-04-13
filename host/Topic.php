@@ -119,7 +119,7 @@ class Topic extends YqBase {
                        "topic_type" => $topic_type,
                        "topic_title" => $topic_title,
                        "topic_labels" => $m_labels,
-                       "topic_group" => $topic_group,
+                       "topic_group" => new MongoId ($topic_group),
                        "topic_postTime" => $topic_postTime,
                        "topic_replyCount" => $topic_replyCount,
                        "topic_likeNames" => array (),
@@ -484,6 +484,7 @@ class Topic extends YqBase {
         
         $user = $this->db->user->findOne (array ( 'user_name' => $user_name));
         $groups = $user['user_groups'];
+
         
         $userclass = new User ();
         $firstList = $userclass->listFirstFriendsByName ($user_name);
@@ -493,7 +494,7 @@ class Topic extends YqBase {
             $cursor = $this->db->topic->find (array (
                                            '$or' => array (
                                                            array (
-                                                                  new MongoId('topic_group') => array ('$in' => $groups),
+                                                                  'topic_group' => array ('$in' => $groups),
                                                                   'topic_postTime' => array ('$lt' => $time_int)
                                                         ),
                                                            array (
