@@ -431,10 +431,10 @@ class Topic extends YqBase {
                                                       
                                                       'topic_postTime' => array (
                                                                                  '$lt' => $time_int
-                                                                                 ),
-                                                      $group_id => array (
-                                                                                 '$in' => 'topic_networks'
                                                                                  )
+                                                      /*$group_id => array (
+                                                                                 '$in' => 'topic_networks'
+                                                                                 )*/
                                                       ) )->sort ( array (
                                                                          "topic_postTime" => - 1 
                                                                          ) )->limit ( 30 );
