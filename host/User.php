@@ -1161,6 +1161,42 @@ class User extends YqBase {
 	/*
 	 * made by wwq 按照用户名寻找到他的所有 一度 二度的好友 的用户信息 字符串 返回 所有好友的信息集合 json $soap = new SoapClient ( "http://yiquanhost.duapp.com/userclass.wsdl" ); $result2 = $soap->get_AllFriends_info_of_Myfriends_by_uname_dotstring ( 'q' );
 	 */
+    
+    
+    
+    function listFirstFriendsByName($user_name) {
+        if ($this->yiquan_version == 0) {
+            return - 2;
+        }
+        if ($this->checkToken () == 0) {
+            return - 3;
+        }
+        if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $user_name) {
+            return - 4;
+        }
+        $this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
+        $res = 'system,';
+        $pt = $this->findAllfriendsby_id_usearray_except ( $user_name,'' );
+        $row = $this->db->user->findOne ( array (
+                                                 'user_name' => $user_name
+                                                 ) );
+        $blist = $row ['user_blocklist'];
+        foreach ( $pt as $v ) {
+            $pkt = $this->db->user->findOne ( array (
+                                                     '_id' => new MongoId ( $v )
+                                                     ), array (
+                                                               '_id' => 1,
+                                                               'user_name' => 1 
+                                                               ) );
+            if (isset ( $blist [$pkt ['user_name']] ))
+                continue;
+            $res .= $pkt ['user_name'];
+            $res .= ',';
+        }
+        return substr ( $res, 0, strlen ( $res ) - 1 );
+    }
+    
+    
 	function listAllFriendsByName($user_name) {
 		if ($this->yiquan_version == 0) {
 			return - 2;
