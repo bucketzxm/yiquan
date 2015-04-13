@@ -176,18 +176,20 @@ class Group extends YqBase {
         try {
             $user = $this->db->user->findOne (array ('user_name'=> $user_name));
             //$groups = $user['user_groups'];
-        
+            
             $res = $this->db->group->find (
+                                           
                                            array(
                                                  '_id'=> array (
                                                                 '$in' =>$user['user_groups']
                                                                 )
-                                                 ),
+                                                 )
+                                           /*
                                            array(
                                                  'group_latestUpdate'=> array(
                                                                 '$lt'=>$update_int
                                                                 )
-                                                 )
+                                                 )*/
                                         )->sort ( array ('group_latestUpdate' => -1))->limit (30);
             $res_array = array ();
             foreach ($res as $key => $value){
