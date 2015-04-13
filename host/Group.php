@@ -185,7 +185,7 @@ class Group extends YqBase {
             
             return json_encode ($res_array);
         }catch (Exception $e){
-            return -1;
+            return $e;
         }
     }
     
