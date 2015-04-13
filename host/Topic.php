@@ -96,6 +96,62 @@ class Topic extends YqBase {
 		}
 	}
 	
+    function addTopicInGroup ($topic_group, $topic_ownerName, $topic_type, $topic_title, $topic_labels, $topic_detailText) {
+        if ($this->yiquan_version == 0) {
+            return - 2;
+        }
+        
+        if ($this->checkToken () == 0) {
+            return - 3;
+        }
+        
+        if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $topic_ownerName) {
+            // return - 4;
+        }
+        $this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
+        $topic_postTime = time ();
+        $topic_replyCount = 0;
+        $m_labels = explode ( ',', $topic_labels );
+        $detailHtmlText = '<html xmlns=http://www.w3.org/1999/xhtml><head><meta http-equiv=Content-Type content="text/html;charset=utf-8"><link href="http://7xid8v.com2.z0.glb.qiniucdn.com/style.css" rel="stylesheet"></head><body>' . $topic_detailText . '</body></html>';
+        
+        $data = array (
+                       "topic_ownerName" => $topic_ownerName,
+                       "topic_type" => $topic_type,
+                       "topic_title" => $topic_title,
+                       "topic_labels" => $m_labels,
+                       "topic_group" => $topic_group,
+                       "topic_postTime" => $topic_postTime,
+                       "topic_replyCount" => $topic_replyCount,
+                       "topic_likeNames" => array (),
+                       "topic_dislikeNames" => array (),
+                       "topic_followNames" => array (),
+                       "topic_archiveCounts" => 0,
+                       "topic_detailname" => '',
+                       "topic_detail" => ''
+                       );
+        if (($topic_detailText != nil) && ($topic_detailText != '')) {
+            if ($this->QiniuUploadhtml_url ( $data, $detailHtmlText ) == 1) {
+                try {
+                    array_push ( $data ['topic_labels'], "长话题" );
+                    $result = $this->db->topic->insert ( $data );
+                    return 1;
+                } catch ( Exception $e ) {
+                    return - 1;
+                }
+            }
+        } else {
+            try {
+                $result = $this->db->topic->insert ( $data );
+                return 1;
+            } catch ( Exception $e ) {
+                return - 1;
+            }
+        }
+    }
+
+    
+    
+    
 	// 此函数为查询话题列表 by haozi
 	// 输入
 	// 1. 一个由英文','隔开的用户列表字符串
