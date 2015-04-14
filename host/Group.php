@@ -138,6 +138,94 @@ class Group extends YqBase {
         }
 	}
     
+    function updateGroup($group_founder, $group_name, $group_intro, $group_publicType, $group_avatar,$group_id) {
+        if ($this->yiquan_version == 0) {
+            return - 2;
+        }
+        
+        if ($this->checkToken () == 0) {
+            return - 3;
+        }
+        
+        if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $group_founder) {
+            return - 4;
+        }
+        $this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
+        
+        $group_foundTime = time ();
+        
+        $former = $this->db->group->findOne (
+                                             array (
+                                                    '_id' => new MongoId ($group_id)
+                                                    )
+                                             );
+        if  ($former == null){
+            return -5;
+        }
+
+        
+        if ($group_founder != $former['group_founder']){
+            return -6;
+        }
+        
+        try {
+            
+            $former['group_name'] = $group_name;
+            $former['group_intro'] = $group_intro;
+            $former['group_publicType'] = $group_publicType;
+            
+            if  ($group_avatar != ''){
+                $rawpic = base64_decode ( $group_avatar );
+                
+                $im = new Imagick ();
+                $im->readImageBlob ( $rawpic );
+                $geo = $im->getImageGeometry ();
+                $w = $geo ['width'];
+                $h = $geo ['height'];
+                $maxWidth = $maxHeight = 160;
+                $fitbyWidth = (($maxWidth / $w) < ($maxHeight / $h)) ? true : false;
+                
+                if ($fitbyWidth) {
+                    $im->thumbnailImage ( $maxWidth, 0, false );
+                } else {
+                    $im->thumbnailImage ( 0, $maxHeight, false );
+                }
+                
+                // save to qiniu
+                $auth = new Auth ( $this->qiniuAK, $this->qiniuSK );
+                $bucket = 'yiquanhost-avatar';
+                $uploadMgr = new UploadManager ();
+                $bucketMgr = new BucketManager ( $auth );
+                
+                $token = $auth->uploadToken ( $bucket );
+                list ( $ret, $err ) = $uploadMgr->put ( $token, null, $rawpic );
+                if ($err == null) {
+                    $bigAvatar = $this->userpicbucketUrl . '/' . $ret ['key'];
+                } else {
+                    return $err;
+                }
+                
+                list ( $ret, $err ) = $uploadMgr->put ( $token, null, $im );
+                if ($err == null) {
+                    $smallAvatar = $this->userpicbucketUrl . '/' . $ret ['key'];
+                } else {
+                    return $err;
+                }
+                $former['group_smallAvatar'] => $smallAvatar;
+                $former['group_bigAvatar'] => $bigAvatar;
+            }
+            
+            $this->db->group->save ($former);
+            return 1;
+        
+            
+        } catch ( Exception $e ) {
+            return - 1;
+        }
+ 
+    }
+    
+    
     function addGroupInFounder ($group_founder,$group_foundTime,$group_name){
         $user = $this->db->user->findOne(
                                          array ( 'user_name' => $group_founder)
