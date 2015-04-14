@@ -630,7 +630,7 @@ class Topic extends YqBase {
                                                           
  
                                                           'topic_group' => new MongoId ($group_id),
-                                                          'topic_highlighted' => 1;
+                                                          'topic_highlighted' => 1
                                                           
                                                           ) )->sort ( array (
                                                                              "topic_postTime" => - 1
