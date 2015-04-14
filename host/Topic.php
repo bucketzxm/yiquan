@@ -132,7 +132,8 @@ class Topic extends YqBase {
                        "topic_followNames" => array (),
                        "topic_archiveCounts" => 0,
                        "topic_detailname" => '',
-                       "topic_detail" => ''
+                       "topic_detail" => '',
+                       "topic_highlighted" => 0
                        );
         if (($topic_detailText != nil) && ($topic_detailText != '')) {
             if ($this->QiniuUploadhtml_url ( $data, $detailHtmlText ) == 1) {
