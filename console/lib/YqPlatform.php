@@ -173,7 +173,12 @@ class YqPlatform extends YqBase {
 			if (! isset ( $doc ['topic_labels'] )) {
 				$doc ['topic_labels'] = [ ];
 			}
-			
+            if (! isset ( $doc ['topic_highlighted'] )) {
+                $doc ['topic_highlighted'] = 0;
+            }
+            if (! isset ( $doc ['topic_group'] )) {
+                $doc ['topic_group'] = 'second';
+            }
 			if ((count ( $doc ['topic_labels'] ) == 2) && ($doc ['topic_detail'] != '')) {
 				array_push ( $doc ['topic_labels'], "长话题" );
 			}
