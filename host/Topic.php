@@ -806,6 +806,41 @@ class Topic extends YqBase {
 			return - 1;
 		}
 	}
+    
+    function highlightTopic ($topic_id,$user_name){
+        if ($this->yiquan_version == 0) {
+            return - 2;
+        }
+        
+        if ($this->checkToken () == 0) {
+            return - 3;
+        }
+        if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $user_name) {
+            return - 4;
+        }
+        
+        $this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
+        
+        $topic = $this->db->topic->findOne ( array ( '_id' => new MongoId ($topic_id)));
+        $group = $this->db->group->findOne ( array ('_id' => $topic['topic_group']));
+        if ($user_name != $group['group_fouder']){
+            return 3;
+        }
+        try {
+            
+            $topic['topic_highlighted'] = 1;
+            $this->db->topic->save ($topic);
+            return 1;
+            
+            
+        }catch (Exception $e){
+            return $e;
+        }
+        
+        
+    }
+    
+    
 	// 喜欢该话题
 	function likeTopic($topic_id, $user_name) {
 		if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $user_name) {
