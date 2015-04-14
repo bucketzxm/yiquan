@@ -612,9 +612,63 @@ class Topic extends YqBase {
         
         
     }
+    
+    function queryTopicByAllGroup ($user_name, $topic_time){
+        if ($this->yiquan_version == 0) {
+            return - 2;
+        }
+        
+        if ($this->checkToken () == 0) {
+            return - 3;
+        }
+        $this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
+        $time_int = ( int ) $topic_time;
+        
+        $user = $this->db->user->findOne (array ( 'user_name' => $user_name));
+        $groups = $user['user_groups'];
+        
+        
+        $userclass = new User ();
+        $firstList = $userclass->listFirstFriendsByName ($user_name);
+        $firstListWithMe = $user_name . ',' . $firstList;
+        $first_array = explode (',',$firstListWithMe);
+        
+        
+        try {
+            $cursor = $this->db->topic->find (array (
+                                                     '$or' => array (
+                                                                     array (
+                                                                            'topic_group' => array ('$in' => $groups),
+                                                                            'topic_postTime' => array ('$lt' => $time_int)
+                                                                            ),
+                                                                     array (
+                                                                            'topic_ownerName' => array ('$in' => $first_array),
+                                                                            'topic_postTime' => array ('$lt' => $time_int),
+                                                                            'topic_group' => 'second'
+                                                                            )
+                                                                     )
+                                                     ))->sort (array( 'topic_postTime' => -1))->limit (30);
+            
+            $res = array ();
+            foreach ( $cursor as $key => $value ) {
+                $user_nickname = $this->db->user->findOne ( array (
+                                                                   'user_name' => $value ['topic_ownerName']
+                                                                   ), array (
+                                                                             'user_nickname' => 1
+                                                                             ) );
+                $value ['user_nickname'] = $user_nickname ['user_nickname'];
+                array_push ( $res, $value );
+            }
+            return json_encode ($res);
+        }catch (Exception $e){
+            return $e;
+        }
+        
+        
+    }
 	
     // 按照组别查询
-    function queryTopicByGroup($group_user, $group_id,$topic_time) {
+    function queryHighlightedTopicByGroup($group_user, $group_id) {
         if ($this->yiquan_version == 0) {
             return - 2;
         }
@@ -626,34 +680,13 @@ class Topic extends YqBase {
         $time_int = ( int ) $topic_time;
         try {
             
-            if ($group_id == 'first'){
-                $user = new User ();
-                $firstList = $user->listFirstFriendsByName ($group_user);
-                $firstListWithMe = $group_user . ',' . $firstList;
-                $res = $this->queryTopicByName ($firstListWithMe, 'second', '1', $topic_time);
-                return $res;
-                
-            }else if ($group_id == 'second'){
-                $user = new User ();
-                $secondList = $user->listAllFriendsByName ($group_user);
-                $secondListWithMe = $group_user . ',' . $secondList;
-                $res = $this->queryTopicByName ($secondListWithMe, 'second', '1', $topic_time);
-                return $res;
-                
-            }else if ($group_id == 'all'){
-                $res = $this->queryTopicByAllGroup ($group_user, $topic_time);
-                return $res;
-                
-            }else{
+
             
                 //QueryTopic BY ID
                 $result = $this->db->topic->find ( array (
                                                           
-                                                          'topic_postTime' => array (
-                                                                                     '$lt' => $time_int
-                                                                                     ),
                                                           'topic_group' => new MongoId ($group_id),
-                                                          'topic_highlighted' => 0
+                                                          'topic_highlighted' => 1
                                                           
                                                           ) )->sort ( array (
                                                                              "topic_postTime" => - 1 
@@ -669,7 +702,7 @@ class Topic extends YqBase {
                     array_push ( $res, $value );
                 }
                 return json_encode ( $res );
-            }
+            
         } catch ( Exception $e ) {
             return $e;
         }
