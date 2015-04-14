@@ -1068,16 +1068,11 @@ class Topic extends YqBase {
 			}
 		} else {
 			try {
-				$where = array (
-						'_id' => new MongoID ( $topic_id ) 
-				);
-				$param = array (
-						'$pull' => array (
-								'topic_networks' => $topic_networks 
-						) 
-				);
+                
+                $topic = $this->db->topic->findOne(array ('_id' => new MongoID ( $topic_id )));
+				$topic['topic_group'] = '';
 				
-				$this->db->topic->update ( $where, $param );
+                $this->db->topic->save ($topic);
 				return 1;
 			} catch ( Exception $e ) {
 				return - 1;
