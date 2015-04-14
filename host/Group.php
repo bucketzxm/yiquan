@@ -345,6 +345,45 @@ class Group extends YqBase {
             return $e;
         }}
     
+    
+    function inviteToGroup ($group_inviter,$group_member, $group_id){
+        if ($this->yiquan_version == 0) {
+            return - 2;
+        }
+        
+        if ($this->checkToken () == 0) {
+            return - 3;
+        }
+        
+        if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $group_inviter) {
+            return - 4;
+        }
+        $this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
+
+        try {
+            $group = $this->db->group->findOne (array ('_id' => new MongoId ($group_id)));
+            $user = $this->db->user->findOne (array ('user_name' => $group_member));
+            $memberList = $group['group_memberList'];
+            $groupName = $group['group_name'];
+            $msgTitle = '我已邀请你加入圈子： ' . $groupName . '。'
+            if  (in_array ($memberList, $group_member)){
+                return 3;
+            }else{
+                array_push ($memberList, $group_member);
+                array_push ($user['user_groups'],new MongoId ($group_id));
+                $message = new Message ();
+                $state = $message->addMessage($group_inviter, $group_member, 'userMessage', $msgTitle, '私密消息', '','');
+                return $state;
+            }
+        }catch (Exception $e){
+            return $e;
+        }
+        
+        
+    }
+    
+    
+    
     /*
     protected function QiniuUploadpic(&$arr, $bigdata, $smalldata) {
         $auth = new Auth ( $this->qiniuAK, $this->qiniuSK );
