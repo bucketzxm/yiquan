@@ -230,7 +230,7 @@ class Topic extends YqBase {
 					'$and' => array (
 							$lastUserQueryArray,
 							$lastTypeQueryArray,
-							$timeQueryArray 
+							$timeQueryArray,
 					) 
 			);
 		else
@@ -239,10 +239,7 @@ class Topic extends YqBase {
 							$lastUserQueryArray,
 							$timeQueryArray 
 					),
-					'topic_networks' => array (
-							'$ne' => [ ] 
-					) 
-			);
+					'topic_group' => 'second'			);
 			
 			// 执行查询
 		try {
