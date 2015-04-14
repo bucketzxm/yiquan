@@ -653,7 +653,7 @@ class Topic extends YqBase {
                                                                                      '$lt' => $time_int
                                                                                      ),
                                                           'topic_group' => new MongoId ($group_id),
-                                                          'topic_highlighted' => 0;
+                                                          'topic_highlighted' => 0
                                                           
                                                           ) )->sort ( array (
                                                                              "topic_postTime" => - 1 
