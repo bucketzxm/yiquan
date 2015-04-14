@@ -403,7 +403,7 @@ class Group extends YqBase {
         
         $group = $this->db->group->findOne (array ('_id' => new MongoId ($group_id)));
         
-        if ($group_founder != $group['group_founder']){
+        if ($group_remover != $group['group_founder']){
             return -6;
         }
         
