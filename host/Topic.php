@@ -823,7 +823,7 @@ class Topic extends YqBase {
         
         $topic = $this->db->topic->findOne ( array ( '_id' => new MongoId ($topic_id)));
         $group = $this->db->group->findOne ( array ('_id' => $topic['topic_group']));
-        if ($user_name != $group['group_fouder']){
+        if ($user_name != $group['group_founder']){
             return 3;
         }
         try {
