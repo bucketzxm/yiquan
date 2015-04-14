@@ -367,7 +367,7 @@ class Group extends YqBase {
             $groupName = $group['group_name'];
             $msgTitle = '我已邀请你加入圈子： ' . $groupName . '。';
 
-            if  (in_array ($group_member,$memberList)){
+            if  (in_array ($group_member,$group['group_memberList'])){
                 return 3;
             }else{
                 array_push ($group['group_memberList'], $group_member);
