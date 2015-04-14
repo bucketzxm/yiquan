@@ -413,11 +413,11 @@ class Group extends YqBase {
                 $param = array ("\$pull" => array ( 'group_memberList' => $group_member));
                 
                 $result = $this->db->group->update ($where, $param);
-                /*
+                
                 $where1 = array ('user_name' => $group_member);
                 $param1 = array ("\$pull" => array ( 'user_groups' => new MongoId ($group_id)));
                 $result1 = $this->db->user->update ($where1,$param1);
-                */
+                
                 return 1;
             }
         }catch (Exception $e){
