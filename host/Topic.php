@@ -114,7 +114,7 @@ class Topic extends YqBase {
         $m_labels = explode ( ',', $topic_labels );
         $detailHtmlText = '<html xmlns=http://www.w3.org/1999/xhtml><head><meta http-equiv=Content-Type content="text/html;charset=utf-8"><link href="http://7xid8v.com2.z0.glb.qiniucdn.com/style.css" rel="stylesheet"></head><body>' . $topic_detailText . '</body></html>';
         if ($topic_group != 'second'){
-            $group = new MongoId ($topic_gropu);
+            $group = new MongoId ($topic_group);
         }else{
             $group = $topic_group;
         }
