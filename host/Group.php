@@ -370,7 +370,11 @@ class Group extends YqBase {
                 return 3;
             }else{
                 array_push ($memberList, $group_member);
+                $this->db->group->save ($group);
+                
                 array_push ($user['user_groups'],new MongoId ($group_id));
+                $this->db->user->save ($user);
+                
                 $message = new Message ();
                 $state = $message->addMessage($group_inviter, $group_member, 'userMessage', $msgTitle, '私密消息', '','');
                 return $state;
