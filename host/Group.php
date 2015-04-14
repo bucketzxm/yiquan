@@ -201,7 +201,7 @@ class Group extends YqBase {
                 list ( $ret, $err ) = $uploadMgr->put ( $token, null, $rawpic );
                 if ($err == null) {
                     $bigAvatar = $this->userpicbucketUrl . '/' . $ret ['key'];
-                    $former['group_bigAvatar'] => $bigAvatar;
+                    $former['group_bigAvatar'] = $bigAvatar;
                 } else {
                     return $err;
                 }
@@ -209,7 +209,7 @@ class Group extends YqBase {
                 list ( $ret, $err ) = $uploadMgr->put ( $token, null, $im );
                 if ($err == null) {
                     $smallAvatar = $this->userpicbucketUrl . '/' . $ret ['key'];
-                    $former['group_smallAvatar'] => $smallAvatar;
+                    $former['group_smallAvatar'] = $smallAvatar;
                 } else {
                     return $err;
                 }
