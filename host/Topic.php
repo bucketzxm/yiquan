@@ -1046,7 +1046,7 @@ class Topic extends YqBase {
 	}
 	
 	// 删除某个话题
-	function deleteTopic($topic_id, $topic_networks = null) {
+	function deleteTopic($topic_id, $user_name) {
 		if ($this->yiquan_version == 0) {
 			return - 2;
 		}
@@ -1054,30 +1054,29 @@ class Topic extends YqBase {
 		if ($this->checkToken () == 0) {
 			return - 3;
 		}
-		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
-		if ($topic_networks == null) {
-			try {
-				$cursor = $this->db->topic->findOne ( array (
-						'_id' => new MongoID ( $topic_id ) 
-				) );
-				$cursor ['topic_networks'] = [ ];
-				$this->db->topic->save ( $cursor );
-				return 1;
-			} catch ( Exception $e ) {
-				return - 1;
-			}
-		} else {
-			try {
-                
-                $topic = $this->db->topic->findOne(array ('_id' => new MongoID ( $topic_id )));
-				$topic['topic_group'] = '';
-				
-                $this->db->topic->save ($topic);
-				return 1;
-			} catch ( Exception $e ) {
-				return - 1;
-			}
-		}
+        if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $user_name) {
+            return - 4;
+        }
+        
+        $this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
+		
+        $topic = $this->db->topic->findOne(array ('_id' => new MongoID ( $topic_id )));
+        $group = $this->db->group->findOne(array ('_id' => $topic['topic_group']));
+        
+        if (($topic['topic_ownerName'] != $user_name) && ($group['group_founder'] != $user_name) ){
+            return 3;
+        }
+
+        try {
+            
+            $topic['topic_group'] = '';
+            
+            $this->db->topic->save ($topic);
+            return 1;
+        } catch ( Exception $e ) {
+            return - 1;
+        }
+		
 	}
 	
 	// function queryTopicByGroup( $topic_networks ) {
