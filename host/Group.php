@@ -386,6 +386,43 @@ class Group extends YqBase {
         
         
     }
+    
+    function quitGroup ($group_member, $group_id){
+        if ($this->yiquan_version == 0) {
+            return - 2;
+        }
+        
+        if ($this->checkToken () == 0) {
+            return - 3;
+        }
+        
+        if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $group_member) {
+            return - 4;
+        }
+        $this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
+        
+        
+        $group = $this->db->group->findOne (array ('_id' => new MongoId ($group_id)));
+        
+ 
+        try {
+            if  (in_array ($group_member,$group['group_memberList'])){
+                $where = array ('_id' => new MongoId ($group_id));
+                $param = array ("\$pull" => array ( 'group_memberList' => $group_member));
+                
+                $result = $this->db->group->update ($where, $param);
+                
+                $where1 = array ('user_name' => $group_member);
+                $param1 = array ("\$pull" => array ( 'user_groups' => new MongoId ($group_id)));
+                $result1 = $this->db->user->update ($where1,$param1);
+                
+                return 1;
+            }
+        }catch (Exception $e){
+            return $e;
+        }
+    }
+    
     function removeFromGroup ($group_remover,$group_member, $group_id){
         if ($this->yiquan_version == 0) {
             return - 2;
