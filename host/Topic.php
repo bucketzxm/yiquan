@@ -595,13 +595,17 @@ class Topic extends YqBase {
             
             $res = array ();
             foreach ( $cursor as $key => $value ) {
-                $user_nickname = $this->db->user->findOne ( array (
-                                                                   'user_name' => $value ['topic_ownerName']
-                                                                   ), array (
-                                                                             'user_nickname' => 1
-                                                                             ) );
-                $value ['user_nickname'] = $user_nickname ['user_nickname'];
-                array_push ( $res, $value );
+                
+                if (in_array ( $_COOKIE ['user'], $value ['topic_dislikeNames'] )) {
+                } else {
+                    $user_nickname = $this->db->user->findOne ( array (
+                                                                       'user_name' => $value ['topic_ownerName']
+                                                                       ), array (
+                                                                                 'user_nickname' => 1
+                                                                                 ) );
+                    $value ['user_nickname'] = $user_nickname ['user_nickname'];
+                    array_push ( $res, $value );
+                }
             }
             return json_encode ($res);
         }catch (Exception $e){
@@ -698,13 +702,16 @@ class Topic extends YqBase {
                                                                              ) )->limit ( 30 );
                 $res = array ();
                 foreach ( $result as $key => $value ) {
-                    $user_nickname = $this->db->user->findOne ( array (
-                                                                       'user_name' => $value ['topic_ownerName'] 
-                                                                       ), array (
-                                                                                 'user_nickname' => 1 
-                                                                                 ) );
-                    $value ['user_nickname'] = $user_nickname ['user_nickname'];
-                    array_push ( $res, $value );
+                    if (in_array ( $_COOKIE ['user'], $value ['topic_dislikeNames'] )) {
+                    } else {
+                        $user_nickname = $this->db->user->findOne ( array (
+                                                                           'user_name' => $value ['topic_ownerName'] 
+                                                                           ), array (
+                                                                                     'user_nickname' => 1 
+                                                                                     ) );
+                        $value ['user_nickname'] = $user_nickname ['user_nickname'];
+                        array_push ( $res, $value );
+                    }
                 }
                 return json_encode ( $res );
             }
