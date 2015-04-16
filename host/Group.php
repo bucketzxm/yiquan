@@ -370,7 +370,12 @@ class Group extends YqBase {
 
             
             foreach ($res as $key => $value){
-                array_push ($res_array, $value);
+                if (in_array ($value['_id'],$user['user_groups'])){
+                    
+                }else{
+                    array_push ($res_array, $value);
+                }
+
             }
             
             
@@ -525,7 +530,7 @@ class Group extends YqBase {
             $msgTitle = '我已同意你加入圈子： ' . $groupName . '。';
             
             if  (in_array ($group_member,$group['group_memberList'])){
-                return 3;
+                return 1;
             }else{
                 array_push ($group['group_memberList'], $group_member);
                 $this->db->group->save ($group);
