@@ -443,7 +443,7 @@ class Group extends YqBase {
             if  (isset ( $user ['user_relationships'])){
                 
                 foreach ($user['user_relationships'] as $key => $value){
-                    $friend = $this->db->user->findOne ( array ('_id' => $value ['userb_id']), array ('user_groups' => 1));
+                    $friend = $this->db->user->findOne ( array ('_id' => $value ['userb_id']));
                     if  (in_array(new MongoId($group_id), $friend['user_groups'])){
                         array_push( $firstFriends, $friend);
                     }
