@@ -350,7 +350,7 @@ class Group extends YqBase {
             }
         }
         
-        
+        $res_array = array ();
         try {
             $user = $this->db->user->findOne (array ('user_name'=> $user_name));
             //$groups = $user['user_groups'];
