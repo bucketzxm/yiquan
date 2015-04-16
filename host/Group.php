@@ -453,7 +453,7 @@ class Group extends YqBase {
             return json_encode($firstFriends);
             
         }catch (Exception $e){
-            return $e
+            return $e;
         }
     }
     
