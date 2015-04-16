@@ -280,7 +280,7 @@ class Group extends YqBase {
             
             $user = new User ();
             $firstCount = $user->countFirstFriendsByName ( $user_name );
-            $secondCount = $user->countAllFriendsByName ( $user_name );
+            $secondCount = $user->countSecondFriendsByName ( $user_name );
             //增加一度好友圈和二度好友圈的数据
             $first = array (
                             "_id" => 'first',
@@ -293,7 +293,7 @@ class Group extends YqBase {
             $second = array (
                             "_id" => 'second',
                             "group_founder" => $user_name,
-                            "group_name" => '朋友和他们的朋友们',
+                            "group_name" => '朋友的朋友们',
                             "group_intro" => '朋友的朋友最靠谱，找人帮忙认识新朋友的好去处',
                              "group_memberCount" => $secondCount
                             );
