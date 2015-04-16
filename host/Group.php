@@ -361,7 +361,7 @@ class Group extends YqBase {
                                                  '_id'=> array (
                                                                 '$in' => $friendGroups
                                                                 ),
-                                                 'group_publicType' => 0,
+                                                 'group_publicType' => '0',
                                                  'group_latestUpdate'=> array(
                                                                               '$lt' => $update_int
                                                                               )
