@@ -310,6 +310,82 @@ class Group extends YqBase {
         }
     }
     
+    
+    function queryMyDiscoverGroups ($user_name,$update_time){
+        if ($this->yiquan_version == 0) {
+            return - 2;
+        }
+        
+        if ($this->checkToken () == 0) {
+            return - 3;
+        }
+        
+        if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $user_name) {
+            return - 4;
+        }
+        $this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
+        $update_int = (int) $update_time;
+        
+        //Find the first friends
+        $firstFriends = array ();
+        $friendGroups = array ();
+        $user = $this->db->user->findOne (array ('user_name' =>$user_name));
+        if  (isset ( $user ['user_relationships'])){
+
+            foreach ($user['user_relationships'] as $key => $value){
+                $friend = $this->db->user->findOne ( array ('_id' => $value ['userb_id']), array ('user_name' => 1));
+                array_push ($firstFriends, $friend ['user_name']);
+            }
+        }
+        
+        foreach ($firstFriends as $key => $value){
+            $user = $this->db->user->findOne (array ('user_name' => $value),array ('user_groups' => 1));
+            $groups = $user['user_groups'];
+            foreach ($groups as $group){
+                if (in_array ($group, $friendGroups)){
+                    
+                }else{
+                    array_push ($friendGroups, $group);
+                }
+            }
+        }
+        
+        
+        try {
+            $user = $this->db->user->findOne (array ('user_name'=> $user_name));
+            //$groups = $user['user_groups'];
+            
+            $res = $this->db->group->find (
+                                           
+                                           array(
+                                                 '_id'=> array (
+                                                                '$in' => $friendGroups
+                                                                ),
+                                                 'group_publicType' => 0,
+                                                 'group_latestUpdate'=> array(
+                                                                              '$lt' => $update_int
+                                                                              )
+                                                 )
+                                           )->sort ( array ('group_latestUpdate' => -1));
+
+            
+            foreach ($res as $key => $value){
+                array_push ($res_array, $value);
+            }
+            
+            
+            return json_encode ($res_array);
+        }catch (Exception $e){
+            return $e;
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
     function queryMemberByGroup ($user_name,$group_id){
         if ($this->yiquan_version == 0) {
             return - 2;
