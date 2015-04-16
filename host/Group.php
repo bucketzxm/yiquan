@@ -499,6 +499,49 @@ class Group extends YqBase {
         
     }
     
+    function addMemberByGroup($group_member,$group_id,$user_name){
+        if ($this->yiquan_version == 0) {
+            return - 2;
+        }
+        
+        if ($this->checkToken () == 0) {
+            return - 3;
+        }
+        
+        if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $user_name) {
+            return - 4;
+        }
+        $this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
+        
+        $group = $this->db->group->findOne (array ('_id' => new MongoId ($group_id)));
+        if ($user_name != $group['group_founder']){
+            return -3;
+        }
+        
+        $user = $this->db->user->findOne (array ('user_name' => $group_member));
+        
+        try {
+            $groupName = $group['group_name'];
+            $msgTitle = '我已同意你加入圈子： ' . $groupName . '。';
+            
+            if  (in_array ($group_member,$group['group_memberList'])){
+                return 3;
+            }else{
+                array_push ($group['group_memberList'], $group_member);
+                $this->db->group->save ($group);
+                
+                array_push ($user['user_groups'],new MongoId ($group_id));
+                $this->db->user->save ($user);
+                
+                $message = new Message ();
+                $state = $message->addMessage($user_name, $group_member, 'invitationResponse', $msgTitle, '同意加入圈子', '','');
+                return $state;
+            }
+        }catch (Exception $e){
+            return -1;
+        }
+    }
+    
     function quitGroup ($group_member, $group_id){
         if ($this->yiquan_version == 0) {
             return - 2;
