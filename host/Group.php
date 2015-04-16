@@ -419,7 +419,43 @@ class Group extends YqBase {
         }catch (Exception $e)
         {
             return $e;
-        }}
+        }
+    }
+    
+    function queryFriendsByGroup ($user_name,$group_id){
+        if ($this->yiquan_version == 0) {
+            return - 2;
+        }
+        
+        if ($this->checkToken () == 0) {
+            return - 3;
+        }
+        
+        if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $user_name) {
+            return - 4;
+        }
+        $this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
+        
+        try {
+            //Find the first friends
+            $firstFriends = array ();
+            $user = $this->db->user->findOne (array ('user_name' =>$user_name));
+            if  (isset ( $user ['user_relationships'])){
+                
+                foreach ($user['user_relationships'] as $key => $value){
+                    $friend = $this->db->user->findOne ( array ('_id' => $value ['userb_id']), array ('user_groups' => 1));
+                    if  (in_array(new MongoId($group_id), $friend['user_groups'])){
+                        array_push( $firstFriends, $friend);
+                    }
+                }
+                
+            }
+            return json_encode($firstFriends);
+            
+        }catch (Exception $e){
+            return $e
+        }
+    }
     
     
     function inviteToGroup ($group_inviter,$group_member, $group_id){
