@@ -57,7 +57,7 @@ class Quoteuser extends YqBase {
 			$neo = array (
 					'uid' => $id,
 					'user_mobile' => $user_mobile,
-					'user_pin' =>  $user_pwd,
+					'user_pin' =>  crypt ($user_pwd),
 					'user_nickname' => '',
 					'user_pic' => null,
 					'user_relationships' => array (),
