@@ -166,7 +166,7 @@ class Quoteuser extends YqBase {
 				// $_SESSION ['user_token'] = $gd;
 				$rt = $this->db->usertoken->findOne ( array (
 						'user_name' => $user_name 
-				), );
+				) );
 				if ($rt == null) {
 					$rt = array (
 							'user_name' => $user_name 
