@@ -131,7 +131,7 @@ class Quote extends YqBase {
 		}
 
 		try{
-			$res = $this->db->Quotes->find (array(
+			$res = $this->db->Quote->find (array(
 						'quote_ownerID'=>$user_id,
 						'quote_time'=>array('$lt'=>$time)))->sort (array ('quote_time'=> -1))->limit(30);
 			$res_array = array ();
@@ -170,7 +170,7 @@ class Quote extends YqBase {
 		}
 
 		try{
-			$res = $this->db->Quotes->find (array(
+			$res = $this->db->Quote->find (array(
 						'quote_ownerID'=> array ('$in'=> $user['user_relationships']),
 						'quote_time'=>array('$lt'=>$time)))->sort (array ('quote_time'=> -1))->limit(30);
 			$res_array = array ();
@@ -209,7 +209,7 @@ class Quote extends YqBase {
 		}
 
 		try{
-			$res = $this->db->Quotes->find (array(
+			$res = $this->db->Quote->find (array(
 						'quote_ownerID'=> array ('$nin'=> $user['user_relationships']),
 						'quote_time'=>array('$lt'=>$time)))->sort (array ('quote_time'=> -1))->limit(30);
 			$res_array = array ();
@@ -241,7 +241,7 @@ class Quote extends YqBase {
 			return - 4;
 		}
 		try {
-			$quote = $this->db->Quotes->findOne(array ('_id' => new MongoId($quote_id)));
+			$quote = $this->db->Quote->findOne(array ('_id' => new MongoId($quote_id)));
 			array_push ($quote['quote_likeNames'],$user_id);
 			$quote['quote_likeCount'] ++;
 			$this->db->Quote->save($quote);
