@@ -5,7 +5,7 @@ use Qiniu\Storage\UploadManager;
 use Qiniu\Storage\BucketManager;
 /* Report all errors except E_NOTICE */
 // error_reporting ( E_ALL & ~ E_NOTICE );
-class Quote_User extends YqBase {
+class Quoteuser extends YqBase {
 	protected $bcs_host = 'bcs.duapp.com';
 	
 	/*
