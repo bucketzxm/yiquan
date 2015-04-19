@@ -48,8 +48,9 @@ class Quoteuser extends YqBase {
 		// if ($this->checkUsernameLegal ( $user_name ) == 0) {
 		// return 0;
 		// }
-		
-		$this->logCallMethod ( $user_name, __METHOD__ );
+		$user = $this->db->Quoteuser->findOne (array ('user_mobile'=>$user_mobile));
+
+		$this->logCallMethod ( $user['_id'], __METHOD__ );
 		try {
 			$id = $this->mid ( 'user', $this->db );
 			
@@ -57,7 +58,7 @@ class Quoteuser extends YqBase {
 					'uid' => $id,
 					'user_pin' => crypt ( $user_pwd ),
 					'user_mobile' => $user_mobile,
-					'user_nickname' => $user_name,
+					'user_nickname' => '',
 					'user_pic' => null,
 					'user_relationships' => array (),
 					'user_state' => 1,
