@@ -52,12 +52,12 @@ class Quoteuser extends YqBase {
 
 		$this->logCallMethod ( $user['_id'], __METHOD__ );
 		try {
-			$id = $this->mid ( 'user', $this->db );
+			$id = $this->mid ( 'Quoteuser', $this->db );
 			
 			$neo = array (
 					'uid' => $id,
-					'user_pin' => crypt ( $user_pwd ),
 					'user_mobile' => $user_mobile,
+					//'user_pin' => crypt ( $user_pwd ),
 					'user_nickname' => '',
 					'user_pic' => null,
 					'user_relationships' => array (),
