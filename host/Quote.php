@@ -58,7 +58,7 @@ class Quote extends YqBase {
 
 		$quote_time = time ();
 
-            $rawpic = base64_decode ( $group_avatar );
+            $rawpic = base64_decode ( $quote_img);
             
             $im = new Imagick ();
             $im->readImageBlob ( $rawpic );
