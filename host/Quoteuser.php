@@ -238,7 +238,7 @@ class Quoteuser extends YqBase {
 		/*
 		 * if ($this->checkToken () == 0) { return - 3; }
 		 */
-		if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_name) {
+		if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
 			return - 4;
 		}
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
