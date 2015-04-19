@@ -1740,7 +1740,7 @@ class Quoteuser extends YqBase {
 			$intvalhour = floor ( (time () - $row ['expiredDate']->sec) % 86400 / 3600 );
 			$intvalmin = floor ( (time () - $row ['expiredDate']->sec) % 86400 / 60 );
 			if ($intvalmin <= $expireMinute) {
-				// return 0;
+				return 0;
 			} elseif ($intvalhour <= 24) {
 				if ($row ['count'] >= 3) {
 					return 3; // 超过3条限制
