@@ -172,7 +172,9 @@ class Quote extends YqBase {
 		try{
 			$res = $this->db->Quote->find (array(
 						'quote_ownerID'=> array ('$in'=> $user['user_relationships']),
-						'quote_time'=>array('$lt'=>$time)))->sort (array ('quote_time'=> -1))->limit(30);
+						'quote_time'=>array('$lt'=>$time),
+						'quote_public' => '1'
+						))->sort (array ('quote_time'=> -1))->limit(30);
 			$res_array = array ();
 			foreach ($res as $key => $value) {
 				$user_info = $this->db->Quoteuser->findOne (array('_id'=> new MongoId($value['quote_ownerID']),array ('user_nickname'=> 1, 'user_pic'=>1)));
@@ -212,7 +214,9 @@ class Quote extends YqBase {
 		try{
 			$res = $this->db->Quote->find (array(
 						'quote_ownerID'=> array ('$nin'=> $myPeople),
-						'quote_time'=>array('$lt'=>$time)))->sort (array ('quote_time'=> -1))->limit(30);
+						'quote_time'=>array('$lt'=>$time),
+						'quote_public' => 1
+						))->sort (array ('quote_time'=> -1))->limit(30);
 			$res_array = array ();
 			foreach ($res as $key => $value) {
 				$user_info = $this->db->Quoteuser->findOne (array('_id'=> new MongoId($value['quote_ownerID']),array ('user_nickname'=> 1, 'user_pic'=>1)));
