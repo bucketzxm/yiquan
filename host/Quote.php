@@ -211,7 +211,7 @@ class Quote extends YqBase {
 		array_push ($myPeople,$user_id);
 		try{
 			$res = $this->db->Quote->find (array(
-						'quote_ownerID'=> array ('$nin'=> $myPeople]),
+						'quote_ownerID'=> array ('$nin'=> $myPeople),
 						'quote_time'=>array('$lt'=>$time)))->sort (array ('quote_time'=> -1))->limit(30);
 			$res_array = array ();
 			foreach ($res as $key => $value) {
