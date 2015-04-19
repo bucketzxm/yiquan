@@ -1803,7 +1803,7 @@ class Quoteuser extends YqBase {
 		if ($check != 1)
 			return $check;
 		
-		$row = $this->db->user->findOne ( array (
+		$row = $this->db->Quoteuser->findOne ( array (
 				'user_mobile' => $mobilenumber 
 		) );
 		if (is_null ( $row )) {
@@ -1812,7 +1812,7 @@ class Quoteuser extends YqBase {
 		
 		$row ['user_pin'] = crypt ( $newpassword );
 		
-		$this->db->user->save ( $row );
+		$this->db->Quoteuser->save ( $row );
 		
 		return $this->expireRegistercode ( $mobilenumber, $code );
 	}
