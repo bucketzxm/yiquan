@@ -200,7 +200,7 @@ class Quoteuser extends YqBase {
 		if ($this->checkToken () == 0) {
 			return - 3;
 		}
-		if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $user_name) {
+		if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_name) {
 			return - 4;
 		}
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
@@ -238,7 +238,7 @@ class Quoteuser extends YqBase {
 		/*
 		 * if ($this->checkToken () == 0) { return - 3; }
 		 */
-		if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $user_name) {
+		if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_name) {
 			return - 4;
 		}
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
