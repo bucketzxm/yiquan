@@ -111,7 +111,7 @@ class Quoteuser extends YqBase {
 			}
 			$this->logCallMethod ( $user_name, __METHOD__ );
 			$ans = $this->db->Quoteuser->findOne ( array (
-					'user_mobile' => "$user_mobile" 
+					'user_mobile' => $user_mobile
 			) );
 
 			
@@ -143,7 +143,7 @@ class Quoteuser extends YqBase {
 					return - 5; // redis wrong
 				}
 
-				$logger = $this->db->Quoteuser->findOne (array ('user_mobile' => "$user_mobile"), array ('_id' => 1));
+				$logger = $this->db->Quoteuser->findOne (array ('user_mobile' => $user_mobile), array ('_id' => 1));
 
 				return $logger['_id'];
 			}
