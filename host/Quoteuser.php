@@ -185,7 +185,7 @@ class Quoteuser extends YqBase {
 				return $logger['_id'];
 			}
 		} catch ( Exception $e ) {
-			return - 1;
+			return $e;
 		}
 	}
 	
