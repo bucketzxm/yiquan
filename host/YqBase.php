@@ -42,6 +42,7 @@ class YqBase {
 	protected $qiniuSK = 'Tb41FAE5cPiZI_hNIxhh8auO1g_Pfd693Tk6yGQL';
 	protected $userpicbucketUrl = 'dn-yiquanhost-avatar.qbox.me';
 	protected $topicsbucketUrl = 'dn-yiquantopics.qbox.me';
+	protected $quotebucketUrl = '7xio2b.com2.z0.glb.qiniucdn.com';
 	/*
 	 * made by wwq 构造函数 疯狂连接与认证 实属无奈
 	 */

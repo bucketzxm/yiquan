@@ -65,7 +65,7 @@ class Quote extends YqBase {
             $geo = $im->getImageGeometry ();
             $w = $geo ['width'];
             $h = $geo ['height'];
-            $maxWidth = $maxHeight = 160;
+            $maxWidth = $maxHeight = 1080;
             $fitbyWidth = (($maxWidth / $w) < ($maxHeight / $h)) ? true : false;
             
             if ($fitbyWidth) {
@@ -83,7 +83,7 @@ class Quote extends YqBase {
             $token = $auth->uploadToken ( $bucket );
             list ( $ret, $err ) = $uploadMgr->put ( $token, null, $rawpic );
             if ($err == null) {
-                 $bigAvatar = $this->userpicbucketUrl . '/' . $ret ['key'];
+                 $bigAvatar = $this->quotebucketUrl . '/' . $ret ['key'];
             } else {
                 return $err;
             }
