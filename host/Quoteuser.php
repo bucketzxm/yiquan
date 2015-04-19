@@ -41,7 +41,7 @@ class Quoteuser extends YqBase {
 			return - 2;
 		}
 		
-		if ($this->checkMobileExist ( $user_mobile )) {
+		if ($this->checkMobileExist ( $user_mobile ) == 1) {
 			return 0;
 		}
 		
