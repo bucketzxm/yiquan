@@ -141,21 +141,16 @@ class Quoteuser extends YqBase {
 	/*
 	 * made by wwq user_login指探测手機號碼是否已经存在 接受参数为 用户名 密码 返回值 登陆成功是1 用户名不存在是2 密码错误是3 异常是-1 注意 还会记录最近的登录时间哦 soap客户端使用方法 $soap = new SoapClient ( "http://yiquanhost.duapp.com/userclass.wsdl" ); $result2 = $soap->user_login ( 'wang','12344'); echo $result2 . "<br/>";
 	 */
-	function loginByUser($user_name, $user_pwd) {
+	function loginByMobile($user_mobile, $user_pwd) {
 		try {
 			if ($this->yiquan_version == 0) {
 				return - 2;
 			}
 			$this->logCallMethod ( $user_name, __METHOD__ );
 			$ans = $this->db->user->findOne ( array (
-					'user_name' => "$user_name" 
+					'user_mobile' => "$user_mobile" 
 			) );
-			
-			if ($ans == null) {
-				$ans = $this->db->user->findOne ( array (
-						'user_mobile' => "$user_name" 
-				) );
-			}
+
 			
 			if ($ans == null)
 				return 2; // no user
