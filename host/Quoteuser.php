@@ -166,7 +166,7 @@ class Quoteuser extends YqBase {
 				// $_SESSION ['user_token'] = $gd;
 				$rt = $this->db->usertoken->findOne ( array (
 						'user_name' => $user_name 
-				) );
+				), );
 				if ($rt == null) {
 					$rt = array (
 							'user_name' => $user_name 
@@ -179,7 +179,10 @@ class Quoteuser extends YqBase {
 				if ($this->setRedis ( $user_name, $gd ) == false) {
 					return - 5; // redis wrong
 				}
-				return 1;
+
+				$logger = $this->db->user->findOne (array ('user_mobile' => "$user_mobile"), array ('_id' => 1));
+
+				return $logger['_id'];
 			}
 		} catch ( Exception $e ) {
 			return - 1;
