@@ -160,7 +160,7 @@ class Quoteuser extends YqBase {
 				return 4;
 			else {
 				$gd = makeGuid ();
-				setcookie ( "user", $user_name, time () + 3600 * 2400, '/' );
+				setcookie ( "user_id", $ans['_id'], time () + 3600 * 2400, '/' );
 				setcookie ( "user_token", $gd, time () + 3600 * 2400, '/' );
 				$_SESSION ['user'] = $user_name;
 				// $_SESSION ['user_token'] = $gd;
@@ -231,7 +231,7 @@ class Quoteuser extends YqBase {
 	/*
 	 * 注销设备
 	 */
-	function removeGetuiClientID($user_name) {
+	function removeGetuiClientID($user_id) {
 		if ($this->yiquan_version == 0) {
 			return - 2;
 		}
