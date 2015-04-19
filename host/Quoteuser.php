@@ -36,12 +36,12 @@ class Quoteuser extends YqBase {
 	/*
 	 * made by wwq reg是指用户的注册 接受参数依次为 用户名 密码 手机号码 返回值 注册成功1 注册发生异常-1 soap客户端使用方法 $soap = new SoapClient ( "http://yiquanhost.duapp.com/userclass.wsdl" ); $result2 = $soap->reg ( 'q', '12345'，'13566632325' ); echo $result2 . "<br/>";
 	 */
-	function reg($user_name, $user_pwd, $user_mobile) {
+	function reg($user_pwd, $user_mobile) {
 		if ($this->yiquan_version == 0) {
 			return - 2;
 		}
 		
-		if ($this->checkNameExist ( $user_name ) || $this->checkMobileExist ( $user_mobile )) {
+		if ($this->checkMobileExist ( $user_mobile )) {
 			return 0;
 		}
 		
@@ -55,65 +55,28 @@ class Quoteuser extends YqBase {
 			
 			$neo = array (
 					'uid' => $id,
-					'user_name' => $user_name,
 					'user_pin' => crypt ( $user_pwd ),
 					'user_mobile' => $user_mobile,
 					'user_nickname' => $user_name,
 					'user_pic' => null,
 					'user_relationships' => array (),
-					'user_blocklist' => array (),
-					'user_blockTopic' => array (),
-					'user_archiveTopic' => array (),
-					'user_followTopic' => array (),
-                    'user_groups' => array (),
 					'user_state' => 1,
 					'user_regdate' => new MongoDate (),
-					'user_privilege' => 0,
-					'user_exp' => 0,
 					'user_smallavatar' => '',
 					'user_bigavatar' => '',
 					'user_bigavatarname' => '',
-					'user_smallavatarname' => '' 
+					'user_smallavatarname' => '',
+					'user_city' => '',
+
 			);
-			$this->db->user->save ( $neo );
+			$this->db->Quoteuser->save ( $neo );
 			
-			$profile = array (
-					'profile_intro' => '保密',
-					'profile_city' => '保密',
-					'profile_industry' => '保密',
-					'profile_org' => '保密',
-					'profile_position' => '保密' 
-			);
-			
-			return $this->addProfileByName ( $user_name, json_encode ( $profile ) );
+			return 1;
 		} catch ( Exception $e ) {
 			return - 1;
 		}
 	}
-	
-	/*
-	 * made by wwq username_exist指探测用户名是否已经存在 接受参数为 用户名 返回值 存在是1 不存在是0 异常是-1 soap客户端使用方法 $soap = new SoapClient ( "http://yiquanhost.duapp.com/userclass.wsdl" ); $ result2 = $soap->username_exist ( 'q'); echo $result2 . "<br/>";
-	 */
-	function checkNameExist($user_name) {
-		try {
-			if ($this->yiquan_version == 0) {
-				return - 2;
-			}
-			$this->logCallMethod ( 'anonymous', __METHOD__ );
-			$ans = $this->db->user->findOne ( array (
-					'user_name' => "$user_name" 
-			) );
-			
-			self::$yidb->close ();
-			if ($ans != null) {
-				return 1;
-			} else {
-				return 0;
-			}
-		} catch ( Exception $e ) {
-			return - 1;
-		}
-	}
+
 	
 	/*
 	 * made by wwq mobile_exist指探测手機號碼是否已经存在 接受参数为 手机号 返回值 存在是1 不存在是0 异常是-1 soap客户端使用方法 $soap = new SoapClient ( "http://yiquanhost.duapp.com/userclass.wsdl" ); $result2 = $soap->mobile_exist ( '123456789'); echo $result2 . "<br/>";
@@ -124,7 +87,7 @@ class Quoteuser extends YqBase {
 				return - 2;
 			}
 			$this->logCallMethod ( 'anonymous ', __METHOD__ );
-			$ans = $this->db->user->findOne ( array (
+			$ans = $this->db->Quoteuser->findOne ( array (
 					'user_mobile' => "$user_mobile" 
 			) );
 			
@@ -147,7 +110,7 @@ class Quoteuser extends YqBase {
 				return - 2;
 			}
 			$this->logCallMethod ( $user_name, __METHOD__ );
-			$ans = $this->db->user->findOne ( array (
+			$ans = $this->db->Quoteuser->findOne ( array (
 					'user_mobile' => "$user_mobile" 
 			) );
 
@@ -165,22 +128,22 @@ class Quoteuser extends YqBase {
 				$_SESSION ['user'] = $user_name;
 				// $_SESSION ['user_token'] = $gd;
 				$rt = $this->db->usertoken->findOne ( array (
-						'user_name' => $user_name 
+						'user_id' => $ans['_id']
 				) );
 				if ($rt == null) {
 					$rt = array (
-							'user_name' => $user_name 
+							'user_id' => $ans['_id'] 
 					);
 				}
 				
 				$rt ['user_token'] = $gd;
 				$this->db->usertoken->save ( $rt );
 				
-				if ($this->setRedis ( $user_name, $gd ) == false) {
+				if ($this->setRedis ( $ans['_id'], $gd ) == false) {
 					return - 5; // redis wrong
 				}
 
-				$logger = $this->db->user->findOne (array ('user_mobile' => "$user_mobile"), array ('_id' => 1));
+				$logger = $this->db->Quoteuser->findOne (array ('user_mobile' => "$user_mobile"), array ('_id' => 1));
 
 				return $logger['_id'];
 			}
@@ -192,7 +155,7 @@ class Quoteuser extends YqBase {
 	/*
 	 * 注册设备
 	 */
-	function registerGetuiClientID($user_name, $getui_clientID) {
+	function registerGetuiClientID($user_id, $getui_clientID) {
 		if ($this->yiquan_version == 0) {
 			return - 2;
 		}
@@ -200,18 +163,18 @@ class Quoteuser extends YqBase {
 		if ($this->checkToken () == 0) {
 			return - 3;
 		}
-		if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_name) {
+		if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
 			return - 4;
 		}
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
 		
 		$cursor = $this->db->getuiClientID->findOne ( array (
-				'user_name' => $user_name 
+				'user_id' => $user_id
 		) );
 		try {
 			if ($cursor == null) {
 				$data = array (
-						"user_name" => $user_name,
+						"user_id" => $user_id,
 						"getui_clientID" => $getui_clientID,
 						"platform" => $this->yiquan_platform 
 				);
