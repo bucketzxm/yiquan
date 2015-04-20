@@ -77,7 +77,7 @@ class Quoteuser extends YqBase {
 			);
 			$this->db->Quoteuser->save ( $neo );
 			
-			return 1;
+			return $this->expireRegistercode ( $user_mobile, $code );;
 		} catch ( Exception $e ) {
 			return - 1;
 		}
