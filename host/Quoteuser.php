@@ -36,7 +36,7 @@ class Quoteuser extends YqBase {
 	/*
 	 * made by wwq reg是指用户的注册 接受参数依次为 用户名 密码 手机号码 返回值 注册成功1 注册发生异常-1 soap客户端使用方法 $soap = new SoapClient ( "http://yiquanhost.duapp.com/userclass.wsdl" ); $result2 = $soap->reg ( 'q', '12345'，'13566632325' ); echo $result2 . "<br/>";
 	 */
-	function reg($user_pwd, $user_mobile) {
+	function reg($user_pwd, $user_mobile,$code) {
 		if ($this->yiquan_version == 0) {
 			return - 2;
 		}
@@ -48,6 +48,11 @@ class Quoteuser extends YqBase {
 		// if ($this->checkUsernameLegal ( $user_name ) == 0) {
 		// return 0;
 		// }
+
+		$check = $this->checkRegisterCode ( $user_mobile, $code );
+		if ($check != 1)
+			return $check;
+
 		$user = $this->db->Quoteuser->findOne (array ('user_mobile'=>$user_mobile));
 
 		$this->logCallMethod ( $user['_id'], __METHOD__ );

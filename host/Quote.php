@@ -98,7 +98,8 @@ class Quote extends YqBase {
 				"quote_time" => $quote_time,
 				"quote_likeNames" => array (),
 				"quote_likeCount" => 0,
-				"quote_img" => $bigAvatar
+				"quote_img" => $bigAvatar,
+				"quote_group" => 'general'
 		);
 
 		try {
