@@ -84,6 +84,7 @@ class Quote extends YqBase {
             list ( $ret, $err ) = $uploadMgr->put ( $token, null, $rawpic );
             if ($err == null) {
                  $bigAvatar = $this->quotebucketUrl . '/' . $ret ['key'];
+                 $avatarName = $ret ['key'];
             } else {
                 return $err;
             }
@@ -99,6 +100,7 @@ class Quote extends YqBase {
 				"quote_likeNames" => array (),
 				"quote_likeCount" => 0,
 				"quote_img" => $bigAvatar,
+				"quote_imgName" => $avatarName,
 				"quote_group" => 'general'
 		);
 
