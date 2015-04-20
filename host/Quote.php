@@ -139,7 +139,7 @@ class Quote extends YqBase {
 						'quote_time'=>array('$lt'=>$time)))->sort (array ('quote_time'=> -1))->limit(30);
 			$res_array = array ();
 			foreach ($res as $key => $value) {
-				$user_info = $this->db->Quoteuser->findOne (array('_id'=> new MongoId($value['quote_ownerID']),array ('user_nickname'=> 1, 'user_pic'=>1)));
+				$user_info = $this->db->Quoteuser->findOne (array('_id'=> new MongoId($value['quote_ownerID'])),array ('user_nickname'=> 1, 'user_pic'=>1));
 				$value['user_nickname'] = $user_info['user_nickname'];
 				$value['user_pic'] =$user_info['user_pic'];
 				array_push ($res_array, $value);
@@ -180,7 +180,7 @@ class Quote extends YqBase {
 						))->sort (array ('quote_time'=> -1))->limit(30);
 			$res_array = array ();
 			foreach ($res as $key => $value) {
-				$user_info = $this->db->Quoteuser->findOne (array('_id'=> new MongoId($value['quote_ownerID']),array ('user_nickname'=> 1, 'user_pic'=>1)));
+				$user_info = $this->db->Quoteuser->findOne (array('_id'=> new MongoId($value['quote_ownerID'])),array ('user_nickname'=> 1, 'user_pic'=>1));
 				$value['user_nickname'] = $user_info['user_nickname'];
 				$value['user_pic'] =$user_info['user_pic'];
 				array_push ($res_array, $value);
@@ -222,7 +222,15 @@ class Quote extends YqBase {
 						))->sort (array ('quote_time'=> -1))->limit(30);
 			$res_array = array ();
 			foreach ($res as $key => $value) {
-				$user_info = $this->db->Quoteuser->findOne (array('_id'=> new MongoId($value['quote_ownerID']),array ('user_nickname'=> 1, 'user_pic'=>1)));
+				$user_info = $this->db->Quoteuser->findOne (
+					array(
+						'_id'=> new MongoId ( $value['quote_ownerID'] )
+						),
+					array (
+						'user_nickname'=> 1,
+						 'user_pic'=>1
+						 )
+					);
 				$value['user_nickname'] = $user_info['user_nickname'];
 				$value['user_pic'] =$user_info['user_pic'];
 				array_push ($res_array, $value);
