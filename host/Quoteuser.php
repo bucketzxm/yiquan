@@ -64,7 +64,6 @@ class Quoteuser extends YqBase {
 					'user_mobile' => $user_mobile,
 					'user_pin' =>  crypt ($user_pwd),
 					'user_nickname' => '',
-					'user_pic' => null,
 					'user_relationships' => array (),
 					'user_state' => 1,
 					'user_regdate' => new MongoDate (),
