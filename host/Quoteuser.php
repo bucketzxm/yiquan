@@ -148,10 +148,8 @@ class Quoteuser extends YqBase {
 					return - 5; // redis wrong
 				}
 
-				$logger = $this->db->Quoteuser->findOne (array ('user_mobile' => $user_mobile), array ('_id' => 1,'user_nickname'=> 1));
-				$res['_id'] = $logger['_id'];
-				$res['user_nickname'] = $logger['_id'];
-				return json_encode($res);
+				$logger = $this->db->Quoteuser->findOne (array ('user_mobile' => $user_mobile));
+				return json_encode($logger);
 			}
 		} catch ( Exception $e ) {
 			return $e;
