@@ -102,19 +102,19 @@ class YqBase {
 				$rdt = $this->getRedis ( $_COOKIE ['user_id'] );
 				$rdt1 = $this->getRedis ( $_COOKIE ['user_name'] );
 				if ($rdt == false && $rdt1 == false) {
-					return 0;
+					return 2;
 				} else {
 					if ($rdt == $_COOKIE ['user_token'] || $rdt1 == $_COOKIE ['user_token']) {
 						return 1;
 					} else {
-						return 0;
+						return 3;
 					}
 				}
 			} else {
-				return 0;
+				return 4;
 			}
 		} catch ( Exception $e ) {
-			return 0;
+			return 5;
 		}
 	}
 	function logCallMethod($user_name, $classandname) {
