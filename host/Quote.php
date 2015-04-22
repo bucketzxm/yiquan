@@ -107,8 +107,8 @@ class Quote extends YqBase {
 
 		try {
 			$this->db->Quote->save ($data);
-			$quote = $this->db->Quote->findOne(array('quote_img' => $bigAvatar),array('_id'=> 1, 'quote_img' => 1));
-			return $quote;
+			
+			return $bigAvatar;
 		}catch(Exception $e){
 			return -1;
 		}
