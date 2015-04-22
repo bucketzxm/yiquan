@@ -94,8 +94,9 @@ class Quote extends YqBase {
 		$data = array (
 				"quote_ownerID" => $user_id,
 				"quote_title" => $quote_title,
+				"quote_signature" => $quote_signature,
+				"quote_remark" => $quote_remark,
 				"quote_public" => $quote_public,
-				"quote_network" => 'friend',
 				"quote_time" => $quote_time,
 				"quote_likeNames" => array (),
 				"quote_likeCount" => 0,
