@@ -43,7 +43,7 @@ class Quote extends YqBase {
 	// 类型：number, string, string, string, string(with '.')
 	// 如果执行成功，返回1，否则，返回0
 	
-	function addQuote($user_id,$quote_img,$quote_title,$quote_public){
+	function addQuote($user_id,$quote_img,$quote_title,$quote_signature,$quote_remark,$quote_public){
 		if ($this->yiquan_version == 0) {
 			return - 2;
 		}
@@ -218,7 +218,7 @@ class Quote extends YqBase {
 			$res = $this->db->Quote->find (array(
 						'quote_ownerID'=> array ('$nin'=> $myPeople),
 						'quote_time'=>array('$lt'=>$time),
-						'quote_public' => 1
+						'quote_public' => '1'
 						))->sort (array ('quote_time'=> -1))->limit(30);
 			$res_array = array ();
 			foreach ($res as $key => $value) {
