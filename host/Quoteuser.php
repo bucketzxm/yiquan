@@ -240,7 +240,7 @@ class Quoteuser extends YqBase {
 							return - 5; // redis wrong
 						}
 						
-						return json_encode($res);
+						return json_encode($ans);
 					}else{
 						return -1;
 					}
