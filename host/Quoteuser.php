@@ -208,8 +208,8 @@ class Quoteuser extends YqBase {
 							'weixin_Avatar' => $userInfo['headimgurl'],
 							'user_books' => array (),
 							'weixin_openID' =>$open_id,
-							'weixin_accessToken' =>$access_token;
-							'weixin_refreshToken' =>$refresh_token;
+							'weixin_accessToken' =>$access_token,
+							'weixin_refreshToken' =>$refresh_token
 
 					);
 					$this->db->Quoteuser->save ($neo);
