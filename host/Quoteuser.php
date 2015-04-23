@@ -238,11 +238,12 @@ class Quoteuser extends YqBase {
 					if ($this->setRedis ( $ans['_id'], $gd ) == false) {
 						return - 5; // redis wrong
 					}
-					*/
+					
 					return json_encode($res);
 				}else{
 					return -1;
-				}
+				}*/
+				return json_encode($res);
 
 			}
 
