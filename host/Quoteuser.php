@@ -1926,7 +1926,7 @@ class Quoteuser extends YqBase {
 				return 1;
 			}
 		} else {
-			return 0;
+			return 3;
 		}
 	}
 	function resetPassword($mobilenumber, $code, $newpassword) {
