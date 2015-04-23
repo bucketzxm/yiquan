@@ -71,7 +71,8 @@ class Quoteuser extends YqBase {
 					'user_bigavatar' => '',
 					'user_bigavatarname' => '',
 					'user_smallavatarname' => '',
-					'user_city' => ''
+					'user_city' => '',
+					'user_books' => array ()
 
 			);
 			$this->db->Quoteuser->save ( $neo );
