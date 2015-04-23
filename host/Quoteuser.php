@@ -170,7 +170,7 @@ class Quoteuser extends YqBase {
 					$logger = $this->db->Quoteuser->findOne (array ('user_mobile' => $user_mobile));
 					return json_encode($logger);
 			}else{
-				return -1;
+				return $res;
 			}
 
 		} catch ( Exception $e ) {
