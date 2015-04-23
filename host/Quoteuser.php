@@ -110,47 +110,74 @@ class Quoteuser extends YqBase {
 	/*
 	 * made by wwq user_login指探测手機號碼是否已经存在 接受参数为 用户名 密码 返回值 登陆成功是1 用户名不存在是2 密码错误是3 异常是-1 注意 还会记录最近的登录时间哦 soap客户端使用方法 $soap = new SoapClient ( "http://yiquanhost.duapp.com/userclass.wsdl" ); $result2 = $soap->user_login ( 'wang','12344'); echo $result2 . "<br/>";
 	 */
-	function loginByMobile($user_mobile, $user_pwd) {
+	function loginByMobile($user_mobile, $code) {
 		try {
 			if ($this->yiquan_version == 0) {
 				return - 2;
 			}
 			$this->logCallMethod ( $user_name, __METHOD__ );
-			$ans = $this->db->Quoteuser->findOne ( array (
-					'user_mobile' => $user_mobile
-			) );
+			$res = $this->checkRegisterCode($user_mobile,$code);
+			if ($res == 1){
+
+				$ans = $this->db->Quoteuser->findOne ( array (
+						'user_mobile' => $user_mobile
+				) );
+
+				if ($ans == null){
+					$neo = array (
+							'uid' => $id,
+							'user_mobile' => $user_mobile,
+							'user_nickname' => '',
+							'user_relationships' => array (),
+							'user_state' => 1,
+							'user_regdate' => new MongoDate (),
+							'user_smallavatar' => '',
+							'user_bigavatar' => '',
+							'user_bigavatarname' => '',
+							'user_smallavatarname' => '',
+							'user_city' => '',
+							'user_books' => array ()
+
+					);
+					$this->db->Quoteuser->save ( $neo );
+
+				}
+					$ans = $this->db->Quoteuser->findOne ( array (
+							'user_mobile' => $user_mobile
+					) );
+
+					$gd = makeGuid ();
+					setcookie ( "user_id", $ans['_id'], time () + 3600 * 2400, '/' );
+					setcookie ( "user_token", $gd, time () + 3600 * 2400, '/' );
+
+					// $_SESSION ['user_token'] = $gd;
+					$rt = $this->db->usertoken->findOne ( array (
+							'user_id' => $ans['_id']
+					) );
+					if ($rt == null) {
+						$rt = array (
+								'user_id' => $ans['_id'] 
+						);
+					}
+					
+					$rt ['user_token'] = $gd;
+					$this->db->usertoken->save ( $rt );
+					
+					if ($this->setRedis ( $ans['_id'], $gd ) == false) {
+						return - 5; // redis wrong
+					}
+
+					$logger = $this->db->Quoteuser->findOne (array ('user_mobile' => $user_mobile));
+					return json_encode($logger);
+			}else{
+				return -1;
+			}
+
+
+
 
 			
-			if ($ans == null)
-				return 2; // no user
-			else if ($ans ['user_pin'] != crypt ( $user_pwd, $ans ['user_pin'] ))
-				return 3; // wrong pwd
-			else if ($ans ['user_state'] != 1)
-				return 4;
-			else {
-				$gd = makeGuid ();
-				setcookie ( "user_id", $ans['_id'], time () + 3600 * 2400, '/' );
-				setcookie ( "user_token", $gd, time () + 3600 * 2400, '/' );
-				$_SESSION ['user'] = $user_name;
-				// $_SESSION ['user_token'] = $gd;
-				$rt = $this->db->usertoken->findOne ( array (
-						'user_id' => $ans['_id']
-				) );
-				if ($rt == null) {
-					$rt = array (
-							'user_id' => $ans['_id'] 
-					);
-				}
-				
-				$rt ['user_token'] = $gd;
-				$this->db->usertoken->save ( $rt );
-				
-				if ($this->setRedis ( $ans['_id'], $gd ) == false) {
-					return - 5; // redis wrong
-				}
-
-				$logger = $this->db->Quoteuser->findOne (array ('user_mobile' => $user_mobile));
-				return json_encode($logger);
+			
 			}
 		} catch ( Exception $e ) {
 			return $e;
