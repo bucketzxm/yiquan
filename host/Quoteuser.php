@@ -190,7 +190,7 @@ class Quoteuser extends YqBase {
 				$res = $this->getWXUserInfo($access_token,$open_id);
 				
 				try {
-					$userInfo = json_decode($res);
+					$userInfo = json_decode($res,TRUE);
 					if ($userInfo['openid'] != null) {
 						$id = $this->mid ( 'Quoteuser', $this->db );
 				
