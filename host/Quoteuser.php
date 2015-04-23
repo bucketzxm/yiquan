@@ -157,7 +157,7 @@ class Quoteuser extends YqBase {
 		}
 	}
 	
-	function logingByWeixin($open_id,$access_token,$refresh_token){
+	function loginByWeixin($open_id,$access_token,$refresh_token){
 			if ($this->yiquan_version == 0) {
 				return - 2;
 			}
