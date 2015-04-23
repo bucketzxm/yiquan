@@ -173,12 +173,6 @@ class Quoteuser extends YqBase {
 				return -1;
 			}
 
-
-
-
-			
-			
-			}
 		} catch ( Exception $e ) {
 			return $e;
 		}
