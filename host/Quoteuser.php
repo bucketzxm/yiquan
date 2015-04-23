@@ -188,62 +188,65 @@ class Quoteuser extends YqBase {
 
 			}else{
 				$res = $this->getWXUserInfo($access_token,$open_id);
-				/*
-				$userInfo = json_decode($res);
-				if ($userInfo['openid'] != null) {
-					$id = $this->mid ( 'Quoteuser', $this->db );
-			
-					$neo = array (
-							'uid' => $id,
-							'user_mobile' => '',
-							'user_pin' =>  '',
-							'user_nickname' => $userInfo['nickname'],
-							'user_relationships' => array (),
-							'user_state' => 1,
-							'user_regdate' => new MongoDate (),
-							'user_smallavatar' => $userInfo['headimgurl'],
-							'user_bigavatar' => '',
-							'user_bigavatarname' => '',
-							'user_smallavatarname' => '',
-							'user_city' => $userInfo['city'],
-							'weixin_Avatar' => $userInfo['headimgurl'],
-							'user_books' => array (),
-							'weixin_openID' =>$open_id,
-							'weixin_accessToken' =>$access_token,
-							'weixin_refreshToken' =>$refresh_token
+				
+				try {
+					$userInfo = json_decode($res);
+					if ($userInfo['openid'] != null) {
+						$id = $this->mid ( 'Quoteuser', $this->db );
+				
+						$neo = array (
+								'uid' => $id,
+								'user_mobile' => '',
+								'user_pin' =>  '',
+								'user_nickname' => $userInfo['nickname'],
+								'user_relationships' => array (),
+								'user_state' => 1,
+								'user_regdate' => new MongoDate (),
+								'user_smallavatar' => $userInfo['headimgurl'],
+								'user_bigavatar' => '',
+								'user_bigavatarname' => '',
+								'user_smallavatarname' => '',
+								'user_city' => $userInfo['city'],
+								'weixin_Avatar' => $userInfo['headimgurl'],
+								'user_books' => array (),
+								'weixin_openID' =>$open_id,
+								'weixin_accessToken' =>$access_token,
+								'weixin_refreshToken' =>$refresh_token
 
-					);
-					$this->db->Quoteuser->save ($neo);
-
-
-					$ans = $this->db->Quoteuser->findOne (array ('weixin_openID' => $open_id));
-
-					$gd = makeGuid ();
-					setcookie ( "user_id", $ans['_id'], time () + 3600 * 2400, '/' );
-					setcookie ( "user_token", $gd, time () + 3600 * 2400, '/' );
-
-					// $_SESSION ['user_token'] = $gd;
-					$rt = $this->db->usertoken->findOne ( array (
-							'user_id' => $ans['_id']
-					) );
-					if ($rt == null) {
-						$rt = array (
-								'user_id' => $ans['_id'] 
 						);
+						$this->db->Quoteuser->save ($neo);
+
+
+						$ans = $this->db->Quoteuser->findOne (array ('weixin_openID' => $open_id));
+
+						$gd = makeGuid ();
+						setcookie ( "user_id", $ans['_id'], time () + 3600 * 2400, '/' );
+						setcookie ( "user_token", $gd, time () + 3600 * 2400, '/' );
+
+						// $_SESSION ['user_token'] = $gd;
+						$rt = $this->db->usertoken->findOne ( array (
+								'user_id' => $ans['_id']
+						) );
+						if ($rt == null) {
+							$rt = array (
+									'user_id' => $ans['_id'] 
+							);
+						}
+						
+						$rt ['user_token'] = $gd;
+						$this->db->usertoken->save ( $rt );
+						
+						if ($this->setRedis ( $ans['_id'], $gd ) == false) {
+							return - 5; // redis wrong
+						}
+						
+						return json_encode($res);
+					}else{
+						return -1;
 					}
-					
-					$rt ['user_token'] = $gd;
-					$this->db->usertoken->save ( $rt );
-					
-					if ($this->setRedis ( $ans['_id'], $gd ) == false) {
-						return - 5; // redis wrong
-					}
-					
-					return json_encode($res);
-				}else{
-					return -1;
-				}*/
-				return json_encode($res);
+				}catch (Exception $e){
+					return $e;
+				}
 
 			}
 
