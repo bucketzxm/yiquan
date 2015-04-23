@@ -161,6 +161,47 @@ class Quote extends YqBase {
 
 	}
 
+
+	function queryMyGroupQuotes ($user_id,$time,$quote_group){
+				if ($this->yiquan_version == 0) {
+			return - 2;
+		}
+		
+		if ($this->checkToken () == 0) {
+			return - 3;
+		}
+		
+		if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
+			return - 4;
+		}
+
+		$time = (int)$time;
+
+		$user = $this->db->Quoteuser->findOne (array ('_id' => new MongoId ($user_id)));
+		if ($user == null) {
+			return 0;
+		}
+
+		try{
+			$res = $this->db->Quote->find (array(
+						'quote_ownerID'=>$user_id,
+						'quote_remark' =>$quote_group,
+						'quote_time'=>array('$lt'=>$time)))->sort (array ('quote_time'=> -1))->limit(30);
+			$res_array = array ();
+			foreach ($res as $key => $value) {
+				$user_info = $this->db->Quoteuser->findOne (array('_id'=> new MongoId($value['quote_ownerID'])),array('user_nickname'=> 1, 'user_smallavatar'=>1));
+				$value['user_nickname'] = $user_info['user_nickname'];
+				$value['user_pic'] =$user_info['user_smallavatar'];
+				array_push ($res_array, $value);
+
+			}
+			return json_encode ($res_array);
+		}catch(Exception $e){
+			return -1;
+		}
+
+	}
+
 	function queryFriendQuotes ($user_id,$time){
 				if ($this->yiquan_version == 0) {
 			return - 2;
