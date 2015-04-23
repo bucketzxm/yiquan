@@ -189,7 +189,7 @@ class Quoteuser extends YqBase {
 			}else{
 				$res = $this->getWXUserInfo($access_token,$open_id);
 				$userInfo = json_decode($res);
-				if ($userInfo['openid'] != null]) {
+				if ($userInfo['openid'] != null) {
 					$id = $this->mid ( 'Quoteuser', $this->db );
 			
 					$neo = array (
