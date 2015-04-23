@@ -200,7 +200,7 @@ class Quoteuser extends YqBase {
 							'user_relationships' => array (),
 							'user_state' => 1,
 							'user_regdate' => new MongoDate (),
-							'user_smallavatar' => $userInfo('headimgurl'),
+							'user_smallavatar' => $userInfo['headimgurl'],
 							'user_bigavatar' => '',
 							'user_bigavatarname' => '',
 							'user_smallavatarname' => '',
