@@ -161,7 +161,7 @@ class Quoteuser extends YqBase {
 			if ($this->yiquan_version == 0) {
 				return - 2;
 			}
-			$ans = $this->db->Quoteuser->findOne (array ('wx_openid' => $open_id));
+			$ans = $this->db->Quoteuser->findOne (array ('weixin_openID' => $open_id));
 			if ($res != null){
 				$gd = makeGuid ();
 				setcookie ( "user_id", $ans['_id'], time () + 3600 * 2400, '/' );
@@ -188,6 +188,7 @@ class Quoteuser extends YqBase {
 
 			}else{
 				$res = $this->getWXUserInfo($access_token,$open_id);
+				/*
 				$userInfo = json_decode($res);
 				if ($userInfo['openid'] != null) {
 					$id = $this->mid ( 'Quoteuser', $this->db );
@@ -237,8 +238,8 @@ class Quoteuser extends YqBase {
 					if ($this->setRedis ( $ans['_id'], $gd ) == false) {
 						return - 5; // redis wrong
 					}
-
-					return json_encode($ans);
+					*/
+					return json_encode($res);
 				}else{
 					return -1;
 				}
