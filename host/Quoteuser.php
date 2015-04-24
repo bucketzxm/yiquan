@@ -1655,7 +1655,7 @@ class Quoteuser extends YqBase {
 			return $rep;
 		}
 		$this->db->Quoteuser->save ( $row );
-		return 1;
+		return json_encode($row);
 		
 	}
 	
