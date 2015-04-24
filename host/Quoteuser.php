@@ -129,6 +129,8 @@ class Quoteuser extends YqBase {
 				return - 2;
 			}
 			$this->logCallMethod ( $user_name, __METHOD__ );
+
+
 			$res = $this->checkRegisterCode($user_mobile,$code);
 			if ($res == 1){
 
@@ -202,6 +204,9 @@ class Quoteuser extends YqBase {
 			if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
 				return - 4;
 			}
+			if ($this->checkMobileExist ( $user_mobile ) == 1) {
+				return 0;
+			}
 			$res = $this->checkRegisterCode($user_mobile,$code);
 			if ($res == 1){
 				$user = $this->db->Quoteuser->findOne(array ('_id'=> new MongoId($user_id)));
@@ -252,7 +257,7 @@ class Quoteuser extends YqBase {
 				return - 2;
 			}
 			$ans = $this->db->Quoteuser->findOne (array ('weixin_openID' => $open_id));
-			if ($res != null){
+			if ($ans != null){
 				$gd = makeGuid ();
 				setcookie ( "user_id", $ans['_id'], time () + 3600 * 2400, '/' );
 				setcookie ( "user_token", $gd, time () + 3600 * 2400, '/' );
