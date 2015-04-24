@@ -229,7 +229,7 @@ class Quote extends YqBase {
 		foreach ($user['user_relationships'] as $key => $value) {
 			$cursor = $this->db->Quoteuser->findOne(array ('user_mobile'=> $value));
 			if ($cursor != null) {
-				array_push($contact_userID, $cursor['_id']);
+				array_push($contact_userID, $cursor['_id']['$id']);
 
 			}
 		}
