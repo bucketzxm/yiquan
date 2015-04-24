@@ -221,10 +221,20 @@ class Quote extends YqBase {
 		if ($user == null) {
 			return 0;
 		}
+		$contact_userID = array ();
+
+		foreach ($$user['user_relationships'] as $key => $value) {
+			$cursor = $this->db->Quoteuser->findOne(array ('user_mobile'=> $value));
+			if ($cursor != null) {
+				array_push($contact_userID, $cursor['_id']['$id']);
+
+			}
+		}
+		return $contact_userID;
 
 		try{
 			$res = $this->db->Quote->find (array(
-						'quote_ownerID'=> array ('$in'=> $user['user_relationships']),
+						'quote_ownerID'=> array ('$in'=> $contact_userID),
 						'quote_time'=>array('$lt'=>$time),
 						'quote_public' => '1'
 						))->sort (array ('quote_time'=> -1))->limit(30);
