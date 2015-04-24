@@ -134,7 +134,7 @@ class Quote extends YqBase {
 			return - 4;
 		}
 
-		try{}
+		try{
 			$quote = $this->db->Quote->findOne(array ('_id'=> new MongoId($quote_id)));
 			$likeNames = $quote['quote_likeNames'];
 			$likeMobiles = array();
