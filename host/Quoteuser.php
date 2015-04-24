@@ -306,7 +306,7 @@ class Quoteuser extends YqBase {
 				$nickname = $cursor['user_nickname'];
 				$nickname = $user_nickname;
 				$this->db->Quoteuser->save ($cursor);
-				return 1;
+				return json_encode($cursor);
 			}catch (Exception $e){
 				return -1;
 			}
