@@ -181,6 +181,7 @@ class Quoteuser extends YqBase {
 					}
 
 					$logger = $this->db->Quoteuser->findOne (array ('user_mobile' => $user_mobile));
+					$this->expireRegistercode ( $user_mobile, $code );
 					return json_encode($logger);
 			}else{
 				return $res;
@@ -190,6 +191,61 @@ class Quoteuser extends YqBase {
 			return $e;
 		}
 	}
+
+	function bindByMobile($user_id,$user_mobile,$code){
+			if ($this->yiquan_version == 0) {
+				return - 2;
+			}
+			if ($this->checkToken () == 0) {
+				return - 3;
+			}
+			if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
+				return - 4;
+			}
+			$res = $this->checkRegisterCode($user_mobile,$code);
+			if ($res == 1){
+				$user = $this->db->Quoteuser->findOne(array ('_id'=> new MongoId($user_id)));
+				if ($user != null) {
+					$user['user_mobile'] = $user_mobile;
+					$this->db->Quoteuser->save($user);
+					$this->expireRegistercode ( $user_mobile, $code );
+					return json_encode($user);
+				}else{
+					return -2;
+				}
+			}else{
+				return $res;
+			}
+
+	}
+
+		function unbindByMobile($user_id,$user_mobile,$code){
+			if ($this->yiquan_version == 0) {
+				return - 2;
+			}
+			if ($this->checkToken () == 0) {
+				return - 3;
+			}
+			if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
+				return - 4;
+			}
+			$res = $this->checkRegisterCode($user_mobile,$code);
+			if ($res == 1){
+				$user = $this->db->Quoteuser->findOne(array ('_id'=> new MongoId($user_id)));
+				if ($user != null) {
+					$user['user_mobile'] = '';
+					$this->db->Quoteuser->save($user);
+					$this->expireRegistercode ( $user_mobile, $code );
+					return json_encode($user);
+				}else{
+					return -2;
+				}
+			}else{
+				return $res;
+			}
+
+	}
+
 	
 	function loginByWeixin($open_id,$access_token,$refresh_token){
 			if ($this->yiquan_version == 0) {
