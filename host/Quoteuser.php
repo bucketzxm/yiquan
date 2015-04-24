@@ -106,6 +106,19 @@ class Quoteuser extends YqBase {
 			return - 1;
 		}
 	}
+
+	function checkWeixinExist($open_id){
+			if ($this->yiquan_version == 0) {
+				return - 2;
+			}
+			$ans = $this->db->Quoteuser->findOne (array ('weixin_openID' => $open_id));
+
+			if ($ans != null) {
+				return 1;
+			}else{
+				return 0;
+			}
+	}
 	
 	/*
 	 * made by wwq user_login指探测手機號碼是否已经存在 接受参数为 用户名 密码 返回值 登陆成功是1 用户名不存在是2 密码错误是3 异常是-1 注意 还会记录最近的登录时间哦 soap客户端使用方法 $soap = new SoapClient ( "http://yiquanhost.duapp.com/userclass.wsdl" ); $result2 = $soap->user_login ( 'wang','12344'); echo $result2 . "<br/>";
@@ -269,6 +282,47 @@ class Quoteuser extends YqBase {
 					return $e;
 				}
 
+			}
+
+	}
+
+	function bindingByWeixin($user_id,$open_id,$access_token,$refresh_token){
+			if ($this->yiquan_version == 0) {
+				return - 2;
+			}
+			if ($this->checkToken () == 0) {
+				return - 3;
+			}
+			if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
+				return - 4;
+			}
+			$user = $this->db->Quoteuser->findOne (array ('_id' => new MongoId($user_id)));
+			if ($user != null){
+				if ($this->checkWeixinExist == 1) {
+					return -3;
+					
+				}else{
+					$res = $this->getWXUserInfo($access_token,$open_id);
+					try {
+						$userInfo = json_decode($res,TRUE);
+						if ($userInfo['openid'] != null) {
+									$user['weixin_Avatar'] => $userInfo['headimgurl'];
+									$user['weixin_openID'] =>$open_id;
+									$user['weixin_accessToken'] =>$access_token;
+									$user['weixin_refreshToken'] =>$refresh_token;
+									$user['user_city'] => $userInfo['city'];
+									if ($user['user_smallavatar'] == '') {
+										$user['user_smallavatar'] = $userInfo['headimgurl'];
+									}
+									$this->db->Quoteuser->save ($user);
+									return json_encode($user);
+						}
+					}catch(Exception $e){
+						return $e;
+					}
+				}
+			}else{
+				return -2;
 			}
 
 	}
