@@ -303,8 +303,7 @@ class Quoteuser extends YqBase {
 		$cursor = $this->db->Quoteuser->findOne (array ('_id' => new MongoId($user_id)));
 		if ($cursor != null) {
 			try{
-				$nickname = $cursor['user_nickname'];
-				$nickname = $user_nickname;
+				$cursor['user_nickname'] = $user_nickname;
 				$this->db->Quoteuser->save ($cursor);
 				return json_encode($cursor);
 			}catch (Exception $e){
