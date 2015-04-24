@@ -306,11 +306,11 @@ class Quoteuser extends YqBase {
 					try {
 						$userInfo = json_decode($res,TRUE);
 						if ($userInfo['openid'] != null) {
-									$user['weixin_Avatar'] => $userInfo['headimgurl'];
-									$user['weixin_openID'] =>$open_id;
-									$user['weixin_accessToken'] =>$access_token;
-									$user['weixin_refreshToken'] =>$refresh_token;
-									$user['user_city'] => $userInfo['city'];
+									$user['weixin_Avatar'] = $userInfo['headimgurl'];
+									$user['weixin_openID'] =$open_id;
+									$user['weixin_accessToken'] =$access_token;
+									$user['weixin_refreshToken'] =$refresh_token;
+									$user['user_city'] = $userInfo['city'];
 									if ($user['user_smallavatar'] == '') {
 										$user['user_smallavatar'] = $userInfo['headimgurl'];
 									}
