@@ -194,6 +194,30 @@ class Quoteuser extends YqBase {
 		}
 	}
 
+
+	function uploadContacts($user_id,$user_contacts){
+			if ($this->yiquan_version == 0) {
+				return - 2;
+			}
+			if ($this->checkToken () == 0) {
+				return - 3;
+			}
+			if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
+				return - 4;
+			}
+			try {
+				$user = $this->db->Quoteuser->findOne (array ('_id'=> new MongoId($user_id));
+				if ($user != null) {
+					$friends = explode ( ',', $user_contacts );	
+					$user['user_relationships'] = $friends;
+					$this->db->Quoteuser->save ($user);
+					return 1;
+				}
+			}catch(Exception $e){
+				return $e;
+			}
+	}
+
 	function bindByMobile($user_id,$user_mobile,$code){
 			if ($this->yiquan_version == 0) {
 				return - 2;
