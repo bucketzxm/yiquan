@@ -121,6 +121,46 @@ class Quote extends YqBase {
 		}
 
 	}
+	function queryLikeNames($quote_id,$user_id){
+		if ($this->yiquan_version == 0) {
+			return - 2;
+		}
+		
+		if ($this->checkToken () == 0) {
+			return - 3;
+		}
+		
+		if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
+			return - 4;
+		}
+
+		try{}
+			$quote = $this->db->Quote->findOne(array ('_id'=> new MongoId($quote_id));
+			$likeNames = $quote['quote_likeNames'];
+			$likeMobiles = array();
+			foreach ($likeNames as $key => $value) {
+				$cursor = $this->db->Quoteuser->findOne(array ('_id'=>new MongoId($value)),array('user_nickname'=> 1,'user_mobile'=>1));
+				$res['user_nickname']=$cursor['user_nickname'];
+				$res['user_mobile'] = $cursor['user_mobile'];
+
+				array_push($likeMobiles, $res);
+			}
+			$user = $this->db->Quoteuser->findOne(array('_id'=>$user_id));
+			$contactMobiles = $user['user_relationships'];
+			$ans = array ();
+			foreach ($likeMobiles as $key => $value) {
+				if (in_array($value['user_mobile'],$contactMobiles)) {
+					array_push ($ans,$value['user_nickname']);
+				}
+			}
+			return json_encode($ans);
+		}catch (Exception $e){
+			return -1;
+		}
+
+
+	}
+
 
 	function queryMyQuotes ($user_id,$time){
 				if ($this->yiquan_version == 0) {
