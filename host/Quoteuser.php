@@ -287,6 +287,32 @@ class Quoteuser extends YqBase {
 		return $res;
 	} 
 
+	function changeNickname ($user_id,$user_nickname){
+		if ($this->yiquan_version == 0) {
+			return - 2;
+		}
+		
+		if ($this->checkToken () == 0) {
+			return - 3;
+		}
+		if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
+			return - 4;
+		}
+		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
+
+		$cursor = $this->db->Quoteuser->findOne (array ('_id' => new MongoId($user_id)));
+		if ($cursor != null) {
+			try{
+				$nickname = $cursor['user_nickname'];
+				$nickname = $user_nickname;
+				$this->db->Quoteuser->save ($cursor);
+				return 1;
+			}catch (Exception $e){
+				return -1;
+			}
+		}
+	}
+
 	/*
 	 * 注册设备
 	 */
