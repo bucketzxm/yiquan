@@ -230,7 +230,7 @@ class Quote extends YqBase {
 
 			}
 		}
-		return $contact_userID;
+		return json_encode($contact_userID);
 
 		try{
 			$res = $this->db->Quote->find (array(
