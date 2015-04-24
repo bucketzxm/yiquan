@@ -229,15 +229,15 @@ class Quote extends YqBase {
 		foreach ($user['user_relationships'] as $key => $value) {
 			$cursor = $this->db->Quoteuser->findOne(array ('user_mobile'=> $value));
 			if ($cursor != null) {
-				array_push($contact_userID, $cursor['_id']['$id']);
+				array_push($contact_userID, $cursor['_id']);
 
 			}
 		}
-		return json_encode($contact_userID);
+		//return json_encode($contact_userID);
 
 		try{
 			$res = $this->db->Quote->find (array(
-						'quote_ownerID'=> array ('$in'=> $contact_userID),
+						new MongoId('quote_ownerID') => array ('$in'=> $contact_userID),
 						'quote_time'=>array('$lt'=>$time),
 						'quote_public' => '1'
 						))->sort (array ('quote_time'=> -1))->limit(30);
@@ -251,7 +251,7 @@ class Quote extends YqBase {
 			}
 			return json_encode ($res_array);
 		}catch(Exception $e){
-			return -1;
+			return $e;
 		}
 
 	}
