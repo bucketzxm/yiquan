@@ -1615,84 +1615,48 @@ class Quoteuser extends YqBase {
 	/*
 	 * 根据用户名上传他的照片 照片需要用base64编码传送 原始大照片进入bcs 小照片进入user_pic字段 成功返回1 bcs出错返回3 没有这个用户返回2
 	 */
-	function updateUserpicByUsername($data, $user_name) {
+	function updateUserpicByUsername($data, $user_id) {
 		if ($this->yiquan_version == 0) {
 			return - 2;
 		}
 		if ($this->checkToken () == 0) {
 			return - 3;
 		}
-		if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $user_name) {
+		if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_name) {
 			return - 4;
 		}
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
 		
-		$row = $this->db->user->findOne ( array (
-				'user_name' => $user_name 
+		$row = $this->db->Quoteuser->findOne ( array (
+				'_id' => new MongoId($user_id)
 		) );
 		if ($row == null)
 			return 2;
-		if ($this->yiquan_version == '0.1.0') {
-			$rawpic = base64_decode ( $data );
-			// save big to bcs also
-			$bucket = 'yiquan';
-			$object = '/userPics/' . $row ['_id'];
-			// echo $object;
-			$baiduBCS = new BaiduBCS ( $this->ak, $this->sk, $this->bcs_host );
-			$response = $baiduBCS->create_object_by_content ( $bucket, $object, $rawpic );
-			if (! $response->isOK ()) {
-				return 3; // bcs error
-			}
-			
-			// save small to mongo db
-			$im = new Imagick ();
-			$im->readImageBlob ( $rawpic );
-			$geo = $im->getImageGeometry ();
-			$w = $geo ['width'];
-			$h = $geo ['height'];
-			$maxWidth = $maxHeight = 160;
-			$fitbyWidth = (($maxWidth / $w) < ($maxHeight / $h)) ? true : false;
-			
-			if ($fitbyWidth) {
-				$im->thumbnailImage ( $maxWidth, 0, false );
-			} else {
-				$im->thumbnailImage ( 0, $maxHeight, false );
-			}
-			$row ['user_pic'] = base64_encode ( $im );
-			
-			// save to qiniu
-			$rep = $this->QiniuUploadpic ( $row, $rawpic, $im );
-			if ($rep != 1) {
-				return $rep;
-			}
-			
-			$this->db->user->save ( $row );
-			return 1;
-		} else {
-			$rawpic = base64_decode ( $data );
-			
-			$im = new Imagick ();
-			$im->readImageBlob ( $rawpic );
-			$geo = $im->getImageGeometry ();
-			$w = $geo ['width'];
-			$h = $geo ['height'];
-			$maxWidth = $maxHeight = 160;
-			$fitbyWidth = (($maxWidth / $w) < ($maxHeight / $h)) ? true : false;
-			
-			if ($fitbyWidth) {
-				$im->thumbnailImage ( $maxWidth, 0, false );
-			} else {
-				$im->thumbnailImage ( 0, $maxHeight, false );
-			}
-			
-			// save to qiniu
-			$rep = $this->QiniuUploadpic ( $row, $rawpic, $im );
-			if ($rep != 1) {
-				return $rep;
-			}
-			$this->db->user->save ( $row );
-			return 1;
 		}
+			$rawpic = base64_decode ( $data );
+			
+			$im = new Imagick ();
+			$im->readImageBlob ( $rawpic );
+			$geo = $im->getImageGeometry ();
+			$w = $geo ['width'];
+			$h = $geo ['height'];
+			$maxWidth = $maxHeight = 160;
+			$fitbyWidth = (($maxWidth / $w) < ($maxHeight / $h)) ? true : false;
+			
+			if ($fitbyWidth) {
+				$im->thumbnailImage ( $maxWidth, 0, false );
+			} else {
+				$im->thumbnailImage ( 0, $maxHeight, false );
+			}
+			
+			// save to qiniu
+			$rep = $this->QiniuUploadpic ( $row, $rawpic, $im );
+			if ($rep != 1) {
+				return $rep;
+			}
+			$this->db->Quoteuser->save ( $row );
+			return 1;
+		
 	}
 	
 	/* 根据用户名返回原始图片 base64编码 */
