@@ -1630,32 +1630,32 @@ class Quoteuser extends YqBase {
 		$row = $this->db->Quoteuser->findOne ( array (
 				'_id' => new MongoId($user_id)
 		) );
-		if ($row == null)
+		if ($row == null){
 			return 2;
 		}
-			$rawpic = base64_decode ( $data );
-			
-			$im = new Imagick ();
-			$im->readImageBlob ( $rawpic );
-			$geo = $im->getImageGeometry ();
-			$w = $geo ['width'];
-			$h = $geo ['height'];
-			$maxWidth = $maxHeight = 160;
-			$fitbyWidth = (($maxWidth / $w) < ($maxHeight / $h)) ? true : false;
-			
-			if ($fitbyWidth) {
-				$im->thumbnailImage ( $maxWidth, 0, false );
-			} else {
-				$im->thumbnailImage ( 0, $maxHeight, false );
-			}
-			
-			// save to qiniu
-			$rep = $this->QiniuUploadpic ( $row, $rawpic, $im );
-			if ($rep != 1) {
-				return $rep;
-			}
-			$this->db->Quoteuser->save ( $row );
-			return 1;
+		$rawpic = base64_decode ( $data );
+		
+		$im = new Imagick ();
+		$im->readImageBlob ( $rawpic );
+		$geo = $im->getImageGeometry ();
+		$w = $geo ['width'];
+		$h = $geo ['height'];
+		$maxWidth = $maxHeight = 160;
+		$fitbyWidth = (($maxWidth / $w) < ($maxHeight / $h)) ? true : false;
+		
+		if ($fitbyWidth) {
+			$im->thumbnailImage ( $maxWidth, 0, false );
+		} else {
+			$im->thumbnailImage ( 0, $maxHeight, false );
+		}
+		
+		// save to qiniu
+		$rep = $this->QiniuUploadpic ( $row, $rawpic, $im );
+		if ($rep != 1) {
+			return $rep;
+		}
+		$this->db->Quoteuser->save ( $row );
+		return 1;
 		
 	}
 	
