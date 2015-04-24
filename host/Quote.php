@@ -145,7 +145,7 @@ class Quote extends YqBase {
 
 				array_push($likeMobiles, $res);
 			}
-			$user = $this->db->Quoteuser->findOne(array('_id'=>$user_id));
+			$user = $this->db->Quoteuser->findOne(array('_id'=>new MongoId($user_id)));
 			$contactMobiles = $user['user_relationships'];
 			$ans = array ();
 			foreach ($likeMobiles as $key => $value) {
