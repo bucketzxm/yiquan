@@ -114,6 +114,9 @@ class Quote extends YqBase {
 			}else{
 				array_push($user['user_books'], $quote_remark);
 			}
+			if（$user['user_nickname'] == ''）{
+				$user['user_nickname'] = $quote_signature;
+			}
 			$this->db->Quoteuser->save ($user);
 			return $bigAvatar;
 		}catch(Exception $e){
