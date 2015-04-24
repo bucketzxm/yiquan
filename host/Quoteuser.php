@@ -206,7 +206,7 @@ class Quoteuser extends YqBase {
 				return - 4;
 			}
 			try {
-				$user = $this->db->Quoteuser->findOne (array ('_id'=> new MongoId($user_id));
+				$user = $this->db->Quoteuser->findOne (array ('_id'=> new MongoId($user_id)));
 				if ($user != null) {
 					$friends = explode ( ',', $user_contacts );	
 					$user['user_relationships'] = $friends;
