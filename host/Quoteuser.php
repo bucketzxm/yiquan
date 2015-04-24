@@ -83,7 +83,23 @@ class Quoteuser extends YqBase {
 		}
 	}
 
-	
+	function reloadUser ($user_id){
+			if ($this->yiquan_version == 0) {
+				return - 2;
+			}
+			if ($this->checkToken () == 0) {
+				return - 3;
+			}
+			if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
+				return - 4;
+			}
+			$user = $this->db->Quoteuser->findOne (array ('_id'=>new MongoId($user_id)));
+			if ($user != null) {
+				return json_encode($user);
+			}else{
+				return -1;
+			}
+	}
 	/*
 	 * made by wwq mobile_exist指探测手機號碼是否已经存在 接受参数为 手机号 返回值 存在是1 不存在是0 异常是-1 soap客户端使用方法 $soap = new SoapClient ( "http://yiquanhost.duapp.com/userclass.wsdl" ); $result2 = $soap->mobile_exist ( '123456789'); echo $result2 . "<br/>";
 	 */
