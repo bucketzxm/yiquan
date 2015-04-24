@@ -238,7 +238,7 @@ class Quote extends YqBase {
 
 		try{
 			$res = $this->db->Quote->find (array(
-						new MongoId('quote_ownerID') => array ('$in'=> $contact_userID),
+						'quote_ownerID' => array ('$in'=> $contact_userID),
 						'quote_time'=>array('$lt'=>$time),
 						'quote_public' => '1'
 						))->sort (array ('quote_time'=> -1))->limit(30);
