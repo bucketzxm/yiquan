@@ -221,12 +221,15 @@ class Quote extends YqBase {
 		if ($user == null) {
 			return 0;
 		}
+		if (count($user['user_relationships']) == 0 ) {
+			return 10;
+		}
 		$contact_userID = array ();
 
 		foreach ($$user['user_relationships'] as $key => $value) {
 			$cursor = $this->db->Quoteuser->findOne(array ('user_mobile'=> $value));
 			if ($cursor != null) {
-				array_push($contact_userID, $cursor['_id']['$id']);
+				array_push($contact_userID, $cursor['_id']);
 
 			}
 		}
