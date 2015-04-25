@@ -23,6 +23,8 @@ access_url ( 'http://yiquanhost.oneto-tech.com/Reply_server.php?reb' );
 
 access_url ( 'http://yiquanhost.oneto-tech.com/User_server.php?reb' );
 
+access_url ( 'http://yiquanhost.oneto-tech.com/Quotemessage_server.php?reb' );
+
 access_url ( 'http://yiquanhost.oneto-tech.com/Quoteuser_server.php?reb' );
 
 access_url ( 'http://yiquanhost.oneto-tech.com/Quote_server.php?reb' );
