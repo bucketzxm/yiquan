@@ -66,7 +66,7 @@ function addQuoteMessage($message_senderId, $message_receiverId, $message_type, 
 				'message_type' => $message_type,
 				'message_title' => $message_title,
 				'message_postTime' => $message_postTime,
-				'message_topicID' => $message_topicID
+				'message_quoteID' => $message_quoteID
 		);
 
 		$this->db->Quotemessage->save($data);
