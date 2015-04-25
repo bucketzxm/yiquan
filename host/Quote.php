@@ -316,7 +316,15 @@ class Quote extends YqBase {
 		if ($user == null) {
 			return 0;
 		}
-		$myPeople = $user['user_relationships'];
+		$myMobiles = $user['user_relationships'];
+		$myPeople = array ();
+		foreach ($myMobiles as $key => $value) {
+			$contact = $this->db->Quoteuser->findOne(array ('user_mobile'=>$value));
+			if ($contact != null){
+				$contactID = (string) $contact['_id'];
+				array_push ($myPeople,$contactID);
+			}
+		}
 		array_push ($myPeople,$user_id);
 		try{
 			$res = $this->db->Quote->find (array(
