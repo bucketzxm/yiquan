@@ -177,12 +177,13 @@ class Quoteuser extends YqBase {
 							'user_mobile' => $user_mobile
 					) );
 
+					$userID = (string)$ans['_id'];
 					$gd = makeGuid ();
-					setcookie ( "user_id", $ans['_id'], time () + 3600 * 2400, '/' );
+					setcookie ( "user_id", $userID, time () + 3600 * 2400, '/' );
 					setcookie ( "user_token", $gd, time () + 3600 * 2400, '/' );
 
 					// $_SESSION ['user_token'] = $gd;
-					$userID = (string)$ans['_id'];
+					
 
 					$rt = $this->db->usertoken->findOne ( array (
 							'user_id' => $userID
