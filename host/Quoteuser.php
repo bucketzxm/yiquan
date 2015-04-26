@@ -87,7 +87,7 @@ class Quoteuser extends YqBase {
 			if ($this->yiquan_version == 0) {
 				return - 2;
 			}
-			if ($this->checkQuoteToken () == 0) {
+			if ($this->checkQuoteToken () != 1) {
 				return - 3;
 			}
 			if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
@@ -218,7 +218,7 @@ class Quoteuser extends YqBase {
 			if ($this->yiquan_version == 0) {
 				return - 2;
 			}
-			if ($this->checkQuoteToken () == 0) {
+			if ($this->checkQuoteToken () != 1) {
 				return - 3;
 			}
 			if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
@@ -241,7 +241,7 @@ class Quoteuser extends YqBase {
 			if ($this->yiquan_version == 0) {
 				return - 2;
 			}
-			if ($this->checkQuoteToken () == 0) {
+			if ($this->checkQuoteToken () != 1) {
 				return - 3;
 			}
 			if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
@@ -271,7 +271,7 @@ class Quoteuser extends YqBase {
 			if ($this->yiquan_version == 0) {
 				return - 2;
 			}
-			if ($this->checkQuoteToken () == 0) {
+			if ($this->checkQuoteToken () != 1) {
 				return - 3;
 			}
 			if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
@@ -394,7 +394,7 @@ class Quoteuser extends YqBase {
 			if ($this->yiquan_version == 0) {
 				return - 2;
 			}
-			if ($this->checkQuoteToken () == 0) {
+			if ($this->checkQuoteToken () != 1) {
 				return - 3;
 			}
 			if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
@@ -450,7 +450,7 @@ class Quoteuser extends YqBase {
 			return - 2;
 		}
 		
-		if ($this->checkQuoteToken () == 0) {
+		if ($this->checkQuoteToken () != 1) {
 			return - 3;
 		}
 		if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
@@ -478,7 +478,7 @@ class Quoteuser extends YqBase {
 			return - 2;
 		}
 		
-		if ($this->checkQuoteToken () == 0) {
+		if ($this->checkQuoteToken () != 1) {
 			return - 3;
 		}
 		if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
@@ -517,7 +517,7 @@ class Quoteuser extends YqBase {
 			return - 2;
 		}
 		/*
-		 * if ($this->checkQuoteToken () == 0) { return - 3; }
+		 * if ($this->checkQuoteToken () != 1) { return - 3; }
 		 */
 		if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
 			return - 4;
@@ -550,7 +550,7 @@ class Quoteuser extends YqBase {
 			return - 2;
 		}
 		
-		if ($this->checkQuoteToken () == 0) {
+		if ($this->checkQuoteToken () != 1) {
 			return - 3;
 		}
 		
@@ -594,7 +594,7 @@ class Quoteuser extends YqBase {
 			return - 2;
 		}
 		
-		if ($this->checkQuoteToken () == 0) {
+		if ($this->checkQuoteToken () != 1) {
 			return - 3;
 		}
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
@@ -609,7 +609,7 @@ class Quoteuser extends YqBase {
 			return - 2;
 		}
 		
-		if ($this->checkQuoteToken () == 0) {
+		if ($this->checkQuoteToken () != 1) {
 			return - 3;
 		}
 		
@@ -633,7 +633,7 @@ class Quoteuser extends YqBase {
 			return - 2;
 		}
 		
-		if ($this->checkQuoteToken () == 0) {
+		if ($this->checkQuoteToken () != 1) {
 			return - 3;
 		}
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
@@ -679,7 +679,7 @@ class Quoteuser extends YqBase {
 			return - 2;
 		}
 		
-		if ($this->checkQuoteToken () == 0) {
+		if ($this->checkQuoteToken () != 1) {
 			return - 3;
 		}
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
@@ -726,7 +726,7 @@ class Quoteuser extends YqBase {
 			return - 2;
 		}
 		
-		if ($this->checkQuoteToken () == 0) {
+		if ($this->checkQuoteToken () != 1) {
 			return - 3;
 		}
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
@@ -873,7 +873,7 @@ class Quoteuser extends YqBase {
 		if ($this->yiquan_version == 0) {
 			return - 2;
 		}
-		if ($this->checkQuoteToken () == 0) {
+		if ($this->checkQuoteToken () != 1) {
 			return - 3;
 		}
 		if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $user_nameB) {
@@ -911,7 +911,7 @@ class Quoteuser extends YqBase {
 		if ($this->yiquan_version == 0) {
 			return - 2;
 		}
-		if ($this->checkQuoteToken () == 0) {
+		if ($this->checkQuoteToken () != 1) {
 			return - 3;
 		}
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
@@ -946,7 +946,7 @@ class Quoteuser extends YqBase {
 		if ($this->yiquan_version == 0) {
 			return - 2;
 		}
-		if ($this->checkQuoteToken () == 0) {
+		if ($this->checkQuoteToken () != 1) {
 			return - 3;
 		}
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
@@ -1016,7 +1016,7 @@ class Quoteuser extends YqBase {
 		if ($this->yiquan_version == 0) {
 			return - 2;
 		}
-		if ($this->checkQuoteToken () == 0) {
+		if ($this->checkQuoteToken () != 1) {
 			return - 3;
 		}
 		
@@ -1056,7 +1056,7 @@ class Quoteuser extends YqBase {
 		if ($this->yiquan_version == 0) {
 			return - 2;
 		}
-		if ($this->checkQuoteToken () == 0) {
+		if ($this->checkQuoteToken () != 1) {
 			return - 3;
 		}
 		if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $user_name) {
@@ -1101,7 +1101,7 @@ class Quoteuser extends YqBase {
 		if ($this->yiquan_version == 0) {
 			return - 2;
 		}
-		if ($this->checkQuoteToken () == 0) {
+		if ($this->checkQuoteToken () != 1) {
 			return - 3;
 		}
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
@@ -1163,7 +1163,7 @@ class Quoteuser extends YqBase {
 			if ($this->yiquan_version == 0) {
 				return - 2;
 			}
-			if ($this->checkQuoteToken () == 0) {
+			if ($this->checkQuoteToken () != 1) {
 				return - 3;
 			}
 			if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $user_name) {
@@ -1337,7 +1337,7 @@ class Quoteuser extends YqBase {
 		if ($this->yiquan_version == 0) {
 			return - 2;
 		}
-		if ($this->checkQuoteToken () == 0) {
+		if ($this->checkQuoteToken () != 1) {
 			return - 3;
 		}
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
@@ -1367,7 +1367,7 @@ class Quoteuser extends YqBase {
 		if ($this->yiquan_version == 0) {
 			return - 2;
 		}
-		if ($this->checkQuoteToken () == 0) {
+		if ($this->checkQuoteToken () != 1) {
 			return - 3;
 		}
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
@@ -1381,7 +1381,7 @@ class Quoteuser extends YqBase {
 		if ($this->yiquan_version == 0) {
 			return - 2;
 		}
-		if ($this->checkQuoteToken () == 0) {
+		if ($this->checkQuoteToken () != 1) {
 			return - 3;
 		}
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
@@ -1411,7 +1411,7 @@ class Quoteuser extends YqBase {
 		if ($this->yiquan_version == 0) {
 			return - 2;
 		}
-		if ($this->checkQuoteToken () == 0) {
+		if ($this->checkQuoteToken () != 1) {
 			return - 3;
 		}
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
@@ -1425,7 +1425,7 @@ class Quoteuser extends YqBase {
 		if ($this->yiquan_version == 0) {
 			return - 2;
 		}
-		if ($this->checkQuoteToken () == 0) {
+		if ($this->checkQuoteToken () != 1) {
 			return - 3;
 		}
 		if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $user_name) {
@@ -1463,7 +1463,7 @@ class Quoteuser extends YqBase {
         if ($this->yiquan_version == 0) {
             return - 2;
         }
-        if ($this->checkQuoteToken () == 0) {
+        if ($this->checkQuoteToken () != 1) {
             return - 3;
         }
         if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $user_name) {
@@ -1497,7 +1497,7 @@ class Quoteuser extends YqBase {
 		if ($this->yiquan_version == 0) {
 			return - 2;
 		}
-		if ($this->checkQuoteToken () == 0) {
+		if ($this->checkQuoteToken () != 1) {
 			return - 3;
 		}
 		if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $user_name) {
@@ -1532,7 +1532,7 @@ class Quoteuser extends YqBase {
 		if ($this->yiquan_version == 0) {
 			return - 2;
 		}
-		if ($this->checkQuoteToken () == 0) {
+		if ($this->checkQuoteToken () != 1) {
 			return - 3;
 		}
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
@@ -1638,7 +1638,7 @@ class Quoteuser extends YqBase {
 		if ($this->yiquan_version == 0) {
 			return - 2;
 		}
-		if ($this->checkQuoteToken () == 0) {
+		if ($this->checkQuoteToken () != 1) {
 			return - 3;
 		}
 		if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
@@ -1683,7 +1683,7 @@ class Quoteuser extends YqBase {
 		if ($this->yiquan_version == 0) {
 			return - 2;
 		}
-		if ($this->checkQuoteToken () == 0) {
+		if ($this->checkQuoteToken () != 1) {
 			return - 3;
 		}
 		if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $user_name) {
@@ -1719,7 +1719,7 @@ class Quoteuser extends YqBase {
 		if ($this->yiquan_version == 0) {
 			return - 2;
 		}
-		if ($this->checkQuoteToken () == 0) {
+		if ($this->checkQuoteToken () != 1) {
 			return - 3;
 		}
 		if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $user_nameB) {
@@ -1774,7 +1774,7 @@ class Quoteuser extends YqBase {
 		if ($this->yiquan_version == 0) {
 			return - 2;
 		}
-		if ($this->checkQuoteToken () == 0) {
+		if ($this->checkQuoteToken () != 1) {
 			return - 3;
 		}
 		if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $user_name) {
@@ -1794,7 +1794,7 @@ class Quoteuser extends YqBase {
 		if ($this->yiquan_version == 0) {
 			return - 2;
 		}
-		if ($this->checkQuoteToken () == 0) {
+		if ($this->checkQuoteToken () != 1) {
 			return - 3;
 		}
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
@@ -1822,7 +1822,7 @@ class Quoteuser extends YqBase {
 		if ($this->yiquan_version == 0) {
 			return - 2;
 		}
-		if ($this->checkQuoteToken () == 0) {
+		if ($this->checkQuoteToken () != 1) {
 			return - 3;
 		}
 		if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $user_name) {
@@ -1864,7 +1864,7 @@ class Quoteuser extends YqBase {
 		if ($this->yiquan_version == 0) {
 			return - 2;
 		}
-		if ($this->checkQuoteToken () == 0) {
+		if ($this->checkQuoteToken () != 1) {
 			return - 3;
 		}
 		if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $user_name) {
@@ -1906,7 +1906,7 @@ class Quoteuser extends YqBase {
 		if ($this->yiquan_version == 0) {
 			return - 2;
 		}
-		if ($this->checkQuoteToken () == 0) {
+		if ($this->checkQuoteToken () != 1) {
 			return - 3;
 		}
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
@@ -1928,7 +1928,7 @@ class Quoteuser extends YqBase {
 		if ($this->yiquan_version == 0) {
 			return - 2;
 		}
-		if ($this->checkQuoteToken () == 0) {
+		if ($this->checkQuoteToken () != 1) {
 			return - 3;
 		}
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
@@ -1948,7 +1948,7 @@ class Quoteuser extends YqBase {
 		if ($this->yiquan_version == 0) {
 			return - 2;
 		}
-		if ($this->checkQuoteToken () == 0) {
+		if ($this->checkQuoteToken () != 1) {
 			return - 3;
 		}
 		if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $invitation_senderName) {
@@ -1976,7 +1976,7 @@ class Quoteuser extends YqBase {
 	}
 	function checkInvitation($invcode) {
 		/*
-		 * if ($this->yiquan_version == 0) { return - 2; } if ($this->checkQuoteToken () == 0) { return - 3; } //For use of invitation webview on wechat
+		 * if ($this->yiquan_version == 0) { return - 2; } if ($this->checkQuoteToken () != 1) { return - 3; } //For use of invitation webview on wechat
 		 */
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
 		$row = $this->db->invcode->findOne ( array (
@@ -1990,7 +1990,7 @@ class Quoteuser extends YqBase {
 	}
 	function expireInvitation($invcode) {
 		/*
-		 * if ($this->yiquan_version == 0) { return - 2; } if ($this->checkQuoteToken () == 0) { return - 3; } //For use of invitation webview on wechat
+		 * if ($this->yiquan_version == 0) { return - 2; } if ($this->checkQuoteToken () != 1) { return - 3; } //For use of invitation webview on wechat
 		 */
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
 		$row = $this->db->invcode->findOne ( array (
@@ -2205,7 +2205,7 @@ class Quoteuser extends YqBase {
 			if ($this->yiquan_version == 0) {
 				return - 2;
 			}
-			if ($this->checkQuoteToken () == 0) {
+			if ($this->checkQuoteToken () != 1) {
 				return - 3;
 			}
 			$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
@@ -2225,7 +2225,7 @@ class Quoteuser extends YqBase {
 			if ($this->yiquan_version == 0) {
 				return - 2;
 			}
-			if ($this->checkQuoteToken () == 0) {
+			if ($this->checkQuoteToken () != 1) {
 				return - 3;
 			}
 			$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );

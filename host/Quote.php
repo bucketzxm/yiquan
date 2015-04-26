@@ -48,7 +48,7 @@ class Quote extends YqBase {
 			return - 2;
 		}
 		
-		if ($this->checkToken () == 0) {
+		if ($this->checkQuoteToken () != 1) {
 			return - 3;
 		}
 		
@@ -128,7 +128,7 @@ class Quote extends YqBase {
 			return - 2;
 		}
 		
-		if ($this->checkToken () == 0) {
+		if ($this->checkQuoteToken () != 1) {
 			return - 3;
 		}
 		
@@ -169,7 +169,7 @@ class Quote extends YqBase {
 			return - 2;
 		}
 		
-		if ($this->checkToken () == 0) {
+		if ($this->checkQuoteToken () != 1) {
 			return - 3;
 		}
 		
@@ -209,7 +209,7 @@ class Quote extends YqBase {
 			return - 2;
 		}
 		
-		if ($this->checkToken () == 0) {
+		if ($this->checkQuoteToken () != 1) {
 			return - 3;
 		}
 		
@@ -249,7 +249,7 @@ class Quote extends YqBase {
 			return - 2;
 		}
 		
-		if ($this->checkToken () == 0) {
+		if ($this->checkQuoteToken () != 1) {
 			return - 3;
 		}
 		
@@ -306,7 +306,7 @@ class Quote extends YqBase {
 			return - 2;
 		}
 		
-		if ($this->checkToken () == 0) {
+		if ($this->checkQuoteToken () != 1) {
 			return - 3;
 		}
 		
@@ -367,7 +367,7 @@ class Quote extends YqBase {
 			return - 2;
 		}
 		
-		if ($this->checkToken () == 0) {
+		if ($this->checkQuoteToken () != 1) {
 			return - 3;
 		}
 		
