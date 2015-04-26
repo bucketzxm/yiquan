@@ -97,14 +97,24 @@ class YqBase {
 	function checkToken() {
 		// return 1;
 		try {
-			if ((isset ( $_COOKIE ['user_id'] ) || isset ( $_COOKIE['user'])) && isset ( $_COOKIE ['user_token'] )) { // && $_COOKIE ['user'] == $_SESSION ['user'] // && isset ( $_SESSION ['user'] )
+			if (isset ( $_COOKIE ['user'] ) && isset ( $_COOKIE ['user_token'] )) { // && $_COOKIE ['user'] == $_SESSION ['user'] // && isset ( $_SESSION ['user'] )
 				
-				$rdt = $this->getRedis ( $_COOKIE ['user_id'] );
 				$rdt1 = $this->getRedis ( $_COOKIE ['user'] );
-				if ($rdt == false && $rdt1 == false) {
+				if ($rdt1 == false) {
 					return 2;
 				} else {
-					if ($rdt == $_COOKIE ['user_token'] || $rdt1 == $_COOKIE ['user_token']) {
+					if ($rdt1 == $_COOKIE ['user_token']) {
+						return 1;
+					} else {
+						return 3;
+					}
+				}
+			} else if (isset ( $_COOKIE ['user_id'] ) && isset ( $_COOKIE ['user_token'] )) {
+				$rdt1 = $this->getRedis ( $_COOKIE ['user_id'] );
+				if ($rdt1 == false) {
+					return 2;
+				} else {
+					if ($rdt1 == $_COOKIE ['user_token']) {
 						return 1;
 					} else {
 						return 3;
