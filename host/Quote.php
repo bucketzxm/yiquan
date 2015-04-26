@@ -103,7 +103,8 @@ class Quote extends YqBase {
 				"quote_img" => $bigAvatar,
 				"quote_imgName" => $avatarName,
 				"quote_group" => 'general',
-				"quote_detailURL" => $quote_detailURL
+				"quote_detailURL" => $quote_detailURL,
+				"quote_readCount" => 0
 		);
 
 		try {
@@ -288,6 +289,8 @@ class Quote extends YqBase {
 				$user_info = $this->db->Quoteuser->findOne (array('_id'=> new MongoId($value['quote_ownerID'])),array('user_nickname'=> 1, 'user_smallavatar'=>1));
 				$value['user_nickname'] = $user_info['user_nickname'];
 				$value['user_pic'] =$user_info['user_smallavatar'];
+				$value['quote_readCount'] ++;
+				$this->db->Quote->save($value);
 				array_push ($res_array, $value);
 
 			}
@@ -346,6 +349,8 @@ class Quote extends YqBase {
 					);
 				$value['user_nickname'] = $user_info['user_nickname'];
 				$value['user_pic'] =$user_info['user_smallavatar'];
+				$value['quote_readCount'] ++;
+				$this->db->Quote->save($value);
 				array_push ($res_array, $value);
 
 			}
