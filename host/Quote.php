@@ -217,6 +217,10 @@ class Quote extends YqBase {
 			return - 4;
 		}
 
+		if ($quote_group == ""){
+			return ($this->queryMyQuotes($user_id,$time));
+		}
+
 		$time = (int)$time;
 
 		$user = $this->db->Quoteuser->findOne (array ('_id' => new MongoId ($user_id)));
