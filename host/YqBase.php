@@ -119,12 +119,12 @@ class YqBase {
 	function checkQuoteToken() {
 		// return 1;
 		try {
-			if (isset ( $_COOKIE ['user_id'] ) && isset ( $_COOKIE ['user_token'] )) {
+			if (isset ( $_COOKIE ['user_id'] ) && isset ( $_COOKIE ['quser_token'] )) {
 				$rdt1 = $this->getRedis ( $_COOKIE ['user_id'] );
 				if ($rdt1 == false) {
 					return 2;
 				} else {
-					if ($rdt1 == $_COOKIE ['user_token']) {
+					if ($rdt1 == $_COOKIE ['quser_token']) {
 						return 1;
 					} else {
 						return 3;

@@ -180,7 +180,7 @@ class Quoteuser extends YqBase {
 					$userID = (string)$ans['_id'];
 					$gd = makeGuid ();
 					setcookie ( "user_id", $userID, time () + 3600 * 2400, '/' );
-					setcookie ( "user_token", $gd, time () + 3600 * 2400, '/' );
+					setcookie ( "quser_token", $gd, time () + 3600 * 2400, '/' );
 
 					// $_SESSION ['user_token'] = $gd;
 					
@@ -194,7 +194,7 @@ class Quoteuser extends YqBase {
 						);
 					}
 					
-					$rt ['user_token'] = $gd;
+					$rt ['quser_token'] = $gd;
 					$this->db->usertoken->save ( $rt );
 					
 					if ($this->setRedis ( $userID, $gd ) == false) {
