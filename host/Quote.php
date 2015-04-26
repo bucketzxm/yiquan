@@ -43,7 +43,7 @@ class Quote extends YqBase {
 	// 类型：number, string, string, string, string(with '.')
 	// 如果执行成功，返回1，否则，返回0
 	
-	function addQuote($user_id,$quote_img,$quote_title,$quote_signature,$quote_remark,$quote_public){
+	function addQuote($user_id,$quote_img,$quote_title,$quote_signature,$quote_remark,$quote_public,$quote_detailURL){
 		if ($this->yiquan_version == 0) {
 			return - 2;
 		}
@@ -102,7 +102,8 @@ class Quote extends YqBase {
 				"quote_likeCount" => 0,
 				"quote_img" => $bigAvatar,
 				"quote_imgName" => $avatarName,
-				"quote_group" => 'general'
+				"quote_group" => 'general',
+				"quote_detailURL" => $quote_detailURL
 		);
 
 		try {
