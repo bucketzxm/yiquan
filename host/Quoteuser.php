@@ -182,19 +182,21 @@ class Quoteuser extends YqBase {
 					setcookie ( "user_token", $gd, time () + 3600 * 2400, '/' );
 
 					// $_SESSION ['user_token'] = $gd;
+					$userID = (string)$ans['_id'];
+
 					$rt = $this->db->usertoken->findOne ( array (
-							'user_id' => $ans['_id']
+							'user_id' => $userID
 					) );
 					if ($rt == null) {
 						$rt = array (
-								'user_id' => $ans['_id'] 
+								'user_id' => $userID 
 						);
 					}
 					
 					$rt ['user_token'] = $gd;
 					$this->db->usertoken->save ( $rt );
 					
-					if ($this->setRedis ( $ans['_id'], $gd ) == false) {
+					if ($this->setRedis ( $userID, $gd ) == false) {
 						return - 5; // redis wrong
 					}
 
