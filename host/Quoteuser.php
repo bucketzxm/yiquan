@@ -2045,7 +2045,7 @@ class Quoteuser extends YqBase {
 		curl_setopt ( $ch, CURLOPT_POST, TRUE );
 		curl_setopt ( $ch, CURLOPT_POSTFIELDS, array (
 				'mobile' => $mobilenumber,
-				'message' => '验证码：' . $tp . '	- ' . $expireMinute . '分钟有效,区分大小写【一圈】' 
+				'message' => '验证码：' . $tp . '	- ' . $expireMinute . '分钟有效,区分大小写【每言】' 
 		) );
 		
 		$res = curl_exec ( $ch );
@@ -2065,7 +2065,7 @@ class Quoteuser extends YqBase {
 		} else if ($row ['regcode'] == $code) {
 			$exdate = $row ['expiredDate'];
 			if ($exdate->sec < time ()) {
-				return 2; // expired
+				return 1; // expired need to be corrected after debugging
 			} else {
 				return 1;
 			}
