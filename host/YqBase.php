@@ -109,7 +109,17 @@ class YqBase {
 						return 3;
 					}
 				}
-			} else if (isset ( $_COOKIE ['user_id'] ) && isset ( $_COOKIE ['user_token'] )) {
+			} else {
+				return 4;
+			}
+		} catch ( Exception $e ) {
+			return 5;
+		}
+	}
+	function checkQuoteToken() {
+		// return 1;
+		try {
+			if (isset ( $_COOKIE ['user_id'] ) && isset ( $_COOKIE ['user_token'] )) {
 				$rdt1 = $this->getRedis ( $_COOKIE ['user_id'] );
 				if ($rdt1 == false) {
 					return 2;
