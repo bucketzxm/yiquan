@@ -389,6 +389,18 @@ class Quote extends YqBase {
 		}
 
 	}
+
+	function updateHotness (){
+		try{
+			$res = $this->db->Quote->find(array('quote_hotness'=>array('$gt'=> 0.1 )));
+			foreach ($res as $key => $value){
+				$value['quote_hotness'] = $value['quote_likeCount'] + 100 * exp(-0.05 * ((time() - $value['quote_time'])/3600)) ;
+			}
+			$this->db->Quote->save($res);
+		}catch(Exception $e){
+			return -1;
+		}
+	}
 	
 
 
