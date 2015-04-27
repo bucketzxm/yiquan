@@ -403,6 +403,67 @@ class Quote extends YqBase {
 			return -1;
 		}
 	}
+
+	function querySquareHotTopic($hotness){
+		if ($this->yiquan_version == 0) {
+			return - 2;
+		}
+		
+		if ($this->checkQuoteToken () != 1) {
+			return - 3;
+		}
+		
+		if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
+			return - 4;
+		}
+
+		$this->updateHotness();
+
+		$hotness = (double)$hotness;
+
+		$user = $this->db->Quoteuser->findOne (array ('_id' => new MongoId ($user_id)));
+		if ($user == null) {
+			return 0;
+		}
+		$myMobiles = $user['user_relationships'];
+		$myPeople = array ();
+		foreach ($myMobiles as $key => $value) {
+			$contact = $this->db->Quoteuser->findOne(array ('user_mobile'=>$value));
+			if ($contact != null){
+				$contactID = (string) $contact['_id'];
+				array_push ($myPeople,$contactID);
+			}
+		}
+		array_push ($myPeople,$user_id);
+		try{
+			$res = $this->db->Quote->find (array(
+						'quote_ownerID'=> array ('$nin'=> $myPeople),
+						'quote_hotness'=>array('$lt'=>$hotness),
+						'quote_public' => '1'
+						))->sort (array ('quote_hotness'=> -1))->limit(30);
+			$res_array = array ();
+			foreach ($res as $key => $value) {
+				$user_info = $this->db->Quoteuser->findOne (
+					array(
+						'_id'=> new MongoId ( $value['quote_ownerID'] )
+						),
+					array(
+						'user_nickname'=> 1,
+						 'user_smallavatar'=>1
+						 )
+					);
+				$value['user_nickname'] = $user_info['user_nickname'];
+				$value['user_pic'] =$user_info['user_smallavatar'];
+				$value['quote_readCount'] ++;
+				$this->db->Quote->save($value);
+				array_push ($res_array, $value);
+
+			}
+			return json_encode ($res_array);
+		}catch(Exception $e){
+			return -1;
+		}
+	}
 	
 
 
