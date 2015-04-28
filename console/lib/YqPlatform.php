@@ -239,6 +239,16 @@ class YqPlatform extends YqBase {
 			
 			$this->db->message->save ( $doc );
 		}
+
+		//========Quote
+		$cus = $this->db->Quote->find();
+		while ($cus->hasNext()){
+			$doc = $cus->getNext();
+			if (! isset ($doc ['quote_editor'])){
+				$doc['quote_editor'] = "0";
+			}
+			$this->db->Quote->save($doc);
+		}
 		
 		return 1;
 	}
