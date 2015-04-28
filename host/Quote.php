@@ -338,7 +338,8 @@ class Quote extends YqBase {
 			$res = $this->db->Quote->find (array(
 						'quote_ownerID'=> array ('$nin'=> $myPeople),
 						'quote_time'=>array('$lt'=>$time),
-						'quote_public' => '1'
+						'quote_public' => '1',
+						'quote_editor' => '1'
 						))->sort (array ('quote_time'=> -1))->limit(30);
 			$res_array = array ();
 			foreach ($res as $key => $value) {
