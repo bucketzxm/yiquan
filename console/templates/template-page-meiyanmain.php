@@ -42,6 +42,7 @@ if (! empty ( $GLOBALS ['TEMPLATE'] ['extra_head'] )) {
 					<li><a href="yqSystemtopicAdmin.php">系统话题管理</a></li>
 					<li><a href="yqSystemMessageAdmin.php">系统消息管理</a></li>
 					<li><a href="login.php?logout">退出</a></li>
+
 				</ul>
 
 			</div>

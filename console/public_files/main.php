@@ -52,7 +52,7 @@ ob_start();
 <div class="jumbotron">
       <div class="container">
         <h1>这里是一圈后台！</h1>
-        <p><a class="btn btn-primary btn-lg" role="button">关于作者 »</a></p>
+        <p><a class="btn btn-primary btn-lg" role="button" href="meiyanmain.php">每言后台</a></p>
       </div>
     </div>
 
