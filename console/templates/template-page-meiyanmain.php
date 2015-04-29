@@ -31,14 +31,14 @@ if (! empty ( $GLOBALS ['TEMPLATE'] ['extra_head'] )) {
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#">一圈后台</a>
+				<a class="navbar-brand" href="#">每言后台</a>
 			</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
 					<li class="active"><a href="main.php">主页</a></li>
 					<li><a href="yqPlatformAdmin.php">平台参数管理</a></li>
 					<li><a href="yquserAdmin.php">用户管理</a></li>
-					<li><a href="yqLabelAdmin.php">标签管理</a></li>
+					<li><a href="myQuoteAdmin.php">每言管理</a></li>
 					<li><a href="yqSystemtopicAdmin.php">系统话题管理</a></li>
 					<li><a href="yqSystemMessageAdmin.php">系统消息管理</a></li>
 					<li><a href="login.php?logout">退出</a></li>
