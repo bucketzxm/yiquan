@@ -383,6 +383,7 @@ class Quote extends YqBase {
 			$quote = $this->db->Quote->findOne(array ('_id' => new MongoId($quote_id)));
 			array_push ($quote['quote_likeNames'],$user_id);
 			$quote['quote_likeCount'] ++;
+			$quote['quote_hotness']++;
 			$this->db->Quote->save($quote);
 			return 1;
 		}catch(Exception $e){
