@@ -21,7 +21,7 @@
 
 			);
 		$aaa = new DateTime ();
-		$bbb = $aaa->createFromFormat(RSS,$item->pubDate);
+		$bbb = $aaa->createFromFormat('RSS',$item->pubDate);
 
 		//$timeStamp = ;
 		echo "<h2>" . $item->title . "</h2>";
