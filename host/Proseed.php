@@ -22,40 +22,43 @@
 			    		'db'=>$dbname
 			));
 			$db = $mongoClient->yiquan;
-			$prosystem = $db->prosystem;
+			$prosource = $db->Prosource;
+			$sources = $prosource->find();
+			$prosystem = $db->Prosystem;
 			$proseed = $db->Proseed;
 			$checkTimePara = $prosystem->findOne(array ('para_name' => "checkTime"));
 
 
-		$feedurl = 'http://36kr.com/feed';
-		$rss = load_file($feedurl);
-
-
-	foreach ($rss->channel->item as $item) {
-	
-		$aaa = new DateTime ();
-		$postTime = $aaa->createFromFormat("D, d M Y H:i:s O",$item->pubDate)->getTimestamp();
-
-		if ($postTime < $checkTimePara['check_Time']){
-			echo "<h2>" . "已经刷新过了" . "</h2>";
-		}else{
-			$seed = array (
-				'seed_source' => $rss->channel->title,
-				'seed_title' => $item->title,
-				'seed_link' => $item->link,
-				'seed_time' =>$postTime
-			);
+		foreach ($sources as $key => $value) {
+			$feedurl = $value['source_rssURL'];
+			$rss = load_file($feedurl);
 		
-			$proseed->save ($seed);
+			foreach ($rss->channel->item as $item) {
+			
+				$aaa = new DateTime ();
+				$postTime = $aaa->createFromFormat("D, d M Y H:i:s O",$item->pubDate)->getTimestamp();
 
-			//$timeStamp = ;
-			echo "<h2>" . $item->title . "</h2>";
-			echo "<h2>" . $item->link . "</h2>";
-			echo "<h2>" . $postTime. "</h2>";
-			//echo "<p>" . $item->description . "</p>";
+				if ($postTime < $checkTimePara['check_Time']){
+					echo "<h2>" . "已经刷新过了" . "</h2>";
+				}else{
+					$seed = array (
+						'seed_source' => $rss->channel->title,
+						'seed_title' => $item->title,
+						'seed_link' => $item->link,
+						'seed_time' =>$postTime
+					);
+				
+					$proseed->save ($seed);
+
+					//$timeStamp = ;
+					echo "<h2>" . $item->title . "</h2>";
+					echo "<h2>" . $item->link . "</h2>";
+					echo "<h2>" . $postTime. "</h2>";
+					//echo "<p>" . $item->description . "</p>";
+				}
+
+			}
 		}
-
-	}
 
 	$checkTimePara['check_Time'] = time();
 	$prosystem->save($checkTimePara);
