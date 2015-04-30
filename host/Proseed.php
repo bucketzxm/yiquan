@@ -20,10 +20,13 @@
 			'seed_time' =>$item->pubDate
 
 			);
-		$timeStamp = strtotime($item->pubDate);
+		$aaa = new DateTime ();
+		$bbb = $aaa->creatFromFormat(RSS,$item->pubDate);
+
+		$timeStamp = ;
 		echo "<h2>" . $item->title . "</h2>";
 		echo "<h2>" . $item->link . "</h2>";
-		echo "<h2>" . $timeStamp . "</h2>";
+		echo "<h2>" . $bbb . "</h2>";
 		//echo "<p>" . $item->description . "</p>";
 	}
 
