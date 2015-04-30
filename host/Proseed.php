@@ -12,8 +12,10 @@
 	$rss = load_file($feedurl);
 
 	foreach ($rss->channel->item as $item) {
-	echo "<h2>" . $item->title . "</h2>";
-	echo "<p>" . $item->description . "</p>";
+		echo "<h2>" . $item->title . "</h2>";
+		echo "<h2>" . $item->link . "</h2>";
+		echo "<h2>" . $item->pubDate . "</h2>";
+		//echo "<p>" . $item->description . "</p>";
 	}
 
 ?>
