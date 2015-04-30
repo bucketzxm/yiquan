@@ -251,9 +251,8 @@ class Group extends YqBase {
             return - 2;
         }
         
-        //if ($this->checkToken () == 0) {
-            return $this->checkToken();
-        //}
+        if ($this->checkToken () == 0) {
+            return -3;
         
         if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $user_name) {
             return - 4;
