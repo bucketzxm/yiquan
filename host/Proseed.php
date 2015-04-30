@@ -14,15 +14,17 @@
 
 	foreach ($rss->channel->item as $item) {
 	
+		$aaa = new DateTime ();
+		$bbb = $aaa->createFromFormat("D, d M Y H:i:s O",$item->pubDate);
+
 		$seed = array (
 			'seed_title' => $item->title,
 			'seed_link' => $item->link,
-			'seed_time' =>$item->pubDate
-
-			);
-		$aaa = new DateTime ();
-		$bbb = $aaa->createFromFormat("D, d M Y H:i:s O",$item->pubDate);
+			'seed_time' =>$bbb->getTimestamp()
+		);
 		
+		$this->db->Proseed->save ($seed);
+
 		//$timeStamp = ;
 		echo "<h2>" . $item->title . "</h2>";
 		echo "<h2>" . $item->link . "</h2>";
