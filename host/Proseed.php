@@ -23,7 +23,7 @@
 		$aaa = new DateTime ();
 		$bbb = $aaa->creatFromFormat(RSS,$item->pubDate);
 
-		$timeStamp = ;
+		//$timeStamp = ;
 		echo "<h2>" . $item->title . "</h2>";
 		echo "<h2>" . $item->link . "</h2>";
 		echo "<h2>" . $bbb . "</h2>";
