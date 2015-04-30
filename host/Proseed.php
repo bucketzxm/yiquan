@@ -26,7 +26,7 @@
 		//$timeStamp = ;
 		echo "<h2>" . $item->title . "</h2>";
 		echo "<h2>" . $item->link . "</h2>";
-		echo "<h2>" . $bbb . "</h2>";
+		echo "<h2>" . $bbb->getTimestamp . "</h2>";
 		//echo "<p>" . $item->description . "</p>";
 	}
 
