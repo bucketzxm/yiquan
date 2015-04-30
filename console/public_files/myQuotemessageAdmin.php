@@ -4,7 +4,7 @@ include_once '../lib/functions.php';
 include_once '../lib/YqUser.php';
 include_once '../lib/User.php';
 include_once '../lib/YqPlatformView.php';
-include_once '../lib/MyQuoteView.php';
+include_once '../lib/MyQuotemessageView.php';
 // 401 file referenced since user should be logged in to view this page
 include_once '401.php';
 
@@ -16,7 +16,7 @@ ob_start ();
 	<div class="row">
 		<div class="col-sm-3 col-md-2 sidebar">
 			<ul class="nav nav-sidebar">
-				<li><a href="?action=viewQuote">查看所有每言 <span class="sr-only">(current)</span></a></li>
+				<li><a href="?action=viewQuotemessage">查看所有消息 <span class="sr-only">(current)</span></a></li>
 			</ul>
 		</div>
 		<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
@@ -32,17 +32,12 @@ ob_start ();
           <div class="row">
 				<?php
 				if (isset ( $_GET ['action'] )) {
-					$a = new MyQuoteView ();
+					$a = new MyQuotemessageView ();
 					switch ($_GET ['action']) {
 						
-						case 'viewQuote' :
+						case 'viewQuotemessage' :
 							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
-								$a->showQuotes_table ( $a->queryQuotes (), 0, 10000 );
-							}
-							break;
-						case 'viewPersonalQuote' :
-							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
-								$a->showQuotes_table ( $a->queryQuotes (), 0, 10000 );
+								$a->showQuoteMessgaes_table ( $a->readQuoteMessage (), 0, 10000 );
 							}
 							break;
 					}
