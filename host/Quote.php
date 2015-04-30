@@ -336,7 +336,7 @@ class Quote extends YqBase {
 		array_push ($myPeople,$user_id);
 		try{
 			$res = $this->db->Quote->find (array(
-						'quote_ownerID'=> array ('$nin'=> $myPeople),
+						//'quote_ownerID'=> array ('$nin'=> $myPeople),
 						'quote_time'=>array('$lt'=>$time),
 						'quote_public' => '1',
 						'quote_editor' => '1'
