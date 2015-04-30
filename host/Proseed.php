@@ -12,7 +12,7 @@
 
 			$dbname = 'yiquan';
 			$host = 'yiquandb.oneto-tech.com';
-			$port = '8908';
+			$port = '27017';
 			$user = 'test';
 			$pwd = 'yiquanTodo';
 			 
