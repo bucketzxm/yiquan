@@ -1,4 +1,5 @@
 <?php
+	require_once 'YqBase.php';
 
 	function load_file($url) {
 		$ch = curl_init($url);
@@ -12,9 +13,17 @@
 	$rss = load_file($feedurl);
 
 	foreach ($rss->channel->item as $item) {
+	
+		$seed = array (
+			'seed_title' => $item->title,
+			'seed_link' => $item->link,
+			'seed_time' =>$item->pubDate
+
+			);
+		$timeStamp = strtotime($item->pubDate);
 		echo "<h2>" . $item->title . "</h2>";
 		echo "<h2>" . $item->link . "</h2>";
-		echo "<h2>" . $item->pubDate . "</h2>";
+		echo "<h2>" . $timeStamp . "</h2>";
 		//echo "<p>" . $item->description . "</p>";
 	}
 
