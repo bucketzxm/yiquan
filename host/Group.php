@@ -253,7 +253,7 @@ class Group extends YqBase {
         
         if ($this->checkToken () == 0) {
             return -3;
-        
+        } 
         if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $user_name) {
             return - 4;
         }
