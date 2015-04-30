@@ -11,7 +11,7 @@
 
 
 			$dbname = 'yiquan';
-			$host = 'yiquandb.oneto-tech.com';
+			$host = 'localhost';
 			$port = '27017';
 			$user = 'test';
 			$pwd = 'yiquanTodo';
@@ -21,8 +21,8 @@
 			    		'password'=>$pwd,
 			    		'db'=>$dbname
 			));
-			$db=$mongoClient->yiquan;
-			$collection=$db->Proseed;
+			$db = $mongoClient->yiquan;
+			$collection = $db->Proseed;
 
 		$feedurl = 'http://36kr.com/feed';
 		$rss = load_file($feedurl);
