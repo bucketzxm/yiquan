@@ -24,12 +24,13 @@
 			$db = $mongoClient->yiquan;
 			$prosource = $db->Prosource;
 			$sources = $prosource->find();
-			$prosystem = $db->Prosystem;
+			
 			$proseed = $db->Proseed;
-			$checkTimePara = $prosystem->findOne(array ('para_name' => "checkTime"));
+			
 
 
 		foreach ($sources as $key => $value) {
+			$checkTime = $value['check_time'];
 			$feedurl = $value['source_rssURL'];
 			$rss = load_file($feedurl);
 		
@@ -38,7 +39,7 @@
 				$aaa = new DateTime ();
 				$postTime = $aaa->createFromFormat("D, d M Y H:i:s O",$item->pubDate)->getTimestamp();
 
-				if ($postTime < $checkTimePara['check_Time']){
+				if ($postTime < $checkTime){
 					echo "<h2>" . "已经刷新过了" . "</h2>";
 				}else{
 					$seed = array (
@@ -58,9 +59,10 @@
 				}
 
 			}
+			$value['check_time'] = time();
+			$prosource->save($value);
 		}
 
-	$checkTimePara['check_Time'] = time();
-	$prosystem->save($checkTimePara);
+
 
 ?>
