@@ -22,7 +22,10 @@
 			    		'db'=>$dbname
 			));
 			$db = $mongoClient->yiquan;
-			$collection = $db->Proseed;
+			$prosystem = $db->prosystem;
+			$proseed = $db->Proseed;
+			$checkTimePara = $prosystem->findOne(array ('para_name' => "checkTime"));
+
 
 		$feedurl = 'http://36kr.com/feed';
 		$rss = load_file($feedurl);
@@ -32,9 +35,8 @@
 	
 		$aaa = new DateTime ();
 		$postTime = $aaa->createFromFormat("D, d M Y H:i:s O",$item->pubDate)->getTimestamp();
-		$currentTime = time();
 
-		if ($postTime < $currentTime){
+		if ($postTime < $checkTimePara['check_Time']){
 			echo "<h2>" . "已经刷新过了" . "</h2>";
 		}else{
 			$seed = array (
@@ -44,7 +46,7 @@
 				'seed_time' =>$bbb->getTimestamp()
 			);
 		
-			$collection->save ($seed);
+			$proseed->save ($seed);
 
 			//$timeStamp = ;
 			echo "<h2>" . $item->title . "</h2>";
@@ -54,5 +56,8 @@
 		}
 
 	}
+
+	$checkTimePara['check_Time'] = time();
+	$prosystem->save($checkTimePara);
 
 ?>
