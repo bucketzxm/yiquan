@@ -9,8 +9,24 @@
 		return $xml;
 	}
 
-	$feedurl = 'http://36kr.com/feed';
-	$rss = load_file($feedurl);
+
+			$dbname = 'yiquan';
+			$host = 'yiquandb.oneto-tech.com';
+			$port = '8908';
+			$user = 'test';
+			$pwd = 'yiquanTodo';
+			 
+			$mongoClient = new MongoClient("mongodb://{$host}:{$port}",array(
+			    		'username'=>$user,
+			    		'password'=>$pwd,
+			    		'db'=>$dbname
+			));
+			$db=$mongoClient->yiquan;
+			$collection=$db->Proseed;
+
+		$feedurl = 'http://36kr.com/feed';
+		$rss = load_file($feedurl);
+
 
 	foreach ($rss->channel->item as $item) {
 	
@@ -22,8 +38,8 @@
 			'seed_link' => $item->link,
 			'seed_time' =>$bbb->getTimestamp()
 		);
-		
-		$this->db->Proseed->save ($seed);
+	
+		$collection->save ($seed);
 
 		//$timeStamp = ;
 		echo "<h2>" . $item->title . "</h2>";
