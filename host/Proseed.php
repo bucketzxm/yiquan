@@ -40,10 +40,10 @@
 			echo "<h2>" . "已经刷新过了" . "</h2>";
 		}else{
 			$seed = array (
-				'seed_source' => $channel->title,
+				'seed_source' => $rss->channel->title,
 				'seed_title' => $item->title,
 				'seed_link' => $item->link,
-				'seed_time' =>$bbb->getTimestamp()
+				'seed_time' =>$postTime
 			);
 		
 			$proseed->save ($seed);
