@@ -48,6 +48,14 @@
 				$postTime = $aaa->createFromFormat("D, d M Y H:i:s O",$item->pubDate)->getTimestamp();
 
 				$title = $item->title;
+				$title = str_replace("!", "", $title);
+				$title = str_replace("，", "", $title);
+				$title = str_replace("。", "", $title);
+				$title = str_replace("“", "", $title);
+				$title = str_replace("”", "", $title);
+				$title = str_replace("【", "", $title);
+				$title = str_replace("】", "", $title);
+				$title = str_replace("：", "", $title);
 				//Split keywords
 				$titleLen = mb_strlen($title,'utf-8');
 				$keywords = array ();
