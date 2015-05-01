@@ -87,6 +87,12 @@
 				
 					$proseed->save ($seed);
 
+
+					for ($keywords as $word){
+						echo "<h2>" . $word. "</h2>";
+					}
+
+
 					//$timeStamp = ;
 					echo "<h2>" . $item->title . "</h2>";
 					//echo "<h2>" . $titleLen . "</h2>";
