@@ -48,7 +48,7 @@
 						'seed_title' => $item->title,
 						'seed_link' => $item->link,
 						'seed_description' => $item->description,
-						'seed_content' => $item->children("content",true),
+						'seed_content' => $item->getElementsByTagName('encoded')->item(0)->nodeValue,
 						'seed_time' =>$postTime
 					);
 				
