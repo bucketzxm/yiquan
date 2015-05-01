@@ -50,12 +50,12 @@
 
 				$description = $item->description;
 		        $content = $item->contentEncoded;
-		        $desString = $description[0];
-		        $contentString = $content[0];
+		        $desString = $description;
+		        $contentString = $content;
 		        $desLen = strlen($desString);
 		        $contentLen = strlen($contentString);
 		        $text = '';
-		        
+
 		        if ($desLen < $contentLen) {
 		        	$text = $contentString;
 		        }else{
