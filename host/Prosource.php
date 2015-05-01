@@ -38,8 +38,8 @@
 	        $feeds = str_replace("</content:encoded>","</contentEncoded>",$feeds);
 	        $rss = simplexml_load_string($feeds,'SimpleXMLElement', LIBXML_NOCDATA);
 
-	        $description => $item->description;
-	        $content => $item->contentEncoded;
+	        $description = $item->description;
+	        $content = $item->contentEncoded;
 	        $desString = $description[0];
 	        $contentString = $content[0];
 	        $desLen = strlen($desString);
