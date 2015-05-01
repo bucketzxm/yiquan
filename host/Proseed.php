@@ -1,14 +1,6 @@
 <?php
 require_once 'YqBase.php';
 
-
-define ( 'APPKEY', 'Fswp6NteiyAgshqIjY4UTA' );
-define ( 'APPID', 'ksCvaUMV9D7rhBA1vMydXA' );
-define ( 'MASTERSECRET', 'Ava39nShg88cpX8DydftJ3' );
-
-define ( 'DEVICETOKEN', '' );
-define ( 'HOST', 'http://sdk.open.api.igexin.com/apiex.htm' );
-
     
 class Proseed extends YqBase {
 	private $collection;
