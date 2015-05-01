@@ -46,6 +46,7 @@
 						'seed_source' => $rss->channel->title,
 						'seed_title' => $item->title,
 						'seed_link' => $item->link,
+						'seed_description' => $item->description,
 						'seed_time' =>$postTime
 					);
 				
