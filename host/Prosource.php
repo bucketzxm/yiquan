@@ -82,7 +82,7 @@
 						'seed_link' => $item->link,
 						'seed_text' => $text,
 						'seed_time' =>$postTime,
-						'seed_keywords' =>$keywords
+						//'seed_keywords' =>$keywords
 					);
 				
 					$proseed->save ($seed);
