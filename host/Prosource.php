@@ -42,11 +42,13 @@
 				if ($postTime < $checkTime){
 					echo "<h2>" . "已经刷新过了" . "</h2>";
 				}else{
+
 					$seed = array (
 						'seed_source' => $rss->channel->title,
 						'seed_title' => $item->title,
 						'seed_link' => $item->link,
 						'seed_description' => $item->description,
+						'seed_content' => $item->content,
 						'seed_time' =>$postTime
 					);
 				
