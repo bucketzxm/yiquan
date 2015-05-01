@@ -82,15 +82,12 @@
 						'seed_link' => $item->link,
 						'seed_text' => $text,
 						'seed_time' =>$postTime,
-						//'seed_keywords' =>$keywords
+						'seed_keywords' =>$keywords
 					);
 				
-					$proseed->save ($seed);
-
-
-					foreach ($keywords as $word){
-						echo "<h2>" . mb_convert_encoding($word, "UTF-8"). "</h2>";
-					}
+					
+					$res = $proseed->save ($seed);
+					var_dump($res);
 
 
 					//$timeStamp = ;
