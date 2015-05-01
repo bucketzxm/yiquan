@@ -47,6 +47,16 @@
 				$aaa = new DateTime ();
 				$postTime = $aaa->createFromFormat("D, d M Y H:i:s O",$item->pubDate)->getTimestamp();
 
+				$title = $item->title;
+				//Split keywords
+				$titleLen = strlen($title);
+				$keywords = array ();
+				for (i = 0; i<titleLen;i++){
+					$twoStr = substr($title, i,2);
+					array_push($keywords,$twoStr);
+					$threeStr = substr($title, i,3);
+					array_push($keywords,$threeStr);
+				}
 
 				$description = $item->description;
 		        $content = $item->contentEncoded;
@@ -71,7 +81,8 @@
 						'seed_title' => $item->title,
 						'seed_link' => $item->link,
 						'seed_text' => $text,
-						'seed_time' =>$postTime
+						'seed_time' =>$postTime,
+						'seed_keywords' =>$keywords
 					);
 				
 					$proseed->save ($seed);
