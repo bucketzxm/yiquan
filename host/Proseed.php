@@ -84,7 +84,8 @@ class Proseed extends YqBase {
 		$data = array (
 			'like_user' => $user_id,
 			'like_seed' => $seed_id,
-			'like_comment' => $like_comment
+			'like_comment' => $like_comment,
+			'like_time' => time()
 			);
 
 		$this->db->Proworth->save ($data);
