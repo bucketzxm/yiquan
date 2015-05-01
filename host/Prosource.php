@@ -49,7 +49,7 @@
 
 				$title = $item->title;
 				//Split keywords
-				$titleLen = strlen($title);
+				$titleLen = mb_strlen($title);
 				$keywords = array ();
 				for ($i = 0; $i<$titleLen;$i++){
 					$twoStr = mb_substr($title, $i,2,'utf-8');
