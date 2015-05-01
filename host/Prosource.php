@@ -36,7 +36,7 @@
 	        $feeds = file_get_contents($feedurl);
 	        $feeds = str_replace("<content:encoded>","<contentEncoded>",$feeds);
 	        $feeds = str_replace("</content:encoded>","</contentEncoded>",$feeds);
-	        $rss = simplexml_load_string($feeds);
+	        $rss = simplexml_load_string($feeds,'SimpleXMLElement', LIBXML_NOCDATA);
 
 			//$rss = load_file($feedurl);
 		
