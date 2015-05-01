@@ -51,7 +51,7 @@
 				//Split keywords
 				$titleLen = strlen($title);
 				$keywords = array ();
-				for (i = 0; i<titleLen;i++){
+				for ($i = 0; $i<titleLen;$i++){
 					$twoStr = substr($title, i,2);
 					array_push($keywords,$twoStr);
 					$threeStr = substr($title, i,3);
