@@ -52,9 +52,9 @@
 				$titleLen = strlen($title);
 				$keywords = array ();
 				for ($i = 0; $i<$titleLen;$i++){
-					$twoStr = substr($title, $i,2);
+					$twoStr = substr($title, $i,2,'utf-8');
 					array_push($keywords,$twoStr);
-					$threeStr = substr($title, $i,3);
+					$threeStr = substr($title, $i,3,'utf-8');
 					array_push($keywords,$threeStr);
 				}
 
