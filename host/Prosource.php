@@ -38,18 +38,7 @@
 	        $feeds = str_replace("</content:encoded>","</contentEncoded>",$feeds);
 	        $rss = simplexml_load_string($feeds,'SimpleXMLElement', LIBXML_NOCDATA);
 
-	        $description = $item->description;
-	        $content = $item->contentEncoded;
-	        $desString = $description[0];
-	        $contentString = $content[0];
-	        $desLen = strlen($desString);
-	        $contentLen = strlen($contentString);
-	        $text = '';
-	        if ($desLen < $contentLen) {
-	        	$text = $contentString;
-	        }else{
-	        	$text = $desString;
-	        }
+
 
 			//$rss = load_file($feedurl);
 		
@@ -57,6 +46,21 @@
 			
 				$aaa = new DateTime ();
 				$postTime = $aaa->createFromFormat("D, d M Y H:i:s O",$item->pubDate)->getTimestamp();
+
+
+				$description = $item->description;
+		        $content = $item->contentEncoded;
+		        $desString = $description[0];
+		        $contentString = $content[0];
+		        $desLen = strlen($desString);
+		        $contentLen = strlen($contentString);
+		        $text = '';
+		        
+		        if ($desLen < $contentLen) {
+		        	$text = $contentString;
+		        }else{
+		        	$text = $desString;
+		        }
 
 				if ($postTime < $checkTime){
 					echo "<h2>" . "已经刷新过了" . "</h2>";
