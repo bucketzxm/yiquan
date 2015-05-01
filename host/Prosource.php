@@ -32,7 +32,13 @@
 		foreach ($sources as $key => $value) {
 			$checkTime = $value['check_time'];
 			$feedurl = $value['source_rssURL'];
-			$rss = load_file($feedurl);
+			
+	        $feeds = file_get_contents($feedurl);
+	        $feeds = str_replace("<content:encoded>","<contentEncoded>",$feeds);
+	        $feeds = str_replace("</content:encoded>","</contentEncoded>",$feeds);
+	        $rss = simplexml_load_string($feeds);
+
+			//$rss = load_file($feedurl);
 		
 			foreach ($rss->channel->item as $item) {
 			
@@ -48,7 +54,7 @@
 						'seed_title' => $item->title,
 						'seed_link' => $item->link,
 						'seed_description' => $item->description,
-						'seed_content' => $item->getElementsByTagName('encoded')->item(0)->nodeValue,
+						'seed_content' => $item->contentEncoded,
 						'seed_time' =>$postTime
 					);
 				
