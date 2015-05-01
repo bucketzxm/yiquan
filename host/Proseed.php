@@ -67,5 +67,30 @@ class Proseed extends YqBase {
 		return json_encode($seeds);
 
 	}
+
+	function likeSeed($user_id,$seed_id,$like_comment){
+		if ($this->yiquan_version == 0) {
+			return - 2;
+		}
+		
+		if ($this->checkQuoteToken () != 1) {
+			return - 3;
+		}
+		
+		if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
+			return - 4;
+		}
+
+		$data = array (
+			'like_user' => $user_id,
+			'like_seed' => $seed_id,
+			'like_comment' => $like_comment
+			);
+
+		$this->db->Proworth->save ($data);
+		return 1;
+
+	}
+
 }
 ?>
