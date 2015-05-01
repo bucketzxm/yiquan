@@ -89,7 +89,7 @@
 
 
 					foreach ($keywords as $word){
-						echo "<h2>" . $word. "</h2>";
+						echo "<h2>" . mb_convert_encoding($word, "UTF-8"). "</h2>";
 					}
 
 
