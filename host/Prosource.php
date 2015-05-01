@@ -85,9 +85,9 @@
 						'seed_keywords' =>$keywords
 					);
 				
-					
+					var_dump($keywords);
 					$res = $proseed->save ($seed);
-					var_dump($res);
+					
 
 
 					//$timeStamp = ;
