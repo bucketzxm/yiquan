@@ -88,7 +88,7 @@
 					$proseed->save ($seed);
 
 
-					for ($keywords as $word){
+					foreach ($keywords as $word){
 						echo "<h2>" . $word. "</h2>";
 					}
 
