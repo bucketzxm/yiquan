@@ -59,8 +59,11 @@ class Proseed extends YqBase {
 			return - 4;
 		}
 
-		$seeds = $this->db->Proseed->find();
-
+		$data = $this->db->Proseed->find();
+		$seeds = array ();
+		foreach ($data as $key => $value) {
+			array_push ($seeds,$value);
+		}
 		return json_encode($seeds);
 
 	}
