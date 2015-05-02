@@ -52,7 +52,7 @@ class Prouser extends YqBase {
 			}
 			$this->logCallMethod ( $user_name, __METHOD__ );
 
-
+		try{
 			$res = $this->checkRegisterCode($user_mobile,$code);
 			if ($res == 1){
 
@@ -130,6 +130,7 @@ class Prouser extends YqBase {
 				$user[$profile_type]['user_industry'] = $user_industry;
 				$user[$profile_type]['user_company'] = $user_company;
 				$user[$profile_type]['user_title'] = $user_title;
+				$user[$profile_type]['user_weight'] = 1;
 				$this->db->Prouser->save ($user);
 				return 1;
 				
