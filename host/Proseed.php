@@ -110,7 +110,7 @@ class Proseed extends YqBase {
 			
 		}
 		//排序
-		krsort($res);
+		ksort($res);
 		//删选
 		$topRes = array_slice($res,0,30);
 
