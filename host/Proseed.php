@@ -140,6 +140,12 @@ class Proseed extends YqBase {
 
 	}
 
+	function getSeedText ($seed_id){
+
+		$seed = $this->db->Proseed->findOne (array ('_id'=> new MongoId($seed_id)));
+		return $seed['seed_text'];
+	}
+
 	function getHotness ($user_id, $seed_id){
 		if ($this->yiquan_version == 0) {
 			return - 2;
