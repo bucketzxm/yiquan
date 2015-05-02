@@ -130,7 +130,7 @@ class Proseed extends YqBase {
 			$myPros = $prouser->findMyPros ($user_id);
 
 			//找到这个新闻
-			$seed = $this->db->findOne (array ('_id' => new MongoId($seed_id)));
+			$seed = $this->db->Proseed->findOne (array ('_id' => new MongoId($seed_id)));
 
 			//找到我圈子里的人对这个话题的赞
 			$agrees = $this->db->Proworth->find (array ('like_seed'=>$seed_id,'like_user'=> array ('$in'=>$myPros)));
