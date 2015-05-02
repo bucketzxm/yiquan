@@ -56,7 +56,7 @@ class Prouser extends YqBase {
 			$res = $this->checkRegisterCode($user_mobile,$code);
 			if ($res == 1){
 
-				$ans = $this->db->Quoteuser->findOne ( array (
+				$ans = $this->db->Prouser->findOne ( array (
 						'user_mobile' => $user_mobile
 				) );
 
@@ -68,10 +68,10 @@ class Prouser extends YqBase {
 							'user_regdate' => new MongoDate (),
 							'user_favoriteSource' => array ()
 					);
-					$this->db->Quoteuser->save ( $neo );
+					$this->db->Prouser->save ( $neo );
 
 				}
-					$ans = $this->db->Quoteuser->findOne ( array (
+					$ans = $this->db->Prouser->findOne ( array (
 							'user_mobile' => $user_mobile
 					) );
 
@@ -83,7 +83,7 @@ class Prouser extends YqBase {
 					// $_SESSION ['user_token'] = $gd;
 					
 
-					$rt = $this->db->usertoken->findOne ( array (
+					$rt = $this->db->usertoken->findOne ( array (	
 							'user_id' => $userID
 					) );
 					if ($rt == null) {
@@ -99,7 +99,7 @@ class Prouser extends YqBase {
 						return - 5; // redis wrong
 					}
 
-					$logger = $this->db->Quoteuser->findOne (array ('user_mobile' => $user_mobile));
+					$logger = $this->db->Prouser->findOne (array ('user_mobile' => $user_mobile));
 					$this->expireRegistercode ( $user_mobile, $code );
 					return json_encode($logger);
 			}else{
