@@ -37,5 +37,7 @@ access_url ( 'http://yiquanhost.oneto-tech.com/Group_server.php?reb' );
 
 access_url ( 'http://yiquanhost.oneto-tech.com/Proseed_server.php?reb' );
 
+access_url ( 'http://yiquanhost.oneto-tech.com/Prouser_server.php?reb' );
+
 echo 'ok';
 ?>

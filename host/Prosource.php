@@ -27,7 +27,10 @@
 			
 			$proseed = $db->Proseed;
 			
-
+		//提出一个月以前的
+		$currentTime = time();
+		$timeMonthAgo = $currentTime - 86400*30;
+		$db->Proseed->remove (array ('seed_time' => array ('$lt' => $timeMonthAgo)));
 
 		foreach ($sources as $key => $value) {
 			$checkTime = $value['check_time'];
@@ -38,7 +41,14 @@
 	        $feeds = str_replace("</content:encoded>","</contentEncoded>",$feeds);
 	        $rss = simplexml_load_string($feeds,'SimpleXMLElement', LIBXML_NOCDATA);
 
-
+	        //Calculate average hotness
+	        /*
+	        $seeds = $db->Proseed->find(array ('seed_sourceID' => (string)$value['_id']))->count();
+	        $likes = $db->Proworth->find(array ('like_seedSource' => (string)$value['_id']))->count();
+	        $avgLikes = $likes/$seeds;
+	        $value['average_hotness'] = $avgLikes;
+	        $db->Prosource->save ($value);
+			*/
 
 			//$rss = load_file($feedurl);
 		
@@ -48,6 +58,7 @@
 				$postTime = $aaa->createFromFormat("D, d M Y H:i:s O",$item->pubDate)->getTimestamp();
 
 				$title = $item->title;
+				$title = str_replace("？", "", $title);
 				$title = str_replace("！", "", $title);
 				$title = str_replace("，", "", $title);
 				$title = str_replace("。", "", $title);
@@ -87,6 +98,7 @@
 
 					$seed = array (
 						'seed_source' => $rss->channel->title,
+						'seed_sourceID' => (string)$value['_id'],
 						'seed_title' => $item->title,
 						'seed_link' => $item->link,
 						'seed_text' => $text,
