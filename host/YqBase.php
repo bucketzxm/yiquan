@@ -6,6 +6,8 @@ require_once 'Topic.php';
 require_once 'Message.php';
 require_once 'Reply.php';
 require_once 'User.php';
+require_once 'Prouser.php';
+require_once 'Proseed.php';
 require_once 'YqSystemMessage.php';
 require_once 'Qiniu/Http/Request.php';
 require_once 'Qiniu/Http/Client.php';
