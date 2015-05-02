@@ -125,8 +125,9 @@ class Prouser extends YqBase {
 				return - 4;
 			}
 			
+
 			try {
-				$user = $this->db->Prouser->findOne(array ('_id'=>new MongoId ($suer_id)));
+				$user = $this->db->Prouser->findOne(array ('_id'=>new MongoId ($user_id)));
 				$user[$profile_type]['user_name'] = $user_name;
 				$user[$profile_type]['user_city'] = $user_city;
 				$user[$profile_type]['user_industry'] = $user_industry;
