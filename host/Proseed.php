@@ -120,15 +120,19 @@ class Proseed extends YqBase {
 				array ('_id'=> new MongoId($key)
 				)
 				);
-			$item = array ();
-			$item['_id'] = $selectedSeed['_id'];
-			$item['seed_source'] = $selectedSeed['seed_source'];
-			$item['seed_sourceID'] = $selectedSeed['seed_sourceID'];
-			$item['seed_title'] = $selectedSeed['seed_title'];
-			$item['seed_link'] = $selectedSeed['seed_link'];
-			$item['seed_time'] = $selectedSeed['seed_time'];
 			
-			array_push ($results,$item);	
+			foreach ($selectedSeed as $key1 => $value1) {
+				$item = array ();
+				$item['_id'] = $value1['_id'];
+				$item['seed_source'] = $value1['seed_source'];
+				$item['seed_sourceID'] = $value1['seed_sourceID'];
+				$item['seed_title'] = $value1['seed_title'];
+				$item['seed_link'] = $value1['seed_link'];
+				$item['seed_time'] = $value1['seed_time'];
+			
+				array_push ($results,$item);	
+			}
+
 			
 
 		}
