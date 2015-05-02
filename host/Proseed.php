@@ -143,7 +143,8 @@ class Proseed extends YqBase {
 	function getSeedText ($seed_id){
 
 		$seed = $this->db->Proseed->findOne (array ('_id'=> new MongoId($seed_id)),array ('seed_text'=> 1));
-		return $seed['seed_text'];
+		$text = $seed['seed_text'];
+		return $text;
 	}
 
 	function getHotness ($user_id, $seed_id){
