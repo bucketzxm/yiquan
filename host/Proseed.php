@@ -87,7 +87,7 @@ class Proseed extends YqBase {
 			$sourceSeeds = $this->db->Proseed->find (
 				array (
 					'seed_sourceID' => $source, 
-					'seed_time' => array ('$gt' => (time()-86400*3))
+					'seed_time' => array ('$gt' => (time()-86400*1))
 					),
 				array ('_id'=> 1)
 				);
