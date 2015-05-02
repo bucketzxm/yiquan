@@ -69,7 +69,7 @@ class Proseed extends YqBase {
 		$agreedSeeds = $this->db->Proworth>find (
 			array (
 				'like_user' => array ('$in' => $myPros),
-				'like_time' => array ('$gt' => time()-86400*2)
+				'like_time' => array ('$gt' => (time()-86400*2))
 				),
 			array ('_id' => 1)
 			);
@@ -87,7 +87,7 @@ class Proseed extends YqBase {
 			$sourceSeeds = $this->db->Proseed->find (
 				array (
 					'seed_sourceID' => $source, 
-					'seed_time' => array ('$gt' => time()-86400*1)
+					'seed_time' => array ('$gt' => (time()-86400*1))
 					),
 				array ('_id'=> 1)
 				);
@@ -155,17 +155,22 @@ class Proseed extends YqBase {
 				);
 
 			//计算初始温度的当前热度
-			$hotness = $this->calculate(100,$seed['seed_time']);
+			$hotness = $this->calculateHotness(100,$seed['seed_time']);
 
 			//计算所有点赞的热度
 			foreach ($agrees as $key => $value) {
-				$incrementalHotness = $this->calculate ($value['like_weight'],$value['like_time']);
+				$incrementalHotness = $this->calculateHotness ($value['like_weight'],$value['like_time']);
 				$hotness += $incrementalHotness;
 			}
 
 			//计算这个新闻的关键字在我值得一读的匹配程度
 			//找到我所有agree的话题
-			$myAgrees = $this->db->Proworth->find (array ('like_user'=> $user_id,'like_time' => array ('$gt' => time()-86400*30)));
+			$myAgrees = $this->db->Proworth->find (
+				array (
+					'like_user'=> $user_id,
+					'like_time' => array ('$gt' => (time()-86400*30))
+					)
+				);
 			$matchWords =  array ();
 			foreach ($myAgrees as $agree) {
 
