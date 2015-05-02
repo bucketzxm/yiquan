@@ -192,7 +192,7 @@ class Proseed extends YqBase {
 		}
 
 		//找到这个user
-		$user = $this->db->findOne (array ('_id' => new MongoId ($user_id)),array ('current' => 1));
+		$user = $this->db->Prouser->findOne (array ('_id' => new MongoId ($user_id)),array ('current' => 1));
 
 
 		$cursor = $this->db->Proseed->findOne (array ('_id'=>$seed_id));
