@@ -128,9 +128,16 @@ class Proseed extends YqBase {
 					)
 				)
 				);
-			foreach ($selectedSeed as $key1 => $value1) {
-				array_push ($results,$value1);	
-			}
+			$item = array ();
+			$item['_id'] = $selectedSeed['_id'];
+			$item['seed_source'] = $selectedSeed['seed_source'];
+			$item['seed_sourceID'] = $selectedSeed['seed_sourceID'];
+			$item['seed_title'] = $selectedSeed['seed_title'];
+			$item['seed_link'] = $selectedSeed['seed_link'];
+			$item['seed_time'] = $selectedSeed['seed_time'];
+			
+				array_push ($results,$item);	
+			
 
 		}
 		return json_encode($results);
