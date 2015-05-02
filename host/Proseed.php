@@ -117,15 +117,7 @@ class Proseed extends YqBase {
 		$results = array ();
 		foreach ($topRes as $key => $value) {
 			$selectedSeed = $this->db->Proseed->find(
-				array ('_id'=> new MongoId($key),
-				array (
-					'_id'=> 1,
-					'seed_source' =>1,
-					'seed_sourceID' =>1,
-					'seed_title' =>1,
-					'seed_link'=>1,
-					'seed_time'=>1
-					)
+				array ('_id'=> new MongoId($key)
 				)
 				);
 			$item = array ();
@@ -136,7 +128,7 @@ class Proseed extends YqBase {
 			$item['seed_link'] = $selectedSeed['seed_link'];
 			$item['seed_time'] = $selectedSeed['seed_time'];
 			
-				array_push ($results,$item);	
+			array_push ($results,$item);	
 			
 
 		}
