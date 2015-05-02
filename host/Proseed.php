@@ -173,7 +173,7 @@ class Proseed extends YqBase {
 	function calculateHotness($weight,$time){
 		$weight = (int) $weight;
 		$time = (int) $time;
-		return $weight * exp(-0.05 * ((time() - $time)/3600))
+		return $weight * exp(-0.05 * ((time() - $time)/3600));
 
 
 	}
