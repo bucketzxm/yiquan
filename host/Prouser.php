@@ -114,7 +114,7 @@ class Prouser extends YqBase {
 	}
 
 
-	function updateUserProfile ($user_id,$user_industry,$user_company,$user_title,$profile_type){
+	function updateUserProfile ($user_id,$user_name,$user_city,$user_industry,$user_company,$user_title,$profile_type){
 			if ($this->yiquan_version == 0) {
 				return - 2;
 			}
@@ -127,6 +127,8 @@ class Prouser extends YqBase {
 			
 			try {
 				$user = $this->db->Prouser->findOne(array ('_id'=>new MongoId ($suer_id)));
+				$user[$profile_type]['user_name'] = $user_name;
+				$user[$profile_type]['user_city'] = $user_city;
 				$user[$profile_type]['user_industry'] = $user_industry;
 				$user[$profile_type]['user_company'] = $user_company;
 				$user[$profile_type]['user_title'] = $user_title;
