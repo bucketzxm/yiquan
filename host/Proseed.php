@@ -66,7 +66,7 @@ class Proseed extends YqBase {
 		$seeds = array ();
 
 		//获得我圈子里赞过的话题
-		$agreedSeeds = $this->db->Proworth>find (
+		$agreedSeeds = $this->db->Proworth->find (
 			array (
 				'like_user' => array ('$in' => $myPros),
 				'like_time' => array ('$gt' => (time()-86400*2))
