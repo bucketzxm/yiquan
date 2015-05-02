@@ -115,13 +115,13 @@ class Proseed extends YqBase {
 		$topRes = array_slice($res,0,30);
 
 		$seeds = array ();
-		foreach ($res as $key => $value) {
+		foreach ($topRes as $key => $value) {
 			$selectedSeed = $this->db->Proseed->find(
 				array ('_id'=> new MongoId($key))
 				);
 			array_push ($seeds,$selectedSeed);
 		}
-		return json_encode($seeds);
+		return json_encode($res);
 
 	}
 
