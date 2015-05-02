@@ -142,8 +142,10 @@ class Proseed extends YqBase {
 
 	function getSeedText ($seed_id){
 
-		$seed = $this->db->Proseed->findOne (array ('_id'=> new MongoId($seed_id)),array ('seed_text'=> 1));
-		$text = $seed['seed_text'];
+		$seed = $this->db->Proseed->find (array ('_id'=> new MongoId($seed_id)));
+		foreach ($seed as $key => $value) {
+			$text = $value['seed_text'];	
+		}
 		return $text;
 	}
 
