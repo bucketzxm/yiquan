@@ -121,7 +121,7 @@ class Proseed extends YqBase {
 				);
 			array_push ($results,$selectedSeed);
 		}
-		return json_encode($results);
+		return json_encode($sourceSeeds);
 
 	}
 
