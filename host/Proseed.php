@@ -82,11 +82,13 @@ class Proseed extends YqBase {
 		}
 
 		$user = $this->db->Prouser->findOne (array ('_id' => new MongoId ($user_id)));
-		//获得我关注的媒体的人
-		foreach ($user['user_favoriteSource'] as $source) {
+		$sources = $this->db->Prosource->find(array ('source_industry' => $user['user_industry']));
+		//获得我的行业关注的媒体的人
+
+		foreach ($sources as $key => $source) {
 			$sourceSeeds = $this->db->Proseed->find (
 				array (
-					'seed_sourceID' => $source, 
+					'seed_sourceID' => (string)$source['_id'], 
 					'seed_time' => array ('$gt' => (time()-86400*1))
 					),
 				array ('_id'=> 1)
