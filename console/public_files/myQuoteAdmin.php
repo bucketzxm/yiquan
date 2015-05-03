@@ -40,6 +40,20 @@ ob_start ();
 								$a->showQuotes_table ( $a->queryQuotes (), 0, 10000 );
 							}
 							break;
+						
+						case 'delete' :
+							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
+								if (isset ( $_GET ['mindex'] )) {
+									$a->showDeleteView ( $_GET ['mindex'] );
+								}
+							} else {
+								if ($a->deleteQuotes ( $_POST ['qid'] )) {
+									echo '成功';
+								} else {
+									echo '失败';
+								}
+							}
+							break;
 						case 'viewPersonalQuote' :
 							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
 								$a->showQuotes_table ( $a->queryQuotes (), 0, 10000 );

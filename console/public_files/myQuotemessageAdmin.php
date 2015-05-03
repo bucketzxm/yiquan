@@ -17,6 +17,8 @@ ob_start ();
 		<div class="col-sm-3 col-md-2 sidebar">
 			<ul class="nav nav-sidebar">
 				<li><a href="?action=viewQuotemessage">查看所有消息 <span class="sr-only">(current)</span></a></li>
+				<li><a href="?action=viewQuotemessageToSystem">查看发给系统的消息 <span
+						class="sr-only">(current)</span></a></li>
 			</ul>
 		</div>
 		<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
@@ -38,6 +40,15 @@ ob_start ();
 						case 'viewQuotemessage' :
 							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
 								$a->showQuoteMessgaes_table ( $a->readQuoteMessage (), 0, 10000 );
+							}
+							break;
+						case 'viewQuotemessageToSystem' :
+							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
+								$arr = array (
+										'type' => 'personal',
+										'value' => 'system' 
+								);
+								$a->showQuoteMessgaes_table ( $a->readQuoteMessage ( $arr ), 0, 10000 );
 							}
 							break;
 					}

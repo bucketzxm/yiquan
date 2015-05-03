@@ -23,10 +23,20 @@ class MyQuoteView extends Quote {
 			} else {
 				echo '<td></td>';
 			}
-			echo '<td><a href="?action=detail&mindex=">详细</a></td>';
+			echo '<td><a href="?action=delete&mindex=' . $arr [$i] ['_id']->{'$id'} . '">删除</a></td>';
 			echo '</tr>';
 		}
 		echo '</table></div>';
+	}
+	
+	function showDeleteView($id)
+	{
+		echo '<form method="post" action="?action=delete">';
+		echo '确定删除该吗？';
+		echo $id;
+		echo '<input type="hidden" name="qid" value="' . $id . '" />';
+		echo '<div class="form-group"><input type="submit" value="确定" /></div>';
+		echo '</form>';
 	}
 }
 
