@@ -353,7 +353,7 @@ class Proseed extends YqBase {
 		$myPros = $prouser->findMyPros ($user_id);
 
 		$result = array ();
-		$likes = $this->db->Proworth->find (array ('like_seed'=> $seed_id,'like_user'=> array ('$in'=>$myPros)));
+		$likes = $this->db->Proworth->find (array ('like_seed'=> $seed_id,'like_user'=> array ('$in'=>$myPros),'like_comment' => array ('$ne' => '')));
 		foreach ($likes as $key => $value) {
 			$user = $this->db->Prouser->find (array ('_id' => new MongoId($value['like_user'])));
 			foreach ($user as $key => $user) {
