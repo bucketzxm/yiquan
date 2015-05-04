@@ -331,7 +331,7 @@ class Proseed extends YqBase {
 
 			foreach ($seed as $key => $item) {
 				$item['like_comment'] = $value['like_comment'];
-				$item['seed_agreeCount'] = $this->db->Proworth->find (array('like_seed' => (string)$value1['_id']))->count ();
+				$item['seed_agreeCount'] = $this->db->Proworth->find (array('like_seed' => (string)$item['_id']))->count ();
 				array_push ($myLikedSeeds, $item);
 			}
 		}
