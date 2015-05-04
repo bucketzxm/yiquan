@@ -36,9 +36,9 @@ if (! empty ( $GLOBALS ['TEMPLATE'] ['extra_head'] )) {
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
 					<li class="active"><a href="meiyanmain.php">主页</a></li>
-					<li><a href="yqPlatformAdmin.php">平台参数管理</a></li>
 					<li><a href="myQuoteAdmin.php">每言管理</a></li>
 					<li><a href="myQuotemessageAdmin.php">消息管理</a></li>
+					<li><a href="myPlatformAdmin.php">平台参数管理</a></li>
 					<li><a href="login.php?logout">退出</a></li>
 
 				</ul>

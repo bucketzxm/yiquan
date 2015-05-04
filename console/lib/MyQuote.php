@@ -521,8 +521,37 @@ class Quote extends YqBase {
 				$doc = $cus->getNext ();
 				$ans [] = $doc;
 			}
+		} else {
+			if (isset ( $configs ['type'] )) {
+				if ($configs ['type'] == 'findone') {
+					$ans = $this->db->Quote->findOne ( array (
+							'_id' => new MongoId ( $configs ['value'] ) 
+					) );
+				}
+			}
 		}
 		return $ans;
+	}
+	function updateQuote($arr) {
+		$row = $this->db->Quote->findOne ( array (
+				'_id' => new MongoId ( $arr ['id'] ) 
+		) );
+		if ($row != null) {
+			$row ['quote_title'] = $arr ['title'];
+			$row ['quote_remark'] = $arr ['remark'];
+			$row ['quote_signature'] = $arr ['signature'];
+		}
+		return $this->db->Quote->save ( $row );
+	}
+	function deleteQuotes($Quoteid) {
+		try {
+			$this->db->Quote->remove ( array (
+					'_id' => new MongoID ( $Quoteid ) 
+			) );
+			return 1;
+		} catch ( Exception $e ) {
+			return - 1;
+		}
 	}
 }
 // $a = new Topic ();

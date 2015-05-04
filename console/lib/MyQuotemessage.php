@@ -84,6 +84,20 @@ class Quotemessage extends YqBase {
 				$doc = $cus->getNext ();
 				$ans [] = $doc;
 			}
+		} else {
+			if (isset ( $configs ['type'] )) {
+				if ($configs ['type'] == 'personal') {
+					$cus = $this->db->Quotemessage->find ( array (
+							'message_receiverId' => $configs ['value'] 
+					) )->sort ( array (
+							'message_postTime' => - 1 
+					) );
+					while ( $cus->hasNext () ) {
+						$doc = $cus->getNext ();
+						$ans [] = $doc;
+					}
+				}
+			}
 		}
 		return $ans;
 	}
