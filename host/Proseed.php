@@ -125,7 +125,7 @@ class Proseed extends YqBase {
 			
 			foreach ($selectedSeed as $key1 => $value1) {
 				$item = array ();
-				$item['_id'] = $value1['_id'];
+				$item['_id'] = (string)$value1['_id'];
 				$item['seed_source'] = $value1['seed_source'];
 				$item['seed_sourceID'] = $value1['seed_sourceID'];
 				$item['seed_title'] = $value1['seed_title'];
@@ -133,7 +133,10 @@ class Proseed extends YqBase {
 				$item['seed_time'] = $value1['seed_time'];
 				$item['seed_agreeCount'] = $this->db->Proworth->find (array('like_seed' => (string)$value1['_id']))->count ();
 			
-				array_push ($results,$item);	
+				array_push ($results,$item);
+
+				//增加用户阅读的记录：
+
 			}
 
 			
@@ -359,9 +362,9 @@ class Proseed extends YqBase {
 			$users = $this->db->Prouser->find (array ('_id' => new MongoId($value['like_user'])));
 			foreach ($users as $key => $user) {
 				$value['user_id'] = (string)$user['_id'];
-				$value['user_name'] = $user['user_name'];
-				$value['user_company'] = $user['user_company'];
-				$value['user_title'] = $user['user_title'];
+				$value['user_name'] = $user['current']['user_name'];
+				$value['user_company'] = $user['current']['user_company'];
+				$value['user_title'] = $user['current']['user_title'];
 			}
 
 			array_push ($result,$value);
