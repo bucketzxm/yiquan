@@ -2005,6 +2005,21 @@ class Quoteuser extends YqBase {
 		$this->db->invcode->save ( $row );
 		return 1;
 	}
+	
+	
+
+	/* Author: 杨宇 yangyu@sina.cn */
+	//输入两个时间戳，计算差值，也就是相差的小时数，如返回2:10，则表示输入的两个时间相差2小时10分钟
+	private function hours_min($start_time,$end_time){
+		if (strtotime($start_time) > strtotime($end_time)) list($start_time, $end_time) = array($end_time, $start_time);
+		$sec = $start_time - $end_time;
+		$sec = round($sec/60);
+		$min = str_pad($sec%60, 2, 0, STR_PAD_LEFT);
+		$hours_min = floor($sec/60);
+		$min != 0 && $hours_min .= ':'.$min;
+		return $hours_min;
+	}
+	
 	function getRegisterCode($mobilenumber, $expireMinute) {
 		$tp = yqregcode ( 4 )[0];
 		$endtime = new MongoDate ( strtotime ( '+' . $expireMinute . ' minute' ) );
