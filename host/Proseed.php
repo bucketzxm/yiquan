@@ -337,5 +337,37 @@ class Proseed extends YqBase {
 		}
 		return json_encode($myLikedSeeds);
 	}
+
+	function querySeedLikes ($seed_id,$user_id){
+		if ($this->yiquan_version == 0) {
+			return - 2;
+		}
+		
+		if ($this->checkQuoteToken () != 1) {
+			return - 3;
+		}
+		
+		if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
+			return - 4;
+		}
+		$myPros = $prouser->findMyPros ($user_id);
+
+		$result = array ();
+		$likes = $this->db->Proworth->find (array ('like_seed'=> $seed_id,'like_user'=> array ('$in'=>$myPros)));
+		foreach ($likes as $key => $value) {
+			$user = $this->db->Prouser->find (array ('_id' => new MongoId($value['like_user'])));
+			foreach ($user as $key => $user) {
+				$value['user_id'] = (string)$user['_id'];
+				$value['user_name'] = $user['user_name'];
+				$value['user_company'] = $user['user_company'];
+				$value['user_title'] = $user['user_title'];
+			}
+
+			array_push ($result,$value);
+		}
+		return json_encode($result);
+
+	}
+
 }
 ?>
