@@ -156,21 +156,23 @@ class Prouser extends YqBase {
 			}
 			
 		//找到用户
-			$user = $this->db->Prouser->findOne (array ('_id'=> new MongoId($user_id)));
-			
+			$user = $this->db->Prouser->find (array ('_id'=> new MongoId($user_id)));
+			foreach ($user as $key => $value) {
+				$industry = $value['current']['user_industry'];
+				
+			}
+
 		//找到和用户同一个行业的人（行业说的细致）
 			$pros = $this->db->Prouser->find (
 				array (
 					'current' => array (
-						'user_industry' => $user['current']['user_industry']
+						'user_industry' => $industry
 						)
-					),
-				array ('_id' => 1)
-
+					)
 				);
 		//return 一个array
 			$proList = array ();
-			foreach ($pros as $pro){
+			foreach ($pros as $key => $pro){
 				array_push ($proList, (string)$pro['_id']);
 			}
 			return $proList;
