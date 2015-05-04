@@ -350,6 +350,7 @@ class Proseed extends YqBase {
 		if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
 			return - 4;
 		}
+		$prouser = new Prouser ();
 		$myPros = $prouser->findMyPros ($user_id);
 
 		$result = array ();
