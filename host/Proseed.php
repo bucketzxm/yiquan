@@ -142,8 +142,31 @@ class Proseed extends YqBase {
 
 	}
 
-	function getSeedText ($seed_id){
+	function getSeedText ($seed_id,$user_id){
+		if ($this->yiquan_version == 0) {
+			return - 2;
+		}
+		
+		if ($this->checkQuoteToken () != 1) {
+			return - 3;
+		}
+		
+		if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
+			return - 4;
+		}
 
+		//做好阅读记录
+		$readLog = $this->db->Proread->findOne (array ('seed_id' => $seed_id,'user_id'=>$user_id));
+		if ($readLog == null) {
+			$data = array (
+				'seed_id' => $seed_id,
+				'user_id' => $user_id,
+				'read_time' => time()
+				)
+			$this->db->Proread->save ($data);
+		}
+
+		//找到seed_id的内容
 		$seed = $this->db->Proseed->find (array ('_id'=> new MongoId($seed_id)));
 		foreach ($seed as $key => $value) {
 			$text = array ();
@@ -192,16 +215,16 @@ class Proseed extends YqBase {
 
 			//计算这个新闻的关键字在我值得一读的匹配程度
 			//找到我所有agree的话题
-			$myAgrees = $this->db->Proworth->find (
+			$myAgrees = $this->db->Proread->find (
 				array (
-					'like_user'=> $user_id,
-					'like_time' => array ('$gt' => (time()-86400*30))
+					'user_id'=> $user_id,
+					'read_time' => array ('$gt' => (time()-86400*30))
 					)
 				);
 			$matchWords =  array ();
 			foreach ($myAgrees as $agree) {
 
-				$cursor = $this->db->Proseed->findOne (array ('_id' => $agree['like_seed']));
+				$cursor = $this->db->Proseed->findOne (array ('_id' => $agree['seed_id']));
 				foreach ($cursor['seed_keywords'] as $word){
 					array_push ($matchWords,$word);
 				}
@@ -261,5 +284,31 @@ class Proseed extends YqBase {
 
 	}
 
+	function queryMyLikedSeeds ($user_id){
+
+		if ($this->yiquan_version == 0) {
+			return - 2;
+		}
+		
+		if ($this->checkQuoteToken () != 1) {
+			return - 3;
+		}
+		
+		if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
+			return - 4;
+		}
+
+		$cursor = $this->db->Proworth->find(array ('like_user'=> $user_id));
+		$myLikedSeeds = array ();
+		foreach ($cursor as $key => $value) {
+			$seed = $this->db->Proseed->find(array ('_id'=> new MongoId($value['like_seed'])));
+
+			foreach ($seed as $key => $item) {
+				$item['like_comment'] = $value['like_comment'];
+				array_push ($myLikedSeeds, $item);
+			}
+		}
+		return json_encode($myLikedSeeds);
+	}
 }
 ?>
