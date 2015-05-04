@@ -54,9 +54,18 @@ ob_start ();
 								}
 							}
 							break;
-						case 'viewPersonalQuote' :
+						case 'edit' :
 							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
-								$a->showQuotes_table ( $a->queryQuotes (), 0, 10000 );
+								$a->showOneQuote_form ( $a->queryQuotes ( array (
+										'type' => 'findone',
+										'value' => $_GET ['mindex'] 
+								) ) );
+							} else if ($_SERVER ['REQUEST_METHOD'] == 'POST') {
+								if ($a->updateQuote ( $_POST )) {
+									echo '编辑成功';
+								} else {
+									echo '编辑异常';
+								}
 							}
 							break;
 					}
