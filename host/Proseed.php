@@ -269,21 +269,46 @@ class Proseed extends YqBase {
 		//找到这个user
 		$user = $this->db->Prouser->findOne (array ('_id' => new MongoId ($user_id)),array ('current' => 1));
 
+		$existWorth = $this->db->Proworth->findOne (array ('like_user'=>$user_id,'like_seed'=>$seed_id));
+		if ($existWorth == null) {
+			$cursor = $this->db->Proseed->findOne (array ('_id'=>$seed_id));
+			$data = array (
+				'like_user' => $user_id,
+				'like_seed' => $seed_id,
+				'like_weight' => $user['current']['user_weight'],
+				'like_seedSource' => $cursor['seed_sourceID'],
+				'like_comment' => $like_comment,
+				'like_time' => time()
+				);
 
-		$cursor = $this->db->Proseed->findOne (array ('_id'=>$seed_id));
-		$data = array (
-			'like_user' => $user_id,
-			'like_seed' => $seed_id,
-			'like_weight' => $user['current']['user_weight'],
-			'like_seedSource' => $cursor['seed_sourceID'],
-			'like_comment' => $like_comment,
-			'like_time' => time()
-			);
-
-		$this->db->Proworth->save ($data);
+			$this->db->Proworth->save ($data);
+		}
+		
 		return 1;
 
 	}
+
+	function addLikeComment($user_id,$seed_id,$like_comment){
+		if ($this->yiquan_version == 0) {
+			return - 2;
+		}
+		
+		if ($this->checkQuoteToken () != 1) {
+			return - 3;
+		}
+		
+		if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
+			return - 4;
+		}
+
+		$like = $this->db->Proworth->findOne(array ('like_user'=>$user_id,'like_seed'=>$seed_id));
+		$like['like_comment'] = $like_comment;
+		$this->db->Proworth->save($like);
+		return 1;
+
+
+	}
+
 
 	function queryMyLikedSeeds ($user_id){
 
