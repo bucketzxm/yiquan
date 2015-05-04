@@ -162,7 +162,7 @@ class Proseed extends YqBase {
 				'seed_id' => $seed_id,
 				'user_id' => $user_id,
 				'read_time' => time()
-				)
+				);
 			$this->db->Proread->save ($data);
 		}
 
