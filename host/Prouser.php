@@ -66,7 +66,8 @@ class Prouser extends YqBase {
 							'user_mobile' => $user_mobile,
 							'user_state' => 1,
 							'user_regdate' => new MongoDate (),
-							'user_favoriteSource' => array ()
+							'user_favoriteSource' => array (),
+							'user_readSeeds' => array ()
 					);
 					$this->db->Prouser->save ( $neo );
 
@@ -165,9 +166,7 @@ class Prouser extends YqBase {
 		//找到和用户同一个行业的人（行业说的细致）
 			$pros = $this->db->Prouser->find (
 				array (
-					'current' => array (
-						'user_industry' => $industry
-						)
+					'current.user_industry' $industry
 					)
 				);
 		//return 一个array
