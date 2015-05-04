@@ -166,7 +166,7 @@ class Prouser extends YqBase {
 		//找到和用户同一个行业的人（行业说的细致）
 			$pros = $this->db->Prouser->find (
 				array (
-					'current.user_industry' $industry
+					'current.user_industry' =>$industry
 					)
 				);
 		//return 一个array
