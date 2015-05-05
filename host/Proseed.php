@@ -104,10 +104,17 @@ class Proseed extends YqBase {
 
 		}
 
+		$unreadSeeds = array ();
+		foreach ($seeds as $key => $seed) {
+			$cursor = $this->db->Proread->findOne(array ('seed_id' => (string)$seed['_id'],'user_id'=>$user_id,'read_type'=>'0'));
+			if ($cursor == null) {
+				array_push($unreadSeeds,$seed);
+			}
+		}
 		
 		$res = array ();
 		//计算所有新闻的热度
-		foreach ($seeds as $key => $value) {
+		foreach ($unreadSeeds as $key => $value) {
 			$res[$value] = $this->getHotness($user_id,$value);
 			
 		}
@@ -136,6 +143,17 @@ class Proseed extends YqBase {
 				array_push ($results,$item);
 
 				//增加用户阅读的记录：
+				$readLog = $this->db->Proread->findOne (array ('seed_id' => (string)$value1['_id'],'user_id'=>$user_id,'read_type'=>'0'));
+				if ($readLog == null) {
+					$data = array (
+						'seed_id' => (string)$value1['_id'],
+						'user_id' => $user_id,
+						'read_time' => time(),
+						'read_type' => '0'
+
+						);
+					$this->db->Proread->save ($data);
+				}
 
 			}
 
@@ -160,12 +178,14 @@ class Proseed extends YqBase {
 		}
 
 		//做好阅读记录
-		$readLog = $this->db->Proread->findOne (array ('seed_id' => $seed_id,'user_id'=>$user_id));
+		$readLog = $this->db->Proread->findOne (array ('seed_id' => $seed_id,'user_id'=>$user_id,'read_type'=>'1'));
 		if ($readLog == null) {
 			$data = array (
 				'seed_id' => $seed_id,
 				'user_id' => $user_id,
-				'read_time' => time()
+				'read_time' => time(),
+				'read_type' => '1'
+
 				);
 			$this->db->Proread->save ($data);
 		}
@@ -218,11 +238,12 @@ class Proseed extends YqBase {
 			}
 
 			//计算这个新闻的关键字在我值得一读的匹配程度
-			//找到我所有agree的话题
+			//找到我所有读过的话题
 			$myAgrees = $this->db->Proread->find (
 				array (
 					'user_id'=> $user_id,
-					'read_time' => array ('$gt' => (time()-86400*30))
+					'read_time' => array ('$gt' => (time()-86400*30)),
+					'read_type' => '1'
 					)
 				);
 			$matchWords =  array ();
