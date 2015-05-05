@@ -119,7 +119,7 @@ class Proseed extends YqBase {
 			
 		}
 		//排序
-		rsort($res);
+		arsort($res);
 		//删选
 		$topRes = array_slice($res,0,30);
 
@@ -161,7 +161,7 @@ class Proseed extends YqBase {
 			
 
 		}
-		return json_encode($res);
+		return json_encode($results);
 
 	}
 
