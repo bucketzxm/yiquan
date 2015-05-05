@@ -105,7 +105,7 @@ class Quote extends YqBase {
 				"quote_group" => 'general',
 				"quote_detailURL" => $quote_detailURL,
 				"quote_readCount" => 0,
-				"quote_editor" => 0
+				"quote_editor" => '0'
 		);
 
 		try {
