@@ -139,6 +139,7 @@ class Proseed extends YqBase {
 				$item['seed_link'] = $value1['seed_link'];
 				$item['seed_time'] = $value1['seed_time'];
 				$item['seed_agreeCount'] = $this->db->Proworth->find (array('like_seed' => (string)$value1['_id']))->count ();
+				$item['seed_hotness'] = $value;
 			
 				array_push ($results,$item);
 
