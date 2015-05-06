@@ -116,9 +116,9 @@
 
 
 					//$timeStamp = ;
-					//echo "<h2>" . $item->title . "</h2>";
+					echo "<h2>" . $item->title . "</h2>";
 					//echo "<h2>" . $titleLen . "</h2>";
-					//echo "<h2>" . $postTime. "</h2>";
+					echo "<h2>" . $postTime. "</h2>";
 					//echo "<p>" . $item->description . "</p>";
 				}
 
