@@ -136,7 +136,7 @@ class Prouser extends YqBase {
 				$user[$profile_type]['user_title'] = $user_title;
 				$user[$profile_type]['user_weight'] = 1;
 				$this->db->Prouser->save ($user);
-				return 1;
+				return json_encode($user);
 				
 			}catch (Exception $e){
 				return $e;
