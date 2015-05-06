@@ -97,7 +97,10 @@ class Quoteuser extends YqBase {
 		$user = $this->db->Quoteuser->findOne ( array (
 				'_id' => new MongoId ( $user_id ) 
 		) );
+
 		if ($user != null) {
+			$quote = new Quote();
+			$user['quote_count'] = $quote->countMyQuote($user_id);
 			return json_encode ( $user );
 		} else {
 			return - 1;
@@ -205,6 +208,8 @@ class Quoteuser extends YqBase {
 						'user_mobile' => $user_mobile 
 				) );
 				$this->expireRegistercode ( $user_mobile, $code );
+				$quote = new Quote();
+				$logger['quote_count'] = $quote->countMyQuote($user_id);
 				return json_encode ( $logger );
 			} else {
 				return $res;

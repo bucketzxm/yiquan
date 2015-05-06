@@ -204,9 +204,25 @@ class Quote extends YqBase {
 
 	}
 
+	function countMyQuote($user_id){
+		if ($this->yiquan_version == 0) {
+			return - 2;
+		}
+		
+		if ($this->checkQuoteToken () != 1) {
+			return - 3;
+		}
+		
+		if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
+			return - 4;
+		}
+
+		$res = $this->db->Quote->find (array('quote_ownerID' => $user_id))->count();
+		return $res;
+	}
 
 	function queryMyGroupQuotes ($user_id,$time,$quote_group){
-				if ($this->yiquan_version == 0) {
+		if ($this->yiquan_version == 0) {
 			return - 2;
 		}
 		
