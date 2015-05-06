@@ -56,7 +56,7 @@
 			foreach ($rss->channel->item as $item) {
 				
 				$aaa = new DateTime ();
-				$postTime = $aaa->createFromFormat("D, d M Y H:i:s O",$item->pubDate)->getTimestamp();
+				$postTime = $aaa->createFromFormat($value['time_format'],$item->pubDate)->getTimestamp();
 
 				$title = $item->title;
 				$title = str_replace("？", "", $title);
