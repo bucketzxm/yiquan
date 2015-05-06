@@ -9,6 +9,7 @@ class MyQuoteView extends Quote {
 	// private $dbname = 'test';
 	private $table = 'Quote';
 	function showQuotes_table($arr, $start, $limit) {
+		echo '<div class="table-responsive"><h2>每言总数' . count ( $arr ) . '</h2></div>';
 		$q = new Quoteuser ();
 		echo '<div class="table-responsive"><table class="table table-striped">';
 		echo '<thead><tr><th>时间</th><th>标题</th><th>标签</th><th>签名</th><th>撰写人</th><th>用户头像</th><th>操作1</th><th>操作2</th></tr></thead>';
