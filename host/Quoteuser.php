@@ -209,7 +209,7 @@ class Quoteuser extends YqBase {
 				) );
 				$this->expireRegistercode ( $user_mobile, $code );
 				$quote = new Quote();
-				$logger['quote_count'] = $quote->countMyQuote($user_id);
+				$logger['quote_count'] = $quote->countMyQuote((string)$logger['_id']);
 				return json_encode ( $logger );
 			} else {
 				return $res;
