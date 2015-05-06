@@ -122,5 +122,5 @@ ob_end_clean ();
 
 <?php
 // display the page
-include_once '../templates/template-page-main.php';
+include_once '../templates/template-page-meiyanmain.php';
 ?>
