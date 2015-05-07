@@ -126,7 +126,7 @@ class Quoteuser extends YqBase {
 		if ($user != null) {
 			$quote = new Quote();
 			$user['quote_count'] = $quote->countMyQuote($user_id);
-			$user['agree_count'] = $quote->countMyQuoteAgrees($user_id;
+			$user['agree_count'] = $quote->countMyQuoteAgrees($user_id);
 			return json_encode ( $user );
 		} else {
 			return - 1;
