@@ -219,7 +219,7 @@ class Quote extends YqBase {
 
 	function countMyQuoteAgrees($user_id){
 		$this->logCallMethod ( 'anonymous ', __METHOD__ );
-		$res = $this->db->Quote->find (array ('quote_ownerID' => $user_id);
+		$res = $this->db->Quote->find (array ('quote_ownerID' => $user_id));
 		$agreeCount = 0;
 		foreach ($res as $key => $value) {
 			$agreeCount += $value['quote_agreeCount'];
