@@ -115,9 +115,6 @@ class Quoteuser extends YqBase {
 		if ($this->checkQuoteToken () != 1) {
 			return - 3;
 		}
-		if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
-			return - 4;
-		}
 		$this->logCallMethod ( 'anonymous ', __METHOD__ );
 		$user = $this->db->Quoteuser->findOne ( array (
 				'_id' => new MongoId ( $user_id ) 
