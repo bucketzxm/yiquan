@@ -222,7 +222,7 @@ class Quote extends YqBase {
 		$res = $this->db->Quote->find (array ('quote_ownerID' => $user_id));
 		$agreeCount = 0;
 		foreach ($res as $key => $value) {
-			$agreeCount += $value['quote_agreeCount'];
+			$agreeCount += $value['quote_likeCount'];
 		}
 		return (string)$agreeCount;
 	}
