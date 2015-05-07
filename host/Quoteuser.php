@@ -101,6 +101,30 @@ class Quoteuser extends YqBase {
 		if ($user != null) {
 			$quote = new Quote();
 			$user['quote_count'] = $quote->countMyQuote($user_id);
+			$user['agree_count'] = $quote->countMyQuoteAgrees($user_id;
+			return json_encode ( $user );
+		} else {
+			return - 1;
+		}
+	}
+	function getUserProfile($user_id) {
+		if ($this->yiquan_version == 0) {
+			return - 2;
+		}
+		if ($this->checkQuoteToken () != 1) {
+			return - 3;
+		}
+		if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
+			return - 4;
+		}
+		$user = $this->db->Quoteuser->findOne ( array (
+				'_id' => new MongoId ( $user_id ) 
+		) );
+
+		if ($user != null) {
+			$quote = new Quote();
+			$user['quote_count'] = $quote->countMyQuote($user_id);
+			$user['agree_count'] = $quote->countMyQuoteAgrees($user_id;
 			return json_encode ( $user );
 		} else {
 			return - 1;
@@ -210,6 +234,7 @@ class Quoteuser extends YqBase {
 				$this->expireRegistercode ( $user_mobile, $code );
 				$quote = new Quote();
 				$logger['quote_count'] = $quote->countMyQuote((string)$logger['_id']);
+				$logger['agree_count'] = $quote->countMyQuoteAgrees((string)$logger['_id']);
 				return json_encode ( $logger );
 			} else {
 				return $res;
