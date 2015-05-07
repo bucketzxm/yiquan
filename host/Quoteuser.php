@@ -94,6 +94,7 @@ class Quoteuser extends YqBase {
 		if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
 			return - 4;
 		}
+		$this->logCallMethod ( 'anonymous ', __METHOD__ );
 		$user = $this->db->Quoteuser->findOne ( array (
 				'_id' => new MongoId ( $user_id ) 
 		) );
@@ -101,7 +102,7 @@ class Quoteuser extends YqBase {
 		if ($user != null) {
 			$quote = new Quote();
 			$user['quote_count'] = $quote->countMyQuote($user_id);
-			$user['agree_count'] = $quote->countMyQuoteAgrees($user_id;
+			$user['agree_count'] = $quote->countMyQuoteAgrees($user_id);
 			return json_encode ( $user );
 		} else {
 			return - 1;
@@ -117,6 +118,7 @@ class Quoteuser extends YqBase {
 		if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
 			return - 4;
 		}
+		$this->logCallMethod ( 'anonymous ', __METHOD__ );
 		$user = $this->db->Quoteuser->findOne ( array (
 				'_id' => new MongoId ( $user_id ) 
 		) );
@@ -253,6 +255,7 @@ class Quoteuser extends YqBase {
 		if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
 			return - 4;
 		}
+		$this->logCallMethod ( 'anonymous ', __METHOD__ );
 		try {
 			$user = $this->db->Quoteuser->findOne ( array (
 					'_id' => new MongoId ( $user_id ) 
