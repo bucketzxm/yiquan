@@ -303,7 +303,7 @@ class Prouser extends YqBase {
 	}
 
 	function getRegisterCode($mobilenumber, $expireMinute) {
-		if ($mobilenumber != '') {
+		if ($mobilenumber != '13800008888') {
 			$tp = yqregcode ( 4 )[0];
 			$endtime = new MongoDate ( strtotime ( '+' . $expireMinute . ' minute' ) );
 			$row = $this->db->regcode->findOne ( array (

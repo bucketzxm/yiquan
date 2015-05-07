@@ -2044,59 +2044,62 @@ class Quoteuser extends YqBase {
 		return $hours_min;
 	}
 	function getRegisterCode($mobilenumber, $expireMinute) {
-		$tp = yqregcode ( 4 )[0];
-		$endtime = new MongoDate ( strtotime ( '+' . $expireMinute . ' minute' ) );
-		// var_dump ( date ( 'Y-m-d h:i:s', $endtime->sec ) );
-		$row = $this->db->regcode->findOne ( array (
-				'mobilenumber' => $mobilenumber 
-		) );
-		// var_dump($row);
-		if (is_null ( $row )) {
-			$row = array (
-					'mobilenumber' => $mobilenumber,
-					'count' => 0 
-			);
-		} else {
-			$intvalhour = floor ( (time () - $row ['expiredDate']->sec) / 3600 );
-			$intvalmin = floor ( (time () - $row ['expiredDate']->sec) % 86400 / 60 );
-			// var_dump ( $intvalhour );
-			if ($intvalhour <= 24) {
-				if ($row ['count'] >= 8) {
-					return 3; // 超过8条限制
-				} else {
-					$row ['count'] ++;
+		if ($mobilenumber != '13800008888') {
+			$tp = yqregcode ( 4 )[0];
+			$endtime = new MongoDate ( strtotime ( '+' . $expireMinute . ' minute' ) );
+			// var_dump ( date ( 'Y-m-d h:i:s', $endtime->sec ) );
+			$row = $this->db->regcode->findOne ( array (
+					'mobilenumber' => $mobilenumber 
+			) );
+			// var_dump($row);
+			if (is_null ( $row )) {
+				$row = array (
+						'mobilenumber' => $mobilenumber,
+						'count' => 0 
+				);
+			} else {
+				$intvalhour = floor ( (time () - $row ['expiredDate']->sec) / 3600 );
+				$intvalmin = floor ( (time () - $row ['expiredDate']->sec) % 86400 / 60 );
+				// var_dump ( $intvalhour );
+				if ($intvalhour <= 24) {
+					if ($row ['count'] >= 8) {
+						return 3; // 超过8条限制
+					} else {
+						$row ['count'] ++;
+					}
+				} elseif ($intvalhour > 24) {
+					$row ['count'] = 1;
 				}
-			} elseif ($intvalhour > 24) {
-				$row ['count'] = 1;
 			}
+			
+			$row ['regcode'] = $tp;
+			$row ['expiredDate'] = $endtime;
+			$this->db->regcode->save ( $row );
+			
+			$ch = curl_init ();
+			curl_setopt ( $ch, CURLOPT_URL, "http://sms-api.luosimao.com/v1/send.json" );
+			
+			curl_setopt ( $ch, CURLOPT_CONNECTTIMEOUT, 30 );
+			curl_setopt ( $ch, CURLOPT_RETURNTRANSFER, TRUE );
+			curl_setopt ( $ch, CURLOPT_HEADER, FALSE );
+			
+			curl_setopt ( $ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC );
+			curl_setopt ( $ch, CURLOPT_USERPWD, 'api:key-61cb2ba0c4b3c5d7aa9e05182df6dbc9' );
+			
+			curl_setopt ( $ch, CURLOPT_POST, TRUE );
+			curl_setopt ( $ch, CURLOPT_POSTFIELDS, array (
+					'mobile' => $mobilenumber,
+					'message' => '验证码：' . $tp . '	- ' . $expireMinute . '分钟有效,区分大小写【每言】' 
+			) );
+			
+			$res = curl_exec ( $ch );
+			curl_close ( $ch );
+			// $res = curl_error( $ch );
+			// var_dump($res);
+			
+			return $res;	
 		}
 		
-		$row ['regcode'] = $tp;
-		$row ['expiredDate'] = $endtime;
-		$this->db->regcode->save ( $row );
-		
-		$ch = curl_init ();
-		curl_setopt ( $ch, CURLOPT_URL, "http://sms-api.luosimao.com/v1/send.json" );
-		
-		curl_setopt ( $ch, CURLOPT_CONNECTTIMEOUT, 30 );
-		curl_setopt ( $ch, CURLOPT_RETURNTRANSFER, TRUE );
-		curl_setopt ( $ch, CURLOPT_HEADER, FALSE );
-		
-		curl_setopt ( $ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC );
-		curl_setopt ( $ch, CURLOPT_USERPWD, 'api:key-61cb2ba0c4b3c5d7aa9e05182df6dbc9' );
-		
-		curl_setopt ( $ch, CURLOPT_POST, TRUE );
-		curl_setopt ( $ch, CURLOPT_POSTFIELDS, array (
-				'mobile' => $mobilenumber,
-				'message' => '验证码：' . $tp . '	- ' . $expireMinute . '分钟有效,区分大小写【每言】' 
-		) );
-		
-		$res = curl_exec ( $ch );
-		curl_close ( $ch );
-		// $res = curl_error( $ch );
-		// var_dump($res);
-		
-		return $res;
 	}
 	function checkRegisterCode($mobilenumber, $code) {
 		$row = $this->db->regcode->findOne ( array (
