@@ -192,7 +192,7 @@ class Proseed extends YqBase {
 			$this->db->Prouser->save($user);
 
 			$text = array ();
-			$text['seed_text'] = $value['seed_text'];	
+			$text['seed_text'] = $seed['seed_text'];	
 
 		}
 		
