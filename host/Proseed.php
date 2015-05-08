@@ -179,6 +179,17 @@ class Proseed extends YqBase {
 		}
 
 		//做好阅读记录
+		$user = $this->db->Prouser->find(array('_id'=> new MongoId($user_id)));
+		$seed = $this->db->Proseed->find (array ('_id'=> new MongoId($seed_id)));
+		foreach ($seed['seed_keywords'] as $key => $word) {
+			if (isset($user['user_keywords'][$word])) {
+				$user['user_keywords'][$word] += 1;
+			}else{
+				$user['user_keywords'][$word] = 1;
+			}
+		}
+
+		/*
 		$readLog = $this->db->Proread->findOne (array ('seed_id' => $seed_id,'user_id'=>$user_id,'read_type'=>'1'));
 		if ($readLog == null) {
 			$data = array (
@@ -189,10 +200,10 @@ class Proseed extends YqBase {
 
 				);
 			$this->db->Proread->save ($data);
-		}
+		}*/sds
 
 		//找到seed_id的内容
-		$seed = $this->db->Proseed->find (array ('_id'=> new MongoId($seed_id)));
+		
 		foreach ($seed as $key => $value) {
 			$text = array ();
 			$text['seed_text'] = $value['seed_text'];	

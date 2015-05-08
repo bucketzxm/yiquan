@@ -67,7 +67,8 @@ class Prouser extends YqBase {
 							'user_state' => 1,
 							'user_regdate' => new MongoDate (),
 							'user_favoriteSource' => array (),
-							'user_readSeeds' => array ()
+							'user_readSeeds' => array (),
+							'user_keywords' => array ()
 					);
 					$this->db->Prouser->save ( $neo );
 

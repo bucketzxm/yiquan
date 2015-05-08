@@ -33,7 +33,7 @@
 		$db->Proseed->remove (array ('seed_time' => array ('$lt' => $timeMonthAgo)));
 
 		foreach ($sources as $key => $value) {
-			echo "<h2>" . $value['source_name'] . "</h2>";
+			//echo "<h2>" . $value['source_name'] . "</h2>";
 			$checkTime = $value['check_time'];
 			$feedurl = $value['source_rssURL'];
 			
@@ -97,7 +97,7 @@
 		        }
 
 				if ($postTime < $checkTime){
-					echo "<h2>" . "已经刷新过了" . "</h2>";
+					//echo "<h2>" . "已经刷新过了" . "</h2>";
 				}else{
 
 					$seed = array (
@@ -116,9 +116,9 @@
 
 
 					//$timeStamp = ;
-					echo "<h2>" . $item->title . "</h2>";
+					//echo "<h2>" . $item->title . "</h2>";
 					//echo "<h2>" . $titleLen . "</h2>";
-					echo "<h2>" . $postTime. "</h2>";
+					//echo "<h2>" . $postTime. "</h2>";
 					//echo "<p>" . $item->description . "</p>";
 				}
 
