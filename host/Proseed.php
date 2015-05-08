@@ -200,7 +200,7 @@ class Proseed extends YqBase {
 
 				);
 			$this->db->Proread->save ($data);
-		}*/sds
+		}*/
 
 		//找到seed_id的内容
 		
