@@ -40,6 +40,8 @@ class MyQuoteView extends Quote {
 		echo '<textarea class="form-control" rows="3" cols="80" name="remark">' . $arr ['quote_remark'] . '</textarea></div>';
 		echo '<div class="form-group"><h2>每言签名</h2>';
 		echo '<textarea class="form-control" rows="3" cols="80" name="signature">' . $arr ['quote_signature'] . '</textarea></div>';
+		echo '<div class="form-group"><h2>编辑推荐</h2>';
+		echo '<textarea class="form-control" rows="3" cols="80" name="editor">' . $arr ['quote_editor'] . '</textarea></div>';
 		echo '<div class="form-group"><input type="submit" value="提交" /></div>';
 		echo '</form></div>';
 	}
