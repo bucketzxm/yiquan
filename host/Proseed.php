@@ -179,8 +179,8 @@ class Proseed extends YqBase {
 		}
 
 		//做好阅读记录
-		$user = $this->db->Prouser->find(array('_id'=> new MongoId($user_id)));
-		$seed = $this->db->Proseed->find (array ('_id'=> new MongoId($seed_id)));
+		$user = $this->db->Prouser->findOne(array('_id'=> new MongoId($user_id)));
+		$seed = $this->db->Proseed->findOne(array('_id'=> new MongoId($seed_id)));
 		foreach ($seed['seed_keywords'] as $key => $word) {
 			if (isset($user['user_keywords'][$word])) {
 				$user['user_keywords'][$word] += 1;
@@ -188,7 +188,7 @@ class Proseed extends YqBase {
 				$user['user_keywords'][$word] = 1;
 			}
 		}
-
+		$this->db->Prouser->save($user);
 		/*
 		$readLog = $this->db->Proread->findOne (array ('seed_id' => $seed_id,'user_id'=>$user_id,'read_type'=>'1'));
 		if ($readLog == null) {
