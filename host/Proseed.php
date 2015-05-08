@@ -254,6 +254,7 @@ class Proseed extends YqBase {
 
 			//计算这个新闻的关键字在我值得一读的匹配程度
 			//找到我所有读过的话题
+			/*
 			$myAgrees = $this->db->Proread->find (
 				array (
 					'user_id'=> $user_id,
@@ -270,10 +271,11 @@ class Proseed extends YqBase {
 				}
 			}
 			$keywordCount = array_count_values($matchWords);
-
+			*/
 			$matchCount = 0;
+			$user = $this->db->Prouser->findOne(array ('_id'=> new MongoId($user_id)));
 			foreach ($seed['seed_keywords'] as $keyword) {
-				$matchCount += $keywordCount[$keyword];
+				$matchCount += $user['user_keywords'][$keyword];
 			}
 			$hotness += $matchCount/10;
 
