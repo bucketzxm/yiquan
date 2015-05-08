@@ -190,6 +190,10 @@ class Proseed extends YqBase {
 				}
 			}
 			$this->db->Prouser->save($user);
+
+			$text = array ();
+			$text['seed_text'] = $value['seed_text'];	
+
 		}
 		
 		/*
@@ -206,11 +210,7 @@ class Proseed extends YqBase {
 		}*/
 
 		//找到seed_id的内容
-		
-		foreach ($seed as $key => $value) {
-			$text = array ();
-			$text['seed_text'] = $value['seed_text'];	
-		}
+
 		return json_encode($text);
 	}
 
