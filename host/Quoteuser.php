@@ -698,7 +698,7 @@ class Quoteuser extends YqBase {
 	}
 	
 	/*
-	 * made by wwq getuserby_id_xml指将指定_id的用户的所有信息以xml方式返回 接受参数为 用户名 返回值 一个json字符串 soap客户端使用方法 $soap = new SoapClient ( "http://yiquanhost.duapp.com/userclass.wsdl" ); $result2 = $soap->getuserby_id_xml ( '54c25f6ca3136ab006000002' ); echo $result2 . "<br/>";
+	 * made by wwq by_id_xml指将指定_id的用户的所有信息以xml方式返回 接受参数为 用户名 返回值 一个json字符串 soap客户端使用方法 $soap = new SoapClient ( "http://yiquanhost.duapp.com/userclass.wsdl" ); $result2 = $soap->getuserby_id_xml ( '54c25f6ca3136ab006000002' ); echo $result2 . "<br/>";
 	 */
 	function getUserByID($user_id) {
 		if ($this->yiquan_version == 0) {
@@ -710,17 +710,11 @@ class Quoteuser extends YqBase {
 		}
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
 		
-		if ($this->yiquan_version == '0.1.0') {
-			$ans = $this->db->user->findOne ( array (
-					'_id' => new MongoId ( $user_id ) 
-			) );
-		} else {
-			$ans = $this->db->user->findOne ( array (
-					'_id' => new MongoId ( $user_id ) 
-			), array (
-					'user_pic' => false 
-			) );
-		}
+
+		$ans = $this->db->user->findOne ( array (
+				'_id' => new MongoId ( $user_id ) 
+		));
+		
 		
 		if ($ans == null)
 			return 4;
