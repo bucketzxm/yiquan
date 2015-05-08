@@ -107,9 +107,9 @@ class Proseed extends YqBase {
 		$unreadSeeds = array ();
 		foreach ($seeds as $key => $seed) {
 			$cursor = $this->db->Proread->findOne(array ('seed_id' => $seed,'user_id'=>$user_id,'read_type'=>'0'));
-			//if ($cursor == null) {
+			if ($cursor == null) {
 				array_push($unreadSeeds,$seed);
-			//}
+			}
 		}
 		
 		$res = array ();
