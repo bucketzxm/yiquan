@@ -541,6 +541,7 @@ class Quote extends YqBase {
 			$row ['quote_remark'] = $arr ['remark'];
 			$row ['quote_signature'] = $arr ['signature'];
 			$row ['quote_editor'] = $arr ['editor'];
+			$row ['quote_public'] = $arr ['public'];
 		}
 		return $this->db->Quote->save ( $row );
 	}
