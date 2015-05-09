@@ -141,6 +141,32 @@ class Quote extends YqBase {
 		}
 
 	}
+
+	function deleteQuote($user_id,$quote_id){
+		if ($this->yiquan_version == 0) {
+			return - 2;
+		}
+		
+		if ($this->checkQuoteToken () != 1) {
+			return - 3;
+		}
+		
+		if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
+			return - 4;
+		}
+		$this->logCallMethod ( 'anonymous ', __METHOD__ );
+		try{
+			$cursor = $this->db->Quote->findOne(array ('_id'=>new MongoId($quote_id)));
+			$cursor['quote_public'] = "0";
+			$cursor['quote_ownerID'] = "";
+			$this->db->Quote->save($cursor);
+			return 1;
+
+		}catch(Exception $e){
+			return $e;
+		}
+
+	}
 	function queryLikeNames($quote_id,$user_id){
 		if ($this->yiquan_version == 0) {
 			return - 2;
