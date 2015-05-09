@@ -57,6 +57,17 @@ class Quote extends YqBase {
 		}
 		$this->logCallMethod ( 'anonymous ', __METHOD__ );
 
+		$existQuote = $this->db->Quote->findOne(
+			array(
+				'quote_title'=>$quote_title,
+				'quote_ownerID'=>$user_id,
+				'quote_time' => array ('$gt'=> (time()-300) )
+				)
+			);
+		if ($existQuote != null) {
+			return -1;
+		}
+
 		$quote_time = time ();
 
             $rawpic = base64_decode ( $quote_img);
