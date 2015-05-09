@@ -69,7 +69,7 @@ class Proseed extends YqBase {
 		$agreedSeeds = $this->db->Proworth->find (
 			array (
 				'like_user' => array ('$in' => $myPros),
-				'like_time' => array ('$gt' => (time()-86400*2))
+				'like_time' => array ('$gt' => (time()-86400*3))
 				),
 			array ('_id' => 1)
 			);
@@ -89,7 +89,7 @@ class Proseed extends YqBase {
 			$sourceSeeds = $this->db->Proseed->find (
 				array (
 					'seed_sourceID' => (string)$source['_id'], 
-					'seed_time' => array ('$gt' => (time()-86400*1))
+					'seed_time' => array ('$gt' => (time()-86400*3))
 					),
 				array ('_id'=> 1)
 				);
