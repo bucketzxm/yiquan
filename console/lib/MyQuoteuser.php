@@ -2246,6 +2246,7 @@ class Quoteuser extends YqBase {
 				return 'unknown';
 			}
 		} catch ( Exception $e ) {
+			var_dump ( $user_id );
 			return $e;
 		}
 	}
