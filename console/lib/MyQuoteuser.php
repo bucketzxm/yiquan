@@ -2236,8 +2236,11 @@ class Quoteuser extends YqBase {
 	function getUserMobileByID($user_id) {
 		// var_dump($user_id);
 		try {
+			if ($user_id=='') {
+				return 'empty user';
+			}
 			$ans = $this->db->Quoteuser->findOne ( array (
-					'_id' => new MongoId ( $user_id ) 
+					'_id' => new MongoId ( "$user_id" ) 
 			) );
 			
 			if ($ans != null && isset ( $ans ['user_mobile'] )) {
@@ -2246,6 +2249,7 @@ class Quoteuser extends YqBase {
 				return 'unknown';
 			}
 		} catch ( Exception $e ) {
+			var_dump ( $user_id );
 			return $e;
 		}
 	}

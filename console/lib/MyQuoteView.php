@@ -28,6 +28,7 @@ class MyQuoteView extends Quote {
 			echo '<td><a href="?action=delete&mindex=' . $arr [$i] ['_id']->{'$id'} . '">删除</a></td>';
 			echo '<td><a href="?action=edit&mindex=' . $arr [$i] ['_id']->{'$id'} . '">编辑</a></td>';
 			echo '</tr>';
+			usleep(10);
 		}
 		echo '</table></div>';
 	}
