@@ -154,16 +154,14 @@ class Quote extends YqBase {
 			$quoteImg = '7xio2b.com2.z0.glb.qiniucdn.com/Fl2ZelNU4jhnOqU146XW_V67gaxK';
 			$quoteImgName = 'Fl2ZelNU4jhnOqU146XW_V67gaxK';
 			$this->addCongQuote($user_id,$quote_title,$quote_signature,$quote_remark,$quoteImg,$quoteImgName);
-		}
-		/*
-		else if ($quoteCount == 5){
-			$quote_title = '';
+		}else if ($quoteCount == 5){
+			$quote_title = '一个伟大的习惯，往往源自简单但可贵的重复。';
 			$quote_signature = '每言';
 			$quote_remark = '我的每言成就';
-			$quoteImg = '';
-			$quoteImgName = '';
+			$quoteImg = '7xio2b.com2.z0.glb.qiniucdn.com/FjWAGQtjo4BdhJfinNvg0RSq0V1P';
+			$quoteImgName = 'FjWAGQtjo4BdhJfinNvg0RSq0V1P';
 			$this->addCongQuote($user_id,$quote_title,$quote_signature,$quote_remark,$quoteImg,$quoteImgName);
-		}*/
+		}
 
 	}
 
