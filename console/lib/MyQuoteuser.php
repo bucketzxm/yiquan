@@ -2254,7 +2254,7 @@ class Quoteuser extends YqBase {
 		if ($ans != null) {
 			return $ans ['user_mobile'];
 		} else {
-			return null;
+			return 'unknown';
 		}
 	}
 }
