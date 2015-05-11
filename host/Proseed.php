@@ -243,13 +243,21 @@ class Proseed extends YqBase {
 					)
 				);
 
+			$user = $this->db->Prouser->findOne(array ('_id'=> new MongoId($user_id)));
+
 			//计算初始温度的当前热度
 			$hotness = $this->calculateHotness(100,$seed['seed_time']);
+
+			//计算单词点赞的放大因子
+			$userVol = $this->db->Prouser->find (array ('current.user_industry'=>$user['current.user_industry']))->count();
+			$amp = max(1,500/$userVol);
+
+
 
 			//计算所有点赞的热度
 			foreach ($agrees as $key => $value) {
 				$incrementalHotness = $this->calculateHotness ($value['like_weight'],$value['like_time']);
-				$hotness += $incrementalHotness;
+				$hotness += $incrementalHotness*$amp;
 			}
 
 			//计算这个新闻的关键字在我值得一读的匹配程度
@@ -273,7 +281,7 @@ class Proseed extends YqBase {
 			$keywordCount = array_count_values($matchWords);
 			*/
 			$matchCount = 0;
-			$user = $this->db->Prouser->findOne(array ('_id'=> new MongoId($user_id)));
+			
 			foreach ($seed['seed_keywords'] as $keyword) {
 				$matchCount += $user['user_keywords'][$keyword];
 			}

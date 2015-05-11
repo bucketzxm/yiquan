@@ -101,7 +101,7 @@
 				}else{
 
 					$seed = array (
-						'seed_source' => $rss->channel->title,
+						'seed_source' => $value['source_name'],
 						'seed_sourceID' => (string)$value['_id'],
 						'seed_title' => $item->title,
 						'seed_link' => $item->link,

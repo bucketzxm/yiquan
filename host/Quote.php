@@ -134,12 +134,58 @@ class Quote extends YqBase {
 			if ($user['user_nickname'] == '') {
 				$user['user_nickname'] = $quote_signature;
 			}
+			//判断用户的每言数量
+			$quoteCount = $this->db->Quote->find(array ('quote_ownerID'=> (string)$user['_id']))->count();
+			$this->checkCongQuote($user_id,$quoteCount);
+
 			$this->db->Quoteuser->save ($user);
 			return $bigAvatar;
 		}catch(Exception $e){
 			return -1;
 		}
 
+	}
+
+	private function checkCongQuote($user_id,$quoteCount){
+		if ($quoteCount == 1) {
+			$quote_title = '所有令人赞叹的成就和积累，都始于今日出发的第一步。';
+			$quote_signature = '每言';
+			$quote_remark = '我的每言成就';
+			$quoteImg = '7xio2b.com2.z0.glb.qiniucdn.com/Fl2ZelNU4jhnOqU146XW_V67gaxK';
+			$quoteImgName = 'Fl2ZelNU4jhnOqU146XW_V67gaxK';
+			$this->addCongQuote($user_id,$quote_title,$quote_signature,$quote_remark,$quoteImg,$quoteImgName);
+		}
+		/*
+		else if ($quoteCount == 5){
+			$quote_title = '';
+			$quote_signature = '每言';
+			$quote_remark = '我的每言成就';
+			$quoteImg = '';
+			$quoteImgName = '';
+			$this->addCongQuote($user_id,$quote_title,$quote_signature,$quote_remark,$quoteImg,$quoteImgName);
+		}*/
+
+	}
+
+	private function addCongQuote($user_id,$quote_title,$quote_signature,$quote_remark,$quoteImg,$quoteImgName){
+
+		$data = array (
+				"quote_ownerID" => $user_id,
+				"quote_title" => $quote_title,
+				"quote_signature" => $quote_signature,
+				"quote_remark" => $quote_remark,
+				"quote_public" => '0',
+				"quote_time" => time(),
+				"quote_likeNames" => array (),
+				"quote_likeCount" => 0,
+				"quote_img" => $quoteImg,
+				"quote_imgName" => $quoteImgName,
+				"quote_group" => 'general',
+				"quote_detailURL" => '',
+				"quote_readCount" => 0,
+				"quote_editor" => '0'
+		);
+		$this->db->Quote->save($data);
 	}
 
 	function deleteQuote($user_id,$quote_id){
