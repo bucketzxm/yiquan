@@ -75,8 +75,7 @@ class Quoteuser extends YqBase {
 					'user_smallavatarname' => '',
 					'user_city' => '',
 					'user_books' => array () 
-			)
-			;
+			);
 			$this->db->Quoteuser->save ( $neo );
 			
 			return $this->expireRegistercode ( $user_mobile, $code );
@@ -172,8 +171,7 @@ class Quoteuser extends YqBase {
 							'user_smallavatarname' => '',
 							'user_city' => '',
 							'user_books' => array () 
-					)
-					;
+					);
 					$this->db->Quoteuser->save ( $neo );
 				}
 				$ans = $this->db->Quoteuser->findOne ( array (
@@ -352,8 +350,7 @@ class Quoteuser extends YqBase {
 							'weixin_openID' => $open_id,
 							'weixin_accessToken' => $access_token,
 							'weixin_refreshToken' => $refresh_token 
-					)
-					;
+					);
 					$this->db->Quoteuser->save ( $neo );
 					
 					$ans = $this->db->Quoteuser->findOne ( array (
@@ -2238,14 +2235,18 @@ class Quoteuser extends YqBase {
 	// ======================================================================================
 	function getUserMobileByID($user_id) {
 		// var_dump($user_id);
-		$ans = $this->db->Quoteuser->findOne ( array (
-				'_id' => new MongoId ( $user_id ) 
-		) );
-		
-		if ($ans != null && isset ( $ans ['user_mobile'] )) {
-			return $ans ['user_mobile'];
-		} else {
-			return 'unknown';
+		try {
+			$ans = $this->db->Quoteuser->findOne ( array (
+					'_id' => new MongoId ( $user_id ) 
+			) );
+			
+			if ($ans != null && isset ( $ans ['user_mobile'] )) {
+				return $ans ['user_mobile'];
+			} else {
+				return 'unknown';
+			}
+		} catch ( Exception $e ) {
+			return $e;
 		}
 	}
 }
