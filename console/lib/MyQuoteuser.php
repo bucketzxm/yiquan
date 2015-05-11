@@ -36,7 +36,7 @@ class Quoteuser extends YqBase {
 	/*
 	 * made by wwq reg是指用户的注册 接受参数依次为 用户名 密码 手机号码 返回值 注册成功1 注册发生异常-1 soap客户端使用方法 $soap = new SoapClient ( "http://yiquanhost.duapp.com/userclass.wsdl" ); $result2 = $soap->reg ( 'q', '12345'，'13566632325' ); echo $result2 . "<br/>";
 	 */
-	function reg($user_pwd, $user_mobile,$code) {
+	function reg($user_pwd, $user_mobile, $code) {
 		if ($this->yiquan_version == 0) {
 			return - 2;
 		}
@@ -48,21 +48,23 @@ class Quoteuser extends YqBase {
 		// if ($this->checkUsernameLegal ( $user_name ) == 0) {
 		// return 0;
 		// }
-
+		
 		$check = $this->checkRegisterCode ( $user_mobile, $code );
 		if ($check != 1)
 			return $check;
-
-		$user = $this->db->Quoteuser->findOne (array ('user_mobile'=>$user_mobile));
-
-		$this->logCallMethod ( $user['_id'], __METHOD__ );
+		
+		$user = $this->db->Quoteuser->findOne ( array (
+				'user_mobile' => $user_mobile 
+		) );
+		
+		$this->logCallMethod ( $user ['_id'], __METHOD__ );
 		try {
 			$id = $this->mid ( 'Quoteuser', $this->db );
 			
 			$neo = array (
 					'uid' => $id,
 					'user_mobile' => $user_mobile,
-					'user_pin' =>  crypt ($user_pwd),
+					'user_pin' => crypt ( $user_pwd ),
 					'user_nickname' => '',
 					'user_relationships' => array (),
 					'user_state' => 1,
@@ -72,33 +74,34 @@ class Quoteuser extends YqBase {
 					'user_bigavatarname' => '',
 					'user_smallavatarname' => '',
 					'user_city' => '',
-					'user_books' => array ()
-
+					'user_books' => array () 
 			);
 			$this->db->Quoteuser->save ( $neo );
 			
-			return $this->expireRegistercode ( $user_mobile, $code );;
+			return $this->expireRegistercode ( $user_mobile, $code );
+			;
 		} catch ( Exception $e ) {
 			return - 1;
 		}
 	}
-
-	function reloadUser ($user_id){
-			if ($this->yiquan_version == 0) {
-				return - 2;
-			}
-			if ($this->checkQuoteToken () != 1) {
-				return - 3;
-			}
-			if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
-				return - 4;
-			}
-			$user = $this->db->Quoteuser->findOne (array ('_id'=>new MongoId($user_id)));
-			if ($user != null) {
-				return json_encode($user);
-			}else{
-				return -1;
-			}
+	function reloadUser($user_id) {
+		if ($this->yiquan_version == 0) {
+			return - 2;
+		}
+		if ($this->checkQuoteToken () != 1) {
+			return - 3;
+		}
+		if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
+			return - 4;
+		}
+		$user = $this->db->Quoteuser->findOne ( array (
+				'_id' => new MongoId ( $user_id ) 
+		) );
+		if ($user != null) {
+			return json_encode ( $user );
+		} else {
+			return - 1;
+		}
 	}
 	/*
 	 * made by wwq mobile_exist指探测手機號碼是否已经存在 接受参数为 手机号 返回值 存在是1 不存在是0 异常是-1 soap客户端使用方法 $soap = new SoapClient ( "http://yiquanhost.duapp.com/userclass.wsdl" ); $result2 = $soap->mobile_exist ( '123456789'); echo $result2 . "<br/>";
@@ -122,18 +125,19 @@ class Quoteuser extends YqBase {
 			return - 1;
 		}
 	}
-
-	function checkWeixinExist($open_id){
-			if ($this->yiquan_version == 0) {
-				return - 2;
-			}
-			$ans = $this->db->Quoteuser->findOne (array ('weixin_openID' => $open_id));
-
-			if ($ans != null) {
-				return 1;
-			}else{
-				return 0;
-			}
+	function checkWeixinExist($open_id) {
+		if ($this->yiquan_version == 0) {
+			return - 2;
+		}
+		$ans = $this->db->Quoteuser->findOne ( array (
+				'weixin_openID' => $open_id 
+		) );
+		
+		if ($ans != null) {
+			return 1;
+		} else {
+			return 0;
+		}
 	}
 	
 	/*
@@ -145,16 +149,15 @@ class Quoteuser extends YqBase {
 				return - 2;
 			}
 			$this->logCallMethod ( $user_name, __METHOD__ );
-
-
-			$res = $this->checkRegisterCode($user_mobile,$code);
-			if ($res == 1){
-
+			
+			$res = $this->checkRegisterCode ( $user_mobile, $code );
+			if ($res == 1) {
+				
 				$ans = $this->db->Quoteuser->findOne ( array (
-						'user_mobile' => $user_mobile
+						'user_mobile' => $user_mobile 
 				) );
-
-				if ($ans == null){
+				
+				if ($ans == null) {
 					$neo = array (
 							'uid' => $id,
 							'user_mobile' => $user_mobile,
@@ -167,285 +170,276 @@ class Quoteuser extends YqBase {
 							'user_bigavatarname' => '',
 							'user_smallavatarname' => '',
 							'user_city' => '',
-							'user_books' => array ()
-
+							'user_books' => array () 
 					);
 					$this->db->Quoteuser->save ( $neo );
-
 				}
-					$ans = $this->db->Quoteuser->findOne ( array (
-							'user_mobile' => $user_mobile
-					) );
-
-					$userID = (string)$ans['_id'];
-					$gd = makeGuid ();
-					setcookie ( "user_id", $userID, time () + 3600 * 2400, '/' );
-					setcookie ( "quser_token", $gd, time () + 3600 * 2400, '/' );
-
-					// $_SESSION ['user_token'] = $gd;
-					
-
-					$rt = $this->db->usertoken->findOne ( array (
-							'user_id' => $userID
-					) );
-					if ($rt == null) {
-						$rt = array (
-								'user_id' => $userID 
-						);
-					}
-					
-					$rt ['quser_token'] = $gd;
-					$this->db->usertoken->save ( $rt );
-					
-					if ($this->setRedis ( $userID, $gd ) == false) {
-						return - 5; // redis wrong
-					}
-
-					$logger = $this->db->Quoteuser->findOne (array ('user_mobile' => $user_mobile));
-					$this->expireRegistercode ( $user_mobile, $code );
-					return json_encode($logger);
-			}else{
+				$ans = $this->db->Quoteuser->findOne ( array (
+						'user_mobile' => $user_mobile 
+				) );
+				
+				$userID = ( string ) $ans ['_id'];
+				$gd = makeGuid ();
+				setcookie ( "user_id", $userID, time () + 3600 * 2400, '/' );
+				setcookie ( "quser_token", $gd, time () + 3600 * 2400, '/' );
+				
+				// $_SESSION ['user_token'] = $gd;
+				
+				$rt = $this->db->usertoken->findOne ( array (
+						'user_id' => $userID 
+				) );
+				if ($rt == null) {
+					$rt = array (
+							'user_id' => $userID 
+					);
+				}
+				
+				$rt ['quser_token'] = $gd;
+				$this->db->usertoken->save ( $rt );
+				
+				if ($this->setRedis ( $userID, $gd ) == false) {
+					return - 5; // redis wrong
+				}
+				
+				$logger = $this->db->Quoteuser->findOne ( array (
+						'user_mobile' => $user_mobile 
+				) );
+				$this->expireRegistercode ( $user_mobile, $code );
+				return json_encode ( $logger );
+			} else {
 				return $res;
 			}
-
 		} catch ( Exception $e ) {
 			return $e;
 		}
 	}
-
-
-	function uploadContacts($user_id,$user_contacts){
-			if ($this->yiquan_version == 0) {
+	function uploadContacts($user_id, $user_contacts) {
+		if ($this->yiquan_version == 0) {
+			return - 2;
+		}
+		if ($this->checkQuoteToken () != 1) {
+			return - 3;
+		}
+		if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
+			return - 4;
+		}
+		try {
+			$user = $this->db->Quoteuser->findOne ( array (
+					'_id' => new MongoId ( $user_id ) 
+			) );
+			if ($user != null) {
+				$friends = explode ( ',', $user_contacts );
+				$user ['user_relationships'] = $friends;
+				$this->db->Quoteuser->save ( $user );
+				return 1;
+			}
+		} catch ( Exception $e ) {
+			return $e;
+		}
+	}
+	function bindByMobile($user_id, $user_mobile, $code) {
+		if ($this->yiquan_version == 0) {
+			return - 2;
+		}
+		if ($this->checkQuoteToken () != 1) {
+			return - 3;
+		}
+		if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
+			return - 4;
+		}
+		if ($this->checkMobileExist ( $user_mobile ) == 1) {
+			return 0;
+		}
+		$res = $this->checkRegisterCode ( $user_mobile, $code );
+		if ($res == 1) {
+			$user = $this->db->Quoteuser->findOne ( array (
+					'_id' => new MongoId ( $user_id ) 
+			) );
+			if ($user != null) {
+				$user ['user_mobile'] = $user_mobile;
+				$this->db->Quoteuser->save ( $user );
+				$this->expireRegistercode ( $user_mobile, $code );
+				return json_encode ( $user );
+			} else {
 				return - 2;
 			}
-			if ($this->checkQuoteToken () != 1) {
-				return - 3;
+		} else {
+			return $res;
+		}
+	}
+	function unbindByMobile($user_id, $user_mobile, $code) {
+		if ($this->yiquan_version == 0) {
+			return - 2;
+		}
+		if ($this->checkQuoteToken () != 1) {
+			return - 3;
+		}
+		if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
+			return - 4;
+		}
+		$res = $this->checkRegisterCode ( $user_mobile, $code );
+		if ($res == 1) {
+			$user = $this->db->Quoteuser->findOne ( array (
+					'_id' => new MongoId ( $user_id ) 
+			) );
+			if ($user != null) {
+				$user ['user_mobile'] = '';
+				$this->db->Quoteuser->save ( $user );
+				$this->expireRegistercode ( $user_mobile, $code );
+				return json_encode ( $user );
+			} else {
+				return - 2;
 			}
-			if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
-				return - 4;
+		} else {
+			return $res;
+		}
+	}
+	function loginByWeixin($open_id, $access_token, $refresh_token) {
+		if ($this->yiquan_version == 0) {
+			return - 2;
+		}
+		$ans = $this->db->Quoteuser->findOne ( array (
+				'weixin_openID' => $open_id 
+		) );
+		if ($ans != null) {
+			$gd = makeGuid ();
+			setcookie ( "user_id", $ans ['_id'], time () + 3600 * 2400, '/' );
+			setcookie ( "user_token", $gd, time () + 3600 * 2400, '/' );
+			
+			// $_SESSION ['user_token'] = $gd;
+			$rt = $this->db->usertoken->findOne ( array (
+					'user_id' => $ans ['_id'] 
+			) );
+			if ($rt == null) {
+				$rt = array (
+						'user_id' => $ans ['_id'] 
+				);
 			}
+			
+			$rt ['user_token'] = $gd;
+			$this->db->usertoken->save ( $rt );
+			
+			if ($this->setRedis ( $ans ['_id'], $gd ) == false) {
+				return - 5; // redis wrong
+			}
+			
+			return json_encode ( $ans );
+		} else {
+			$res = $this->getWXUserInfo ( $access_token, $open_id );
+			
 			try {
-				$user = $this->db->Quoteuser->findOne (array ('_id'=> new MongoId($user_id)));
-				if ($user != null) {
-					$friends = explode ( ',', $user_contacts );	
-					$user['user_relationships'] = $friends;
-					$this->db->Quoteuser->save ($user);
-					return 1;
+				$userInfo = json_decode ( $res, TRUE );
+				if ($userInfo ['openid'] != null) {
+					$id = $this->mid ( 'Quoteuser', $this->db );
+					
+					$neo = array (
+							'uid' => $id,
+							'user_mobile' => '',
+							'user_pin' => '',
+							'user_nickname' => $userInfo ['nickname'],
+							'user_relationships' => array (),
+							'user_state' => 1,
+							'user_regdate' => new MongoDate (),
+							'user_smallavatar' => $userInfo ['headimgurl'],
+							'user_bigavatar' => '',
+							'user_bigavatarname' => '',
+							'user_smallavatarname' => '',
+							'user_city' => $userInfo ['city'],
+							'weixin_Avatar' => $userInfo ['headimgurl'],
+							'user_books' => array (),
+							'weixin_openID' => $open_id,
+							'weixin_accessToken' => $access_token,
+							'weixin_refreshToken' => $refresh_token 
+					);
+					$this->db->Quoteuser->save ( $neo );
+					
+					$ans = $this->db->Quoteuser->findOne ( array (
+							'weixin_openID' => $open_id 
+					) );
+					
+					$gd = makeGuid ();
+					setcookie ( "user_id", $ans ['_id'], time () + 3600 * 2400, '/' );
+					setcookie ( "user_token", $gd, time () + 3600 * 2400, '/' );
+					
+					// $_SESSION ['user_token'] = $gd;
+					$rt = $this->db->usertoken->findOne ( array (
+							'user_id' => $ans ['_id'] 
+					) );
+					if ($rt == null) {
+						$rt = array (
+								'user_id' => $ans ['_id'] 
+						);
+					}
+					
+					$rt ['user_token'] = $gd;
+					$this->db->usertoken->save ( $rt );
+					
+					if ($this->setRedis ( $ans ['_id'], $gd ) == false) {
+						return - 5; // redis wrong
+					}
+					
+					return json_encode ( $ans );
+				} else {
+					return - 1;
 				}
-			}catch(Exception $e){
+			} catch ( Exception $e ) {
 				return $e;
 			}
+		}
 	}
-
-	function bindByMobile($user_id,$user_mobile,$code){
-			if ($this->yiquan_version == 0) {
-				return - 2;
-			}
-			if ($this->checkQuoteToken () != 1) {
+	function bindingByWeixin($user_id, $open_id, $access_token, $refresh_token) {
+		if ($this->yiquan_version == 0) {
+			return - 2;
+		}
+		if ($this->checkQuoteToken () != 1) {
+			return - 3;
+		}
+		if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
+			return - 4;
+		}
+		$user = $this->db->Quoteuser->findOne ( array (
+				'_id' => new MongoId ( $user_id ) 
+		) );
+		if ($user != null) {
+			if ($this->checkWeixinExist == 1) {
 				return - 3;
-			}
-			if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
-				return - 4;
-			}
-			if ($this->checkMobileExist ( $user_mobile ) == 1) {
-				return 0;
-			}
-			$res = $this->checkRegisterCode($user_mobile,$code);
-			if ($res == 1){
-				$user = $this->db->Quoteuser->findOne(array ('_id'=> new MongoId($user_id)));
-				if ($user != null) {
-					$user['user_mobile'] = $user_mobile;
-					$this->db->Quoteuser->save($user);
-					$this->expireRegistercode ( $user_mobile, $code );
-					return json_encode($user);
-				}else{
-					return -2;
-				}
-			}else{
-				return $res;
-			}
-
-	}
-
-		function unbindByMobile($user_id,$user_mobile,$code){
-			if ($this->yiquan_version == 0) {
-				return - 2;
-			}
-			if ($this->checkQuoteToken () != 1) {
-				return - 3;
-			}
-			if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
-				return - 4;
-			}
-			$res = $this->checkRegisterCode($user_mobile,$code);
-			if ($res == 1){
-				$user = $this->db->Quoteuser->findOne(array ('_id'=> new MongoId($user_id)));
-				if ($user != null) {
-					$user['user_mobile'] = '';
-					$this->db->Quoteuser->save($user);
-					$this->expireRegistercode ( $user_mobile, $code );
-					return json_encode($user);
-				}else{
-					return -2;
-				}
-			}else{
-				return $res;
-			}
-
-	}
-
-	
-	function loginByWeixin($open_id,$access_token,$refresh_token){
-			if ($this->yiquan_version == 0) {
-				return - 2;
-			}
-			$ans = $this->db->Quoteuser->findOne (array ('weixin_openID' => $open_id));
-			if ($ans != null){
-				$gd = makeGuid ();
-				setcookie ( "user_id", $ans['_id'], time () + 3600 * 2400, '/' );
-				setcookie ( "user_token", $gd, time () + 3600 * 2400, '/' );
-
-				// $_SESSION ['user_token'] = $gd;
-				$rt = $this->db->usertoken->findOne ( array (
-						'user_id' => $ans['_id']
-				) );
-				if ($rt == null) {
-					$rt = array (
-							'user_id' => $ans['_id'] 
-					);
-				}
-				
-				$rt ['user_token'] = $gd;
-				$this->db->usertoken->save ( $rt );
-				
-				if ($this->setRedis ( $ans['_id'], $gd ) == false) {
-					return - 5; // redis wrong
-				}
-
-				return json_encode($ans);
-
-			}else{
-				$res = $this->getWXUserInfo($access_token,$open_id);
-				
+			} else {
+				$res = $this->getWXUserInfo ( $access_token, $open_id );
 				try {
-					$userInfo = json_decode($res,TRUE);
-					if ($userInfo['openid'] != null) {
-						$id = $this->mid ( 'Quoteuser', $this->db );
-				
-						$neo = array (
-								'uid' => $id,
-								'user_mobile' => '',
-								'user_pin' =>  '',
-								'user_nickname' => $userInfo['nickname'],
-								'user_relationships' => array (),
-								'user_state' => 1,
-								'user_regdate' => new MongoDate (),
-								'user_smallavatar' => $userInfo['headimgurl'],
-								'user_bigavatar' => '',
-								'user_bigavatarname' => '',
-								'user_smallavatarname' => '',
-								'user_city' => $userInfo['city'],
-								'weixin_Avatar' => $userInfo['headimgurl'],
-								'user_books' => array (),
-								'weixin_openID' =>$open_id,
-								'weixin_accessToken' =>$access_token,
-								'weixin_refreshToken' =>$refresh_token
-
-						);
-						$this->db->Quoteuser->save ($neo);
-
-
-						$ans = $this->db->Quoteuser->findOne (array ('weixin_openID' => $open_id));
-
-						$gd = makeGuid ();
-						setcookie ( "user_id", $ans['_id'], time () + 3600 * 2400, '/' );
-						setcookie ( "user_token", $gd, time () + 3600 * 2400, '/' );
-
-						// $_SESSION ['user_token'] = $gd;
-						$rt = $this->db->usertoken->findOne ( array (
-								'user_id' => $ans['_id']
-						) );
-						if ($rt == null) {
-							$rt = array (
-									'user_id' => $ans['_id'] 
-							);
+					$userInfo = json_decode ( $res, TRUE );
+					if ($userInfo ['openid'] != null) {
+						$user ['weixin_Avatar'] = $userInfo ['headimgurl'];
+						$user ['weixin_openID'] = $open_id;
+						$user ['weixin_accessToken'] = $access_token;
+						$user ['weixin_refreshToken'] = $refresh_token;
+						$user ['user_city'] = $userInfo ['city'];
+						if ($user ['user_smallavatar'] == '') {
+							$user ['user_smallavatar'] = $userInfo ['headimgurl'];
 						}
-						
-						$rt ['user_token'] = $gd;
-						$this->db->usertoken->save ( $rt );
-						
-						if ($this->setRedis ( $ans['_id'], $gd ) == false) {
-							return - 5; // redis wrong
-						}
-						
-						return json_encode($ans);
-					}else{
-						return -1;
+						$this->db->Quoteuser->save ( $user );
+						return json_encode ( $user );
 					}
-				}catch (Exception $e){
+				} catch ( Exception $e ) {
 					return $e;
 				}
-
 			}
-
+		} else {
+			return - 2;
+		}
 	}
-
-	function bindingByWeixin($user_id,$open_id,$access_token,$refresh_token){
-			if ($this->yiquan_version == 0) {
-				return - 2;
-			}
-			if ($this->checkQuoteToken () != 1) {
-				return - 3;
-			}
-			if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
-				return - 4;
-			}
-			$user = $this->db->Quoteuser->findOne (array ('_id' => new MongoId($user_id)));
-			if ($user != null){
-				if ($this->checkWeixinExist == 1) {
-					return -3;
-					
-				}else{
-					$res = $this->getWXUserInfo($access_token,$open_id);
-					try {
-						$userInfo = json_decode($res,TRUE);
-						if ($userInfo['openid'] != null) {
-									$user['weixin_Avatar'] = $userInfo['headimgurl'];
-									$user['weixin_openID'] =$open_id;
-									$user['weixin_accessToken'] =$access_token;
-									$user['weixin_refreshToken'] =$refresh_token;
-									$user['user_city'] = $userInfo['city'];
-									if ($user['user_smallavatar'] == '') {
-										$user['user_smallavatar'] = $userInfo['headimgurl'];
-									}
-									$this->db->Quoteuser->save ($user);
-									return json_encode($user);
-						}
-					}catch(Exception $e){
-						return $e;
-					}
-				}
-			}else{
-				return -2;
-			}
-
-	}
-
-	function getWXUserInfo($access_token,$open_id){
-		
+	function getWXUserInfo($access_token, $open_id) {
 		$urlAdd = 'https://api.weixin.qq.com/sns/userinfo?access_token=' . $access_token . '&openid=' . $open_id;
-		$ch = curl_init ($urlAdd);
+		$ch = curl_init ( $urlAdd );
 		curl_setopt ( $ch, CURLOPT_CONNECTTIMEOUT, 30 );
 		curl_setopt ( $ch, CURLOPT_RETURNTRANSFER, TRUE );
 		curl_setopt ( $ch, CURLOPT_BINARYTRANSFER, TRUE );
 		curl_setopt ( $ch, CURLOPT_HEADER, FALSE );
-				
+		
 		$res = curl_exec ( $ch );
 		curl_close ( $ch );
 		return $res;
-	} 
-
-	function changeNickname ($user_id,$user_nickname){
+	}
+	function changeNickname($user_id, $user_nickname) {
 		if ($this->yiquan_version == 0) {
 			return - 2;
 		}
@@ -457,19 +451,21 @@ class Quoteuser extends YqBase {
 			return - 4;
 		}
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
-
-		$cursor = $this->db->Quoteuser->findOne (array ('_id' => new MongoId($user_id)));
+		
+		$cursor = $this->db->Quoteuser->findOne ( array (
+				'_id' => new MongoId ( $user_id ) 
+		) );
 		if ($cursor != null) {
-			try{
-				$cursor['user_nickname'] = $user_nickname;
-				$this->db->Quoteuser->save ($cursor);
-				return json_encode($cursor);
-			}catch (Exception $e){
-				return -1;
+			try {
+				$cursor ['user_nickname'] = $user_nickname;
+				$this->db->Quoteuser->save ( $cursor );
+				return json_encode ( $cursor );
+			} catch ( Exception $e ) {
+				return - 1;
 			}
 		}
 	}
-
+	
 	/*
 	 * 注册设备
 	 */
@@ -487,7 +483,7 @@ class Quoteuser extends YqBase {
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
 		
 		$cursor = $this->db->getuiClientID->findOne ( array (
-				'user_id' => $user_id
+				'user_id' => $user_id 
 		) );
 		try {
 			if ($cursor == null) {
@@ -1229,23 +1225,22 @@ class Quoteuser extends YqBase {
 	/*
 	 * made by wwq findAllfriendsby_id_usearray指将指定用户id 的所有好友都罗列出来 接受参数为 用户id fromid 指某一个人将会被排除在寻找范围之外 返回值 一个数组集合 没有转json 不建议soap使用
 	 */
-    private function findAllfriendsby_name_usearray_except($name) {
-        $ans = $this->db->user->findOne ( array (
-                                                 'user_name' => $name
-                                                 ) );
-        
-        $res = Array ();
-        // 遍历$ans 指针
-        if (isset ( $ans ['user_relationships'] )) {
-            foreach ( $ans ['user_relationships'] as $k => $v ) {
-                
-                $res [] = $v ['userb_id']->{'$id'};
-            }
-        }
-        return $res;
-    }
-    
-    private function findAllfriendsby_id_usearray_except($id, $fromid) {
+	private function findAllfriendsby_name_usearray_except($name) {
+		$ans = $this->db->user->findOne ( array (
+				'user_name' => $name 
+		) );
+		
+		$res = Array ();
+		// 遍历$ans 指针
+		if (isset ( $ans ['user_relationships'] )) {
+			foreach ( $ans ['user_relationships'] as $k => $v ) {
+				
+				$res [] = $v ['userb_id']->{'$id'};
+			}
+		}
+		return $res;
+	}
+	private function findAllfriendsby_id_usearray_except($id, $fromid) {
 		$ans = $this->db->user->findOne ( array (
 				'_id' => new MongoId ( $id ) 
 		) );
@@ -1456,43 +1451,38 @@ class Quoteuser extends YqBase {
 	/*
 	 * made by wwq 按照用户名寻找到他的所有 一度 二度的好友 的用户信息 字符串 返回 所有好友的信息集合 json $soap = new SoapClient ( "http://yiquanhost.duapp.com/userclass.wsdl" ); $result2 = $soap->get_AllFriends_info_of_Myfriends_by_uname_dotstring ( 'q' );
 	 */
-    
-    
-    
-    function listFirstFriendsByName($user_name) {
-        if ($this->yiquan_version == 0) {
-            return - 2;
-        }
-        if ($this->checkQuoteToken () != 1) {
-            return - 3;
-        }
-        if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $user_name) {
-            return - 4;
-        }
-        $this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
-        $res = 'system,';
-        
-        $pt = $this->findAllfriendsby_name_usearray_except ($user_name);
-        $row = $this->db->user->findOne ( array (
-                                                 'user_name' => $user_name
-                                                 ) );
-        $blist = $row ['user_blocklist'];
-        foreach ( $pt as $v ) {
-            $pkt = $this->db->user->findOne ( array (
-                                                     '_id' => new MongoId ( $v )
-                                                     ), array (
-                                                               '_id' => 1,
-                                                               'user_name' => 1 
-                                                               ) );
-            if (isset ( $blist [$pkt ['user_name']] ))
-                continue;
-            $res .= $pkt ['user_name'];
-            $res .= ',';
-        }
-        return substr ( $res, 0, strlen ( $res ) - 1 );
-    }
-    
-    
+	function listFirstFriendsByName($user_name) {
+		if ($this->yiquan_version == 0) {
+			return - 2;
+		}
+		if ($this->checkQuoteToken () != 1) {
+			return - 3;
+		}
+		if (! isset ( $_COOKIE ['user'] ) || $_COOKIE ['user'] != $user_name) {
+			return - 4;
+		}
+		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
+		$res = 'system,';
+		
+		$pt = $this->findAllfriendsby_name_usearray_except ( $user_name );
+		$row = $this->db->user->findOne ( array (
+				'user_name' => $user_name 
+		) );
+		$blist = $row ['user_blocklist'];
+		foreach ( $pt as $v ) {
+			$pkt = $this->db->user->findOne ( array (
+					'_id' => new MongoId ( $v ) 
+			), array (
+					'_id' => 1,
+					'user_name' => 1 
+			) );
+			if (isset ( $blist [$pkt ['user_name']] ))
+				continue;
+			$res .= $pkt ['user_name'];
+			$res .= ',';
+		}
+		return substr ( $res, 0, strlen ( $res ) - 1 );
+	}
 	function listAllFriendsByName($user_name) {
 		if ($this->yiquan_version == 0) {
 			return - 2;
@@ -1647,9 +1637,9 @@ class Quoteuser extends YqBase {
 		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
 		
 		$row = $this->db->Quoteuser->findOne ( array (
-				'_id' => new MongoId($user_id)
+				'_id' => new MongoId ( $user_id ) 
 		) );
-		if ($row == null){
+		if ($row == null) {
 			return 2;
 		}
 		$rawpic = base64_decode ( $data );
@@ -1674,8 +1664,7 @@ class Quoteuser extends YqBase {
 			return $rep;
 		}
 		$this->db->Quoteuser->save ( $row );
-		return json_encode($row);
-		
+		return json_encode ( $row );
 	}
 	
 	/* 根据用户名返回原始图片 base64编码 */
@@ -2243,18 +2232,21 @@ class Quoteuser extends YqBase {
 		}
 	}
 	
-	
-	//======================================================================================
+	// ======================================================================================
 	function getUserMobileByID($user_id) {
 		// var_dump($user_id);
-		$ans = $this->db->Quoteuser->findOne ( array (
-				'_id' => new MongoId ( $user_id )
-		) );
-	
-		if ($ans != null) {
-			return $ans ['user_mobile'];
-		} else {
-			return null;
+		try {
+			$ans = $this->db->Quoteuser->findOne ( array (
+					'_id' => new MongoId ( $user_id ) 
+			) );
+			
+			if ($ans != null && isset ( $ans ['user_mobile'] )) {
+				return $ans ['user_mobile'];
+			} else {
+				return 'unknown';
+			}
+		} catch ( Exception $e ) {
+			return $e;
 		}
 	}
 }
