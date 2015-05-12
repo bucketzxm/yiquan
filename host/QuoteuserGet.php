@@ -25,9 +25,9 @@
 			$prosource = $db->Prosource;
 			$sources = $prosource->find();
 			
-			$proseed = $db->Proseed;
+			$proseed = $db->Quoteuser;
 			
-		$users = $this->db->Quoteuser->find();
+		$users = $proseed->find();
 
 
 		foreach ($users as $key => $value) {
