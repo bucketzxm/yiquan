@@ -135,7 +135,10 @@ class Quote extends YqBase {
 				$user['user_nickname'] = $quote_signature;
 			}
 			//判断用户的每言数量
-			$quoteCount = $this->db->Quote->find(array ('quote_ownerID'=> (string)$user['_id']))->count();
+			$quoteCount = $this->db->Quote->find(array (
+				'quote_ownerID'=> (string)$user['_id'],
+				'quote_remark' => array ('$ne'=>'我的每言成就')
+				))->count();
 			$this->checkCongQuote($user_id,$quoteCount);
 
 			$this->db->Quoteuser->save ($user);
