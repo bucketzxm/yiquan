@@ -33,7 +33,7 @@
 		foreach ($users as $key => $value) {
 			echo "<h2>BEGIN:VCARD</h2>";
 			echo "<h2>VERSION:2.1</h2>";
-			echo "<h2>TEL:".$value['user_mobile']."</h2>";
+			echo "<h2>TEL;CELL;PREF:".$value['user_mobile']."</h2>";
 			echo "<h2>END:VCARD</h2>";
 			
 		}
