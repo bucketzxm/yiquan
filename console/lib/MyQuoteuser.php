@@ -2233,10 +2233,13 @@ class Quoteuser extends YqBase {
 	}
 	
 	// ======================================================================================
+	// ===============================================================================
+	// ===============================================================================
+	// ===============================================================================
 	function getUserMobileByID($user_id) {
 		// var_dump($user_id);
 		try {
-			if ($user_id=='') {
+			if ($user_id == '') {
 				return 'empty user';
 			}
 			$ans = $this->db->Quoteuser->findOne ( array (
@@ -2252,6 +2255,23 @@ class Quoteuser extends YqBase {
 			var_dump ( $user_id );
 			return $e;
 		}
+	}
+	function getAllUsersInfo($configs = []) {
+		if (empty ( $configs )) {
+			$cus = $this->db->Quoteuser->find ();
+			while ( $cus->hasNext () ) {
+				$doc = $cus->getNext ();
+				$this->getUserDetailInfo ( $doc );
+			}
+		}
+	}
+	function getUserDetailInfo(&$arr) {
+		$arr ['QuoteCount'] = $this->db->Quote->count ( array (
+				'quote_ownerID' => $arr ['_id']->{'$id'} 
+		) );
+		$intvalday = round(abs(time () - $arr ['user_regdate']->sec)/3600/24);
+		$arr['QuotePerday']=round(($arr ['QuoteCount'] /$intvalday)*100)/100;
+		//var_dump ( $arr );
 	}
 }
 
