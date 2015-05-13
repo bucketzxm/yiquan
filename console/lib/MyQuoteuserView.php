@@ -4,6 +4,45 @@ require_once 'MyQuoteuser.php';
 /* Report all errors except E_NOTICE */
 // error_reporting ( E_ALL & ~ E_NOTICE );
 class MyQuoteuserView extends Quoteuser {
+	function myListallusers_table($arr, $start, $len) {
+		//var_dump($arr);
+		echo '<div class="table-responsive"><table class="table table-striped">';
+		echo '<thead><tr>';
+		
+		echo '<th>用戶名</th>';
+		echo '<th>用戶署名</th>';
+		echo '<th>头像</th>';
+		echo '<th>每言发送总量</th>';
+		echo '<th>每言平均每日发送量</th>';
+		echo '<th>总被赞量</th>';
+		echo '<th>每言平均被赞量</th>';
+		echo '<th>总点赞量</th>';
+		echo '<th>平均每日点赞量</th>';
+		echo '<th>' . '操作1' . '</th>';
+		echo '</tr></thead>';
+		
+		for($i = $start; $i < min ( $start + $len, count ( $arr ) ); $i ++) {
+			echo '<tr>';
+			$uid = $arr [$i] ['_id']->{'$id'};
+			echo '<td>' . (isset ( $arr [$i] ['user_mobile'] ) ? $arr [$i] ['user_mobile'] : '') . '</td>';
+			echo '<td>' . (isset ( $arr [$i] ['user_nickname'] ) ? $arr [$i] ['user_nickname'] : '') . '</td>';
+			echo '<td>' . (isset ( $arr [$i] ['user_smallavatar'] ) ? '<img src="https://' . $arr [$i] ['user_smallavatar'] . '" />' : '') . '</td>';
+			echo '<td>' . (isset ( $arr [$i] ['QuoteCount'] ) ? $arr [$i] ['QuoteCount'] : 0) . '</td>';
+			echo '<td>' . (isset ( $arr [$i] ['QuotePerday'] ) ? $arr [$i] ['QuotePerday'] : 0) . '</td>';
+			echo '<td>' . (isset ( $arr [$i] ['totalbeliked'] ) ? $arr [$i] ['totalbeliked'] : 0) . '</td>';
+			echo '<td>' . (isset ( $arr [$i] ['likedperQuote'] ) ? $arr [$i] ['likedperQuote'] : 0) . '</td>';
+			echo '<td>' . (isset ( $arr [$i] ['totalLikeQuotes'] ) ? $arr [$i] ['totalLikeQuotes'] : 0) . '</td>';
+			echo '<td>' . (isset ( $arr [$i] ['totalLikeQuotesPerday'] ) ? $arr [$i] ['totalLikeQuotesPerday'] : 0) . '</td>';
+			echo '<td>暂无</td>';
+			echo '</tr>';
+		}
+		echo '</table></div>';
+	}
+	
+	// =====================================================================================
+	// =====================================================================================
+	// =====================================================================================
+	// =====================================================================================
 	function htUserSearch_showform() {
 	}
 	function htListAllUsers_table($data) {

@@ -2257,13 +2257,51 @@ class Quoteuser extends YqBase {
 		}
 	}
 	function getAllUsersInfo($configs = []) {
+		$ans = [ ];
 		if (empty ( $configs )) {
-			$cus = $this->db->Quoteuser->find ();
+			$cus = $this->db->Quoteuser->find ( [ ], array (
+					'user_relationships' => false 
+			) );
 			while ( $cus->hasNext () ) {
 				$doc = $cus->getNext ();
 				$this->getUserDetailInfo ( $doc );
+				$ans [] = $doc;
 			}
 		}
+		else
+		{
+			$cus = $this->db->Quoteuser->find ( [ ], array (
+					'user_relationships' => false
+			) );
+			while ( $cus->hasNext () ) {
+				$doc = $cus->getNext ();
+				$this->getUserDetailInfo ( $doc );
+				$ans [] = $doc;
+			}
+		}
+		
+		//if (isset ( $configs ['sortby'] ) && isset ( $configs ['sorttype'] )) {
+			$newans = $this->array_sort ( $ans, $configs ['sortby'], $configs ['sorttype'] );
+		//}
+		//var_dump ( $newans );
+		return $newans;
+	}
+	function array_sort($arr, $keys, $type = 'asc') {
+		$keysvalue = $new_array = array ();
+		foreach ( $arr as $k => $v ) {
+			$keysvalue [$k] = $v [$keys];
+		}
+		if ($type == 'asc') {
+			asort ( $keysvalue );
+		} else {
+			arsort ( $keysvalue );
+		}
+		reset ( $keysvalue );
+		foreach ( $keysvalue as $k => $v ) {
+			$new_array [$k] = $arr [$k];
+		}
+		$new_array = array_values($new_array);
+		return $new_array;
 	}
 	function getUserDetailInfo(&$arr) {
 		$arr ['QuoteCount'] = $this->db->Quote->count ( array (
@@ -2272,6 +2310,34 @@ class Quoteuser extends YqBase {
 		$intvalday = round ( abs ( time () - $arr ['user_regdate']->sec ) / 3600 / 24 ) + 1;
 		$arr ['QuotePerday'] = round ( ($arr ['QuoteCount'] / $intvalday) * 100 ) / 100;
 		// var_dump ( $arr );
+		$cus = $this->db->Quote->find ( array (
+				'quote_ownerID' => $arr ['_id']->{'$id'} 
+		) );
+		$beizan = 0;
+		while ( $cus->hasNext () ) {
+			$doc = $cus->getNext ();
+			$beizan += $doc ['quote_likeCount'];
+		}
+		
+		$arr ['totalbeliked'] = $beizan;
+		
+		if ($arr ['QuoteCount'] == 0) {
+			$arr ['likedperQuote'] = 0;
+		} else {
+			$arr ['likedperQuote'] = round ( $beizan / $arr ['QuoteCount'], 3 );
+		}
+		$dianzan = 0;
+		$cus = $this->db->callmethodlog->find ( array (
+				'user_name' => $arr ['_id']->{'$id'} 
+		) );
+		while ( $cus->hasNext () ) {
+			$doc = $cus->getNext ();
+			if (isset ( $doc ['methods'] ['likeQuotes'] )) {
+				$dianzan += $doc ['methods'] ['likeQuotes'];
+			}
+		}
+		$arr ['totalLikeQuotes'] = $dianzan;
+		$arr ['totalLikeQuotesPerday'] = round ( $dianzan / $intvalday, 2 );
 	}
 }
 

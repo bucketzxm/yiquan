@@ -37,7 +37,10 @@ ob_start ();
 						
 						case 'viewUser' :
 							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
-								$a->getAllUsersInfo ();
+								$a->myListallusers_table ( $a->getAllUsersInfo ( array (
+										'sortby' => 'QuoteCount',
+										'sorttype' => 'dasc' 
+								) ), 0, 1000 );
 							}
 							break;
 						
