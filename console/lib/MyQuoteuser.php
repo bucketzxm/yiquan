@@ -2269,9 +2269,9 @@ class Quoteuser extends YqBase {
 		$arr ['QuoteCount'] = $this->db->Quote->count ( array (
 				'quote_ownerID' => $arr ['_id']->{'$id'} 
 		) );
-		$intvalday = round(abs(time () - $arr ['user_regdate']->sec)/3600/24);
-		$arr['QuotePerday']=round(($arr ['QuoteCount'] /$intvalday)*100)/100;
-		//var_dump ( $arr );
+		$intvalday = round ( abs ( time () - $arr ['user_regdate']->sec ) / 3600 / 24 ) + 1;
+		$arr ['QuotePerday'] = round ( ($arr ['QuoteCount'] / $intvalday) * 100 ) / 100;
+		// var_dump ( $arr );
 	}
 }
 
