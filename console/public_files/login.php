@@ -15,7 +15,7 @@ if (isset ( $_GET ['login'] )) {
 			$_SESSION ['access'] = true;
 			$_SESSION ['userId'] = $user->userId;
 			$_SESSION ['username'] = $user->username;
-			header ( 'Location:main.php' );
+			header ( 'Location:meiyanmain.php' );
 		} else {
 			$_SESSION ['access'] = false;
 			$_SESSION ['username'] = null;

@@ -5,13 +5,15 @@ require_once 'MyPlatform.php';
 // error_reporting ( E_ALL & ~ E_NOTICE );
 class MyPlatformView extends MyPlatform {
 	private $dit = array (
-			'activeusercount' => '活跃用户数量',
+			'activeusercount' => '发每言用户数量',
+			'mohuactiveusercount' => '有操作用户数量',
 			'Quoteaddcount' => '每言添加数量',
 			'Quotecount' => '每言总数',
 			'regcount' => '用户注册总数',
 			'regcounttoday' => '当日用户注册数',
 			'contactscount' => '通讯录导入数量',
-			'activeandregratio'=>'活跃/注册量比值'
+			'activeandregratio'=>'发每言用户/注册量比值',
+			'mohuactiveandregratio'=>'有操作用户/注册量比值'
 	);
 	function tochinese($word) {
 		//var_dump($this->dit);

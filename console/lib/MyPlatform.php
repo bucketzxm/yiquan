@@ -76,6 +76,29 @@ class MyPlatform extends YqBase {
 			} else {
 				$ans ["$sst"] ['active'] ['activeandregratio'] = '0%';
 			}
+			
+			$cus = $this->db->callmethodlog->find ( array (
+					'date' => array (
+							'$gte' => new MongoDate ( $sst ),
+							'$lt' => new MongoDate ( strtotime ( '+1 day', $sst ) ) 
+					) 
+			) );
+			
+			$mohutongji = [ ];
+			while ( $cus->hasNext () ) {
+				$doc = $cus->getNext ();
+				if ($doc ['class'] == 'Quote' || $doc ['class'] == 'Quoteuser') {
+					$mohutongji [$doc ['user_name']] = 1;
+				}
+			}
+			$mohutongji += $activeuser;
+			$ans ["$sst"] ['active'] ['mohuactiveusercount'] = count ( $mohutongji );
+			if ($ans ["$sst"] ['user'] ['regcount'] > 0) {
+				$ans ["$sst"] ['active'] ['mohuactiveandregratio'] = floor ( $ans ["$sst"] ['active'] ['mohuactiveusercount'] / $ans ["$sst"] ['user'] ['regcount'] * 100 ) . '%';
+			} else {
+				$ans ["$sst"] ['active'] ['mohuactiveandregratio'] = '0%';
+			}
+			
 			$sst = strtotime ( '+1 day', $sst );
 			// var_dump(date('Y-m-d',$sst));
 		}
