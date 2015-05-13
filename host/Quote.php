@@ -55,7 +55,7 @@ class Quote extends YqBase {
 		if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
 			return - 4;
 		}
-		$this->logCallMethod ( 'anonymous ', __METHOD__ );
+		$this->logCallMethod ( $_COOKIE ['user_id'], __METHOD__ );
 
 		$existQuote = $this->db->Quote->findOne(
 			array(
@@ -201,7 +201,7 @@ class Quote extends YqBase {
 		if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
 			return - 4;
 		}
-		$this->logCallMethod ( 'anonymous ', __METHOD__ );
+		$this->logCallMethod ( $_COOKIE ['user_id'], __METHOD__ );
 		try{
 			$cursor = $this->db->Quote->findOne(array ('_id'=>new MongoId($quote_id)));
 			$cursor['quote_public'] = "0";
@@ -226,7 +226,7 @@ class Quote extends YqBase {
 		if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
 			return - 4;
 		}
-		$this->logCallMethod ( 'anonymous ', __METHOD__ );
+		$this->logCallMethod ( $_COOKIE ['user_id'], __METHOD__ );
 
 		try{
 			$quote = $this->db->Quote->findOne(array ('_id'=> new MongoId($quote_id)));
@@ -268,7 +268,7 @@ class Quote extends YqBase {
 		if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
 			return - 4;
 		}
-		$this->logCallMethod ( 'anonymous ', __METHOD__ );
+		$this->logCallMethod ( $_COOKIE ['user_id'], __METHOD__ );
 		$time = (int)$time;
 
 		$user = $this->db->Quoteuser->findOne (array ('_id' => new MongoId ($user_id)));
@@ -296,13 +296,13 @@ class Quote extends YqBase {
 	}
 
 	function countMyQuote($user_id){
-		$this->logCallMethod ( 'anonymous ', __METHOD__ );
+		$this->logCallMethod ( $_COOKIE ['user_id'], __METHOD__ );
 		$res = $this->db->Quote->find (array('quote_ownerID' => $user_id))->count();
 		return (string)$res;
 	}
 
 	function countMyQuoteAgrees($user_id){
-		$this->logCallMethod ( 'anonymous ', __METHOD__ );
+		$this->logCallMethod ( $_COOKIE ['user_id'], __METHOD__ );
 		$res = $this->db->Quote->find (array ('quote_ownerID' => $user_id));
 		$agreeCount = 0;
 		foreach ($res as $key => $value) {
@@ -323,7 +323,7 @@ class Quote extends YqBase {
 		if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
 			return - 4;
 		}
-		$this->logCallMethod ( 'anonymous ', __METHOD__ );
+		$this->logCallMethod ( $_COOKIE ['user_id'], __METHOD__ );
 		if ($quote_group == ""){
 			return ($this->queryMyQuotes($user_id,$time));
 		}
@@ -367,7 +367,7 @@ class Quote extends YqBase {
 		if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
 			return - 4;
 		}
-		$this->logCallMethod ( 'anonymous ', __METHOD__ );
+		$this->logCallMethod ( $_COOKIE ['user_id'], __METHOD__ );
 		$time = (int)$time;
 
 		$user = $this->db->Quoteuser->findOne (array ('_id' => new MongoId ($user_id)));
@@ -424,7 +424,7 @@ class Quote extends YqBase {
 		if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
 			return - 4;
 		}
-		$this->logCallMethod ( 'anonymous ', __METHOD__ );
+		$this->logCallMethod ( $_COOKIE ['user_id'], __METHOD__ );
 		$time = (int)$time;
 
 		$user = $this->db->Quoteuser->findOne (array ('_id' => new MongoId ($user_id)));
@@ -486,7 +486,7 @@ class Quote extends YqBase {
 		if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
 			return - 4;
 		}
-		$this->logCallMethod ( 'anonymous ', __METHOD__ );
+		$this->logCallMethod ( $_COOKIE ['user_id'], __METHOD__ );
 		try {
 			$quote = $this->db->Quote->findOne(array ('_id' => new MongoId($quote_id)));
 			array_push ($quote['quote_likeNames'],$user_id);

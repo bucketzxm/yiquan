@@ -94,7 +94,7 @@ class Quoteuser extends YqBase {
 		if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
 			return - 4;
 		}
-		$this->logCallMethod ( 'anonymous ', __METHOD__ );
+		$this->logCallMethod ( $_COOKIE ['user_id'], __METHOD__ );
 		$user = $this->db->Quoteuser->findOne ( array (
 				'_id' => new MongoId ( $user_id ) 
 		) );
@@ -115,7 +115,7 @@ class Quoteuser extends YqBase {
 		if ($this->checkQuoteToken () != 1) {
 			return - 3;
 		}
-		$this->logCallMethod ( 'anonymous ', __METHOD__ );
+		$this->logCallMethod ( $_COOKIE ['user_id'], __METHOD__ );
 		$user = $this->db->Quoteuser->findOne ( array (
 				'_id' => new MongoId ( $user_id ) 
 		) );
@@ -137,7 +137,7 @@ class Quoteuser extends YqBase {
 			if ($this->yiquan_version == 0) {
 				return - 2;
 			}
-			$this->logCallMethod ( 'anonymous ', __METHOD__ );
+			$this->logCallMethod ( $_COOKIE ['user_id'], __METHOD__ );
 			$ans = $this->db->Quoteuser->findOne ( array (
 					'user_mobile' => "$user_mobile" 
 			) );
@@ -252,7 +252,7 @@ class Quoteuser extends YqBase {
 		if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
 			return - 4;
 		}
-		$this->logCallMethod ( 'anonymous ', __METHOD__ );
+		$this->logCallMethod ( $_COOKIE ['user_id'], __METHOD__ );
 		try {
 			$user = $this->db->Quoteuser->findOne ( array (
 					'_id' => new MongoId ( $user_id ) 
