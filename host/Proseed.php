@@ -373,7 +373,7 @@ class Proseed extends YqBase {
 			return - 4;
 		}
 
-		$cursor = $this->db->Proworth->find(array ('like_user'=> $user_id));
+		$cursor = $this->db->Proworth->find(array ('like_user'=> $user_id))->sort(array('seed_time'=> -1));
 		$myLikedSeeds = array ();
 		foreach ($cursor as $key => $value) {
 			$seed = $this->db->Proseed->find(array ('_id'=> new MongoId($value['like_seed'])));
