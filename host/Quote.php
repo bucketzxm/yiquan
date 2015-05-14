@@ -61,7 +61,7 @@ class Quote extends YqBase {
 			array(
 				'quote_title'=>$quote_title,
 				'quote_ownerID'=>$user_id,
-				'quote_time' => array ('$gt'=> (time()-300) )
+				'quote_time' => array ('$gt'=> (time()-600) )
 				)
 			);
 		if ($existQuote != null) {
