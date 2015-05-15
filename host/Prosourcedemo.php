@@ -80,7 +80,13 @@
 				}
 
 				//Add code to check whether the word is in the keyword category for specific category
-
+				$validKeywords = array ();
+				foreach ($keywords as $keyword){
+					$dictitem = $db->Prodict->findOne (array ('word_name'=> $keyword));
+					if ($dictitem != null) {
+						array_push($validKeywords,$keyword);
+					}
+				}
 
 				$description = $item->description;
 		        $content = $item->contentEncoded;
@@ -107,7 +113,7 @@
 						'seed_link' => $item->link,
 						'seed_text' => $text,
 						'seed_time' =>$postTime,
-						'seed_keywords' =>$keywords
+						'seed_keywords' =>$validKeywords
 					);
 				
 					var_dump($keywords);

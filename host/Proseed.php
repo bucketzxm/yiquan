@@ -180,27 +180,8 @@ class Proseed extends YqBase {
 		
 		if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
 			return - 4;
-		}
-
-		//做好阅读记录
-		$user = $this->db->Prouser->findOne(array('_id'=> new MongoId($user_id)));
-		$seeds = $this->db->Proseed->find(array('_id'=> new MongoId($seed_id)));
-		foreach ($seeds as $key => $seed) {
-			foreach ($seed['seed_keywords'] as $key => $word) {
-				if (isset($user['user_keywords'][$word])) {
-					$user['user_keywords'][$word] += 1;
-				}else{
-					$user['user_keywords'][$word] = 1;
-				}
-			}
-			$this->db->Prouser->save($user);
-
-			$text = array ();
-			$text['seed_text'] = $seed['seed_text'];	
-
-		}
+		}		
 		
-		/*
 		$readLog = $this->db->Proread->findOne (array ('seed_id' => $seed_id,'user_id'=>$user_id,'read_type'=>'1'));
 		if ($readLog == null) {
 			$data = array (
@@ -211,10 +192,25 @@ class Proseed extends YqBase {
 
 				);
 			$this->db->Proread->save ($data);
-		}*/
+		}
 
 		//找到seed_id的内容
+		$seeds = $this->db->Proseed->find(array('_id'=> new MongoId($seed_id)));
+		foreach ($seeds as $key => $seed) {
+			/*
+			foreach ($seed['seed_keywords'] as $key => $word) {
+				if (isset($user['user_keywords'][$word])) {
+					$user['user_keywords'][$word] += 1;
+				}else{
+					$user['user_keywords'][$word] = 1;
+				}
+			}
+			$this->db->Prouser->save($user);
+			*/
+			$text = array ();
+			$text['seed_text'] = $seed['seed_text'];	
 
+		}
 		return json_encode($text);
 	}
 
@@ -278,12 +274,20 @@ class Proseed extends YqBase {
 				array_push($seedIDs,new MongoId($agree['seed_id']));
 			}
 
+			//找到和我订阅的关键字的匹配程度
+		
+			
 			$matchCount = 0;
 
 			foreach ($seed['seed_keywords'] as $keyword) {
-				$matchCount += $this->db->Proseed->find (array ('_id' => array ('$in' =>$seedIDs),'seed_title' => new MongoRegex("/$keyword/")))->count();				
+				$matchCount += $this->db->Proseed->find (array ('_id' => array ('$in' =>$seedIDs),'seed_title' => new MongoRegex("/$keyword/")))->count();	
+				if (in_array ($keyword,$user['user_keywords'])) {
+					$matchCount	+= 50;	
+				}			
 			}
-			$matchness = $matchCount/10;
+			$matchness = $matchCount*500/array_count_values($seedIDs);
+
+
 
 			$priority = $hotness+$agreeness+$matchness;
 			$hotcent = $hotness / $priority;
@@ -433,6 +437,105 @@ class Proseed extends YqBase {
 		}
 		return json_encode($result);
 
+	}
+
+	function queryMediaList($user_id){
+		if ($this->yiquan_version == 0) {
+			return - 2;
+		}
+		
+		if ($this->checkQuoteToken () != 1) {
+			return - 3;
+		}
+		
+		if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
+			return - 4;
+		}
+
+		$user = $this->db->Prouser->findOne (array ('_id'=> new MongoId($user_id)));
+		$cursor = $this->db->Prosource->find(array ('source_industry'=> $user['user_industry']));
+		$mediaList = array();
+		foreach ($cursor as $key => $value) {
+			array_push ($mediaList, $value);
+		}
+		return json_encode($mediaList);
+	}
+
+	function querySystemMessage($user_id){
+		if ($this->yiquan_version == 0) {
+			return - 2;
+		}
+		
+		if ($this->checkQuoteToken () != 1) {
+			return - 3;
+		}
+		
+		if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
+			return - 4;
+		}
+
+		$cursor = $this->db->Promessage->find (array ('message_type' => 'system'))->sort(array ('message_time'=> -1))->limit (30);
+		$systemMessages = array();
+		foreach ($cursor as $key => $value) {
+			array_push($systemMessages,$value);
+		}
+		return json_encode($systemMessages);
+	}
+
+	function queryFeedbackMessages($user_id){
+		if ($this->yiquan_version == 0) {
+			return - 2;
+		}
+		
+		if ($this->checkQuoteToken () != 1) {
+			return - 3;
+		}
+		
+		if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
+			return - 4;
+		}
+
+		$cursor = $this->db->Promessage->find (array('$and'=> array('message_type'=>'feedback', '$or'=> array('message_senderID' => $user_id,'message_receiverID'=> $user_id) )))->sort (array ('message_time'=> -1))->limit (30);
+		$feedbackMessages = array();
+		foreach ($cursor as $key => $value){
+			array_push ($feedbackMessages,$value);
+		}
+		return json_encode($feedbackMessages);
+	}
+
+	function addSeedMessage($message_senderID, $message_receiverID, $message_type, $message_title) {
+		if ($this->yiquan_version == 0) {
+			return - 2;
+		}
+		
+		if ($this->checkToken () == 0) {
+			return - 3;
+		}
+
+		if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $message_senderId) {
+			return - 4;
+		}
+		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
+		$message_postTime = time ();
+
+		
+	try {		
+		$data = array (
+				'message_senderID' => $message_senderId,
+				'message_receiverID' => $message_receiverId,
+				'message_type' => $message_type,
+				'message_title' => $message_title,
+				'message_postTime' => $message_postTime
+		);
+
+		$this->db->Promessage->save($data);
+                
+		return 1;
+
+		
+		} catch ( Exception $e ) {
+			return - 1;
+		}
 	}
 
 }
