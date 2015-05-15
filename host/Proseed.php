@@ -113,9 +113,12 @@ class Proseed extends YqBase {
 		}
 		
 		$res = array ();
+		$res1 = array ();
 		//计算所有新闻的热度
 		foreach ($unreadSeeds as $key => $value) {
-			$res[$value] = $this->getHotness($user_id,$value);
+			$stats = $this->getHotness($user_id,$value);
+			$res[$value] = $stats['priority'];
+			$res1[$value] = $stats['priorityType'];
 			
 		}
 		//排序
@@ -140,6 +143,7 @@ class Proseed extends YqBase {
 				$item['seed_time'] = $value1['seed_time'];
 				$item['seed_agreeCount'] = $this->db->Proworth->find (array('like_seed' => (string)$value1['_id']))->count ();
 				$item['seed_hotness'] = $value;
+				$item['seed_priorityType'] = $res1[$key];
 			
 				array_push ($results,$item);
 
@@ -252,12 +256,11 @@ class Proseed extends YqBase {
 			$userVol = $this->db->Prouser->find (array ('current.user_industry'=>$user['current.user_industry']))->count();
 			$amp = max(1,500/$userVol);
 
-
-
 			//计算所有点赞的热度
+			$agreeness = 0;
 			foreach ($agrees as $key => $value) {
 				$incrementalHotness = $this->calculateHotness ($value['like_weight'],$value['like_time']);
-				$hotness += $incrementalHotness*$amp;
+				$agreeness += $incrementalHotness*$amp;
 			}
 
 			//计算这个新闻的关键字在我值得一读的匹配程度
@@ -285,9 +288,27 @@ class Proseed extends YqBase {
 			foreach ($seed['seed_keywords'] as $keyword) {
 				$matchCount += $user['user_keywords'][$keyword];
 			}
-			$hotness += $matchCount/10;
+			$matchness = $matchCount/10;
 
-			return $hotness;
+			$priority = $hotness+$agreeness+$matchness;
+			$hotcent = $hotness / $priority;
+			$agreecent = $agreeness / $priority;
+			$matchcent = $matchness / $priority;
+			$priorityType = '';
+			if ($agreecent > 0.3) {
+				$priorityType = "圈内推荐";
+			}else if ($matchcent > 0.3){
+				$priorityType = "猜您喜欢";
+			}else{
+				$priorityType = "最新资讯";
+			}
+
+			$result = array ();
+			$result['priority'] = $priority;
+			$result['priorityType'] = $priorityType;
+
+
+			return $result;
 			
 		}catch (Exception $e){
 			return $e;
