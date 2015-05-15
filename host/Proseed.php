@@ -495,7 +495,18 @@ class Proseed extends YqBase {
 			return - 4;
 		}
 
-		$cursor = $this->db->Promessage->find (array('$and'=> array('message_type'=>'feedback', '$or'=> array('message_senderID' => $user_id,'message_receiverID'=> $user_id) )))->sort (array ('message_time'=> -1))->limit (30);
+		$cursor = $this->db->Promessage->find (
+			array(
+				'$and'=> array(
+					array ('message_type'=>'feedback'), 
+					array('$or'=> array(
+						array ('message_senderID' => $user_id),
+						array ('message_receiverID'=> $user_id)
+						)
+						)
+					)
+				)
+			)->sort (array ('message_time'=> -1))->limit (30);
 		$feedbackMessages = array();
 		foreach ($cursor as $key => $value){
 			$user = $this->db->Prouser->findOne(array('_id'=> new MongoId($value['message_senderID'])));
