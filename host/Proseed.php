@@ -293,7 +293,7 @@ class Proseed extends YqBase {
 					$matchCount	+= 50;	
 				}			
 			}
-			$seedCount = array_count_values($seedIDs);
+			$seedCount = count($seedIDs);
 			$matchness = $matchCount*500/$seedCount;
 
 
