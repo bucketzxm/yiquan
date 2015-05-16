@@ -59,42 +59,23 @@ class Proseed extends YqBase {
 			return - 4;
 		}
 
-		//获得我圈子里的人
-		$prouser = new Prouser ();
-		$myPros = $prouser->findMyPros ($user_id);
+		try {
 
-		$seeds = array ();
+			//获得我圈子里的人
+			$prouser = new Prouser ();
+			$myPros = $prouser->findMyPros ($user_id);
 
-		//获得我圈子里赞过的话题
-		$agreedSeeds = $this->db->Proworth->find (
-			array (
-				'like_user' => array ('$in' => $myPros),
-				'like_time' => array ('$gt' => (time()-86400*3))
-				),
-			array ('_id' => 1)
-			);
-		foreach ($agreedSeeds as $key => $value) {
-			if (in_array ((string)$value['_id'],$seeds)) {
-				# code...
-			}else{
-				array_push ($seeds,(string)$value['_id']);
-			}
-		}
+			$seeds = array ();
 
-		$user = $this->db->Prouser->findOne (array ('_id' => new MongoId ($user_id)));
-		$sources = $this->db->Prosource->find(array ('source_industry' => $user['current']['user_industry']));
-		//获得我的行业关注的媒体的人
-
-		foreach ($sources as $key => $source) {
-			$sourceSeeds = $this->db->Proseed->find (
+			//获得我圈子里赞过的话题
+			$agreedSeeds = $this->db->Proworth->find (
 				array (
-					'seed_sourceID' => (string)$source['_id'], 
-					'seed_time' => array ('$gt' => (time()-86400*3))
+					'like_user' => array ('$in' => $myPros),
+					'like_time' => array ('$gt' => (time()-86400*3))
 					),
-				array ('_id'=> 1)
+				array ('_id' => 1)
 				);
-			foreach ($sourceSeeds as $key => $value) {
-				
+			foreach ($agreedSeeds as $key => $value) {
 				if (in_array ((string)$value['_id'],$seeds)) {
 					# code...
 				}else{
@@ -102,71 +83,94 @@ class Proseed extends YqBase {
 				}
 			}
 
-		}
+			$user = $this->db->Prouser->findOne (array ('_id' => new MongoId ($user_id)));
+			$sources = $this->db->Prosource->find(array ('source_industry' => $user['current']['user_industry']));
+			//获得我的行业关注的媒体的人
 
-		$unreadSeeds = array ();
-		foreach ($seeds as $key => $seed) {
-			$cursor = $this->db->Proread->findOne(array ('seed_id' => $seed,'user_id'=>$user_id,'read_type'=>'0'));
-			if ($cursor == null) {
-				array_push($unreadSeeds,$seed);
-			}
-		}
-		
-		$res = array ();
-		$res1 = array ();
-		//计算所有新闻的热度
-		foreach ($unreadSeeds as $key => $value) {
-			$stats = $this->getHotness($user_id,$value);
-			$res[$value] = $stats['priority'];
-			$res1[$value] = $stats['priorityType'];
-			
-		}
-		//排序
-		arsort($res);
-		//删选
-		$topRes = array_slice($res,0,30);
-
-		$results = array ();
-		foreach ($topRes as $key => $value) {
-			$selectedSeed = $this->db->Proseed->find(
-				array ('_id'=> new MongoId($key)
-				)
-				);
-			
-			foreach ($selectedSeed as $key1 => $value1) {
-				$item = array ();
-				$item['_id'] = $value1['_id'];
-				$item['seed_source'] = $source['source_name'];
-				$item['seed_sourceID'] = $value1['seed_sourceID'];
-				$item['seed_title'] = $value1['seed_title'];
-				$item['seed_link'] = $value1['seed_link'];
-				$item['seed_time'] = $value1['seed_time'];
-				$item['seed_agreeCount'] = $this->db->Proworth->find (array('like_seed' => (string)$value1['_id']))->count ();
-				$item['seed_hotness'] = $value;
-				$item['seed_priorityType'] = $res1[$key];
-			
-				array_push ($results,$item);
-
-				//增加用户阅读的记录：
-				$readLog = $this->db->Proread->findOne (array ('seed_id' => (string)$value1['_id'],'user_id'=>$user_id,'read_type'=>'0'));
-				if ($readLog == null) {
-					$data = array (
-						'seed_id' => (string)$value1['_id'],
-						'user_id' => $user_id,
-						'read_time' => time(),
-						'read_type' => '0'
-
-						);
-					$this->db->Proread->save ($data);
+			foreach ($sources as $key => $source) {
+				$sourceSeeds = $this->db->Proseed->find (
+					array (
+						'seed_sourceID' => (string)$source['_id'], 
+						'seed_time' => array ('$gt' => (time()-86400*3))
+						),
+					array ('_id'=> 1)
+					);
+				foreach ($sourceSeeds as $key => $value) {
+					
+					if (in_array ((string)$value['_id'],$seeds)) {
+						# code...
+					}else{
+						array_push ($seeds,(string)$value['_id']);
+					}
 				}
 
 			}
 
+			$unreadSeeds = array ();
+			foreach ($seeds as $key => $seed) {
+				$cursor = $this->db->Proread->findOne(array ('seed_id' => $seed,'user_id'=>$user_id,'read_type'=>'0'));
+				if ($cursor == null) {
+					array_push($unreadSeeds,$seed);
+				}
+			}
 			
+			$res = array ();
+			$res1 = array ();
+			//计算所有新闻的热度
+			foreach ($unreadSeeds as $key => $value) {
+				$stats = $this->getHotness($user_id,$value);
+				$res[$value] = $stats['priority'];
+				$res1[$value] = $stats['priorityType'];
+				
+			}
+			//排序
+			arsort($res);
+			//删选
+			$topRes = array_slice($res,0,30);
 
+			$results = array ();
+			foreach ($topRes as $key => $value) {
+				$selectedSeed = $this->db->Proseed->find(
+					array ('_id'=> new MongoId($key)
+					)
+					);
+				
+				foreach ($selectedSeed as $key1 => $value1) {
+					$item = array ();
+					$item['_id'] = $value1['_id'];
+					$item['seed_source'] = $source['source_name'];
+					$item['seed_sourceID'] = $value1['seed_sourceID'];
+					$item['seed_title'] = $value1['seed_title'];
+					$item['seed_link'] = $value1['seed_link'];
+					$item['seed_time'] = $value1['seed_time'];
+					$item['seed_agreeCount'] = $this->db->Proworth->find (array('like_seed' => (string)$value1['_id']))->count ();
+					$item['seed_hotness'] = $value;
+					$item['seed_priorityType'] = $res1[$key];
+				
+					array_push ($results,$item);
+
+					//增加用户阅读的记录：
+					$readLog = $this->db->Proread->findOne (array ('seed_id' => (string)$value1['_id'],'user_id'=>$user_id,'read_type'=>'0'));
+					if ($readLog == null) {
+						$data = array (
+							'seed_id' => (string)$value1['_id'],
+							'user_id' => $user_id,
+							'read_time' => time(),
+							'read_type' => '0'
+
+							);
+						$this->db->Proread->save ($data);
+					}
+
+				}
+
+				
+
+			}
+			return json_encode($results);
+		}catch (Exception $e){
+			return $e;
 		}
-		return json_encode($results);
-
 	}
 
 	function getSeedText ($seed_id,$user_id){
