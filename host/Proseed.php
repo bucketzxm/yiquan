@@ -518,8 +518,13 @@ class Proseed extends YqBase {
 			)->sort (array ('message_time'=> -1))->limit (30);
 		$feedbackMessages = array();
 		foreach ($cursor as $key => $value){
-			$user = $this->db->Prouser->findOne(array('_id'=> new MongoId($value['message_senderID'])));
-			$value['sender_name'] = $user['current']['user_name'];
+			if ($value['message_senderID'] != 'system') {
+				$user = $this->db->Prouser->findOne(array('_id'=> new MongoId($value['message_senderID'])));
+				$value['sender_name'] = $user['current']['user_name'];	
+			}else{
+				$value['sender_name'] = '值得一读团队';
+			}
+			
 			array_push ($feedbackMessages,$value);
 		}
 		return json_encode($feedbackMessages);
