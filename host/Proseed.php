@@ -543,8 +543,8 @@ class Proseed extends YqBase {
 		
 	try {		
 		$data = array (
-				'message_senderID' => $message_senderId,
-				'message_receiverID' => $message_receiverId,
+				'message_senderID' => $message_senderID,
+				'message_receiverID' => $message_receiverID,
 				'message_type' => $message_type,
 				'message_title' => $message_title,
 				'message_postTime' => $message_postTime
