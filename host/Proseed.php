@@ -280,12 +280,14 @@ class Proseed extends YqBase {
 			$matchCount = 0;
 
 			foreach ($seed['seed_keywords'] as $keyword) {
-				$matchCount += $this->db->Proseed->find (array ('_id' => array ('$in' =>$seedIDs),'seed_title' => new MongoRegex("/$keyword/")))->count();	
+				$count = $this->db->Proseed->find (array ('_id' => array ('$in' =>$seedIDs),'seed_title' => new MongoRegex("/$keyword/")))->count();	
+				$matchCount += $count;
 				if (in_array ($keyword,$user['user_keywords'])) {
 					$matchCount	+= 50;	
 				}			
 			}
-			$matchness = $matchCount*500/array_count_values($seedIDs);
+			$seedCount = array_count_values($seedIDs);
+			$matchness = $matchCount*500/$seedCount;
 
 
 
