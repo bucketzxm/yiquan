@@ -270,9 +270,12 @@ class Proseed extends YqBase {
 					)
 				);
 			$seedIDs =  array ();
-			foreach ($myAgrees as $agree) {
-				array_push($seedIDs,new MongoId($agree['seed_id']));
+			if ($myAgrees != null) {
+				foreach ($myAgrees as $agree) {
+					array_push($seedIDs,new MongoId($agree['seed_id']));
+				}
 			}
+			
 
 			//找到和我订阅的关键字的匹配程度
 		
