@@ -37,7 +37,10 @@
 			$checkTime = $value['check_time'];
 			$feedurl = $value['source_rssURL'];
 			
-	        $feeds = file_get_contents($feedurl);
+	        //$feeds = file_get_contents($feedurl);
+	        $ch = curl_init($feedurl);
+	        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	        $feeds = curl_exec($ch);
 	        $feeds = str_replace("<content:encoded>","<contentEncoded>",$feeds);
 	        $feeds = str_replace("</content:encoded>","</contentEncoded>",$feeds);
 	        $feeds = str_replace("CDATA<","CDATA[<",$feeds);
