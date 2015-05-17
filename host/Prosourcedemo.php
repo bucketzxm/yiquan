@@ -68,7 +68,7 @@
 			foreach ($rss->channel->item as $item) {
 				
 				$aaa = new DateTime ();
-				var_dump($item->pubDate);
+				
 				$pubTime = $item->pubDate;
 				$pubTime = str_replace(" Sun","Sun",$pubTime);
 				$pubTime = str_replace(" Mon","Mon",$pubTime);
@@ -77,6 +77,7 @@
 				$pubTime = str_replace(" Thu","Thu",$pubTime);
 				$pubTime = str_replace(" Fri","Fri",$pubTime);
 				$pubTime = str_replace(" Sat","Sat",$pubTime);
+				var_dump($pubTime);
 				$postTime = $aaa->createFromFormat($value['time_format'],$pubTime)->getTimestamp();
 
 				$title = $item->title;
