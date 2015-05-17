@@ -43,6 +43,10 @@
 	        $feeds = curl_exec($ch);
 
 	        $start = strpos($feeds, "<?xml");
+	        $start2 = strpos($feeds, "<rss");
+	        if($start>$start2){
+	        	$start=$start2;
+	        }
 	        $feeds = substr($feeds, $start);
 	        $feeds = str_replace("<content:encoded>","<contentEncoded>",$feeds);
 	        $feeds = str_replace("</content:encoded>","</contentEncoded>",$feeds);
