@@ -126,7 +126,9 @@
 						'seed_link' => $item->link,
 						'seed_text' => $text,
 						'seed_time' =>$postTime,
-						'seed_keywords' =>$validKeywords
+						'seed_keywords' =>$validKeywords,
+						'seed_hotness' => 100,
+						'seed_hotnessTime' => time()
 					);
 				
 					var_dump($keywords);
