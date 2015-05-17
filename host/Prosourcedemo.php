@@ -70,7 +70,7 @@
 				$aaa = new DateTime ();
 				
 				$pubTime = $item->pubDate;
-				if ($pubTime != null) {
+				if ($pubTime != "") {
 					$pubTime = str_replace("\n","",$pubTime);
 					var_dump($pubTime);
 					$postTime = $aaa->createFromFormat($value['time_format'],$pubTime)->getTimestamp();	
