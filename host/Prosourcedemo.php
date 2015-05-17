@@ -70,9 +70,14 @@
 				$aaa = new DateTime ();
 				
 				$pubTime = $item->pubDate;
-				$pubTime = str_replace("\n","",$pubTime);
-				var_dump($pubTime);
-				$postTime = $aaa->createFromFormat($value['time_format'],$pubTime)->getTimestamp();
+				if ($pubTime != null) {
+					$pubTime = str_replace("\n","",$pubTime);
+					var_dump($pubTime);
+					$postTime = $aaa->createFromFormat($value['time_format'],$pubTime)->getTimestamp();	
+				}else{
+					$postTime = time();
+				}
+				
 
 				$title = $item->title;
 				$title = str_replace("？", "", $title);
