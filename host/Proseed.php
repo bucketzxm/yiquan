@@ -138,7 +138,7 @@ class Proseed extends YqBase {
 				foreach ($selectedSeed as $key1 => $value1) {
 					$item = array ();
 					$item['_id'] = $value1['_id'];
-					$item['seed_source'] = $source['source_name'];
+					$item['seed_source'] = $value1['seed_source'];
 					$item['seed_sourceID'] = $value1['seed_sourceID'];
 					$item['seed_title'] = $value1['seed_title'];
 					$item['seed_link'] = $value1['seed_link'];
