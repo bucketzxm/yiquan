@@ -41,6 +41,9 @@
 	        $ch = curl_init($feedurl);
 	        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 	        $feeds = curl_exec($ch);
+
+	        $start = strpos($feeds, "<?xml");
+	        $feeds = substr($feeds, $start);
 	        $feeds = str_replace("<content:encoded>","<contentEncoded>",$feeds);
 	        $feeds = str_replace("</content:encoded>","</contentEncoded>",$feeds);
 	        $feeds = str_replace("CDATA<","CDATA[<",$feeds);
