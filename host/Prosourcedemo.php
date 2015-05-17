@@ -70,13 +70,13 @@
 				$aaa = new DateTime ();
 				
 				$pubTime = $item->pubDate;
-				$pubTime = str_replace(" Sun","Sun",$pubTime);
-				$pubTime = str_replace(" Mon","Mon",$pubTime);
-				$pubTime = str_replace(" Tue","Tue",$pubTime);
-				$pubTime = str_replace(" Wed","Wed",$pubTime);
-				$pubTime = str_replace(" Thu","Thu",$pubTime);
-				$pubTime = str_replace(" Fri","Fri",$pubTime);
-				$pubTime = str_replace(" Sat","Sat",$pubTime);
+				$pubTime = str_replace("\nSun","Sun",$pubTime);
+				$pubTime = str_replace("\nMon","Mon",$pubTime);
+				$pubTime = str_replace("\nTue","Tue",$pubTime);
+				$pubTime = str_replace("\nWed","Wed",$pubTime);
+				$pubTime = str_replace("\nThu","Thu",$pubTime);
+				$pubTime = str_replace("\nFri","Fri",$pubTime);
+				$pubTime = str_replace("\nSat","Sat",$pubTime);
 				var_dump($pubTime);
 				$postTime = $aaa->createFromFormat($value['time_format'],$pubTime)->getTimestamp();
 
