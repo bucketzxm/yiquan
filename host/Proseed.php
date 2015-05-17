@@ -515,7 +515,7 @@ class Proseed extends YqBase {
 						)
 					)
 				)
-			)->sort (array ('message_time'=> -1))->limit (30);
+			)->sort (array ('message_time'=> 1))->limit (30);
 		$feedbackMessages = array();
 		foreach ($cursor as $key => $value){
 			if ($value['message_senderID'] != 'system') {
