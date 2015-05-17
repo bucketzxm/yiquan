@@ -47,7 +47,7 @@
 	        $feeds = str_replace("<content:encoded>","<contentEncoded>",$feeds);
 	        $feeds = str_replace("</content:encoded>","</contentEncoded>",$feeds);
 	        $feeds = str_replace("CDATA<","CDATA[<",$feeds);
-	        var_dump($feeds);
+	        //var_dump($feeds);
 	        $rss = simplexml_load_string($feeds,'SimpleXMLElement', LIBXML_NOCDATA | LIBXML_COMPACT | LIBXML_PARSEHUGE);
 
 	        //Calculate average hotness
@@ -131,7 +131,7 @@
 
 					//$timeStamp = ;
 					echo "<h2>" . $item->title . "</h2>";
-					//echo "<h2>" . $titleLen . "</h2>";
+					echo "<h2>" . $titleLen . "</h2>";
 					//echo "<h2>" . $postTime. "</h2>";
 					//echo "<p>" . $item->description . "</p>";
 				}
