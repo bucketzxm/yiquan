@@ -68,6 +68,7 @@
 			foreach ($rss->channel->item as $item) {
 				
 				$aaa = new DateTime ();
+				var_dump($item->pubDate);
 				$postTime = $aaa->createFromFormat($value['time_format'],$item->pubDate)->getTimestamp();
 
 				$title = $item->title;
