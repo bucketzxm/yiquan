@@ -483,7 +483,7 @@ class Proseed extends YqBase {
 			return - 4;
 		}
 
-		$cursor = $this->db->Promessage->find (array ('message_type' => 'system'))->sort(array ('message_time'=> -1))->limit (30);
+		$cursor = $this->db->Promessage->find (array ('message_type' => 'system'))->sort(array ('message_postTime'=> -1))->limit (30);
 		$systemMessages = array();
 		foreach ($cursor as $key => $value) {
 			array_push($systemMessages,$value);
@@ -515,7 +515,7 @@ class Proseed extends YqBase {
 						)
 					)
 				)
-			)->sort (array ('message_time'=> -1))->limit (30);
+			)->sort (array ('message_postTime'=> -1))->limit (30);
 		$feedbackMessages = array();
 		foreach ($cursor as $key => $value){
 			if ($value['message_senderID'] != 'system') {
