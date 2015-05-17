@@ -40,8 +40,8 @@
 	        $feeds = file_get_contents($feedurl);
 	        $feeds = str_replace("<content:encoded>","<contentEncoded>",$feeds);
 	        $feeds = str_replace("</content:encoded>","</contentEncoded>",$feeds);
-	        $rss = simplexml_load_string($feeds,'SimpleXMLElement', LIBXML_NOCDATA | LIBXML_COMPACT | LIBXML_PARSEHUGE);
-
+	        $rss = simplexml_load_string($feeds,'SimpleXMLElement', LIBXML_PARSEHUGE);
+	        //LIBXML_NOCDATA | LIBXML_COMPACT | 
 	        //Calculate average hotness
 	        /*
 	        $seeds = $db->Proseed->find(array ('seed_sourceID' => (string)$value['_id']))->count();
