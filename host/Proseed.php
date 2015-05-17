@@ -462,7 +462,7 @@ class Proseed extends YqBase {
 		}
 
 		$user = $this->db->Prouser->findOne (array ('_id'=> new MongoId($user_id)));
-		$cursor = $this->db->Prosource->find(array ('source_industry'=> $user['user_industry']));
+		$cursor = $this->db->Prosource->find(array ('source_industry'=> $user['current']['user_industry']));
 		$mediaList = array();
 		foreach ($cursor as $key => $value) {
 			array_push ($mediaList, $value);
