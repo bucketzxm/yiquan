@@ -249,14 +249,15 @@ class Proseed extends YqBase {
 
 			$user = $this->db->Prouser->findOne(array ('_id'=> new MongoId($user_id)));
 
-			//计算初始温度的当前热度
-			$hotness = $this->calculateHotness(100,$seed['seed_time']);
-
 			//计算单词点赞的放大因子
 			$userVol = $this->db->Prouser->find (array ('current.user_industry'=>$user['current.user_industry']))->count();
 			$amp = max(1,500/$userVol);
 
 			//计算所有点赞的热度
+			$seed['seed_hotness'] = $seed['seed_hotness'] * exp(-($userVol*0.0001) * ((time() - $seed['seed_hotnessTime'])/3600));
+			$seed['seed_hotnessTime'] = time();
+			$this->db->Proseed->save($seed);
+
 			$agreeness = 0;
 			foreach ($agrees as $key => $value) {
 				$incrementalHotness = $this->calculateHotness ($value['like_weight'],$value['like_time']);
@@ -323,13 +324,13 @@ class Proseed extends YqBase {
 		}
 		
 	}
+
 	function calculateHotness($weight,$time){
 		$weight = (int) $weight;
 		$time = (int) $time;
 		return $weight * exp(-0.05 * ((time() - $time)/3600));
-
-
 	}
+#
 
 	function likeSeed($user_id,$seed_id,$like_comment){
 		if ($this->yiquan_version == 0) {
