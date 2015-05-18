@@ -137,7 +137,12 @@ class Prouser extends YqBase {
 				if ($user[$profile_type]['user_industry'] != null) {
 					$para[$user[$profile_type]['user_industry']] --;
 				}
-				$para[$user_industry] ++;
+				if (isset($para[$user[$profile_type]['user_industry']])) {
+					$para[$user_industry] ++;
+				}else{
+					$para[$user_industry] = 1;
+				}
+				$this->db->Prosystem->save($para);
 
 				$user[$profile_type]['user_name'] = $user_name;
 				$user[$profile_type]['user_city'] = $user_city;
