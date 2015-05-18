@@ -111,7 +111,7 @@ class Proseed extends YqBase {
 			foreach ($sourceSeeds as $key => $seed) {
 				$cursor = $this->db->Proread->findOne(array ('seed_id' => $seed,'user_id'=>$user_id,'read_type'=>'0'));
 				//if ($cursor == null) {
-					array_push($unreadSeeds,$seed);
+					array_push($unreadSeeds,(string)$seed['_id']);
 				//}
 			}
 			
@@ -120,7 +120,7 @@ class Proseed extends YqBase {
 			//计算所有新闻的热度
 			foreach ($unreadSeeds as $key => $value) {
 				$stats = $this->getHotness($user_id,$value);
-				return $stats;
+				//return $stats;
 				$res[$value] = $stats['priority'];
 				$res1[$value] = $stats['priorityType'];
 				
