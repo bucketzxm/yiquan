@@ -288,7 +288,7 @@ class Proseed extends YqBase {
 		
 			
 			$matchCount = 0;
-			$news = $this->db->Proseed->find (array ('_id' => array ('$in' =>$seedIDs));
+			$news = $this->db->Proseed->find (array ('_id' => array ('$in' =>$seedIDs)));
 			foreach ($news as $key => $value) {
 				$titleLen = strlen($value['seed_title'];
 				foreach ($seed['seed_keywords'] as $keyword) {
