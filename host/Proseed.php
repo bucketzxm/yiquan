@@ -252,7 +252,7 @@ class Proseed extends YqBase {
 				);*/
 
 			$user = $this->db->Prouser->findOne(array ('_id'=> new MongoId($user_id)));
-
+			/*
 			//计算单词点赞的放大因子
 			$para = $this->db->Prosystem->findOne(array('para_name'=>"user_count"));
 
@@ -260,6 +260,7 @@ class Proseed extends YqBase {
 			$seed['seed_hotness'] = $seed['seed_hotness'] * exp(-($para[$seed['seed_industry']]*0.0001) * ((time() - $seed['seed_hotnessTime'])/3600));
 			$seed['seed_hotnessTime'] = time();
 			$this->db->Proseed->save($seed);
+			*/
 			/*
 			$agreeness = 0;
 			foreach ($agrees as $key => $value) {
