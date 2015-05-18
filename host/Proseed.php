@@ -290,7 +290,7 @@ class Proseed extends YqBase {
 			$matchCount = 0;
 			$news = $this->db->Proseed->find (array ('_id' => array ('$in' =>$seedIDs)));
 			foreach ($news as $key => $value) {
-				$titleLen = strlen($value['seed_title'];
+				$titleLen = strlen($value['seed_title']);
 				foreach ($seed['seed_keywords'] as $keyword) {
 					if (strpos($value['seed_title'],$keyword) < $titleLen)) {
 						$matchCount += 1;
