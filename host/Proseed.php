@@ -120,6 +120,7 @@ class Proseed extends YqBase {
 			//计算所有新闻的热度
 			foreach ($unreadSeeds as $key => $value) {
 				$stats = $this->getHotness($user_id,$value);
+				return $stats;
 				$res[$value] = $stats['priority'];
 				$res1[$value] = $stats['priorityType'];
 				
