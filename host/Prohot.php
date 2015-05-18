@@ -25,10 +25,10 @@
 			$seeds = $db->Proseed->find(array('seed_hotness' => array('$gt' => 1)));
 			foreach ($seeds as $key => $seed) {
 				$para = $db->Prosystem->findOne(array('para_name'=>"user_count"));
-				if ($para[$seed['seed_industry']] == null) {
-					$speed = 0;
-				}else{
+				if (isset ($para[$seed['seed_industry']])) {
 					$speed = $para[$seed['seed_industry']];
+				}else{
+					$speed = 0;
 				}
 				$seed['seed_hotness'] = $seed['seed_hotness'] * exp(-($speed*0.0001) * ((time() - $seed['seed_hotnessTime'])/3600));
 				$seed['seed_hotnessTime'] = time();
