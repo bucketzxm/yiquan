@@ -22,7 +22,7 @@
 			    		'db'=>$dbname
 			));
 			$db = $mongoClient->yiquan;
-			$seeds = $db->Proseed->find(array('seed_hotness') => array('$gt' => 1));
+			$seeds = $db->Proseed->find(array('seed_hotness' => array('$gt' => 1));
 			foreach ($seeds as $key => $seed) {
 				$para = $db->Prosystem->findOne(array('para_name'=>"user_count"));
 				$seed['seed_hotness'] = $seed['seed_hotness'] * exp(-($para[$seed['seed_industry']]*0.0001) * ((time() - $seed['seed_hotnessTime'])/3600));
