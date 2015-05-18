@@ -292,7 +292,7 @@ class Proseed extends YqBase {
 			foreach ($news as $key => $value) {
 				$titleLen = strlen($value['seed_title']);
 				foreach ($seed['seed_keywords'] as $keyword) {
-					if (strpos($value['seed_title'],$keyword) < $titleLen)) {
+					if (strpos($value['seed_title'],$keyword) < $titleLen) {
 						$matchCount += 1;
 					}
 				}	
