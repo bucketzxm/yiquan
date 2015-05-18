@@ -84,17 +84,18 @@ class Proseed extends YqBase {
 			}
 
 			$user = $this->db->Prouser->findOne (array ('_id' => new MongoId ($user_id)));
-			$sources = $this->db->Prosource->find(array ('source_industry' => $user['current']['user_industry']));
+			//$sources = $this->db->Prosource->find(array ('source_industry' => $user['current']['user_industry']));
 			//获得我的行业关注的媒体的人
 
-			foreach ($sources as $key => $source) {
+			//foreach ($sources as $key => $source) {
 				$sourceSeeds = $this->db->Proseed->find (
 					array (
-						'seed_sourceID' => (string)$source['_id'], 
+						'seed_industry' => $user['current.user_industry'], 
 						'seed_time' => array ('$gt' => (time()-86400*3))
 						),
 					array ('_id'=> 1)
-					);
+				);
+				
 				foreach ($sourceSeeds as $key => $value) {
 					
 					if (in_array ((string)$value['_id'],$seeds)) {
@@ -104,7 +105,7 @@ class Proseed extends YqBase {
 					}
 				}
 
-			}
+			//}
 
 			$unreadSeeds = array ();
 			foreach ($seeds as $key => $seed) {
@@ -285,14 +286,16 @@ class Proseed extends YqBase {
 		
 			
 			$matchCount = 0;
-
-			foreach ($seed['seed_keywords'] as $keyword) {
-				$count = $this->db->Proseed->find (array ('_id' => array ('$in' =>$seedIDs),'seed_title' => new MongoRegex("/$keyword/")))->count();	
-				$matchCount += $count;
-				if (in_array ($keyword,$user['user_keywords'])) {
-					$matchCount	+= 50;	
-				}			
+			$news = $this->db->Proseed->find (array ('_id' => array ('$in' =>$seedIDs));
+			foreach ($news as $key => $value) {
+				$titleLen = strlen($value['seed_title'];
+				foreach ($seed['seed_keywords'] as $keyword) {
+					if (strpos($value['seed_title'],$keyword) > $titleLen)) {
+						$matchCount += 1;
+					}
+				}	
 			}
+			
 			$seedCount = count($seedIDs);
 			$matchness = $matchCount*500/$seedCount;
 
