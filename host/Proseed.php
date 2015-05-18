@@ -60,7 +60,7 @@ class Proseed extends YqBase {
 		}
 
 		try {
-
+			/*
 			//获得我圈子里的人
 			$prouser = new Prouser ();
 			$myPros = $prouser->findMyPros ($user_id);
@@ -82,7 +82,7 @@ class Proseed extends YqBase {
 					array_push ($seeds,(string)$value['_id']);
 				}
 			}
-
+			*/
 			$user = $this->db->Prouser->findOne (array ('_id' => new MongoId ($user_id)));
 			//$sources = $this->db->Prosource->find(array ('source_industry' => $user['current']['user_industry']));
 			//获得我的行业关注的媒体的人
@@ -95,7 +95,7 @@ class Proseed extends YqBase {
 						),
 					array ('_id'=> 1)
 				);
-				
+				/*
 				foreach ($sourceSeeds as $key => $value) {
 					
 					if (in_array ((string)$value['_id'],$seeds)) {
@@ -103,12 +103,12 @@ class Proseed extends YqBase {
 					}else{
 						array_push ($seeds,(string)$value['_id']);
 					}
-				}
+				}*/
 
 			//}
 
 			$unreadSeeds = array ();
-			foreach ($seeds as $key => $seed) {
+			foreach ($sourceSeeds as $key => $seed) {
 				$cursor = $this->db->Proread->findOne(array ('seed_id' => $seed,'user_id'=>$user_id,'read_type'=>'0'));
 				//if ($cursor == null) {
 					array_push($unreadSeeds,$seed);
@@ -233,37 +233,38 @@ class Proseed extends YqBase {
 		}
 
 		try {
+			/*
 			//获得我圈子里的人
 			$prouser = new Prouser ();
 			$myPros = $prouser->findMyPros ($user_id);
-
+			*/
 			//找到这个新闻
 			$seed = $this->db->Proseed->findOne (array ('_id' => new MongoId($seed_id)));
 
 			//找到我圈子里的人对这个话题的赞
+			/*
 			$agrees = $this->db->Proworth->find (
 				array (
 					'like_seed'=>$seed_id,
 					'like_user'=> array ('$in'=>$myPros)
 					)
-				);
+				);*/
 
 			$user = $this->db->Prouser->findOne(array ('_id'=> new MongoId($user_id)));
 
 			//计算单词点赞的放大因子
-			$userVol = $this->db->Prouser->find (array ('current.user_industry'=>$user['current.user_industry']))->count();
-			$amp = max(1,500/$userVol);
+			$para = $this->db->Prosystem->findOne(array('para_name'=>"user_count"));
 
 			//计算所有点赞的热度
-			$seed['seed_hotness'] = $seed['seed_hotness'] * exp(-($userVol*0.0001) * ((time() - $seed['seed_hotnessTime'])/3600));
+			$seed['seed_hotness'] = $seed['seed_hotness'] * exp(-($para[$seed['seed_industry']]*0.0001) * ((time() - $seed['seed_hotnessTime'])/3600));
 			$seed['seed_hotnessTime'] = time();
 			$this->db->Proseed->save($seed);
-
+			/*
 			$agreeness = 0;
 			foreach ($agrees as $key => $value) {
 				$incrementalHotness = $this->calculateHotness ($value['like_weight'],$value['like_time']);
 				$agreeness += $incrementalHotness*$amp;
-			}
+			}*/
 
 			//计算这个新闻的关键字在我值得一读的匹配程度
 			//找到我所有读过的话题
@@ -291,7 +292,7 @@ class Proseed extends YqBase {
 			foreach ($news as $key => $value) {
 				$titleLen = strlen($value['seed_title'];
 				foreach ($seed['seed_keywords'] as $keyword) {
-					if (strpos($value['seed_title'],$keyword) > $titleLen)) {
+					if (strpos($value['seed_title'],$keyword) < $titleLen)) {
 						$matchCount += 1;
 					}
 				}	
@@ -301,20 +302,19 @@ class Proseed extends YqBase {
 			$matchness = $matchCount*500/$seedCount;
 
 
-
-			$priority = $hotness+$agreeness+$matchness;
+			$hotness = $seed['seed_hotness'];
+			$priority = $hotness+$matchness;
+			
 			$hotcent = $hotness / $priority;
-			$agreecent = $agreeness / $priority;
+			//$agreecent = $agreeness / $priority;
 			$matchcent = $matchness / $priority;
 			$priorityType = '';
-			if ($agreecent > 0.3) {
-				$priorityType = "圈内推荐";
-			}else if ($matchcent > 0.3){
+			if ($matchcent > 0.3){
 				$priorityType = "猜您喜欢";
 			}else{
-				$priorityType = "最新资讯";
+				$priorityType = "圈内热门";
 			}
-
+			
 			$result = array ();
 			$result['priority'] = $priority;
 			$result['priorityType'] = $priorityType;
@@ -364,6 +364,17 @@ class Proseed extends YqBase {
 				);
 
 			$this->db->Proworth->save ($data);
+
+			//计算单词点赞的放大因子
+			$userVol = $this->db->Prouser->find (array ('current.user_industry'=>$user['current.user_industry']))->count();
+			$amp = max(1,500/$userVol);
+
+			//计算所有点赞的热度
+			$cursor['seed_hotness'] = $cursor['seed_hotness'] * exp(-($userVol*0.0001) * ((time() - $seed['seed_hotnessTime'])/3600));
+			$cursor['seed_hotness'] += $cursor['user_weight'];
+			$cursor['seed_hotnessTime'] = time();
+			$this->db->Proseed->save($cursor);
+
 		}
 		
 		return 1;

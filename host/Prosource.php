@@ -28,9 +28,10 @@
 			$proseed = $db->Proseed;
 			
 		//提出一个月以前的
+		/*
 		$currentTime = time();
 		$timeMonthAgo = $currentTime - 86400*30;
-		$db->Proseed->remove (array ('seed_time' => array ('$lt' => $timeMonthAgo)));
+		$db->Proseed->remove (array ('seed_time' => array ('$lt' => $timeMonthAgo)));*/
 
 		foreach ($sources as $key => $value) {
 			echo "<h2>" . $value['source_name'] . "</h2>";

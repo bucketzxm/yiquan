@@ -130,6 +130,15 @@ class Prouser extends YqBase {
 
 			try {
 				$user = $this->db->Prouser->findOne(array ('_id'=>new MongoId ($user_id)));
+
+				//Update user count
+				$para = $this->db->Prosystem->findOne(array('para_name'=>'user_count'));
+
+				if ($user[$profile_type]['user_industry'] != null) {
+					$para[$user[$profile_type]['user_industry']] --;
+				}
+				$para[$user_industry] ++;
+
 				$user[$profile_type]['user_name'] = $user_name;
 				$user[$profile_type]['user_city'] = $user_city;
 				$user[$profile_type]['user_industry'] = $user_industry;
