@@ -197,8 +197,8 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 					'seed_industry' => $user['current']['user_industry'], 
 					'seed_time' => array ('$gt' => (time()-86400*3)),
 					'$or' => array (
-						array('seed_title.0' => new MongoRegex ("/$keyword/")),
-						array('seed_source' => new MongoRegex ("/$keyword/"))
+						array('seed_titleLower' => new MongoRegex ("/$keyword/")),
+						array('seed_sourceLower' => new MongoRegex ("/$keyword/"))
 
 						)
 					
@@ -550,8 +550,8 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 		foreach ($cursor as $key => $value) {
 			$seed = $this->db->Proseed->find(array ('_id'=> new MongoId($value['like_seed']),
 				'$or'=> array(
-					array('seed_title.0'=> new MongoRegex("/$keyword/")),
-					array('seed_source'=> new MongoRegex("/$keyword/"))
+					array('seed_titleLower'=> new MongoRegex("/$keyword/")),
+					array('seed_sourceLower'=> new MongoRegex("/$keyword/"))
 					)
 				));
 
