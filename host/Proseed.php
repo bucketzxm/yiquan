@@ -404,7 +404,7 @@ class Proseed extends YqBase {
 	}
 
 
-	function queryMyLikedSeeds ($user_id){
+	function queryMyLikedSeeds ($user_id,$time){
 
 		if ($this->yiquan_version == 0) {
 			return - 2;
@@ -417,8 +417,8 @@ class Proseed extends YqBase {
 		if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
 			return - 4;
 		}
-
-		$cursor = $this->db->Proworth->find(array ('like_user'=> $user_id))->sort(array('seed_time'=> -1));
+		$time = (int)$time;
+		$cursor = $this->db->Proworth->find(array ('like_user'=> $user_id,'like_time'=> array('$lt' => $time)))->sort(array('seed_time'=> -1));
 		$myLikedSeeds = array ();
 		foreach ($cursor as $key => $value) {
 			$seed = $this->db->Proseed->find(array ('_id'=> new MongoId($value['like_seed'])));
