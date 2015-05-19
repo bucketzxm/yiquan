@@ -196,7 +196,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 				array (
 					'seed_industry' => $user['current']['user_industry'], 
 					'seed_time' => array ('$gt' => (time()-86400*3)),
-					'seed_title' => new MongoRegex ("/$keyword/")
+					'seed_title.0' => new MongoRegex ("/$keyword/")
 					),
 				array ('_id'=> 1)
 			);
@@ -546,7 +546,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 			$seed = $this->db->Proseed->find(array ('_id'=> new MongoId($value['like_seed'])));
 
 			foreach ($seed as $key => $item) {
-				if (strpos($item['seed_title'],$keyword) > strlen($item['seed_title'])) {
+				if (strpos($item['seed_title']['0'],$keyword) > strlen($item['seed_title'])) {
 					$item['like_comment'] = $value['like_comment'];
 					//$item['seed_agreeCount'] = $this->db->Proworth->find (array('like_seed' => (string)$item['_id']))->count ();
 					array_push ($myLikedSeeds, $item);	
