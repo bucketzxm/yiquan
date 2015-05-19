@@ -287,16 +287,18 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 			return - 4;
 		}		
 		
-		$readLog = $this->db->Proread->findOne (array ('seed_id' => $seed_id,'user_id'=>$user_id,'read_type'=>'1'));
-		if ($readLog == null) {
+		$readLog = $this->db->Proread->findOne (array ('seed_id' => $seed_id,'user_id'=>$user_id));
+		if ($readLog != null) {
+			$readLog['read_type'] = '1';
+			/*
 			$data = array (
 				'seed_id' => $seed_id,
 				'user_id' => $user_id,
 				'read_time' => time(),
 				'read_type' => '1'
 
-				);
-			$this->db->Proread->save ($data);
+				);*/
+			$this->db->Proread->save ($readLog);
 		}
 
 		//找到seed_id的内容
