@@ -373,7 +373,7 @@ class Proseed extends YqBase {
 
 			//计算所有点赞的热度
 			$cursor['seed_hotness'] = $cursor['seed_hotness'] * exp(-($userVol*0.0001) * ((time() - $seed['seed_hotnessTime'])/3600));
-			$cursor['seed_hotness'] += $cursor['user_weight'];
+			$cursor['seed_hotness'] += $cursor['current']['user_weight'];
 			$cursor['seed_hotnessTime'] = time();
 			$this->db->Proseed->save($cursor);
 
