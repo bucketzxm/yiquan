@@ -367,13 +367,7 @@ class Proseed extends YqBase {
 
 			$this->db->Proworth->save ($data);
 
-			//计算单词点赞的放大因子
-			$userVol = $this->db->Prouser->find (array ('current.user_industry'=>$user['current.user_industry']))->count();
-			$amp = max(1,500/$userVol);
-
-			//计算所有点赞的热度
-			$cursor['seed_hotness'] = $cursor['seed_hotness'] * exp(-($userVol*0.0001) * ((time() - $seed['seed_hotnessTime'])/3600));
-			$cursor['seed_hotness'] += $cursor['current']['user_weight'];
+			$cursor['seed_hotness'] += $user['current']['user_weight'];
 			$cursor['seed_hotnessTime'] = time();
 			$this->db->Proseed->save($cursor);
 
