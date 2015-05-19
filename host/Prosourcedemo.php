@@ -132,13 +132,16 @@
 					}else{
 
 						foreach ($value['source_industry'] as $key => $industry) {
+							$title = $item->title;
 							$seed = array (
 								'seed_source' => $value['source_name'],
+								'seed_sourceLower' => strtolower($value['source_name']),
 								'seed_sourceID' => (string)$value['_id'],
-								'seed_title' => $item->title,
+								'seed_title' => $title[0],
+								'seed_titleLower' => strtolower($title[0]),
 								'seed_link' => $item->link,
 								'seed_text' => $text,
-								'seed_time' =>$postTime,
+								'seed_time' => $postTime,
 								'seed_keywords' =>$validKeywords,
 								'seed_hotness' => 100,
 								'seed_hotnessTime' => time(),
