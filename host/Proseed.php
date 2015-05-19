@@ -175,6 +175,100 @@ class Proseed extends YqBase {
 		}
 	}
 
+function queryMySeedsByKeyword($user_id,$time,$keyword){
+		if ($this->yiquan_version == 0) {
+			return - 2;
+		}
+		
+		if ($this->checkQuoteToken () != 1) {
+			return - 3;
+		}
+		
+		if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
+			return - 4;
+		}
+
+		try {
+
+			$user = $this->db->Prouser->findOne (array ('_id' => new MongoId ($user_id)));
+
+			$sourceSeeds = $this->db->Proseed->find (
+				array (
+					'seed_industry' => $user['current']['user_industry'], 
+					'seed_time' => array ('$gt' => (time()-86400*3)),
+					'seed_title' => new MongoRegex ("/$keyword/")
+					),
+				array ('_id'=> 1)
+			);
+
+			$unreadSeeds = array ();
+			foreach ($sourceSeeds as $key => $seed) {
+				$cursor = $this->db->Proread->findOne(array ('seed_id' => $seed,'user_id'=>$user_id,'read_type'=>'0'));
+				//if ($cursor == null) {
+					array_push($unreadSeeds,(string)$seed['_id']);
+				//}
+			}
+			
+			$res = array ();
+			$res1 = array ();
+			//计算所有新闻的热度
+			foreach ($unreadSeeds as $key => $value) {
+				$stats = $this->getHotness($user_id,$value);
+				//return $stats;
+				$res[$value] = $stats['priority'];
+				$res1[$value] = $stats['priorityType'];
+				
+			}
+			//排序
+			arsort($res);
+			//删选
+			$topRes = array_slice($res,0,30);
+
+			$results = array ();
+			foreach ($topRes as $key => $value) {
+				$selectedSeed = $this->db->Proseed->find(
+					array ('_id'=> new MongoId($key)
+					)
+					);
+				
+				foreach ($selectedSeed as $key1 => $value1) {
+					$item = array ();
+					$item['_id'] = $value1['_id'];
+					$item['seed_source'] = $value1['seed_source'];
+					$item['seed_sourceID'] = $value1['seed_sourceID'];
+					$item['seed_title'] = $value1['seed_title'];
+					$item['seed_link'] = $value1['seed_link'];
+					$item['seed_time'] = $value1['seed_time'];
+					$item['seed_agreeCount'] = $value1['seed_agreeCount'];
+					$item['seed_hotness'] = $value;
+					$item['seed_priorityType'] = $res1[$key];
+				
+					array_push ($results,$item);
+
+					//增加用户阅读的记录：
+					$readLog = $this->db->Proread->findOne (array ('seed_id' => (string)$value1['_id'],'user_id'=>$user_id,'read_type'=>'0'));
+					if ($readLog == null) {
+						$data = array (
+							'seed_id' => (string)$value1['_id'],
+							'user_id' => $user_id,
+							'read_time' => time(),
+							'read_type' => '0'
+
+							);
+						$this->db->Proread->save ($data);
+					}
+
+				}
+
+				
+
+			}
+			return json_encode($results);
+		}catch (Exception $e){
+			return $e;
+		}
+	}
+
 	function getSeedText ($seed_id,$user_id){
 		if ($this->yiquan_version == 0) {
 			return - 2;
@@ -425,8 +519,39 @@ class Proseed extends YqBase {
 
 			foreach ($seed as $key => $item) {
 				$item['like_comment'] = $value['like_comment'];
-				$item['seed_agreeCount'] = $this->db->Proworth->find (array('like_seed' => (string)$item['_id']))->count ();
+				//$item['seed_agreeCount'] = $this->db->Proworth->find (array('like_seed' => (string)$item['_id']))->count ();
 				array_push ($myLikedSeeds, $item);
+			}
+		}
+		return json_encode($myLikedSeeds);
+	}
+
+	function queryMyLikedSeedsByKeyword ($user_id,$time,$keyword){
+
+		if ($this->yiquan_version == 0) {
+			return - 2;
+		}
+		
+		if ($this->checkQuoteToken () != 1) {
+			return - 3;
+		}
+		
+		if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
+			return - 4;
+		}
+		$time = (int)$time;
+		$cursor = $this->db->Proworth->find(array ('like_user'=> $user_id,'like_time'=> array('$lt' => $time)))->sort(array('seed_time'=> -1));
+		$myLikedSeeds = array ();
+		foreach ($cursor as $key => $value) {
+			$seed = $this->db->Proseed->find(array ('_id'=> new MongoId($value['like_seed'])));
+
+			foreach ($seed as $key => $item) {
+				if (strpos($item['seed_title'],$keyword) > strlen($item['seed_title'])) {
+					$item['like_comment'] = $value['like_comment'];
+					//$item['seed_agreeCount'] = $this->db->Proworth->find (array('like_seed' => (string)$item['_id']))->count ();
+					array_push ($myLikedSeeds, $item);	
+				}
+				
 			}
 		}
 		return json_encode($myLikedSeeds);
