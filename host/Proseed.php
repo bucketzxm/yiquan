@@ -368,7 +368,7 @@ class Proseed extends YqBase {
 			$this->db->Proworth->save ($data);
 
 			$cursor['seed_hotness'] += (int)$user['current']['user_weight'];
-			$cursor['seed_hotnessTime'] = time();
+			//$cursor['seed_hotnessTime'] = time();
 			$this->db->Proseed->save($cursor);
 
 		}
