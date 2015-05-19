@@ -137,7 +137,7 @@
 								'seed_source' => $value['source_name'],
 								'seed_sourceLower' => strtolower($value['source_name']),
 								'seed_sourceID' => (string)$value['_id'],
-								'seed_title' => $title[0],
+								'seed_title' => (string)$title[0],
 								'seed_titleLower' => strtolower($title[0]),
 								'seed_link' => $item->link,
 								'seed_text' => $text,
