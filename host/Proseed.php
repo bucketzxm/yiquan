@@ -355,7 +355,7 @@ class Proseed extends YqBase {
 
 		$existWorth = $this->db->Proworth->findOne (array ('like_user'=>$user_id,'like_seed'=>$seed_id));
 		if ($existWorth == null) {
-			$cursor = $this->db->Proseed->findOne (array ('_id'=>$seed_id),array('seed_sourceID' => 1));
+			$cursor = $this->db->Proseed->findOne (array ('_id'=> new MongoId($seed_id)),array('seed_sourceID' => 1));
 			$data = array (
 				'like_user' => $user_id,
 				'like_seed' => $seed_id,
