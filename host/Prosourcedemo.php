@@ -142,7 +142,8 @@
 								'seed_keywords' =>$validKeywords,
 								'seed_hotness' => 100,
 								'seed_hotnessTime' => time(),
-								'seed_industry' => $industry
+								'seed_industry' => $industry,
+								'seed_agreeCount' => 0
 							);
 						
 							//var_dump($keywords);

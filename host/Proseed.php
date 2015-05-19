@@ -145,7 +145,7 @@ class Proseed extends YqBase {
 					$item['seed_title'] = $value1['seed_title'];
 					$item['seed_link'] = $value1['seed_link'];
 					$item['seed_time'] = $value1['seed_time'];
-					$item['seed_agreeCount'] = $this->db->Proworth->find (array('like_seed' => (string)$value1['_id']))->count ();
+					$item['seed_agreeCount'] = $value1['seed_agreeCount'];
 					$item['seed_hotness'] = $value;
 					$item['seed_priorityType'] = $res1[$key];
 				
@@ -368,6 +368,11 @@ class Proseed extends YqBase {
 			$this->db->Proworth->save ($data);
 
 			$cursor['seed_hotness'] += (int)$user['current']['user_weight'];
+			if(isset($cursor['seed_agreeCount'])){
+				$cursor['seed_agreeCount'] ++;
+			}else{
+				$cursor['seed_agreeCount'] = 1;
+			}
 			//$cursor['seed_hotnessTime'] = time();
 			$this->db->Proseed->save($cursor);
 
