@@ -543,15 +543,13 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 		$cursor = $this->db->Proworth->find(array ('like_user'=> $user_id,'like_time'=> array('$lt' => $time)))->sort(array('seed_time'=> -1));
 		$myLikedSeeds = array ();
 		foreach ($cursor as $key => $value) {
-			$seed = $this->db->Proseed->find(array ('_id'=> new MongoId($value['like_seed'])));
+			$seed = $this->db->Proseed->find(array ('_id'=> new MongoId($value['like_seed']),'seed_title.0'=> new MongoRegex("/$keyword/")));
 
 			foreach ($seed as $key => $item) {
-				if (strpos($item['seed_title'][0],$keyword) < strlen($item['seed_title'][0])) {
+
 					$item['like_comment'] = $value['like_comment'];
 					//$item['seed_agreeCount'] = $this->db->Proworth->find (array('like_seed' => (string)$item['_id']))->count ();
-					array_push ($myLikedSeeds, $item);	
-				}
-				
+					array_push ($myLikedSeeds, $item);					
 			}
 		}
 		return json_encode($myLikedSeeds);
