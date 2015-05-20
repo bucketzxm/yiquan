@@ -390,14 +390,16 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 		
 			
 			$matchCount = 0;
+			$keywordCount = 0;
 			$news = $this->db->Proseed->find (array ('_id' => array ('$in' =>$seedIDs)));
 			foreach ($news as $key => $value) {
 				$titleLen = strlen($value['seed_title']);
 				foreach ($seed['seed_keywords'] as $keyword) {
 					if (in_array($keyword,$value['seed_keywords'])) {
-						$matchCount += 1;
+						$keywordCount += 1;
 					}
-				}	
+				}
+				$matchCount += $keywordCount/count($seed['seed_keywords']);	
 			}
 			
 			$seedCount = count($seedIDs);
