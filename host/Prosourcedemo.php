@@ -85,15 +85,88 @@
 
 					$title = $item->title;
 					$title = str_replace("？", "", $title);
+					$title = str_replace("?", "", $title);
 					$title = str_replace("！", "", $title);
+					$title = str_replace("!", "", $title);
 					$title = str_replace("，", "", $title);
+					$title = str_replace(",", "", $title);
 					$title = str_replace("。", "", $title);
+					$title = str_replace(".", "", $title);
 					$title = str_replace("“", "", $title);
 					$title = str_replace("”", "", $title);
+					$title = str_replace("\"", "", $title);
 					$title = str_replace("【", "", $title);
 					$title = str_replace("】", "", $title);
+					$title = str_replace("《", "", $title);
+					$title = str_replace("》", "", $title);
+					$title = str_replace("<", "", $title);
+					$title = str_replace(">", "", $title);
 					$title = str_replace("：", "", $title);
+					$title = str_replace(":", "", $title);
+					$title = str_replace("-", "", $title);
 					$title = str_replace(" ", "", $title);
+					$title = str_replace("a", "", $title);
+					$title = str_replace("b", "", $title);
+					$title = str_replace("c", "", $title);
+					$title = str_replace("d", "", $title);
+					$title = str_replace("e", "", $title);
+					$title = str_replace("f", "", $title);
+					$title = str_replace("g", "", $title);
+					$title = str_replace("h", "", $title);
+					$title = str_replace("i", "", $title);
+					$title = str_replace("j", "", $title);
+					$title = str_replace("k", "", $title);
+					$title = str_replace("l", "", $title);
+					$title = str_replace("m", "", $title);
+					$title = str_replace("n", "", $title);
+					$title = str_replace("o", "", $title);
+					$title = str_replace("p", "", $title);
+					$title = str_replace("q", "", $title);
+					$title = str_replace("r", "", $title);
+					$title = str_replace("s", "", $title);
+					$title = str_replace("t", "", $title);
+					$title = str_replace("u", "", $title);
+					$title = str_replace("v", "", $title);
+					$title = str_replace("w", "", $title);
+					$title = str_replace("x", "", $title);
+					$title = str_replace("y", "", $title);
+					$title = str_replace("z", "", $title);
+					$title = str_replace("A", "", $title);
+					$title = str_replace("B", "", $title);
+					$title = str_replace("C", "", $title);
+					$title = str_replace("D", "", $title);
+					$title = str_replace("E", "", $title);
+					$title = str_replace("F", "", $title);
+					$title = str_replace("G", "", $title);
+					$title = str_replace("H", "", $title);
+					$title = str_replace("I", "", $title);
+					$title = str_replace("J", "", $title);
+					$title = str_replace("K", "", $title);
+					$title = str_replace("L", "", $title);
+					$title = str_replace("M", "", $title);
+					$title = str_replace("N", "", $title);
+					$title = str_replace("O", "", $title);
+					$title = str_replace("P", "", $title);
+					$title = str_replace("Q", "", $title);
+					$title = str_replace("R", "", $title);
+					$title = str_replace("S", "", $title);
+					$title = str_replace("T", "", $title);
+					$title = str_replace("U", "", $title);
+					$title = str_replace("V", "", $title);
+					$title = str_replace("W", "", $title);
+					$title = str_replace("X", "", $title);
+					$title = str_replace("Y", "", $title);
+					$title = str_replace("Z", "", $title);
+					$title = str_replace("0", "", $title);
+					$title = str_replace("1", "", $title);
+					$title = str_replace("2", "", $title);
+					$title = str_replace("3", "", $title);
+					$title = str_replace("4", "", $title);
+					$title = str_replace("5", "", $title);
+					$title = str_replace("6", "", $title);
+					$title = str_replace("7", "", $title);
+					$title = str_replace("8", "", $title);
+					$title = str_replace("9", "", $title);
 					//Split keywords
 					$titleLen = mb_strlen($title,'utf-8');
 					$keywords = array ();
@@ -105,13 +178,14 @@
 					}
 
 					//Add code to check whether the word is in the keyword category for specific category
+					/*
 					$validKeywords = array ();
 					foreach ($keywords as $keyword){
 						$dictitem = $db->Prodict->findOne (array ('word_name'=> $keyword));
 						if ($dictitem != null) {
 							array_push($validKeywords,$keyword);
 						}
-					}
+					}*/
 
 					$description = $item->description;
 			        $content = $item->contentEncoded;
@@ -142,7 +216,7 @@
 								'seed_link' => $item->link,
 								'seed_text' => $text,
 								'seed_time' => $postTime,
-								'seed_keywords' =>$validKeywords,
+								'seed_keywords' =>$keywords,
 								'seed_hotness' => 100,
 								'seed_hotnessTime' => time(),
 								'seed_industry' => $industry,

@@ -109,7 +109,7 @@ class Proseed extends YqBase {
 
 			$unreadSeeds = array ();
 			foreach ($sourceSeeds as $key => $seed) {
-				$cursor = $this->db->Proread->findOne(array ('seed_id' => $seed,'user_id'=>$user_id,'read_type'=>'0'));
+				$cursor = $this->db->Proread->findOne(array ('seed_id' => $seed,'user_id'=>$user_id));
 				//if ($cursor == null) {
 					array_push($unreadSeeds,(string)$seed['_id']);
 				//}
@@ -208,7 +208,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 
 			$unreadSeeds = array ();
 			foreach ($sourceSeeds as $key => $seed) {
-				$cursor = $this->db->Proread->findOne(array ('seed_id' => $seed,'user_id'=>$user_id,'read_type'=>'0'));
+				//$cursor = $this->db->Proread->findOne(array ('seed_id' => $seed,'user_id'=>$user_id,'read_type'=>'0'));
 				//if ($cursor == null) {
 					array_push($unreadSeeds,(string)$seed['_id']);
 				//}
