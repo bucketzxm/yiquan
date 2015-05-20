@@ -228,14 +228,16 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 			//删选
 			$topRes = array_slice($res,0,30);
 			*/
+
 			$results = array ();
+			/*
 			foreach ($sourceSeeds as $key => $value) {
 				$selectedSeed = $this->db->Proseed->find(
 					array ('_id'=> new MongoId($key)
 					)
 					);
-				
-				foreach ($selectedSeed as $key1 => $value1) {
+				*/
+				foreach ($sourceSeeds as $key1 => $value1) {
 					$item = array ();
 					$item['_id'] = $value1['_id'];
 					$item['seed_source'] = $value1['seed_source'];
@@ -244,8 +246,8 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 					$item['seed_link'] = $value1['seed_link'];
 					$item['seed_time'] = $value1['seed_time'];
 					$item['seed_agreeCount'] = $value1['seed_agreeCount'];
-					$item['seed_hotness'] = $value;
-					$item['seed_priorityType'] = $res1[$key];
+					//$item['seed_hotness'] = $value;
+					//$item['seed_priorityType'] = $res1[$key];
 				
 					array_push ($results,$item);
 
