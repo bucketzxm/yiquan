@@ -259,7 +259,15 @@
 			        $contentLen = strlen($contentString);
 			        $text = '';
 
+			        if (isset($value['source_linkReplace'])) {
+			        	$linkToReplace = (string)$item->link;
+			        	$link = str_replace($value['source_linkReplace'][0], $value['source_linkReplace'][1], $linkToReplace);
+			        }else{
+			        	$link = $item->link;
+			        }
+
 			        if (isset($value['source_tag'])) {
+
 			        	$oh = curl_init((string)$item->link);
 		        		curl_setopt($oh, CURLOPT_RETURNTRANSFER, true);
 		        		$originalText = curl_exec($oh);
@@ -289,7 +297,7 @@
 								'seed_sourceID' => (string)$value['_id'],
 								'seed_title' => (string)$title[0],
 								'seed_titleLower' => strtolower($title[0]),
-								'seed_link' => $item->link,
+								'seed_link' => $link,
 								'seed_text' => $text,
 								'seed_time' => $postTime,
 								'seed_keywords' =>$keywords,
