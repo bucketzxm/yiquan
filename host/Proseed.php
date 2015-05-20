@@ -399,7 +399,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 						$keywordCount += 1;
 					}
 				}
-				$matchCount += $keywordCount/count($seed['seed_keywords']);	
+				$matchCount += $keywordCount/count($value['seed_keywords']);	
 			}
 			
 			$seedCount = count($seedIDs);
