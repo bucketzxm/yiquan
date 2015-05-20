@@ -261,7 +261,7 @@
 
 			        if (isset($value['source_tag'])) {
 			        	$oh = curl_init((string)$item->link);
-		        		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		        		curl_setopt($oh, CURLOPT_RETURNTRANSFER, true);
 		        		$originalText = curl_exec($oh);
 
 		        		$opening = strpos($originalText, $value['source_tag'][0]);
