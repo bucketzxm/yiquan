@@ -84,6 +84,7 @@
 					
 
 					$title = $item->title;
+					$title = str_replace("·", "", $title);
 					$title = str_replace("？", "", $title);
 					$title = str_replace("?", "", $title);
 					$title = str_replace("！", "", $title);
