@@ -279,9 +279,9 @@
 
 			        }else{
 				        if ($desLen < $contentLen) {
-				        	$text = $contentString;
+				        	$text = (string)$contentString;
 				        }else{
-				        	$text = $desString;
+				        	$text = (string)$desString;
 				        }
 			    	}
 
