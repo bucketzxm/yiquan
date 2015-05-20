@@ -263,12 +263,12 @@
 			        	$linkToReplace = (string)$item->link;
 			        	$link = str_replace($value['source_linkReplace'][0], $value['source_linkReplace'][1], $linkToReplace);
 			        }else{
-			        	$link = $item->link;
+			        	$link = (string)$item->link;
 			        }
 
 			        if (isset($value['source_tag'])) {
 
-			        	$oh = curl_init((string)$item->link);
+			        	$oh = curl_init($link);
 		        		curl_setopt($oh, CURLOPT_RETURNTRANSFER, true);
 		        		$originalText = curl_exec($oh);
 
