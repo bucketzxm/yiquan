@@ -260,7 +260,7 @@
 			        $text = '';
 
 			        if (isset($value['source_tag'])) {
-			        	$oh = curl_init($item->link);
+			        	$oh = curl_init((string)$item->link);
 		        		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		        		$originalText = curl_exec($oh);
 
