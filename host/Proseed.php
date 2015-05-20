@@ -394,7 +394,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 			foreach ($news as $key => $value) {
 				$titleLen = strlen($value['seed_title']);
 				foreach ($seed['seed_keywords'] as $keyword) {
-					if (strpos($value['seed_title'],$keyword) < $titleLen) {
+					if (in_array($keyword,$value['seed_keywords'])) {
 						$matchCount += 1;
 					}
 				}	
