@@ -266,7 +266,8 @@
 
 		        		$opening = strpos($originalText, $value['source_tag'][0]);
 		        		$closing = strpos($originalText, $value['source_tag'][1]);
-		        		$text = substr($originalText, $opening,$closing-$opening);
+		        		$text = $originalText;
+		        		//$text = substr($originalText, $opening,$closing-$opening);
 
 			        }else{
 				        if ($desLen < $contentLen) {
