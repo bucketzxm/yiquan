@@ -517,7 +517,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 			return - 4;
 		}
 		$time = (int)$time;
-		$cursor = $this->db->Proworth->find(array ('like_user'=> $user_id,'like_time'=> array('$lt' => $time)))->sort(array('seed_time'=> -1))->limit(30);
+		$cursor = $this->db->Proworth->find(array ('like_user'=> $user_id,'like_time'=> array('$lt' => $time)))->sort(array('like_time'=> -1))->limit(30);
 		$myLikedSeeds = array ();
 		foreach ($cursor as $key => $value) {
 			$seed = $this->db->Proseed->find(array ('_id'=> new MongoId($value['like_seed'])));
