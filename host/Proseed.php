@@ -90,7 +90,11 @@ class Proseed extends YqBase {
 			//foreach ($sources as $key => $source) {
 				$sourceSeeds = $this->db->Proseed->find (
 					array (
-						'seed_industry' => $user['current']['user_industry'], 
+						'$or' => array(
+							array ('seed_industry' => $user['current']['user_industry']),
+							array ('seed_industry' => $user['current']['user_interestA']),
+							array ('seed_industry' => $user['current']['user_interestB'])
+							), 
 						'seed_time' => array ('$gt' => (time()-86400*3))
 						),
 					array ('_id'=> 1)
@@ -194,7 +198,12 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 			$time = (int)$time;
 			$sourceSeeds = $this->db->Proseed->find (
 				array (
-					'seed_industry' => $user['current']['user_industry'], 
+					
+					'$or' => array(
+							array ('seed_industry' => $user['current']['user_industry']),
+							array ('seed_industry' => $user['current']['user_interestA']),
+							array ('seed_industry' => $user['current']['user_interestB'])
+							), 
 					'seed_time' => array ('$lt' => $time),
 					'$or' => array (
 						array('seed_titleLower' => new MongoRegex ("/$keyword/")),
@@ -611,7 +620,11 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 		}
 
 		$user = $this->db->Prouser->findOne (array ('_id'=> new MongoId($user_id)));
-		$cursor = $this->db->Prosource->find(array ('source_industry'=> $user['current']['user_industry']));
+		$cursor = $this->db->Prosource->find(array ('$or' => array(
+							array ('seed_industry' => $user['current']['user_industry']),
+							array ('seed_industry' => $user['current']['user_interestA']),
+							array ('seed_industry' => $user['current']['user_interestB'])
+							)));
 		$mediaList = array();
 		foreach ($cursor as $key => $value) {
 			array_push ($mediaList, $value);
