@@ -116,7 +116,7 @@ class Prouser extends YqBase {
 	}
 
 
-	function updateUserProfile ($user_id,$user_name,$user_gender,$user_city,$user_industry,$user_company,$user_title,$user_interestA,$user_interestB,$profile_type){
+	function updateUserProfile ($user_id,$user_name,$user_gender,$user_city,$user_industry,$user_company,$user_title,$user_interestA,$user_interestB,$user_seniority,$profile_type){
 			if ($this->yiquan_version == 0) {
 				return - 2;
 			}
@@ -147,6 +147,7 @@ class Prouser extends YqBase {
 				$user[$profile_type]['user_name'] = $user_name;
 				$user[$profile_type]['user_city'] = $user_city;
 				$user[$profile_type]['user_industry'] = $user_industry;
+				$user[$profile_type]['user_seniority'] = $user_seniority;
 				$user[$profile_type]['user_interestA'] = $user_interestA;
 				$user[$profile_type]['user_interestB'] = $user_interestB;
 				$user[$profile_type]['user_company'] = $user_company;
