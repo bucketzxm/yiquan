@@ -198,7 +198,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 			$time = (int)$time;
 			$sourceSeeds = $this->db->Proseed->find (
 				array (
-					
+
 					'$or' => array(
 							array ('seed_industry' => $user['current']['user_industry']),
 							array ('seed_industry' => $user['current']['user_interestA']),
@@ -460,10 +460,13 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 
 		//找到这个user
 		$user = $this->db->Prouser->findOne (array ('_id' => new MongoId ($user_id)),array ('current' => 1));
-
+		$cursor = $this->db->Proseed->findOne (array ('_id'=> new MongoId($seed_id)));
 		$existWorth = $this->db->Proworth->findOne (array ('like_user'=>$user_id,'like_seed'=>$seed_id));
+		$source = $this->db->Prosource->findOne (array ('_id' => new MongoId($cursor['seed_sourceID'])));
+
+
 		if ($existWorth == null) {
-			$cursor = $this->db->Proseed->findOne (array ('_id'=> new MongoId($seed_id)));
+			
 			$data = array (
 				'like_user' => $user_id,
 				'like_seed' => $seed_id,
@@ -475,15 +478,16 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 
 			$this->db->Proworth->save ($data);
 
-			$cursor['seed_hotness'] += (int)$user['current']['user_weight'];
-			if(isset($cursor['seed_agreeCount'])){
-				$cursor['seed_agreeCount'] ++;
-			}else{
-				$cursor['seed_agreeCount'] = 1;
+			if (in_array($user['current']['user_industry'],$source['source_industry'])) {
+				$cursor['seed_hotness'] += (int)$user['current']['user_weight'];
+				if(isset($cursor['seed_agreeCount'])){
+					$cursor['seed_agreeCount'] ++;
+				}else{
+					$cursor['seed_agreeCount'] = 1;
+				}
+				//$cursor['seed_hotnessTime'] = time();
+				$this->db->Proseed->save($cursor);
 			}
-			//$cursor['seed_hotnessTime'] = time();
-			$this->db->Proseed->save($cursor);
-
 		}
 		
 		return 1;
