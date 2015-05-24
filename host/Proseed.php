@@ -625,9 +625,9 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 
 		$user = $this->db->Prouser->findOne (array ('_id'=> new MongoId($user_id)));
 		$cursor = $this->db->Prosource->find(array ('$or' => array(
-							array ('seed_industry' => $user['current']['user_industry']),
-							array ('seed_industry' => $user['current']['user_interestA']),
-							array ('seed_industry' => $user['current']['user_interestB'])
+							array ('source_industry' => $user['current']['user_industry']),
+							array ('source_industry' => $user['current']['user_interestA']),
+							array ('source_industry' => $user['current']['user_interestB'])
 							)));
 		$mediaList = array();
 		foreach ($cursor as $key => $value) {
