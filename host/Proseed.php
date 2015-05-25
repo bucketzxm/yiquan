@@ -193,6 +193,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 		}
 
 		try {
+			$keyword = strtolower($keyword);
 
 			$user = $this->db->Prouser->findOne (array ('_id' => new MongoId ($user_id)));
 			$time = (int)$time;
@@ -557,6 +558,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 		if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
 			return - 4;
 		}
+		$keyword = strtolower($keyword);
 		$time = (int)$time;
 		$cursor = $this->db->Proworth->find(array ('like_user'=> $user_id,'like_time'=> array('$lt' => $time)))->sort(array('seed_time'=> -1));
 		$myLikedSeeds = array ();
