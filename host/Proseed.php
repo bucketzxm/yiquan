@@ -379,9 +379,9 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 			$myAgrees = $this->db->Proread->find (
 				array (
 					'user_id'=> $user_id,
-					'read_time' => array ('$gt' => (time()-86400*30)),
+					//'read_time' => array ('$gt' => (time()-86400*30)),
 					'read_type' => '1'
-					)
+					)->sort(array('read_time'=> -1))->limit(500);
 				);
 			$seedIDs =  array ();
 			if ($myAgrees != null) {
