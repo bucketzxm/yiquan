@@ -291,6 +291,7 @@
 
 						foreach ($value['source_industry'] as $key => $industry) {
 							$title = $item->title;
+							$title = str_replace(" ", "", $title);
 							$seed = array (
 								'seed_source' => $value['source_name'],
 								'seed_sourceLower' => strtolower($value['source_name']),
