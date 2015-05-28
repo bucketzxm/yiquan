@@ -68,7 +68,7 @@
 				*/
 
 				//$rss = load_file($feedurl);
-			
+				var_dump($rss->channel->item);
 				foreach ($rss->channel->item as $item) {
 					
 					$aaa = new DateTime ();
