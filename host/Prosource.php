@@ -55,7 +55,7 @@
 		        $feeds = str_replace("<content:encoded>","<contentEncoded>",$feeds);
 		        $feeds = str_replace("</content:encoded>","</contentEncoded>",$feeds);
 		        $feeds = str_replace("CDATA<","CDATA[<",$feeds);
-		        $feeds = utf8_encode($feeds);
+
 		        //var_dump($feeds);
 		        $rss = simplexml_load_string($feeds,'SimpleXMLElement', LIBXML_NOCDATA | LIBXML_COMPACT | LIBXML_PARSEHUGE);
 
@@ -251,8 +251,8 @@
 						}
 					}*/
 
-					$description = $item->description;
-			        $content = $item->contentEncoded;
+					$description = utf8_encode($item->description);
+			        $content = utf8_encode($item->contentEncoded);
 			        $desString = $description;
 			        $contentString = $content;
 			        $desLen = strlen($desString);
