@@ -149,6 +149,7 @@ class Proseed extends YqBase {
 					$item['seed_title'] = $value1['seed_title'];
 					$item['seed_link'] = $value1['seed_link'];
 					$item['seed_time'] = $value1['seed_time'];
+					$item['seed_industry'] = $value1['seed_industry'];
 					$item['seed_agreeCount'] = $value1['seed_agreeCount'];
 					$item['seed_hotness'] = $value;
 					$item['seed_priorityType'] = $res1[$key];
@@ -252,6 +253,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 					$item['seed_sourceID'] = $value1['seed_sourceID'];
 					$item['seed_title'] = $value1['seed_title'];
 					$item['seed_link'] = $value1['seed_link'];
+					$item['seed_industry'] = $value1['seed_industry'];
 					$item['seed_time'] = $value1['seed_time'];
 					$item['seed_agreeCount'] = $value1['seed_agreeCount'];
 					//$item['seed_hotness'] = $value;
