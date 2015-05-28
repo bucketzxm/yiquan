@@ -309,6 +309,7 @@
 							);
 						
 							//var_dump($keywords);
+							$var_dump($res);
 							$res = $proseed->save ($seed);	
 						}
 						
