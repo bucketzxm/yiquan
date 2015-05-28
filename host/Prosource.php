@@ -271,7 +271,7 @@
 			        	$oh = curl_init($link);
 		        		curl_setopt($oh, CURLOPT_RETURNTRANSFER, true);
 		        		$originalText = curl_exec($oh);
-
+		        		var_dump($originalText);
 		        		$opening = strpos($originalText, $value['source_tag'][0]);
 		        		$closing = strpos($originalText, $value['source_tag'][1]);
 		        		//$text = $originalText;
