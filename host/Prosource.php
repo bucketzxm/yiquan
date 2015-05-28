@@ -309,8 +309,8 @@
 							);
 						
 							//var_dump($keywords);
-							var_dump($res);
-							$res = $proseed->save ($seed);	
+							var_dump($seed);
+							$proseed->save ($seed);	
 						}
 						
 						//$timeStamp = ;
