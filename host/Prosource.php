@@ -291,13 +291,14 @@
 
 						foreach ($value['source_industry'] as $key => $industry) {
 							$title = $item->title;
+							$title = (string)$title[0];
 							$title = str_replace(" ", "", $title);
 							$seed = array (
 								'seed_source' => $value['source_name'],
 								'seed_sourceLower' => strtolower($value['source_name']),
 								'seed_sourceID' => (string)$value['_id'],
-								'seed_title' => (string)$title[0],
-								'seed_titleLower' => strtolower($title[0]),
+								'seed_title' => $title,
+								'seed_titleLower' => strtolower($title),
 								'seed_link' => $link,
 								'seed_text' => $text,
 								'seed_time' => $postTime,
