@@ -74,7 +74,7 @@
 					$aaa = new DateTime ();
 					
 					$pubTime = $item->pubDate;
-					if ($pubTime != "" || strlen($pubTime) < 18) {
+					if ($pubTime != "" && strlen($pubTime) > 18) {
 						$pubTime = str_replace("\n","",$pubTime);
 						var_dump($pubTime);
 						$postTime = $aaa->createFromFormat($value['time_format'],$pubTime)->getTimestamp();	
