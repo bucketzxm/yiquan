@@ -46,6 +46,11 @@
 		        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		        $feeds = curl_exec($ch);
 
+		        $encode = mb_detect_encoding( $feeds, array('ASCII','UTF-8','GB2312','GBK'));
+				if ( $encode !='UTF-8' ){
+					$feeds = iconv('UTF-8',$encode,$feeds);
+				}
+
 		        $start = strpos($feeds, "<?xml");
 		        $start2 = strpos($feeds, "<rss");
 		        if($start>$start2){
@@ -251,8 +256,8 @@
 						}
 					}*/
 
-					$description = utf8_encode($item->description);
-			        $content = utf8_encode($item->contentEncoded);
+					$description = $item->description;
+			        $content = $item->contentEncoded;
 			        $desString = $description;
 			        $contentString = $content;
 			        $desLen = strlen($desString);
