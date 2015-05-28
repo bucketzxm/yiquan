@@ -271,7 +271,7 @@
 			        	$oh = curl_init($link);
 		        		curl_setopt($oh, CURLOPT_RETURNTRANSFER, true);
 		        		$originalText = curl_exec($oh);
-		        		var_dump($originalText);
+		        		var_dump(curl_error($oh));
 		        		$opening = strpos($originalText, $value['source_tag'][0]);
 		        		$closing = strpos($originalText, $value['source_tag'][1]);
 		        		//$text = $originalText;
@@ -310,7 +310,7 @@
 							);
 						
 							//var_dump($keywords);
-							var_dump($proseed->save($seed));
+							//var_dump($proseed->save($seed));
 							$proseed->save($seed);	
 						}
 						
