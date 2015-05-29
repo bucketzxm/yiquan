@@ -50,7 +50,7 @@
 
 				if ( $encode !='UTF-8' ){
 					//$encode = $encode . "//IGNORE"
-					$feeds = iconv($encode,'UTF-8',$feeds);
+					$feeds = iconv($encode,'UTF-8//IGNORE',$feeds);
 					var_dump($feeds);
 				}
 
