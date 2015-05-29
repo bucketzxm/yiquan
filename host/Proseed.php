@@ -474,6 +474,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 				'like_user' => $user_id,
 				'like_seed' => $seed_id,
 				'like_weight' => $user['current']['user_weight'],
+				'like_industry' => $user['current']['user_industry'],
 				'like_seedSource' => $cursor['seed_sourceID'],
 				'like_comment' => $like_comment,
 				'like_time' => time()
@@ -497,7 +498,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 
 	}
 
-	function addLikeComment($user_id,$seed_id,$like_comment){
+	function addLikeComment($user_id,$seed_id,$like_comment,$like_public){
 		if ($this->yiquan_version == 0) {
 			return - 2;
 		}
@@ -512,6 +513,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 
 		$like = $this->db->Proworth->findOne(array ('like_user'=>$user_id,'like_seed'=>$seed_id));
 		$like['like_comment'] = $like_comment;
+		$like['like_public'] =$like_public;
 		$this->db->Proworth->save($like);
 		return 1;
 
@@ -596,9 +598,9 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 		}
 		$prouser = new Prouser ();
 		$myPros = $prouser->findMyPros ($user_id);
-
+		$seed = $this->db->Proseed->findOne(array('_id' => new MongoId($seed_id)));
 		$result = array ();
-		$likes = $this->db->Proworth->find (array ('like_seed'=> $seed_id,'like_user'=> array ('$in'=>$myPros),'like_comment' => array ('$ne' => '')));
+		$likes = $this->db->Proworth->find (array ('like_seed'=> $seed_id,'like_industry'=> $seed['seed_industry'],'like_comment' => array ('$ne' => ''),'like_public' => '1'));
 		foreach ($likes as $key => $value) {
 			$users = $this->db->Prouser->find (array ('_id' => new MongoId($value['like_user'])));
 			foreach ($users as $key => $user) {
