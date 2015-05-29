@@ -9,6 +9,43 @@
 		return $xml;
 	}
 
+	function find_same($string1, $string2){
+		// return true when two strings are similar
+		
+		$const_dif = 50; //const of diffrence
+
+		if (mb_strlen($string2) < mb_strlen($string1)){
+			$string_temp = $string1;
+			$string1 = $string2;
+			$string2 = $string_temp;
+		}
+		// Make sure that $string1 is shorter than $string2
+
+		$string1_array = unpack('C*', $string1);
+		$string2_array = unpack('C*', $string2);
+		// Initialize before calculating
+
+		$benchmark = 0;
+		foreach ($string1_array as $key) {
+			$benchmark += $key;
+		}
+		// get Benchmark value of $string1
+
+		for($i = 0; $i <= mb_strlen($string2)-mb_strlen($string1); $i++){
+			$judge = 0;
+			for ($j = $i; $j < $i + count($string1_array) ; $j++){
+				$judge += $string2_array[$j];
+			}
+			// get String2 value sum
+
+			if (abs($judge - $benchmark) <= $const_dif){
+				return true;
+			}
+			// judge
+		}
+		return false;
+	}
+
 
 			$dbname = 'yiquan';
 			$host = 'localhost';
