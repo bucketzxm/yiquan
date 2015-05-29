@@ -47,10 +47,11 @@
 		        $feeds = curl_exec($ch);
 
 		        $encode = mb_detect_encoding( $feeds, array('ASCII','UTF-8','GB2312','GBK',"EUC-CN","CP936"));
-				var_dump($encode);
+
 				if ( $encode !='UTF-8' ){
 					//$encode = $encode . "//IGNORE"
 					$feeds = iconv($encode,'UTF-8',$feeds);
+					var_dump($feeds);
 				}
 
 		        $start = strpos($feeds, "<?xml");
