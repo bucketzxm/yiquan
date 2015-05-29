@@ -49,7 +49,8 @@
 		        $encode = mb_detect_encoding( $feeds, array('ASCII','UTF-8','GB2312','GBK',"EUC-CN","CP936"));
 				var_dump($encode);
 				if ( $encode !='UTF-8' ){
-					$feeds = iconv('UTF-8',$encode,$feeds);
+					//$encode = $encode . "//IGNORE"
+					$feeds = iconv($encode,'UTF-8',$feeds);
 				}
 
 		        $start = strpos($feeds, "<?xml");
