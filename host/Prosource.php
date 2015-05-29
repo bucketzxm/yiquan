@@ -46,7 +46,7 @@
 		        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		        $feeds = curl_exec($ch);
 
-		        $encode = mb_detect_encoding( $feeds, array('ASCII','UTF-8','GB2312','GBK'));
+		        $encode = mb_detect_encoding( $feeds, array('ASCII','UTF-8','GB2312','GBK',"EUC-CN","CP936"));
 				var_dump($encode);
 				if ( $encode !='UTF-8' ){
 					$feeds = iconv('UTF-8',$encode,$feeds);
