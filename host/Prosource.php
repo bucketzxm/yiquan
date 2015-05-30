@@ -88,6 +88,19 @@
 				if ( $encode !='UTF-8' ){
 					//$encode = $encode . "//IGNORE"
 					$feeds = iconv($encode,'UTF-8//IGNORE',$feeds);
+
+					$feeds = str_replace('encoding="gb2312"', 'encoding="utf-8"', $feeds);
+					$feeds = str_replace('encoding="ascii"', 'encoding="utf-8"', $feeds);
+					$feeds = str_replace('encoding="gbk"', 'encoding="utf-8"', $feeds);
+					$feeds = str_replace('encoding="ecu-cn"', 'encoding="utf-8"', $feeds);
+					$feeds = str_replace('encoding="cp936"', 'encoding="utf-8"', $feeds);
+
+					$feeds = str_replace('encoding="GB2312"', 'encoding="utf-8"', $feeds);
+					$feeds = str_replace('encoding="ASCII"', 'encoding="utf-8"', $feeds);
+					$feeds = str_replace('encoding="GBK"', 'encoding="utf-8"', $feeds);
+					$feeds = str_replace('encoding="EUC-CN"', 'encoding="utf-8"', $feeds);
+					$feeds = str_replace('encoding="CP936"', 'encoding="utf-8"', $feeds);
+
 					var_dump($feeds);
 				}
 
