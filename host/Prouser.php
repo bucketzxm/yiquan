@@ -423,6 +423,15 @@ class Prouser extends YqBase {
 		return 1;
 	}
 
+	function checkIOSVersion ($build){
+		$build = (int) $build;
+		$latestBuild = $this->db->Prosystem->findOne(array ('para_name' => "version_control"));
+		if ($build < $latestBuild['iOS']) {
+			return 1;
+		}else{
+			return 0;
+		}
+	}
 
 
 }
