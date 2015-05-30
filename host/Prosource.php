@@ -155,9 +155,8 @@
 						$pubTime = str_replace("十二月","Dec",$pubTime);
 						$pubTime = str_replace("\n","",$pubTime);
 
-						var_dump(strpos($pubTime, "+"));
-						var_dump(strlen($pubTime));
- 						if(strpos($pubTime, "+") > strlen($pubTime)){
+						
+ 						if(strpos($pubTime, "+") == false){
  							$pubTime = $pubTime . " +0800";
  						}
 
