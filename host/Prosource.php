@@ -155,10 +155,10 @@
 						$pubTime = str_replace("十二月","Dec",$pubTime);
 						$pubTime = str_replace("\n","",$pubTime);
 
- 						if(strpos($pubTime, '+') > strlen($pubTime)){
+ 						if(strpos($pubTime, "+") > strlen($pubTime)){
  							$pubTime = $pubTime . " +0800";
  						}
- 						
+
 					if ($pubTime != "" && mb_strlen($pubTime) > 24) {
 						//var_dump($pubTime);
 						$postTime = $aaa->createFromFormat($value['time_format'],$pubTime)->getTimestamp();	
