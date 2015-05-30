@@ -88,7 +88,7 @@
 				if ( $encode !='UTF-8' ){
 					//$encode = $encode . "//IGNORE"
 					$feeds = iconv($encode,'UTF-8//IGNORE',$feeds);
-					var_dump($feeds);
+					//var_dump($feeds);
 				}
 
 		        $start = strpos($feeds, "<?xml");
@@ -101,7 +101,7 @@
 		        $feeds = str_replace("</content:encoded>","</contentEncoded>",$feeds);
 		        $feeds = str_replace("CDATA<","CDATA[<",$feeds);
 
-		        var_dump($feeds);
+		        //var_dump($feeds);
 		        $rss = simplexml_load_string($feeds,'SimpleXMLElement', LIBXML_NOCDATA | LIBXML_COMPACT | LIBXML_PARSEHUGE);
 
 		        //Calculate average hotness
@@ -121,7 +121,7 @@
 					$pubTime = $item->pubDate;
 					if ($pubTime != "" && strlen($pubTime) > 24) {
 						$pubTime = str_replace("\n","",$pubTime);
-						var_dump($pubTime);
+						//var_dump($pubTime);
 						$postTime = $aaa->createFromFormat($value['time_format'],$pubTime)->getTimestamp();	
 					}else{
 						$postTime = time();
@@ -316,7 +316,7 @@
 			        	$oh = curl_init($link);
 		        		curl_setopt($oh, CURLOPT_RETURNTRANSFER, true);
 		        		$originalText = curl_exec($oh);
-		        		var_dump(curl_error($oh));
+		        		//var_dump(curl_error($oh));
 		        		$opening = strpos($originalText, $value['source_tag'][0]);
 		        		$closing = strpos($originalText, $value['source_tag'][1]);
 		        		//$text = $originalText;
@@ -356,13 +356,13 @@
 						
 							//var_dump($keywords);
 							//var_dump($proseed->save($seed));
-							var_dump($seed);
+							//var_dump($seed);
 							$proseed->save($seed);	
 						}
 						
 						//$timeStamp = ;
-						echo "<h2>" . $item->title . "</h2>";
-						echo "<h2>" . $titleLen . "</h2>";
+						echo "<h2>" . $value['source_name'].$item->title . $link.$postTime."</h2>";
+						//echo "<h2>" . $titleLen . "</h2>";
 						//echo "<h2>" . $postTime. "</h2>";
 						//echo "<p>" . $item->description . "</p>";
 					}

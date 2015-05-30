@@ -753,12 +753,12 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 
 		$user = $this->db->Prouser->findOne(array('_id' => new MongoId($user_id)));
 		$result = 0;
-		$unreadSystemMessage = $this->db->Promessage->find(array ('message_type'=>'system','message_postTime' => array ('$gt'=> $user['user_messageCheckTime'])));
-		if ($unreadSystemMessage != null) {
+		$unreadSystemMessage = $this->db->Promessage->find(array ('message_type'=>'system','message_postTime' => array ('$gt'=> $user['user_messageCheckTime'])))->count();
+		if ($unreadSystemMessage >0) {
 			$result += 1;
 		}
-		$unreadPersonalMessage = $this->db->Promessage->find(array ('message_receiverID'=>$user_id,'message_postTime' => array ('$gt'=> $user['user_messageCheckTime'])));
-		if ($unreadPersonalMessage != null) {
+		$unreadPersonalMessage = $this->db->Promessage->find(array ('message_receiverID'=>$user_id,'message_postTime' => array ('$gt'=> $user['user_messageCheckTime'])))->count();
+		if ($unreadPersonalMessage > 0) {
 			$result += 2;
 		}
 
