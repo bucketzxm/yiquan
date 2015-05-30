@@ -386,7 +386,7 @@
 						
 						//$timeStamp = ;
 						echo "<h2>" . $value['source_name'].",".$item->title."," . $link.",".$postTime."</h2>";
-						echo $text;
+						//echo $text;
 						//echo "<h2>" . $postTime. "</h2>";
 						//echo "<p>" . $item->description . "</p>";
 					}
