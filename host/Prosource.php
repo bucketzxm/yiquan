@@ -160,9 +160,10 @@
  						}
 
 					if ($pubTime != "" && strlen($pubTime) > 24) {
-						//var_dump($pubTime);
+						var_dump($pubTime);
 						$postTime = $aaa->createFromFormat($value['time_format'],$pubTime)->getTimestamp();	
 					}else{
+						var_dump($pubTime);
 						$postTime = time();
 					}
 					
