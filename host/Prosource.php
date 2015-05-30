@@ -132,8 +132,29 @@
 					$aaa = new DateTime ();
 					
 					$pubTime = $item->pubDate;
-					if ($pubTime != "" && strlen($pubTime) > 24) {
+					if ($pubTime != "" && mb_strlen($pubTime) > 24) {
+						$pubTime = str_replace("星期一","Mon",$pubTime);
+						$pubTime = str_replace("星期二","Tue",$pubTime);
+						$pubTime = str_replace("星期三","Wed",$pubTime);
+						$pubTime = str_replace("星期四","Thu",$pubTime);
+						$pubTime = str_replace("星期五","Fri",$pubTime);
+						$pubTime = str_replace("星期六","Sat",$pubTime);
+						$pubTime = str_replace("星期日","Sun",$pubTime);
+						$pubTime = str_replace("星期天","Sun",$pubTime);
+						$pubTime = str_replace("一月","Jan",$pubTime);
+						$pubTime = str_replace("二月","Feb",$pubTime);
+						$pubTime = str_replace("三月","Mar",$pubTime);
+						$pubTime = str_replace("四月","Apr",$pubTime);
+						$pubTime = str_replace("五月","May",$pubTime);
+						$pubTime = str_replace("六月","Jun",$pubTime);
+						$pubTime = str_replace("七月","Jul",$pubTime);
+						$pubTime = str_replace("八月","Aug",$pubTime);
+						$pubTime = str_replace("九月","Sep",$pubTime);
+						$pubTime = str_replace("十月","Oct",$pubTime);
+						$pubTime = str_replace("十一月","Nov",$pubTime);
+						$pubTime = str_replace("十二月","Dec",$pubTime);
 						$pubTime = str_replace("\n","",$pubTime);
+
 						//var_dump($pubTime);
 						$postTime = $aaa->createFromFormat($value['time_format'],$pubTime)->getTimestamp();	
 					}else{
