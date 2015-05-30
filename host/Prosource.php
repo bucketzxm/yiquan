@@ -159,7 +159,7 @@
  							$pubTime = $pubTime . " +0800";
  						}
 
-					if ($pubTime != "" && mb_strlen($pubTime) > 24) {
+					if ($pubTime != "" && strlen($pubTime) > 24) {
 						//var_dump($pubTime);
 						$postTime = $aaa->createFromFormat($value['time_format'],$pubTime)->getTimestamp();	
 					}else{
