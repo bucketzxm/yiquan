@@ -329,6 +329,17 @@
 			        	$oh = curl_init($link);
 		        		curl_setopt($oh, CURLOPT_RETURNTRANSFER, true);
 		        		$originalText = curl_exec($oh);
+
+		        		$encode = mb_detect_encoding($originalText, array('ASCII','UTF-8','GB2312','GBK',"EUC-CN","CP936"));
+
+						if ( $encode !='UTF-8' ){
+							//$encode = $encode . "//IGNORE"
+							$originalText = iconv($encode,'UTF-8//IGNORE',$originalText);
+
+							//var_dump($feeds);
+						}
+
+
 		        		//var_dump(curl_error($oh));
 		        		$opening = strpos($originalText, $value['source_tag'][0]);
 		        		$closing = strpos($originalText, $value['source_tag'][1]);
