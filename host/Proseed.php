@@ -737,5 +737,36 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 		}
 	}
 
+	function checkMessageUpdate($user_id){
+		if ($this->yiquan_version == 0) {
+			return - 2;
+		}
+		
+		if ($this->checkToken () == 0) {
+			return - 3;
+		}
+
+		if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
+			return - 4;
+		}
+		$this->logCallMethod ( $this->getCurrentUsername (), __METHOD__ );
+
+		$user = $this->db->Prouser->findOne(array('_id' => new MongoId($user_id)));
+		$result = 0;
+		$unreadSystemMessage = $this->db->Promessage->find(array ('message_type'=>'system','message_postTime' => array ('$gt'=> $user['user_messageCheckTime'])));
+		if ($unreadSystemMessage != null) {
+			$result += 1;
+		}
+		$unreadPersonalMessage = $this->db->Promessage->find(array ('message_receiverID'=>$user_id,'message_postTime' => array ('$gt'=> $user['user_messageCheckTime'])));
+		if ($unreadPersonalMessage != null) {
+			$result += 2;
+		}
+
+		$user['user_messageCheckTime'] = time();
+		$this->db->Prouser->save ($user);
+		return $result;
+
+	}
+
 }
 ?>
