@@ -157,7 +157,7 @@
 
 						
  						if(strpos($pubTime, "+") == false){
- 							$pubTime = $pubTime . " +0800";
+ 						//	$pubTime = $pubTime . " +0800";
  						}
 
 					if ($pubTime != "" && strlen($pubTime) > 24) {
