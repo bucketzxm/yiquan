@@ -384,8 +384,8 @@
 					        }
 				    	}
 
-				    	if (isset($value['text_closingText'])) {
-				    	    $closingCursor = strpos($text,$value['text_closingText']);
+				    	if (isset($value['text_closingTag'])) {
+				    	    $closingCursor = strpos($text,$value['text_closingTag']);
 				    	    if ($closingCursor != false) {
 				    	    		$text = substr($text,0,$closingCursor);
 				    	    	}	
