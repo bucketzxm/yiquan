@@ -109,7 +109,7 @@
 					
 					$feeds = preg_replace("/[\t\n\r]+/","",$feeds); 
 					$pattern = $value['source_rexTemplate'];
-					var_dump(expression);
+					var_dump($pattern);
 					preg_match_all($pattern,$feeds,$result); 
 
 					var_dump($result);
