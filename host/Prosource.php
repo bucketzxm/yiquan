@@ -319,6 +319,9 @@
 						$title = str_replace("无", "", $title);
 						$title = str_replace("多少", "", $title);
 						$title = str_replace("如何", "", $title);
+
+						$title = str_replace("\n", "", $title);
+						$title = str_replace("\t", "", $title);
 						//Split keywords
 						$titleLen = mb_strlen($title,'utf-8');
 						$keywords = array ();
