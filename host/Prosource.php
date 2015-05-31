@@ -320,8 +320,8 @@
 						$title = str_replace("多少", "", $title);
 						$title = str_replace("如何", "", $title);
 
-						$title = str_replace("\\n", "", $title);
-						$title = str_replace("\\t", "", $title);
+						$title = str_replace("\n\t\t\t", "", $title);
+						//$title = str_replace("\\t", "", $title);
 					
 						//Split keywords
 						$titleLen = mb_strlen($title,'utf-8');
