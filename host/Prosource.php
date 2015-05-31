@@ -104,30 +104,46 @@
 					$feeds = str_replace('encoding="CP936"', 'encoding="utf-8"', $feeds);
 				}
 
-		        $start = strpos($feeds, "<?xml");
-		        $start2 = strpos($feeds, "<rss");
-		        if($start>$start2){
-		        	$start=$start2;
-		        }
-		        $feeds = substr($feeds, $start);
-		        $feeds = str_replace("<content:encoded>","<contentEncoded>",$feeds);
-		        $feeds = str_replace("</content:encoded>","</contentEncoded>",$feeds);
-		        $feeds = str_replace("CDATA<","CDATA[<",$feeds);
 
-		        var_dump($feeds);
-		        $rss = simplexml_load_string($feeds,'SimpleXMLElement', LIBXML_NOCDATA | LIBXML_COMPACT | LIBXML_PARSEHUGE);
+				if (isset($value['source_rexTemplate'])) {
+					
+					$html = preg_replace("/[\t\n\r]+/","",$html); 
+					$partern = $value['source_rexTemplate'];
+					preg_match_all($partern,$html,$result); 
 
-		        //Calculate average hotness
-		        /*
-		        $seeds = $db->Proseed->find(array ('seed_sourceID' => (string)$value['_id']))->count();
-		        $likes = $db->Proworth->find(array ('like_seedSource' => (string)$value['_id']))->count();
-		        $avgLikes = $likes/$seeds;
-		        $value['average_hotness'] = $avgLikes;
-		        $db->Prosource->save ($value);
-				*/
+					var_dump($result);
 
-				//$rss = load_file($feedurl);
-				foreach ($rss->channel->item as $item) {
+				}else{
+
+			        $start = strpos($feeds, "<?xml");
+			        $start2 = strpos($feeds, "<rss");
+			        if($start>$start2){
+			        	$start=$start2;
+			        }
+			        $feeds = substr($feeds, $start);
+			        $feeds = str_replace("<content:encoded>","<contentEncoded>",$feeds);
+			        $feeds = str_replace("</content:encoded>","</contentEncoded>",$feeds);
+			        $feeds = str_replace("CDATA<","CDATA[<",$feeds);
+
+			        var_dump($feeds);
+			        $rss = simplexml_load_string($feeds,'SimpleXMLElement', LIBXML_NOCDATA | LIBXML_COMPACT | LIBXML_PARSEHUGE);
+
+			        //Calculate average hotness
+			        /*
+			        $seeds = $db->Proseed->find(array ('seed_sourceID' => (string)$value['_id']))->count();
+			        $likes = $db->Proworth->find(array ('like_seedSource' => (string)$value['_id']))->count();
+			        $avgLikes = $likes/$seeds;
+			        $value['average_hotness'] = $avgLikes;
+			        $db->Prosource->save ($value);
+					*/
+
+					//$rss = load_file($feedurl);
+					$seedsToLoad = $rss->channel->item;
+
+				}
+
+
+				foreach ($seedsToLoad as $item) {
 					
 					$aaa = new DateTime ();
 					
@@ -405,7 +421,7 @@
 							$title = str_replace(" ", "", $title);
 							$title = str_replace("\n", "", $title);
 							$title = str_replace("\t", "", $title);							
-							
+
 							$seed = array (
 								'seed_source' => $value['source_name'],
 								'seed_sourceLower' => strtolower($value['source_name']),
