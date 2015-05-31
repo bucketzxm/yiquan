@@ -391,7 +391,7 @@
 				    	    	}	
 				    	}
 
-					
+						$text = str_replace("style=", "", $text);
 
 						foreach ($value['source_industry'] as $key => $industry) {
 							$title = $item->title;
