@@ -108,6 +108,10 @@
 				if (isset($value['source_rexTemplate'])) {
 					
 					$feeds = preg_replace("/[\t\n\r]+/","",$feeds); 
+					$feeds = preg_replace("<script .*? /script>", "", $feeds);
+					$feeds = preg_replace("<link .*? >", "", $feeds);
+					$feeds = preg_replace("<link .*? >", "", $feeds);
+					$feeds = preg_replace("<iframe .*? /iframe>", "", $feeds);
 					$pattern = $value['source_rexTemplate'];
 					echo $pattern;
 					preg_match_all($pattern,$feeds,$result); 
