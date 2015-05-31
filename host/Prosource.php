@@ -107,9 +107,9 @@
 
 				if (isset($value['source_rexTemplate'])) {
 					
-					$html = preg_replace("/[\t\n\r]+/","",$html); 
-					$partern = $value['source_rexTemplate'];
-					preg_match_all($partern,$html,$result); 
+					$feeds = preg_replace("/[\t\n\r]+/","",$feeds); 
+					$pattern = $value['source_rexTemplate'];
+					preg_match_all($pattern,$feeds,$result); 
 
 					var_dump($result);
 
