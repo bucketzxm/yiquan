@@ -427,7 +427,10 @@
 							$title = str_replace("\n", "", $title);
 							$title = str_replace("\t", "", $title);		
 
-							$titles = $db -> $proseed -> find(array ('source_industry' => (string)$industry, 'seed_time' => array($gt => $postTime - 86400));
+							$titles = $proseed -> find(array (
+								'source_industry' => (string)$industry,
+								 'seed_time' => array('$gt' => ($postTime - 86400))
+								 ));
 
 							$same = false;
 
