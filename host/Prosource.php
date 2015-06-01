@@ -108,6 +108,10 @@
 				if (isset($value['source_rexTemplate'])) {
 					
 					$feeds = preg_replace("/[\t\n\r]+/","",$feeds); 
+					$feeds = preg_replace("<script .*? /script>", "", $feeds);
+					$feeds = preg_replace("<link .*? >", "", $feeds);
+					$feeds = preg_replace("<link .*? >", "", $feeds);
+					$feeds = preg_replace("<iframe .*? /iframe>", "", $feeds);
 					$pattern = $value['source_rexTemplate'];
 					echo $pattern;
 					preg_match_all($pattern,$feeds,$result); 
@@ -428,28 +432,46 @@
 
 							$title = str_replace(" ", "", $title);
 							$title = str_replace("\n", "", $title);
-							$title = str_replace("\t", "", $title);							
+							$title = str_replace("\t", "", $title);		
 
-							$seed = array (
-								'seed_source' => $value['source_name'],
-								'seed_sourceLower' => strtolower($value['source_name']),
-								'seed_sourceID' => (string)$value['_id'],
-								'seed_title' => $title,
-								'seed_titleLower' => strtolower($title),
-								'seed_link' => $link,
-								'seed_text' => $text,
-								'seed_time' => $postTime,
-								'seed_keywords' =>$keywords,
-								'seed_hotness' => 100,
-								'seed_hotnessTime' => time(),
-								'seed_industry' => $industry,
-								'seed_agreeCount' => 0
-							);
-						
-							//var_dump($keywords);
-							//var_dump($proseed->save($seed));
-							//var_dump($seed);
-							$proseed->save($seed);	
+							$titles = $proseed -> find(array (
+								'source_industry' => (string)$industry,
+								 'seed_time' => array('$gt' => ($postTime - 86400))
+								 ));
+
+							$same = false;
+
+							foreach ($titles as $key => $value) {
+								if (find_same($value['seed_title'],$title)){
+									$same = true;
+									break;
+								}
+							}
+
+							if ($same == false){
+								$seed = array (
+									'seed_source' => $value['source_name'],
+									'seed_sourceLower' => strtolower($value['source_name']),
+									'seed_sourceID' => (string)$value['_id'],
+									'seed_title' => $title,
+									'seed_titleLower' => strtolower($title),
+									'seed_link' => $link,
+									'seed_text' => $text,
+									'seed_time' => $postTime,
+									'seed_keywords' =>$keywords,
+									'seed_hotness' => 100,
+									'seed_hotnessTime' => time(),
+									'seed_industry' => $industry,
+									'seed_agreeCount' => 0
+								);
+							
+								//var_dump($keywords);
+								//var_dump($proseed->save($seed));
+								//var_dump($seed);
+								$proseed->save($seed);	
+							}
+
+							
 						}
 						
 						//$timeStamp = ;
