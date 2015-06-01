@@ -197,6 +197,15 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 			$keyword = strtolower($keyword);
 
 			$user = $this->db->Prouser->findOne (array ('_id' => new MongoId ($user_id)));
+			if (isset($user['user_searchWords'][$keyword])) {
+				$user['user_searchWords'][$keyword] ++;
+			}else{
+				$user['user_searchWords'][$keyword] = 1;
+			}
+			$this->db->Prouser->save($user);
+
+
+
 			$time = (int)$time;
 			$sourceSeeds = $this->db->Proseed->find (
 				array (
@@ -563,6 +572,16 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 			return - 4;
 		}
 		$keyword = strtolower($keyword);
+		
+		$user = $this->db->Prouser->findOne (array ('_id' => new MongoId ($user_id)));
+
+		if (isset($user['user_searchWords'][$keyword])) {
+			$user['user_searchWords'][$keyword] ++;
+		}else{
+			$user['user_searchWords'][$keyword] = 1;
+		}
+		$this->db->Prouser->save($user);
+
 		$time = (int)$time;
 		$cursor = $this->db->Proworth->find(array ('like_user'=> $user_id,'like_time'=> array('$lt' => $time)))->sort(array('seed_time'=> -1));
 		$myLikedSeeds = array ();
