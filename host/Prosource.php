@@ -131,7 +131,7 @@
 						$link = $result[1][$i];
 						$httpPos = strpos($link, "http");
 						if ($httpPos == false) {
-							$link = $value['source_rssURL'] . $link;
+							$link = $url . $link;
 						}
 
 
