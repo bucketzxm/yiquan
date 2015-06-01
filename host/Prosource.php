@@ -257,17 +257,15 @@
 
 						foreach ($value['source_industry'] as $key2 => $industry) {
 
-							$titles = $proseed -> find(array (
-										'source_industry' => $industry,
-										'seed_time' => array('$gt' => ($seed['postTime'] - 86400)),
-										));
+							$titles = $db->Proseed->find(array(
+										'source_industry'=>$industry,
+										'seed_time'=>array('$gt'=>($seed['postTime'] - 86400))))->sort (array ('seed_time'=> -1));
+
+							var_dump($titles);
 
 							$same = false;
 
 							foreach ($titles as $key3 => $title_name) {
-
-								var_dump($key3);
-								var_dump($title_name);
 
 								if (find_same($title_name['seed_title'],$seed['title'])){
 									$same = true;
