@@ -258,10 +258,8 @@
 						foreach ($value['source_industry'] as $key2 => $industry) {
 
 							$titles = $db->Proseed->find(array(
-										'source_industry'=>$industry,
-										'seed_time'=>array('$gt'=>($seed['postTime'] - 86400))))->sort (array ('seed_time'=> -1));
-
-							var_dump($titles);
+										'seed_industry'=>$industry,
+										'seed_time'=>array('$gt'=>($seed['postTime'] - 86400))));
 
 							$same = false;
 
