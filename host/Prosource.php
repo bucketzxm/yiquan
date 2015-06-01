@@ -419,7 +419,7 @@
 				    	if (isset($value['text_startingTag'])) {
 				    	    $startingCursor = strpos($text,$value['text_startingTag']);
 				    	    if ($startingCursor != false) {
-				    	    		$text = substr($text,$text_startingTag,-1);
+				    	    		$text = substr($text,$startingCursor,-1);
 				    	    	}	
 				    	}
 
