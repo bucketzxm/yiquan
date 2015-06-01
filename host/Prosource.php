@@ -263,6 +263,8 @@
 
 							$same = false;
 
+							echo $titles;
+
 							foreach ($titles as $key3 => $title_name) {
 
 								echo $title_name['seed_title']." ".$seed['title'];
