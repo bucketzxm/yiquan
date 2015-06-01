@@ -122,6 +122,33 @@
 					echo $pattern;
 					preg_match_all($pattern,$feeds,$result); 
 
+
+					$seedCount = count($result[0]);
+
+					for ($i=0;$i<$seedCount;$i++){
+						$seedToAdd = array();
+
+						$link = $result[1][$i];
+						$httpPos = strpos($link, "http");
+						if ($httpPos == false) {
+							$link = $value['source_rssURL'] . $link;
+						}
+
+
+						$title = $result[2][$i];
+						$title = str_replace(" ", "", $title);
+						$title = str_replace("\n", "", $title);
+						$title = str_replace("\t", "", $title);
+
+						$postTime = time();
+
+						$seedToAdd['title'] = $title;
+						$seedToAdd['link'] = $link;
+						$seedToAdd['postTime'] = $postTime;
+
+						array_push($seedsToLoad,$seedToAdd);
+
+					}
 					var_dump($result);
 
 				}else{
