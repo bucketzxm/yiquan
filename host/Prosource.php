@@ -129,8 +129,9 @@
 						$seedToAdd = array();
 
 						$link = $result[1][$i];
-						$httpPos = strpos($link, "http");
-						if ($httpPos == false) {
+						$pos = strpos($link, 'http');
+						var_dump($pos);
+						if ($pos == false) {
 							$link = $url . $link;
 						}
 
