@@ -549,10 +549,15 @@
 								//var_dump($keywords);
 								//var_dump($proseed->save($seed));
 								//var_dump($seed);
-								$proseed->save($seed);	
+								try{
+									$proseed->save($seed);	
+								}catch{
+
+								}
+								
 							}
 
-							echo "<h2>" . $value['source_name'].",".$title."," . $link.",".$postTime."</h2>";
+							echo "<p>" . $value['source_name'].",".$title."," . $link.",".$postTime."</p>";
 						}
 					}	
 				}
