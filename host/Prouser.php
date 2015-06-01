@@ -452,7 +452,7 @@ class Prouser extends YqBase {
 		}
 
 		$this->db->Prouser->save($user);
-		return 1;
+		return json_encode($user);
 	}
 
 
