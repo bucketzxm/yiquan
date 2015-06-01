@@ -130,11 +130,11 @@
 
 						$link = $result[1][$i];
 						
-						if (strpos($link, 'http') !== false) {
+						if (strpos($link, 'http') === false || strpos($link, 'http')>100000 || strpos($link, 'http') == null) {
 							echo "relative link detected";
 							$link = $url.$link;
 						}else{
-							echo "definite link detected".strpos($link, 'http');
+							echo "definite link detected";
 						}
 
 						$title = $result[2][$i];
