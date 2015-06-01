@@ -70,12 +70,16 @@
 		$timeMonthAgo = $currentTime - 86400*30;
 		$db->Proseed->remove (array ('seed_time' => array ('$lt' => $timeMonthAgo)));*/
 
+
+		//依次读取每个Source
 		foreach ($sources as $key => $value) {
 			echo "<h2>" . $value['source_name'] . "</h2>";
 			$checkTime = $value['check_time'];
 			
+			//读取每个Source的URL地址
 			foreach ($value['source_rssURL'] as $key => $url) {
 			
+				//读取每个URL地址的网页HTML
 				$feedurl = $url;
 				
 		        //$feeds = file_get_contents($feedurl);
@@ -83,6 +87,7 @@
 		        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		        $feeds = curl_exec($ch);
 
+		        //HTML进行UTF-8转码
 		        $encode = mb_detect_encoding( $feeds, array('ASCII','UTF-8','GB2312','GBK',"EUC-CN","CP936"));
 
 				if ( $encode !='UTF-8' ){
@@ -104,7 +109,8 @@
 					$feeds = str_replace('encoding="CP936"', 'encoding="utf-8"', $feeds);
 				}
 
-
+				$seedsToLoad = array();
+				//判断HTML的读取方式为正则还是RSS，并生成响应的数据
 				if (isset($value['source_rexTemplate'])) {
 					
 					$feeds = preg_replace("/[\t\n\r]+/","",$feeds); 
@@ -143,16 +149,16 @@
 					*/
 
 					//$rss = load_file($feedurl);
-					$seedsToLoad = $rss->channel->item;
+					$rssItems = $rss->channel->item;
 
-				}
+					foreach ($rssItems as $item) {
+						
+						$seedToAdd = array();
 
-
-				foreach ($seedsToLoad as $item) {
-					
-					$aaa = new DateTime ();
-					
-					$pubTime = $item->pubDate;
+						//开始处理时间（仅RSS需要，获得postTime）
+						$aaa = new DateTime ();
+						
+						$pubTime = $item->pubDate;
 
 						$pubTime = str_replace("星期一","Mon",$pubTime);
 						$pubTime = str_replace("星期二","Tue",$pubTime);
@@ -176,319 +182,334 @@
 						$pubTime = str_replace("十二月","Dec",$pubTime);
 						$pubTime = str_replace("\n","",$pubTime);
 
-						
- 						if(strpos($pubTime, "+") == false){
- 						//	$pubTime = $pubTime . " +0800";
- 						}
-
-					if ($pubTime != "" ) {//&& strlen($pubTime) > 24
-						var_dump($pubTime);
-						$postTime = $aaa->createFromFormat($value['time_format'],$pubTime)->getTimestamp();	
-					}else{
-						var_dump($pubTime);
-						$postTime = time();
-					}
-					
-					if ($postTime < $checkTime){
-						//echo "<h2>" . "已经刷新过了" . "</h2>";
-					}else{
+						if ($pubTime != "" ) {//&& strlen($pubTime) > 24
+							var_dump($pubTime);
+							$postTime = $aaa->createFromFormat($value['time_format'],$pubTime)->getTimestamp();	
+						}else{
+							var_dump($pubTime);
+							$postTime = time();
+						}
+						//获得标题
 						$title = $item->title;
-						$title = str_replace("·", "", $title);
-						$title = str_replace("？", "", $title);
-						$title = str_replace("?", "", $title);
-						$title = str_replace("！", "", $title);
-						$title = str_replace("!", "", $title);
-						$title = str_replace("，", "", $title);
-						$title = str_replace(",", "", $title);
-						$title = str_replace("。", "", $title);
-						$title = str_replace(".", "", $title);
-						$title = str_replace("、", "", $title);
-						$title = str_replace("“", "", $title);
-						$title = str_replace("”", "", $title);
-						$title = str_replace("\"", "", $title);
-						$title = str_replace("……", "", $title);
-						$title = str_replace("——", "", $title);
-						$title = str_replace("|", "", $title);
-						$title = str_replace("【", "", $title);
-						$title = str_replace("】", "", $title);
-						$title = str_replace("《", "", $title);
-						$title = str_replace("》", "", $title);
-						$title = str_replace("（", "", $title);
-						$title = str_replace("）", "", $title);
-						$title = str_replace("(", "", $title);
-						$title = str_replace(")", "", $title);
-						$title = str_replace("「", "", $title);
-						$title = str_replace("」", "", $title);
-						$title = str_replace("<", "", $title);
-						$title = str_replace(">", "", $title);
-						$title = str_replace("：", "", $title);
-						$title = str_replace(":", "", $title);
-						$title = str_replace("-", "", $title);
-						$title = str_replace("+", "", $title);
+						$title = (string)$title[0];
 						$title = str_replace(" ", "", $title);
-						$title = str_replace("a", "", $title);
-						$title = str_replace("b", "", $title);
-						$title = str_replace("c", "", $title);
-						$title = str_replace("d", "", $title);
-						$title = str_replace("e", "", $title);
-						$title = str_replace("f", "", $title);
-						$title = str_replace("g", "", $title);
-						$title = str_replace("h", "", $title);
-						$title = str_replace("i", "", $title);
-						$title = str_replace("j", "", $title);
-						$title = str_replace("k", "", $title);
-						$title = str_replace("l", "", $title);
-						$title = str_replace("m", "", $title);
-						$title = str_replace("n", "", $title);
-						$title = str_replace("o", "", $title);
-						$title = str_replace("p", "", $title);
-						$title = str_replace("q", "", $title);
-						$title = str_replace("r", "", $title);
-						$title = str_replace("s", "", $title);
-						$title = str_replace("t", "", $title);
-						$title = str_replace("u", "", $title);
-						$title = str_replace("v", "", $title);
-						$title = str_replace("w", "", $title);
-						$title = str_replace("x", "", $title);
-						$title = str_replace("y", "", $title);
-						$title = str_replace("z", "", $title);
-						$title = str_replace("A", "", $title);
-						$title = str_replace("B", "", $title);
-						$title = str_replace("C", "", $title);
-						$title = str_replace("D", "", $title);
-						$title = str_replace("E", "", $title);
-						$title = str_replace("F", "", $title);
-						$title = str_replace("G", "", $title);
-						$title = str_replace("H", "", $title);
-						$title = str_replace("I", "", $title);
-						$title = str_replace("J", "", $title);
-						$title = str_replace("K", "", $title);
-						$title = str_replace("L", "", $title);
-						$title = str_replace("M", "", $title);
-						$title = str_replace("N", "", $title);
-						$title = str_replace("O", "", $title);
-						$title = str_replace("P", "", $title);
-						$title = str_replace("Q", "", $title);
-						$title = str_replace("R", "", $title);
-						$title = str_replace("S", "", $title);
-						$title = str_replace("T", "", $title);
-						$title = str_replace("U", "", $title);
-						$title = str_replace("V", "", $title);
-						$title = str_replace("W", "", $title);
-						$title = str_replace("X", "", $title);
-						$title = str_replace("Y", "", $title);
-						$title = str_replace("Z", "", $title);
-						$title = str_replace("0", "", $title);
-						$title = str_replace("1", "", $title);
-						$title = str_replace("2", "", $title);
-						$title = str_replace("3", "", $title);
-						$title = str_replace("4", "", $title);
-						$title = str_replace("5", "", $title);
-						$title = str_replace("6", "", $title);
-						$title = str_replace("7", "", $title);
-						$title = str_replace("8", "", $title);
-						$title = str_replace("9", "", $title);
-						$title = str_replace("%", "", $title);
-						$title = str_replace("的", "", $title);
-						$title = str_replace("了", "", $title);
-						$title = str_replace("和", "", $title);
-						$title = str_replace("与", "", $title);
-						$title = str_replace("或", "", $title);
-						$title = str_replace("于", "", $title);
-						$title = str_replace("这", "", $title);
-						$title = str_replace("那", "", $title);
-						$title = str_replace("你", "", $title);
-						$title = str_replace("我", "", $title);
-						$title = str_replace("们", "", $title);
-						$title = str_replace("是", "", $title);
-						$title = str_replace("不", "", $title);
-						$title = str_replace("在", "", $title);
-						$title = str_replace("再", "", $title);
-						$title = str_replace("就", "", $title);
-						$title = str_replace("为", "", $title);
-						$title = str_replace("吗", "", $title);
-						$title = str_replace("啊", "", $title);
-						$title = str_replace("哪", "", $title);
-						$title = str_replace("要", "", $title);
-						$title = str_replace("么", "", $title);
-						$title = str_replace("什", "", $title);
-						$title = str_replace("怎", "", $title);
-						$title = str_replace("还", "", $title);
-						$title = str_replace("谁", "", $title);
-						$title = str_replace("没", "", $title);
-						$title = str_replace("有", "", $title);
-						$title = str_replace("年", "", $title);
-						$title = str_replace("月", "", $title);
-						$title = str_replace("日", "", $title);
-						$title = str_replace("啥", "", $title);
-						$title = str_replace("又", "", $title);
-						$title = str_replace("只", "", $title);
-						$title = str_replace("为", "", $title);
-						$title = str_replace("以", "", $title);
-						$title = str_replace("够", "", $title);
-						$title = str_replace("更", "", $title);
-						$title = str_replace("给", "", $title);
-						$title = str_replace("但", "", $title);
-						$title = str_replace("而", "", $title);
-						$title = str_replace("千", "", $title);
-						$title = str_replace("万", "", $title);
-						$title = str_replace("亿", "", $title);
-						$title = str_replace("百", "", $title);
-						$title = str_replace("元", "", $title);
-						$title = str_replace("很", "", $title);
-						$title = str_replace("到", "", $title);
-						$title = str_replace("无", "", $title);
-						$title = str_replace("多少", "", $title);
-						$title = str_replace("如何", "", $title);
-
 						$title = str_replace("\n", "", $title);
 						$title = str_replace("\t", "", $title);
-					
-						//Split keywords
-						$titleLen = mb_strlen($title,'utf-8');
-						$keywords = array ();
-						for ($i = 0; $i<$titleLen-1;$i++){
-							$twoStr = mb_substr($title, $i,2,'utf-8');
-							array_push($keywords,$twoStr);
-							//$threeStr = mb_substr($title, $i,3,'utf-8');
-							//array_push($keywords,$threeStr);
+
+						//获取链接
+						$link = (string)$item->link;
+
+						//获取RSS内容
+						$description = $item->description;
+					    $content = $item->contentEncoded;
+
+
+						$seedToAdd['postTime'] = $postTime;
+						$seedToAdd['title'] = $title;
+						$seedToAdd['link'] = $link;
+						$seedToAdd['description'] = $description;
+						$seedToAdd['content'] = $content;
+
+						if ($postTime < $checkTime){
+
+						}else{
+							array_push($seedsToLoad,$seedToAdd);
 						}
 
-						//Add code to check whether the word is in the keyword category for specific category
-						/*
-						$validKeywords = array ();
-						foreach ($keywords as $keyword){
-							$dictitem = $db->Prodict->findOne (array ('word_name'=> $keyword));
-							if ($dictitem != null) {
-								array_push($validKeywords,$keyword);
-							}
-						}*/
+					}
 
-						$description = $item->description;
-				        $content = $item->contentEncoded;
-				        $desString = $description;
-				        $contentString = $content;
-				        $desLen = strlen($desString);
-				        $contentLen = strlen($contentString);
-				        $text = '';
-
-				        if (isset($value['source_linkReplace'])) {
-				        	$linkToReplace = (string)$item->link;
-				        	$link = str_replace($value['source_linkReplace'][0], $value['source_linkReplace'][1], $linkToReplace);
-				        }else{
-				        	$link = (string)$item->link;
-				        }
-
-				        if (isset($value['source_tag'])) {
-
-				        	$oh = curl_init($link);
-			        		curl_setopt($oh, CURLOPT_RETURNTRANSFER, true);
-			        		$originalText = curl_exec($oh);
-
-			        		$encode = mb_detect_encoding($originalText, array('ASCII','UTF-8','GB2312','GBK',"EUC-CN","CP936"));
-
-							if ( $encode !='UTF-8' ){
-								//$encode = $encode . "//IGNORE"
-								$originalText = iconv($encode,'UTF-8//IGNORE',$originalText);
-
-								//var_dump($feeds);
-							}
+				}
 
 
-			        		//var_dump(curl_error($oh));
-			        		$opening = strpos($originalText, $value['source_tag'][0]);
-			        		$closing = strpos($originalText, $value['source_tag'][1]);
-			        		//$text = $originalText;
-			        		$text = substr($originalText, $opening,$closing-$opening);
-
-				        }else{
-					        if ($desLen < $contentLen) {
-					        	$text = (string)$contentString;
-					        }else{
-					        	$text = (string)$desString;
-					        }
-				    	}
-
-				    	if ($text != '' && $text != null) {
-				    	
-					    	if (isset($value['text_closingTag'])) {
-					    	    $closingCursor = strpos($text,$value['text_closingTag']);
-					    	    if ($closingCursor != false) {
-					    	    		$text = substr($text,0,$closingCursor);
-					    	    	}	
-					    	}
-
-					    	if (isset($value['text_startingTag'])) {
-					    	    $startingCursor = strpos($text,$value['text_startingTag']);
-					    	    if ($startingCursor != false) {
-					    	    		$text = substr($text,$startingCursor,-1);
-					    	    	}	
-					    	}
-
-							$text = str_replace("style=", "", $text);
-							$text = str_replace("width", "", $text);
-							$text = str_replace("height", "", $text);
-							$text = str_replace("font-size", "", $text);
-							$text = str_replace("size=", "", $text);
-							    
-
-							foreach ($value['source_industry'] as $key => $industry) {
-								$title = $item->title;
-
-								$title = (string)$title[0];
-
-								$title = str_replace(" ", "", $title);
-								$title = str_replace("\n", "", $title);
-								$title = str_replace("\t", "", $title);		
-
-								$titles = $proseed -> find(array (
+				//统一进行查重
+				foreach ($seedsToLoad as $key => $seed) {
+					foreach ($value['source_industry'] as $key => $industry) {
+						$titles = $proseed -> find(array (
 									'source_industry' => (string)$industry,
 									 'seed_time' => array('$gt' => ($postTime - 86400))
 									 ));
 
-								$same = false;
+						$same = false;
 
-								foreach ($titles as $key => $value) {
-									if (find_same($value['seed_title'],$title)){
-										$same = true;
-										break;
-									}
-								}
+						foreach ($titles as $key => $value) {
 
-								if ($same == false){
-									$seed = array (
-										'seed_source' => $value['source_name'],
-										'seed_sourceLower' => strtolower($value['source_name']),
-										'seed_sourceID' => (string)$value['_id'],
-										'seed_title' => $title,
-										'seed_titleLower' => strtolower($title),
-										'seed_link' => $link,
-										'seed_text' => $text,
-										'seed_time' => $postTime,
-										'seed_keywords' =>$keywords,
-										'seed_hotness' => 100,
-										'seed_hotnessTime' => time(),
-										'seed_industry' => $industry,
-										'seed_agreeCount' => 0
-									);
-								
-									//var_dump($keywords);
-									//var_dump($proseed->save($seed));
-									//var_dump($seed);
-									$proseed->save($seed);	
-								}
-
-								
+							if (find_same($value['seed_title'],$seed['title'])){
+								$same = true;
+								break;
 							}
 						}
-						
-						//$timeStamp = ;
-						echo "<h2>" . $value['source_name'].",".$item->title."," . $link.",".$postTime."</h2>";
-						//echo $text;
-						//echo "<h2>" . $postTime. "</h2>";
-						//echo "<p>" . $item->description . "</p>";
-					}
 
+
+						if ($same == false){
+
+							//获取时间
+							$postTime = $seed['postTime'];
+
+							//进行标题拆字
+							$title = $seed['title'];
+							$title = str_replace("·", "", $title);
+							$title = str_replace("？", "", $title);
+							$title = str_replace("?", "", $title);
+							$title = str_replace("！", "", $title);
+							$title = str_replace("!", "", $title);
+							$title = str_replace("，", "", $title);
+							$title = str_replace(",", "", $title);
+							$title = str_replace("。", "", $title);
+							$title = str_replace(".", "", $title);
+							$title = str_replace("、", "", $title);
+							$title = str_replace("“", "", $title);
+							$title = str_replace("”", "", $title);
+							$title = str_replace("\"", "", $title);
+							$title = str_replace("……", "", $title);
+							$title = str_replace("——", "", $title);
+							$title = str_replace("|", "", $title);
+							$title = str_replace("【", "", $title);
+							$title = str_replace("】", "", $title);
+							$title = str_replace("《", "", $title);
+							$title = str_replace("》", "", $title);
+							$title = str_replace("（", "", $title);
+							$title = str_replace("）", "", $title);
+							$title = str_replace("(", "", $title);
+							$title = str_replace(")", "", $title);
+							$title = str_replace("「", "", $title);
+							$title = str_replace("」", "", $title);
+							$title = str_replace("<", "", $title);
+							$title = str_replace(">", "", $title);
+							$title = str_replace("：", "", $title);
+							$title = str_replace(":", "", $title);
+							$title = str_replace("-", "", $title);
+							$title = str_replace("+", "", $title);
+							$title = str_replace(" ", "", $title);
+							$title = str_replace("a", "", $title);
+							$title = str_replace("b", "", $title);
+							$title = str_replace("c", "", $title);
+							$title = str_replace("d", "", $title);
+							$title = str_replace("e", "", $title);
+							$title = str_replace("f", "", $title);
+							$title = str_replace("g", "", $title);
+							$title = str_replace("h", "", $title);
+							$title = str_replace("i", "", $title);
+							$title = str_replace("j", "", $title);
+							$title = str_replace("k", "", $title);
+							$title = str_replace("l", "", $title);
+							$title = str_replace("m", "", $title);
+							$title = str_replace("n", "", $title);
+							$title = str_replace("o", "", $title);
+							$title = str_replace("p", "", $title);
+							$title = str_replace("q", "", $title);
+							$title = str_replace("r", "", $title);
+							$title = str_replace("s", "", $title);
+							$title = str_replace("t", "", $title);
+							$title = str_replace("u", "", $title);
+							$title = str_replace("v", "", $title);
+							$title = str_replace("w", "", $title);
+							$title = str_replace("x", "", $title);
+							$title = str_replace("y", "", $title);
+							$title = str_replace("z", "", $title);
+							$title = str_replace("A", "", $title);
+							$title = str_replace("B", "", $title);
+							$title = str_replace("C", "", $title);
+							$title = str_replace("D", "", $title);
+							$title = str_replace("E", "", $title);
+							$title = str_replace("F", "", $title);
+							$title = str_replace("G", "", $title);
+							$title = str_replace("H", "", $title);
+							$title = str_replace("I", "", $title);
+							$title = str_replace("J", "", $title);
+							$title = str_replace("K", "", $title);
+							$title = str_replace("L", "", $title);
+							$title = str_replace("M", "", $title);
+							$title = str_replace("N", "", $title);
+							$title = str_replace("O", "", $title);
+							$title = str_replace("P", "", $title);
+							$title = str_replace("Q", "", $title);
+							$title = str_replace("R", "", $title);
+							$title = str_replace("S", "", $title);
+							$title = str_replace("T", "", $title);
+							$title = str_replace("U", "", $title);
+							$title = str_replace("V", "", $title);
+							$title = str_replace("W", "", $title);
+							$title = str_replace("X", "", $title);
+							$title = str_replace("Y", "", $title);
+							$title = str_replace("Z", "", $title);
+							$title = str_replace("0", "", $title);
+							$title = str_replace("1", "", $title);
+							$title = str_replace("2", "", $title);
+							$title = str_replace("3", "", $title);
+							$title = str_replace("4", "", $title);
+							$title = str_replace("5", "", $title);
+							$title = str_replace("6", "", $title);
+							$title = str_replace("7", "", $title);
+							$title = str_replace("8", "", $title);
+							$title = str_replace("9", "", $title);
+							$title = str_replace("%", "", $title);
+							$title = str_replace("的", "", $title);
+							$title = str_replace("了", "", $title);
+							$title = str_replace("和", "", $title);
+							$title = str_replace("与", "", $title);
+							$title = str_replace("或", "", $title);
+							$title = str_replace("于", "", $title);
+							$title = str_replace("这", "", $title);
+							$title = str_replace("那", "", $title);
+							$title = str_replace("你", "", $title);
+							$title = str_replace("我", "", $title);
+							$title = str_replace("们", "", $title);
+							$title = str_replace("是", "", $title);
+							$title = str_replace("不", "", $title);
+							$title = str_replace("在", "", $title);
+							$title = str_replace("再", "", $title);
+							$title = str_replace("就", "", $title);
+							$title = str_replace("为", "", $title);
+							$title = str_replace("吗", "", $title);
+							$title = str_replace("啊", "", $title);
+							$title = str_replace("哪", "", $title);
+							$title = str_replace("要", "", $title);
+							$title = str_replace("么", "", $title);
+							$title = str_replace("什", "", $title);
+							$title = str_replace("怎", "", $title);
+							$title = str_replace("还", "", $title);
+							$title = str_replace("谁", "", $title);
+							$title = str_replace("没", "", $title);
+							$title = str_replace("有", "", $title);
+							$title = str_replace("年", "", $title);
+							$title = str_replace("月", "", $title);
+							$title = str_replace("日", "", $title);
+							$title = str_replace("啥", "", $title);
+							$title = str_replace("又", "", $title);
+							$title = str_replace("只", "", $title);
+							$title = str_replace("为", "", $title);
+							$title = str_replace("以", "", $title);
+							$title = str_replace("够", "", $title);
+							$title = str_replace("更", "", $title);
+							$title = str_replace("给", "", $title);
+							$title = str_replace("但", "", $title);
+							$title = str_replace("而", "", $title);
+							$title = str_replace("千", "", $title);
+							$title = str_replace("万", "", $title);
+							$title = str_replace("亿", "", $title);
+							$title = str_replace("百", "", $title);
+							$title = str_replace("元", "", $title);
+							$title = str_replace("很", "", $title);
+							$title = str_replace("到", "", $title);
+							$title = str_replace("无", "", $title);
+							$title = str_replace("多少", "", $title);
+							$title = str_replace("如何", "", $title);
+
+							$title = str_replace("\n", "", $title);
+							$title = str_replace("\t", "", $title);
+						
+							//Split keywords
+							$titleLen = mb_strlen($title,'utf-8');
+							$keywords = array ();
+							for ($i = 0; $i<$titleLen-1;$i++){
+								$twoStr = mb_substr($title, $i,2,'utf-8');
+								array_push($keywords,$twoStr);
+								//$threeStr = mb_substr($title, $i,3,'utf-8');
+								//array_push($keywords,$threeStr);
+							}
+					//修复Link
+
+							//处理文章的链接
+							if (isset($value['source_linkReplace'])) {
+					        	$linkToReplace = $seed['link'];
+					        	$link = str_replace($value['source_linkReplace'][0], $value['source_linkReplace'][1], $linkToReplace);
+					        }else{
+					        	$link = $seed['link'];
+					        }
+					//获取Text
+					//对Text进行处理
+
+					//处理正文（RSS）
+							$text = '';
+					        if (isset($value['source_tag'])) {
+
+					        	$oh = curl_init($link);
+				        		curl_setopt($oh, CURLOPT_RETURNTRANSFER, true);
+				        		$originalText = curl_exec($oh);
+
+				        		$encode = mb_detect_encoding($originalText, array('ASCII','UTF-8','GB2312','GBK',"EUC-CN","CP936"));
+
+								if ( $encode !='UTF-8' ){
+									//$encode = $encode . "//IGNORE"
+									$originalText = iconv($encode,'UTF-8//IGNORE',$originalText);
+
+									//var_dump($feeds);
+								}
+
+
+				        		//var_dump(curl_error($oh));
+				        		$opening = strpos($originalText, $value['source_tag'][0]);
+				        		$closing = strpos($originalText, $value['source_tag'][1]);
+				        		//$text = $originalText;
+				        		$text = substr($originalText, $opening,$closing-$opening);
+
+					        }else{
+
+								$description = $seed['description'];
+						        $content = $seed['content'];
+						        $desString = $description;
+						        $contentString = $content;
+						        $desLen = strlen($desString);
+						        $contentLen = strlen($contentString);
+						        
+
+						        if ($desLen < $contentLen) {
+						        	$text = (string)$contentString;
+						        }else{
+						        	$text = (string)$desString;
+						        }
+					    	}
+
+					    	if ($text != '' && $text != null) {
+					    	
+						    	if (isset($value['text_closingTag'])) {
+						    	    $closingCursor = strpos($text,$value['text_closingTag']);
+						    	    if ($closingCursor != false) {
+						    	    		$text = substr($text,0,$closingCursor);
+						    	    	}	
+						    	}
+
+						    	if (isset($value['text_startingTag'])) {
+						    	    $startingCursor = strpos($text,$value['text_startingTag']);
+						    	    if ($startingCursor != false) {
+						    	    		$text = substr($text,$startingCursor,-1);
+						    	    	}	
+						    	}
+
+								$text = str_replace("style=", "", $text);
+								$text = str_replace("width", "", $text);
+								$text = str_replace("height", "", $text);
+								$text = str_replace("font-size", "", $text);
+								$text = str_replace("size=", "", $text);
+								    
+								$title = $seed['title'];
+
+
+								$seed = array (
+									'seed_source' => $value['source_name'],
+									'seed_sourceLower' => strtolower($value['source_name']),
+									'seed_sourceID' => (string)$value['_id'],
+									'seed_title' => $title,
+									'seed_titleLower' => strtolower($title),
+									'seed_link' => $link,
+									'seed_text' => $text,
+									'seed_time' => $postTime,
+									'seed_keywords' =>$keywords,
+									'seed_hotness' => 100,
+									'seed_hotnessTime' => time(),
+									'seed_industry' => $industry,
+									'seed_agreeCount' => 0
+								);
+							
+								//var_dump($keywords);
+								//var_dump($proseed->save($seed));
+								//var_dump($seed);
+								$proseed->save($seed);	
+							}
+
+							echo "<h2>" . $value['source_name'].",".$title."," . $link.",".$postTime."</h2>";
+						}
+					}	
 				}
 			
 			}
