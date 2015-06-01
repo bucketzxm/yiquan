@@ -256,12 +256,15 @@
 					foreach ($seedsToLoad as $key1 => $seed) {
 
 						foreach ($value['source_industry'] as $key2 => $industry) {
+
 							$titles = $proseed -> find(array (
-										'source_industry' => (string)$industry,
-										 'seed_time' => array('$gt' => ($postTime - 86400))
-										 ));
+										'source_industry' => $industry,
+										'seed_time' => array('$gt' => ($postTime - 86400))
+										));
 
 							$same = false;
+
+							var_dump($titles);
 
 							foreach ($titles as $key3 => $title_name) {
 
