@@ -129,12 +129,12 @@
 						$seedToAdd = array();
 
 						$link = $result[1][$i];
-						$pos = strpos($link, 'http');
 						
-						if ($pos != 0) {
-							$link = $url . $link;
+						if (strpos($link, 'http') !== false) {
+							$link = $url.$link;
 						}
-						echo "这是什么鬼".$link . "状态".$pos;
+
+						echo "这是什么鬼".$link."状态";
 
 						$title = $result[2][$i];
 						$title = str_replace(" ", "", $title);
