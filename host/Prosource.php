@@ -409,69 +409,77 @@
 					        }
 				    	}
 
-				    	if (isset($value['text_closingTag'])) {
-				    	    $closingCursor = strpos($text,$value['text_closingTag']);
-				    	    if ($closingCursor != false) {
-				    	    		$text = substr($text,0,$closingCursor);
-				    	    	}	
-				    	}
+				    	if ($text != '' && $text != null) {
+				    	
+					    	if (isset($value['text_closingTag'])) {
+					    	    $closingCursor = strpos($text,$value['text_closingTag']);
+					    	    if ($closingCursor != false) {
+					    	    		$text = substr($text,0,$closingCursor);
+					    	    	}	
+					    	}
 
-				    	if (isset($value['text_startingTag'])) {
-				    	    $startingCursor = strpos($text,$value['text_startingTag']);
-				    	    if ($startingCursor != false) {
-				    	    		$text = substr($text,$startingCursor,-1);
-				    	    	}	
-				    	}
+					    	if (isset($value['text_startingTag'])) {
+					    	    $startingCursor = strpos($text,$value['text_startingTag']);
+					    	    if ($startingCursor != false) {
+					    	    		$text = substr($text,$startingCursor,-1);
+					    	    	}	
+					    	}
 
-						$text = str_replace("style=", "", $text);
+							$text = str_replace("style=", "", $text);
+							$text = str_replace("width", "", $text);
+							$text = str_replace("height", "", $text);
+							$text = str_replace("font-size", "", $text);
+							$text = str_replace("size=", "", $text);
+							    
 
-						foreach ($value['source_industry'] as $key => $industry) {
-							$title = $item->title;
+							foreach ($value['source_industry'] as $key => $industry) {
+								$title = $item->title;
 
-							$title = (string)$title[0];
+								$title = (string)$title[0];
 
-							$title = str_replace(" ", "", $title);
-							$title = str_replace("\n", "", $title);
-							$title = str_replace("\t", "", $title);		
+								$title = str_replace(" ", "", $title);
+								$title = str_replace("\n", "", $title);
+								$title = str_replace("\t", "", $title);		
 
-							$titles = $proseed -> find(array (
-								'source_industry' => (string)$industry,
-								 'seed_time' => array('$gt' => ($postTime - 86400))
-								 ));
+								$titles = $proseed -> find(array (
+									'source_industry' => (string)$industry,
+									 'seed_time' => array('$gt' => ($postTime - 86400))
+									 ));
 
-							$same = false;
+								$same = false;
 
-							foreach ($titles as $key => $value) {
-								if (find_same($value['seed_title'],$title)){
-									$same = true;
-									break;
+								foreach ($titles as $key => $value) {
+									if (find_same($value['seed_title'],$title)){
+										$same = true;
+										break;
+									}
 								}
-							}
 
-							if ($same == false){
-								$seed = array (
-									'seed_source' => $value['source_name'],
-									'seed_sourceLower' => strtolower($value['source_name']),
-									'seed_sourceID' => (string)$value['_id'],
-									'seed_title' => $title,
-									'seed_titleLower' => strtolower($title),
-									'seed_link' => $link,
-									'seed_text' => $text,
-									'seed_time' => $postTime,
-									'seed_keywords' =>$keywords,
-									'seed_hotness' => 100,
-									'seed_hotnessTime' => time(),
-									'seed_industry' => $industry,
-									'seed_agreeCount' => 0
-								);
-							
-								//var_dump($keywords);
-								//var_dump($proseed->save($seed));
-								//var_dump($seed);
-								$proseed->save($seed);	
-							}
+								if ($same == false){
+									$seed = array (
+										'seed_source' => $value['source_name'],
+										'seed_sourceLower' => strtolower($value['source_name']),
+										'seed_sourceID' => (string)$value['_id'],
+										'seed_title' => $title,
+										'seed_titleLower' => strtolower($title),
+										'seed_link' => $link,
+										'seed_text' => $text,
+										'seed_time' => $postTime,
+										'seed_keywords' =>$keywords,
+										'seed_hotness' => 100,
+										'seed_hotnessTime' => time(),
+										'seed_industry' => $industry,
+										'seed_agreeCount' => 0
+									);
+								
+									//var_dump($keywords);
+									//var_dump($proseed->save($seed));
+									//var_dump($seed);
+									$proseed->save($seed);	
+								}
 
-							
+								
+							}
 						}
 						
 						//$timeStamp = ;
