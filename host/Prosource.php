@@ -131,10 +131,11 @@
 						$link = $result[1][$i];
 						
 						if (strpos($link, 'http') !== false) {
+							echo "relative link detected";
 							$link = $url.$link;
+						}else{
+							echo "definite link detected";
 						}
-
-						echo "这是什么鬼".$link."状态";
 
 						$title = $result[2][$i];
 						$title = str_replace(" ", "", $title);
