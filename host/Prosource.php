@@ -254,7 +254,8 @@
 
 					//统一进行查重
 					foreach ($seedsToLoad as $key => $seed) {
-						foreach ($value['source_industry'] as $key => $industry) {
+
+						foreach ($seed['source_industry'] as $key1 => $industry) {
 							$titles = $proseed -> find(array (
 										'source_industry' => (string)$industry,
 										 'seed_time' => array('$gt' => ($postTime - 86400))
@@ -262,7 +263,7 @@
 
 							$same = false;
 
-							foreach ($titles as $key => $value) {
+							foreach ($titles as $key2 => $value) {
 
 								if (find_same($value['seed_title'],$seed['title'])){
 									$same = true;
