@@ -551,7 +551,7 @@
 								//var_dump($seed);
 								try{
 									$proseed->save($seed);	
-								}catch{
+								}catch(Exception $e){
 
 								}
 								
