@@ -259,16 +259,15 @@
 
 							$titles = $proseed -> find(array (
 										'source_industry' => $industry,
-										'seed_time' => array('$gt' => ($postTime - 86400))
+										'seed_time' => array('$gt' => ($seed['postTime'] - 86400)),
 										));
 
 							$same = false;
 
-							var_dump($titles);
-
 							foreach ($titles as $key3 => $title_name) {
 
-								echo $title_name['seed_title']." ".$seed['title'];
+								var_dump($key3);
+								var_dump($title_name);
 
 								if (find_same($title_name['seed_title'],$seed['title'])){
 									$same = true;
