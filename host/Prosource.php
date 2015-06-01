@@ -134,7 +134,7 @@
 							echo "relative link detected";
 							$link = $url.$link;
 						}else{
-							echo "definite link detected";
+							echo "definite link detected".strpos($link, 'http');
 						}
 
 						$title = $result[2][$i];
