@@ -447,6 +447,7 @@ class Prouser extends YqBase {
 
 		$separated_keywords = explode ( ',', $keywords);
 		$user = $this->db->Prouser->findOne(array ('_id'=> new MongoId($user_id)));
+		$user['user_keywords'] = array ();
 		foreach($separated_keywords as $word){
 			array_push($user['user_keywords'], $word);
 		}
