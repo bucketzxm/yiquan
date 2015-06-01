@@ -531,7 +531,7 @@
 							
 								//var_dump($keywords);
 								//var_dump($proseed->save($seed));
-								//var_dump($seed);
+								var_dump($seed);
 								$proseed->save($seed);	
 							}
 
