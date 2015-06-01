@@ -434,5 +434,27 @@ class Prouser extends YqBase {
 	}
 
 
+	function updateKeywords($user_id,$keywords){
+		if ($this->yiquan_version == 0) {
+			return - 2;
+		}
+		if ($this->checkQuoteToken () != 1) {
+			return - 3;
+		}
+		if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
+			return - 4;
+		}
+
+		$separated_keywords = explode ( ',', $keywords);
+		$user = $this->db->Prouser->findOne(array ('_id'=> new MongoId($user_id)));
+		foreach($separated_keywords as $word){
+			array_push($user['user_keywords'], $word)
+		}
+
+		$this->db->Prouser->save($user);
+		return 1;
+	}
+
+
 }
 ?>
