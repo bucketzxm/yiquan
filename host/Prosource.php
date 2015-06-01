@@ -412,6 +412,13 @@
 				    	    	}	
 				    	}
 
+				    	if (isset($value['text_startingTag'])) {
+				    	    $closingCursor = strpos($text,$value['text_startingTag']);
+				    	    if ($closingCursor != false) {
+				    	    		$text = substr($text,$text_startingTag,mb_strlen($text));
+				    	    	}	
+				    	}
+
 						$text = str_replace("style=", "", $text);
 
 						foreach ($value['source_industry'] as $key => $industry) {
