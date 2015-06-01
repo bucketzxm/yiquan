@@ -131,7 +131,7 @@
 						$link = $result[1][$i];
 						$pos = strpos($link, 'http');
 						echo "这是什么鬼".$link . "状态".$pos;
-						if ($pos == false) {
+						if ($pos != 0) {
 							$link = $url . $link;
 						}
 
