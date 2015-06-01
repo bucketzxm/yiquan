@@ -427,6 +427,8 @@
 
 							$title = str_replace("\n", "", $title);
 							$title = str_replace("\t", "", $title);
+
+
 						
 							//Split keywords
 							$titleLen = mb_strlen($title,'utf-8');
@@ -525,6 +527,7 @@
 								$text = str_replace("size=", "", $text);
 								    
 								$title = $seed['title'];
+								$title = preg_replace("/<.+?>/", "", $title);
 
 
 								$seed = array (
