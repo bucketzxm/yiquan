@@ -502,7 +502,7 @@
 						        }
 					    	}
 
-					    	if ($text != '' && $text != null) {
+					    	if ($text != '' && $text != null && mb_strlen($text) > 100) {
 					    	
 						    	if (isset($value['text_closingTag'])) {
 						    	    $closingCursor = strpos($text,$value['text_closingTag']);

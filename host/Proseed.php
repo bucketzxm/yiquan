@@ -425,7 +425,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 			$seedCount = count($seedIDs);
 			$matchness = $matchCount*500/$seedCount;
 
-			foreach ($user['user_searchWords'] as $key => $word) {
+			foreach ($user['user_keywords'] as $key => $word) {
 				$pos = strpos($value['seed_titleLower'], $word);
 				if ($pos !== false) {
 					$matchness += 5;
