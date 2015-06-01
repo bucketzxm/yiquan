@@ -34,7 +34,7 @@
 		for($i = 0; $i <= mb_strlen($string2)-mb_strlen($string1); $i++){
 			$judge = 0;
 			for ($j = $i; $j < $i + count($string1_array) ; $j++){
-				$judge += $string2_array[$j];
+				$judge += isset($string2_array[$j])?$string2_array[$j]:0;
 			}
 			// get String2 value sum
 
