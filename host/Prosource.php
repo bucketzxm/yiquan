@@ -119,7 +119,7 @@
 					$feeds = preg_replace("<link .*? >", "", $feeds);
 					$feeds = preg_replace("<iframe .*? /iframe>", "", $feeds);
 					$pattern = $value['source_rexTemplate'];
-					echo $pattern;
+					//echo $pattern;
 					preg_match_all($pattern,$feeds,$result); 
 
 
@@ -129,13 +129,13 @@
 						$seedToAdd = array();
 
 						$link = $result[1][$i];
-						echo $link;
-						var_dump(strpos($link, 'http'));
+						//echo $link;
+						//var_dump(strpos($link, 'http'));
 						if (strpos($link, 'http') === false ) {
-							echo "relative link detected";
+							//echo "relative link detected";
 							$link = $url.$link;
 						}else{
-							echo "definite link detected";
+							//echo "definite link detected";
 						}
 
 						$title = $result[2][$i];
@@ -152,7 +152,7 @@
 						array_push($seedsToLoad,$seedToAdd);
 
 					}
-					var_dump($result);
+					//var_dump($result);
 
 				}else{
 
@@ -166,7 +166,7 @@
 			        $feeds = str_replace("</content:encoded>","</contentEncoded>",$feeds);
 			        $feeds = str_replace("CDATA<","CDATA[<",$feeds);
 
-			        var_dump($feeds);
+			        //var_dump($feeds);
 			        $rss = simplexml_load_string($feeds,'SimpleXMLElement', LIBXML_NOCDATA | LIBXML_COMPACT | LIBXML_PARSEHUGE);
 
 			        //Calculate average hotness
@@ -213,10 +213,10 @@
 						$pubTime = str_replace("\n","",$pubTime);
 
 						if ($pubTime != "" ) {//&& strlen($pubTime) > 24
-							var_dump($pubTime);
+							//var_dump($pubTime);
 							$postTime = $aaa->createFromFormat($value['time_format'],$pubTime)->getTimestamp();	
 						}else{
-							var_dump($pubTime);
+							//var_dump($pubTime);
 							$postTime = time();
 						}
 						//获得标题
@@ -548,7 +548,7 @@
 							
 								//var_dump($keywords);
 								//var_dump($proseed->save($seed));
-								var_dump($seed);
+								//var_dump($seed);
 								$proseed->save($seed);	
 							}
 
