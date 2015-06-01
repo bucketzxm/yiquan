@@ -129,7 +129,7 @@
 						$seedToAdd = array();
 
 						$link = $result[1][$i];
-						echo '哈哈哈哈哈哈哈哈哈';
+						echo $link;
 						var_dump(strpos($link, 'http'));
 						if (strpos($link, 'http') === false || strpos($link, 'http')>100000 || strpos($link, 'http') == null) {
 							echo "relative link detected";
