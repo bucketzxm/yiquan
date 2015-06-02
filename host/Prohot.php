@@ -30,7 +30,7 @@
 				}else{
 					$speed = 0;
 				}
-				$seed['seed_hotness'] = $seed['seed_hotness'] * exp(-($speed*0.0001) * ((time() - $seed['seed_hotnessTime'])/3600));
+				$seed['seed_hotness'] = $seed['seed_hotness'] * exp(-0.05) * ((time() - $seed['seed_hotnessTime'])/3600));
 				$seed['seed_hotnessTime'] = time();
 				$db->Proseed->save($seed);
 			}

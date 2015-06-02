@@ -419,13 +419,13 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 						$keywordCount += 1;
 					}
 				}
-				$matchCount += $keywordCount/count($value['seed_keywords']);
+				$matchCount += $keywordCount;
 
 			}
 
 			//更新关键词匹配的值
 			$seedCount = count($seedIDs);
-			$matchness += $matchCount*500/$seedCount;
+			$matchness += $matchCount/$seedCount;
 
 			
 			//计算和不想读的文章的反匹配度
@@ -453,14 +453,14 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 						$disKeywordCount += 1;
 					}
 				}
-				$dismatchCount += $disKeywordCount/count($disValue['seed_keywords']);
+				$dismatchCount += $disKeywordCount;
 
 			}
 
 
 			//更新关键词匹配的值
 			$disSeedCount = count($disSeedIDs);
-			$matchness -= $dismatchCount*500/$disSeedCount;
+			$matchness -= $dismatchCount/$disSeedCount;
 
 
 
@@ -468,7 +468,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 			foreach ($user['user_keywords'] as $word) {
 				$pos = strpos($seed['seed_titleLower'], $word);
 				if ($pos !== false) {
-					$matchness += 5;
+					$matchness += 1;
 				}
 			}	
 			
@@ -477,19 +477,19 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 			foreach ($user['user_searchWords'] as $searchWord) {
 				$pos = strpos($seed['seed_titleLower'], $searchWord);
 				if ($pos !== false) {
-					$matchness += 5;
+					$matchness += 1;
 				}
 			}
 
 
 			$hotness = $seed['seed_hotness'];
-			$priority = $hotness+$matchness;
+			$priority = $hotness * ($matchness*20+100)/100;
 			
 			$hotcent = $hotness / $priority;
 			//$agreecent = $agreeness / $priority;
-			$matchcent = $matchness / $priority;
+			$matchcent = 1- ($matchness / $priority);
 			$priorityType = '';
-			if ($matchcent > 0.3){
+			if ($matchcent > 0.1){
 				$priorityType = "猜您喜欢";
 			}else{
 				$priorityType = "圈内热门";
@@ -550,7 +550,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 			$this->db->Proworth->save ($data);
 
 			if (in_array($user['current']['user_industry'],$source['source_industry'])) {
-				$cursor['seed_hotness'] += (int)$user['current']['user_weight'];
+				$cursor['seed_hotness'] += (int)$user['current']['user_weight']*10;
 				if(isset($cursor['seed_agreeCount'])){
 					$cursor['seed_agreeCount'] ++;
 				}else{
