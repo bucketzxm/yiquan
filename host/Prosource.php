@@ -538,8 +538,17 @@
 									$title = str_replace("&quot;", "", $title);
 
 									if ($title != '' && $title != null && strlen($title) > 0 ) {
+										
+
+										//若来源为门户频道，则使用门户的父名称
+										if (isset($value['source_parent'])) {
+											$sourceName = $value['source_parent'];
+										}else{
+											$sourceName = $value['source_name'];
+										}
+
 										$dataToSave = array (
-											'seed_source' => $value['source_name'],
+											'seed_source' => $sourceName,
 											'seed_sourceLower' => strtolower($value['source_name']),
 											'seed_sourceID' => (string)$value['_id'],
 											'seed_title' => $title,
