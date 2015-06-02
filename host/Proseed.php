@@ -157,7 +157,7 @@ class Proseed extends YqBase {
 					array_push ($results,$item);
 
 					//增加用户阅读的记录：
-					$readLog = $this->db->Proread->findOne (array ('seed_id' => (string)$value1['_id'],'user_id'=>$user_id,'read_type'=>'0'));
+					$readLog = $this->db->Proread->findOne (array ('seed_id' => (string)$value1['_id'],'user_id'=>$user_id));
 					if ($readLog == null) {
 						$data = array (
 							'seed_id' => (string)$value1['_id'],
@@ -272,7 +272,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 					array_push ($results,$item);
 
 					//增加用户阅读的记录：
-					$readLog = $this->db->Proread->findOne (array ('seed_id' => (string)$value1['_id'],'user_id'=>$user_id,'read_type'=>'0'));
+					$readLog = $this->db->Proread->findOne (array ('seed_id' => (string)$value1['_id'],'user_id'=>$user_id));
 					if ($readLog == null) {
 						$data = array (
 							'seed_id' => (string)$value1['_id'],
