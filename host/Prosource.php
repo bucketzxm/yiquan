@@ -13,6 +13,7 @@
 		// return true when two strings are similar
 		
 		$const_dif = 30; //const of diffrence
+		$const_dif2 = 30;
 
 		if (mb_strlen($string2) < mb_strlen($string1)){
 			$string_temp = $string1;
@@ -26,20 +27,33 @@
 		// Initialize before calculating
 
 		$benchmark = 0;
+
+		$benchmark2 = 1;
+
 		foreach ($string1_array as $key) {
 			$benchmark += $key;
+		}
+
+		foreach ($string1_array as $key) {
+			$benchmark2 *= $key;
 		}
 		// get Benchmark value of $string1
 
 		for($i = 0; $i <= mb_strlen($string2)-mb_strlen($string1); $i++){
 			$judge = 0;
+			$judge2 = 1;
+
 			for ($j = $i; $j < $i + count($string1_array) ; $j++){
 				$judge += isset($string2_array[$j])?$string2_array[$j]:0;
 			}
+
+			for ($j = $i; $j < $i + count($string1_array) ; $j++){
+				$judge2 *= isset($string2_array[$j])?$string2_array[$j]:1;
+			}
 			// get String2 value sum
 
-			if (abs($judge - $benchmark) <= $const_dif){
-				echo "<p>".$judge." ".$benchmark." ".$string1." ".$string2."</p>";
+			if ((abs($judge - $benchmark) <= $const_dif) && (($judge2/$benchmark2<$const_dif2 && $judge2/$benchmark2>=1)|| ($judge2/$benchmark2 > 1.0/$const_dif2 && $judge2/$benchmark2<=1))){
+				echo "<p>".$judge." ".$benchmark." ".$judge2." ".$benchmark2." ".$string1." ".$string2."</p>";
 				return true;
 			}
 			// judge
