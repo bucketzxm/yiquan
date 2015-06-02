@@ -13,7 +13,7 @@
 		// return true when two strings are similar
 		
 		$const_dif = 30; //const of diffrence
-		$const_dif2 = 1.1;
+		$const_dif2 = 1.02;
 
 		if (mb_strlen($string2) < mb_strlen($string1)){
 			$string_temp = $string1;
