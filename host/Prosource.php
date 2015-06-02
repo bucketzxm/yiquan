@@ -474,6 +474,13 @@
 									//$threeStr = mb_substr($title, $i,3,'utf-8');
 									//array_push($keywords,$threeStr);
 								}
+								preg_match_all("(\\d+.\\d+|\\w+)", $seed['title'], $keywords_eng);
+
+								foreach ($keywords_eng[0] as $keyy => $valuey) {
+									array_push($keywords,$valuey);
+									$keywordDict[$valuey] = 1;
+								}
+
 
 						foreach ($value['source_industry'] as $key2 => $industry) {
 
