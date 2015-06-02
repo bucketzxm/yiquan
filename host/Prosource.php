@@ -100,6 +100,7 @@
 			        //$feeds = file_get_contents($feedurl);
 			        $ch = curl_init($feedurl);
 			        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			        curl_setopt($ch, CURLOPT_TIMEOUT, 10);
 			        $feeds = curl_exec($ch);
 
 			        //HTML进行UTF-8转码
@@ -229,7 +230,7 @@
 
 							if ($pubTime != "" ) {//&& strlen($pubTime) > 24
 								//var_dump($pubTime);
-								$postTime = $aaa->createFromFormat($value['time_format'],$pubTime)->getTimestamp();	
+								$postTime = $aaa->createFromFormat($value['time_format'],$pubTime)->getTimestamp();
 							}else{
 								//var_dump($pubTime);
 								$postTime = time();
