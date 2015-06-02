@@ -458,7 +458,7 @@
 						//处理正文（RSS）
 
 						        //关闭正文获取
-						        /*
+						        
 								$text = '';
 						        if (isset($value['source_tag'])) {
 
@@ -511,7 +511,7 @@
 							        }
 						    	}
 
-						    	//if ($text != '' && $text != null && mb_strlen($text) > 100) {
+						    	if ($text != '' && $text != null && mb_strlen($text) > 100) {
 						    	
 							    	if (isset($value['text_closingTag'])) {
 							    	    $closingCursor = strpos($text,$value['text_closingTag']);
@@ -532,7 +532,7 @@
 									$text = str_replace("height", "", $text);
 									$text = str_replace("font-size", "", $text);
 									$text = str_replace("size=", "", $text);
-									*/
+									
 									$title = $seed['title'];
 									$title = preg_replace("/<.+?>/", "", $title);
 
@@ -562,7 +562,7 @@
 									$proseed->save($dataToSave);	
 
 									
-								//}
+								}
 
 								echo "<h2>" . $value['source_name'].",".$title."," . $link.",".$postTime."</h2>";
 							}
