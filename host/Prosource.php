@@ -9,6 +9,21 @@
 		return $xml;
 	}
 
+	function find_same2($keywords,$seedToCheck){
+		$sameCount = 0;
+		foreach ($keywords as $word) {
+			if (isset($seedToCheck[$word])) {
+				$sameCount ++;
+			}
+		}
+		if ($sameCount> 7) {
+			return true;
+		}else{
+			return false;
+		}
+
+	}
+
 	function find_same($string1, $string2){
 		// return true when two strings are similar
 		
@@ -278,38 +293,6 @@
 
 					}
 
-
-					//统一进行查重
-
-					$titles_cursor = $db->Proseed->find(array(
-										'seed_time'=>array('$gt'=>(time() - 86400))));
-
-					$titles = array();
-
-					foreach ($titles_cursor as $keyx => $valuex) {
-						array_push($titles,$valuex);
-					}
-
-					foreach ($seedsToLoad as $key1 => $seed) {
-
-						foreach ($value['source_industry'] as $key2 => $industry) {
-
-							$same = false;
-
-							foreach ($titles as $key3 => $title_name) {
-
-								if ($title_name['seed_industry'] == $industry && find_same($title_name['seed_title'],$seed['title'])){
-									$same = true;
-									break;
-								}
-							}
-							
-
-							if ($same == false){
-
-								//获取时间
-								$postTime = $seed['postTime'];
-
 								//进行标题拆字
 								$title = $seed['title'];
 								$title = str_replace("·", "", $title);
@@ -476,6 +459,39 @@
 									//$threeStr = mb_substr($title, $i,3,'utf-8');
 									//array_push($keywords,$threeStr);
 								}
+
+					//统一进行查重
+
+					$titles_cursor = $db->Proseed->find(array(
+										'seed_time'=>array('$gt'=>(time() - 86400))));
+
+					$titles = array();
+
+					foreach ($titles_cursor as $keyx => $valuex) {
+						array_push($titles,$valuex);
+					}
+
+					foreach ($seedsToLoad as $key1 => $seed) {
+
+						foreach ($value['source_industry'] as $key2 => $industry) {
+
+							$same = false;
+
+							foreach ($titles_cursor as $key3 => $title_name) {
+
+								if ($title_name['seed_industry'] == $industry && find_same2($keywords,$title_name['seed_keywordDict'])){
+									$same = true;
+									break;
+								}
+							}
+							
+
+							if ($same == false){
+
+								//获取时间
+								$postTime = $seed['postTime'];
+
+
 						//修复Link
 
 								//处理文章的链接
