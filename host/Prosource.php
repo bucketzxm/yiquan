@@ -76,6 +76,20 @@
 			try{
 				echo "<h2>" . $value['source_name'] . "</h2>";
 				$checkTime = $value['check_time'];
+
+				//维护数据完整性
+				if (!isset($value['read_count'])){
+					$value['read_count'] = 0;	
+				}
+				if (!isset($value['agree_count'])){
+					$value['agree_count'] = 0;	
+				}
+
+				if ($value['read_count']>0) {
+					$mediaAddition = $value['agree_count'] / $value['read_count'];
+				}else{
+					$mediaAddition = 0;
+				}
 				
 				//读取每个Source的URL地址
 				foreach ($value['source_rssURL'] as $key => $url) {
@@ -547,6 +561,8 @@
 											$sourceName = $value['source_name'];
 										}
 
+
+
 										$dataToSave = array (
 											'seed_source' => $sourceName,
 											'seed_sourceLower' => strtolower($value['source_name']),
@@ -557,7 +573,7 @@
 											'seed_text' => $text,
 											'seed_time' => $postTime,
 											'seed_keywords' =>$keywords,
-											'seed_hotness' => 100,
+											'seed_hotness' => 100 + (20 * $mediaAddition * 10),
 											'seed_hotnessTime' => time(),
 											'seed_industry' => $industry,
 											'seed_agreeCount' => 0
@@ -580,6 +596,7 @@
 					}
 				
 				}
+
 
 
 				$value['check_time'] = time();

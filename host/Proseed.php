@@ -304,6 +304,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 			return - 4;
 		}		
 		
+		//做好阅读记录
 		$readLog = $this->db->Proread->findOne (array ('seed_id' => $seed_id,'user_id'=>$user_id));
 		if ($readLog != null) {
 			$readLog['read_type'] = '1';
@@ -317,6 +318,8 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 				);*/
 			$this->db->Proread->save ($readLog);
 		}
+
+
 
 		//找到seed_id的内容
 		$seeds = $this->db->Proseed->find(array('_id'=> new MongoId($seed_id)));
@@ -333,6 +336,11 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 			*/
 			$text = array ();
 			$text['seed_text'] = $seed['seed_text'];	
+
+			$source = $this->db->Prosource->findOne(array ('_id' => new MongoId($seed['seed_sourceID'])));
+			$source['read_count'] ++;
+			$this->db->Prosource->save($source);
+
 
 		}
 		return json_encode($text);
@@ -559,6 +567,10 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 				//$cursor['seed_hotnessTime'] = time();
 				$this->db->Proseed->save($cursor);
 			}
+
+			$source['agree_count'] ++;
+			$this->db->Prosource->save($source);
+
 		}
 		
 		return 1;
