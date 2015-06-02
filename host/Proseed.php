@@ -389,6 +389,11 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 			//计算这个新闻的关键字在我值得一读的匹配程度
 			//找到我所有读过的话题
 			
+	
+			$matchCount = 0;
+			$matchness = 0;
+
+			//计算和已经读过的文章的匹配数
 			$myAgrees = $this->db->Proread->find (
 				array (
 					'user_id'=> $user_id,
@@ -403,14 +408,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 				}
 			}
 			
-
-			//找到和我订阅的关键字的匹配程度
-		
 			
-			$matchCount = 0;
-			$matchness = 0;
-			
-			//计算和已经读过的文章的匹配数
 			$news = $this->db->Proseed->find (array ('_id' => array ('$in' =>$seedIDs)));
 			foreach ($news as $value) {
 			
@@ -424,9 +422,38 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 
 			}
 
+			//计算和不想读的文章的反匹配度
+			$myDisagrees = $this->db->Proread->find (
+				array (
+					'user_id'=> $user_id,
+					//'read_time' => array ('$gt' => (time()-86400*30)),
+					'read_type' => '0'
+					)
+				)->sort(array('read_time'=> -1))->limit(500);
+			$disSeedIDs =  array ();
+			if ($myDisagrees != null) {
+				foreach ($myDisagrees as $disagree) {
+					array_push($idsSeedIDs,new MongoId($disagree['seed_id']));
+				}
+			}
 			
+			
+			$disNews = $this->db->Proseed->find (array ('_id' => array ('$in' =>$disSeedIDs)));
+			foreach ($disNews as $disValue) {
+			
+				$keywordCount = 0;
+				foreach ($seed['seed_keywords'] as $keyword) {
+					if (in_array($keyword,$disValue['seed_keywords'])) {
+						$keywordCount += 1;
+					}
+				}
+				$matchCount -= $keywordCount/count($disValue['seed_keywords']);
 
-			
+			}
+
+
+
+			//更新关键词匹配的值
 			$seedCount = count($seedIDs);
 			$matchness += $matchCount*500/$seedCount;
 
