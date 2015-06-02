@@ -460,7 +460,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 
 			//更新关键词匹配的值
 			$disSeedCount = count($disSeedIDs);
-			$matchness += $dismatchCount*500/$disSeedCount;
+			$matchness -= $dismatchCount*500/$disSeedCount;
 
 
 
