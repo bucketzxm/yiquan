@@ -517,10 +517,10 @@
 
 						//处理正文（RSS）
 
-						        /*
+						        
 								$text = '';
 						        if (isset($value['source_tag'])) {
-
+						        	/*
 						        	$oh = curl_init($link);
 					        		curl_setopt($oh, CURLOPT_RETURNTRANSFER, true);
 					        		$originalText = curl_exec($oh);
@@ -552,7 +552,7 @@
 					        		$closing = strpos($originalText, $value['source_tag'][1]);
 					        		//$text = $originalText;
 					        		$text = substr($originalText, $opening,$closing-$opening);
-
+									*/
 						        }else{
 
 									$description = $seed['description'];
@@ -616,7 +616,7 @@
 											'seed_title' => $title,
 											'seed_titleLower' => strtolower($title),
 											'seed_link' => $link,
-											'seed_text' => '',
+											'seed_text' => $text,
 											'seed_time' => $postTime,
 											'seed_keywords' =>$keywords,
 											'seed_keywordDict' => $keywordDict,
