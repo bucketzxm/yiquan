@@ -273,8 +273,8 @@
 
 					$titles = array();
 
-						foreach ($titles_cursor as $key => $value) {
-							array_push($titles,$value);
+					foreach ($titles_cursor as $keyx => $valuex) {
+						array_push($titles,$valuex);
 					}
 
 					foreach ($seedsToLoad as $key1 => $seed) {
