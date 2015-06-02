@@ -589,7 +589,7 @@
 											'seed_title' => $title,
 											'seed_titleLower' => strtolower($title),
 											'seed_link' => $link,
-											'seed_text' => $text,
+											'seed_text' => '',
 											'seed_time' => $postTime,
 											'seed_keywords' =>$keywords,
 											'seed_hotness' => 100 + (20 * $mediaAddition * 10),
