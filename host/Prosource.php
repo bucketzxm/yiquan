@@ -531,22 +531,24 @@
 									$title = $seed['title'];
 									$title = preg_replace("/<.+?>/", "", $title);
 
-
-									$seed = array (
-										'seed_source' => $value['source_name'],
-										'seed_sourceLower' => strtolower($value['source_name']),
-										'seed_sourceID' => (string)$value['_id'],
-										'seed_title' => $title,
-										'seed_titleLower' => strtolower($title),
-										'seed_link' => $link,
-										'seed_text' => $text,
-										'seed_time' => $postTime,
-										'seed_keywords' =>$keywords,
-										'seed_hotness' => 100,
-										'seed_hotnessTime' => time(),
-										'seed_industry' => $industry,
-										'seed_agreeCount' => 0
-									);
+									if ($title != '' && $title != null && mb_strlen($text) > 0 ) {
+										$seed = array (
+											'seed_source' => $value['source_name'],
+											'seed_sourceLower' => strtolower($value['source_name']),
+											'seed_sourceID' => (string)$value['_id'],
+											'seed_title' => $title,
+											'seed_titleLower' => strtolower($title),
+											'seed_link' => $link,
+											'seed_text' => $text,
+											'seed_time' => $postTime,
+											'seed_keywords' =>$keywords,
+											'seed_hotness' => 100,
+											'seed_hotnessTime' => time(),
+											'seed_industry' => $industry,
+											'seed_agreeCount' => 0
+										);	
+									}
+									
 								
 									//var_dump($keywords);
 									//var_dump($proseed->save($seed));
