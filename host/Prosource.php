@@ -119,7 +119,7 @@ foreach ($sources as $key => $value) {
 
     //读取每个Source的URL地址
     foreach ($value['source_rssURL'] as $keyz => $url) {
-        //try {
+        try {
 
             //读取每个URL地址的网页HTML
             $feedurl = $url;
@@ -641,9 +641,9 @@ foreach ($sources as $key => $value) {
 
             }
 
-        //} catch (Exception $e) {
-        //    var_dump($e);
-        //}
+        } catch (Exception $e) {
+            var_dump($e);
+        }
     }
     $value['check_time'] = time();
     $prosource->save($value);
