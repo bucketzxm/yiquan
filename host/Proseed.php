@@ -199,6 +199,9 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 			$user = $this->db->Prouser->findOne (array ('_id' => new MongoId ($user_id)));
 			
 			array_push($user['user_searchWords'],$keyword);
+			if (count($user['user_searchWords'])>10) {
+				unset($user['user_searchWords'][0]);
+			}
 			
 			$this->db->Prouser->save($user);
 
@@ -409,7 +412,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 			
 			//计算和已经读过的文章的匹配数
 			$news = $this->db->Proseed->find (array ('_id' => array ('$in' =>$seedIDs)));
-			foreach ($news as $key => $value) {
+			foreach ($news as $value) {
 			
 				$keywordCount = 0;
 				foreach ($seed['seed_keywords'] as $keyword) {
@@ -421,20 +424,29 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 
 			}
 
-			//计算和自己的关键词的疲惫度
+			
 
 			
 			$seedCount = count($seedIDs);
 			$matchness += $matchCount*500/$seedCount;
 
 
-				foreach ($user['user_keywords'] as $key => $word) {
-					$pos = strpos($seed['seed_titleLower'], $word);
-					if ($pos !== false) {
-						$matchness += 5;
-					}
-				}	
+			//计算和自己的关键词的疲惫度
+			foreach ($user['user_keywords'] as $word) {
+				$pos = strpos($seed['seed_titleLower'], $word);
+				if ($pos !== false) {
+					$matchness += 5;
+				}
+			}	
 			
+
+			//匹配搜索记录的相关性
+			foreach ($user['user_searchWords'] as $searchWord) {
+				$pos = strpos($seed['seed_titleLower'], $searchWord);
+				if ($pos !== false) {
+					$matchness += 5;
+				}
+			}
 
 
 			$hotness = $seed['seed_hotness'];
@@ -589,6 +601,9 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 		$user = $this->db->Prouser->findOne (array ('_id' => new MongoId ($user_id)));
 
 		array_push($user['user_searchWords'],$keyword);
+		if (count($user['user_searchWords'])>10) {
+			unset($user['user_searchWords'][0]);
+		}
 		$this->db->Prouser->save($user);
 
 		$time = (int)$time;
