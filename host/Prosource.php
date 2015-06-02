@@ -470,9 +470,11 @@
 								//Split keywords
 								$titleLen = mb_strlen($title,'utf-8');
 								$keywords = array ();
+								$keywordsDict = array ();
 								for ($i = 0; $i<$titleLen-1;$i++){
 									$twoStr = mb_substr($title, $i,2,'utf-8');
 									array_push($keywords,$twoStr);
+									$keywordDict[$twoStr] = 1;
 									//$threeStr = mb_substr($title, $i,3,'utf-8');
 									//array_push($keywords,$threeStr);
 								}
@@ -592,6 +594,7 @@
 											'seed_text' => '',
 											'seed_time' => $postTime,
 											'seed_keywords' =>$keywords,
+											'seed_keywordDict' => $keywordDict,
 											'seed_hotness' => 100 + (20 * $mediaAddition * 10),
 											'seed_hotnessTime' => time(),
 											'seed_industry' => $industry,
