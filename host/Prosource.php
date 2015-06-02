@@ -567,7 +567,7 @@ foreach ($sources as $key => $value) {
                             }
                         }
 
-                        if ($text != '' && $text != null && mb_strlen($text) > 100) {
+                        if (true) {
 
                             if (isset($value['text_closingTag'])) {
                                 $closingCursor = strpos($text, $value['text_closingTag']);
