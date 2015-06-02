@@ -477,8 +477,8 @@
 								preg_match_all("(\\d+.\\d+|\\w+)", $seed['title'], $keywords_eng);
 
 								foreach ($keywords_eng[0] as $keyy => $valuey) {
-									array_push($keywords,$valuey);
-									$keywordDict[$valuey] = 1;
+									array_push($keywords,strtolower($valuey));
+									$keywordDict[strtolower($valuey)] = 1;
 								}
 
 
