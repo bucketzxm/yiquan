@@ -118,7 +118,7 @@ foreach ($sources as $key => $value) {
     }
 
     //读取每个Source的URL地址
-    foreach ($value['source_rssURL'] as $key => $url) {
+    foreach ($value['source_rssURL'] as $keyz => $url) {
         try {
 
             //读取每个URL地址的网页HTML
