@@ -401,7 +401,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 					//'read_time' => array ('$gt' => (time()-86400*30)),
 					'read_type' => '1'
 					)
-				)->sort(array('read_time'=> -1))->limit(500);
+				)->sort(array('read_time'=> -1))->limit(50);
 			$seedIDs =  array ();
 			if ($myAgrees != null) {
 				foreach ($myAgrees as $agree) {
@@ -435,7 +435,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 					//'read_time' => array ('$gt' => (time()-86400*30)),
 					'read_type' => '0'
 					)
-				)->sort(array('read_time'=> -1))->limit(500);
+				)->sort(array('read_time'=> -1))->limit(150);
 			$disSeedIDs =  array ();
 			if ($myDisagrees != null) {
 				foreach ($myDisagrees as $disagree) {
