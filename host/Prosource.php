@@ -293,7 +293,22 @@
 
 					}
 
-								//进行标题拆字
+
+
+					//统一进行查重
+
+					$titles_cursor = $db->Proseed->find(array(
+										'seed_time'=>array('$gt'=>(time() - 86400))));
+
+					$titles = array();
+
+					foreach ($titles_cursor as $keyx => $valuex) {
+						array_push($titles,$valuex);
+					}
+
+					foreach ($seedsToLoad as $key1 => $seed) {
+
+														//进行标题拆字
 								$title = $seed['title'];
 								$title = str_replace("·", "", $title);
 								$title = str_replace("？", "", $title);
@@ -459,19 +474,6 @@
 									//$threeStr = mb_substr($title, $i,3,'utf-8');
 									//array_push($keywords,$threeStr);
 								}
-
-					//统一进行查重
-
-					$titles_cursor = $db->Proseed->find(array(
-										'seed_time'=>array('$gt'=>(time() - 86400))));
-
-					$titles = array();
-
-					foreach ($titles_cursor as $keyx => $valuex) {
-						array_push($titles,$valuex);
-					}
-
-					foreach ($seedsToLoad as $key1 => $seed) {
 
 						foreach ($value['source_industry'] as $key2 => $industry) {
 
