@@ -255,17 +255,22 @@
 					//统一进行查重
 					foreach ($seedsToLoad as $key1 => $seed) {
 
-						foreach ($value['source_industry'] as $key2 => $industry) {
-
-							$titles = $db->Proseed->find(array(
-										'seed_industry'=>$industry,
+						$titles_cursor = $db->Proseed->find(array(
 										'seed_time'=>array('$gt'=>($seed['postTime'] - 86400))));
+
+						$titles = array();
+
+						foreach ($titles_cursor as $key => $value) {
+							array_push($titles,$value);
+						}
+
+						foreach ($value['source_industry'] as $key2 => $industry) {
 
 							$same = false;
 
 							foreach ($titles as $key3 => $title_name) {
 
-								if (find_same($title_name['seed_title'],$seed['title'])){
+								if ($title_name['seed_industry'] == $industry && find_same($title_name['seed_title'],$seed['title'])){
 									$same = true;
 									break;
 								}
@@ -454,6 +459,7 @@
 						//对Text进行处理
 
 						//处理正文（RSS）
+						        /*
 								$text = '';
 						        if (isset($value['source_tag'])) {
 
@@ -527,7 +533,7 @@
 									$text = str_replace("height", "", $text);
 									$text = str_replace("font-size", "", $text);
 									$text = str_replace("size=", "", $text);
-									    
+									  */  
 									$title = $seed['title'];
 									$title = preg_replace("/<.+?>/", "", $title);
 
@@ -551,11 +557,11 @@
 									//var_dump($keywords);
 									//var_dump($proseed->save($seed));
 									//var_dump($seed);
-									
+									array_push($titles,$seed);
 									$proseed->save($seed);	
 
 									
-								}
+								//}
 
 								echo "<p>" . $value['source_name'].",".$title."," . $link.",".$postTime."</p>";
 							}
