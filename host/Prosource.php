@@ -454,6 +454,9 @@
 						//对Text进行处理
 
 						//处理正文（RSS）
+
+						        //关闭正文获取
+						        /*
 								$text = '';
 						        if (isset($value['source_tag'])) {
 
@@ -505,8 +508,9 @@
 							        	$text = (string)$desString;
 							        }
 						    	}
+								*/
 
-						    	if ($text != '' && $text != null && mb_strlen($text) > 100) {
+						    	//if ($text != '' && $text != null && mb_strlen($text) > 100) {
 						    	
 							    	if (isset($value['text_closingTag'])) {
 							    	    $closingCursor = strpos($text,$value['text_closingTag']);
@@ -527,7 +531,7 @@
 									$text = str_replace("height", "", $text);
 									$text = str_replace("font-size", "", $text);
 									$text = str_replace("size=", "", $text);
-									    
+									*/
 									$title = $seed['title'];
 									$title = preg_replace("/<.+?>/", "", $title);
 
@@ -539,7 +543,7 @@
 											'seed_title' => $title,
 											'seed_titleLower' => strtolower($title),
 											'seed_link' => $link,
-											'seed_text' => $text,
+											'seed_text' => '',//$text,
 											'seed_time' => $postTime,
 											'seed_keywords' =>$keywords,
 											'seed_hotness' => 100,
@@ -557,7 +561,7 @@
 									$proseed->save($seed);	
 
 									
-								}
+								//}
 
 								echo "<p>" . $value['source_name'].",".$title."," . $link.",".$postTime."</p>";
 							}
