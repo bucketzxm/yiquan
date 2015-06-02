@@ -13,7 +13,7 @@
 		// return true when two strings are similar
 		
 		$const_dif = 30; //const of diffrence
-		$const_dif2 = 1.02;
+		$const_dif2 = 1.01;
 
 		if (mb_strlen($string2) < mb_strlen($string1)){
 			$string_temp = $string1;
@@ -53,7 +53,6 @@
 			// get String2 value sum
 
 			if ((abs($judge - $benchmark) <= $const_dif) && (($judge2/$benchmark2<$const_dif2 && $judge2/$benchmark2>=1)|| ($judge2/$benchmark2 > 1.0/$const_dif2 && $judge2/$benchmark2<=1))){
-				echo "<p>".$judge." ".$benchmark." ".$judge2." ".$benchmark2." ".$string1." ".$string2."</p>";
 				return true;
 			}
 			// judge
