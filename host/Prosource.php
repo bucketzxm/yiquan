@@ -271,15 +271,13 @@
 					$titles_cursor = $db->Proseed->find(array(
 										'seed_time'=>array('$gt'=>(time() - 86400))));
 
-					foreach ($seedsToLoad as $key1 => $seed) {
-
-						
-
-						$titles = array();
+					$titles = array();
 
 						foreach ($titles_cursor as $key => $value) {
 							array_push($titles,$value);
-						}
+					}
+
+					foreach ($seedsToLoad as $key1 => $seed) {
 
 						foreach ($value['source_industry'] as $key2 => $industry) {
 
