@@ -508,7 +508,6 @@
 							        	$text = (string)$desString;
 							        }
 						    	}
-								*/
 
 						    	//if ($text != '' && $text != null && mb_strlen($text) > 100) {
 						    	
@@ -531,7 +530,7 @@
 									$text = str_replace("height", "", $text);
 									$text = str_replace("font-size", "", $text);
 									$text = str_replace("size=", "", $text);
-									
+									*/
 									$title = $seed['title'];
 									$title = preg_replace("/<.+?>/", "", $title);
 
