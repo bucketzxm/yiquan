@@ -73,7 +73,7 @@
 
 		//依次读取每个Source
 		foreach ($sources as $key => $value) {
-			try{
+			//try{
 				echo "<h2>" . $value['source_name'] . "</h2>";
 				$checkTime = $value['check_time'];
 
@@ -267,10 +267,13 @@
 
 
 					//统一进行查重
+
+					$titles_cursor = $db->Proseed->find(array(
+										'seed_time'=>array('$gt'=>(time() - 86400))));
+
 					foreach ($seedsToLoad as $key1 => $seed) {
 
-						$titles_cursor = $db->Proseed->find(array(
-										'seed_time'=>array('$gt'=>($seed['postTime'] - 86400))));
+						
 
 						$titles = array();
 
@@ -607,9 +610,9 @@
 				$value['check_time'] = time();
 				$prosource->save($value);
 			
-		}catch(Exception $e){
+		//}catch(Exception $e){
 
-		}
+		//}
 	}
 
 
