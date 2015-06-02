@@ -12,7 +12,7 @@
 	function find_same($string1, $string2){
 		// return true when two strings are similar
 		
-		$const_dif = 5; //const of diffrence
+		$const_dif = 30; //const of diffrence
 
 		if (mb_strlen($string2) < mb_strlen($string1)){
 			$string_temp = $string1;
@@ -33,13 +33,13 @@
 
 		for($i = 0; $i <= mb_strlen($string2)-mb_strlen($string1); $i++){
 			$judge = 0;
-			$judge2 = 1;
 			for ($j = $i; $j < $i + count($string1_array) ; $j++){
+				$judge += isset($string2_array[$j])?$string2_array[$j]:0;
 			}
 			// get String2 value sum
 
 			if (abs($judge - $benchmark) <= $const_dif){
-				echo $string1." ".$string2." ".$judge." ".$benchmark;
+				echo "<p>".$judge." ".$benchmark." ".$string1." ".$string2."</p>";
 				return true;
 			}
 			// judge
