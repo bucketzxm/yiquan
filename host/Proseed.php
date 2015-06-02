@@ -447,13 +447,13 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 			$disNews = $this->db->Proseed->find (array ('_id' => array ('$in' =>$disSeedIDs)));
 			foreach ($disNews as $disValue) {
 			
-				$keywordCount = 0;
+				$disKeywordCount = 0;
 				foreach ($seed['seed_keywords'] as $keyword) {
 					if (in_array($keyword,$disValue['seed_keywords'])) {
-						$keywordCount += 1;
+						$disKeywordCount += 1;
 					}
 				}
-				$dismatchCount += $keywordCount/count($disValue['seed_keywords']);
+				$dismatchCount += $disKeywordCount/count($disValue['seed_keywords']);
 
 			}
 
