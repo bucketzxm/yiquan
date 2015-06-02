@@ -419,12 +419,6 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 				}
 				$matchCount += $keywordCount/count($value['seed_keywords']);
 
-				foreach ($user['user_keywords'] as $key => $word) {
-					$pos = strpos($value['seed_titleLower'], $word);
-					if ($pos !== false) {
-						$matchness += 5;
-					}
-				}	
 			}
 
 			//计算和自己的关键词的疲惫度
@@ -434,6 +428,12 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 			$matchness += $matchCount*500/$seedCount;
 
 
+				foreach ($user['user_keywords'] as $key => $word) {
+					$pos = strpos($seed['seed_titleLower'], $word);
+					if ($pos !== false) {
+						$matchness += 5;
+					}
+				}	
 			
 
 
