@@ -405,6 +405,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 		
 			
 			$matchCount = 0;
+			$matchness = 0;
 			
 			//计算和已经读过的文章的匹配数
 			$news = $this->db->Proseed->find (array ('_id' => array ('$in' =>$seedIDs)));
@@ -416,21 +417,24 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 						$keywordCount += 1;
 					}
 				}
-				$matchCount += $keywordCount/count($value['seed_keywords']);	
+				$matchCount += $keywordCount/count($value['seed_keywords']);
+
+				foreach ($user['user_keywords'] as $key => $word) {
+					$pos = strpos($value['seed_titleLower'], $word);
+					if ($pos !== false) {
+						$matchness += 5;
+					}
+				}	
 			}
 
 			//计算和自己的关键词的疲惫度
 
 			
 			$seedCount = count($seedIDs);
-			$matchness = $matchCount*500/$seedCount;
+			$matchness += $matchCount*500/$seedCount;
 
-			foreach ($user['user_keywords'] as $key => $word) {
-				$pos = strpos($value['seed_titleLower'], $word);
-				if ($pos !== false) {
-					$matchness += 5;
-				}
-			}
+
+			
 
 
 			$hotness = $seed['seed_hotness'];

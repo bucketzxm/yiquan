@@ -535,6 +535,7 @@
 									
 									$title = $seed['title'];
 									$title = preg_replace("/<.+?>/", "", $title);
+									$title = str_replace("&quot;", "", $title);
 
 									if ($title != '' && $title != null && strlen($title) > 0 ) {
 										$dataToSave = array (
