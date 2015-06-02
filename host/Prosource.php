@@ -39,6 +39,7 @@
 			// get String2 value sum
 
 			if (abs($judge - $benchmark) <= $const_dif){
+				echo $string1." ".$string2." ".$judge." ".$benchmark;
 				return true;
 			}
 			// judge
