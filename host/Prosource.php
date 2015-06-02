@@ -643,7 +643,7 @@ foreach ($sources as $key => $value) {
             }
 
         } catch (Exception $e) {
-
+            var_dump($e);
         }
     }
     $value['check_time'] = time();
