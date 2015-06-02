@@ -45,14 +45,12 @@
 
 			for ($j = $i; $j < $i + count($string1_array) ; $j++){
 				$judge += isset($string2_array[$j])?$string2_array[$j]:0;
-			}
-
-			for ($j = $i; $j < $i + count($string1_array) ; $j++){
 				$judge2 *= isset($string2_array[$j])?$string2_array[$j]:1;
 			}
 			// get String2 value sum
 
-			if ((abs($judge - $benchmark) <= $const_dif) && (($judge2/$benchmark2<$const_dif2 && $judge2/$benchmark2>=1)|| ($judge2/$benchmark2 > 1.0/$const_dif2 && $judge2/$benchmark2<=1))){
+			if ((abs($judge - $benchmark) <= $const_dif) && ((($judge2/$benchmark2)<$const_dif2 && ($judge2/$benchmark2)>=1)|| (($judge2/$benchmark2) > (1.0/$const_dif2) && ($judge2/$benchmark2)<=1))){
+				echo "<p>".$judge." ".$benchmark." ".$judge2." ".$benchmark2." ".$string1." ".$string2."</p>";
 				return true;
 			}
 			// judge
