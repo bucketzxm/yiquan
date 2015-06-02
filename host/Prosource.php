@@ -480,6 +480,8 @@
 							foreach ($titles_cursor as $key3 => $title_name) {
 
 								if ($title_name['seed_industry'] == $industry && find_same2($keywords,$title_name['seed_keywordDict'])){
+									echo '<p>'.$seed['title'].'</p>';
+									echo '<p>'.$title_name['seed_title'].'</p>';
 									$same = true;
 									break;
 								}
