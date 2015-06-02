@@ -73,7 +73,7 @@
 
 		//依次读取每个Source
 		foreach ($sources as $key => $value) {
-			//try{
+			try{
 				echo "<h2>" . $value['source_name'] . "</h2>";
 				$checkTime = $value['check_time'];
 
@@ -608,9 +608,9 @@
 				$value['check_time'] = time();
 				$prosource->save($value);
 			
-		//}catch(Exception $e){
+		}catch(Exception $e){
 
-		//}
+		}
 	}
 
 
