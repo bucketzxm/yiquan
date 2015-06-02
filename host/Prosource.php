@@ -257,6 +257,8 @@
 
 						foreach ($value['source_industry'] as $key2 => $industry) {
 
+							//关掉查重
+							/*
 							$titles = $db->Proseed->find(array(
 										'seed_industry'=>$industry,
 										'seed_time'=>array('$gt'=>($seed['postTime'] - 86400))));
@@ -270,9 +272,9 @@
 									break;
 								}
 							}
+							*/
 
-
-							if ($same == false){
+							//if ($same == false){
 
 								//获取时间
 								$postTime = $seed['postTime'];
@@ -562,8 +564,8 @@
 									
 								//}
 
-								echo "<p>" . $value['source_name'].",".$title."," . $link.",".$postTime."</p>";
-							}
+								echo "<h2>" . $value['source_name'].",".$title."," . $link.",".$postTime."</h2>";
+							//}
 						}	
 					}
 				
