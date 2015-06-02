@@ -391,6 +391,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 			
 	
 			$matchCount = 0;
+			$dismatchCount = 0;
 			$matchness = 0;
 
 			//计算和已经读过的文章的匹配数
@@ -422,6 +423,10 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 
 			}
 
+			//更新关键词匹配的值
+			$seedCount = count($seedIDs);
+			$matchness += $matchCount*500/$seedCount;
+
 			//计算和不想读的文章的反匹配度
 			$myDisagrees = $this->db->Proread->find (
 				array (
@@ -447,15 +452,15 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 						$keywordCount += 1;
 					}
 				}
-				$matchCount -= $keywordCount/count($disValue['seed_keywords']);
+				$dismatchCount -= $keywordCount/count($disValue['seed_keywords']);
 
 			}
 
 
-
 			//更新关键词匹配的值
-			$seedCount = count($seedIDs);
-			$matchness += $matchCount*500/$seedCount;
+			$disSeedCount = count($disSeedIDs);
+			$matchness += $dismatchCount*500/$disSeedCount;
+
 
 
 			//计算和自己的关键词的疲惫度
