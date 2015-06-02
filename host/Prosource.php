@@ -620,7 +620,7 @@
 											'seed_time' => $postTime,
 											'seed_keywords' =>$keywords,
 											'seed_keywordDict' => $keywordDict,
-											'seed_hotness' => 100 + (20 * $mediaAddition * 10),
+											'seed_hotness' => (100 * exp(-0.05) * ((time() - $postTime)/3600))) + (20 * $mediaAddition * 10),
 											'seed_hotnessTime' => time(),
 											'seed_industry' => $industry,
 											'seed_agreeCount' => 0
