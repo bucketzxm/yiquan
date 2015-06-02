@@ -433,7 +433,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 			$disSeedIDs =  array ();
 			if ($myDisagrees != null) {
 				foreach ($myDisagrees as $disagree) {
-					array_push($idsSeedIDs,new MongoId($disagree['seed_id']));
+					array_push($disSeedIDs,new MongoId($disagree['seed_id']));
 				}
 			}
 			
