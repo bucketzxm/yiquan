@@ -157,7 +157,7 @@ class Proseed extends YqBase {
 					array_push ($results,$item);
 
 					//增加用户阅读的记录：
-					$readLog = $this->db->Proread->findOne (array ('seed_id' => (string)$value1['_id'],'user_id'=>$user_id,'read_type'=>'0'));
+					$readLog = $this->db->Proread->findOne (array ('seed_id' => (string)$value1['_id'],'user_id'=>$user_id));
 					if ($readLog == null) {
 						$data = array (
 							'seed_id' => (string)$value1['_id'],
@@ -199,6 +199,9 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 			$user = $this->db->Prouser->findOne (array ('_id' => new MongoId ($user_id)));
 			
 			array_push($user['user_searchWords'],$keyword);
+			if (count($user['user_searchWords'])>10) {
+				unset($user['user_searchWords'][0]);
+			}
 			
 			$this->db->Prouser->save($user);
 
@@ -269,7 +272,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 					array_push ($results,$item);
 
 					//增加用户阅读的记录：
-					$readLog = $this->db->Proread->findOne (array ('seed_id' => (string)$value1['_id'],'user_id'=>$user_id,'read_type'=>'0'));
+					$readLog = $this->db->Proread->findOne (array ('seed_id' => (string)$value1['_id'],'user_id'=>$user_id));
 					if ($readLog == null) {
 						$data = array (
 							'seed_id' => (string)$value1['_id'],
@@ -301,6 +304,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 			return - 4;
 		}		
 		
+		//做好阅读记录
 		$readLog = $this->db->Proread->findOne (array ('seed_id' => $seed_id,'user_id'=>$user_id));
 		if ($readLog != null) {
 			$readLog['read_type'] = '1';
@@ -314,6 +318,8 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 				);*/
 			$this->db->Proread->save ($readLog);
 		}
+
+
 
 		//找到seed_id的内容
 		$seeds = $this->db->Proseed->find(array('_id'=> new MongoId($seed_id)));
@@ -330,6 +336,11 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 			*/
 			$text = array ();
 			$text['seed_text'] = $seed['seed_text'];	
+
+			$source = $this->db->Prosource->findOne(array ('_id' => new MongoId($seed['seed_sourceID'])));
+			$source['read_count'] ++;
+			$this->db->Prosource->save($source);
+
 
 		}
 		return json_encode($text);
@@ -386,13 +397,19 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 			//计算这个新闻的关键字在我值得一读的匹配程度
 			//找到我所有读过的话题
 			
+	
+			$matchCount = 0;
+			$dismatchCount = 0;
+			$matchness = 0;
+
+			//计算和已经读过的文章的匹配数
 			$myAgrees = $this->db->Proread->find (
 				array (
 					'user_id'=> $user_id,
 					//'read_time' => array ('$gt' => (time()-86400*30)),
 					'read_type' => '1'
 					)
-				)->sort(array('read_time'=> -1))->limit(500);
+				)->sort(array('read_time'=> -1))->limit(50);
 			$seedIDs =  array ();
 			if ($myAgrees != null) {
 				foreach ($myAgrees as $agree) {
@@ -400,15 +417,9 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 				}
 			}
 			
-
-			//找到和我订阅的关键字的匹配程度
-		
 			
-			$matchCount = 0;
-			
-			//计算和已经读过的文章的匹配数
 			$news = $this->db->Proseed->find (array ('_id' => array ('$in' =>$seedIDs)));
-			foreach ($news as $key => $value) {
+			foreach ($news as $value) {
 			
 				$keywordCount = 0;
 				foreach ($seed['seed_keywords'] as $keyword) {
@@ -416,31 +427,77 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 						$keywordCount += 1;
 					}
 				}
-				$matchCount += $keywordCount/count($value['seed_keywords']);	
+				$matchCount += $keywordCount;
+
 			}
 
-			//计算和自己的关键词的疲惫度
+			//更新关键词匹配的值
+			$seedCount = count($seedIDs);
+			$matchness += $matchCount/$seedCount;
 
 			
-			$seedCount = count($seedIDs);
-			$matchness = $matchCount*500/$seedCount;
+			//计算和不想读的文章的反匹配度
+			$myDisagrees = $this->db->Proread->find (
+				array (
+					'user_id'=> $user_id,
+					//'read_time' => array ('$gt' => (time()-86400*30)),
+					'read_type' => '0'
+					)
+				)->sort(array('read_time'=> -1))->limit(150);
+			$disSeedIDs =  array ();
+			if ($myDisagrees != null) {
+				foreach ($myDisagrees as $disagree) {
+					array_push($disSeedIDs,new MongoId($disagree['seed_id']));
+				}
+			}
+			
+			
+			$disNews = $this->db->Proseed->find (array ('_id' => array ('$in' =>$disSeedIDs)));
+			foreach ($disNews as $disValue) {
+			
+				$disKeywordCount = 0;
+				foreach ($seed['seed_keywords'] as $keyword) {
+					if (in_array($keyword,$disValue['seed_keywords'])) {
+						$disKeywordCount += 1;
+					}
+				}
+				$dismatchCount += $disKeywordCount;
 
-			foreach ($user['user_keywords'] as $key => $word) {
-				$pos = strpos($value['seed_titleLower'], $word);
+			}
+
+
+			//更新关键词匹配的值
+			$disSeedCount = count($disSeedIDs);
+			$matchness -= $dismatchCount/$disSeedCount;
+
+
+
+			//计算和自己的关键词的疲惫度
+			foreach ($user['user_keywords'] as $word) {
+				$pos = strpos($seed['seed_titleLower'], $word);
 				if ($pos !== false) {
-					$matchness += 5;
+					$matchness += 1;
+				}
+			}	
+			
+
+			//匹配搜索记录的相关性
+			foreach ($user['user_searchWords'] as $searchWord) {
+				$pos = strpos($seed['seed_titleLower'], $searchWord);
+				if ($pos !== false) {
+					$matchness += 1;
 				}
 			}
 
 
 			$hotness = $seed['seed_hotness'];
-			$priority = $hotness+$matchness;
+			$priority = $hotness * ($matchness*20+100)/100;
 			
 			$hotcent = $hotness / $priority;
 			//$agreecent = $agreeness / $priority;
-			$matchcent = $matchness / $priority;
+			$matchcent = 1- ($matchness / $priority);
 			$priorityType = '';
-			if ($matchcent > 0.3){
+			if ($matchcent > 0.1){
 				$priorityType = "猜您喜欢";
 			}else{
 				$priorityType = "圈内热门";
@@ -501,7 +558,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 			$this->db->Proworth->save ($data);
 
 			if (in_array($user['current']['user_industry'],$source['source_industry'])) {
-				$cursor['seed_hotness'] += (int)$user['current']['user_weight'];
+				$cursor['seed_hotness'] += (int)$user['current']['user_weight']*10;
 				if(isset($cursor['seed_agreeCount'])){
 					$cursor['seed_agreeCount'] ++;
 				}else{
@@ -510,6 +567,10 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 				//$cursor['seed_hotnessTime'] = time();
 				$this->db->Proseed->save($cursor);
 			}
+
+			$source['agree_count'] ++;
+			$this->db->Prosource->save($source);
+
 		}
 		
 		return 1;
@@ -585,6 +646,9 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 		$user = $this->db->Prouser->findOne (array ('_id' => new MongoId ($user_id)));
 
 		array_push($user['user_searchWords'],$keyword);
+		if (count($user['user_searchWords'])>10) {
+			unset($user['user_searchWords'][0]);
+		}
 		$this->db->Prouser->save($user);
 
 		$time = (int)$time;

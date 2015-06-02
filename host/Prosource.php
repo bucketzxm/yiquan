@@ -76,6 +76,20 @@
 			try{
 				echo "<h2>" . $value['source_name'] . "</h2>";
 				$checkTime = $value['check_time'];
+
+				//维护数据完整性
+				if (!isset($value['read_count'])){
+					$value['read_count'] = 0;	
+				}
+				if (!isset($value['agree_count'])){
+					$value['agree_count'] = 0;	
+				}
+
+				if ($value['read_count']>0) {
+					$mediaAddition = $value['agree_count'] / $value['read_count'];
+				}else{
+					$mediaAddition = 0;
+				}
 				
 				//读取每个Source的URL地址
 				foreach ($value['source_rssURL'] as $key => $url) {
@@ -255,7 +269,16 @@
 					//统一进行查重
 					foreach ($seedsToLoad as $key1 => $seed) {
 
+<<<<<<< HEAD
 						$titles_cursor = $db->Proseed->find(array(
+=======
+						foreach ($value['source_industry'] as $key2 => $industry) {
+
+							//关掉查重
+							
+							$titles = $db->Proseed->find(array(
+										'seed_industry'=>$industry,
+>>>>>>> c3b23ea7905898e5484bb6107d84a4a07f07867f
 										'seed_time'=>array('$gt'=>($seed['postTime'] - 86400))));
 
 						$titles = array();
@@ -275,7 +298,7 @@
 									break;
 								}
 							}
-
+							
 
 							if ($same == false){
 
@@ -459,7 +482,13 @@
 						//对Text进行处理
 
 						//处理正文（RSS）
+<<<<<<< HEAD
 						        /*
+=======
+
+						        //关闭正文获取
+						        
+>>>>>>> c3b23ea7905898e5484bb6107d84a4a07f07867f
 								$text = '';
 						        if (isset($value['source_tag'])) {
 
@@ -533,42 +562,66 @@
 									$text = str_replace("height", "", $text);
 									$text = str_replace("font-size", "", $text);
 									$text = str_replace("size=", "", $text);
+<<<<<<< HEAD
 									  */  
+=======
+									
+>>>>>>> c3b23ea7905898e5484bb6107d84a4a07f07867f
 									$title = $seed['title'];
 									$title = preg_replace("/<.+?>/", "", $title);
+									$title = str_replace("&quot;", "", $title);
+
+									if ($title != '' && $title != null && strlen($title) > 0 ) {
+										
+
+										//若来源为门户频道，则使用门户的父名称
+										if (isset($value['source_parent'])) {
+											$sourceName = $value['source_parent'];
+										}else{
+											$sourceName = $value['source_name'];
+										}
 
 
-									$seed = array (
-										'seed_source' => $value['source_name'],
-										'seed_sourceLower' => strtolower($value['source_name']),
-										'seed_sourceID' => (string)$value['_id'],
-										'seed_title' => $title,
-										'seed_titleLower' => strtolower($title),
-										'seed_link' => $link,
-										'seed_text' => $text,
-										'seed_time' => $postTime,
-										'seed_keywords' =>$keywords,
-										'seed_hotness' => 100,
-										'seed_hotnessTime' => time(),
-										'seed_industry' => $industry,
-										'seed_agreeCount' => 0
-									);
+
+										$dataToSave = array (
+											'seed_source' => $sourceName,
+											'seed_sourceLower' => strtolower($value['source_name']),
+											'seed_sourceID' => (string)$value['_id'],
+											'seed_title' => $title,
+											'seed_titleLower' => strtolower($title),
+											'seed_link' => $link,
+											'seed_text' => $text,
+											'seed_time' => $postTime,
+											'seed_keywords' =>$keywords,
+											'seed_hotness' => 100 + (20 * $mediaAddition * 10),
+											'seed_hotnessTime' => time(),
+											'seed_industry' => $industry,
+											'seed_agreeCount' => 0
+										);	
+									}
+									
 								
 									//var_dump($keywords);
 									//var_dump($proseed->save($seed));
 									//var_dump($seed);
+<<<<<<< HEAD
 									array_push($titles,$seed);
 									$proseed->save($seed);	
+=======
+									
+									$proseed->save($dataToSave);	
+>>>>>>> c3b23ea7905898e5484bb6107d84a4a07f07867f
 
 									
 								//}
 
-								echo "<p>" . $value['source_name'].",".$title."," . $link.",".$postTime."</p>";
+								echo "<h2>" . $value['source_name'].",".$title."," . $link.",".$postTime."</h2>";
 							}
 						}	
 					}
 				
 				}
+
 
 
 				$value['check_time'] = time();
