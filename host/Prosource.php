@@ -534,7 +534,7 @@
 									$title = $seed['title'];
 									$title = preg_replace("/<.+?>/", "", $title);
 
-									if ($title != '' && $title != null && mb_strlen($text) > 0 ) {
+									if ($title != '' && $title != null && mb_strlen($title) > 0 ) {
 										$seed = array (
 											'seed_source' => $value['source_name'],
 											'seed_sourceLower' => strtolower($value['source_name']),
