@@ -466,7 +466,7 @@
 								//Split keywords
 								$titleLen = mb_strlen($title,'utf-8');
 								$keywords = array ();
-								$keywordsDict = array ();
+								$keywordDict = array ();
 								for ($i = 0; $i<$titleLen-1;$i++){
 									$twoStr = mb_substr($title, $i,2,'utf-8');
 									array_push($keywords,$twoStr);
