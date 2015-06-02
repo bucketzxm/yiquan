@@ -127,7 +127,6 @@ foreach ($sources as $key => $value) {
             //$feeds = file_get_contents($feedurl);
             $ch = curl_init($feedurl);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_TIMEOUT, 20);
             $feeds = curl_exec($ch);
 
             //HTML进行UTF-8转码
