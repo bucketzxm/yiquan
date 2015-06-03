@@ -166,11 +166,24 @@ foreach ($sources as $key => $value) {
 
 
                 $seedCount = count($result[0]);
+                $elementCount = count($result);
 
                 for ($i = 0; $i < $seedCount; $i++) {
                     $seedToAdd = array();
 
-                    $link = $result[1][$i];
+                    if ($elementCount == 3) {
+                        $image = '';
+                    }else if ($elementCount == 4){
+                        $image = $result[1][$i];
+                    }
+
+
+                    if ($elementCount == 3) {
+                        $link = $result[1][$i];    
+                    }else if ($elementCount == 4){
+                        $link = $result[2][$i];
+                    }
+                    
                     //echo $link;
                     //var_dump(strpos($link, 'http'));
                     if (strpos($link, 'http') === false) {
@@ -180,7 +193,12 @@ foreach ($sources as $key => $value) {
                         //echo "definite link detected";
                     }
 
-                    $title = $result[2][$i];
+                    if ($elementCount == 3) {
+                        $title = $result[2][$i];    
+                    }else if ($elementCount == 4){
+                        $title = $result[3][$i];
+                    }
+                    
                     $title = str_replace(" ", "", $title);
                     $title = str_replace("\n", "", $title);
                     $title = str_replace("\t", "", $title);
@@ -190,6 +208,8 @@ foreach ($sources as $key => $value) {
                     $seedToAdd['title'] = $title;
                     $seedToAdd['link'] = $link;
                     $seedToAdd['postTime'] = $postTime;
+                    $seedToAdd['imageLink'] = $image;
+                    
 
                     array_push($seedsToLoad, $seedToAdd);
 
@@ -623,15 +643,16 @@ foreach ($sources as $key => $value) {
 
 
                                 //获取正文中的第一张图片：
-                                if ($text != '')) {
-                                    $imageReg = "/<img.*?href="(.*?)".*?>/";
-                                    preg_match_all($imageReg, $text, $images);
-                                    $firstImageLink = $images[0][0];    
-                                }else{
-                                    $firstImageLink = '';
+                                if (!isset[$seed['imageLink']]) {
+                                    if ($text != '')) {
+                                        $imageReg = "/<img.*?src="(.*?)".*?>/";
+                                        preg_match_all($imageReg, $text, $images);
+                                        $seed['imageLink'] = $images[0][0];    
+                                    }else{
+                                        $seed['imageLink'] = '';
+                                    }
                                 }
                                 
-
                                 $dataToSave = array(
                                     'seed_source' => $sourceName,
                                     'seed_sourceLower' => strtolower($value['source_name']),
@@ -648,7 +669,7 @@ foreach ($sources as $key => $value) {
                                     'seed_industry' => $industry,
                                     'seed_agreeCount' => 0,
                                     'seed_sourceTag' => $sourceTag,
-                                    'seed_imageLink' => $firstImageLink
+                                    'seed_imageLink' => $seed['imageLink']
                                 );
                             }
 
