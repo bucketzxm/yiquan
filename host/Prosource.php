@@ -621,6 +621,17 @@ foreach ($sources as $key => $value) {
                                     array_push($sourceTag,'');
                                 }
 
+
+                                //获取正文中的第一张图片：
+                                if ($text != '')) {
+                                    $imageReg = "/<img.*?href="(.*?)".*?>/";
+                                    preg_match_all($imageReg, $text, $images);
+                                    $firstImageLink = $images[0][0];    
+                                }else{
+                                    $firstImageLink = '';
+                                }
+                                
+
                                 $dataToSave = array(
                                     'seed_source' => $sourceName,
                                     'seed_sourceLower' => strtolower($value['source_name']),
@@ -636,7 +647,8 @@ foreach ($sources as $key => $value) {
                                     'seed_hotnessTime' => time(),
                                     'seed_industry' => $industry,
                                     'seed_agreeCount' => 0,
-                                    'seed_sourceTag' => $sourceTag
+                                    'seed_sourceTag' => $sourceTag,
+                                    'seed_imageLink' => $firstImageLink
                                 );
                             }
 
