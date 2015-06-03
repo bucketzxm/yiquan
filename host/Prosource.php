@@ -167,11 +167,24 @@ foreach ($sources as $key => $value) {
 
 
                 $seedCount = count($result[0]);
+                $elementCount = count($result);
 
                 for ($i = 0; $i < $seedCount; $i++) {
                     $seedToAdd = array();
 
-                    $link = $result[1][$i];
+                    if ($elementCount == 3) {
+                        $image = '';
+                    }else if ($elementCount == 4){
+                        $image = $result[1][$i];
+                    }
+
+
+                    if ($elementCount == 3) {
+                        $link = $result[1][$i];    
+                    }else if ($elementCount == 4){
+                        $link = $result[2][$i];
+                    }
+                    
                     //echo $link;
                     //var_dump(strpos($link, 'http'));
                     if (strpos($link, 'http') === false) {
@@ -181,7 +194,12 @@ foreach ($sources as $key => $value) {
                         //echo "definite link detected";
                     }
 
-                    $title = $result[2][$i];
+                    if ($elementCount == 3) {
+                        $title = $result[2][$i];    
+                    }else if ($elementCount == 4){
+                        $title = $result[3][$i];
+                    }
+                    
                     $title = str_replace(" ", "", $title);
                     $title = str_replace("\n", "", $title);
                     $title = str_replace("\t", "", $title);
@@ -191,6 +209,8 @@ foreach ($sources as $key => $value) {
                     $seedToAdd['title'] = $title;
                     $seedToAdd['link'] = $link;
                     $seedToAdd['postTime'] = $postTime;
+                    $seedToAdd['imageLink'] = $image;
+                    
 
                     array_push($seedsToLoad, $seedToAdd);
 
@@ -604,8 +624,45 @@ foreach ($sources as $key => $value) {
                                 } else {
                                     $sourceName = $value['source_name'];
                                 }
+                                if (isset($value['source_tag'])) {
+                                    $sourceTag = $value['source_tag'];
+                                } else {
+                                    $sourceTag = array();
+                                }
+
+                                $textTag = array();
+                                if (isset($value['text_startingTag'])) {
+                                    array_push($textTag,$value['text_startingTag']);
+                                } else {
+                                    array_push($textTag,'');
+                                }
+
+                                if (isset($value['text_closingTag'])) {
+                                    array_push($textTag,$value['text_closingTag']);
+                                } else {
+                                    array_push($textTag,'');
+                                }
 
 
+                                //获取正文中的第一张图片：
+                                if (!isset($seed['imageLink'])) {
+                                    if ($text != '') {
+                                        $imageReg = "<img.*?src=\"(.*?)\".*?>";
+                                        preg_match_all($imageReg, $text, $images);
+                                        $imgCount = count($images[0]);
+                                        if ($imgCount>0 && $imgCount<3) {
+                                            $seed['imageLink'] = $images[1][0];    
+                                        }else if ($imgCount >= 3){
+                                            $seed['imageLink'] = $images[1][1];
+                                        }else{
+                                            $seed['imageLink'] = '';
+                                        }
+                                        
+                                    }else{
+                                        $seed['imageLink'] = '';
+                                    }
+                                }
+                                
                                 $dataToSave = array(
                                     'seed_source' => $sourceName,
                                     'seed_sourceLower' => strtolower($value['source_name']),
@@ -620,7 +677,10 @@ foreach ($sources as $key => $value) {
                                     'seed_hotness' => ((100 + (20 * $mediaAddition * 10)) * exp((-0.05) * ((time() - $postTime) / 3600))),
                                     'seed_hotnessTime' => time(),
                                     'seed_industry' => $industry,
-                                    'seed_agreeCount' => 0
+                                    'seed_agreeCount' => 0,
+                                    'seed_sourceTag' => $sourceTag,
+                                    'seed_textTag' => $textTag,
+                                    'seed_imageLink' => $seed['imageLink']
                                 );
                             }
 
