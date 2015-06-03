@@ -648,8 +648,11 @@ foreach ($sources as $key => $value) {
                                     if ($text != '') {
                                         $imageReg = "<img.*?src=\"(.*?)\".*?>";
                                         preg_match_all($imageReg, $text, $images);
-                                        if (count($images[0])>0) {
+                                        $imgCount = count($images[0]);
+                                        if ($imgCount>0 && $imgCount<3) {
                                             $seed['imageLink'] = $images[1][0];    
+                                        }else if ($imgCount >= 3){
+                                            $seed['imageLink'] = $images[1][1];
                                         }else{
                                             $seed['imageLink'] = '';
                                         }
