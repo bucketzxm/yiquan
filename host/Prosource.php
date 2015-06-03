@@ -201,8 +201,9 @@ foreach ($sources as $key => $value) {
                 //echo $pattern;
                 preg_match_all($pattern, $feeds, $result);
 
-                $imgPattern = $value['source_imgTemplate'];
-                preg_match_all($imgPattern, $feeds, $imgResult);
+                $titleIndex = $value['source_rexIndex']['title'];
+                $imageIndex = $value['source_rexIndex']['image'];
+                $linkIndex = $value['source_rexIndex']['link'];
 
                 $seedCount = count($result[0]);
                 $elementCount = count($result);
@@ -211,7 +212,7 @@ foreach ($sources as $key => $value) {
                     $seedToAdd = array();
 
                     
-                    $link = $result[1][$i];    
+                    $link = $result[$linkIndex][$i];    
                     
                     
                     //echo $link;
@@ -224,7 +225,7 @@ foreach ($sources as $key => $value) {
                     }
 
                     
-                    $title = $result[2][$i];    
+                    $title = $result[$titleIndex][$i];    
                     
                     
                     $title = str_replace(" ", "", $title);
@@ -233,7 +234,7 @@ foreach ($sources as $key => $value) {
 
                     $postTime = time();
 
-                    $imageCaught = $imgResult[1][$i];
+                    $imageCaught = $imgResult[$imageIndex][$i];
 
                     $seedToAdd['title'] = $title;
                     $seedToAdd['link'] = $link;
@@ -714,7 +715,7 @@ foreach ($sources as $key => $value) {
                                     'seed_agreeCount' => 0,
                                     'seed_sourceTag' => $sourceTag,
                                     'seed_textTag' => $textTag,
-                                    'seed_imageLink' => $seed['imageLink'],
+                                    'seed_imageLink' => special_entities($seed['imageLink']),
                                     'seed_similar' => $seed_similar,
                                 );
                             }
