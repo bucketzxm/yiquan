@@ -142,6 +142,10 @@ class Proseed extends YqBase {
 					);
 				
 				foreach ($selectedSeed as $key1 => $value1) {
+
+					$value1['seed_hotness'] = $value;
+					$value1['seed_priorityType'] = $res1[$key];
+					/*
 					$item = array ();
 					$item['_id'] = $value1['_id'];
 					$item['seed_source'] = $value1['seed_source'];
@@ -153,8 +157,8 @@ class Proseed extends YqBase {
 					$item['seed_agreeCount'] = $value1['seed_agreeCount'];
 					$item['seed_hotness'] = $value;
 					$item['seed_priorityType'] = $res1[$key];
-				
-					array_push ($results,$item);
+					*/
+					array_push ($results,$value1);
 
 					//增加用户阅读的记录：
 					$readLog = $this->db->Proread->findOne (array ('seed_id' => (string)$value1['_id'],'user_id'=>$user_id));
@@ -164,15 +168,10 @@ class Proseed extends YqBase {
 							'user_id' => $user_id,
 							'read_time' => time(),
 							'read_type' => '0'
-
 							);
 						$this->db->Proread->save ($data);
 					}
-
 				}
-
-				
-
 			}
 			return json_encode($results);
 		}catch (Exception $e){
@@ -257,6 +256,10 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 					);
 				*/
 				foreach ($sourceSeeds as $key1 => $value1) {
+					$value1['seed_hotness'] = $value;
+					$value1['seed_priorityType'] = $res1[$key];
+
+					/*
 					$item = array ();
 					$item['_id'] = $value1['_id'];
 					$item['seed_source'] = $value1['seed_source'];
@@ -268,8 +271,8 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 					$item['seed_agreeCount'] = $value1['seed_agreeCount'];
 					//$item['seed_hotness'] = $value;
 					//$item['seed_priorityType'] = $res1[$key];
-				
-					array_push ($results,$item);
+					*/
+					array_push ($results,$value1);
 
 					//增加用户阅读的记录：
 					$readLog = $this->db->Proread->findOne (array ('seed_id' => (string)$value1['_id'],'user_id'=>$user_id));

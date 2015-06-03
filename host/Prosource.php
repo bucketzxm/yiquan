@@ -603,7 +603,11 @@ foreach ($sources as $key => $value) {
                                 } else {
                                     $sourceName = $value['source_name'];
                                 }
-
+                                if (isset($value['source_tag'])) {
+                                    $sourceTag = $value['source_tag'];
+                                } else {
+                                    $sourceTag = '';
+                                }
 
                                 $dataToSave = array(
                                     'seed_source' => $sourceName,
@@ -619,7 +623,8 @@ foreach ($sources as $key => $value) {
                                     'seed_hotness' => ((100 + (20 * $mediaAddition * 10)) * exp((-0.05) * ((time() - $postTime) / 3600))),
                                     'seed_hotnessTime' => time(),
                                     'seed_industry' => $industry,
-                                    'seed_agreeCount' => 0
+                                    'seed_agreeCount' => 0,
+                                    'seed_sourceTag' => $sourceTag;
                                 );
                             }
 
