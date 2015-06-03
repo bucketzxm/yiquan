@@ -609,6 +609,18 @@ foreach ($sources as $key => $value) {
                                     $sourceTag = '';
                                 }
 
+                                if (isset($value['text_startingTag'])) {
+                                    array_push($sourceTag,$value['text_startingTag']);
+                                } else {
+                                    array_push($sourceTag,'');
+                                }
+
+                                if (isset($value['text_closingTag'])) {
+                                    array_push($sourceTag,$value['text_closingTag']);
+                                } else {
+                                    array_push($sourceTag,'');
+                                }
+
                                 $dataToSave = array(
                                     'seed_source' => $sourceName,
                                     'seed_sourceLower' => strtolower($value['source_name']),
