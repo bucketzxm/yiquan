@@ -686,7 +686,8 @@ foreach ($sources as $key => $value) {
                                     'seed_agreeCount' => 0,
                                     'seed_sourceTag' => $sourceTag,
                                     'seed_textTag' => $textTag,
-                                    'seed_imageLink' => $seed['imageLink']
+                                    'seed_imageLink' => $seed['imageLink'],
+                                    'seed_similar' => $seed_similar,
                                 );
                             }
 
@@ -696,6 +697,12 @@ foreach ($sources as $key => $value) {
                             //var_dump($seed);
                             $proseed->save($dataToSave);
                             array_push($titles, $dataToSave);
+
+                            foreach ($dataToSave['seed_similar'] as $keyzzz => $valuezzz) {
+                            	$news = $proseed -> findOne('_id'=> new MongoId($valuezzz));
+                            	array_push($news['seed_similar'], $dataToSave['_id']);
+                            	$poseed->save($news);
+                            }
 
 
 
