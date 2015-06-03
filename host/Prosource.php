@@ -197,7 +197,7 @@ foreach ($sources as $key => $value) {
 
                     $postTime = time();
 
-                    $imageCaught = $imgResult[0][$i];
+                    $imageCaught = $imgResult[1][$i];
 
                     $seedToAdd['title'] = $title;
                     $seedToAdd['link'] = $link;
