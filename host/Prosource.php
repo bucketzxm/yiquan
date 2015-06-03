@@ -504,6 +504,8 @@ foreach ($sources as $key => $value) {
 
                     $same = false;
 
+                    $seed_similar = array();
+
                     foreach ($titles_cursor as $key3 => $title_name) {
 
                         if ($title_name['seed_industry'] == $industry && (find_same2($keywords, $title_name['seed_keywordDict'])==1)) {
@@ -511,6 +513,10 @@ foreach ($sources as $key => $value) {
                             echo '<p>' . $title_name['seed_title'] . '</p>';
                             $same = true;
                             break;
+                        }
+
+                        if ($title_name['seed_industry'] == $industry && (find_same2($keywords, $title_name['seed_keywordDict'])==2)) {
+                            //array_push($seed_similar, (string)$title_name['_id']);
                         }
                     }
 
@@ -688,9 +694,10 @@ foreach ($sources as $key => $value) {
                             //var_dump($keywords);
                             //var_dump($proseed->save($seed));
                             //var_dump($seed);
-
+                            $id_return = $proseed->save($dataToSave);
                             array_push($titles, $dataToSave);
-                            $proseed->save($dataToSave);
+                            var_dump($id_return);
+
 
 
                             //}
