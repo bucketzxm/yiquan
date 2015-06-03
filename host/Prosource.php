@@ -25,6 +25,42 @@ function find_same2($keywords,$seedToCheck){
     }
 }
 
+function special_entities($string){
+	$string = str_replace("&quote;", "\"", $string);
+	$string = str_replace("&amp;", "&", $string);
+	$string = str_replace("&lt;", "<", $string);
+	$string = str_replace("&gt;", ">", $string);
+	$string = str_replace("&OElig;", "Œ", $string);
+	$string = str_replace("&oelig;", "œ", $string);
+	$string = str_replace("&Scaron;", "Š", $string);
+	$string = str_replace("&scaron;", "š", $string);
+	$string = str_replace("&Yumi;", "Ÿ", $string);
+	$string = str_replace("&circ;", "ˆ", $string);
+	$string = str_replace("&tilde;", "˜", $string);
+	$string = str_replace("&ensp;", " ", $string);
+	$string = str_replace("&emsp;", " ", $string);
+	$string = str_replace("&thinsp;", " ", $string);
+	$string = str_replace("&zwnj;", "‌", $string);
+	$string = str_replace("&zwj;", "", $string);
+	$string = str_replace("&lrm;", "", $string);
+	$string = str_replace("&rlm;", "", $string);
+	$string = str_replace("&ndash;", "–", $string);
+	$string = str_replace("&mdash;", "—", $string);
+	$string = str_replace("&lsquo;", "‘", $string);
+	$string = str_replace("&rsquo;", "’", $string);
+	$string = str_replace("&sbquo;", "‚", $string);
+	$string = str_replace("&ldquo;", "“", $string);
+	$string = str_replace("&rdquo;", "”", $string);
+	$string = str_replace("&bdquo;", "„", $string);
+	$string = str_replace("&dagger;", "†", $string);
+	$string = str_replace("&Dagger;", "‡", $string);
+	$string = str_replace("&permil;", "‰", $string);
+	$string = str_replace("&lsaquo;", "‹", $string);
+	$string = str_replace("&rsaquo;", "›", $string);
+	$string = str_replace("&euro;", "€", $string);
+	return $string;
+}
+
 function find_same($string1, $string2){
     // return true when two strings are similar
 
