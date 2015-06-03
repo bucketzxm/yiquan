@@ -644,7 +644,7 @@ foreach ($sources as $key => $value) {
 
                                 //获取正文中的第一张图片：
                                 if (!isset($seed['imageLink'])) {
-                                    if ($text != '')) {
+                                    if ($text != '') {
                                         $imageReg = "/<img.*?src="(.*?)".*?>/";
                                         preg_match_all($imageReg, $text, $images);
                                         $seed['imageLink'] = $images[0][0];    
