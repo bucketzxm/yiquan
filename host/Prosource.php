@@ -201,10 +201,6 @@ foreach ($sources as $key => $value) {
                 //echo $pattern;
                 preg_match_all($pattern, $feeds, $result);
 
-                $titleIndex = $value['source_rexIndex']['title'];
-                $imageIndex = $value['source_rexIndex']['image'];
-                $linkIndex = $value['source_rexIndex']['link'];
-
                 $seedCount = count($result[0]);
                 $elementCount = count($result);
 
@@ -212,7 +208,7 @@ foreach ($sources as $key => $value) {
                     $seedToAdd = array();
 
                     
-                    $link = $result[$linkIndex][$i];    
+                    $link = $result[1][$i];    
                     
                     
                     //echo $link;
@@ -225,7 +221,7 @@ foreach ($sources as $key => $value) {
                     }
 
                     
-                    $title = $result[$titleIndex][$i];    
+                    $title = $result[2][$i];    
                     
                     
                     $title = str_replace(" ", "", $title);
@@ -234,13 +230,21 @@ foreach ($sources as $key => $value) {
 
                     $postTime = time();
 
-                    $imageCaught = $imgResult[$imageIndex][$i];
+                    
 
                     $seedToAdd['title'] = $title;
                     $seedToAdd['link'] = $link;
                     $seedToAdd['postTime'] = $postTime;
-                    $seedToAdd['imageLink'] = $imageCaught;
+                    
+                    $wholeString = $result[0][$i];
+                    $imgPattern = "<img.*?src=\"(.*?)\".*?>";
 
+                    preg_match_all($imgPattern, $wholeString, $imgResult);
+
+                    if (count($imgResult[0])>0) {
+                        $seedToAdd['imageLink'] = $imgResult[1][0];    
+                    }
+                    
                     array_push($seedsToLoad, $seedToAdd);
 
                 }
