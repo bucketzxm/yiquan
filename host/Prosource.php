@@ -734,7 +734,7 @@ foreach ($sources as $key => $value) {
                             foreach ($dataToSave['seed_similar'] as $keyzzz => $valuezzz) {
                             	$news = $proseed -> findOne(array('_id'=> new MongoId($valuezzz)));
                             	array_push($news['seed_similar'], (string)$dataToSave['_id']);
-                            	$poseed->save($news);
+                            	$proseed->save($news);
                             }
 
 
