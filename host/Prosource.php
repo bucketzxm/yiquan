@@ -629,16 +629,17 @@ foreach ($sources as $key => $value) {
                                     $sourceTag = array();
                                 }
 
+                                $textTag = array();
                                 if (isset($value['text_startingTag'])) {
-                                    array_push($sourceTag,$value['text_startingTag']);
+                                    array_push($textTag,$value['text_startingTag']);
                                 } else {
-                                    array_push($sourceTag,'');
+                                    array_push($textTag,'');
                                 }
 
                                 if (isset($value['text_closingTag'])) {
-                                    array_push($sourceTag,$value['text_closingTag']);
+                                    array_push($textTag,$value['text_closingTag']);
                                 } else {
-                                    array_push($sourceTag,'');
+                                    array_push($textTag,'');
                                 }
 
 
@@ -674,6 +675,7 @@ foreach ($sources as $key => $value) {
                                     'seed_industry' => $industry,
                                     'seed_agreeCount' => 0,
                                     'seed_sourceTag' => $sourceTag,
+                                    'seed_textTag' => $textTag,
                                     'seed_imageLink' => $seed['imageLink']
                                 );
                             }
