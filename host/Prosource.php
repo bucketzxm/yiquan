@@ -165,6 +165,8 @@ foreach ($sources as $key => $value) {
                 //echo $pattern;
                 preg_match_all($pattern, $feeds, $result);
 
+                $imgPattern = $value['source_imgTemplate'];
+                preg_match_all($imgPattern, $feeds, $imgResult);
 
                 $seedCount = count($result[0]);
                 $elementCount = count($result);
@@ -172,18 +174,9 @@ foreach ($sources as $key => $value) {
                 for ($i = 0; $i < $seedCount; $i++) {
                     $seedToAdd = array();
 
-                    if ($elementCount == 3) {
-                        $image = '';
-                    }else if ($elementCount == 4){
-                        $image = $result[1][$i];
-                    }
-
-
-                    if ($elementCount == 3) {
-                        $link = $result[1][$i];    
-                    }else if ($elementCount == 4){
-                        $link = $result[2][$i];
-                    }
+                    
+                    $link = $result[1][$i];    
+                    
                     
                     //echo $link;
                     //var_dump(strpos($link, 'http'));
@@ -194,11 +187,9 @@ foreach ($sources as $key => $value) {
                         //echo "definite link detected";
                     }
 
-                    if ($elementCount == 3) {
-                        $title = $result[2][$i];    
-                    }else if ($elementCount == 4){
-                        $title = $result[3][$i];
-                    }
+                    
+                    $title = $result[2][$i];    
+                    
                     
                     $title = str_replace(" ", "", $title);
                     $title = str_replace("\n", "", $title);
@@ -206,11 +197,12 @@ foreach ($sources as $key => $value) {
 
                     $postTime = time();
 
+                    $imageCaught = $imgResult[0][$i];
+
                     $seedToAdd['title'] = $title;
                     $seedToAdd['link'] = $link;
                     $seedToAdd['postTime'] = $postTime;
-                    $seedToAdd['imageLink'] = $image;
-                    
+                    $seedToAdd['imageLink'] = $imageCaught;
 
                     array_push($seedsToLoad, $seedToAdd);
 
