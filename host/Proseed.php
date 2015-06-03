@@ -145,6 +145,7 @@ class Proseed extends YqBase {
 
 					$value1['seed_hotness'] = $value;
 					$value1['seed_priorityType'] = $res1[$key];
+					unset($value1['seed_text']);
 					/*
 					$item = array ();
 					$item['_id'] = $value1['_id'];
@@ -258,7 +259,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 				foreach ($sourceSeeds as $key1 => $value1) {
 					$value1['seed_hotness'] = $value;
 					$value1['seed_priorityType'] = $res1[$key];
-
+					unset($value1['seed_text']);
 					/*
 					$item = array ();
 					$item['_id'] = $value1['_id'];
