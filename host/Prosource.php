@@ -624,7 +624,7 @@ foreach ($sources as $key => $value) {
                                     'seed_hotnessTime' => time(),
                                     'seed_industry' => $industry,
                                     'seed_agreeCount' => 0,
-                                    'seed_sourceTag' => $sourceTag;
+                                    'seed_sourceTag' => $sourceTag
                                 );
                             }
 
