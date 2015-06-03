@@ -696,7 +696,7 @@ foreach ($sources as $key => $value) {
                             //var_dump($seed);
                             $id_return = $proseed->save($dataToSave);
                             array_push($titles, $dataToSave);
-                            var_dump($id_return);
+                            var_dump($dataToSave);
 
 
 
