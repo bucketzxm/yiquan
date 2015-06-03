@@ -17,11 +17,12 @@ function find_same2($keywords,$seedToCheck){
         }
     }
     if ($sameCount> 7) {
-        return true;
+        return 1;
+    }elseif($sameCount > 4){
+        return 2;
     }else{
-        return false;
+    	return 0;
     }
-
 }
 
 function find_same($string1, $string2){
@@ -485,7 +486,7 @@ foreach ($sources as $key => $value) {
 
                     foreach ($titles_cursor as $key3 => $title_name) {
 
-                        if ($title_name['seed_industry'] == $industry && find_same2($keywords, $title_name['seed_keywordDict'])) {
+                        if ($title_name['seed_industry'] == $industry && (find_same2($keywords, $title_name['seed_keywordDict'])==1)) {
                             echo '<p>' . $seed['title'] . '</p>';
                             echo '<p>' . $title_name['seed_title'] . '</p>';
                             $same = true;
