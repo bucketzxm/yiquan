@@ -626,7 +626,7 @@ foreach ($sources as $key => $value) {
                                 if (isset($value['source_tag'])) {
                                     $sourceTag = $value['source_tag'];
                                 } else {
-                                    $sourceTag = '';
+                                    $sourceTag = array();
                                 }
 
                                 if (isset($value['text_startingTag'])) {
