@@ -727,7 +727,7 @@ foreach ($sources as $key => $value) {
 
                                 }
                                 $completeStatus = 'completed';
-                                if ($text != '') {
+                                if ($text == '') {
                                     $completeStatus = 'uncompleted';
                                 }
 
@@ -751,7 +751,7 @@ foreach ($sources as $key => $value) {
                                     'seed_textTag' => $textTag,
                                     'seed_imageLink' => special_entities($seed['imageLink']),
                                     'seed_similar' => $seed_similar,
-                                    'seed_completeStatus' = $completeStatus
+                                    'seed_completeStatus' => $completeStatus
                                 );
                             }
 
