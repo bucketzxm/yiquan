@@ -661,7 +661,7 @@ foreach ($sources as $key => $value) {
                             $text = str_replace("font-size", "", $text);
                             $text = str_replace("size=", "", $text);
                             //去掉3W互联网沙龙的第一张无关图片；
-                            $text = str_replace("http://mmbiz.qpic.cn/mmbiz/agEQQ7NdJSONRDEI8oZy8ibDaaNC2CqDeSyTX2WQEiaAibog8ArJRQX2ONXlicKd1iaicrj0OOY7lXV8wibPDK77rlJ8g/0?wx_fmt=jpeg", "", $text);
+                            $text = str_replace("http://mmbiz.qpic.cn/mmbiz/agEQQ7NdJSNmJibkdPTYyoEjyweiaaOGNoNEFH4TL7jqX66MAew9q28wZkGW77UiakSINicQpKaSRtU8Ck1p0fibT2Q/0", "", $text);
 
 
                             $title = $seed['title'];
