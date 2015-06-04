@@ -28,13 +28,13 @@ $sources = $prosource->find();
 
 $uncompleteSeeds = $db->Proseed->find(array('seed_dbWriteTime'=> array ('$gt' => (time()-86400)),'seed_text' => '','seed_completeStatus' => 'uncompleted'));
 
-foreach ($uncompleteSeeds as $key => $uncompleteSeed) {
+foreach ($uncompleteSeeds as $key => $seed) {
     
     $seed['seed_completeStatus'] = 'inProcess';
     $db->Proseed->save($seed);
 
 
-    $feedurl = $uncompleteSeed['seed_link'];
+    $feedurl = $seed['seed_link'];
 
     //$feeds = file_get_contents($feedurl);
     $ch = curl_init($feedurl);
@@ -42,7 +42,7 @@ foreach ($uncompleteSeeds as $key => $uncompleteSeed) {
     $html = curl_exec($ch);
 
     //HTML进行UTF-8转码
-    $encode = mb_detect_encoding($feeds, array('ASCII', 'UTF-8', 'GB2312', 'GBK', "EUC-CN", "CP936"));
+    $encode = mb_detect_encoding($html, array('ASCII', 'UTF-8', 'GB2312', 'GBK', "EUC-CN", "CP936"));
 
     if ($encode != 'UTF-8') {
         //$encode = $encode . "//IGNORE"
@@ -71,7 +71,7 @@ foreach ($uncompleteSeeds as $key => $uncompleteSeed) {
         $html = preg_replace("<link .*? >", "", $html);
         $html = preg_replace("<iframe .*? /iframe>", "", $html);
 
-        $source = $db->Prosource->findOne(array('_id' => new MongoId($uncompleteSeed['seed_sourceID'])));
+        $source = $db->Prosource->findOne(array('_id' => new MongoId($seed['seed_sourceID'])));
 
         $source_openTag = $source['source_tag'][0];
         $source_closeTag = $source['source_tag'][1];
@@ -103,7 +103,7 @@ foreach ($uncompleteSeeds as $key => $uncompleteSeed) {
 
         $imgPattern = "<img.*?src=\"(.*?)\".*?>";
 
-        preg_match_all($imgPattern, $wholeString, $imgResult);
+        preg_match_all($imgPattern, $text, $imgResult);
 
         if (count($imgResult[0])>0) {
             $imageLink = $imgResult[1][0];    
@@ -118,7 +118,7 @@ foreach ($uncompleteSeeds as $key => $uncompleteSeed) {
 
         $db->Proseed->save($seed);
 
-        echo $seeed['seed_source'].','.$seed['seed_title'].','.$seed['seed_imageLink'];
+        echo $seed['seed_source'].','.$seed['seed_title'].','.$seed['seed_imageLink'];
 
 }
 
