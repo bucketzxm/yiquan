@@ -243,6 +243,12 @@ foreach ($sources as $key => $value) {
 
                     if (count($imgResult[0])>0) {
                         $seedToAdd['imageLink'] = $imgResult[1][0];    
+                    }else{
+                        $imagePattern2 = "<img.*?data-url='(.*?)'.*?>";
+                        preg_match_all($imgPattern2, $wholeString, $imgResult2);
+                        if (count($imgResult2[0])>0) {
+                            $seedToAdd['imageLink'] = $imgResult2[1][0];
+                        }
                     }
                     
                     array_push($seedsToLoad, $seedToAdd);
@@ -694,9 +700,17 @@ foreach ($sources as $key => $value) {
                                         }else if ($imgCount >= 3){
                                             $seed['imageLink'] = $images[1][1];
                                         }else{
-                                            $seed['imageLink'] = '';
+                                            $imageReg2 = "<img.*?data-url='(.*?)'.*?>";
+                                            preg_match_all($imageReg2, $text, $images2);
+                                            $imgCount2 = count($images2[0]);
+                                            if ($imgCount2>0 && $imgCount2<3) {
+                                                $seed['imageLink'] = $images2[1][0];    
+                                            }else if ($imgCount2 >= 3){
+                                                $seed['imageLink'] = $images2[1][1];
+                                            }else{
+                                                $seed['imageLink'] = '';        
+                                            }
                                         }
-                                        
                                     }else{
                                         $seed['imageLink'] = '';
                                     }
