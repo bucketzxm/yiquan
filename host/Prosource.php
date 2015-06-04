@@ -178,7 +178,7 @@ foreach ($sources as $key => $value) {
                 $feeds = str_replace('encoding="gb2312"', 'encoding="utf-8"', $feeds);
                 $feeds = str_replace('encoding="ascii"', 'encoding="utf-8"', $feeds);
                 $feeds = str_replace('encoding="gbk"', 'encoding="utf-8"', $feeds);
-                $feeds = str_replace('encoding="ecu-cn"', 'encoding="utf-8"', $feeds);
+                $feeds = str_replace('encoding="euc-cn"', 'encoding="utf-8"', $feeds);
                 $feeds = str_replace('encoding="cp936"', 'encoding="utf-8"', $feeds);
 
                 $feeds = str_replace('encoding="GB2312"', 'encoding="utf-8"', $feeds);
@@ -193,10 +193,9 @@ foreach ($sources as $key => $value) {
             if (isset($value['source_rexTemplate'])) {
 
                 $feeds = preg_replace("/[\t\n\r]+/", "", $feeds);
-                $feeds = preg_replace("<script .*? /script>", "", $feeds);
-                $feeds = preg_replace("<link .*? >", "", $feeds);
-                $feeds = preg_replace("<link .*? >", "", $feeds);
-                $feeds = preg_replace("<iframe .*? /iframe>", "", $feeds);
+                $feeds = preg_replace("<script.*?/script>", "", $feeds);
+                $feeds = preg_replace("<link.*?>", "", $feeds);
+                $feeds = preg_replace("<iframe.*?/iframe>", "", $feeds);
                 $pattern = $value['source_rexTemplate'];
                 //echo $pattern;
                 preg_match_all($pattern, $feeds, $result);
