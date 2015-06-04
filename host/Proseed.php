@@ -60,45 +60,87 @@ class Proseed extends YqBase {
 		}
 
 		try {
-			/*
-			//获得我圈子里的人
-			$prouser = new Prouser ();
-			$myPros = $prouser->findMyPros ($user_id);
 
-			$seeds = array ();
-
-			//获得我圈子里赞过的话题
-			$agreedSeeds = $this->db->Proworth->find (
-				array (
-					'like_user' => array ('$in' => $myPros),
-					'like_time' => array ('$gt' => (time()-86400*3))
-					),
-				array ('_id' => 1)
-				);
-			foreach ($agreedSeeds as $key => $value) {
-				if (in_array ((string)$value['_id'],$seeds)) {
-					# code...
-				}else{
-					array_push ($seeds,(string)$value['_id']);
-				}
-			}
-			*/
 			$user = $this->db->Prouser->findOne (array ('_id' => new MongoId ($user_id)));
 			//$sources = $this->db->Prosource->find(array ('source_industry' => $user['current']['user_industry']));
 			//获得我的行业关注的媒体的人
+			$readSeeds = array ();
+			$readSeedsCursor = $this->db->Proread->find(array ('user_id'=>$user_id,'read_time'=> array ('$gt' => (time()-86400*3))));
+			foreach ($readSeedsCursor as $readSeedKey => $readSeedValue) {
+				array_push($readSeeds,$readSeedValue['_id']);
+			}
+
+				$myAgrees = $this->db->Proread->find (
+				array (
+					'user_id'=> $user_id,
+					//'read_time' => array ('$gt' => (time()-86400*30)),
+					'read_type' => '1'
+					)
+				)->sort(array('read_time'=> -1))->limit(50);
+
+
+				$seedIDs =  array ();
+				if ($myAgrees != null) {
+					foreach ($myAgrees as $agree) {
+						array_push($seedIDs,new MongoId($agree['seed_id']));
+					}
+				}
+
+				$news = $this->db->Proseed->find (array ('_id' => array ('$in' =>$seedIDs)));
+
+				$agreeWords = array();
+				foreach ($news as $agreeNews) {
+					foreach ($agreeNews['seed_keywords'] as $agreeKeyword) {
+						if (isset($agreeWords[$agreeKeyword])) {
+							$agreeWords[$agreeKeyword] ++;
+						}else{
+							$agreeWords[$agreeKeyword] = 1;
+						}
+					}
+				}
+
+
+				$myDisagrees = $this->db->Proread->find (
+				array (
+					'user_id'=> $user_id,
+					//'read_time' => array ('$gt' => (time()-86400*30)),
+					'read_type' => '0'
+					)
+				)->sort(array('read_time'=> -1))->limit(150);
+
+
+				$disSeedIDs =  array ();
+				if ($myDisagrees != null) {
+					foreach ($myDisagrees as $disagree) {
+						array_push($disSeedIDs,new MongoId($disagree['seed_id']));
+					}
+				}
+
+				$disNews = $this->db->Proseed->find (array ('_id' => array ('$in' =>$disSeedIDs)));
+
+				$disAgreeWords = array ();
+				foreach ($disNews as $disAgreeNews) {
+					foreach ($disAgreeNews['seed_keywords'] as $disAgreeKeyword) {
+						if (isset($disAgreeWords[$disAgreeKeyword])) {
+							$disAgreeWords[$disAgreeKeyword] ++;
+						}else{
+							$disAgreeWords[$disAgreeKeyword] = 1;
+						}
+					}
+				}
 
 			//foreach ($sources as $key => $source) {
-				$sourceSeeds = $this->db->Proseed->find (
-					array (
-						'$or' => array(
-							array ('seed_industry' => $user['current']['user_industry']),
-							array ('seed_industry' => $user['current']['user_interestA']),
-							array ('seed_industry' => $user['current']['user_interestB'])
-							), 
-						'seed_time' => array ('$gt' => (time()-86400*3))
-						),
-					array ('_id'=> 1)
-				);
+			$sourceSeeds = $this->db->Proseed->find (
+				array (
+					'$or' => array(
+						array ('seed_industry' => $user['current']['user_industry']),
+						array ('seed_industry' => $user['current']['user_interestA']),
+						array ('seed_industry' => $user['current']['user_interestB'])
+						), 
+					'seed_time' => array ('$gt' => (time()-86400*3)),
+					'_id' => array ('$nin' => $readSeeds)
+					)
+			);
 				/*
 				foreach ($sourceSeeds as $key => $value) {
 					
@@ -110,20 +152,20 @@ class Proseed extends YqBase {
 				}*/
 
 			//}
-
+			/*
 			$unreadSeeds = array ();
 			foreach ($sourceSeeds as $key => $seed) {
 				$cursor = $this->db->Proread->findOne(array ('seed_id' => $seed,'user_id'=>$user_id));
 				//if ($cursor == null) {
 					array_push($unreadSeeds,(string)$seed['_id']);
 				//}
-			}
+			}*/
 			
 			$res = array ();
 			$res1 = array ();
 			//计算所有新闻的热度
-			foreach ($unreadSeeds as $key => $value) {
-				$stats = $this->getHotness($user_id,$value);
+			foreach ($sourceSeeds as $sourceSeedKey => $sourceSeed) {
+				$stats = $this->getHotness($user,$sourceSeed,$agreeWords,count($seedIDs),$disAgreeWords,count($disSeedIDs));
 				//return $stats;
 				$res[$value] = $stats['priority'];
 				$res1[$value] = $stats['priorityType'];
@@ -361,18 +403,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 		return json_encode($text);
 	}
 
-	function getHotness ($user_id, $seed_id){
-		if ($this->yiquan_version == 0) {
-			return - 2;
-		}
-		
-		if ($this->checkQuoteToken () != 1) {
-			return - 3;
-		}
-		
-		if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
-			return - 4;
-		}
+	function getHotness ($user, $seed,$agreeWords,$agreeCount,$disAgreeWords,$disAgreeCount){
 
 		try {
 			/*
@@ -381,7 +412,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 			$myPros = $prouser->findMyPros ($user_id);
 			*/
 			//找到这个新闻
-			$seed = $this->db->Proseed->findOne (array ('_id' => new MongoId($seed_id)));
+			
 
 			//找到我圈子里的人对这个话题的赞
 			/*
@@ -391,8 +422,6 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 					'like_user'=> array ('$in'=>$myPros)
 					)
 				);*/
-
-			$user = $this->db->Prouser->findOne(array ('_id'=> new MongoId($user_id)));
 			/*
 			//计算单词点赞的放大因子
 			$para = $this->db->Prosystem->findOne(array('para_name'=>"user_count"));
@@ -418,74 +447,23 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 			$matchness = 0;
 
 			//计算和已经读过的文章的匹配数
-			$myAgrees = $this->db->Proread->find (
-				array (
-					'user_id'=> $user_id,
-					//'read_time' => array ('$gt' => (time()-86400*30)),
-					'read_type' => '1'
-					)
-				)->sort(array('read_time'=> -1))->limit(50);
-			$seedIDs =  array ();
-			if ($myAgrees != null) {
-				foreach ($myAgrees as $agree) {
-					array_push($seedIDs,new MongoId($agree['seed_id']));
-				}
+
+			foreach ($seed['seed_keywords'] as $key => $word) {
+				$matchCount += $agreeWords[$word];
+				$dismatchCount += $disAgreeWords[$word];
 			}
 			
-			
-			$news = $this->db->Proseed->find (array ('_id' => array ('$in' =>$seedIDs)));
-			foreach ($news as $value) {
-			
-				$keywordCount = 0;
-				foreach ($seed['seed_keywords'] as $keyword) {
-					if (in_array($keyword,$value['seed_keywords'])) {
-						$keywordCount += 1;
-					}
-				}
-				$matchCount += $keywordCount;
-
-			}
-
 			//更新关键词匹配的值
-			$seedCount = count($seedIDs);
-			$matchness += $matchCount/$seedCount;
+			$matchness += $matchCount/$agreeCount;
 
-			
 			//计算和不想读的文章的反匹配度
-			$myDisagrees = $this->db->Proread->find (
-				array (
-					'user_id'=> $user_id,
-					//'read_time' => array ('$gt' => (time()-86400*30)),
-					'read_type' => '0'
-					)
-				)->sort(array('read_time'=> -1))->limit(150);
-			$disSeedIDs =  array ();
-			if ($myDisagrees != null) {
-				foreach ($myDisagrees as $disagree) {
-					array_push($disSeedIDs,new MongoId($disagree['seed_id']));
-				}
-			}
 			
 			
-			$disNews = $this->db->Proseed->find (array ('_id' => array ('$in' =>$disSeedIDs)));
-			foreach ($disNews as $disValue) {
-			
-				$disKeywordCount = 0;
-				foreach ($seed['seed_keywords'] as $keyword) {
-					if (in_array($keyword,$disValue['seed_keywords'])) {
-						$disKeywordCount += 1;
-					}
-				}
-				$dismatchCount += $disKeywordCount;
-
-			}
 
 
 			//更新关键词匹配的值
 			$disSeedCount = count($disSeedIDs);
-			$matchness -= $dismatchCount/$disSeedCount;
-
-
+			$matchness -= $dismatchCount/$disAgreeCount;
 
 			//计算和自己的关键词的疲惫度
 			foreach ($user['user_keywords'] as $word) {
