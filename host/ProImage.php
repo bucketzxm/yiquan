@@ -46,30 +46,30 @@ foreach ($uncompleteSeeds as $key => $uncompleteSeed) {
 
     if ($encode != 'UTF-8') {
         //$encode = $encode . "//IGNORE"
-        $html = iconv($encode, 'UTF-8//IGNORE', $feeds);
+        $html = iconv($encode, 'UTF-8//IGNORE', $html);
 
         //var_dump($feeds);
 
-        $html = str_replace('encoding="gb2312"', 'encoding="utf-8"', $feeds);
-        $html = str_replace('encoding="ascii"', 'encoding="utf-8"', $feeds);
-        $html = str_replace('encoding="gbk"', 'encoding="utf-8"', $feeds);
-        $html = str_replace('encoding="ecu-cn"', 'encoding="utf-8"', $feeds);
-        $html = str_replace('encoding="cp936"', 'encoding="utf-8"', $feeds);
+        $html = str_replace('encoding="gb2312"', 'encoding="utf-8"', $html);
+        $html = str_replace('encoding="ascii"', 'encoding="utf-8"', $html);
+        $html = str_replace('encoding="gbk"', 'encoding="utf-8"', $html);
+        $html = str_replace('encoding="ecu-cn"', 'encoding="utf-8"', $html);
+        $html = str_replace('encoding="cp936"', 'encoding="utf-8"', $html);
 
-        $html = str_replace('encoding="GB2312"', 'encoding="utf-8"', $feeds);
-        $html = str_replace('encoding="ASCII"', 'encoding="utf-8"', $feeds);
-        $html = str_replace('encoding="GBK"', 'encoding="utf-8"', $feeds);
-        $html = str_replace('encoding="EUC-CN"', 'encoding="utf-8"', $feeds);
-        $html = str_replace('encoding="CP936"', 'encoding="utf-8"', $feeds);
+        $html = str_replace('encoding="GB2312"', 'encoding="utf-8"', $html);
+        $html = str_replace('encoding="ASCII"', 'encoding="utf-8"', $html);
+        $html = str_replace('encoding="GBK"', 'encoding="utf-8"', $html);
+        $html = str_replace('encoding="EUC-CN"', 'encoding="utf-8"', $html);
+        $html = str_replace('encoding="CP936"', 'encoding="utf-8"', $html);
     }
 
 
 
-        $html = preg_replace("/[\t\n\r]+/", "", $feeds);
-        $html = preg_replace("<script .*? /script>", "", $feeds);
-        $html = preg_replace("<link .*? >", "", $feeds);
-        $html = preg_replace("<link .*? >", "", $feeds);
-        $html = preg_replace("<iframe .*? /iframe>", "", $feeds);
+        $html = preg_replace("/[\t\n\r]+/", "", $html);
+        $html = preg_replace("<script .*? /script>", "", $html);
+        $html = preg_replace("<link .*? >", "", $html);
+        $html = preg_replace("<link .*? >", "", $html);
+        $html = preg_replace("<iframe .*? /iframe>", "", $html);
 
         $source = $db->Prosource->findOne(array('_id' => new MongoId($uncompleteSeed['seed_sourceID'])));
 
