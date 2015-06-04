@@ -108,7 +108,10 @@ foreach ($uncompleteSeeds as $key => $uncompleteSeed) {
         $seed['seed_imageLink'] = $imageLink;
         $seed['seed_completeStatus'] = 'completed';
 
+
         $db->Proseed->save($seed);
+
+        echo $seeed['seed_source'].','.$seed['seed_title'].','.$seed['seed_imageLink'];
 
 }
 
