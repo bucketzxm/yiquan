@@ -722,7 +722,7 @@ foreach ($sources as $key => $value) {
                                     }
                                     $httpPos = strpos($seed['imageLink'], 'http');
                                     if ($seed['imageLink'] != '' && $httpPos === false) {
-                                        $seed['imageLink'] = $value['source_rssURL'].$seed['imageLink'];
+                                        $seed['imageLink'] = $value['source_rssURL'][0].$seed['imageLink'];
                                     }
 
                                 }
