@@ -145,7 +145,12 @@ class Proseed extends YqBase {
 
 					$value1['seed_hotness'] = $value;
 					$value1['seed_priorityType'] = $res1[$key];
-					unset($value1['seed_text']);
+					if ($value1['seed_text'] == '') {
+						$value1['seed_textStatus'] = '0';
+					}else{
+						unset($value1['seed_text']);	
+					}
+					
 					/*
 					$item = array ();
 					$item['_id'] = $value1['_id'];
@@ -259,7 +264,13 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 				foreach ($sourceSeeds as $key1 => $value1) {
 					$value1['seed_hotness'] = $value;
 					$value1['seed_priorityType'] = $res1[$key];
-					unset($value1['seed_text']);
+					
+					if ($value1['seed_text'] == '') {
+						$value1['seed_textStatus'] = '0';
+					}else{
+						unset($value1['seed_text']);	
+					}
+					
 					/*
 					$item = array ();
 					$item['_id'] = $value1['_id'];
@@ -625,6 +636,12 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 
 			foreach ($seed as $key => $item) {
 				$item['like_comment'] = $value['like_comment'];
+				if ($value['seed_text'] == '') {
+					$item['seed_textStatus'] = '0';
+				}else{
+					unset($item['seed_text']);	
+				}
+					
 				//$item['seed_agreeCount'] = $this->db->Proworth->find (array('like_seed' => (string)$item['_id']))->count ();
 				array_push ($myLikedSeeds, $item);
 			}
@@ -669,6 +686,11 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 			foreach ($seed as $key => $item) {
 
 					$item['like_comment'] = $value['like_comment'];
+					if ($value['seed_text'] == '') {
+					$item['seed_textStatus'] = '0';
+					}else{
+						unset($item['seed_text']);	
+					}
 					//$item['seed_agreeCount'] = $this->db->Proworth->find (array('like_seed' => (string)$item['_id']))->count ();
 					array_push ($myLikedSeeds, $item);					
 			}
