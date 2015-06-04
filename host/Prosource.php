@@ -550,19 +550,34 @@ foreach ($sources as $key => $value) {
 
                     $seed_similar = array();
 
-                    foreach ($titles as $key3 => $title_name) {
+                    if ($titleLen > 8){
+                    	foreach ($titles as $key3 => $title_name) {
 
-                        if ($title_name['seed_industry'] == $industry && (find_same2($keywords, $title_name['seed_keywordDict'])==1)) {
-                            echo '<p>' . $seed['title'] . '</p>';
-                            echo '<p>' . $title_name['seed_title'] . '</p>';
-                            $same = true;
-                            break;
-                        }
+	                        if ($title_name['seed_industry'] == $industry && (find_same2($keywords, $title_name['seed_keywordDict'])==1)) {
+	                            echo '<p>' . $seed['title'] . '</p>';
+	                            echo '<p>' . $title_name['seed_title'] . '</p>';
+	                            $same = true;
+	                            break;
+	                        }
 
-                        if ($title_name['seed_industry'] == $industry && (find_same2($keywords, $title_name['seed_keywordDict'])==2)) {
-                            array_push($seed_similar, (string)$title_name['_id']);
-                        }
+	                        if ($title_name['seed_industry'] == $industry && (find_same2($keywords, $title_name['seed_keywordDict'])==2)) {
+	                            array_push($seed_similar, (string)$title_name['_id']);
+	                        }
+	                    }
+                    }else{
+                    	if ($title_name['seed_industry'] == $industry && (find_same($title, $title_name['seed_title'])==true)) {
+	                            echo '<p>' . $seed['title'] . '</p>';
+	                            echo '<p>' . $title_name['seed_title'] . '</p>';
+	                            $same = true;
+	                            break;
+	                        }
+
+	                        if ($title_name['seed_industry'] == $industry && (find_same2($keywords, $title_name['seed_keywordDict'])==2)) {
+	                            array_push($seed_similar, (string)$title_name['_id']);
+	                        }
                     }
+
+                    
 
 
                     if ($same == false) {
