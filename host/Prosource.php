@@ -250,9 +250,9 @@ foreach ($sources as $key => $value) {
                             $seedToAdd['imageLink'] = $imgResult2[1][0];
                         }
                     }
-                    $httpPos = strpos($seed['imageLink'], 'http');
-                    if ($seed['imageLink'] != '' && $httpPos === false) {
-                        $seed['imageLink'] = $value['source_rssURL'].$seed['imageLink'];
+                    $httpPos = strpos($seedToAdd['imageLink'], 'http');
+                    if ($seedToAdd['imageLink'] != '' && $httpPos === false) {
+                        $seedToAdd['imageLink'] = $value['source_rssURL'].$seedToAdd['imageLink'];
                     }
                     array_push($seedsToLoad, $seedToAdd);
 
