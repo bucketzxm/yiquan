@@ -362,7 +362,7 @@ foreach ($sources as $key => $value) {
             //统一进行查重
 
             $titles_cursor = $db->Proseed->find(array(
-                'seed_time' => array('$gt' => (time() - 86400))));
+                'seed_dbWriteTime' => array('$gt' => (time() - 86400))));
 
             $titles = array();
 
@@ -736,6 +736,7 @@ foreach ($sources as $key => $value) {
                                     'seed_link' => $link,
                                     'seed_text' => $text,
                                     'seed_time' => $postTime,
+                                    'seed_dbWriteTime' => time(),
                                     'seed_keywords' => $keywords,
                                     'seed_keywordDict' => $keywordDict,
                                     'seed_hotness' => ((100 + (20 * $mediaAddition * 10)) * exp((-0.05) * ((time() - $postTime) / 3600))),
