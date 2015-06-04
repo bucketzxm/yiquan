@@ -253,7 +253,7 @@ foreach ($sources as $key => $value) {
                     if (isset($seedToAdd['imageLink'])) {
                         $httpPos = strpos($seedToAdd['imageLink'], 'http');
                         if ($seedToAdd['imageLink'] != '' && $httpPos === false) {
-                            $seedToAdd['imageLink'] = $value['source_rssURL'].$seedToAdd['imageLink'];
+                            $seedToAdd['imageLink'] = $value['source_rssURL'][0].$seedToAdd['imageLink'];
                         }    
                     }
                     
