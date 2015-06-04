@@ -93,6 +93,11 @@ foreach ($uncompleteSeeds as $key => $uncompleteSeed) {
         }
 
         $text = $cutHTML;
+        $text = str_replace("style=", "", $text);
+        $text = str_replace("width", "", $text);
+        $text = str_replace("height", "", $text);
+        $text = str_replace("font-size", "", $text);
+        $text = str_replace("size=", "", $text);
 
         $imgPattern = "<img.*?src=\"(.*?)\".*?>";
 
