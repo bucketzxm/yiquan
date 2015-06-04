@@ -167,8 +167,8 @@ class Proseed extends YqBase {
 			foreach ($sourceSeeds as $sourceSeedKey => $sourceSeed) {
 				$stats = $this->getHotness($user,$sourceSeed,$agreeWords,count($seedIDs),$disAgreeWords,count($disSeedIDs));
 				//return $stats;
-				$res[$value] = $stats['priority'];
-				$res1[$value] = $stats['priorityType'];
+				$res[(string)$sourceSeed['_id']] = $stats['priority'];
+				$res1[(string)$sourceSeed['_id']] = $stats['priorityType'];
 				
 			}
 			//排序
