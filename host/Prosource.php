@@ -726,7 +726,11 @@ foreach ($sources as $key => $value) {
                                     }
 
                                 }
-                                
+                                $completeStatus = 'completed';
+                                if ($text != '') {
+                                    $completeStatus = 'uncompleted';
+                                }
+
                                 $dataToSave = array(
                                     'seed_source' => $sourceName,
                                     'seed_sourceLower' => strtolower($value['source_name']),
@@ -747,6 +751,7 @@ foreach ($sources as $key => $value) {
                                     'seed_textTag' => $textTag,
                                     'seed_imageLink' => special_entities($seed['imageLink']),
                                     'seed_similar' => $seed_similar,
+                                    'seed_completeStatus' = $completeStatus
                                 );
                             }
 
