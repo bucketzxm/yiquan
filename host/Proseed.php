@@ -477,7 +477,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 					}
 				}		
 			}
-			/*
+			
 			//匹配搜索记录的相关性
 			if (isset($user['user_searchWords'])) {
 				foreach ($user['user_searchWords'] as $searchWord) {
@@ -487,7 +487,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 					}
 				}	
 			}
-			*/
+			
 						
 
 			$hotness = $seed['seed_hotness'];
