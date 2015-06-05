@@ -199,7 +199,8 @@ foreach ($sources as $key => $value) {
                 $pattern = $value['source_rexTemplate'];
                 //echo $pattern;
                 preg_match_all($pattern, $feeds, $result);
-                var_dump($result);
+
+                var_dump($feeds);
                 $seedCount = count($result[0]);
                 $elementCount = count($result);
 
