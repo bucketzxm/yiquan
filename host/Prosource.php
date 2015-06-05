@@ -734,7 +734,7 @@ foreach ($sources as $key => $value) {
                                             if ($imgCount2>0 && $imgCount2<3) {
                                                 $seed['imageLink'] = $images2[1][0];    
                                             }else if ($imgCount2 >= 3){
-                                                $seed['imageLink'] = $images2[1][1];
+                                                $seed['imageLink'] = $images2[1][0];
                                             }else{
                                                 $seed['imageLink'] = '';        
                                             }
