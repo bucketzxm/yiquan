@@ -448,14 +448,23 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 
 			//计算和已经读过的文章的匹配数
 
-			foreach ($seed['seed_keywords'] as $key => $word) {
-				//$matchCount += $agreeWords[$word];
-				$dismatchCount += $disAgreeWords[$word];
+			if ($agreeCount>0) {
+				foreach ($seed['seed_keywords'] as $key => $word) {
+					$matchCount += $agreeWords[$word];
+					$matchness += $matchCount/$agreeCount;
+				}
 			}
+		
+			if ($disAgreeCount>0) {
+				foreach ($seed['seed_keywords'] as $key => $word) {
+					$dismatchCount += $disAgreeWords[$word];
+					$matchness -= $dismatchCount/$disAgreeCount;
+				}
+			}	
 			
 			//更新关键词匹配的值
-			$matchness += $matchCount/$agreeCount;
-			$matchness -= $dismatchCount/$disAgreeCount;
+			
+			
 			
 			//计算和不想读的文章的反匹配度
 			
