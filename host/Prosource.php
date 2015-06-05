@@ -253,7 +253,7 @@ foreach ($sources as $key => $value) {
                         if ($seedToAdd['imageLink'] != '' && $httpPos === false) {
                             $seedToAdd['imageLink'] = str_replace("../", "", $seedToAdd['imageLink']);
                             $seedToAdd['imageLink'] = str_replace("./", "", $seedToAdd['imageLink']);
-                            $seedToAdd['imageLink'] = $value['source_homeURL'][0].$seedToAdd['imageLink'];
+                            $seedToAdd['imageLink'] = $value['source_homeURL'].$seedToAdd['imageLink'];
                         }    
                     }
                     
@@ -747,7 +747,7 @@ foreach ($sources as $key => $value) {
 
                                         $seed['imageLink'] = str_replace("../", "", $seed['imageLink']);
                                         $seed['imageLink'] = str_replace("./", "", $seed['imageLink']);
-                                        $seed['imageLink'] = $value['source_homeURL'][0].$seed['imageLink'];
+                                        $seed['imageLink'] = $value['source_homeURL'].$seed['imageLink'];
                                     }
 
                                 }

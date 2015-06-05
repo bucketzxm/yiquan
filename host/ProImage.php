@@ -125,7 +125,7 @@ foreach ($uncompleteSeeds as $key => $seed) {
         if ($imageLink != '' && $httpPos === false) {
             $imageLink = str_replace("../", "", $imageLink);
             $imageLink = str_replace("./", "", $imageLink);
-            $imageLink = $source['source_homeURL'][0].$imageLink;
+            $imageLink = $source['source_homeURL'].$imageLink;
         } 
 
         $seed['seed_text'] = $text;
