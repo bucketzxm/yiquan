@@ -449,40 +449,29 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 			//计算和已经读过的文章的匹配数
 
 			if ($agreeCount>0) {
-				foreach ($seed['seed_keywords'] as $key => $word) {
-					if (isset($agreeWords[$word])) {
-						$matchCount += $agreeWords[$word];	
+				foreach ($seed['seed_keywords'] as $key => $agreeWord) {
+					if (isset($agreeWords[$agreeWord])) {
+						$matchCount += $agreeWords[$agreeWord];	
 					}	
 				}
 				$matchness += $matchCount/$agreeCount;
 			}
 		
 			if ($disAgreeCount>0) {
-				foreach ($seed['seed_keywords'] as $key => $word) {
-					if (isset($disAgreeWords[$word])) {
-						$dismatchCount += $disAgreeWords[$word];
+				foreach ($seed['seed_keywords'] as $key => $disAgreeWord) {
+					if (isset($disAgreeWords[$disAgreeWord])) {
+						$dismatchCount += $disAgreeWords[$disAgreeWord];
 					}
 				}
 				$matchness -= $dismatchCount/$disAgreeCount;
 			}	
 			
 			//更新关键词匹配的值
-			
-			
-			
-			//计算和不想读的文章的反匹配度
-			
-			
-
-			
-			//更新关键词匹配的值
-			$disSeedCount = count($disSeedIDs);
-			$matchness -= $dismatchCount/$disAgreeCount;
 
 			//计算和自己的关键词的疲惫度
 			if (isset($user['user_keywords'])) {
-				foreach ($user['user_keywords'] as $word) {
-					$pos = strpos($seed['seed_titleLower'], $word);
+				foreach ($user['user_keywords'] as $keyword) {
+					$pos = strpos($seed['seed_titleLower'], $keyword);
 					if ($pos !== false) {
 						$matchness += 1;
 					}
