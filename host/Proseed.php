@@ -490,7 +490,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 			}
 			
 			//匹配搜索记录的相关性
-			if (isset[$user['user_searchWords']]) {
+			if (isset($user['user_searchWords'])) {
 				foreach ($user['user_searchWords'] as $searchWord) {
 					$pos = strpos($seed['seed_titleLower'], $searchWord);
 					if ($pos !== false) {
