@@ -114,6 +114,10 @@ foreach ($uncompleteSeeds as $key => $seed) {
         }else{
             $imageLink = '';
         }
+        $httpPos = strpos($imageLink, 'http');
+        if ($imageLink != '' && $httpPos === false) {
+            $imageLink = $source['source_rssURL'][0].$imageLink;
+        } 
 
         $seed['seed_text'] = $text;
         $seed['seed_imageLink'] = $imageLink;
