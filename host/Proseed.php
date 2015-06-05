@@ -67,7 +67,7 @@ class Proseed extends YqBase {
 			$readSeeds = array ();
 			$readSeedsCursor = $this->db->Proread->find(array ('user_id'=>$user_id,'read_time'=> array ('$gt' => (time()-86400*3))));
 			foreach ($readSeedsCursor as $readSeedKey => $readSeedValue) {
-				array_push($readSeeds,$readSeedValue['_id']);
+				array_push($readSeeds,new MongoId($readSeedValue['seed_id']));
 			}
 
 				$myAgrees = $this->db->Proread->find (
@@ -247,7 +247,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 			
 			array_push($user['user_searchWords'],$keyword);
 			if (count($user['user_searchWords'])>10) {
-				array_shift($user['user_searchWords']);//移除第一个元素
+				unset($user['user_searchWords'][0]);
 			}
 			
 			$this->db->Prouser->save($user);
@@ -466,14 +466,15 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 			$matchness -= $dismatchCount/$disAgreeCount;
 
 			//计算和自己的关键词的疲惫度
-			foreach ($user['user_keywords'] as $word) {
-				$pos = strpos($seed['seed_titleLower'], $word);
-				if ($pos !== false) {
-					$matchness += 1;
-				}
-			}	
+			if (isset($user['user_keywords'])) {
+				foreach ($user['user_keywords'] as $word) {
+					$pos = strpos($seed['seed_titleLower'], $word);
+					if ($pos !== false) {
+						$matchness += 1;
+					}
+				}		
+			}
 			
-
 			//匹配搜索记录的相关性
 			foreach ($user['user_searchWords'] as $searchWord) {
 				$pos = strpos($seed['seed_titleLower'], $searchWord);
