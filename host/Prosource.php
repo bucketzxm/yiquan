@@ -749,6 +749,9 @@ foreach ($sources as $key => $value) {
                                         $seed['imageLink'] = str_replace('./', '', $seed['imageLink']);
                                         $seed['imageLink'] = $value['source_homeURL'].$seed['imageLink'];
                                     }
+                                    if ($value['source_name'] == 'TECH2IPO 创见') {
+                                        $seed['imageLink'] = str_replace("/0/","/192/",$seed['imageLink']);   
+                                    }
 
                                 }
                                 $completeStatus = 'completed';
