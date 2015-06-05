@@ -247,7 +247,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 			
 			array_push($user['user_searchWords'],$keyword);
 			if (count($user['user_searchWords'])>10) {
-				unset($user['user_searchWords'][0]);
+				array_shift($user['user_searchWords']);
 			}
 			
 			$this->db->Prouser->save($user);
@@ -658,7 +658,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 
 		array_push($user['user_searchWords'],$keyword);
 		if (count($user['user_searchWords'])>10) {
-			unset($user['user_searchWords'][0]);
+			array_shift($user['user_searchWords']);
 		}
 		$this->db->Prouser->save($user);
 
