@@ -450,16 +450,20 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 
 			if ($agreeCount>0) {
 				foreach ($seed['seed_keywords'] as $key => $word) {
-					$matchCount += $agreeWords[$word];
-					$matchness += $matchCount/$agreeCount;
+					if (isset($agreeWords[$word])) {
+						$matchCount += $agreeWords[$word];	
+					}	
 				}
+				$matchness += $matchCount/$agreeCount;
 			}
 		
 			if ($disAgreeCount>0) {
 				foreach ($seed['seed_keywords'] as $key => $word) {
-					$dismatchCount += $disAgreeWords[$word];
-					$matchness -= $dismatchCount/$disAgreeCount;
+					if (isset($disAgreeWords[$word])) {
+						$dismatchCount += $disAgreeWords[$word];
+					}
 				}
+				$matchness -= $dismatchCount/$disAgreeCount;
 			}	
 			
 			//更新关键词匹配的值
