@@ -123,8 +123,8 @@ foreach ($uncompleteSeeds as $key => $seed) {
         }
         $httpPos = strpos($imageLink, 'http');
         if ($imageLink != '' && $httpPos === false) {
-            $imageLink = str_replace("../", "", $imageLink);
-            $imageLink = str_replace("./", "", $imageLink);
+            $imageLink = str_replace("..\/", "", $imageLink);
+            $imageLink = str_replace(".\/", "", $imageLink);
             $imageLink = $source['source_homeURL'].$imageLink;
         } 
 
