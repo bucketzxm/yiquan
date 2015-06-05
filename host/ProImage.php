@@ -85,13 +85,19 @@ foreach ($uncompleteSeeds as $key => $seed) {
         if (isset($source['text_startingTag'])) {
             $text_startTag = $source['text_startingTag'];
             $startTag_pos = strpos($cutHTML,$text_startTag);
-            $cutHTML = mb_substr($cutHTML, $startTag_pos);
+            if ($startTag_pos !== false) {
+                $cutHTML = mb_substr($cutHTML, $startTag_pos);    
+            }
+            
         }
 
         if (isset($source['text_closingTag'])) {
             $text_endTag = $source['text_closingTag'];
             $endTag_pos = strpos($cutHTML,$text_endTag);
-            $cutHTML = mb_substr($cutHTML, $endTag_pos);
+            if ($endTag_pos !== false) {
+                $cutHTML = mb_substr($cutHTML,0,$endTag_pos);
+            }
+            
         }
 
         $text = $cutHTML;
