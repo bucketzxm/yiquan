@@ -124,6 +124,8 @@ foreach ($uncompleteSeeds as $key => $seed) {
         $httpPos = strpos($imageLink, 'http');
         if ($imageLink != '' && $httpPos === false) {
 
+            echo '<h3>'.$imageLink.' strlen'. strlen($imageLink).'</h3>';
+            echo '<h3>'.substr($imageLink,0,6).'</h3>';
             $imageLink = str_replace("../../", "", $imageLink);
 
             $imageLink = $source['source_homeURL'].$imageLink;
@@ -136,7 +138,7 @@ foreach ($uncompleteSeeds as $key => $seed) {
 
         $db->Proseed->save($seed);
 
-        echo $seed['seed_source'].','.$seed['seed_title'].','.$seed['seed_imageLink'];
+        //echo $seed['seed_source'].','.$seed['seed_title'].','.$seed['seed_imageLink'];
 
 }
 
