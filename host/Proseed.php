@@ -455,6 +455,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 			
 			//更新关键词匹配的值
 			$matchness += $matchCount/$agreeCount;
+			$matchness -= $dismatchCount/$disAgreeCount;
 
 			//计算和不想读的文章的反匹配度
 			
