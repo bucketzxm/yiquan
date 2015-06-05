@@ -445,7 +445,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 			$matchCount = 0;
 			$dismatchCount = 0;
 			$matchness = 0;
-
+			/*
 			//计算和已经读过的文章的匹配数
 
 			foreach ($seed['seed_keywords'] as $key => $word) {
@@ -476,13 +476,16 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 			}
 			
 			//匹配搜索记录的相关性
-			foreach ($user['user_searchWords'] as $searchWord) {
-				$pos = strpos($seed['seed_titleLower'], $searchWord);
-				if ($pos !== false) {
-					$matchness += 1;
-				}
+			if (isset[$user['user_searchWords']]) {
+				foreach ($user['user_searchWords'] as $searchWord) {
+					$pos = strpos($seed['seed_titleLower'], $searchWord);
+					if ($pos !== false) {
+						$matchness += 1;
+					}
+				}	
 			}
-
+			
+			*/
 
 			$hotness = $seed['seed_hotness'];
 			$priority = $hotness * ($matchness*20+100)/100;
