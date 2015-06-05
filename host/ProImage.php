@@ -99,7 +99,7 @@ foreach ($uncompleteSeeds as $key => $seed) {
         $text = str_replace("width", "", $text);
         $text = str_replace("height", "", $text);
         $text = str_replace("font-size", "", $text);
-        $text = str_replace("size=", "", $text);
+        //$text = str_replace("size=", "", $text);
 
         $text = preg_replace("<script.*?/script>", "", $text);
         $text = preg_replace("<link.*?>", "", $text);
