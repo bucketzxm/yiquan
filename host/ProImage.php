@@ -101,6 +101,10 @@ foreach ($uncompleteSeeds as $key => $seed) {
         $text = str_replace("font-size", "", $text);
         $text = str_replace("size=", "", $text);
 
+        $text = preg_replace("<script.*?/script>", "", $text);
+        $text = preg_replace("<link.*?>", "", $text);
+        $text = preg_replace("<iframe.*?/iframe>", "", $text);
+
         $imgPattern = "<img.*?src=\"(.*?)\".*?>";
 
         preg_match_all($imgPattern, $text, $imgResult);

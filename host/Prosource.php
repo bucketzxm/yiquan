@@ -193,9 +193,7 @@ foreach ($sources as $key => $value) {
             if (isset($value['source_rexTemplate'])) {
 
                 $feeds = preg_replace("/[\t\n\r]+/", "", $feeds);
-                $feeds = preg_replace("<script.*?/script>", "", $feeds);
-                $feeds = preg_replace("<link.*?>", "", $feeds);
-                $feeds = preg_replace("<iframe.*?/iframe>", "", $feeds);
+
                 $pattern = $value['source_rexTemplate'];
                 //echo $pattern;
                 preg_match_all($pattern, $feeds, $result);
@@ -679,6 +677,10 @@ foreach ($sources as $key => $value) {
                             $text = str_replace("\"http://mmbiz.qpic.cn/mmbiz/agEQQ7NdJSPvNmD077w8LlvW6UF4G0b50paUvp37W56uAI0BibsH4by9twNUQlvdUv6zqUdqwOibHicQgNYnYtfMQ/0?wx_fmt=png\"", "", $text);
                             $text = str_replace("\"http://mmbiz.qpic.cn/mmbiz/agEQQ7NdJSNmJibkdPTYyoEjyweiaaOGNoNEFH4TL7jqX66MAew9q28wZkGW77UiakSINicQpKaSRtU8Ck1p0fibT2Q/0\"", "", $text);
 
+
+                            $text = preg_replace("<script.*?/script>", "", $text);
+                            $text = preg_replace("<link.*?>", "", $text);
+                            $text = preg_replace("<iframe.*?/iframe>", "", $text);
 
                             $title = $seed['title'];
                             $title = preg_replace("/<.+?>/", "", $title);
