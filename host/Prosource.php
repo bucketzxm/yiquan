@@ -726,7 +726,7 @@ foreach ($sources as $key => $value) {
                                         if ($imgCount>0 && $imgCount<3) {
                                             $seed['imageLink'] = $images[1][0];    
                                         }else if ($imgCount >= 3){
-                                            $seed['imageLink'] = $images[1][1];
+                                            $seed['imageLink'] = $images[1][0];
                                         }else{
                                             $imageReg2 = "<img.*?data-url='(.*?)'.*?>";
                                             preg_match_all($imageReg2, $text, $images2);
