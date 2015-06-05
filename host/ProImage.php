@@ -126,7 +126,12 @@ foreach ($uncompleteSeeds as $key => $seed) {
             $imageLink = $source['source_homeURL'].$imageLink;
         } 
 
-        $imageLink = str_replace("../", "", $imageLink);
+        if ($source['source_name'] == '趋势网') {
+            $imageLink = str_replace("uploads/../../", "", $imageLink);    
+        }else{
+            $imageLink = str_replace("../", "", $imageLink);
+        }
+        
         $seed['seed_text'] = $text;
         $seed['seed_imageLink'] = $imageLink;
         $seed['seed_completeStatus'] = 'completed';
