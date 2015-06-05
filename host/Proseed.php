@@ -450,7 +450,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 
 			foreach ($seed['seed_keywords'] as $key => $word) {
 				//$matchCount += $agreeWords[$word];
-				//$dismatchCount += $disAgreeWords[$word];
+				$dismatchCount += $disAgreeWords[$word];
 			}
 			
 			//更新关键词匹配的值
