@@ -251,7 +251,9 @@ foreach ($sources as $key => $value) {
                     if (isset($seedToAdd['imageLink'])) {
                         $httpPos = strpos($seedToAdd['imageLink'], 'http');
                         if ($seedToAdd['imageLink'] != '' && $httpPos === false) {
-                            $seedToAdd['imageLink'] = $value['source_rssURL'][0].$seedToAdd['imageLink'];
+                            $seedToAdd['imageLink'] = str_replace("../", "", $seedToAdd['imageLink']);
+                            $seedToAdd['imageLink'] = str_replace("./", "", $seedToAdd['imageLink']);
+                            $seedToAdd['imageLink'] = $value['source_homeURL'][0].$seedToAdd['imageLink'];
                         }    
                     }
                     
@@ -742,7 +744,10 @@ foreach ($sources as $key => $value) {
                                     }
                                     $httpPos = strpos($seed['imageLink'], 'http');
                                     if ($seed['imageLink'] != '' && $httpPos === false) {
-                                        $seed['imageLink'] = $value['source_rssURL'][0].$seed['imageLink'];
+
+                                        $seed['imageLink'] = str_replace("../", "", $seed['imageLink']);
+                                        $seed['imageLink'] = str_replace("./", "", $seed['imageLink']);
+                                        $seed['imageLink'] = $value['source_homeURL'][0].$seed['imageLink'];
                                     }
 
                                 }
