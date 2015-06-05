@@ -769,7 +769,7 @@ foreach ($sources as $key => $value) {
                                     'seed_agreeCount' => 0,
                                     'seed_sourceTag' => $sourceTag,
                                     'seed_textTag' => $textTag,
-                                    'seed_imageLink' => htmlspecialchars_decode($seed['imageLink']),
+                                    'seed_imageLink' => $seed['imageLink'],
                                     'seed_similar' => $seed_similar,
                                     'seed_completeStatus' => $completeStatus
                                 );
