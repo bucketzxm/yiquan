@@ -125,10 +125,8 @@ foreach ($uncompleteSeeds as $key => $seed) {
         if ($imageLink != '' && $httpPos === false) {
 
             
-            if (substr($imageLink,0,1) == '/') {
-                $imageLink = substr($imageLink, 0, strlen($imageLink)-1);
-            }
             echo '<h3>'.$imageLink.' strlen'. strlen($imageLink).'</h3>';
+            //$imageLink = substr($imageLink, 0, strlen($imageLink)-1);
             $imageLink = $source['source_homeURL'].$imageLink;
         } 
 
