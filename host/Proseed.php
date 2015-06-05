@@ -471,9 +471,11 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 			//计算和自己的关键词的疲惫度
 			if (isset($user['user_keywords'])) {
 				foreach ($user['user_keywords'] as $keyword) {
-					$keywordPos = strpos($seed['seed_titleLower'], $keyword);
-					if ($keywordPos !== false) {
-						$matchness += 1;
+					if ($keyword != '') {
+						$keywordPos = strpos($seed['seed_titleLower'], $keyword);
+						if ($keywordPos !== false) {
+							$matchness += 1;
+						}	
 					}
 				}		
 			}
@@ -481,10 +483,13 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 			//匹配搜索记录的相关性
 			if (isset($user['user_searchWords'])) {
 				foreach ($user['user_searchWords'] as $searchWord) {
-					$searchPos = strpos($seed['seed_titleLower'], $searchWord);
-					if ($searchPos !== false) {
-						$matchness += 1;
+					if ($searchWord != '') {
+						$searchPos = strpos($seed['seed_titleLower'], $searchWord);
+						if ($searchPos !== false) {
+							$matchness += 1;
+						}	
 					}
+					
 				}	
 			}
 			
