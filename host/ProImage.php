@@ -123,13 +123,10 @@ foreach ($uncompleteSeeds as $key => $seed) {
         }
         $httpPos = strpos($imageLink, 'http');
         if ($imageLink != '' && $httpPos === false) {
-
-            
-            echo '<h3>'.$imageLink.' strlen'. strlen($imageLink).'</h3>';
-            //$imageLink = substr($imageLink, 0, strlen($imageLink)-1);
             $imageLink = $source['source_homeURL'].$imageLink;
         } 
 
+        $imageLink = str_replace("../", "", $imageLink);
         $seed['seed_text'] = $text;
         $seed['seed_imageLink'] = $imageLink;
         $seed['seed_completeStatus'] = 'completed';
@@ -137,7 +134,7 @@ foreach ($uncompleteSeeds as $key => $seed) {
 
         $db->Proseed->save($seed);
 
-        //echo $seed['seed_source'].','.$seed['seed_title'].','.$seed['seed_imageLink'];
+        echo $seed['seed_source'].','.$seed['seed_title'].','.$seed['seed_imageLink'];
 
 }
 
