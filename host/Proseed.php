@@ -474,7 +474,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 			
 			
 
-			/*
+			
 			//更新关键词匹配的值
 			$disSeedCount = count($disSeedIDs);
 			$matchness -= $dismatchCount/$disAgreeCount;
@@ -499,7 +499,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 				}	
 			}
 			
-			*/
+			
 
 			$hotness = $seed['seed_hotness'];
 			$priority = $hotness * ($matchness*20+100)/100;
