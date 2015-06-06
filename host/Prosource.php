@@ -767,6 +767,7 @@ foreach ($sources as $key => $value) {
                                     'seed_titleLower' => strtolower(htmlspecialchars_decode($title)),
                                     'seed_link' => $link,
                                     'seed_text' => $text,
+                                    'seed_textLen' => mb_strlen($text),
                                     'seed_time' => $postTime,
                                     'seed_dbWriteTime' => time(),
                                     'seed_keywords' => $keywords,
