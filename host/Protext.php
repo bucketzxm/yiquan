@@ -179,7 +179,7 @@ function parseText($text,$industries){
 
 		for ($i = 0; $i < count($charArray)-1; $i++) {
 		        
-		    $twoStr = $charArray[i].$charArray[i+1];
+		    $twoStr = $charArray[$i].$charArray[$i+1];
 
         	//遍历所有字典
         	foreach ($dict as $word) {
