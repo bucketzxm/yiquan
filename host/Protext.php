@@ -159,7 +159,7 @@ function clear_unmeaningful_text($title){
 	
 function parseText($text,$industries){
 	
-	$newText = clear_unmeaningful_text($text);
+	$text = clear_unmeaningful_text($text);
 
     
     $keywordDict = array();
@@ -198,7 +198,7 @@ function parseText($text,$industries){
         }
 
         //判断Result中不中
-        if ($wordCount>3) {
+        if ($wordCount>0) {
         	array_push($industryResult,$industry);
         }
     }
