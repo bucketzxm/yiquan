@@ -177,7 +177,7 @@ function parseText($text,$industries){
         $wordCount = 0;
        
 
-		for ($i = 0; $i < count($charArray)-1; $i++) {
+		for ($i = 0; $i < mb_strlen($text)-1; $i++) {
 		        
 		    $twoStr = mb_substr($text, $i, 2, 'utf-8');
 
