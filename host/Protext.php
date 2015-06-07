@@ -177,7 +177,7 @@ function parseText($text,$industries){
         $wordCount = 0;
         $charArray = str_split($text);
 
-		for ($i = 0; $i < $charArray-1; $i++) {
+		for ($i = 0; $i < count($charArray)-1; $i++) {
 		        
 		    $twoStr = $charArray[i].$charArray[i+1];
 
