@@ -235,18 +235,12 @@ foreach ($sources as $key => $value) {
                     $seedToAdd['postTime'] = $postTime;
                     
                     $wholeString = $result[0][$i];
-                    $imgPattern = "<img.*?src=\"(.*?)\".*?>";
+                    $imgPattern = "<(?:img|IMG).*?(?:src|data-url)=\"(.*?)\".*?>";
 
                     preg_match_all($imgPattern, $wholeString, $imgResult);
 
                     if (count($imgResult[0])>0) {
                         $seedToAdd['imageLink'] = $imgResult[1][0];    
-                    }else{
-                        $imgPattern2 = "<img.*?data-url='(.*?)'.*?>";
-                        preg_match_all($imgPattern2, $wholeString, $imgResult2);
-                        if (count($imgResult2[0])>0) {
-                            $seedToAdd['imageLink'] = $imgResult2[1][0];
-                        }
                     }
                     if (isset($seedToAdd['imageLink'])) {
                         $httpPos = strpos($seedToAdd['imageLink'], 'http');
@@ -720,7 +714,7 @@ foreach ($sources as $key => $value) {
                                 //获取正文中的第一张图片：
                                 if (!isset($seed['imageLink'])) {
                                     if ($text != '') {
-                                        $imageReg = "<img.*?src=\"(.*?)\".*?>";
+                                        $imageReg = "<(?:img|IMG).*?(?:src|data-url)=\"(.*?)\".*?>";
                                         preg_match_all($imageReg, $text, $images);
                                         $imgCount = count($images[0]);
                                         if ($imgCount>0 && $imgCount<3) {
@@ -728,16 +722,7 @@ foreach ($sources as $key => $value) {
                                         }else if ($imgCount >= 3){
                                             $seed['imageLink'] = $images[1][0];
                                         }else{
-                                            $imageReg2 = "<img.*?data-url='(.*?)'.*?>";
-                                            preg_match_all($imageReg2, $text, $images2);
-                                            $imgCount2 = count($images2[0]);
-                                            if ($imgCount2>0 && $imgCount2<3) {
-                                                $seed['imageLink'] = $images2[1][0];    
-                                            }else if ($imgCount2 >= 3){
-                                                $seed['imageLink'] = $images2[1][0];
-                                            }else{
                                                 $seed['imageLink'] = '';        
-                                            }
                                         }
                                     }else{
                                         $seed['imageLink'] = '';
