@@ -51,7 +51,7 @@ function clear_unmeaningful_text($title){
     $title = str_replace("m", "", $title);
     $title = str_replace("n", "", $title);
     $title = str_replace("o", "", $title);
-    $title = str_replace("p", "", $title);
+    //$title = str_replace("p", "", $title);
     $title = str_replace("q", "", $title);
     $title = str_replace("r", "", $title);
     $title = str_replace("s", "", $title);
@@ -159,13 +159,6 @@ function clear_unmeaningful_text($title){
 	
 function parseText($text,$industries){
 	
-	    //获得文章段落书
-    $textLen = mb_strlen($text);
-    preg_match_all("</p>", $text, $paragraphs);
-    $paragraphCount = count($paragraphs[0]);
-    $avgParaLen = $textLen/$paragraphCount;
-
-
 	$text = clear_unmeaningful_text($text);
 
     
@@ -173,12 +166,15 @@ function parseText($text,$industries){
     $industryResult = array();
     $industryDict = array ();
     $result = array();
-    
+    $textLen = mb_strlen($text);
 
     $matchPosInPara = array();
     $statics = array();
 
-
+    //获得文章段落书
+    preg_match_all("</p>", $text, $paragraphs);
+    $paragraphCount = count($paragraphs);
+    $avgParaLen = $textLen/$paragraphCount;
 
     //遍历文章每个字
    
