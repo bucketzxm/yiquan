@@ -202,7 +202,7 @@ function parseText($text,$industries){
         			$wordCount ++;
 
         			//获得文章的平均段落数
-        			$paraPos = floor($i/$avgParaLen);
+        			$paraPos = ceil($i/$avgParaLen);
         			array_push($matchPosInPara, $paraPos);
         		}
         	}
@@ -223,7 +223,7 @@ function parseText($text,$industries){
 
 	        //方差，计算
 	        //判断Result中不中
-	        if ($matchRatio>0.01 && $stdSquare > 0.2 ) {
+	        if ($matchRatio>0.01 && $variance > 0.2 ) {
 	        	array_push($industryResult,$industry);
 	        }
 
