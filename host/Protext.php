@@ -175,11 +175,11 @@ function parseText($text,$industries){
         //遍历所有的行业
     foreach($industries as $industry => $dict){
         $wordCount = 0;
-        $charArray = str_split($text);
+       
 
 		for ($i = 0; $i < count($charArray)-1; $i++) {
 		        
-		    $twoStr = $charArray[$i].$charArray[$i+1];
+		    $twoStr = mb_substr($text, $i, 2, 'utf-8');
 
         	//遍历所有字典
         	foreach ($dict as $word) {
@@ -198,7 +198,7 @@ function parseText($text,$industries){
         }
 
         //判断Result中不中
-        if ($wordCount>0) {
+        if ($wordCount>10) {
         	array_push($industryResult,$industry);
         }
     }
