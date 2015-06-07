@@ -161,7 +161,7 @@ function parseText($text,$industries){
 	
 	$newText = clear_unmeaningful_text($text);
 
-    $titleLen = mb_strlen($title, 'utf-8');
+    $titleLen = mb_strlen($text, 'utf-8');
     
     $keywordDict = array();
     $industryResult = array();
@@ -241,7 +241,7 @@ function parseText($text,$industries){
 
 				$db->Proseed->save($seed);
 
-				echo '<h3>'.$seed['seed_title'].', '.$seed['seed_industryParsed'].', '.$seed['seed_textIndustryWords'].'</h3>';
+				echo '<h3>'.$seed['seed_title'].', '.$seed['seed_industryParsed'].', '.implode(';',$seed['seed_textIndustryWords']).'</h3>';
 			}
 	
 }
