@@ -363,7 +363,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 		$textToDownload = array ();
 		//找到seed_id的内容
 		$seed = $this->db->Proseed->findOne(array('_id'=> new MongoId($seed_id)));
-		if ($seed['seed_text'] == '']) {
+		if ($seed['seed_text'] == '') {
 			$feedurl = $seed['seed_link'];
 
 		    //$feeds = file_get_contents($feedurl);
