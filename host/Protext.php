@@ -29,8 +29,8 @@ function clear_unmeaningful_text($title){
     $title = str_replace(")", "", $title);
     $title = str_replace("「", "", $title);
     $title = str_replace("」", "", $title);
-    $title = str_replace("<", "", $title);
-    $title = str_replace(">", "", $title);
+    //$title = str_replace("<", "", $title);
+    //$title = str_replace(">", "", $title);
     $title = str_replace("：", "", $title);
     $title = str_replace(":", "", $title);
     $title = str_replace("-", "", $title);
