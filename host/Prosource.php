@@ -523,7 +523,7 @@ foreach ($sources as $key => $value) {
 
                 //进行标题拆字
                 $title = $seed['title'];
-                $title = $this->clear_unmeaningful_char($title);
+                $title = clear_unmeaningful_char($title);
 
 
                 //Split keywords
@@ -758,7 +758,7 @@ foreach ($sources as $key => $value) {
                                     'seed_titleLower' => strtolower(htmlspecialchars_decode($title)),
                                     'seed_link' => $link,
                                     'seed_text' => $text,
-                                    'seed_textLen' => mb_strlen($text),
+                                    'seed_textLen' => mb_strlen($text,'utf-8'),
                                     'seed_time' => $postTime,
                                     'seed_dbWriteTime' => time(),
                                     'seed_keywords' => $keywords,
