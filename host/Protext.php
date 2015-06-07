@@ -245,5 +245,5 @@ function parseText($text,$industries){
 				echo '<h3>'.$seed['seed_title'].', '.implode(';',$seed['seed_industryParsed']).', '.implode(';',$seed['seed_textIndustryWords']).'</h3>';
 			}
 	
-}
+
 ?>
