@@ -360,7 +360,145 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 		if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
 			return - 4;
 		}		
-		
+		$textToDownload = array ();
+		//找到seed_id的内容
+		$seed = $this->db->Proseed->findOne(array('_id'=> new MongoId($seed_id)));
+		if ($seed['seed_text' == '']) {
+			$feedurl = $seed['seed_link'];
+
+		    //$feeds = file_get_contents($feedurl);
+		    $ch = curl_init($feedurl);
+		    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		    $html = curl_exec($ch);
+
+		    //HTML进行UTF-8转码
+		    $encode = mb_detect_encoding($html, array('ASCII', 'UTF-8', 'GB2312', 'GBK', "EUC-CN", "CP936"));
+
+		    if ($encode != 'UTF-8') {
+		        //$encode = $encode . "//IGNORE"
+		        $html = iconv($encode, 'UTF-8//IGNORE', $html);
+
+		        //var_dump($feeds);
+
+		        $html = str_replace('encoding="gb2312"', 'encoding="utf-8"', $html);
+		        $html = str_replace('encoding="ascii"', 'encoding="utf-8"', $html);
+		        $html = str_replace('encoding="gbk"', 'encoding="utf-8"', $html);
+		        $html = str_replace('encoding="ecu-cn"', 'encoding="utf-8"', $html);
+		        $html = str_replace('encoding="cp936"', 'encoding="utf-8"', $html);
+
+		        $html = str_replace('encoding="GB2312"', 'encoding="utf-8"', $html);
+		        $html = str_replace('encoding="ASCII"', 'encoding="utf-8"', $html);
+		        $html = str_replace('encoding="GBK"', 'encoding="utf-8"', $html);
+		        $html = str_replace('encoding="EUC-CN"', 'encoding="utf-8"', $html);
+		        $html = str_replace('encoding="CP936"', 'encoding="utf-8"', $html);
+		    }
+
+
+
+		        $html = preg_replace("/[\t\n\r]+/", "", $html);
+		        $html = preg_replace("<script .*? /script>", "", $html);
+		        $html = preg_replace("<link .*? >", "", $html);
+		        $html = preg_replace("<link .*? >", "", $html);
+		        $html = preg_replace("<iframe .*? /iframe>", "", $html);
+
+		        $source = $this->db->Prosource->findOne(array('_id' => new MongoId($seed['seed_sourceID'])));
+
+		        $source_openTag = $source['source_tag'][0];
+		        $source_closeTag = $source['source_tag'][1];
+
+		        $openTag_pos = strpos($html, $source_openTag);
+		        $closeTag_pos = strpos($html, $source_closeTag);
+		        $cutHTML = mb_substr($html, $openTag_pos,$closeTag_pos-$openTag_pos);
+
+		        if (isset($source['text_startingTag'])) {
+		            $text_startTag = $source['text_startingTag'];
+		            $startTag_pos = strpos($cutHTML,$text_startTag);
+		            if ($startTag_pos !== false) {
+		                $cutHTML = mb_substr($cutHTML, $startTag_pos);    
+		            }
+		            
+		        }
+
+		        if (isset($source['text_closingTag'])) {
+		            $text_endTag = $source['text_closingTag'];
+		            $endTag_pos = strpos($cutHTML,$text_endTag);
+		            if ($endTag_pos !== false) {
+		                $cutHTML = mb_substr($cutHTML,0,$endTag_pos);
+		            }
+		            
+		        }
+
+		        $text = $cutHTML;
+		        $text = str_replace("style=", "", $text);
+		        $text = str_replace("width", "", $text);
+		        $text = str_replace("height", "", $text);
+		        $text = str_replace("font-size", "", $text);
+		        //$text = str_replace("size=", "", $text);
+
+		        $text = preg_replace("<script.*?/script>", "", $text);
+		        $text = preg_replace("<link.*?>", "", $text);
+		        $text = preg_replace("<iframe.*?/iframe>", "", $text);
+
+		        $imgPattern = "<img.*?src=\"(.*?)\".*?>";
+
+		        preg_match_all($imgPattern, $text, $imgResult);
+
+		        if (count($imgResult[0])>0) {
+		            $imageLink = $imgResult[1][0];    
+		        }else{
+		            $imgPattern2 = "<img.*?data-url='(.*?)'.*?>";
+		            preg_match_all($imgPattern2, $text, $imgResult2);
+		            if (count($imgResult2[0])>0) {
+		                $imageLink = $imgResult2[1][0];
+		            }else{
+		                $imageLink = '';    
+		            }
+		            
+		        }
+		        $httpPos = strpos($imageLink, 'http');
+		        if ($imageLink != '' && $httpPos === false) {
+		            $imageLink = $source['source_homeURL'].$imageLink;
+		        } 
+
+		        if ($source['source_name'] == '趋势网') {
+		            $imageLink = str_replace("uploads/../../", "", $imageLink);    
+		        }else{
+		            $imageLink = str_replace("../", "", $imageLink);
+		        }
+		        
+		        $seed['seed_text'] = $text;
+		        $seed['seed_textLen'] = mb_strlen($text);
+		        $seed['seed_imageLink'] = $imageLink;
+		        $seed['seed_completeStatus'] = 'completed';
+
+
+
+		        $this->db->Proseed->save($seed);
+		        
+		        $textToDownload['seed_text'] = $seed['seed_text'];	
+
+
+		}else{
+			
+			$textToDownload['seed_text'] = $seed['seed_text'];			
+		}
+
+			/*
+			foreach ($seed['seed_keywords'] as $key => $word) {
+				if (isset($user['user_keywords'][$word])) {
+					$user['user_keywords'][$word] += 1;
+				}else{
+					$user['user_keywords'][$word] = 1;
+				}
+			}
+			$this->db->Prouser->save($user);
+			*/
+
+
+		$source = $this->db->Prosource->findOne(array ('_id' => new MongoId($seed['seed_sourceID'])));
+		$source['read_count'] ++;
+		$this->db->Prosource->save($source);
+
 		//做好阅读记录
 		$readLog = $this->db->Proread->findOne (array ('seed_id' => $seed_id,'user_id'=>$user_id));
 		if ($readLog != null) {
@@ -378,29 +516,8 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 
 
 
-		//找到seed_id的内容
-		$seeds = $this->db->Proseed->find(array('_id'=> new MongoId($seed_id)));
-		foreach ($seeds as $key => $seed) {
-			/*
-			foreach ($seed['seed_keywords'] as $key => $word) {
-				if (isset($user['user_keywords'][$word])) {
-					$user['user_keywords'][$word] += 1;
-				}else{
-					$user['user_keywords'][$word] = 1;
-				}
-			}
-			$this->db->Prouser->save($user);
-			*/
-			$text = array ();
-			$text['seed_text'] = $seed['seed_text'];	
 
-			$source = $this->db->Prosource->findOne(array ('_id' => new MongoId($seed['seed_sourceID'])));
-			$source['read_count'] ++;
-			$this->db->Prosource->save($source);
-
-
-		}
-		return json_encode($text);
+		return json_encode($textToDownload);
 	}
 
 	function getHotness ($user, $seed,$agreeWords,$agreeCount,$disAgreeWords,$disAgreeCount){
