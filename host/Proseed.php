@@ -565,7 +565,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 			if (in_array($user['current']['user_industry'],$source['source_industry'])) {
 				$cursor['seed_hotness'] += (int)$user['current']['user_weight']*10;
 				if(isset($cursor['seed_agreeCount'])){
-					$cursor['seed_agreeCount'] ++;
+					$cursor['seed_agreeCount'] += $user['current']['user_weight'];
 				}else{
 					$cursor['seed_agreeCount'] = 1;
 				}
