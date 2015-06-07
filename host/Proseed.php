@@ -872,5 +872,32 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 
 	}
 
+	function uploadReadtime($user_id,$seed_id,$read_time){
+		if ($this->yiquan_version == 0) {
+			return - 2;
+		}
+		
+		if ($this->checkToken () == 0) {
+			return - 3;
+		}
+
+		if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
+			return - 4;
+		}
+
+		//记录时间
+		$readSeed = $this->db->Proread->findOne(array('seed_id' => $seed_id));
+		$readSeed['read_time'] = $read_time;
+		$this->db->Proread->save($readSeed);
+
+
+		//判断是否热度加1
+		if ($read_time > 60 ) {
+			$seed = $this->db->Proseed->findOne(array ('_id' => new MongoId($seed_id)));
+			$seed['seed_hotness'] += 1;
+			$this->db->Proseed->save($seed);
+		}
+
+	}
 }
 ?>
