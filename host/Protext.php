@@ -172,7 +172,7 @@ function parseText($text,$industries){
     $statics = array();
 
     //获得文章段落书
-    preg_match_all("</p>", $text, $paragraphs);
+    preg_match_all("<\/p>", $text, $paragraphs);
     $paragraphCount = count($paragraphs[0]);
     $avgParaLen = $textLen/$paragraphCount;
 
