@@ -160,6 +160,7 @@ function clear_unmeaningful_text($title){
 function parseText($text,$industries){
 	
 	    //获得文章段落书
+    $textLen = mb_strlen($text);
     preg_match_all("</p>", $text, $paragraphs);
     $paragraphCount = count($paragraphs[0]);
     $avgParaLen = $textLen/$paragraphCount;
@@ -172,7 +173,7 @@ function parseText($text,$industries){
     $industryResult = array();
     $industryDict = array ();
     $result = array();
-    $textLen = mb_strlen($text);
+    
 
     $matchPosInPara = array();
     $statics = array();
