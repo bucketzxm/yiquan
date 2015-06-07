@@ -139,7 +139,7 @@ foreach ($uncompleteSeeds as $key => $seed) {
         }
         
         $seed['seed_text'] = $text;
-        'seed_textLen' = mb_strlen($text);
+        $seed'seed_textLen' = mb_strlen($text);
         $seed['seed_imageLink'] = $imageLink;
         $seed['seed_completeStatus'] = 'completed';
 
