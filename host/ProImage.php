@@ -111,14 +111,14 @@ foreach ($uncompleteSeeds as $key => $seed) {
         $text = preg_replace("<link.*?>", "", $text);
         $text = preg_replace("<iframe.*?/iframe>", "", $text);
 
-        $imgPattern = "<img.*?src=\"(.*?)\".*?>";
+        $imgPattern = "<(?:img|IMG).*?src=\"(.*?)\".*?>";
 
         preg_match_all($imgPattern, $text, $imgResult);
 
         if (count($imgResult[0])>0) {
             $imageLink = $imgResult[1][0];    
         }else{
-            $imgPattern2 = "<img.*?data-url='(.*?)'.*?>";
+            $imgPattern2 = "<(?:img|IMG).*?data-url='(.*?)'.*?>";
             preg_match_all($imgPattern2, $text, $imgResult2);
             if (count($imgResult2[0])>0) {
                 $imageLink = $imgResult2[1][0];
