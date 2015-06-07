@@ -170,7 +170,6 @@ function parseText($text,$industries){
 
 
 
-
     //遍历文章每个字
    
         
@@ -235,7 +234,7 @@ function parseText($text,$industries){
 			$seeds = $db->Proseed->find();
 			foreach ($seeds as $key => $seed) {
 
-				$parserResult = parseText($seed['seed_text']);
+				$parserResult = parseText($seed['seed_text'],$industryDict);
 
 				$seed['seed_textIndustryWords'] = $parserResult[0];
 				$seed['seed_industryParsed'] = $parserResult[1];
