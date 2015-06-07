@@ -1,9 +1,6 @@
 <?php
 require_once 'YqBase.php';
 
-    
-class Protext extends YqBase {
-	private $collection;
 
 function clear_unmeaningful_text($title){
     $title = str_replace("·", "", $title);
