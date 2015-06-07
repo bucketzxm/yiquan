@@ -28,7 +28,7 @@
 			$seeds = $db->Proseed->find();
 			foreach ($seeds as $key => $seed) {
 
-				$parserResult = $protext->parserText($seed['seed_text']);
+				$parserResult = $protext->parseText($seed['seed_text']);
 
 				$seed['seed_textIndustryWords'] = $parserResult[0];
 				$seed['seed_industryParsed'] = $parserResult[1];

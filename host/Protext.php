@@ -6,9 +6,9 @@ class Protext extends YqBase {
 	private $collection;
 
 	
-function parseText($text){
+function parseText($text,$industries){
 	$prosource = new Prosource;
-	$newText = $prosource->clear_unmeaningful_char($text,$industries);
+	$newText = $prosource->clear_unmeaningful_char($text);
 
     $titleLen = mb_strlen($title, 'utf-8');
     
