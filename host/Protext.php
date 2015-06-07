@@ -166,8 +166,15 @@ function parseText($text,$industries){
     $industryResult = array();
     $industryDict = array ();
     $result = array();
+    $textLen = mb_strlen($text);
+
+    $matchPosInPara = array();
 
 
+    //获得文章段落书
+    preg_match_all("</p>", $text, $paragraphs);
+    $paragraphCount = count($paragraphs);
+    $avgParaLen = $textLen/$paragraphCount;
 
     //遍历文章每个字
    
@@ -177,7 +184,7 @@ function parseText($text,$industries){
         $wordCount = 0;
        
 
-		for ($i = 0; $i < mb_strlen($text)-1; $i++) {
+		for ($i = 0; $i < $textLen-1; $i++) {
 		        
 		    $twoStr = mb_substr($text, $i, 2, 'utf-8');
 
@@ -193,12 +200,28 @@ function parseText($text,$industries){
 
         			//增加Count
         			$wordCount ++;
+
+        			//获得文章的平均段落数
+        			$paraPos = floor($i/$avgParaLen);
+        			array_push($matchPosInPara, $paraPos);
         		}
         	}
         }
 
+        $matchRatio = $wordCount/$textLen;
+
+        $square = 0;
+        $paraAvg = array_sum($matchPosInPara)/count($matchPosInPara);
+        foreach ($matchPosInPara as $pos) {
+        	$square += pow($pos-$paraAvg, 2);
+        }
+        $stdSquare = pow($square/count($matchPosInPara), 0.5);
+        $variance = $stdSquare/$paragraphCount;
+        
+
+        //方差，计算
         //判断Result中不中
-        if ($wordCount>10) {
+        if ($matchRatio>0.01 && $stdSquare > 0.5 ) {
         	array_push($industryResult,$industry);
         }
     }
