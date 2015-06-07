@@ -5,10 +5,164 @@ require_once 'YqBase.php';
 class Protext extends YqBase {
 	private $collection;
 
+function clear_unmeaningful_text($title){
+    $title = str_replace("·", "", $title);
+    $title = str_replace("？", "", $title);
+    $title = str_replace("?", "", $title);
+    $title = str_replace("！", "", $title);
+    $title = str_replace("!", "", $title);
+    $title = str_replace("，", "", $title);
+    $title = str_replace(",", "", $title);
+    $title = str_replace("。", "", $title);
+    $title = str_replace(".", "", $title);
+    $title = str_replace("、", "", $title);
+    $title = str_replace("“", "", $title);
+    $title = str_replace("”", "", $title);
+    $title = str_replace("\"", "", $title);
+    $title = str_replace("……", "", $title);
+    $title = str_replace("——", "", $title);
+    $title = str_replace("|", "", $title);
+    $title = str_replace("【", "", $title);
+    $title = str_replace("】", "", $title);
+    $title = str_replace("《", "", $title);
+    $title = str_replace("》", "", $title);
+    $title = str_replace("（", "", $title);
+    $title = str_replace("）", "", $title);
+    $title = str_replace("(", "", $title);
+    $title = str_replace(")", "", $title);
+    $title = str_replace("「", "", $title);
+    $title = str_replace("」", "", $title);
+    $title = str_replace("<", "", $title);
+    $title = str_replace(">", "", $title);
+    $title = str_replace("：", "", $title);
+    $title = str_replace(":", "", $title);
+    $title = str_replace("-", "", $title);
+    $title = str_replace("+", "", $title);
+    $title = str_replace(" ", "", $title);
+    $title = str_replace("a", "", $title);
+    $title = str_replace("b", "", $title);
+    $title = str_replace("c", "", $title);
+    $title = str_replace("d", "", $title);
+    $title = str_replace("e", "", $title);
+    $title = str_replace("f", "", $title);
+    $title = str_replace("g", "", $title);
+    $title = str_replace("h", "", $title);
+    $title = str_replace("i", "", $title);
+    $title = str_replace("j", "", $title);
+    $title = str_replace("k", "", $title);
+    $title = str_replace("l", "", $title);
+    $title = str_replace("m", "", $title);
+    $title = str_replace("n", "", $title);
+    $title = str_replace("o", "", $title);
+    $title = str_replace("p", "", $title);
+    $title = str_replace("q", "", $title);
+    $title = str_replace("r", "", $title);
+    $title = str_replace("s", "", $title);
+    $title = str_replace("t", "", $title);
+    $title = str_replace("u", "", $title);
+    $title = str_replace("v", "", $title);
+    $title = str_replace("w", "", $title);
+    $title = str_replace("x", "", $title);
+    $title = str_replace("y", "", $title);
+    $title = str_replace("z", "", $title);
+    $title = str_replace("A", "", $title);
+    $title = str_replace("B", "", $title);
+    $title = str_replace("C", "", $title);
+    $title = str_replace("D", "", $title);
+    $title = str_replace("E", "", $title);
+    $title = str_replace("F", "", $title);
+    $title = str_replace("G", "", $title);
+    $title = str_replace("H", "", $title);
+    $title = str_replace("I", "", $title);
+    $title = str_replace("J", "", $title);
+    $title = str_replace("K", "", $title);
+    $title = str_replace("L", "", $title);
+    $title = str_replace("M", "", $title);
+    $title = str_replace("N", "", $title);
+    $title = str_replace("O", "", $title);
+    $title = str_replace("P", "", $title);
+    $title = str_replace("Q", "", $title);
+    $title = str_replace("R", "", $title);
+    $title = str_replace("S", "", $title);
+    $title = str_replace("T", "", $title);
+    $title = str_replace("U", "", $title);
+    $title = str_replace("V", "", $title);
+    $title = str_replace("W", "", $title);
+    $title = str_replace("X", "", $title);
+    $title = str_replace("Y", "", $title);
+    $title = str_replace("Z", "", $title);
+    $title = str_replace("0", "", $title);
+    $title = str_replace("1", "", $title);
+    $title = str_replace("2", "", $title);
+    $title = str_replace("3", "", $title);
+    $title = str_replace("4", "", $title);
+    $title = str_replace("5", "", $title);
+    $title = str_replace("6", "", $title);
+    $title = str_replace("7", "", $title);
+    $title = str_replace("8", "", $title);
+    $title = str_replace("9", "", $title);
+    $title = str_replace("%", "", $title);
+    $title = str_replace("的", "", $title);
+    $title = str_replace("了", "", $title);
+    $title = str_replace("和", "", $title);
+    $title = str_replace("与", "", $title);
+    $title = str_replace("或", "", $title);
+    $title = str_replace("于", "", $title);
+    $title = str_replace("这", "", $title);
+    $title = str_replace("那", "", $title);
+    $title = str_replace("你", "", $title);
+    $title = str_replace("我", "", $title);
+    $title = str_replace("们", "", $title);
+    $title = str_replace("是", "", $title);
+    $title = str_replace("不", "", $title);
+    $title = str_replace("在", "", $title);
+    $title = str_replace("再", "", $title);
+    $title = str_replace("就", "", $title);
+    $title = str_replace("为", "", $title);
+    $title = str_replace("吗", "", $title);
+    $title = str_replace("啊", "", $title);
+    $title = str_replace("哪", "", $title);
+    $title = str_replace("要", "", $title);
+    $title = str_replace("么", "", $title);
+    $title = str_replace("什", "", $title);
+    $title = str_replace("怎", "", $title);
+    $title = str_replace("还", "", $title);
+    $title = str_replace("谁", "", $title);
+    $title = str_replace("没", "", $title);
+    $title = str_replace("有", "", $title);
+    $title = str_replace("年", "", $title);
+    $title = str_replace("月", "", $title);
+    $title = str_replace("日", "", $title);
+    $title = str_replace("啥", "", $title);
+    $title = str_replace("又", "", $title);
+    $title = str_replace("只", "", $title);
+    $title = str_replace("为", "", $title);
+    $title = str_replace("以", "", $title);
+    $title = str_replace("够", "", $title);
+    $title = str_replace("更", "", $title);
+    $title = str_replace("给", "", $title);
+    $title = str_replace("但", "", $title);
+    $title = str_replace("而", "", $title);
+    $title = str_replace("千", "", $title);
+    $title = str_replace("万", "", $title);
+    $title = str_replace("亿", "", $title);
+    $title = str_replace("百", "", $title);
+    $title = str_replace("元", "", $title);
+    $title = str_replace("很", "", $title);
+    $title = str_replace("到", "", $title);
+    $title = str_replace("无", "", $title);
+    $title = str_replace("多少", "", $title);
+    $title = str_replace("如何", "", $title);
+
+    $title = str_replace("\n", "", $title);
+    $title = str_replace("\t", "", $title);
+
+    return $title;
+}
 	
 function parseText($text,$industries){
 	$prosource = new Prosource;
-	$newText = $prosource->clear_unmeaningful_char($text);
+	$newText = clear_unmeaningful_text($text);
 
     $titleLen = mb_strlen($title, 'utf-8');
     
@@ -59,6 +213,40 @@ function parseText($text,$industries){
 
     return $result;
 }
+
+			$dbname = 'yiquan';
+			$host = 'localhost';
+			$port = '27017';
+			$user = 'test';
+			$pwd = 'yiquanTodo';
+			 
+			$mongoClient = new MongoClient("mongodb://{$host}:{$port}",array(
+			    		'username'=>$user,
+			    		'password'=>$pwd,
+			    		'db'=>$dbname
+			));
+			$db = $mongoClient->yiquan;
+
+			//构建行业字典
+			$industryDict = array();
+
+			$dicts = $db->Prosystem->find(array('para_name' => 'industry_dict'));
+			foreach ($dicts as $industry => $dict) {
+				$industryDict[$industry] = $dict;
+
+			//遍历所有的Seed
+			$seeds = $db->Proseed->find();
+			foreach ($seeds as $key => $seed) {
+
+				$parserResult = parseText($seed['seed_text']);
+
+				$seed['seed_textIndustryWords'] = $parserResult[0];
+				$seed['seed_industryParsed'] = $parserResult[1];
+
+				$db->Proseed->save($seed);
+
+				echo '<h3>'.$seed['seed_title'].', '.$seed['seed_industryParsed'].', '.$seed['seed_textIndustryWords'].'</h3>';
+			}
 	
 }
 ?>
