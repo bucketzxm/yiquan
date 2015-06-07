@@ -158,7 +158,7 @@ function clear_unmeaningful_text($title){
 }
 	
 function parseText($text,$industries){
-	$prosource = new Prosource;
+	
 	$newText = clear_unmeaningful_text($text);
 
     $titleLen = mb_strlen($title, 'utf-8');
