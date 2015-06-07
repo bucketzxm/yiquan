@@ -204,8 +204,9 @@ function parseText($text,$industries){
     }
 
 
-    array_push($result, $industryResult);	
     array_push($result,$keywordDict);
+    array_push($result, $industryResult);	
+
 
     return $result;
 }
@@ -228,8 +229,8 @@ function parseText($text,$industries){
 
 			$dicts = $db->Prosystem->find(array('para_name' => 'industry_dict'));
 			foreach ($dicts as $industry => $dict) {
-				$industryDict[$industry] = $dict;
-
+				$industryDict[$dict['industry_name']] = $dict['industry_words'];
+			}
 			//遍历所有的Seed
 			$seeds = $db->Proseed->find();
 			foreach ($seeds as $key => $seed) {
