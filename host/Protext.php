@@ -241,7 +241,7 @@ function parseText($text,$industries){
 
 				$db->Proseed->save($seed);
 
-				echo '<h3>'.$seed['seed_title'].', '.$seed['seed_industryParsed'].', '.implode(';',$seed['seed_textIndustryWords']).'</h3>';
+				echo '<h3>'.$seed['seed_title'].', '.implode(';',$seed['seed_industryParsed']).', '.implode(';',$seed['seed_textIndustryWords']).'</h3>';
 			}
 	
 }
