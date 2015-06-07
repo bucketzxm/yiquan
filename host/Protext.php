@@ -208,22 +208,26 @@ function parseText($text,$industries){
         	}
         }
 
-        $matchRatio = $wordCount/$textLen;
+        if ($wordCount>0) {
+        	
+	        $matchRatio = $wordCount/$textLen;
 
-        $square = 0;
-        $paraAvg = array_sum($matchPosInPara)/count($matchPosInPara);
-        foreach ($matchPosInPara as $pos) {
-        	$square += pow($pos-$paraAvg, 2);
+	        $square = 0;
+	        $paraAvg = array_sum($matchPosInPara)/count($matchPosInPara);
+	        foreach ($matchPosInPara as $pos) {
+	        	$square += pow($pos-$paraAvg, 2);
+	        }
+	        $stdSquare = pow($square/count($matchPosInPara), 0.5);
+	        $variance = $stdSquare/$paragraphCount;
+	        
+
+	        //方差，计算
+	        //判断Result中不中
+	        if ($matchRatio>0.01 && $stdSquare > 0.5 ) {
+	        	array_push($industryResult,$industry);
+	        }
         }
-        $stdSquare = pow($square/count($matchPosInPara), 0.5);
-        $variance = $stdSquare/$paragraphCount;
         
-
-        //方差，计算
-        //判断Result中不中
-        if ($matchRatio>0.01 && $stdSquare > 0.5 ) {
-        	array_push($industryResult,$industry);
-        }
     }
 
 
