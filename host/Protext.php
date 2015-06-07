@@ -161,7 +161,6 @@ function parseText($text,$industries){
 	
 	$newText = clear_unmeaningful_text($text);
 
-    $titleLen = mb_strlen($text, 'utf-8');
     
     $keywordDict = array();
     $industryResult = array();
@@ -176,10 +175,11 @@ function parseText($text,$industries){
         //遍历所有的行业
     foreach($industries as $industry => $dict){
         $wordCount = 0;
+        $charArray = str_split($text);
 
-		for ($i = 0; $i < $titleLen-1; $i++) {
+		for ($i = 0; $i < $charArray-1; $i++) {
 		        
-		    $twoStr = mb_substr($title, $i, 2, 'utf-8');
+		    $twoStr = $charArray[i].$charArray[i+1];
 
         	//遍历所有字典
         	foreach ($dict as $word) {
