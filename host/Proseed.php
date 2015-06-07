@@ -888,7 +888,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 		$read_time = (int)$read_time;
 		//记录时间
 		$readSeed = $this->db->Proread->findOne(array('seed_id' => $seed_id));
-		$readSeed['read_time'] = $read_time;
+		$readSeed['read_duration'] = $read_time;
 		$this->db->Proread->save($readSeed);
 
 
