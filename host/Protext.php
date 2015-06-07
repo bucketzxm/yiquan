@@ -198,7 +198,7 @@ function parseText($text,$industries){
         }
 
         //判断Result中不中
-        if ($wordCount>10) {
+        if ($wordCount>3) {
         	array_push($industryResult,$industry);
         }
     }
