@@ -775,26 +775,21 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 		$time = (int)$time;
 		$cursor = $this->db->Proworth->find(array ('like_user'=> $user_id,'like_time'=> array('$lt' => $time)))->sort(array('seed_time'=> -1));
 		$myLikedSeeds = array ();
+		
 		foreach ($cursor as $key => $value) {
-			$seed = $this->db->Proseed->find(array ('_id'=> new MongoId($value['like_seed']),
-				'$or'=> array(
-					array('seed_titleLower'=> new MongoRegex("/$keyword/")),
-					array('seed_sourceLower'=> new MongoRegex("/$keyword/"))
-					)
-				));
-
-			foreach ($seed as $key => $item) {
-
-					$item['like_comment'] = $value['like_comment'];
-					if ($value['seed_text'] == '') {
-					$item['seed_textStatus'] = '0';
-					}else{
-						unset($item['seed_text']);	
-					}
-					//$item['seed_agreeCount'] = $this->db->Proworth->find (array('like_seed' => (string)$item['_id']))->count ();
-					array_push ($myLikedSeeds, $item);					
+			$seed = $this->db->Proseed->findOne(array ('_id'=> new MongoId($value['like_seed'])));
+			$combinedString = $seed['seed_titleLower'].$seed['seed_sourceLower'].strtolower($value['like_comment']);
+			$keywordPos = strpos($combinedString, $keyword);
+			if ($keywordPos>0 && $keywordPos < mb_strlen($combinedString)) {
+				$seed['like_comment'] = $value['like_comment'];
+				if ($seed['seed_text'] == '') {
+					$seed['seed_textStatus'] = '0';
+				}else{
+					unset($seed['seed_text']);	
+				}
+				array_push($myLikedSeeds,$seed);
 			}
-		}
+		
 		return json_encode($myLikedSeeds);
 	}
 
