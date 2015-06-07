@@ -789,6 +789,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 				}
 				array_push($myLikedSeeds,$seed);
 			}
+		}
 		
 		return json_encode($myLikedSeeds);
 	}
