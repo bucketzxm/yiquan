@@ -169,7 +169,7 @@ function parseText($text,$industries){
     $textLen = mb_strlen($text);
 
     $matchPosInPara = array();
-
+    $statics = array();
 
     //获得文章段落书
     preg_match_all("</p>", $text, $paragraphs);
@@ -226,13 +226,22 @@ function parseText($text,$industries){
 	        if ($matchRatio>0.01 && $stdSquare > 0.2 ) {
 	        	array_push($industryResult,$industry);
 	        }
+
+	        array_push($statics, $matchRatio);
+	        array_push($statics, $stdSquare);
+	        array_push($statics, $wordCount);
+	        array_push($statics, $textLen);
+	        array_push($statics, $paraAvg);
+	        array_push($statics, $stdSquare);
+	        array_push($statics, $paragraphCount);
         }
         
     }
 
 
     array_push($result,$keywordDict);
-    array_push($result, $industryResult);	
+    array_push($result, $industryResult);
+	array_push($result, $statics);
 
 
     return $result;
@@ -269,7 +278,7 @@ function parseText($text,$industries){
 
 				$db->Proseed->save($seed);
 
-				echo '<h3>'.$seed['seed_title'].', '.implode(';',$seed['seed_industryParsed']).', '.implode(';',$seed['seed_textIndustryWords']).'</h3>';
+				echo '<h3>'.$seed['seed_title'].', '.implode(';',$seed['seed_industryParsed']).', '.implode(';',$parserResult[2]).'</h3>';
 			}
 	
 
