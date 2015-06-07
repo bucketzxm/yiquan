@@ -223,7 +223,7 @@ function parseText($text,$industries){
 
 	        //方差，计算
 	        //判断Result中不中
-	        if ($matchRatio>0.01 && $variance > 0.2 ) {
+	        if ($matchRatio>0.01 && $variance > 0.05 ) {
 	        	array_push($industryResult,$industry);
 	        }
 
