@@ -159,6 +159,12 @@ function clear_unmeaningful_text($title){
 	
 function parseText($text,$industries){
 	
+	    //获得文章段落书
+    preg_match_all("</p>", $text, $paragraphs);
+    $paragraphCount = count($paragraphs);
+    $avgParaLen = $textLen/$paragraphCount;
+
+
 	$text = clear_unmeaningful_text($text);
 
     
@@ -171,10 +177,7 @@ function parseText($text,$industries){
     $matchPosInPara = array();
     $statics = array();
 
-    //获得文章段落书
-    preg_match_all("</p>", $text, $paragraphs);
-    $paragraphCount = count($paragraphs);
-    $avgParaLen = $textLen/$paragraphCount;
+
 
     //遍历文章每个字
    
@@ -228,7 +231,7 @@ function parseText($text,$industries){
 	        }
 
 	        array_push($statics, $matchRatio);
-	        array_push($statics, $stdSquare);
+	        array_push($statics, $variance);
 	        array_push($statics, $wordCount);
 	        array_push($statics, $textLen);
 	        array_push($statics, $paraAvg);
