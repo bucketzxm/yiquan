@@ -1,6 +1,8 @@
 <?php
 require_once 'YqBase.php';
-
+use Qiniu\Auth;
+use Qiniu\Storage\UploadManager;
+use Qiniu\Storage\BucketManager;
     
 class Prouser extends YqBase {
 	private $collection;
