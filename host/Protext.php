@@ -240,12 +240,13 @@ function parseText($text,$industries){
 
 
     array_push($result,$keywordDict);
-    array_push($result, $industryResult);
-	array_push($result, $statics);
+    array_push($result,$industryResult);
+	array_push($result,$statics);
 
 
     return $result;
 }
+            ini_set("max_execution_time", 2400);
 
 			$dbname = 'yiquan';
 			$host = 'localhost';
