@@ -457,6 +457,81 @@ class Prouser extends YqBase {
 		return json_encode($user);
 	}
 
+	function updateUserpicByUsername($data, $user_id) {
+		if ($this->yiquan_version == 0) {
+			return - 2;
+		}
+		if ($this->checkQuoteToken () != 1) {
+			return - 3;
+		}
+		if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
+			return - 4;
+		}
+		
+		
+		$row = $this->db->Prouser->findOne ( array (
+				'_id' => new MongoId ( $user_id ) 
+		) );
+		if ($row == null) {
+			return 2;
+		}
+		$rawpic = base64_decode ( $data );
+		
+		$im = new Imagick ();
+		$im->readImageBlob ( $rawpic );
+		$geo = $im->getImageGeometry ();
+		$w = $geo ['width'];
+		$h = $geo ['height'];
+		$maxWidth = $maxHeight = 160;
+		$fitbyWidth = (($maxWidth / $w) < ($maxHeight / $h)) ? true : false;
+		
+		if ($fitbyWidth) {
+			$im->thumbnailImage ( $maxWidth, 0, false );
+		} else {
+			$im->thumbnailImage ( 0, $maxHeight, false );
+		}
+		
+		// save to qiniu
+		$rep = $this->QiniuUploadpic ( $row, $rawpic, $im );
+		if ($rep != 1) {
+			return $rep;
+		}
+		$this->db->Prouser->save ( $row );
+		return json_encode ( $row );
+	}
+
+	protected function QiniuUploadpic(&$arr, $bigdata, $smalldata) {
+		$auth = new Auth ( $this->qiniuAK, $this->qiniuSK );
+		$bucket = 'yiquanhost-avatar';
+		$uploadMgr = new UploadManager ();
+		$bucketMgr = new BucketManager ( $auth );
+		
+		if (isset ( $arr ['user_bigavatarname'] )) {
+			list ( $ret, $err ) = $bucketMgr->delete ( $bucket, $arr ['user_bigavatarname'] );
+		}
+		if (isset ( $arr ['user_smallavatarname'] )) {
+			list ( $ret, $err ) = $bucketMgr->delete ( $bucket, $arr ['user_smallavatarname'] );
+		}
+		
+		$token = $auth->uploadToken ( $bucket );
+		list ( $ret, $err ) = $uploadMgr->put ( $token, null, $bigdata );
+		if ($err == null) {
+			$arr ['user_bigavatarname'] = $ret ['key'];
+			$arr ['user_bigavatar'] = $this->userpicbucketUrl . '/' . $ret ['key'];
+		} else {
+			return $err;
+		}
+		
+		list ( $ret, $err ) = $uploadMgr->put ( $token, null, $smalldata );
+		if ($err == null) {
+			$arr ['user_smallavatarname'] = $ret ['key'];
+			$arr ['user_smallavatar'] = $this->userpicbucketUrl . '/' . $ret ['key'];
+		} else {
+			return $err;
+		}
+		return 1;
+	}
+
 
 }
 ?>
