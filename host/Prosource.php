@@ -551,7 +551,7 @@ foreach ($sources as $key => $value) {
 
                     $seed_similar = array();
 
-                    if ($titleLen > 8){
+                    if (count[$keywords] > 7){
                     	foreach ($titles as $key3 => $title_name) {
 
 	                        if ($title_name['seed_industry'] == $industry && (find_same2($keywords, $title_name['seed_keywordDict'])==1)) {
