@@ -174,7 +174,7 @@ function parseText($text,$industries){
     //获得文章段落书
     preg_match_all("<\/p>", $text, $paragraphs);
     $paragraphCount = count($paragraphs[0]);
-    $avgParaLen = $textLen/$paragraphCount;
+    $avgParaLen = 200;
 
     //遍历文章每个字
    
@@ -223,7 +223,7 @@ function parseText($text,$industries){
 
 	        //方差，计算
 	        //判断Result中不中
-	        if ($matchRatio>0.01 && $variance > 0.05 ) {
+	        if ($matchRatio>0.005 && $variance > 0.05 ) {
 	        	array_push($industryResult,$industry);
 	        }
 
