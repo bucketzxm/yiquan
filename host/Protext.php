@@ -266,7 +266,7 @@ function parseText($text,$industries){
 	        	array_push($industryResult,$industry);
 	        }
             
-            $statics[$industry] = $matchRatio * $variance;
+            $statics[$industry] = $matchRatio;// * $variance;
             /*
 	        array_push($statics, $matchRatio);
 	        array_push($statics, $variance);
