@@ -211,7 +211,7 @@ function parseText($text,$industries){
     $i = 0;
     while ($i<($textLen-1)) {
         $twoStr = mb_substr($text, $i,2);
-        $oneStr = mb_substr($twoStr,0,1);
+  //      $oneStr = mb_substr($twoStr,0,1);
 
         if (isset($textDict[$twoStr])) {
             array_push($textDict[$twoStr], ceil($i/$avgParaLen));
@@ -219,13 +219,14 @@ function parseText($text,$industries){
             $textDict[$twoStr] = array();
             array_push($textDict[$twoStr], ceil($i/$avgParaLen));
         }
-
+/*
         if (isset($textDict[$oneStr])) {
             array_push($textDict[$oneStr], ceil($i/$avgParaLen));
         }else{
             $textDict[$oneStr] = array();
             array_push($textDict[$oneStr], ceil($i/$avgParaLen));
-        }        
+        }       
+*/ 
 
     }
         
@@ -289,7 +290,7 @@ function parseText($text,$industries){
 	array_push($result,$statics);
 
     unset($textDict);
-    
+
     return $result;
 }
             ini_set("max_execution_time", 2400);
