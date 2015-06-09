@@ -673,11 +673,11 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 			$this->db->Proworth->save ($data);
 
 			if (in_array($user['current']['user_industry'],$source['source_industry'])) {
-				$cursor['seed_hotness'] += (int)$user['current']['user_weight']*10;
+				$cursor['seed_industryHotness'][$user['current']['user_industry']] += (int)$user['current']['user_weight']*10;
 				if(isset($cursor['seed_agreeCount'])){
 					$cursor['seed_agreeCount'] += $user['current']['user_weight'];
 				}else{
-					$cursor['seed_agreeCount'] = 1;
+					$cursor['seed_agreeCount'] += $user['current']['user_weight'];
 				}
 				//$cursor['seed_hotnessTime'] = time();
 				$this->db->Proseed->save($cursor);

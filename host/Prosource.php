@@ -556,26 +556,26 @@ foreach ($sources as $key => $value) {
                     if (count($keywords) > 6){
                     	foreach ($titles as $key3 => $title_name) {
 
-	                        if ($title_name['seed_industry'] == $industry && (find_same2($keywords, $title_name['seed_keywordDict'])==1)) {
+	                        if ( find_same2($keywords, $title_name['seed_keywordDict'])==1) {//$title_name['seed_industry'] == $industry &&
 	                            echo '<p>' . $seed['title'] . '</p>';
 	                            echo '<p>' . $title_name['seed_title'] . '</p>';
 	                            $same = true;
 	                            break;
 	                        }
 
-	                        if ($title_name['seed_industry'] == $industry && (find_same2($keywords, $title_name['seed_keywordDict'])==2)) {
+	                        if (find_same2($keywords, $title_name['seed_keywordDict'])==2) {//$title_name['seed_industry'] == $industry && 
 	                            array_push($seed_similar, (string)$title_name['_id']);
 	                        }
 	                    }
                     }else{
-                    	if ($title_name['seed_industry'] == $industry && (find_same($title, $title_name['seed_title'])==true)) {
+                    	if (find_same($title, $title_name['seed_title'])==true) {//$title_name['seed_industry'] == $industry && (
 	                            echo '<p>' . $seed['title'] . '</p>';
 	                            echo '<p>' . $title_name['seed_title'] . '</p>';
 	                            $same = true;
 	                            break;
 	                        }
 
-                        if ($title_name['seed_industry'] == $industry && (find_same2($keywords, $title_name['seed_keywordDict'])==2)) {
+                        if (find_same2($keywords, $title_name['seed_keywordDict'])==2) {//$title_name['seed_industry'] == $industry && (
                             array_push($seed_similar, (string)$title_name['_id']);
                         }
                     }
@@ -724,7 +724,7 @@ foreach ($sources as $key => $value) {
 
 
                                 $seed['imageCount'] = 0;
-                                
+
                                 //获取正文中的第一张图片：
                                 if (!isset($seed['imageLink'])) {
                                     if ($text != '') {
