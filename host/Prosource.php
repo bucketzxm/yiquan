@@ -389,13 +389,15 @@ foreach ($sources as $key => $value) {
                     $seedToAdd['link'] = $link;
                     $seedToAdd['postTime'] = $postTime;
                     
+                    
                     $wholeString = $result[0][$i];
                     $imgPattern = "<(?:img|IMG).*?(?:src|data-url)=\"(.*?)\".*?>";
 
                     preg_match_all($imgPattern, $wholeString, $imgResult);
 
                     if (count($imgResult[0])>0) {
-                        $seedToAdd['imageLink'] = $imgResult[1][0];    
+                        $seedToAdd['imageLink'] = $imgResult[1][0];
+                        
                     }
                     if (isset($seedToAdd['imageLink'])) {
                         $httpPos = strpos($seedToAdd['imageLink'], 'http');
@@ -721,6 +723,8 @@ foreach ($sources as $key => $value) {
                                 }
 
 
+                                $seed['imageCount'] = 0;
+                                
                                 //获取正文中的第一张图片：
                                 if (!isset($seed['imageLink'])) {
                                     if ($text != '') {
@@ -738,7 +742,6 @@ foreach ($sources as $key => $value) {
 
                                     }else{
                                         $seed['imageLink'] = '';
-                                        $seed['imageCount'] = 0;
                                     }
                                     $httpPos = strpos($seed['imageLink'], 'http');
                                     if ($seed['imageLink'] != '' && $httpPos === false) {
