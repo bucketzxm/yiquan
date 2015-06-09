@@ -210,8 +210,8 @@ function parseText($text,$industries){
     $textDict = array();
     $i = 0;
     while ($i<($textLen-1)) {
-        $twoStr = mb_substr($text, $i,2);
-        $oneStr = mb_substr($twoStr,0,1);
+        $twoStr = mb_substr($text, $i,2,'utf-8');
+        $oneStr = mb_substr($twoStr,0,1,'utf-8');
 
         if (isset($textDict[$twoStr])) {
             array_push($textDict[$twoStr], ceil($i/$avgParaLen));
@@ -313,6 +313,7 @@ function parseText($text,$industries){
 
 			$dicts = $db->Prosystem->find(array('para_name' => 'industry_dict'));
 			foreach ($dicts as $industry => $dict) {
+                $industryDict[$dict['industry_name']] = array();
 				$industryDict[$dict['industry_name']]['chinese'] = $dict['industry_words'];
                 $industryDict[$dict['industry_name']]['english'] = $dict['industry_ENDict'];
 			}
