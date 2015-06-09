@@ -113,7 +113,7 @@ foreach ($uncompleteSeeds as $key => $seed) {
 
         //解析行业
         $protext = new Protext;
-        $parserResult = $protext->parseIndustry($text,strtolower($seed['seed_titleLower'));        
+        $parserResult = $protext->parseIndustry($text,strtolower($seed['seed_titleLower']));        
 
 
         $imgPattern = "<(?:img|IMG).*?(?:src|data-url)=\"(.*?)\".*?>";
