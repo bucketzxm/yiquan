@@ -33,10 +33,11 @@
 			$dicts = $db->Prosystem->find(array('para_name' => 'industry_dict'));
 			foreach ($dicts as $industry => $dict) {
 				$theDict = $dict['industry_words']; 
+				$newDict = array();
 				foreach ($theDict as $key => $word) {
-					unset($theDict[$word]);
-					$theDict[$word] = $word;
+					$newDict[$word] = $word;
 				}
+				$dict['industry_words'] = $newDict;
 				$db->Prosystem->save($dict);
 				echo '<h2>'.$dict['industry_name'].'</h2>';
 			}
