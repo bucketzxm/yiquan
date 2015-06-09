@@ -298,6 +298,9 @@ function parseText($text,$industries){
 			//遍历所有的Seed
 			$seeds = $db->Proseed->find();
 			foreach ($seeds as $key => $seed) {
+
+                $seedIndustry = array();
+
                 //分析标题
                 foreach ($industryDict as $industry => $dict) {
                     $checkResult = parseTitle($seed['seed_keywords'],$dict);    
@@ -323,8 +326,11 @@ function parseText($text,$industries){
                 
 
 				$db->Proseed->save($seed);
+                if (isset($seed['seed_industryParsed'])) {
+                    $seedIndustry = $seed['seed_industryParsed'];
+                }
 
-				echo '<h3>'.$seed['seed_title'].', '.implode(';',$seed['seed_industryParsed']).', '.'</h3>';//implode(';',$parserResult[2]).
+				echo '<h3>'.$seed['seed_title'].', '.implode(';',$seedIndustry).', '.'</h3>';//implode(';',$parserResult[2]).
 			}
 	
 
