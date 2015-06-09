@@ -23,6 +23,8 @@
 			));
 			$db = $mongoClient->yiquan;
 			$sources = $db->Prosource->find();
+			
+			/*
 			foreach ($sources as $key => $source) {
 				$source['check_time'] = time() - 1000000000;
 				$db->Prosource->save($source);
@@ -41,6 +43,15 @@
 				$db->Prosystem->save($dict);
 				echo '<h2>'.$dict['industry_name'].'</h2>';
 			}
+			*/
+
+			$dicts = $db->Prosystem->find(array('para_name' => 'industry_dict'));
+			foreach ($dicts as $industry => $dict) {
+				$industryName = $dict['industry_name'];
+				$seedsCount = $db->Proseed->find(array('seed_industry' => $industryName))->count();
+				echo '<h3>'.$industryName.$seedsCount.'</h3>';
+			}
+
 
 
 
