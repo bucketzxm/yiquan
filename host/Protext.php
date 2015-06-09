@@ -271,17 +271,9 @@ function parseText($text,$industries){
         
     }
 
-    if (count($industryResult)==0 && count($statics)>0) {
-        $maxValue = max($statics);
-        $maxIndustry = array_search($maxValue,$statics);
-        array_push($industryResult,$maxIndustry);
-    }
-
-
     array_push($result,$keywordDict);
     array_push($result,$industryResult);
 	array_push($result,$statics);
-
 
     return $result;
 }
@@ -331,6 +323,13 @@ function parseText($text,$industries){
                                 $seed['seed_industryParsed'][$industry] = $industry;
                             }
                         }
+                    }
+
+                    if (count($seed['seed_industryParsed'])==0) {
+                        $statics = $parserResult[2];
+                        $maxValue = max($statics);
+                        $maxIndustry = array_search($maxValue,$statics);
+                        $seed['seed_industryParsed'][$maxIndustry] = $maxIndustry;
                     }
                 }
                 
