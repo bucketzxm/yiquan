@@ -16,7 +16,7 @@ function find_same2($keywords,$seedToCheck){
             $sameCount ++;
         }
     }
-    if ($sameCount> 7) {
+    if ($sameCount>= 7) {
         return 1;
     }elseif($sameCount > 4){
         return 2;
@@ -551,7 +551,7 @@ foreach ($sources as $key => $value) {
 
                     $seed_similar = array();
 
-                    if (count($keywords) > 7){
+                    if (count($keywords) > =7){
                     	foreach ($titles as $key3 => $title_name) {
 
 	                        if ($title_name['seed_industry'] == $industry && (find_same2($keywords, $title_name['seed_keywordDict'])==1)) {
@@ -684,11 +684,15 @@ foreach ($sources as $key => $value) {
                             $text = preg_replace("<link.*?>", "", $text);
                             $text = preg_replace("<iframe.*?/iframe>", "", $text);
 
+
+                            //处理Title
                             $title = $seed['title'];
                             $title = preg_replace("/<.+?>/", "", $title);
                             $title = str_replace("&quot;", "", $title);
 
+
                             if ($title != '' && $title != null && strlen($title) > 0) {
+
 
 
                                 //若来源为门户频道，则使用门户的父名称
@@ -775,8 +779,19 @@ foreach ($sources as $key => $value) {
                                     'seed_imageLink' => $seed['imageLink'],
                                     'seed_imageCount' => $seed['imageCount'],
                                     'seed_similar' => $seed_similar,
-                                    'seed_completeStatus' => $completeStatus
+                                    'seed_completeStatus' => $completeStatus,
+                                    
                                 );
+
+                                //解析行业
+                                if ($text != '') {
+                                    $protext = new Protext; 
+                                    $parserResult = $protext->parseIndustry($text,strtolower($title));    
+                                    $dataToSave['seed_textIndustryWords'] = $parserResult['seed_textIndustryWords'];
+                                    $dataToSave['seed_industryParsed'] = $parserResult['seed_industryParsed'];
+                                }
+                                
+                                
                             }
 
 

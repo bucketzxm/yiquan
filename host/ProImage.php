@@ -111,6 +111,11 @@ foreach ($uncompleteSeeds as $key => $seed) {
         $text = preg_replace("<link.*?>", "", $text);
         $text = preg_replace("<iframe.*?/iframe>", "", $text);
 
+        //解析行业
+        $protext = new Protext;
+        $parserResult = $protext->parseIndustry($text,strtolower($seed['seed_titleLower'));        
+
+
         $imgPattern = "<(?:img|IMG).*?(?:src|data-url)=\"(.*?)\".*?>";
 
         preg_match_all($imgPattern, $text, $imgResult);
@@ -138,7 +143,8 @@ foreach ($uncompleteSeeds as $key => $seed) {
         $seed['seed_imageLink'] = $imageLink;
         $seed['seed_imageCount'] = $imgCount;
         $seed['seed_completeStatus'] = 'completed';
-
+        $seed['seed_textIndustryWords'] = $parserResult['seed_textIndustryWords'];
+        $seed['seed_industryParsed'] = $parserResult['seed_industryParsed'];
 
         $db->Proseed->save($seed);
         echo $seed['seed_source'].','.$seed['seed_title'].','.$seed['seed_imageLink'];
