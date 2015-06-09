@@ -45,7 +45,16 @@ class Proseed extends YqBase {
 	// type
 	// postTime
 	// title
-	
+	function checkIndustry($user_industries, $seed_industries){
+		foreach ($user_industries as $industry) {
+			if (isset($seed_industries[$industry])) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+
 	function queryMySeedsByName($user_id,$time){
 		if ($this->yiquan_version == 0) {
 			return - 2;
@@ -65,9 +74,19 @@ class Proseed extends YqBase {
 			//$sources = $this->db->Prosource->find(array ('source_industry' => $user['current']['user_industry']));
 			//获得我的行业关注的媒体的人
 			$readSeeds = array ();
+			//获得用户的行业信息
+			$userIndustries = array();
+			array_push($userIndustries, $user['current']['user_industry']);
+			array_push($userIndustries, $user['current']['user_interestA']);
+			array_push($userIndustries, $user['current']['user_interestB']);
+
 			$readSeedsCursor = $this->db->Proread->find(array ('user_id'=>$user_id,'read_time'=> array ('$gt' => (time()-86400*3))));
 			foreach ($readSeedsCursor as $readSeedKey => $readSeedValue) {
-				array_push($readSeeds,new MongoId($readSeedValue['seed_id']));
+				//额外判断两个东西是否重合
+				if ($this->checkIndustry($userIndustries,$readSeedValue['seed_industry'])) {
+					array_push($readSeeds,new MongoId($readSeedValue['seed_id']));
+				}
+				
 			}
 
 				$myAgrees = $this->db->Proread->find (
