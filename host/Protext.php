@@ -29,8 +29,8 @@ function clear_unmeaningful_text($title){
     $title = str_replace(")", "", $title);
     $title = str_replace("「", "", $title);
     $title = str_replace("」", "", $title);
-    //$title = str_replace("<", "", $title);
-    //$title = str_replace(">", "", $title);
+    $title = str_replace("<", "", $title);
+    $title = str_replace(">", "", $title);
     $title = str_replace("：", "", $title);
     $title = str_replace(":", "", $title);
     $title = str_replace("-", "", $title);
@@ -51,7 +51,7 @@ function clear_unmeaningful_text($title){
     $title = str_replace("m", "", $title);
     $title = str_replace("n", "", $title);
     $title = str_replace("o", "", $title);
-    //$title = str_replace("p", "", $title);
+    $title = str_replace("p", "", $title);
     $title = str_replace("q", "", $title);
     $title = str_replace("r", "", $title);
     $title = str_replace("s", "", $title);
@@ -197,8 +197,8 @@ function parseText($text,$industries){
     $statics = array();
 
     //获得文章段落书
-    preg_match_all("<\/p>", $text, $paragraphs);
-    $paragraphCount = count($paragraphs[0]);
+    //preg_match_all("<\/p>", $text, $paragraphs);
+    //$paragraphCount = count($paragraphs[0]);
     $avgParaLen = 200;
 
     //遍历文章每个字
@@ -209,13 +209,13 @@ function parseText($text,$industries){
         $wordCount = 0;
        
         $i = 0;
-		while ($i<=$textLen-2) {
+		while ($i<($textLen-1)) {
 		    
             $twoStr = mb_substr($text, $i, 2, 'utf-8');
         	//遍历所有字典
         	foreach ($dict as $word) {
                 $matchWord = '';
-                $oneStr = mb_substr($twoStr,1,1,'utf-8');
+                $oneStr = mb_substr($twoStr,0,1,'utf-8');
                 if ($oneStr == $word) {
                     $matchWord = $oneStr;
                     $i ++;    
