@@ -157,9 +157,11 @@ function clear_unmeaningful_text($title){
     return $title;
 }
 	
-function parseTitle($title_Keywords,$dict){
+function parseTitle($title,$dict){
+    $titleLength = mb_strlen($title);
 
-    foreach ($title_Keywords as $key2 => $keyword){
+    foreach ($i = 0; $i<$titleLength-2;$i++){
+        $keyword = mb_substr($title,$i,2,'utf-8');
         foreach ($dict as $key3 => $word) {
             if ($keyword == $word) {
                 return 1;    
@@ -170,6 +172,7 @@ function parseTitle($title_Keywords,$dict){
         }
     }
 }
+
 function parseText($text,$industries){
 	
 	$text = clear_unmeaningful_text($text);
@@ -253,7 +256,9 @@ function parseText($text,$industries){
 	        if ($matchRatio>0.005 && $variance > 0.05 ) {
 	        	array_push($industryResult,$industry);
 	        }
-
+            
+            $statics[$industry] = $matchRatio * $variance;
+            /*
 	        array_push($statics, $matchRatio);
 	        array_push($statics, $variance);
 	        array_push($statics, $wordCount);
@@ -261,8 +266,15 @@ function parseText($text,$industries){
 	        array_push($statics, $paraAvg);
 	        array_push($statics, $stdSquare);
 	        array_push($statics, $paragraphCount);
+            */
         }
         
+    }
+
+    if (count($industryResult)==0) {
+        $maxValue = max($statics);
+        $maxIndustry = array_search($maxValue,$statics);
+        array_push($industryResult,$maxIndustry);
     }
 
 
@@ -313,7 +325,7 @@ function parseText($text,$industries){
                 }else{
                     //分析标题
                     foreach ($industryDict as $industry => $dict) {
-                        $checkResult = parseTitle($seed['seed_keywords'],$dict);    
+                        $checkResult = parseTitle($seed['seed_titleLower'],$dict);    
                         if ($checkResult == 1) {
                             if (!isset($seed['seed_industryParsed'][$industry])) {
                                 $seed['seed_industryParsed'][$industry] = $industry;
