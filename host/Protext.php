@@ -176,10 +176,10 @@ function parseTitle($title,$dict,$ENDict){
     for($i = 0; $i<$titleLength-2;$i++){
         $twoStr = mb_substr($title,$i,2,'utf-8');
         $oneStr = mb_substr($title,0,1,'utf-8');
-        if (isset($dict[$twoStr]){
+        if (isset($dict[$twoStr])){
             return 1;    
         }
-        if (isset($dict[$oneStr]){
+        if (isset($dict[$oneStr])){
             return 1;    
         }
 
