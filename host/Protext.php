@@ -214,10 +214,10 @@ function parseText($text,$industries){
         $oneStr = mb_substr($twoStr,0,1);
 
         if (isset($textDict[$twoStr])) {
-            array_push($textDict[$oneStr], ceil($i/$avgParaLen));
+            array_push($textDict[$twoStr], ceil($i/$avgParaLen));
         }else{
             $textDict[$twoStr] = array();
-            array_push($textDict[$oneStr], ceil($i/$avgParaLen));
+            array_push($textDict[$twoStr], ceil($i/$avgParaLen));
         }
 
         if (isset($textDict[$oneStr])) {
@@ -311,7 +311,7 @@ function parseText($text,$industries){
 			$dicts = $db->Prosystem->find(array('para_name' => 'industry_dict'));
 			foreach ($dicts as $industry => $dict) {
 				$industryDict[$dict['industry_name']]['chinese'] = $dict['industry_words'];
-                $industryDict[$dict['industry_name']]['english'] = $dict['industry_ENwords'];
+                $industryDict[$dict['industry_name']]['english'] = $dict['industry_ENDict'];
 			}
 			//遍历所有的Seed
 			$seeds = $db->Proseed->find();
@@ -319,7 +319,7 @@ function parseText($text,$industries){
                 $seed['seed_industryParsed'] = array();
                 $seedIndustry = array();
 
-                $parserResult = parseText($seed['seed_text'],$industryDict['chinese']);
+                $parserResult = parseText($seed['seed_text'],$industryDict);
 
                 $seed['seed_textIndustryWords'] = $parserResult[0];
                 if (count($parserResult[1])>0) {
