@@ -940,7 +940,6 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 		$this->db->Promessage->save($data);
                 
 		return 1;
-
 		
 		} catch ( Exception $e ) {
 			return - 1;
@@ -1007,7 +1006,11 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 
 	}
 
-	
+	function reportFormatBug($seed_id){
+		$seed = $this->db->Proseed->findOne('_id'=> new MongoId($seed_id));
+		$seed['seed_completeStatus'] = 'formatBug';
+		$this->db->Proseed->save($seed);
+	}
 
 }
 ?>

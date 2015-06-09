@@ -198,7 +198,7 @@ function parseText($text,$industries){
 
     //获得文章段落书
     //preg_match_all("<\/p>", $text, $paragraphs);
-    //$paragraphCount = count($paragraphs[0]);
+    $paragraphCount = $textLen/200;
     $avgParaLen = 200;
 
     //遍历文章每个字
