@@ -458,6 +458,10 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 		        $text = preg_replace("<link.*?>", "", $text);
 		        $text = preg_replace("<iframe.*?/iframe>", "", $text);
 
+		                //解析行业
+		        $protext = new Protext;
+		        $parserResult = $protext->parseIndustry($text,strtolower($seed['seed_titleLower']));  
+
 		        $imgPattern = "<(?:img|IMG).*?(?:src|data-url)=\"(.*?)\".*?>";
 
 		        preg_match_all($imgPattern, $text, $imgResult);
@@ -482,7 +486,8 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 		        $seed['seed_textLen'] = mb_strlen($text);
 		        $seed['seed_imageLink'] = $imageLink;
 		        $seed['seed_completeStatus'] = 'completed';
-
+		        $seed['seed_textIndustryWords'] = $parserResult['seed_textIndustryWords'];
+		        $seed['seed_industryParsed'] = $parserResult['seed_industryParsed'];
 
 
 		        $this->db->Proseed->save($seed);
