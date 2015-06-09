@@ -1007,7 +1007,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 	}
 
 	function reportFormatBug($seed_id){
-		$seed = $this->db->Proseed->findOne('_id'=> new MongoId($seed_id));
+		$seed = $this->db->Proseed->findOne(array('_id'=> new MongoId($seed_id)));
 		$seed['seed_completeStatus'] = 'formatBug';
 		$this->db->Proseed->save($seed);
 	}
