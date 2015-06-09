@@ -34,10 +34,11 @@
 			foreach ($dicts as $industry => $dict) {
 				$theDict = $dict['industry_words']; 
 				foreach ($theDict as $key => $word) {
-					$theDict[$word] = $word;
 					unset($theDict[$word]);
+					$theDict[$word] = $word;
 				}
 				$db->Prosystem->save($dict);
+				echo '<h2>'.$dict['industry_name'].'</h2>'
 			}
 
 
