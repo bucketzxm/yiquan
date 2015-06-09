@@ -239,10 +239,10 @@ function parseText($text,$industries){
         
 		foreach ($dict as $key => $value) {
             if (isset($textDict[$value])) {
-                if (isset($keywordDict[$matchWord])) {
-                    $keywordDict[$matchWord] += count($textDict[$value]);
+                if (isset($keywordDict[$value])) {
+                    $keywordDict[$value] += count($textDict[$value]);
                 }else{
-                    $keywordDict[$matchWord] = count($textDict[$value]);
+                    $keywordDict[$value] = count($textDict[$value]);
                 }
 
                 $wordCount += count($textDict[$value]);  
