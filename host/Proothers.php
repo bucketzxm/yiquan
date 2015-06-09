@@ -48,8 +48,14 @@
 			$dicts = $db->Prosystem->find(array('para_name' => 'industry_dict'));
 			foreach ($dicts as $industry => $dict) {
 				$industryName = $dict['industry_name'];
-				$seedsCount = $db->Proseed->find(array('seed_industry' => array('$in' => $industryName)));
-				echo '<h3>'.$industryName.count($seedsCount).'</h3>';
+				$seeds = $db->Proseed->find();
+				$count = 0;
+				foreach ($seeds as $key => $value) {
+					if (isset($value['seed_industry'][$industryName])) {
+						$count ++;
+					}
+				}
+				echo '<h3>'.$industryName.$count.'</h3>';
 			}
 
 
