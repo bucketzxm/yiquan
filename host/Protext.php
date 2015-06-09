@@ -211,11 +211,11 @@ function parseText($text,$industries){
         $i = 0;
 		while ($i<($textLen-1)) {
 		    
-            $twoStr = mb_substr($text, $i, 2, 'utf-8');
+            $twoStr = substr($text, $i, 2);
         	//遍历所有字典
         	foreach ($dict as $word) {
                 $matchWord = '';
-                $oneStr = mb_substr($twoStr,0,1,'utf-8');
+                $oneStr = substr($twoStr,0,1);
                 if ($oneStr == $word) {
                     $matchWord = $oneStr;
                     $i ++;    
