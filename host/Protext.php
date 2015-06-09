@@ -286,11 +286,10 @@ function parseText($text,$industries){
         
     }
 
-    array_push($result,$keywordDict);
-    array_push($result,$industryResult);
-	array_push($result,$statics);
+    $result[0]=$keywordDict;
+    $result[1]=$industryResult;
+	$result[2]=$statics;
 
-    unset($textDict);
 
     return $result;
 }
