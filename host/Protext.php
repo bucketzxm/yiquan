@@ -157,29 +157,34 @@ function clear_unmeaningful_text($title){
     return $title;
 }
 	
-function parseTitle($title,$dict){
+function parseTitle($title,$dict,$ENDict){
 
     $titleLength = mb_strlen($title);
     preg_match_all("(\\d+.\\d+|\\w+)", $title, $keywords_eng);
-    foreach ($dict as $key3 => $word) {
+    
         
-        foreach ($keywords_eng[0] as $keyy => $valuey) {
+    foreach ($keywords_eng[0] as $keyy => $valuey) {
+        foreach ($ENDict as $key3 => $word) {
             if (strpos($valuey,strtolower($word)) !== false) {
                 return 1;
             }
         }
-
-        for($i = 0; $i<$titleLength-2;$i++){
-            $keyword = mb_substr($title,$i,2,'utf-8');
-        
-            if ($keyword == $word) {
-                return 1;    
-            }
-            if (mb_strpos($keyword, $word) !== false) {
-                return 1;
-            }
-        }
     }
+
+    $noEngTitle = preg_replace("(\\d+.\\d+|\\w+)", "", $title);
+    $titleLength = mb_strlen($noEngTitle);
+    for($i = 0; $i<$titleLength-2;$i++){
+        $twoStr = mb_substr($title,$i,2,'utf-8');
+        $oneStr = mb_substr($title,0,1,'utf-8');
+        if (isset($dict[$twoStr]){
+            return 1;    
+        }
+        if (isset($dict[$oneStr]){
+            return 1;    
+        }
+
+    }
+    
 }
 
 function parseText($text,$industries){
@@ -202,51 +207,49 @@ function parseText($text,$industries){
     $avgParaLen = 200;
 
     //遍历文章每个字
-   
-        
-        //遍历所有的行业
-    foreach($industries as $industry => $dict){
-        $wordCount = 0;
-       
-        $i = 0;
-		while ($i<($textLen-1)) {
-		    
-            $twoStr = mb_substr($text, $i, 2);
-        	$oneStr = mb_substr($twoStr,0,1);
-            //遍历所有字典
-            $matchWord = '';
+    $textDict = array();
+    $i = 0;
+    while ($i<($textLen-1)) {
+        $twoStr = mb_substr($text, $i,2);
+        $oneStr = mb_substr($twoStr,0,1);
 
-        	foreach ($dict as $key => $word) {
-                
-                if ($oneStr == $word) {
-                    $matchWord = $oneStr;
-                }else if ($twoStr == $word){
-                    $matchWord = $twoStr;
-                }
-            }
-            if ($matchWord != '') {
-                //构建字典
-                if (isset($keywordDict[$matchWord])) {
-                    $keywordDict[$matchWord] ++;
-                }else{
-                    $keywordDict[$matchWord] = 1;
-                }
-
-                //增加Count
-                $wordCount ++;
-
-                //获得文章的平均段落数
-                $paraPos = ceil($i/$avgParaLen);
-                array_push($matchPosInPara, $paraPos);   
-                
-        	}
-
-            if (mb_strlen($matchWord)>1) {
-                $i += 2;
-            }else{
-                $i ++;
-            }
+        if (isset($textDict[$twoStr])) {
+            array_push($textDict[$oneStr], ceil($i/$avgParaLen);
+        }else{
+            $textDict([$twoStr] = array();
+            array_push($textDict[$oneStr], ceil($i/$avgParaLen);
         }
+
+        if (isset($textDict[$oneStr])) {
+            array_push($textDict[$oneStr], ceil($i/$avgParaLen);
+        }else{
+            $textDict([$oneStr] = array();
+            array_push($textDict[$oneStr], ceil($i/$avgParaLen);
+        }        
+
+    }
+        
+    //遍历所有的行业
+    foreach($industries as $industry => $value){
+        
+        $wordCount = 0;
+        $dict = $value['chinese'];
+        
+		foreach ($dict as $key => $value) {
+            if (isset($textDict[$value])) {
+                if (isset($keywordDict[$matchWord])) {
+                    $keywordDict[$matchWord] += count($textDict[$value]);
+                }else{
+                    $keywordDict[$matchWord] = count($textDict[$value]);
+                }
+
+                $wordCount += count($textDict[$value]);  
+
+                foreach ($textDict[$value] as $position) {
+                    array_push($matchPosInPara, $position);       
+                }      
+            }     
+        } 
 
         if ($wordCount>0) {
         	
@@ -307,7 +310,8 @@ function parseText($text,$industries){
 
 			$dicts = $db->Prosystem->find(array('para_name' => 'industry_dict'));
 			foreach ($dicts as $industry => $dict) {
-				$industryDict[$dict['industry_name']] = $dict['industry_words'];
+				$industryDict[$dict['industry_name']]['chinese'] = $dict['industry_words'];
+                $industryDict[$dict['industry_name']]['english'] = $dict['industry_ENwords'];
 			}
 			//遍历所有的Seed
 			$seeds = $db->Proseed->find();
@@ -315,7 +319,7 @@ function parseText($text,$industries){
                 $seed['seed_industryParsed'] = array();
                 $seedIndustry = array();
 
-                $parserResult = parseText($seed['seed_text'],$industryDict);
+                $parserResult = parseText($seed['seed_text'],$industryDict['chinese']);
 
                 $seed['seed_textIndustryWords'] = $parserResult[0];
                 if (count($parserResult[1])>0) {
@@ -327,7 +331,7 @@ function parseText($text,$industries){
                 }else{
                     //分析标题
                     foreach ($industryDict as $industry => $dict) {
-                        $checkResult = parseTitle($seed['seed_titleLower'],$dict);    
+                        $checkResult = parseTitle($seed['seed_titleLower'],$dict['chinese'],$dict['english']);    
                         if ($checkResult == 1) {
                             if (!isset($seed['seed_industryParsed'][$industry])) {
                                 $seed['seed_industryParsed'][$industry] = $industry;

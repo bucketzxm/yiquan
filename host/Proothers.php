@@ -29,6 +29,16 @@
 			}
 			
 		
+			//修改行业字典
+			$dicts = $db->Prosystem->find(array('para_name' => 'industry_dict'));
+			foreach ($dicts as $industry => $dict) {
+				$theDict = $dict['industry_words']; 
+				foreach ($theDict as $key => $word) {
+					$theDict[$word] = $word;
+					unset($theDict[$word]);
+				}
+				$db->Prosystem->save($dict);
+			}
 
 
 
