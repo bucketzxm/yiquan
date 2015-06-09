@@ -288,6 +288,8 @@ function parseText($text,$industries){
     array_push($result,$industryResult);
 	array_push($result,$statics);
 
+    unset($textDict);
+    
     return $result;
 }
             ini_set("max_execution_time", 2400);
