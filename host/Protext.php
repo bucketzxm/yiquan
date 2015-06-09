@@ -157,6 +157,19 @@ function clear_unmeaningful_text($title){
     return $title;
 }
 	
+function parseTitle($title_Keywords,$dict){
+
+    foreach ($title_Keywords as $key2 => $keyword){
+        foreach ($dict as $key3 => $word) {
+            if ($keyword == $word) {
+                return 1;    
+            }
+            if (mb_strpos($keyword, $word) !== false) {
+                return 1;
+            }
+        }
+    }
+}
 function parseText($text,$industries){
 	
 	$text = clear_unmeaningful_text($text);
@@ -183,29 +196,43 @@ function parseText($text,$industries){
     foreach($industries as $industry => $dict){
         $wordCount = 0;
        
-
-		for ($i = 0; $i < $textLen-1; $i++) {
-		        
-		    $twoStr = mb_substr($text, $i, 2, 'utf-8');
-
+        $i = 0;
+		while ($i<=$textLen-2) {
+		    
+            $twoStr = mb_substr($text, $i, 2, 'utf-8');
         	//遍历所有字典
         	foreach ($dict as $word) {
-        		if ($twoStr == $word) {
-        			//构建字典
-        			if (isset($keywordDict[$word])) {
-        				$keywordDict[$word] ++;
-        			}else{
-        				$keywordDict[$word] = 1;
-        			}
+                $matchWord = '';
+                $oneStr = mb_substr($twoStr,1,1,'utf-8');
+                if ($oneStr == $word) {
+                    $matchWord = $oneStr;
+                    $i ++;    
+                }else{
+                    if ($twoStr == $word) {    
+                        $matchWord = $twoStr;
+                        $i += 2;
+                    }else{
+                        $i ++;
+                    }
 
-        			//增加Count
-        			$wordCount ++;
+                }
 
-        			//获得文章的平均段落数
-        			$paraPos = ceil($i/$avgParaLen);
-        			array_push($matchPosInPara, $paraPos);
-        		}
-        	}
+                if ($matchWord != '') {
+                    //构建字典
+                    if (isset($keywordDict[$matchWord])) {
+                        $keywordDict[$matchWord] ++;
+                    }else{
+                        $keywordDict[$matchWord] = 1;
+                    }
+
+                    //增加Count
+                    $wordCount ++;
+
+                    //获得文章的平均段落数
+                    $paraPos = ceil($i/$avgParaLen);
+                    array_push($matchPosInPara, $paraPos);   
+                }
+        	}		
         }
 
         if ($wordCount>0) {
@@ -271,11 +298,29 @@ function parseText($text,$industries){
 			//遍历所有的Seed
 			$seeds = $db->Proseed->find();
 			foreach ($seeds as $key => $seed) {
+                //分析标题
+                foreach ($industryDict as $industry => $dict) {
+                    $checkResult = parseTitle($seed['seed_keywords'],$dict);    
+                    if ($checkResult == 1) {
+                        if (!isset($seed['seed_industryParsed'][$industry])) {
+                            $seed['seed_industryParsed'][$industry] = 1;
+                        }
+                    }
+                }
+                
 
-				$parserResult = parseText($seed['seed_text'],$industryDict);
+                /*
+                //分析正文
+                $parserResult = parseText($seed['seed_text'],$industryDict);
 
-				$seed['seed_textIndustryWords'] = $parserResult[0];
-				$seed['seed_industryParsed'] = $parserResult[1];
+                $seed['seed_textIndustryWords'] = $parserResult[0];
+                foreach ($parserResult[1] as $industryKey => $industryValue) {
+                    if (!isset($seed['seed_industryParsed'][$industryValue])) {
+                        $seed['seed_industryParsed'][$industryValue] = 1;
+                    }               
+                }    
+                */
+                
 
 				$db->Proseed->save($seed);
 
