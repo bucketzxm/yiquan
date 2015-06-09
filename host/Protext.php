@@ -214,17 +214,17 @@ function parseText($text,$industries){
         $oneStr = mb_substr($twoStr,0,1);
 
         if (isset($textDict[$twoStr])) {
-            array_push($textDict[$oneStr], ceil($i/$avgParaLen);
+            array_push($textDict[$oneStr], ceil($i/$avgParaLen));
         }else{
             $textDict([$twoStr] = array();
-            array_push($textDict[$oneStr], ceil($i/$avgParaLen);
+            array_push($textDict[$oneStr], ceil($i/$avgParaLen));
         }
 
         if (isset($textDict[$oneStr])) {
-            array_push($textDict[$oneStr], ceil($i/$avgParaLen);
+            array_push($textDict[$oneStr], ceil($i/$avgParaLen));
         }else{
             $textDict([$oneStr] = array();
-            array_push($textDict[$oneStr], ceil($i/$avgParaLen);
+            array_push($textDict[$oneStr], ceil($i/$avgParaLen));
         }        
 
     }
