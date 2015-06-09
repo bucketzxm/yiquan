@@ -158,11 +158,21 @@ function clear_unmeaningful_text($title){
 }
 	
 function parseTitle($title,$dict){
+
     $titleLength = mb_strlen($title);
 
-    for($i = 0; $i<$titleLength-2;$i++){
-        $keyword = mb_substr($title,$i,2,'utf-8');
-        foreach ($dict as $key3 => $word) {
+    foreach ($dict as $key3 => $word) {
+        preg_match_all("(\\d+.\\d+|\\w+)", $title, $keywords_eng);
+
+        foreach ($keywords_eng[0] as $keyy => $valuey) {
+            if ($valuey == $word) {
+                return 1;
+            }
+        }
+
+        for($i = 0; $i<$titleLength-2;$i++){
+            $keyword = mb_substr($title,$i,2,'utf-8');
+        
             if ($keyword == $word) {
                 return 1;    
             }
