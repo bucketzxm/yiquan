@@ -346,7 +346,7 @@ function parseText($text,$industries){
                 
                 //分析正文
 				$db->Proseed->save($seed);
-				echo '<h3>'.$seed['seed_title'].', '.implode(';',$seed['seed_industryParsed']).', '.'</h3>';//implode(';',$parserResult[2]).
+				echo '<h3>'.$seed['seed_title'].', '.implode(';',$seed['seed_industryParsed']).implode(';',$parserResult[2]).'</h3>';
 			}
 	
 
