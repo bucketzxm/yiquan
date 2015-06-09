@@ -160,7 +160,7 @@ function clear_unmeaningful_text($title){
 function parseTitle($title,$dict){
     $titleLength = mb_strlen($title);
 
-    foreach ($i = 0; $i<$titleLength-2;$i++){
+    for($i = 0; $i<$titleLength-2;$i++){
         $keyword = mb_substr($title,$i,2,'utf-8');
         foreach ($dict as $key3 => $word) {
             if ($keyword == $word) {
