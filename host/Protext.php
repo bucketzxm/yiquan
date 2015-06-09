@@ -211,40 +211,41 @@ function parseText($text,$industries){
         $i = 0;
 		while ($i<($textLen-1)) {
 		    
-            $twoStr = substr($text, $i, 2);
-        	//遍历所有字典
-        	foreach ($dict as $word) {
-                $matchWord = '';
-                $oneStr = substr($twoStr,0,1);
+            $twoStr = mb_substr($text, $i, 2);
+        	$oneStr = mb_substr($twoStr,0,1);
+            //遍历所有字典
+            $matchWord = '';
+
+        	foreach ($dict as $key => $word) {
+                
                 if ($oneStr == $word) {
                     $matchWord = $oneStr;
-                    $i ++;    
+                }else if ($twoStr == $word){
+                    $matchWord = $twoStr;
+                }
+            }
+            if ($matchWord != '') {
+                //构建字典
+                if (isset($keywordDict[$matchWord])) {
+                    $keywordDict[$matchWord] ++;
                 }else{
-                    if ($twoStr == $word) {    
-                        $matchWord = $twoStr;
-                        $i += 2;
-                    }else{
-                        $i ++;
-                    }
-
+                    $keywordDict[$matchWord] = 1;
                 }
 
-                if ($matchWord != '') {
-                    //构建字典
-                    if (isset($keywordDict[$matchWord])) {
-                        $keywordDict[$matchWord] ++;
-                    }else{
-                        $keywordDict[$matchWord] = 1;
-                    }
+                //增加Count
+                $wordCount ++;
 
-                    //增加Count
-                    $wordCount ++;
+                //获得文章的平均段落数
+                $paraPos = ceil($i/$avgParaLen);
+                array_push($matchPosInPara, $paraPos);   
+                
+        	}
 
-                    //获得文章的平均段落数
-                    $paraPos = ceil($i/$avgParaLen);
-                    array_push($matchPosInPara, $paraPos);   
-                }
-        	}		
+            if (mb_strlen($matchWord)>1) {
+                $i += 2;
+            }else{
+                $i ++;
+            }
         }
 
         if ($wordCount>0) {
