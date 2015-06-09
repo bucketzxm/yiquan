@@ -237,17 +237,17 @@ function parseText($text,$industries){
         $wordCount = 0;
         $dict = $value['chinese'];
         
-		foreach ($dict as $key => $value) {
-            if (isset($textDict[$value])) {
-                if (isset($keywordDict[$value])) {
-                    $keywordDict[$value] += count($textDict[$value]);
+		foreach ($dict as $key => $keyword) {
+            if (isset($textDict[$keyword])) {
+                if (isset($keywordDict[$keyword])) {
+                    $keywordDict[$keyword] += count($textDict[$keyword]);
                 }else{
-                    $keywordDict[$value] = count($textDict[$value]);
+                    $keywordDict[$keyword] = count($textDict[$keyword]);
                 }
 
-                $wordCount += count($textDict[$value]);  
+                $wordCount += count($textDict[$keyword]);  
 
-                foreach ($textDict[$value] as $position) {
+                foreach ($textDict[$keyword] as $position) {
                     array_push($matchPosInPara, $position);       
                 }      
             }     
