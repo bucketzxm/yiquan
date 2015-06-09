@@ -545,7 +545,7 @@ foreach ($sources as $key => $value) {
                 }
 
 
-                foreach ($value['source_industry'] as $key2 => $industry) {
+                
 
                     $same = false;
 
@@ -573,9 +573,9 @@ foreach ($sources as $key => $value) {
 	                            break;
 	                        }
 
-	                        if ($title_name['seed_industry'] == $industry && (find_same2($keywords, $title_name['seed_keywordDict'])==2)) {
-	                            array_push($seed_similar, (string)$title_name['_id']);
-	                        }
+                        if ($title_name['seed_industry'] == $industry && (find_same2($keywords, $title_name['seed_keywordDict'])==2)) {
+                            array_push($seed_similar, (string)$title_name['_id']);
+                        }
                     }
 
                     
@@ -772,7 +772,7 @@ foreach ($sources as $key => $value) {
                                     'seed_keywordDict' => $keywordDict,
                                     'seed_hotness' => ((100 + (20 * $mediaAddition * 10)) * exp((-0.05) * ((time() - $postTime) / 3600))),
                                     'seed_hotnessTime' => time(),
-                                    'seed_industry' => $industry,
+                                    //'seed_industry' => $industry,
                                     'seed_agreeCount' => rand(0,5),
                                     'seed_sourceTag' => $sourceTag,
                                     'seed_textTag' => $textTag,
@@ -784,12 +784,33 @@ foreach ($sources as $key => $value) {
                                 );
 
                                 //解析行业
+                                $seedIndustry = array();
+                                $industryHotness = array();
+
                                 if ($text != '') {
                                     $protext = new Protext; 
                                     $parserResult = $protext->parseIndustry($text,strtolower($title));    
                                     $dataToSave['seed_textIndustryWords'] = $parserResult['seed_textIndustryWords'];
-                                    $dataToSave['seed_industryParsed'] = $parserResult['seed_industryParsed'];
+                                    
+                                    foreach($parserResult['seed_industryParsed'] as $industryParsed){
+
+                                        $seedIndustry[$industryParsed] = $industryParsed;
+                                        $industryHotness[$industryParsed] = 0;
+
+                                    };
                                 }
+
+
+                                foreach ($value['source_industry'] as $key2 => $industry) {
+                                    if (!isset($seedIndustry[$industry])) {
+                                        $seedIndustry[$industry] = $industry;
+                                        $industryHotness[$industry] = 0;
+                                    }
+                                }
+
+                                $dataToSave['seed_industry'] = $seedIndustry;
+                                $dataToSave['seed_industryHotness'] = $industryHotness;
+
                                 
                                 
                             }
@@ -814,7 +835,7 @@ foreach ($sources as $key => $value) {
                             echo "<h2>" . $value['source_name'] . "," . $title . "," . $link . "," . $postTime . "</h2>";
                         }
                     }
-                }
+                //}
 
             }
 

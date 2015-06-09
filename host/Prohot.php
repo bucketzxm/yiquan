@@ -31,6 +31,9 @@
 					$speed = 0;
 				}
 				$seed['seed_hotness'] = $seed['seed_hotness'] * exp(-0.05) * ((time() - $seed['seed_hotnessTime'])/3600));
+				foreach($seed['seed_industryHotness'] as $industry => $hotness){
+					$seed['seed_industryHotness'][$industry] = $hotness * exp (=0.05) * ((time() - $seed['seed_hotnessTime'])/3600));
+				}
 				$seed['seed_hotnessTime'] = time();
 				$db->Proseed->save($seed);
 			}
