@@ -165,7 +165,7 @@ function parseTitle($title,$dict){
         preg_match_all("(\\d+.\\d+|\\w+)", $title, $keywords_eng);
 
         foreach ($keywords_eng[0] as $keyy => $valuey) {
-            if ($valuey == $word) {
+            if (strpos($valuey,$word) !== false) {
                 return 1;
             }
         }
