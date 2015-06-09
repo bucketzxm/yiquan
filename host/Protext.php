@@ -271,7 +271,7 @@ function parseText($text,$industries){
         
     }
 
-    if (count($industryResult)==0) {
+    if (count($industryResult)==0 && count($statics)>0) {
         $maxValue = max($statics);
         $maxIndustry = array_search($maxValue,$statics);
         array_push($industryResult,$maxIndustry);

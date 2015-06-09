@@ -114,13 +114,13 @@ foreach ($uncompleteSeeds as $key => $seed) {
         $imgPattern = "<(?:img|IMG).*?(?:src|data-url)=\"(.*?)\".*?>";
 
         preg_match_all($imgPattern, $text, $imgResult);
-
+        
         if (count($imgResult[0])>0) {
             $imageLink = $imgResult[1][0];    
+            $imgCount = count($imgResult[0]);
         }else{
-            
             $imageLink = '';    
-            
+            $imgCount = 0;
         }
         $httpPos = strpos($imageLink, 'http');
         if ($imageLink != '' && $httpPos === false) {
@@ -136,12 +136,11 @@ foreach ($uncompleteSeeds as $key => $seed) {
         $seed['seed_text'] = $text;
         $seed['seed_textLen'] = mb_strlen($text);
         $seed['seed_imageLink'] = $imageLink;
+        $seed['seed_imageCount'] = $imgCount;
         $seed['seed_completeStatus'] = 'completed';
 
 
-
         $db->Proseed->save($seed);
-
         echo $seed['seed_source'].','.$seed['seed_title'].','.$seed['seed_imageLink'];
 
 }

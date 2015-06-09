@@ -730,8 +730,11 @@ foreach ($sources as $key => $value) {
                                         }else{
                                                 $seed['imageLink'] = '';        
                                         }
+                                        $seed['imageCount'] = $imgCount;
+
                                     }else{
                                         $seed['imageLink'] = '';
+                                        $seed['imageCount'] = 0;
                                     }
                                     $httpPos = strpos($seed['imageLink'], 'http');
                                     if ($seed['imageLink'] != '' && $httpPos === false) {
@@ -770,6 +773,7 @@ foreach ($sources as $key => $value) {
                                     'seed_sourceTag' => $sourceTag,
                                     'seed_textTag' => $textTag,
                                     'seed_imageLink' => $seed['imageLink'],
+                                    'seed_imageCount' => $seed['imageCount'],
                                     'seed_similar' => $seed_similar,
                                     'seed_completeStatus' => $completeStatus
                                 );
