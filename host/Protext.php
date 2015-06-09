@@ -327,9 +327,11 @@ function parseText($text,$industries){
 
                     if (count($seed['seed_industryParsed'])==0) {
                         $statics = $parserResult[2];
-                        $maxValue = max($statics);
-                        $maxIndustry = array_search($maxValue,$statics);
-                        $seed['seed_industryParsed'][$maxIndustry] = $maxIndustry;
+                        if (count($statics) > 0 ) {
+                            $maxValue = max($statics);
+                            $maxIndustry = array_search($maxValue,$statics);
+                            $seed['seed_industryParsed'][$maxIndustry] = $maxIndustry;    
+                        }
                     }
                 }
                 
