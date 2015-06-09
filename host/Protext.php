@@ -160,12 +160,11 @@ function clear_unmeaningful_text($title){
 function parseTitle($title,$dict){
 
     $titleLength = mb_strlen($title);
-
+    preg_match_all("(\\d+.\\d+|\\w+)", $title, $keywords_eng);
     foreach ($dict as $key3 => $word) {
-        preg_match_all("(\\d+.\\d+|\\w+)", $title, $keywords_eng);
-
+        
         foreach ($keywords_eng[0] as $keyy => $valuey) {
-            if (strpos(strtolower($valuey),strtolower($word)) !== false) {
+            if (strpos($valuey,strtolower($word)) !== false) {
                 return 1;
             }
         }
