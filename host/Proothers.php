@@ -38,7 +38,7 @@
 					$theDict[$word] = $word;
 				}
 				$db->Prosystem->save($dict);
-				echo '<h2>'.$dict['industry_name'].'</h2>'
+				echo '<h2>'.$dict['industry_name'].'</h2>';
 			}
 
 
