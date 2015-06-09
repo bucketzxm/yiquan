@@ -301,32 +301,29 @@ function parseText($text,$industries){
                 $seed['seed_industryParsed'] = array();
                 $seedIndustry = array();
 
-                //分析标题
-                foreach ($industryDict as $industry => $dict) {
-                    $checkResult = parseTitle($seed['seed_keywords'],$dict);    
-                    if ($checkResult == 1) {
-                        if (!isset($seed['seed_industryParsed'][$industry])) {
-                            $seed['seed_industryParsed'][$industry] = $industry;
+                $parserResult = parseText($seed['seed_text'],$industryDict);
+
+                $seed['seed_textIndustryWords'] = $parserResult[0];
+                if (count($parserResult[1])>0) {
+                    foreach ($parserResult[1] as $industryKey => $industryValue) {
+                        if (!isset($seed['seed_industryParsed'][$industryValue])) {
+                            $seed['seed_industryParsed'][$industryValue] = $industryValue;
+                        }               
+                    } 
+                }else{
+                    //分析标题
+                    foreach ($industryDict as $industry => $dict) {
+                        $checkResult = parseTitle($seed['seed_keywords'],$dict);    
+                        if ($checkResult == 1) {
+                            if (!isset($seed['seed_industryParsed'][$industry])) {
+                                $seed['seed_industryParsed'][$industry] = $industry;
+                            }
                         }
                     }
                 }
                 
-
-                /*
                 //分析正文
-                $parserResult = parseText($seed['seed_text'],$industryDict);
-
-                $seed['seed_textIndustryWords'] = $parserResult[0];
-                foreach ($parserResult[1] as $industryKey => $industryValue) {
-                    if (!isset($seed['seed_industryParsed'][$industryValue])) {
-                        $seed['seed_industryParsed'][$industryValue] = 1;
-                    }               
-                }    
-                */
-                
-
 				$db->Proseed->save($seed);
-
 				echo '<h3>'.$seed['seed_title'].', '.implode(';',$seed['seed_industryParsed']).', '.'</h3>';//implode(';',$parserResult[2]).
 			}
 	
