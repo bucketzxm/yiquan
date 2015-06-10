@@ -73,13 +73,16 @@
 					}
 				}
 
-				foreach ($value['seed_industryParsed'] as $key2 => $value2) {
-					if (isset($industryArray[$value2])) {
-						$industryArray[$value2] ++;
-					}else{
-						$industryArray[$value2] = 1;
+				if (isset($value['seed_industryParsed'])) {
+					foreach ($value['seed_industryParsed'] as $key2 => $value2) {
+						if (isset($industryArray[$value2])) {
+							$industryArray[$value2] ++;
+						}else{
+							$industryArray[$value2] = 1;
+						}
 					}
 				}
+
 
 			
 				$totalCount = count($industryArray);
