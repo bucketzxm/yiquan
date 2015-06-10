@@ -92,12 +92,16 @@
 				}else{
 					$count[$totalCount] = 1;
 				}
-	
+				
+				$value['seed_industryCount'] = $totalCount;
+				$this->db->Proseed->save ($value);	
 			}
 
 			foreach ($count as $key3 => $value3) {
 				echo '<h3>'.$key3.':'.$value3.'</3>';
 			}
+
+		
 
 
 
