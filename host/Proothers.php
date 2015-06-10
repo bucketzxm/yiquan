@@ -61,6 +61,43 @@
 				echo '<h3>'.$industryName.$count.'</h3>';
 			}
 
+			$count = array();
+			$seeds = $db->Proseed->find();
+			foreach ($seeds as $key => $value) {
+				$industryArray = array();
+				foreach ($value['seed_industry'] as $key1 => $value1) {
+					if (isset($industryArray[$value1])) {
+						$industryArray[$value1] ++;
+					}else{
+						$industryArray[$value1] = 1;
+					}
+				}
+
+				foreach ($value['seed_industryParsed'] as $key2 => $value2) {
+					if (isset($industryArray[$value2])) {
+						$industryArray[$value2] ++;
+					}else{
+						$industryArray[$value2] = 1;
+					}
+				}
+
+			
+				$totalCount = count($industryArray);
+
+				if (isset($count[$totalCount])) {
+					$count[$totalCount] ++;
+				}else{
+					$count[$totalCount] = 1;
+				}
+	
+			}
+
+			foreach ($count as $key3 => $value3) {
+				echo '<h3>'.$key3.':'.$value3.'</3>'
+			}
+
+
+
 
 
 
