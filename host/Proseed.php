@@ -75,17 +75,21 @@ class Proseed extends YqBase {
 			//获得我的行业关注的媒体的人
 			$readSeeds = array ();
 			//获得用户的行业信息
+			/*
 			$userIndustries = array();
 			array_push($userIndustries, $user['current']['user_industry']);
 			array_push($userIndustries, $user['current']['user_interestA']);
 			array_push($userIndustries, $user['current']['user_interestB']);
-
-			$readSeedsCursor = $this->db->Proread->find(array ('user_id'=>$user_id,'read_time'=> array ('$gt' => (time()-86400*3))));
+			*/
+			$readSeedsCursor = $this->db->Proread->find(array (
+				'user_id'=>$user_id,
+				'read_time'=> array ('$gt' => (time()-86400*3))
+				));
 			foreach ($readSeedsCursor as $readSeedKey => $readSeedValue) {
 				//额外判断两个东西是否重合
-				if ($this->checkIndustry($userIndustries,$readSeedValue['seed_industry'])) {
+				//if ($this->checkIndustry($userIndustries,$readSeedValue['seed_industry'])) {
 					array_push($readSeeds,new MongoId($readSeedValue['seed_id']));
-				}
+				//}
 				
 			}
 
@@ -151,6 +155,7 @@ class Proseed extends YqBase {
 			//foreach ($sources as $key => $source) {
 			$sourceSeeds = $this->db->Proseed->find (
 				array (
+					
 					'$or' => array(
 						array ('seed_industry' => $user['current']['user_industry']),
 						array ('seed_industry' => $user['current']['user_interestA']),
@@ -276,12 +281,12 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 			$time = (int)$time;
 			$sourceSeeds = $this->db->Proseed->find (
 				array (
-
+					/*
 					'$or' => array(
 							array ('seed_industry' => $user['current']['user_industry']),
 							array ('seed_industry' => $user['current']['user_interestA']),
 							array ('seed_industry' => $user['current']['user_interestB'])
-							), 
+							), */
 					'seed_time' => array ('$lt' => $time),
 					'$or' => array (
 						array('seed_titleLower' => new MongoRegex ("/$keyword/")),
@@ -630,6 +635,16 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 						
 
 			$hotness = $seed['seed_hotness'];
+			if (isset($seed['seed_industryHotness'][$user['current']['user_industry']]){
+				$hotness += $seed['seed_industryHotness'][$user['current']['user_industry']];
+			}
+			if (isset($seed['seed_industryHotness'][$user['current']['user_interestA']]){
+				$hotness += $seed['seed_industryHotness'][$user['current']['user_interestA']];
+			}
+			if (isset($seed['seed_industryHotness'][$user['current']['user_interestB']]){
+				$hotness += $seed['seed_industryHotness'][$user['current']['user_interestB']];
+			}
+
 			$priority = $hotness * ($matchness*20+100)/100;
 			
 			$hotcent = $hotness / $priority;

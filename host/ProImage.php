@@ -148,6 +148,9 @@ foreach ($uncompleteSeeds as $key => $seed) {
             if (!isset($seed['seed_industry'][$industry])) {
                 $seed['seed_industry'][$industry] = $industry;
             }
+            if (!isset($seed['seed_industryHotness'][$industry])) {
+                $seed['seed_industryHotness'][$industry] = 0;
+            }
         }
         
 
