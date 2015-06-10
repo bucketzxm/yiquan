@@ -93,7 +93,7 @@
 			}
 
 			foreach ($count as $key3 => $value3) {
-				echo '<h3>'.$key3.':'.$value3.'</3>'
+				echo '<h3>'.$key3.':'.$value3.'</3>';
 			}
 
 
