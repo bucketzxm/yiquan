@@ -144,7 +144,12 @@ foreach ($uncompleteSeeds as $key => $seed) {
         $seed['seed_imageCount'] = $imgCount;
         $seed['seed_completeStatus'] = 'completed';
         $seed['seed_textIndustryWords'] = $parserResult['seed_textIndustryWords'];
-        $seed['seed_industryParsed'] = $parserResult['seed_industryParsed'];
+        foreach ($parserResult['seed_industryParsed'] as $key1 => $industry) {
+            if (!isset($seed['seed_industry'][$industry])) {
+                $seed['seed_industry'][$industry] = $industry;
+            }
+        }
+        
 
         $db->Proseed->save($seed);
         echo $seed['seed_source'].','.$seed['seed_title'].','.$seed['seed_imageLink'];
