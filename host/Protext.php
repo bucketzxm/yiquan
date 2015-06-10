@@ -1,7 +1,7 @@
 <?php
 require_once 'YqBase.php';
-class Protext extends YqBase {
-    private $collection;
+//class Protext extends YqBase {
+//    private $collection;
 
     function clear_unmeaningful_text($title){
         $title = str_replace("·", "", $title);
@@ -347,7 +347,7 @@ class Protext extends YqBase {
 
     }
 
-}
+//}
 
 
             ini_set("max_execution_time", 2400);
