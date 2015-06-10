@@ -25,7 +25,7 @@ require_once 'Qiniu/Auth.php';
 require_once 'Qiniu/Config.php';
 require_once 'Qiniu/Etag.php';
 require_once 'Qiniu/functions.php';
-require_once 'Protext.php';
+//require_once 'Protext.php';
 
 /* Report all errors except E_NOTICE */
 // error_reporting ( E_ALL & ~ E_NOTICE );

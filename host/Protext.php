@@ -349,7 +349,7 @@ class Protext extends YqBase {
 
 }
 
-/*
+
             ini_set("max_execution_time", 2400);
 
 			$dbname = 'yiquan';
@@ -414,6 +414,6 @@ class Protext extends YqBase {
 				$db->Proseed->save($seed);
 				echo '<h3>'.$seed['seed_title'].', '.implode(';',$seed['seed_industryParsed']).implode(';',$parserResult[2]).'</h3>';
 			}
-	*/
+	
 
 ?>
