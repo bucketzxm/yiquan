@@ -190,7 +190,7 @@ class Protext extends YqBase {
 
     function parseText($text,$industries){
     	
-    	$text = clear_unmeaningful_text($text);
+    	$text = $this->clear_unmeaningful_text($text);
 
         
         $keywordDict = array();

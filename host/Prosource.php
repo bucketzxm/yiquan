@@ -805,8 +805,8 @@ foreach ($sources as $key => $value) {
 
 
                                 foreach ($value['source_industry'] as $key2 => $industry) {
-                                    if (!isset($seedIndustry[$industry])) {
-                                        $seedIndustry[$industry] = $industry;
+                                    if (!in_array($industry,$seedIndustry)) {
+                                        array_push($seedIndustry,$industry);
                                         $industryHotness[$industry] = 0;
                                     }
                                 }
