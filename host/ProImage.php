@@ -145,8 +145,8 @@ foreach ($uncompleteSeeds as $key => $seed) {
         $seed['seed_completeStatus'] = 'completed';
         $seed['seed_textIndustryWords'] = $parserResult['seed_textIndustryWords'];
         foreach ($parserResult['seed_industryParsed'] as $key1 => $industry) {
-            if (!isset($seed['seed_industry'][$industry])) {
-                $seed['seed_industry'][$industry] = $industry;
+            if (!in_array($industry,$seed['seed_industry'])) {
+                array_push($seed['seed_industry'],$industry);
             }
             if (!isset($seed['seed_industryHotness'][$industry])) {
                 $seed['seed_industryHotness'][$industry] = 0;

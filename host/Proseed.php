@@ -635,6 +635,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 						
 
 			$hotness = $seed['seed_hotness'];
+
 			if (isset($seed['seed_industryHotness'][$user['current']['user_industry']])){
 				$hotness += $seed['seed_industryHotness'][$user['current']['user_industry']];
 			}

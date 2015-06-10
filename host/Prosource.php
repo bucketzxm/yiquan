@@ -797,7 +797,7 @@ foreach ($sources as $key => $value) {
                                     
                                     foreach($parserResult['seed_industryParsed'] as $industryParsed){
 
-                                        $seedIndustry[$industryParsed] = $industryParsed;
+                                        array_push($seedIndustry,$industryParsed);
                                         $industryHotness[$industryParsed] = 0;
 
                                     };
