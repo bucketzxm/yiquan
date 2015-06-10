@@ -95,6 +95,8 @@
 				
 				$value['seed_industryCount'] = $totalCount;
 				$db->Proseed->save ($value);	
+
+				echo '<h3>'.$value['seed_title'].':'.implode(';', $value['seed_industry']).implode(';', $value['seed_industryParsed']).'</3>';
 			}
 
 			foreach ($count as $key3 => $value3) {
