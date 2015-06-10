@@ -94,7 +94,7 @@
 				}
 				
 				$value['seed_industryCount'] = $totalCount;
-				$this->db->Proseed->save ($value);	
+				$db->Proseed->save ($value);	
 			}
 
 			foreach ($count as $key3 => $value3) {
