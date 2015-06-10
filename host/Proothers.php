@@ -54,6 +54,9 @@
 					if (isset($value['seed_industry'][$industryName])) {
 						$count ++;
 					}
+					if (isset($value['seed_industryParsed'][$industryName])) {
+						$count ++;
+					}
 				}
 				echo '<h3>'.$industryName.$count.'</h3>';
 			}
