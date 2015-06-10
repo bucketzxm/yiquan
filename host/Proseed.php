@@ -635,13 +635,13 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 						
 
 			$hotness = $seed['seed_hotness'];
-			if (isset($seed['seed_industryHotness'][$user['current']['user_industry']]){
+			if (isset($seed['seed_industryHotness'][$user['current']['user_industry']])){
 				$hotness += $seed['seed_industryHotness'][$user['current']['user_industry']];
 			}
-			if (isset($seed['seed_industryHotness'][$user['current']['user_interestA']]){
+			if (isset($seed['seed_industryHotness'][$user['current']['user_interestA']])){
 				$hotness += $seed['seed_industryHotness'][$user['current']['user_interestA']];
 			}
-			if (isset($seed['seed_industryHotness'][$user['current']['user_interestB']]){
+			if (isset($seed['seed_industryHotness'][$user['current']['user_interestB']])){
 				$hotness += $seed['seed_industryHotness'][$user['current']['user_interestB']];
 			}
 
