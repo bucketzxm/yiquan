@@ -190,7 +190,7 @@ require_once 'YqBase.php';
 
     function parseText($text,$industries){
     	
-    	$text = $this->clear_unmeaningful_text($text);
+    	$text = clear_unmeaningful_text($text);
 
         
         $keywordDict = array();
@@ -294,7 +294,7 @@ require_once 'YqBase.php';
 
         return $result;
     }
-
+    /*
     function parseIndustry($seed_text,$seed_titleLower){
         $industryDict = array();
 
@@ -346,7 +346,7 @@ require_once 'YqBase.php';
         return $seed;
 
     }
-
+*/
 //}
 
 
