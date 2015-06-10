@@ -1,7 +1,7 @@
 <?php
 require_once 'YqBase.php';
-//class Protext extends YqBase {
-//    private $collection;
+class Protext extends YqBase {
+    private $collection;
 
     function clear_unmeaningful_text($title){
         $title = str_replace("·", "", $title);
@@ -294,7 +294,7 @@ require_once 'YqBase.php';
 
         return $result;
     }
-    /*
+    
     function parseIndustry($seed_text,$seed_titleLower){
         $industryDict = array();
 
@@ -346,10 +346,10 @@ require_once 'YqBase.php';
         return $seed;
 
     }
-*/
-//}
 
+}
 
+/*
             ini_set("max_execution_time", 2400);
 
 			$dbname = 'yiquan';
@@ -415,5 +415,5 @@ require_once 'YqBase.php';
 				echo '<h3>'.$seed['seed_title'].', '.implode(';',$seed['seed_industryParsed']).implode(';',$parserResult[2]).'</h3>';
 			}
 	
-
+*/
 ?>
