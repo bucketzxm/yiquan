@@ -161,6 +161,12 @@ class Proseed extends YqBase {
 						array ('seed_industry' => $user['current']['user_interestA']),
 						array ('seed_industry' => $user['current']['user_interestB'])
 						), 
+					'$nor' => array(
+						'$and' => array (
+							array ('seed_completeStatus' => 'completed'),
+							array ('seed_text' => '')
+							)
+						),
 					'seed_time' => array ('$gt' => (time()-86400*3)),
 					'_id' => array ('$nin' => $readSeeds)
 					)
@@ -300,6 +306,12 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 							array ('seed_industry' => $user['current']['user_interestA']),
 							array ('seed_industry' => $user['current']['user_interestB'])
 							), */
+					'$nor' => array(
+						'$and' => array (
+							array ('seed_completeStatus' => 'completed'),
+							array ('seed_text' => '')
+							)
+						),
 					'seed_time' => array ('$lt' => $time),
 					'$or' => array (
 						array('seed_titleLower' => new MongoRegex ("/$keyword/")),
