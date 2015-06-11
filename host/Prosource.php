@@ -755,6 +755,12 @@ foreach ($sources as $key => $value) {
                                     }
 
                                 }
+
+                                if ($seed['imageCount'] > 5 ) {
+                                    $title = $title.'（多图）';
+                                }
+
+
                                 $completeStatus = 'completed';
                                 if ($text == '') {
                                     $completeStatus = 'uncompleted';

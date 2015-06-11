@@ -32,11 +32,22 @@
 				}
 				$seed['seed_hotness'] = $seed['seed_hotness'] * exp(-0.05) * ((time() - $seed['seed_hotnessTime'])/3600));
 				foreach($seed['seed_industryHotness'] as $industry => $hotness){
-					$seed['seed_industryHotness'][$industry] = $hotness * exp (=0.05) * ((time() - $seed['seed_hotnessTime'])/3600));
+					$seed['seed_industryHotness'][$industry] = $hotness * exp (-0.05) * ((time() - $seed['seed_hotnessTime'])/3600));
 				}
 				$seed['seed_hotnessTime'] = time();
 				$db->Proseed->save($seed);
 			}
+
+
+			$words = $db->Prowords->find();
+			foreach ($words as $key1 => $word) {
+				if (floor((time() - $word['word_checkTime'])/86400) >0) {
+					$word['word_hotness'] = $word['word_hotness'] * exp(-0.05) * floor((time() - $word['word_checkTime'])/86400)  ;
+					$word['word_checkTime'] = time();
+					$db->Prowords->save($word);
+				}
+			}
+
 			
 		
 

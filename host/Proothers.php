@@ -46,6 +46,7 @@
 			*/
 
 			$dicts = $db->Prosystem->find(array('para_name' => 'industry_dict'));
+			/*
 			foreach ($dicts as $industry => $dict) {
 				$industryName = $dict['industry_name'];
 				$seeds = $db->Proseed->find();
@@ -71,7 +72,25 @@
 			foreach ($count as $key3 => $value3) {
 				echo '<h3>'.$key3.':'.$value3.'</3>';
 			}
+			*/
 
+			foreach ($dicts as $key => $industry) {
+				foreach ($industry['search_words'] as $key1 => $word) {
+					$item = $db->Prowords->findOne(array('word_name' => $word));
+					if ($item == null) {
+						$data = {
+							'word_name' => $word,
+							'word_industry' => $industry['industry_name'],
+							'word_hotness' => 100,
+							'word_checkTime' => time()
+						}
+						$db->Prowords->save($data);
+					}
+
+
+
+				}
+			}
 		
 
 

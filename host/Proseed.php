@@ -276,7 +276,20 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 			
 			$this->db->Prouser->save($user);
 
-
+			//存入Search统计
+			$item = $db->Prowords->findOne(array('word_name' => $keyword));
+			if ($item == null) {
+				$data = {
+					'word_name' => $keyword,
+					'word_industry' => $user['current']['user_industry'],
+					'word_hotness' => 100,
+					'word_checkTime' => time()
+				}
+				$this->db->Prowords->save($data);
+			}else{
+				$item['word_hotness'] += 10;
+				$this->db->Prowords->save($item);
+			}
 
 			$time = (int)$time;
 			$sourceSeeds = $this->db->Proseed->find (
@@ -1050,6 +1063,43 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 		$seed = $this->db->Proseed->findOne(array('_id'=> new MongoId($seed_id)));
 		$seed['seed_completeStatus'] = 'formatBug';
 		$this->db->Proseed->save($seed);
+	}
+
+	function queryMyWordsToSearch($user_id){
+		if ($this->yiquan_version == 0) {
+			return - 2;
+		}
+		
+		if ($this->checkToken () == 0) {
+			return - 3;
+		}
+
+		if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
+			return - 4;
+		}
+
+		//找到User
+		$user = $this->db->Prouser->findOne(array('_id'=> new MongoId($user_id));
+		$result = array();
+		$userSearchWords= array();
+		$circleSearchWords = array();
+		//获得自己搜索的词
+		$wordsCount = count($user['user_searchWords']);
+		for ($i = $wordsCount-1; $i >= 0; $i--){
+			if (!in_array($user['user_searchWords'][$i],$userSearchWords)){
+				array_push($userSearchWords,$user['user_searchWords']);
+			}
+		}
+		$result[0] = $userSearchWords;
+		//获得业内搜索的词
+		$circleWords = $this->db->Prowords->find(array('word_industry'=> $user['current']['user_industry']))->sort(array('word_hotness' => -1))->limit(10);
+		foreach ($circleWords as $key => $value) {
+			array_push($circleWords, $value['word_name']);
+		}
+		$result[1] = $circleSearchWords;
+
+		return json_encode($result);
+
 	}
 
 }
