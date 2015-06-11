@@ -78,12 +78,12 @@
 				foreach ($industry['search_words'] as $key1 => $word) {
 					$item = $db->Prowords->findOne(array('word_name' => $word));
 					if ($item == null) {
-						$data = {
+						$data = array(
 							'word_name' => $word,
 							'word_industry' => $industry['industry_name'],
 							'word_hotness' => 100,
 							'word_checkTime' => time()
-						}
+						);
 						$db->Prowords->save($data);
 					}
 
