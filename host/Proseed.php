@@ -277,7 +277,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 			$this->db->Prouser->save($user);
 
 			//存入Search统计
-			$item = $db->Prowords->findOne(array('word_name' => $keyword));
+			$item = $this->db->Prowords->findOne(array('word_name' => $keyword));
 			if ($item == null) {
 				$data = array(
 					'word_name' => $keyword,
