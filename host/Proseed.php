@@ -1087,7 +1087,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 		$wordsCount = count($user['user_searchWords']);
 		for ($i = $wordsCount-1; $i >= 0; $i--){
 			if (!in_array($user['user_searchWords'][$i],$userSearchWords)){
-				array_push($userSearchWords,$user['user_searchWords']);
+				array_push($userSearchWords,$user['user_searchWords'][$i]);
 			}
 		}
 		$result[0] = $userSearchWords;
