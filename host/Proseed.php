@@ -566,11 +566,9 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 		}
 
 
-		if ($text == '') {
-			return 1;
-		}else{
+
 			return json_encode($textToDownload);	
-		}
+
 
 		
 	}
