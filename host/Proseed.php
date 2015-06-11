@@ -279,12 +279,12 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 			//存入Search统计
 			$item = $db->Prowords->findOne(array('word_name' => $keyword));
 			if ($item == null) {
-				$data = {
+				$data = array(
 					'word_name' => $keyword,
 					'word_industry' => $user['current']['user_industry'],
 					'word_hotness' => 100,
 					'word_checkTime' => time()
-				}
+				);
 				$this->db->Prowords->save($data);
 			}else{
 				$item['word_hotness'] += 10;
