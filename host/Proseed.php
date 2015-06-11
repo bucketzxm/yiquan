@@ -1079,7 +1079,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 		}
 
 		//找到User
-		$user = $this->db->Prouser->findOne(array('_id'=> new MongoId($user_id));
+		$user = $this->db->Prouser->findOne(array('_id'=> new MongoId($user_id)));
 		$result = array();
 		$userSearchWords= array();
 		$circleSearchWords = array();
