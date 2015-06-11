@@ -75,21 +75,21 @@
 			*/
 
 			foreach ($dicts as $key => $industry) {
-				foreach ($industry['search_words'] as $key1 => $word) {
+				if (isset($industry['search_words'])) {
+					foreach ($industry['search_words'] as $key1 => $word) {
 					$item = $db->Prowords->findOne(array('word_name' => $word));
-					if ($item == null) {
-						$data = array(
-							'word_name' => $word,
-							'word_industry' => $industry['industry_name'],
-							'word_hotness' => 100,
-							'word_checkTime' => time()
-						);
-						$db->Prowords->save($data);
-					}
-
-
-
+						if ($item == null) {
+							$data = array(
+								'word_name' => $word,
+								'word_industry' => $industry['industry_name'],
+								'word_hotness' => 100,
+								'word_checkTime' => time()
+							);
+							$db->Prowords->save($data);
+						}
+					}	
 				}
+				
 			}
 		
 
