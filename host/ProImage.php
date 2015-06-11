@@ -127,6 +127,7 @@ foreach ($uncompleteSeeds as $key => $seed) {
             $imageLink = '';    
             $imgCount = 0;
         }
+
         $httpPos = strpos($imageLink, 'http');
         if ($imageLink != '' && $httpPos === false) {
             $imageLink = $source['source_homeURL'].$imageLink;
@@ -136,6 +137,10 @@ foreach ($uncompleteSeeds as $key => $seed) {
             $imageLink = str_replace("uploads/../../", "", $imageLink);    
         }else{
             $imageLink = str_replace("../", "", $imageLink);
+        }
+        
+        if ($imgCount > 5 ) {
+            $seed['seed_title'] = $seed['seed_title'].'（多图）';
         }
         
         $seed['seed_text'] = $text;
