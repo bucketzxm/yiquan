@@ -51,52 +51,21 @@
 				$seeds = $db->Proseed->find();
 				$count = 0;
 				foreach ($seeds as $key => $value) {
-					if (isset($value['seed_industry'][$industryName])) {
-						$count ++;
-					}
-					if (isset($value['seed_industryParsed'][$industryName])) {
+					if (in_array($industryName,$value['seed_industry'])) {
 						$count ++;
 					}
 				}
 				echo '<h3>'.$industryName.$count.'</h3>';
 			}
 
-			$count = array();
+	
 			$seeds = $db->Proseed->find();
 			foreach ($seeds as $key => $value) {
-				$industryArray = array();
-				foreach ($value['seed_industry'] as $key1 => $value1) {
-					if (isset($industryArray[$value1])) {
-						$industryArray[$value1] ++;
-					}else{
-						$industryArray[$value1] = 1;
-					}
-				}
-
-				if (isset($value['seed_industryParsed'])) {
-					foreach ($value['seed_industryParsed'] as $key2 => $value2) {
-						if (isset($industryArray[$value2])) {
-							$industryArray[$value2] ++;
-						}else{
-							$industryArray[$value2] = 1;
-						}
-					}
-				}
-
-
-			
-				$totalCount = count($industryArray);
-
-				if (isset($count[$totalCount])) {
-					$count[$totalCount] ++;
-				}else{
-					$count[$totalCount] = 1;
-				}
 				
-				$value['seed_industryCount'] = $totalCount;
+				$value['seed_industryCount'] = count($value['seed_industry']);
 				$db->Proseed->save ($value);	
 
-				echo '<h3>'.$value['seed_title'].':'.implode(';', $value['seed_industry']).implode(';', $value['seed_industryParsed']).'</3>';
+				echo '<h3>'.$value['seed_title'].':'.implode(';', $value['seed_industry']).'</3>';
 			}
 
 			foreach ($count as $key3 => $value3) {
