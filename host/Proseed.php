@@ -639,7 +639,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 			//更新关键词匹配的值
 			
 			//计算和自己的关键词的疲惫度
-			/*
+			
 			if (isset($user['user_keywords'])) {
 				foreach ($user['user_keywords'] as $keyword) {
 					if ($keyword != '') {
@@ -649,7 +649,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 						}	
 					}
 				}		
-			}*/
+			}
 			
 			//匹配搜索记录的相关性
 			if (isset($user['user_searchWords'])) {
