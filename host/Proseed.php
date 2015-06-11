@@ -550,9 +550,13 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 		}
 
 
+		if ($text == '') {
+			return 1;
+		}else{
+			return json_encode($textToDownload);	
+		}
 
-
-		return json_encode($textToDownload);
+		
 	}
 
 	function getHotness ($user, $seed,$agreeWords,$agreeCount,$disAgreeWords,$disAgreeCount){
