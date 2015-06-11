@@ -168,7 +168,7 @@ class Proseed extends YqBase {
 								array ('seed_text' => '')
 								)
 							)
-						)
+						),
 					'seed_time' => array ('$gt' => (time()-86400*3)),
 					'_id' => array ('$nin' => $readSeeds)
 					)
@@ -315,7 +315,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 								array ('seed_text' => '')
 								)
 							)
-						)
+						),
 					'seed_time' => array ('$lt' => $time),
 					'$or' => array (
 						array('seed_titleLower' => new MongoRegex ("/$keyword/")),
