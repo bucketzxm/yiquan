@@ -686,6 +686,9 @@ foreach ($sources as $key => $value) {
                             $text = preg_replace("<link.*?>", "", $text);
                             $text = preg_replace("<iframe.*?/iframe>", "", $text);
 
+                            $cleanedText = clear_unmeaningful_char($text);
+                            $textLen = mb_strlen($cleanedText,'utf-8');
+
 
                             //处理Title
                             $title = $seed['title'];
@@ -693,7 +696,7 @@ foreach ($sources as $key => $value) {
                             $title = str_replace("&quot;", "", $title);
 
 
-                            if ($title != '' && $title != null && strlen($title) > 0) {
+                            if ($title != '' && $title != null && strlen($title) > 0 && ($textLen > 400)) {
 
 
 
@@ -774,7 +777,7 @@ foreach ($sources as $key => $value) {
                                     'seed_titleLower' => strtolower(htmlspecialchars_decode($title)),
                                     'seed_link' => $link,
                                     'seed_text' => $text,
-                                    'seed_textLen' => mb_strlen($text,'utf-8'),
+                                    'seed_textLen' => $textLen,
                                     'seed_time' => $postTime,
                                     'seed_dbWriteTime' => time(),
                                     'seed_keywords' => $keywords,
