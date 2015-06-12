@@ -159,15 +159,15 @@ class Prouser extends YqBase {
 				$user[$profile_type]['user_gender'] = $user_gender;
 
 				if ($user_seniority == '1-3年'){
-					$user[$profile_type]['user_weight'] = 1;	
-				}else if ($user_seniority == '3-5年'){
 					$user[$profile_type]['user_weight'] = 3;	
+				}else if ($user_seniority == '3-5年'){
+					$user[$profile_type]['user_weight'] = 6;	
 				}else if ($user_seniority == '5-10年'){
-					$user[$profile_type]['user_weight'] = 8;	
+					$user[$profile_type]['user_weight'] = 10;	
 				}else if ($user_seniority == '10年以上'){
 					$user[$profile_type]['user_weight'] = 15;	
 				}else{
-					$user[$profile_type]['user_weight'] = 0;	
+					$user[$profile_type]['user_weight'] = 1;	
 				}
 				
 				$this->db->Prouser->save ($user);
