@@ -529,6 +529,8 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 		        $textToDownload['seed_text'] = $seed['seed_text'];	
 
 
+
+
 		}else{
 			
 			$textToDownload['seed_text'] = $seed['seed_text'];			
@@ -565,9 +567,13 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 			$this->db->Proread->save ($readLog);
 		}
 
-
-
+		if ($textToDownload['seed_text'] == '') {
+			return 1;
+		}else{
 			return json_encode($textToDownload);	
+		}
+
+			
 
 
 		
