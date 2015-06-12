@@ -755,7 +755,16 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 				if(isset($cursor['seed_agreeCount'])){
 					$cursor['seed_agreeCount'] += $user['current']['user_weight'];
 				}else{
-					$cursor['seed_agreeCount'] += $user['current']['user_weight'];
+					$cursor['seed_agreeCount'] = $user['current']['user_weight'];
+				}
+				//$cursor['seed_hotnessTime'] = time();
+				$this->db->Proseed->save($cursor);
+			}else{
+				$cursor['seed_industryHotness'][$user['current']['user_industry']] += (int)$user['current']['user_weight']*1;
+				if(isset($cursor['seed_agreeCount'])){
+					$cursor['seed_agreeCount'] ++;
+				}else{
+					$cursor['seed_agreeCount'] = 1;
 				}
 				//$cursor['seed_hotnessTime'] = time();
 				$this->db->Proseed->save($cursor);
