@@ -878,11 +878,10 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 		if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
 			return - 4;
 		}
-		$prouser = new Prouser ();
-		$myPros = $prouser->findMyPros ($user_id);
+
 		$seed = $this->db->Proseed->findOne(array('_id' => new MongoId($seed_id)));
 		$result = array ();
-		$likes = $this->db->Proworth->find (array ('like_seed'=> $seed_id,'like_industry'=> $seed['seed_industry'],'like_comment' => array ('$ne' => ''),'like_public' => '1'));
+		$likes = $this->db->Proworth->find (array ('like_seed'=> $seed_id,'like_comment' => array ('$ne' => ''),'like_public' => '1'));
 		foreach ($likes as $key => $value) {
 			$users = $this->db->Prouser->find (array ('_id' => new MongoId($value['like_user'])));
 			foreach ($users as $key => $user) {
