@@ -279,7 +279,7 @@ $mongoClient = new MongoClient("mongodb://{$host}:{$port}",array(
 ));
 $db = $mongoClient->yiquan;
 $prosource = $db->Prosource;
-$sources = $prosource->find();
+$sources = $prosource->find(array('source_status' => 'active'));
 
 $proseed = $db->Proseed;
 
