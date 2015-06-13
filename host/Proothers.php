@@ -74,6 +74,7 @@
 			}
 			*/
 
+			/*
 			foreach ($dicts as $key => $industry) {
 				if (isset($industry['search_words'])) {
 					foreach ($industry['search_words'] as $key1 => $word) {
@@ -90,6 +91,14 @@
 					}	
 				}
 				
+			}
+			*/
+
+			foreach ($sources as $key => $source) {
+				if (!isset($source['source_status'])) {
+					$source['source_status'] = 'active';
+					$db->Prosource->save($source);
+				}
 			}
 		
 
