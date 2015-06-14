@@ -833,6 +833,7 @@ foreach ($sources as $key => $value) {
                             //var_dump($keywords);
                             //var_dump($proseed->save($seed));
                             //var_dump($seed);
+                            var_dump($dataToSave);
                             $proseed->save($dataToSave);
                             array_push($titles, $dataToSave);
 
