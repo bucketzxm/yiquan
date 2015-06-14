@@ -568,15 +568,17 @@ foreach ($sources as $key => $value) {
 	                        }
 	                    }
                     }else{
-                    	if (find_same($title, $title_name['seed_title'])==true) {//$title_name['seed_industry'] == $industry && (
-	                            echo '<p>' . $seed['title'] . '</p>';
-	                            echo '<p>' . $title_name['seed_title'] . '</p>';
-	                            $same = true;
-	                            break;
-	                        }
+                        foreach ($titles as $key3 => $title_name) {
+                        	if (find_same($title, $title_name['seed_title'])==true) {//$title_name['seed_industry'] == $industry && (
+    	                            echo '<p>' . $seed['title'] . '</p>';
+    	                            echo '<p>' . $title_name['seed_title'] . '</p>';
+    	                            $same = true;
+    	                            break;
+    	                        }
 
-                        if (find_same2($keywords, $title_name['seed_keywordDict'])==2) {//$title_name['seed_industry'] == $industry && (
-                            array_push($seed_similar, (string)$title_name['_id']);
+                            if (find_same2($keywords, $title_name['seed_keywordDict'])==2) {//$title_name['seed_industry'] == $industry && (
+                                array_push($seed_similar, (string)$title_name['_id']);
+                            }
                         }
                     }
 
