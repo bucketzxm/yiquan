@@ -471,7 +471,7 @@ foreach ($sources as $key => $value) {
                     $pubTime = str_replace("十二月", "Dec", $pubTime);
                     $pubTime = str_replace("\n", "", $pubTime);
 
-                    if ($pubTime != "") { //&& strlen($pubTime) > 24
+                    if ($pubTime != "" && $pubTime != null) { //&& strlen($pubTime) > 24
                         //var_dump($pubTime);
                         $postTime = $aaa->createFromFormat($value['time_format'], $pubTime)->getTimestamp();
                     } else {
