@@ -698,7 +698,7 @@ foreach ($sources as $key => $value) {
                             $title = str_replace("&quot;", "", $title);
 
 
-                            if ($title != '' && $title != null && strlen($title) > 0 && ($textLen > 400)) {
+                            if ($title != '' && $title != null && strlen($title) > 0)) {
 
 
 
