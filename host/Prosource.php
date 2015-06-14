@@ -847,7 +847,7 @@ foreach ($sources as $key => $value) {
 
                             //}
 
-                            echo "<h2>" . $value['source_name'] . "," . $title . "," . $link . "," . $postTime . "</h2>";
+                            echo "<h2>" . $value['source_name'] . "," . $title . "," . $link . "," . $postTime . ",". $textLen."</h2>";
                         }
                     }
                 //}
