@@ -602,15 +602,12 @@ foreach ($sources as $key => $value) {
     	                            break;
     	                        }
 
-                            if (find_same2($keywords, $title_name['seed_keywordDict'])==2) {//$title_name['seed_industry'] == $industry && (
-                                array_push($seed_similar, (string)$title_name['_id']);
-                            }
                         }
 
                         foreach ($sourceTitles as $key4 => $sourceTitle_name) {
-                            if ( find_same($keywords, $sourceTitle_name['seed_keywordDict'])==true) {//$title_name['seed_industry'] == $industry &&
+                            if ( find_same($title, $sourceTitle_name['seed_title'])==true) {//$title_name['seed_industry'] == $industry &&
                                 echo '<p>' . $seed['title'] . '</p>';
-                                echo '<p>' . $title_name['seed_title'] . '</p>';
+                                echo '<p>' . $sourceTitle_name['seed_title'] . '</p>';
                                 $same = true;
                                 break;
                             }
