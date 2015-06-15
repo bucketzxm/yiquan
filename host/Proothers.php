@@ -46,7 +46,7 @@
 			*/
 
 			$dicts = $db->Prosystem->find(array('para_name' => 'industry_dict'));
-			/*
+			
 			foreach ($dicts as $industry => $dict) {
 				$industryName = $dict['industry_name'];
 				$seeds = $db->Proseed->find();
@@ -72,7 +72,7 @@
 			foreach ($count as $key3 => $value3) {
 				echo '<h3>'.$key3.':'.$value3.'</3>';
 			}
-			*/
+			
 
 			/*
 			foreach ($dicts as $key => $industry) {
@@ -93,12 +93,12 @@
 				
 			}
 			*/
-
+			/*
 			foreach ($sources as $key => $source) {
 				$source['source_status'] = 'active';
 				$db->Prosource->save($source);
 			}
-		
+			*/
 
 
 
