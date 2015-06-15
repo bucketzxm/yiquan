@@ -415,7 +415,7 @@ foreach ($sources as $key => $value) {
                     array_push($seedsToLoad, $seedToAdd);
 
                 }
-                //var_dump($result);
+                var_dump($seedsToLoad);
 
             } else {
 
