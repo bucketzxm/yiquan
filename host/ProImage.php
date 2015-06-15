@@ -43,7 +43,7 @@ foreach ($uncompleteSeeds as $key => $seed) {
 
     echo '<h3>'.$feedurl.'</h3>';
 
-
+    echo '<h3>'.strlen($html).'</h3>';
     //HTML进行UTF-8转码
     $encode = mb_detect_encoding($html, array('ASCII', 'UTF-8', 'GB2312', 'GBK', "EUC-CN", "CP936"));
 
@@ -87,7 +87,7 @@ foreach ($uncompleteSeeds as $key => $seed) {
         $openTag_pos = strpos($html, $source_openTag);
         $closeTag_pos = strpos($html, $source_closeTag);
         $cutHTML = mb_substr($html, $openTag_pos,$closeTag_pos-$openTag_pos);
-        echo '<h3>'.$openTag_pos.'and'.$closeTag_pos.'</h3>';
+        
 
         if (isset($source['text_startingTag'])) {
             $text_startTag = $source['text_startingTag'];

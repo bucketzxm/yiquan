@@ -849,7 +849,7 @@ foreach ($sources as $key => $value) {
                                     };
                                 }
 
-
+                                /*
                                 if (isset($value['source_industry'])){
                                     foreach ($value['source_industry'] as $key2 => $industry) {
                                         if (!in_array($industry,$seedIndustry)) {
@@ -857,7 +857,7 @@ foreach ($sources as $key => $value) {
                                             $industryHotness[$industry] = 0;
                                         }
                                     }    
-                                }
+                                }*/
                                 
 
                                 $dataToSave['seed_industry'] = $seedIndustry;
