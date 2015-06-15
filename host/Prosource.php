@@ -372,7 +372,7 @@ foreach ($sources as $key => $value) {
                     //var_dump(strpos($link, 'http'));
                     if (strpos($link, 'http') === false) {
                         //echo "relative link detected";
-                        $link = $url . $link;
+                        $link = $value['source_homeURL'] . $link;
                     } else {
                         //echo "definite link detected";
                     }
