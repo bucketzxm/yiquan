@@ -82,7 +82,7 @@ foreach ($uncompleteSeeds as $key => $seed) {
         $source_closeTag = $source['source_tag'][1];
         
         var_dump($source['source_tag']);
-        echo '<h3>'.$source['source_tag'].'and'.$source['source_tag'].'</h3>';
+        echo '<h3>'.$source['source_tag'][0].'and'.$source['source_tag'][1].'</h3>';
 
         $openTag_pos = strpos($html, $source_openTag);
         $closeTag_pos = strpos($html, $source_closeTag);
