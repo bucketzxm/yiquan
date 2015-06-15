@@ -313,7 +313,7 @@ class Protext extends YqBase {
 
         $parserResult = $this->parseText($seed_text,$industryDict);
 
-        if (count($parserResult[1])>0) {
+        if (count($parserResult[1])>0 && array_sum($parserResult[0])>5) {
             foreach ($parserResult[1] as $industryKey => $industryValue) {
                 if (!isset($seed['seed_industryParsed'][$industryValue])) {
                     $seed['seed_industryParsed'][$industryValue] = $industryValue;

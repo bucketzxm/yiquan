@@ -16,6 +16,7 @@ function find_same2($keywords,$seedToCheck){
             $sameCount ++;
         }
     }
+    
     if ($sameCount>= 7) {
         return 1;
     }elseif($sameCount > 4){
@@ -24,6 +25,7 @@ function find_same2($keywords,$seedToCheck){
     	return 0;
     }
 }
+
 
 function clear_unmeaningful_char($title){
     $title = str_replace("·", "", $title);
@@ -265,6 +267,8 @@ function find_same($string1, $string2){
     return false;
 }
 
+
+ini_set("max_execution_time", 2400);
 
 $dbname = 'yiquan';
 $host = 'localhost';
