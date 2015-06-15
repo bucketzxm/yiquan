@@ -174,6 +174,9 @@ foreach ($uncompleteSeeds as $key => $seed) {
 
             $db->Proseed->save($seed);
             echo $seed['seed_source'].','.$seed['seed_title'].','.$seed['seed_imageLink'];
+    }else{
+        $seed['seed_completeStatus'] = 'uncompleted';
+        $db->Proseed->save($seed);
     }
 }
 
