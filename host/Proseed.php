@@ -170,7 +170,10 @@ class Proseed extends YqBase {
 							)
 						),
 					'seed_time' => array ('$gt' => (time()-86400*3)),
-					'seed_textLen' => array('$gt'=> 400),
+					'$or' => array(
+						array('seed_textLen' => array('$gt'=> 400)),
+						array('seed_textLen' => 0)
+					),
 					'_id' => array ('$nin' => $readSeeds)
 					)
 			);
@@ -318,7 +321,10 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 							)
 						),
 					'seed_time' => array ('$lt' => $time),
-					'seed_textLen' => array('$gt'=> 400),
+					'$or' => array(
+						array('seed_textLen' => array('$gt'=> 400)),
+						array('seed_textLen' => 0)
+					),
 					'$or' => array (
 						array('seed_titleLower' => new MongoRegex ("/$keyword/")),
 						array('seed_sourceLower' => new MongoRegex ("/$keyword/"))
