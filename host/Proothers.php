@@ -24,13 +24,13 @@
 			$db = $mongoClient->yiquan;
 			$sources = $db->Prosource->find();
 			
-			/*
+			
 			foreach ($sources as $key => $source) {
 				$source['check_time'] = time() - 1000000000;
 				$db->Prosource->save($source);
 			}
 			
-		
+			/*
 			//修改行业字典
 			$dicts = $db->Prosystem->find(array('para_name' => 'industry_dict'));
 			foreach ($dicts as $industry => $dict) {
