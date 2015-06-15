@@ -41,6 +41,9 @@ foreach ($uncompleteSeeds as $key => $seed) {
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     $html = curl_exec($ch);
 
+    echo '<h3>'.$feedurl.'</h3>';
+    echo '<h3>'.$html.'</h3>';
+
     //HTML进行UTF-8转码
     $encode = mb_detect_encoding($html, array('ASCII', 'UTF-8', 'GB2312', 'GBK', "EUC-CN", "CP936"));
 
@@ -159,7 +162,7 @@ foreach ($uncompleteSeeds as $key => $seed) {
             }
         }
         
-        var_dump($html);
+
 
         $db->Proseed->save($seed);
         echo $seed['seed_source'].','.$seed['seed_title'].','.$seed['seed_imageLink'];
