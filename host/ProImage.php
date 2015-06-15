@@ -76,7 +76,7 @@ foreach ($uncompleteSeeds as $key => $seed) {
 
         
 
-        $source = $db->Prosource->findOne(array('_id' => new MongoId($seed['seed_sourceID']))));
+        $source = $db->Prosource->findOne(array('_id' => new MongoId($seed['seed_sourceID'])));
 
         $source_openTag = $source['source_tag'][0];
         $source_closeTag = $source['source_tag'][1];
