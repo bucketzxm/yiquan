@@ -74,8 +74,8 @@ foreach ($uncompleteSeeds as $key => $seed) {
         $html = preg_replace("<link .*? >", "", $html);
         $html = preg_replace("<iframe .*? /iframe>", "", $html);
 
-        echo '<h3>'.strlen($html).'</h3>';
         
+
         $source = $db->Prosource->findOne(array('_id' => new MongoId($seed['seed_sourceID'])));
 
         $source_openTag = $source['source_tag'][0];
@@ -104,7 +104,7 @@ foreach ($uncompleteSeeds as $key => $seed) {
             }
             
         }
-
+        echo '<h3>'.strlen($cutHTML).'</h3>';
         $text = $cutHTML;
         $text = str_replace("style=", "", $text);
         $text = str_replace("width", "", $text);
