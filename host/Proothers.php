@@ -95,10 +95,7 @@
 			*/
 
 			foreach ($sources as $key => $source) {
-				if (!isset($source['source_status'])) {
-					$source['source_status'] = 'active';
-					$db->Prosource->save($source);
-				}
+				echo '<h3>'.$source['source_name'].' '. $source['source_rssURL'].'</h3>';
 			}
 		
 
