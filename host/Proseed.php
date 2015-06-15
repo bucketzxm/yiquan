@@ -1084,13 +1084,25 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 		$readSeed['read_duration'] = $read_time;
 		$this->db->Proread->save($readSeed);
 
+		//找到这条Seed
+		$seed = $this->db->Proseed->findOne(array('_id' => new MongoId($seed_id)));
+
 
 		//判断是否热度加1
 		if ($read_time > 60 ) {
-			$seed = $this->db->Proseed->findOne(array ('_id' => new MongoId($seed_id)));
+			
 			$seed['seed_hotness'] += 1;
 			$this->db->Proseed->save($seed);
 		}
+		$highReadTime = $seed['seed_textLen']*60*0.4/500;
+		if ($read_time > $highReadTime ) {
+			
+			$seed['seed_hotness'] += 3;
+			$seed['seed_agreeCount'] += 3;
+
+			$this->db->Proseed->save($seed);
+		}
+
 
 	}
 
