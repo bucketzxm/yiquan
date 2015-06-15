@@ -95,7 +95,7 @@
 			*/
 
 			foreach ($sources as $key => $source) {
-				echo '<h3>'.$source['source_name'].' '. $source['source_rssURL'].'</h3>';
+				echo '<h3>'.$source['source_name'].' '. $source['source_rssURL'][0].'</h3>';
 			}
 		
 
