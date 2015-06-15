@@ -86,6 +86,7 @@ foreach ($uncompleteSeeds as $key => $seed) {
         $openTag_pos = strpos($html, $source_openTag);
         $closeTag_pos = strpos($html, $source_closeTag);
         $cutHTML = mb_substr($html, $openTag_pos,$closeTag_pos-$openTag_pos);
+        echo '<h3>'.strlen($cutHTML).'</h3>';
 
         if (isset($source['text_startingTag'])) {
             $text_startTag = $source['text_startingTag'];
@@ -104,7 +105,7 @@ foreach ($uncompleteSeeds as $key => $seed) {
             }
             
         }
-        echo '<h3>'.strlen($cutHTML).'</h3>';
+
         $text = $cutHTML;
         $text = str_replace("style=", "", $text);
         $text = str_replace("width", "", $text);
