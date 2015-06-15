@@ -804,6 +804,8 @@ foreach ($sources as $key => $value) {
                                     $completeStatus = 'uncompleted';
                                 }
 
+                                $text = iconv($encode, 'UTF-8//IGNORE', $text);
+
                                 $dataToSave = array(
                                     'seed_source' => $sourceName,
                                     'seed_sourceLower' => strtolower($value['source_name']),
