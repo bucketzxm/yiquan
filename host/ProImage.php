@@ -44,7 +44,7 @@ foreach ($uncompleteSeeds as $key => $seed) {
     echo '<h3>'.$feedurl.'</h3>';
 
     echo '<h3>'.strlen($html).'</h3>';
-    echo curl_getinfo($curl,CURLINFO_HTTP_CODE);
+    echo curl_getinfo($ch,CURLINFO_HTTP_CODE);
     //HTML进行UTF-8转码
     $encode = mb_detect_encoding($html, array('ASCII', 'UTF-8', 'GB2312', 'GBK', "EUC-CN", "CP936"));
 
