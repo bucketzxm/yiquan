@@ -42,7 +42,17 @@
 			$words = $db->Prowords->find();
 			foreach ($words as $key1 => $word) {
 				if (floor((time() - $word['word_checkTime'])/86400) >0) {
-					$word['word_hotness'] = $word['word_hotness'] * exp(-0.05) * floor((time() - $word['word_checkTime'])/86400)  ;
+					$newHotness = $word['word_hotness'] * exp(-0.05) * floor((time() - $word['word_checkTime'])/86400);	
+					if ($word['word_type'] == 'default') {
+						if ($newHotness < 100) {
+							$word['word_hotness'] = 100;	
+						}else{
+							$word['word_hotness'] = $newHotness;
+						}
+					}else{
+						$word['word_hotness'] = $newHotness;
+					}
+					
 					$word['word_checkTime'] = time();
 					$db->Prowords->save($word);
 				}
