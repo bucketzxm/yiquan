@@ -143,6 +143,7 @@ foreach ($uncompleteSeeds as $key => $seed) {
             $seed['seed_title'] = $seed['seed_title'].'（多图）';
         }
         
+        $text = iconv($encode, 'UTF-8//IGNORE', $text);
         $seed['seed_text'] = $text;
         $seed['seed_textLen'] = mb_strlen($text);
         $seed['seed_imageLink'] = $imageLink;
