@@ -81,13 +81,13 @@ foreach ($uncompleteSeeds as $key => $seed) {
         $source_openTag = $source['source_tag'][0];
         $source_closeTag = $source['source_tag'][1];
         
-        var_dump($source['source_tag']);
-        echo '<h3>'.$source['source_tag'][0].'and'.$source['source_tag'][1].'</h3>';
+        
+        
 
         $openTag_pos = strpos($html, $source_openTag);
         $closeTag_pos = strpos($html, $source_closeTag);
         $cutHTML = mb_substr($html, $openTag_pos,$closeTag_pos-$openTag_pos);
-
+        echo '<h3>'.$openTag_pos.'and'.$closeTag_pos.'</h3>';
 
         if (isset($source['text_startingTag'])) {
             $text_startTag = $source['text_startingTag'];
