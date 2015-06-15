@@ -42,7 +42,7 @@ foreach ($uncompleteSeeds as $key => $seed) {
     $html = curl_exec($ch);
 
     echo '<h3>'.$feedurl.'</h3>';
-    echo '<h3>'.strlen($html).'</h3>';
+
 
     //HTML进行UTF-8转码
     $encode = mb_detect_encoding($html, array('ASCII', 'UTF-8', 'GB2312', 'GBK', "EUC-CN", "CP936"));
@@ -74,6 +74,8 @@ foreach ($uncompleteSeeds as $key => $seed) {
         $html = preg_replace("<link .*? >", "", $html);
         $html = preg_replace("<iframe .*? /iframe>", "", $html);
 
+        echo '<h3>'.strlen($html).'</h3>';
+        
         $source = $db->Prosource->findOne(array('_id' => new MongoId($seed['seed_sourceID'])));
 
         $source_openTag = $source['source_tag'][0];
