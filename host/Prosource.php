@@ -848,12 +848,15 @@ foreach ($sources as $key => $value) {
                                 }
 
 
-                                foreach ($value['source_industry'] as $key2 => $industry) {
-                                    if (!in_array($industry,$seedIndustry)) {
-                                        array_push($seedIndustry,$industry);
-                                        $industryHotness[$industry] = 0;
-                                    }
+                                if (isset($value['source_industry'])){
+                                    foreach ($value['source_industry'] as $key2 => $industry) {
+                                        if (!in_array($industry,$seedIndustry)) {
+                                            array_push($seedIndustry,$industry);
+                                            $industryHotness[$industry] = 0;
+                                        }
+                                    }    
                                 }
+                                
 
                                 $dataToSave['seed_industry'] = $seedIndustry;
                                 $dataToSave['seed_industryHotness'] = $industryHotness;
