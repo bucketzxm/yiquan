@@ -86,7 +86,7 @@ foreach ($uncompleteSeeds as $key => $seed) {
         $openTag_pos = strpos($html, $source_openTag);
         $closeTag_pos = strpos($html, $source_closeTag);
         $cutHTML = mb_substr($html, $openTag_pos,$closeTag_pos-$openTag_pos);
-        echo '<h3>'.$openTag_pos.'and'.$closeTag_pos.'</h3>';
+        echo '<h3>'.$source_openTag.'and'.$source_closeTag.'</h3>';
 
         if (isset($source['text_startingTag'])) {
             $text_startTag = $source['text_startingTag'];
