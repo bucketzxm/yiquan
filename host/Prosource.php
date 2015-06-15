@@ -290,10 +290,14 @@ $timeMonthAgo = $currentTime - 86400*30;
 $db->Proseed->remove (array ('seed_time' => array ('$lt' => $timeMonthAgo)));*/
 
 
+
+
 //依次读取每个Source
 foreach ($sources as $key => $value) {
     echo "<h2>" . $value['source_name'] . "</h2>";
     $checkTime = $value['check_time'];
+
+
 
     //维护数据完整性
     if (!isset($value['read_count'])) {
@@ -515,10 +519,20 @@ foreach ($sources as $key => $value) {
             $titles_cursor = $db->Proseed->find(array(
                 'seed_dbWriteTime' => array('$gt' => (time() - 86400))));
 
+
             $titles = array();
 
             foreach ($titles_cursor as $keyx => $valuex) {
                 array_push($titles, $valuex);
+            }
+
+            $sourceTitles = array();
+            $sourceTitle_cursor = $db->Proseed->find(array(
+                'seed_sourceID' => (string)$value['_id'],
+                'seed_dbWriteTime' => array('$gt' => (time() - 86400*30))
+                ));
+            foreach ($sourceTitle_cursor as $keysx => $valuesx) {
+                array_push($sourceTitles, $valuesx);
             }
 
             foreach ($seedsToLoad as $key1 => $seed) {
@@ -567,6 +581,18 @@ foreach ($sources as $key => $value) {
 	                            array_push($seed_similar, (string)$title_name['_id']);
 	                        }
 	                    }
+
+
+                        foreach ($sourceTitles as $key4 => $sourceTitle_name) {
+                            if ( find_same2($keywords, $sourceTitle_name['seed_keywordDict'])==1) {//$title_name['seed_industry'] == $industry &&
+                                echo '<p>' . $seed['title'] . '</p>';
+                                echo '<p>' . $title_name['seed_title'] . '</p>';
+                                $same = true;
+                                break;
+                            }
+                        }
+
+
                     }else{
                         foreach ($titles as $key3 => $title_name) {
                         	if (find_same($title, $title_name['seed_title'])==true) {//$title_name['seed_industry'] == $industry && (
@@ -580,6 +606,16 @@ foreach ($sources as $key => $value) {
                                 array_push($seed_similar, (string)$title_name['_id']);
                             }
                         }
+
+                        foreach ($sourceTitles as $key4 => $sourceTitle_name) {
+                            if ( find_same($keywords, $sourceTitle_name['seed_keywordDict'])==true) {//$title_name['seed_industry'] == $industry &&
+                                echo '<p>' . $seed['title'] . '</p>';
+                                echo '<p>' . $title_name['seed_title'] . '</p>';
+                                $same = true;
+                                break;
+                            }
+                        }
+
                     }
 
                     
@@ -836,6 +872,7 @@ foreach ($sources as $key => $value) {
                                 var_dump($dataToSave);
                                 $proseed->save($dataToSave);
                                 array_push($titles, $dataToSave);
+                                array_push($sourceTitles, $dataToSave);
 
                                 foreach ($dataToSave['seed_similar'] as $keyzzz => $valuezzz) {
                                 	$news = $proseed -> findOne(array('_id'=> new MongoId($valuezzz)));
