@@ -122,6 +122,9 @@ foreach ($uncompleteSeeds as $key => $seed) {
             $text = preg_replace("<link.*?>", "", $text);
             $text = preg_replace("<iframe.*?/iframe>", "", $text);
 
+            $cleanedText = clear_unmeaningful_char($text);
+            $textLen = mb_strlen($cleanedText,'utf-8');
+
             //解析行业
             $protext = new Protext;
             $parserResult = $protext->parseIndustry($text,strtolower($seed['seed_titleLower']));        
@@ -156,7 +159,7 @@ foreach ($uncompleteSeeds as $key => $seed) {
             
             $text = iconv($encode, 'UTF-8//IGNORE', $text);
             $seed['seed_text'] = $text;
-            $seed['seed_textLen'] = mb_strlen($text);
+            $seed['seed_textLen'] = $textLen;
             $seed['seed_imageLink'] = $imageLink;
             $seed['seed_imageCount'] = $imgCount;
             $seed['seed_completeStatus'] = 'completed';
