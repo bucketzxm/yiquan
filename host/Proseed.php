@@ -161,7 +161,7 @@ class Proseed extends YqBase {
 						array ('seed_industry' => $user['current']['user_interestA']),
 						array ('seed_industry' => $user['current']['user_interestB'])
 						), 
-					/*
+					
 					'$nor' => array(
 						array (
 							'$and' => array (
@@ -169,12 +169,12 @@ class Proseed extends YqBase {
 								array ('seed_text' => '')
 								)
 							)
-						),*/
+						),
 					'seed_time' => array ('$gt' => (time()-86400*3)),
-					/*'$or' => array(
-						array('seed_textLen' => array('$gt'=> 400)),
-						array('seed_textLen' => 0)
-					),*/
+					'seed_textLen' => array ( '$or' =>
+						array('$gt'=> 400),
+						array('$lt'=> 1)
+						),
 					'_id' => array ('$nin' => $readSeeds)
 					)
 			);
