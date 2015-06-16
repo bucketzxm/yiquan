@@ -171,13 +171,13 @@ class Proseed extends YqBase {
 							)
 						),*/
 					'seed_time' => array ('$gt' => (time()-86400*3)),
-					'$or' => array(
+					/*'$or' => array(
 						array('seed_textLen' => array('$gt'=> 400)),
 						array('seed_textLen' => 0)
 					),
 					'_id' => array ('$nin' => $readSeeds)
 					)
-			);
+			);*/
 				/*
 				foreach ($sourceSeeds as $key => $value) {
 					
