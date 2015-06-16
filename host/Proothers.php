@@ -71,9 +71,11 @@
 				echo '<h3>'.$value['seed_title'].':'.implode(';', $value['seed_industry']).'</3>';
 			}
 
+			/*
 			foreach ($count as $key3 => $value3) {
 				echo '<h3>'.$key3.':'.$value3.'</3>';
 			}
+			*/
 			
 
 			/*
