@@ -65,10 +65,11 @@
 			$seeds = $db->Proseed->find();
 			foreach ($seeds as $key => $value) {
 				
-				$value['seed_industryCount'] = count($value['seed_industry']);
-				$db->Proseed->save ($value);	
-
-				echo '<h3>'.$value['seed_title'].':'.implode(';', $value['seed_industry']).'</3>';
+				if (isset($value['seed_industry'])) {
+					$value['seed_industryCount'] = count($value['seed_industry']);
+					$db->Proseed->save ($value);	
+					echo '<h3>'.$value['seed_title'].':'.implode(';', $value['seed_industry']).'</3>';	
+				}
 			}
 
 			/*
