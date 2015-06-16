@@ -155,13 +155,21 @@ class Proseed extends YqBase {
 			//foreach ($sources as $key => $source) {
 			$sourceSeeds = $this->db->Proseed->find (
 				array (
-					
-					'$or' => array(
-						array ('seed_industry' => $user['current']['user_industry']),
-						array ('seed_industry' => $user['current']['user_interestA']),
-						array ('seed_industry' => $user['current']['user_interestB'])
-						), 
-					
+					'$and' => array(
+						array(
+							'$or' => array(
+								array ('seed_industry' => $user['current']['user_industry']),
+								array ('seed_industry' => $user['current']['user_interestA']),
+								array ('seed_industry' => $user['current']['user_interestB'])
+								)
+						),
+						array(
+							'$or' => array(
+								array ('seed_textLen' => array('$gt'=> 400)),
+								array ('seed_textLen' => array('$lt'=> 1))
+							)
+						)
+					),
 					'$nor' => array(
 						array (
 							'$and' => array (
@@ -172,10 +180,7 @@ class Proseed extends YqBase {
 						),
 					'seed_time' => array ('$gt' => (time()-86400*3)),
 
-					'$or' => array(
-						array ('seed_textLen' => array('$gt'=> 400)),
-						array ('seed_textLen' => array('$lt'=> 1))
-					),
+
 					'_id' => array ('$nin' => $readSeeds)
 					)
 			);
