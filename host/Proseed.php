@@ -294,7 +294,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 				$data = array(
 					'word_name' => $keyword,
 					'word_industry' => $user['current']['user_industry'],
-					'word_hotness' => 100,
+					'word_hotness' => 10,
 					'word_checkTime' => time()
 				);
 				$this->db->Prowords->save($data);
