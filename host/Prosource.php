@@ -419,7 +419,7 @@ foreach ($sources as $key => $value) {
                     array_push($seedsToLoad, $seedToAdd);
 
                 }
-                var_dump($seedsToLoad);
+                //var_dump($seedsToLoad);
 
             } else {
 
@@ -433,7 +433,7 @@ foreach ($sources as $key => $value) {
                 $feeds = str_replace("</content:encoded>", "</contentEncoded>", $feeds);
                 $feeds = str_replace("CDATA<", "CDATA[<", $feeds);
 
-                var_dump($feeds);
+                //var_dump($feeds);
                 $rss = simplexml_load_string($feeds, 'SimpleXMLElement', LIBXML_NOCDATA | LIBXML_COMPACT | LIBXML_PARSEHUGE);
 
                 //Calculate average hotness
@@ -875,7 +875,7 @@ foreach ($sources as $key => $value) {
                                 //var_dump($keywords);
                                 //var_dump($proseed->save($seed));
                                 //var_dump($seed);
-                                var_dump($dataToSave);
+                                //var_dump($dataToSave);
                                 $proseed->save($dataToSave);
                                 array_push($titles, $dataToSave);
                                 array_push($sourceTitles, $dataToSave);
