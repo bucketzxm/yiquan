@@ -52,8 +52,10 @@
 				$seeds = $db->Proseed->find();
 				$count = 0;
 				foreach ($seeds as $key => $value) {
-					if (in_array($industryName,$value['seed_industry'])) {
-						$count ++;
+					if (isset($value['seed_industry'])) {
+						if (in_array($industryName,$value['seed_industry'])) {
+							$count ++;
+						}	
 					}
 				}
 				echo '<h3>'.$industryName.$count.'</h3>';
