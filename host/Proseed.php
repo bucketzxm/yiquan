@@ -174,10 +174,10 @@ class Proseed extends YqBase {
 					/*'$or' => array(
 						array('seed_textLen' => array('$gt'=> 400)),
 						array('seed_textLen' => 0)
-					),
+					),*/
 					'_id' => array ('$nin' => $readSeeds)
 					)
-			);*/
+			);
 				/*
 				foreach ($sourceSeeds as $key => $value) {
 					
