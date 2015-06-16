@@ -327,7 +327,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 					),
 					'$or' => array (
 						array('seed_titleLower' => new MongoRegex ("/$keyword/")),
-						array('seed_sourceLower' => new MongoRegex ("/$keyword/"))
+						//array('seed_sourceLower' => new MongoRegex ("/$keyword/"))
 						)
 					)
 			)->sort(array('seed_time'=> -1))->limit(30);
