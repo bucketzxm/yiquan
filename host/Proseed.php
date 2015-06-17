@@ -334,6 +334,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 					),
 					'$or' => array (
 						array('seed_titleLower' => new MongoRegex ("/$keyword/")),
+						array('seed_industry' => new MongoRegex ("/$keyword/"))
 						//array('seed_sourceLower' => new MongoRegex ("/$keyword/"))
 						)
 					)
