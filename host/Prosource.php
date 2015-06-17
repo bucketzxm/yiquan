@@ -293,9 +293,45 @@ $currentTime = time();
 $timeMonthAgo = $currentTime - 86400*30;
 $db->Proseed->remove (array ('seed_time' => array ('$lt' => $timeMonthAgo)));*/
 
+//执行Prohot
+$seeds = $db->Proseed->find(array('seed_hotness' => array('$gt' => 1)));
+foreach ($seeds as $key => $seed) {
+    $para = $db->Prosystem->findOne(array('para_name'=>"user_count"));
+    if (isset ($para[$seed['seed_industry']])) {
+        $speed = $para[$seed['seed_industry']];
+    }else{
+        $speed = 0;
+    }
+    $seed['seed_hotness'] = $seed['seed_hotness'] * exp(-0.05) * ((time() - $seed['seed_hotnessTime'])/3600));
+    foreach($seed['seed_industryHotness'] as $industry => $hotness){
+        $seed['seed_industryHotness'][$industry] = $hotness * exp (-0.05) * ((time() - $seed['seed_hotnessTime'])/3600));
+    }
+    $seed['seed_hotnessTime'] = time();
+    $db->Proseed->save($seed);
+}
 
 
+$words = $db->Prowords->find();
+foreach ($words as $key1 => $word) {
+    if (floor((time() - $word['word_checkTime'])/86400) >0) {
+        $newHotness = $word['word_hotness'] * exp(-0.05) * floor((time() - $word['word_checkTime'])/86400); 
+        if ($word['word_type'] == 'default') {
+            if ($newHotness < 100) {
+                $word['word_hotness'] = 100;    
+            }else{
+                $word['word_hotness'] = $newHotness;
+            }
+        }else{
+            $word['word_hotness'] = $newHotness;
+        }
+        
+        $word['word_checkTime'] = time();
+        $db->Prowords->save($word);
+    }
+}
 
+
+//运行Prosource
 //依次读取每个Source
 foreach ($sources as $key => $value) {
     echo "<h2>" . $value['source_name'] . "</h2>";
@@ -910,7 +946,6 @@ foreach ($sources as $key => $value) {
 
 
 
-
 //运行ProImage
 
 //
@@ -1073,6 +1108,8 @@ foreach ($uncompleteSeeds as $key => $seed) {
         $db->Proseed->save($seed);
     }
 }
+
+
 
 
 
