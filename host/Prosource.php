@@ -461,8 +461,16 @@ foreach ($sources as $key => $value) {
                             $seedToAdd['imageLink'] = $value['source_homeURL'].$seedToAdd['imageLink'];
                         }    
                     }
+
+                    if (isset($value['source_parent`'])) {
+                        $sourceName = $value['source_parent'];
+                    }else{
+                        $sourceName = $value['source_name'];
+                    }
+                    if (mb_strpos($title, $sourceName) === false) {
+                        array_push($seedsToLoad, $seedToAdd);    
+                    }
                     
-                    array_push($seedsToLoad, $seedToAdd);
 
                 }
                 //var_dump($seedsToLoad);
@@ -556,7 +564,14 @@ foreach ($sources as $key => $value) {
                     if ($postTime < $checkTime) {
 
                     } else {
-                        array_push($seedsToLoad, $seedToAdd);
+                        if (isset($value['source_parent`'])) {
+                            $sourceName = $value['source_parent'];
+                        }else{
+                            $sourceName = $value['source_name'];
+                        }
+                        if (mb_strpos($title, $sourceName) === false) {
+                            array_push($seedsToLoad, $seedToAdd);
+                        }
                     }
 
                 }
