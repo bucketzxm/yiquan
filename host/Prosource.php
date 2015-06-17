@@ -315,7 +315,7 @@ foreach ($seeds as $key => $seed) {
 $words = $db->Prowords->find();
 foreach ($words as $key1 => $word) {
     if (floor((time() - $word['word_checkTime'])/86400) >0) {
-        $newHotness = $word['word_hotness'] * exp(-0.05 * floor((time() - $word['word_checkTime'])/86400)); 
+        $newHotness = $word['word_hotness'] * exp((-0.05) * floor((time() - $word['word_checkTime'])/86400)); 
         if ($word['word_type'] == 'default') {
             if ($newHotness < 100) {
                 $word['word_hotness'] = 100;    
@@ -1051,6 +1051,7 @@ foreach ($uncompleteSeeds as $key => $seed) {
 
             $cleanedText = clear_unmeaningful_char($text);
             $textLen = mb_strlen($cleanedText,'utf-8');
+            echo $cleanedText. $textLen;
 
             //解析行业
             $protext = new Protext;
