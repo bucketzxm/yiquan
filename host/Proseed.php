@@ -766,7 +766,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 
 			$this->db->Proworth->save ($data);
 
-			if (in_array($user['current']['user_industry'],$source['source_industry'])) {
+			if (in_array($user['current']['user_industry'],$cursor['seed_industry'])) {
 				$cursor['seed_industryHotness'][$user['current']['user_industry']] += (int)$user['current']['user_weight']*10;
 				if(isset($cursor['seed_agreeCount'])){
 					$cursor['seed_agreeCount'] += $user['current']['user_weight'];
@@ -1100,24 +1100,37 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 
 		//找到这条Seed
 		$seed = $this->db->Proseed->findOne(array('_id' => new MongoId($seed_id)));
-
+		$user = $this->db->Prouser->findOne(array('_id'=> new MongoId($user_id)));
 
 		//判断是否热度加1
-		if ($read_time > 60 ) {
-			
-			$seed['seed_hotness'] += 1;
-			$this->db->Proseed->save($seed);
-		}
-		$highReadTime = $seed['seed_textLen']*60*0.4/500;
+
+		$highReadTime = $seed['seed_textLen']*60*0.5/500;
 		if ($read_time > $highReadTime ) {
 			
-			$seed['seed_hotness'] += 3;
-			$seed['seed_agreeCount'] += 3;
-
+			if (in_array($user['current']['user_industry'],$seed['seed_industry'])) {
+				$seed['seed_industryHotness'][$user['current']['user_industry']] += (int)$user['current']['user_weight']*1;
+				if(isset($seed['seed_agreeCount'])){
+					$seed['seed_agreeCount'] += ceil($user['current']['user_weight']/5);
+				}else{
+					$seed['seed_agreeCount'] = ceil($user['current']['user_weight']/5);
+				}
+			}else{
+				$seed['seed_industryHotness'][$user['current']['user_industry']] += 1;//(int)$user['current']['user_weight']*1;
+				if(isset($seed['seed_agreeCount'])){
+					$seed['seed_agreeCount'] += 0;//ceil($user['current']['user_weight']/5);
+				}else{
+					$seed['seed_agreeCount'] = 0;//ceil($user['current']['user_weight']/5);
+				}
+			}
 			$this->db->Proseed->save($seed);
+		}else{
+			if ($read_time > 60 ) {
+				if (in_array($user['current']['user_industry'],$seed['seed_industry'])) {
+					$seed['seed_industryHotness'][$user['current']['user_industry']] += 1;
+					$this->db->Proseed->save($seed);
+				}
+			}
 		}
-
-
 	}
 
 	function reportFormatBug($seed_id){
