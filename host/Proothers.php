@@ -226,6 +226,7 @@ function clear_unmeaningful_char($title){
 			foreach ($seeds as $key => $value) {
 				$cleanedText = clear_unmeaningful_char($value['seed_text']);
 				$value['seed_textLen'] = mb_strlen($cleanedText,'utf-8');
+				$db->Proseed->save($value);
 
 				/*
 				if (isset($value['seed_industry'])) {
