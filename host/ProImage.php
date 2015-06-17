@@ -276,7 +276,7 @@ foreach ($uncompleteSeeds as $key => $seed) {
             $text = preg_replace("<iframe.*?/iframe>", "", $text);
 
             $cleanedText = clear_unmeaningful_char($text);
-            $textLen = mb_strlen($cleanedText,'utf-8');
+            $textLen = mb_strlen($cleanedText);
             echo $textLen;
             //解析行业
             $protext = new Protext;
