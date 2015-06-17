@@ -333,7 +333,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 						array('seed_textLen' => 0)
 					),
 					'$or' => array (
-						array('seed_titleLower' => new MongoRegex ("/$keyword/")),
+						//array('seed_titleLower' => new MongoRegex ("/$keyword/")),
 						array('seed_industry' => new MongoRegex ("/$keyword/"))
 						//array('seed_sourceLower' => new MongoRegex ("/$keyword/"))
 						)
