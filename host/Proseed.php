@@ -1126,6 +1126,13 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 		$this->db->Proseed->save($seed);
 	}
 
+	function reportAdContent($seed_id){
+		$seed = $this->db->Proseed->findOne(array('_id'=> new MongoId($seed_id)));
+		$seed['seed_completeStatus'] = 'adContent';
+		$this->db->Proseed->save($seed);
+	}
+
+
 	function queryMyWordsToSearch($user_id){
 		if ($this->yiquan_version == 0) {
 			return - 2;
