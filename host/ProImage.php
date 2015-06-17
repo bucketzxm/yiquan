@@ -194,9 +194,9 @@ foreach ($uncompleteSeeds as $key => $seed) {
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     $html = curl_exec($ch);
 
-    echo '<h3>'.$feedurl.'</h3>';
-    echo '<h3>'.curl_getinfo($ch,CURLINFO_HTTP_CODE).'</h3>';
-    echo '<h3>'.strlen($html).'</h3>';
+    //echo '<h3>'.$feedurl.'</h3>';
+    //echo '<h3>'.curl_getinfo($ch,CURLINFO_HTTP_CODE).'</h3>';
+    //echo '<h3>'.strlen($html).'</h3>';
 
     if (curl_getinfo($ch,CURLINFO_HTTP_CODE) != 0) {
         
@@ -277,7 +277,7 @@ foreach ($uncompleteSeeds as $key => $seed) {
 
             $cleanedText = clear_unmeaningful_char($text);
             $textLen = mb_strlen($cleanedText,'utf-8');
-                echo $cleanedText. $textLen;
+            echo $textLen;
             //解析行业
             $protext = new Protext;
             $parserResult = $protext->parseIndustry($text,strtolower($seed['seed_titleLower']));        
