@@ -189,12 +189,12 @@ function clear_unmeaningful_char($title){
                 echo '<h3>'.$value['seed_title'].'  '.implode(';', $value['seed_industry']).'</h3>';
             }
 			
-			/*
+			
 			foreach ($sources as $key => $source) {
 				$source['check_time'] = time() - 1000000000;
 				$db->Prosource->save($source);
 			}
-            */
+            
 
 			
 			/*
