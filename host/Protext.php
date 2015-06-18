@@ -305,7 +305,7 @@ class Protext extends YqBase {
                         $matchCount += $textDict[$value2];
                     }  
                 }
-                if ($matchCount>10) {
+                if ($matchCount>0) {
                     array_push($segmentDict, $dict['segment_name']);
                 }
             }
