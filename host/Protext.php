@@ -309,7 +309,7 @@ class Protext extends YqBase {
                     }    
                 }
                 
-                if ($matchCount>0) {
+                if ($matchCount>5) {
                     array_push($segmentDict, $dict['segment_name']);
                 }
             }
