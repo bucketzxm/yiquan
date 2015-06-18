@@ -308,8 +308,8 @@ class Protext extends YqBase {
                         }                           
                     }    
                 }
-                if (isset($dict['segment_ENDict'])) {
-                    foreach ($dict['segment_ENDict'] as $key2 => $value2) {
+                if (isset($dict['segment_ENGDict'])) {
+                    foreach ($dict['segment_ENGDict'] as $key2 => $value2) {
                         if (isset($textDict[$value2])) {
                             $matchCount += count($textDict[$value2]);
                         }  
