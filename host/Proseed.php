@@ -112,6 +112,7 @@ class Proseed extends YqBase {
 				$news = $this->db->Proseed->find (array ('_id' => array ('$in' =>$seedIDs)));
 
 				$agreeWords = array();
+				$agreeLabels = array();
 				foreach ($news as $agreeNews) {
 					foreach ($agreeNews['seed_keywords'] as $agreeKeyword) {
 						if (isset($agreeWords[$agreeKeyword])) {
@@ -120,7 +121,18 @@ class Proseed extends YqBase {
 							$agreeWords[$agreeKeyword] = 1;
 						}
 					}
+					foreach ($agreeNews['seed_industry'] as $agreeLabel) {
+						if (isset($agreeLabels[$agreeLabel])) {
+							$agreeLabels[$agreeLabel] ++;
+						}else{
+							$agreeLabels[$agreeLabel] = 1;
+						}
+					}
 				}
+
+				
+
+
 
 
 				$myDisagrees = $this->db->Proread->find (
@@ -142,12 +154,21 @@ class Proseed extends YqBase {
 				$disNews = $this->db->Proseed->find (array ('_id' => array ('$in' =>$disSeedIDs)));
 
 				$disAgreeWords = array ();
+				$disAgreeLabels = array ();
 				foreach ($disNews as $disAgreeNews) {
 					foreach ($disAgreeNews['seed_keywords'] as $disAgreeKeyword) {
 						if (isset($disAgreeWords[$disAgreeKeyword])) {
 							$disAgreeWords[$disAgreeKeyword] ++;
 						}else{
 							$disAgreeWords[$disAgreeKeyword] = 1;
+						}
+					}
+
+					foreach ($disAgreeNews['seed_industry'] as $disAgreeLabel) {
+						if (isset($disAgreeLabels[$disAgreeLabel])) {
+							$disAgreeLabels[$disAgreeLabel] ++;
+						}else{
+							$disAgreeLabels[$disAgreeLabel] = 1;
 						}
 					}
 				}
@@ -208,7 +229,7 @@ class Proseed extends YqBase {
 			$res1 = array ();
 			//计算所有新闻的热度
 			foreach ($sourceSeeds as $sourceSeedKey => $sourceSeed) {
-				$stats = $this->getHotness($user,$sourceSeed,$agreeWords,count($seedIDs),$disAgreeWords,count($disSeedIDs));
+				$stats = $this->getHotness($user,$sourceSeed,$agreeWords,count($seedIDs),$disAgreeWords,count($disSeedIDs),$agreeLabels,$disAgreeLabels);
 				//return $stats;
 				$res[(string)$sourceSeed['_id']] = $stats['priority'];
 				$res1[(string)$sourceSeed['_id']] = $stats['priorityType'];
@@ -595,7 +616,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 		
 	}
 
-	function getHotness ($user, $seed,$agreeWords,$agreeCount,$disAgreeWords,$disAgreeCount){
+	function getHotness ($user, $seed,$agreeWords,$agreeCount,$disAgreeWords,$disAgreeCount,$agreeLabels,$disAgreeLabels){
 
 		try {
 			/*
@@ -635,7 +656,9 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 			
 	
 			$matchCount = 0;
+			$labelMatchCount = 0;
 			$dismatchCount = 0;
+			$disLabelMatchCount  = 0;
 			$matchness = 0;
 
 			//计算和已经读过的文章的匹配数
@@ -647,6 +670,13 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 					}	
 				}
 				$matchness += $matchCount/$agreeCount;
+
+				foreach ($seed['seed_industry'] as $key => $agreeLabel) {
+					if (isset($agreeLabels[$agreeLabel])) {
+						$labelMatchCount += $agreeLabels[$agreeLabel];	
+					}	
+				}
+				$matchness += $labelMatchCount/$agreeCount;
 			}
 		
 			if ($disAgreeCount>0) {
@@ -656,12 +686,19 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 					}
 				}
 				$matchness -= $dismatchCount/$disAgreeCount;
+
+				foreach ($seed['seed_industry'] as $key1 => $disAgreeLabel) {
+					if (isset($disAgreeLabels[$disAgreeLabel])) {
+						$disLabelMatchCount += $disAgreeLabels[$disAgreeLabel];
+					}
+				}
+				$matchness -= $disLabelMatchCount/$disAgreeCount;
 			}	
 			
 			//更新关键词匹配的值
 			
 			//计算和自己的关键词的疲惫度
-			
+			/*
 			if (isset($user['user_keywords'])) {
 				foreach ($user['user_keywords'] as $keyword) {
 					if ($keyword != '') {
@@ -671,8 +708,8 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 						}	
 					}
 				}		
-			}
-			
+			}*/
+
 			//匹配搜索记录的相关性
 			if (isset($user['user_searchWords'])) {
 				foreach ($user['user_searchWords'] as $searchWord) {
