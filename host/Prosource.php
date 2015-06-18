@@ -910,6 +910,15 @@ foreach ($sources as $key => $value) {
 
                                         array_push($seedIndustry,$industryParsed);
                                         $industryHotness[$industryParsed] = 0;
+                                        /*
+                                        $segmentResult = $protext->parseSegment($parserResult['seed_textIndustryWords'],$industryParsed);
+                                        if (count($segmentResult) > 0) {
+                                            foreach ($segmentResult as $segment) {
+                                                array_push($seedIndustry, $segment);
+                                            }
+                                        }
+                                        */
+
 
                                     };
                                 }
@@ -1121,6 +1130,14 @@ foreach ($uncompleteSeeds as $key => $seed) {
                 if (!isset($seed['seed_industryHotness'][$industry])) {
                     $seed['seed_industryHotness'][$industry] = 0;
                 }
+                /*
+                $segmentResult = $protext->parseSegment($parserResult['seed_textIndustryWords'],$industryParsed);
+                if (count($segmentResult) > 0) {
+                    foreach ($segmentResult as $segment) {
+                        array_push($seedIndustry, $segment);
+                    }
+                }
+                */
             }
             
 

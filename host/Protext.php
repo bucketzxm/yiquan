@@ -287,10 +287,37 @@ class Protext extends YqBase {
             
         }
 
+        //继续Parse Segment
+        $segmentDict = array();
+        foreach ($industryResult as $parsedIndustry) {
+            $dicts = $this->db->Prosystem->find(array('para_name'=>'segment','parent_industry' => $parsedIndustry));
+            foreach ($dicts as $segment => $dict) {
+                
+                $matchCount = 0;
+                
+                foreach ($dict['segment_words'] as $key1 => $value1) {
+                    if (isset($textDict[$value1])) {
+                        $matchCount += $textDict[$value1];
+                    }                           
+                }
+                foreach ($dict['segment_ENDict'] as $key2 => $value2) {
+                    if (isset($textDict[$value2])) {
+                        $matchCount += $textDict[$value2];
+                    }  
+                }
+                if ($matchCount>10) {
+                    array_push($segmentDict, $dict['segment_name']);
+                }
+            }
+        }
+
+        foreach ($segmentDict as $segment) {
+            array_push($industryResult,$segment);
+        }
+
         $result[0]=$keywordDict;
         $result[1]=$industryResult;
-    	$result[2]=$statics;
-
+        $result[2]=$statics;
 
         return $result;
     }
@@ -346,7 +373,32 @@ class Protext extends YqBase {
         return $seed;
 
     }
-
+    /*
+    function parseSegment($industryDict,$industry){
+        $segmentDict = array();
+        $dicts = $this->db->Prosystem->find(array('para_name'=>'segment','parent_industry' => $industry));
+        foreach ($dicts as $segment => $dict) {
+            
+            $matchCount = 0;
+            
+            foreach ($dict['segment_words'] as $key1 => $value1) {
+                if (isset($industryDict[$value1])) {
+                    $matchCount += $industryDict[$value1];
+                }                           
+            }
+            foreach ($dict['segment_ENDict'] as $key2 => $value2) {
+                if (isset($industryDict[$value2])) {
+                    $matchCount += $industryDict[$value2];
+                }  
+            }
+            if ($matchCount>10) {
+                array_push($segmentDict, $dict['segment_name']);
+            }
+        }
+        //分析正文
+        return $segmentDict;
+    }
+    */
 }
 
 /*
