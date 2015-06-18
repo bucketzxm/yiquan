@@ -918,9 +918,12 @@ foreach ($sources as $key => $value) {
                                             }
                                         }
                                         */
-
-
                                     };
+                                    foreach ($parserResult['seed_segmentParsed'] as $key2 => $segment) {
+                                        if (!in_array($segment,$seedIndustry)) {
+                                            array_push($seedIndustry,$segment);
+                                        }
+                                    }
                                 }
 
                                 /*
@@ -1139,7 +1142,11 @@ foreach ($uncompleteSeeds as $key => $seed) {
                 }
                 */
             }
-            
+            foreach ($parserResult['seed_segmentParsed'] as $key2 => $segment) {
+                if (!in_array($segment,$seed['seed_industry'])) {
+                    array_push($seed['seed_industry'],$segment);
+                }
+            }
 
 
             $db->Proseed->save($seed);

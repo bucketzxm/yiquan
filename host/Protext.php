@@ -310,14 +310,15 @@ class Protext extends YqBase {
                 }
             }
         }
-
+        /*
         foreach ($segmentDict as $segment) {
             array_push($industryResult,$segment);
-        }
+        }*/
 
         $result[0]=$keywordDict;
         $result[1]=$industryResult;
         $result[2]=$statics;
+        $result[3]=$segmentDict;
 
         return $result;
     }
@@ -368,6 +369,7 @@ class Protext extends YqBase {
         }
             
         $seed['seed_textIndustryWords'] = $parserResult[0];
+        $seed['seed_segmentParsed'] = $parserResult[3];
             
         //分析正文
         return $seed;
