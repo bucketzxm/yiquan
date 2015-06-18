@@ -294,17 +294,21 @@ class Protext extends YqBase {
             foreach ($dicts as $segment => $dict) {
                 
                 $matchCount = 0;
+                if (isset($dict['segment_words'])) {
+                    foreach ($dict['segment_words'] as $key1 => $value1) {
+                        if (isset($textDict[$value1])) {
+                            $matchCount += count($textDict[$value1]);
+                        }                           
+                    }    
+                }
+                if (isset($dict['segment_ENDict'])) {
+                    foreach ($dict['segment_ENDict'] as $key2 => $value2) {
+                        if (isset($textDict[$value2])) {
+                            $matchCount += count($textDict[$value2]);
+                        }  
+                    }    
+                }
                 
-                foreach ($dict['segment_words'] as $key1 => $value1) {
-                    if (isset($textDict[$value1])) {
-                        $matchCount += $textDict[$value1];
-                    }                           
-                }
-                foreach ($dict['segment_ENDict'] as $key2 => $value2) {
-                    if (isset($textDict[$value2])) {
-                        $matchCount += $textDict[$value2];
-                    }  
-                }
                 if ($matchCount>0) {
                     array_push($segmentDict, $dict['segment_name']);
                 }
