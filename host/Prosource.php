@@ -1119,8 +1119,9 @@ foreach ($uncompleteSeeds as $key => $seed) {
             if ($imgCount > 5 ) {
                 $seed['seed_title'] = $seed['seed_title'].'（多图）';
             }
-            
+            var_dump($text);
             $text = iconv($encode, 'UTF-8//IGNORE', $text);
+            var_dump($text);
             $seed['seed_text'] = $text;
             $seed['seed_textLen'] = $textLen;
             $seed['seed_imageLink'] = $imageLink;
