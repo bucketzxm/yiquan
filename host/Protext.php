@@ -270,7 +270,7 @@ class Protext extends YqBase {
              
 
             //增加英文的匹配
-            if (isset($value['english'];)) {
+            if (isset($value['english'])) {
                 $dictEN = $value['english'];
                 foreach ($dictEN as $key1 => $keywordEn) {
                     $keywordEn = strtolower($keywordEn);
