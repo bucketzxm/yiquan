@@ -197,6 +197,11 @@ class Protext extends YqBase {
 
     function parseText($text,$industries){
     	
+        $EnglishWords = array();
+        preg_match_all("(\\d+.\\d+|\\w+)", $text, $allWords_eng);
+        foreach ($allWords_eng as $key0 => $Enword) {
+            $EnglishWords[strtolower($Enword)] = strtolower($Enword);
+        }
     	$text = $this->clear_unmeaningful_text($text);
 
         
@@ -261,6 +266,24 @@ class Protext extends YqBase {
                 }     
             } 
 
+            //增加英文的匹配
+            foreach ($EnglishWords as $key1 => $keywordEn) {
+                $keywordEn = strtolower($keywordEn);
+                if (isset($textDict[$keywordEn])) {
+                    if (isset($keywordDict[$keywordEn])) {
+                        $keywordDict[$keywordEn] += count($textDict[$keywordEn]);
+                    }else{
+                        $keywordDict[$keywordEn] = count($textDict[$keywordEn]);
+                    }
+
+                    $wordCount += count($textDict[$keywordEn]);  
+
+                    //暂时不做分布判断（英文分布的问题可能不会太明显）
+                }     
+            } 
+
+
+
             if ($wordCount>0) {
             	
     	        $matchRatio = $wordCount/$textLen;
@@ -308,10 +331,13 @@ class Protext extends YqBase {
                         }                           
                     }    
                 }
+
+                //修改英文的增加
                 if (isset($dict['segment_ENGDict'])) {
                     foreach ($dict['segment_ENGDict'] as $key2 => $value2) {
-                        if (isset($textDict[$value2])) {
-                            $matchCount += count($textDict[$value2]);
+                        $value2 = strtolower($value2);
+                        if (isset($EnglishWords[$value2])) {
+                            $matchCount += count($EnglishWords[$value2]);
                         }  
                     }    
                 }
