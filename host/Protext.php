@@ -294,12 +294,17 @@ class Protext extends YqBase {
     	        $matchRatio = $wordCount/$textLen;
 
     	        $square = 0;
-    	        $paraAvg = array_sum($matchPosInPara)/count($matchPosInPara);
-    	        foreach ($matchPosInPara as $pos) {
-    	        	$square += pow($pos-$paraAvg, 2);
-    	        }
-    	        $stdSquare = pow($square/count($matchPosInPara), 0.5);
-    	        $variance = $stdSquare/$paragraphCount;
+                if (count($matchPosInPara) == 0) {
+                    $variance = 1;
+                }else{
+                    $paraAvg = array_sum($matchPosInPara)/count($matchPosInPara);
+                    foreach ($matchPosInPara as $pos) {
+                        $square += pow($pos-$paraAvg, 2);
+                    }
+                    $stdSquare = pow($square/count($matchPosInPara), 0.5);
+                    $variance = $stdSquare/$paragraphCount;    
+                }
+    	        
     	        
 
     	        //方差，计算
