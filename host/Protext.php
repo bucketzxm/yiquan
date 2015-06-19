@@ -248,40 +248,45 @@ class Protext extends YqBase {
         foreach($industries as $industry => $value){
             
             $wordCount = 0;
-            $dict = $value['chinese'];
+            if (isset($value['chinese'])) {
+                $dict = $value['chinese'];
             
-    		foreach ($dict as $key => $keyword) {
-                if (isset($textDict[$keyword])) {
-                    if (isset($keywordDict[$keyword])) {
-                        $keywordDict[$keyword] += count($textDict[$keyword]);
-                    }else{
-                        $keywordDict[$keyword] = count($textDict[$keyword]);
-                    }
+                foreach ($dict as $key => $keyword) {
+                    if (isset($textDict[$keyword])) {
+                        if (isset($keywordDict[$keyword])) {
+                            $keywordDict[$keyword] += count($textDict[$keyword]);
+                        }else{
+                            $keywordDict[$keyword] = count($textDict[$keyword]);
+                        }
 
-                    $wordCount += count($textDict[$keyword]);  
+                        $wordCount += count($textDict[$keyword]);  
 
-                    foreach ($textDict[$keyword] as $position) {
-                        array_push($matchPosInPara, $position);       
-                    }      
-                }     
-            } 
+                        foreach ($textDict[$keyword] as $position) {
+                            array_push($matchPosInPara, $position);       
+                        }      
+                    }     
+                }    
+            }
+             
 
             //增加英文的匹配
-            foreach ($EnglishWords as $key1 => $keywordEn) {
-                $keywordEn = strtolower($keywordEn);
-                if (isset($textDict[$keywordEn])) {
-                    if (isset($keywordDict[$keywordEn])) {
-                        $keywordDict[$keywordEn] += count($textDict[$keywordEn]);
-                    }else{
-                        $keywordDict[$keywordEn] = count($textDict[$keywordEn]);
-                    }
+            if (isset($value['english'];)) {
+                $dictEN = $value['english'];
+                foreach ($dictEN as $key1 => $keywordEn) {
+                    $keywordEn = strtolower($keywordEn);
+                    if (isset($EnglishWords[$keywordEn])) {
+                        if (isset($keywordDict[$keywordEn])) {
+                            $keywordDict[$keywordEn] += count($EnglishWords[$keywordEn]);
+                        }else{
+                            $keywordDict[$keywordEn] = count($EnglishWords[$keywordEn]);
+                        }
 
-                    $wordCount += count($textDict[$keywordEn]);  
+                        $wordCount += count($textDict[$keywordEn]);  
 
-                    //暂时不做分布判断（英文分布的问题可能不会太明显）
-                }     
-            } 
-
+                        //暂时不做分布判断（英文分布的问题可能不会太明显）
+                    }     
+                } 
+            }
 
 
             if ($wordCount>0) {
@@ -366,8 +371,13 @@ class Protext extends YqBase {
         $dicts = $this->db->Prosystem->find(array('para_name' => 'industry_dict'));
         foreach ($dicts as $industry => $dict) {
             $industryDict[$dict['industry_name']] = array();
-            $industryDict[$dict['industry_name']]['chinese'] = $dict['industry_words'];
-            $industryDict[$dict['industry_name']]['english'] = $dict['industry_ENDict'];
+            if (isset($dict['industry_words'])) {
+                $industryDict[$dict['industry_name']]['chinese'] = $dict['industry_words'];
+            }
+            if (isset($dict['industry_ENDict'])) {
+                $industryDict[$dict['industry_name']]['english'] = $dict['industry_ENDict'];    
+            }
+            
         }
         //遍历所有的Seed
         
