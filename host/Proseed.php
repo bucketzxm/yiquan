@@ -558,9 +558,21 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 		        $seed['seed_imageLink'] = $imageLink;
 		        $seed['seed_completeStatus'] = 'completed';
 		        $seed['seed_textIndustryWords'] = $parserResult['seed_textIndustryWords'];
-		        $seed['seed_industryParsed'] = $parserResult['seed_industryParsed'];
 
+		        $seedIndustry = array ();
 
+	            foreach($parserResult['seed_industryParsed'] as $industryParsed){
+                    array_push($seedIndustry,$industryParsed);
+                    $seed['seed_industryHotness'][$industryParsed] = 0;
+                };
+
+                foreach ($parserResult['seed_segmentParsed'] as $key2 => $segment) {
+                    if (!in_array($segment,$seedIndustry)) {
+                        array_push($seedIndustry,$segment);
+                    }
+                }
+
+		        $seed['seed_industry'] = $seedIndustry;
 		        $this->db->Proseed->save($seed);
 
 		        $textToDownload['seed_text'] = $seed['seed_text'];	
