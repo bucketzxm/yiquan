@@ -1149,7 +1149,7 @@ foreach ($uncompleteSeeds as $key => $seed) {
                 }
             }
 
-
+            var_dump($seed);
             $db->Proseed->save($seed);
             echo $seed['seed_source'].','.$seed['seed_title'].','.$seed['seed_imageLink'];
     }else{
