@@ -281,7 +281,7 @@ class Protext extends YqBase {
                             $keywordDict[$keywordEn] = count($EnglishWords[$keywordEn]);
                         }
 
-                        $wordCount += count($textDict[$keywordEn]);  
+                        $wordCount += count($EnglishWords[$keywordEn]);  
 
                         //暂时不做分布判断（英文分布的问题可能不会太明显）
                     }     
