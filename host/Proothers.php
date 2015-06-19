@@ -189,12 +189,12 @@ function clear_unmeaningful_char($title){
                 echo '<h3>'.$value['seed_title'].'  '.implode(';', $value['seed_industry']).'</h3>';
             }
 			
-			
+			/*
 			foreach ($sources as $key => $source) {
 				$source['check_time'] = time() - 1000000000;
 				$db->Prosource->save($source);
 			}
-            
+            */
 
 			
 			/*
@@ -228,22 +228,20 @@ function clear_unmeaningful_char($title){
 				echo '<h3>'.$industryName.$count.'</h3>';
 			}
             */
-	        /*
+	        
 			$seeds = $db->Proseed->find();
 			foreach ($seeds as $key => $value) {
+                /*
 				$cleanedText = clear_unmeaningful_char($value['seed_text']);
 				$value['seed_textLen'] = mb_strlen($cleanedText,'utf-8');
 				$db->Proseed->save($value);
-
+                */
 				
 				if (isset($value['seed_industry'])) {
-					$value['seed_industryCount'] = count($value['seed_industry']);
-					$db->Proseed->save ($value);	
 					echo '<h3>'.$value['seed_title'].':'.implode(';', $value['seed_industry']).'</3>';	
 				}
-				
 			}
-            */
+            
 
 			/*
 			foreach ($count as $key3 => $value3) {
