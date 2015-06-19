@@ -222,6 +222,7 @@ function special_entities($string){
 	$string = str_replace("&lsaquo;", "‹", $string);
 	$string = str_replace("&rsaquo;", "›", $string);
 	$string = str_replace("&euro;", "€", $string);
+    $string = str_replace("&#8221", "\"", $string);
 	return $string;
 }
 
