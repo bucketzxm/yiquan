@@ -199,7 +199,7 @@ class Protext extends YqBase {
     	
         $EnglishWords = array();
         preg_match_all("(\\d+.\\d+|\\w+)", $text, $allWords_eng);
-        foreach ($allWords_eng as $key0 => $Enword) {
+        foreach ($allWords_eng[0] as $key0 => $Enword) {
             $EnglishWords[strtolower($Enword)] = strtolower($Enword);
         }
     	$text = $this->clear_unmeaningful_text($text);
