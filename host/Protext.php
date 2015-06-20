@@ -437,7 +437,7 @@ class Protext extends YqBase {
             }
         }
         
-        foreach ($$parserResult[3] as $label) {
+        foreach ($parserResult[3] as $label) {
             if (!isset($seed['seed_industryParsed'][$label])) {
                 $seed['seed_industryParsed'][$label] = $label;
             }
