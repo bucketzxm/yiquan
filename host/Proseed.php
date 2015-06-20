@@ -525,9 +525,9 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 		        $text = strtr($text,"font-size", "");
 		        //$text = strtr($text,"size=", "");
 
-		        $text = preg_replace("<script.*?/script>", "");
-		        $text = preg_replace("<link.*?>", "");
-		        $text = preg_replace("<iframe.*?/iframe>", "");
+		        $text = preg_replace("<script.*?/script>", "",$text);
+		        $text = preg_replace("<link.*?>", "",$text);
+		        $text = preg_replace("<iframe.*?/iframe>", "",$text);
 
 		                //解析行业
 		        $protext = new Protext;

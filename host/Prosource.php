@@ -406,7 +406,7 @@ foreach ($sources as $key => $value) {
             //判断HTML的读取方式为正则还是RSS，并生成响应的数据
             if (isset($value['source_rexTemplate'])) {
 
-                $feeds = preg_replace("/[\t\n\r]+/", "");
+                $feeds = preg_replace("/[\t\n\r]+/", "",$feeds);
 
                 $pattern = $value['source_rexTemplate'];
                 //echo $pattern;
@@ -1086,9 +1086,9 @@ foreach ($uncompleteSeeds as $key => $seed) {
             $text = strtr($text,"font-size", "");
             //$text = strtr($text,"size=", "");
 
-            $text = preg_replace("<script.*?/script>", "");
-            $text = preg_replace("<link.*?>", "");
-            $text = preg_replace("<iframe.*?/iframe>", "");
+            $text = preg_replace("<script.*?/script>", "",$text);
+            $text = preg_replace("<link.*?>", "",$text);
+            $text = preg_replace("<iframe.*?/iframe>", "",$text);
 
             $cleanedText = clear_unmeaningful_char($text);
             $textLen = mb_strlen($cleanedText,'utf-8');
