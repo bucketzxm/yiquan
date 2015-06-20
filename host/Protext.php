@@ -222,9 +222,10 @@ class Protext extends YqBase {
         //遍历文章每个字
         $textDict = array();
         $i = 0;
-        while ($i<($textLen-1)) {
+        while ($i<($textLen-4)) {
             $twoStr = mb_substr($text, $i,2,'utf-8');
-            $oneStr = mb_substr($twoStr,0,1,'utf-8');
+            $threeStr = mb_substr($text,$i,3,'utf-8');
+            $fourStr = mb_substr($text,$i,4,'utf-8');
 
             if (isset($textDict[$twoStr])) {
                 array_push($textDict[$twoStr], ceil($i/$avgParaLen));
@@ -233,13 +234,20 @@ class Protext extends YqBase {
                 array_push($textDict[$twoStr], ceil($i/$avgParaLen));
             }
 
-            if (isset($textDict[$oneStr])) {
-                array_push($textDict[$oneStr], ceil($i/$avgParaLen));
+            if (isset($textDict[$threeStr])) {
+                array_push($textDict[$threeStr], ceil($i/$avgParaLen));
             }else{
-                $textDict[$oneStr] = array();
-                array_push($textDict[$oneStr], ceil($i/$avgParaLen));
+                $textDict[$threeStr] = array();
+                array_push($textDict[$threeStr], ceil($i/$avgParaLen));
             }       
             
+            if (isset($textDict[$fourStr])) {
+                array_push($textDict[$fourStr], ceil($i/$avgParaLen));
+            }else{
+                $textDict[$fourStr] = array();
+                array_push($textDict[$fourStr], ceil($i/$avgParaLen));
+            }
+
             $i ++; 
 
         }
@@ -304,8 +312,6 @@ class Protext extends YqBase {
                     $stdSquare = pow($square/count($matchPosInPara), 0.5);
                     $variance = $stdSquare/$paragraphCount;    
                 }
-    	        
-    	        
 
     	        //方差，计算
     	        //判断Result中不中
@@ -326,7 +332,7 @@ class Protext extends YqBase {
             }
             
         }
-
+        /*
         //继续Parse Segment
         $segmentDict = array();
         foreach ($industryResult as $parsedIndustry) {
@@ -357,15 +363,26 @@ class Protext extends YqBase {
                 }
             }
         }
+        */
         /*
         foreach ($segmentDict as $segment) {
             array_push($industryResult,$segment);
         }*/
 
+        //判断keywordDict的标签
+        $labelsParsed = array();
+        foreach ($keywordDict as $theWord => $wordCount) {
+            if ($wordCount > 3) {
+                array_push($labelsParsed, $theWord);
+            }
+        }
+
+
         $result[0]=$keywordDict;
         $result[1]=$industryResult;
         $result[2]=$statics;
-        $result[3]=$segmentDict;
+        $result[3]=$labelsParsed;
+        //$result[3]=$segmentDict;
 
         return $result;
     }
@@ -419,9 +436,15 @@ class Protext extends YqBase {
                 }
             }
         }
-            
+        
+        foreach ($$parserResult[3] as $label) {
+            if (!isset($seed['seed_industryParsed'][$label])) {
+                $seed['seed_industryParsed'][$label] = $label;
+            }
+        }
+
         $seed['seed_textIndustryWords'] = $parserResult[0];
-        $seed['seed_segmentParsed'] = $parserResult[3];
+        //$seed['seed_segmentParsed'] = $parserResult[3];
             
         //分析正文
         return $seed;
