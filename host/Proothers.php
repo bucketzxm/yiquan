@@ -237,9 +237,12 @@ function clear_unmeaningful_char($title){
 				$db->Proseed->save($value);
                 */
 				
-				if (isset($value['seed_industry'])) {
-					echo '<h3>'.$value['seed_title'].':'.implode(';', $value['seed_industry']).'</3>';	
-				}
+                
+                $protext = new Protext;
+                $parserResult = $protext->parseIndustry($value['seed_text'],$value['seed_titleLower']);
+
+				echo '<h3>'.$value['seed_title'].':'.implode(';', $parserResult['seed_industryParsed'];).'</3>';	
+				
 			}
             
 
