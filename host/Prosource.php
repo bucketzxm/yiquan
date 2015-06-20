@@ -28,201 +28,201 @@ function find_same2($keywords,$seedToCheck){
 
 
 function clear_unmeaningful_char($title){
-    $title = str_replace("·", "", $title);
-    $title = str_replace("？", "", $title);
-    $title = str_replace("?", "", $title);
-    $title = str_replace("！", "", $title);
-    $title = str_replace("!", "", $title);
-    $title = str_replace("，", "", $title);
-    $title = str_replace(",", "", $title);
-    $title = str_replace("。", "", $title);
-    $title = str_replace(".", "", $title);
-    $title = str_replace("、", "", $title);
-    $title = str_replace("“", "", $title);
-    $title = str_replace("”", "", $title);
-    $title = str_replace("\"", "", $title);
-    $title = str_replace("/", "", $title);
-    $title = str_replace("&", "", $title);
-    $title = str_replace("=", "", $title);
-    $title = str_replace(";", "", $title);
-    $title = str_replace("；", "", $title);
-    $title = str_replace("_", "", $title);
-    $title = str_replace("-", "", $title);
-    $title = str_replace("……", "", $title);
-    $title = str_replace("——", "", $title);
-    $title = str_replace("|", "", $title);
-    $title = str_replace("【", "", $title);
-    $title = str_replace("】", "", $title);
-    $title = str_replace("《", "", $title);
-    $title = str_replace("》", "", $title);
-    $title = str_replace("（", "", $title);
-    $title = str_replace("）", "", $title);
-    $title = str_replace("(", "", $title);
-    $title = str_replace(")", "", $title);
-    $title = str_replace("「", "", $title);
-    $title = str_replace("」", "", $title);
-    $title = str_replace("<", "", $title);
-    $title = str_replace(">", "", $title);
-    $title = str_replace("：", "", $title);
-    $title = str_replace(":", "", $title);
-    $title = str_replace("-", "", $title);
-    $title = str_replace("+", "", $title);
-    $title = str_replace(" ", "", $title);
-    $title = str_replace("a", "", $title);
-    $title = str_replace("b", "", $title);
-    $title = str_replace("c", "", $title);
-    $title = str_replace("d", "", $title);
-    $title = str_replace("e", "", $title);
-    $title = str_replace("f", "", $title);
-    $title = str_replace("g", "", $title);
-    $title = str_replace("h", "", $title);
-    $title = str_replace("i", "", $title);
-    $title = str_replace("j", "", $title);
-    $title = str_replace("k", "", $title);
-    $title = str_replace("l", "", $title);
-    $title = str_replace("m", "", $title);
-    $title = str_replace("n", "", $title);
-    $title = str_replace("o", "", $title);
-    $title = str_replace("p", "", $title);
-    $title = str_replace("q", "", $title);
-    $title = str_replace("r", "", $title);
-    $title = str_replace("s", "", $title);
-    $title = str_replace("t", "", $title);
-    $title = str_replace("u", "", $title);
-    $title = str_replace("v", "", $title);
-    $title = str_replace("w", "", $title);
-    $title = str_replace("x", "", $title);
-    $title = str_replace("y", "", $title);
-    $title = str_replace("z", "", $title);
-    $title = str_replace("A", "", $title);
-    $title = str_replace("B", "", $title);
-    $title = str_replace("C", "", $title);
-    $title = str_replace("D", "", $title);
-    $title = str_replace("E", "", $title);
-    $title = str_replace("F", "", $title);
-    $title = str_replace("G", "", $title);
-    $title = str_replace("H", "", $title);
-    $title = str_replace("I", "", $title);
-    $title = str_replace("J", "", $title);
-    $title = str_replace("K", "", $title);
-    $title = str_replace("L", "", $title);
-    $title = str_replace("M", "", $title);
-    $title = str_replace("N", "", $title);
-    $title = str_replace("O", "", $title);
-    $title = str_replace("P", "", $title);
-    $title = str_replace("Q", "", $title);
-    $title = str_replace("R", "", $title);
-    $title = str_replace("S", "", $title);
-    $title = str_replace("T", "", $title);
-    $title = str_replace("U", "", $title);
-    $title = str_replace("V", "", $title);
-    $title = str_replace("W", "", $title);
-    $title = str_replace("X", "", $title);
-    $title = str_replace("Y", "", $title);
-    $title = str_replace("Z", "", $title);
-    $title = str_replace("0", "", $title);
-    $title = str_replace("1", "", $title);
-    $title = str_replace("2", "", $title);
-    $title = str_replace("3", "", $title);
-    $title = str_replace("4", "", $title);
-    $title = str_replace("5", "", $title);
-    $title = str_replace("6", "", $title);
-    $title = str_replace("7", "", $title);
-    $title = str_replace("8", "", $title);
-    $title = str_replace("9", "", $title);
-    $title = str_replace("%", "", $title);
-    $title = str_replace("的", "", $title);
-    $title = str_replace("了", "", $title);
-    $title = str_replace("和", "", $title);
-    $title = str_replace("与", "", $title);
-    $title = str_replace("或", "", $title);
-    $title = str_replace("于", "", $title);
-    $title = str_replace("这", "", $title);
-    $title = str_replace("那", "", $title);
-    $title = str_replace("你", "", $title);
-    $title = str_replace("我", "", $title);
-    $title = str_replace("们", "", $title);
-    $title = str_replace("是", "", $title);
-    $title = str_replace("不", "", $title);
-    $title = str_replace("在", "", $title);
-    $title = str_replace("再", "", $title);
-    $title = str_replace("就", "", $title);
-    $title = str_replace("为", "", $title);
-    $title = str_replace("吗", "", $title);
-    $title = str_replace("啊", "", $title);
-    $title = str_replace("哪", "", $title);
-    $title = str_replace("要", "", $title);
-    $title = str_replace("么", "", $title);
-    $title = str_replace("什", "", $title);
-    $title = str_replace("怎", "", $title);
-    $title = str_replace("还", "", $title);
-    $title = str_replace("谁", "", $title);
-    $title = str_replace("没", "", $title);
-    $title = str_replace("有", "", $title);
-    $title = str_replace("年", "", $title);
-    $title = str_replace("月", "", $title);
-    $title = str_replace("日", "", $title);
-    $title = str_replace("啥", "", $title);
-    $title = str_replace("又", "", $title);
-    $title = str_replace("只", "", $title);
-    $title = str_replace("为", "", $title);
-    $title = str_replace("以", "", $title);
-    $title = str_replace("够", "", $title);
-    $title = str_replace("更", "", $title);
-    $title = str_replace("给", "", $title);
-    $title = str_replace("但", "", $title);
-    $title = str_replace("而", "", $title);
-    $title = str_replace("千", "", $title);
-    $title = str_replace("万", "", $title);
-    $title = str_replace("亿", "", $title);
-    $title = str_replace("百", "", $title);
-    $title = str_replace("元", "", $title);
-    $title = str_replace("很", "", $title);
-    $title = str_replace("到", "", $title);
-    $title = str_replace("无", "", $title);
-    $title = str_replace("多少", "", $title);
-    $title = str_replace("如何", "", $title);
+    $title = strtr($title,"·", "");
+    $title = strtr($title,"？", "");
+    $title = strtr($title,"?", "");
+    $title = strtr($title,"！", "");
+    $title = strtr($title,"!", "");
+    $title = strtr($title,"，", "");
+    $title = strtr($title,",", "");
+    $title = strtr($title,"。", "");
+    $title = strtr($title,".", "");
+    $title = strtr($title,"、", "");
+    $title = strtr($title,"“", "");
+    $title = strtr($title,"”", "");
+    $title = strtr($title,"\"", "");
+    $title = strtr($title,"/", "");
+    $title = strtr($title,"&", "");
+    $title = strtr($title,"=", "");
+    $title = strtr($title,";", "");
+    $title = strtr($title,"；", "");
+    $title = strtr($title,"_", "");
+    $title = strtr($title,"-", "");
+    $title = strtr($title,"……", "");
+    $title = strtr($title,"——", "");
+    $title = strtr($title,"|", "");
+    $title = strtr($title,"【", "");
+    $title = strtr($title,"】", "");
+    $title = strtr($title,"《", "");
+    $title = strtr($title,"》", "");
+    $title = strtr($title,"（", "");
+    $title = strtr($title,"）", "");
+    $title = strtr($title,"(", "");
+    $title = strtr($title,")", "");
+    $title = strtr($title,"「", "");
+    $title = strtr($title,"」", "");
+    $title = strtr($title,"<", "");
+    $title = strtr($title,">", "");
+    $title = strtr($title,"：", "");
+    $title = strtr($title,":", "");
+    $title = strtr($title,"-", "");
+    $title = strtr($title,"+", "");
+    $title = strtr($title," ", "");
+    $title = strtr($title,"a", "");
+    $title = strtr($title,"b", "");
+    $title = strtr($title,"c", "");
+    $title = strtr($title,"d", "");
+    $title = strtr($title,"e", "");
+    $title = strtr($title,"f", "");
+    $title = strtr($title,"g", "");
+    $title = strtr($title,"h", "");
+    $title = strtr($title,"i", "");
+    $title = strtr($title,"j", "");
+    $title = strtr($title,"k", "");
+    $title = strtr($title,"l", "");
+    $title = strtr($title,"m", "");
+    $title = strtr($title,"n", "");
+    $title = strtr($title,"o", "");
+    $title = strtr($title,"p", "");
+    $title = strtr($title,"q", "");
+    $title = strtr($title,"r", "");
+    $title = strtr($title,"s", "");
+    $title = strtr($title,"t", "");
+    $title = strtr($title,"u", "");
+    $title = strtr($title,"v", "");
+    $title = strtr($title,"w", "");
+    $title = strtr($title,"x", "");
+    $title = strtr($title,"y", "");
+    $title = strtr($title,"z", "");
+    $title = strtr($title,"A", "");
+    $title = strtr($title,"B", "");
+    $title = strtr($title,"C", "");
+    $title = strtr($title,"D", "");
+    $title = strtr($title,"E", "");
+    $title = strtr($title,"F", "");
+    $title = strtr($title,"G", "");
+    $title = strtr($title,"H", "");
+    $title = strtr($title,"I", "");
+    $title = strtr($title,"J", "");
+    $title = strtr($title,"K", "");
+    $title = strtr($title,"L", "");
+    $title = strtr($title,"M", "");
+    $title = strtr($title,"N", "");
+    $title = strtr($title,"O", "");
+    $title = strtr($title,"P", "");
+    $title = strtr($title,"Q", "");
+    $title = strtr($title,"R", "");
+    $title = strtr($title,"S", "");
+    $title = strtr($title,"T", "");
+    $title = strtr($title,"U", "");
+    $title = strtr($title,"V", "");
+    $title = strtr($title,"W", "");
+    $title = strtr($title,"X", "");
+    $title = strtr($title,"Y", "");
+    $title = strtr($title,"Z", "");
+    $title = strtr($title,"0", "");
+    $title = strtr($title,"1", "");
+    $title = strtr($title,"2", "");
+    $title = strtr($title,"3", "");
+    $title = strtr($title,"4", "");
+    $title = strtr($title,"5", "");
+    $title = strtr($title,"6", "");
+    $title = strtr($title,"7", "");
+    $title = strtr($title,"8", "");
+    $title = strtr($title,"9", "");
+    $title = strtr($title,"%", "");
+    $title = strtr($title,"的", "");
+    $title = strtr($title,"了", "");
+    $title = strtr($title,"和", "");
+    $title = strtr($title,"与", "");
+    $title = strtr($title,"或", "");
+    $title = strtr($title,"于", "");
+    $title = strtr($title,"这", "");
+    $title = strtr($title,"那", "");
+    $title = strtr($title,"你", "");
+    $title = strtr($title,"我", "");
+    $title = strtr($title,"们", "");
+    $title = strtr($title,"是", "");
+    $title = strtr($title,"不", "");
+    $title = strtr($title,"在", "");
+    $title = strtr($title,"再", "");
+    $title = strtr($title,"就", "");
+    $title = strtr($title,"为", "");
+    $title = strtr($title,"吗", "");
+    $title = strtr($title,"啊", "");
+    $title = strtr($title,"哪", "");
+    $title = strtr($title,"要", "");
+    $title = strtr($title,"么", "");
+    $title = strtr($title,"什", "");
+    $title = strtr($title,"怎", "");
+    $title = strtr($title,"还", "");
+    $title = strtr($title,"谁", "");
+    $title = strtr($title,"没", "");
+    $title = strtr($title,"有", "");
+    $title = strtr($title,"年", "");
+    $title = strtr($title,"月", "");
+    $title = strtr($title,"日", "");
+    $title = strtr($title,"啥", "");
+    $title = strtr($title,"又", "");
+    $title = strtr($title,"只", "");
+    $title = strtr($title,"为", "");
+    $title = strtr($title,"以", "");
+    $title = strtr($title,"够", "");
+    $title = strtr($title,"更", "");
+    $title = strtr($title,"给", "");
+    $title = strtr($title,"但", "");
+    $title = strtr($title,"而", "");
+    $title = strtr($title,"千", "");
+    $title = strtr($title,"万", "");
+    $title = strtr($title,"亿", "");
+    $title = strtr($title,"百", "");
+    $title = strtr($title,"元", "");
+    $title = strtr($title,"很", "");
+    $title = strtr($title,"到", "");
+    $title = strtr($title,"无", "");
+    $title = strtr($title,"多少", "");
+    $title = strtr($title,"如何", "");
 
-    $title = str_replace("\n", "", $title);
-    $title = str_replace("\t", "", $title);
+    $title = strtr($title,"\n", "");
+    $title = strtr($title,"\t", "");
 
     return $title;
 }
 
 function special_entities($string){
-	$string = str_replace("&quote;", "\"", $string);
-	$string = str_replace("&amp;", "&", $string);
-	$string = str_replace("&lt;", "<", $string);
-	$string = str_replace("&gt;", ">", $string);
-	$string = str_replace("&OElig;", "Œ", $string);
-	$string = str_replace("&oelig;", "œ", $string);
-	$string = str_replace("&Scaron;", "Š", $string);
-	$string = str_replace("&scaron;", "š", $string);
-	$string = str_replace("&Yumi;", "Ÿ", $string);
-	$string = str_replace("&circ;", "ˆ", $string);
-	$string = str_replace("&tilde;", "˜", $string);
-	$string = str_replace("&ensp;", " ", $string);
-	$string = str_replace("&emsp;", " ", $string);
-	$string = str_replace("&thinsp;", " ", $string);
-	$string = str_replace("&zwnj;", "‌", $string);
-	$string = str_replace("&zwj;", "", $string);
-	$string = str_replace("&lrm;", "", $string);
-	$string = str_replace("&rlm;", "", $string);
-	$string = str_replace("&ndash;", "–", $string);
-	$string = str_replace("&mdash;", "—", $string);
-	$string = str_replace("&lsquo;", "‘", $string);
-	$string = str_replace("&rsquo;", "’", $string);
-	$string = str_replace("&sbquo;", "‚", $string);
-	$string = str_replace("&ldquo;", "“", $string);
-	$string = str_replace("&rdquo;", "”", $string);
-	$string = str_replace("&bdquo;", "„", $string);
-	$string = str_replace("&dagger;", "†", $string);
-	$string = str_replace("&Dagger;", "‡", $string);
-	$string = str_replace("&permil;", "‰", $string);
-	$string = str_replace("&lsaquo;", "‹", $string);
-	$string = str_replace("&rsaquo;", "›", $string);
-	$string = str_replace("&euro;", "€", $string);
-    $string = str_replace("&#8221", "\"", $string);
+	$string = strtr($title,"&quote;", "\"");
+	$string = strtr($title,"&amp;", "&");
+	$string = strtr($title,"&lt;", "<");
+	$string = strtr($title,"&gt;", ">");
+	$string = strtr($title,"&OElig;", "Œ");
+	$string = strtr($title,"&oelig;", "œ");
+	$string = strtr($title,"&Scaron;", "Š");
+	$string = strtr($title,"&scaron;", "š");
+	$string = strtr($title,"&Yumi;", "Ÿ");
+	$string = strtr($title,"&circ;", "ˆ");
+	$string = strtr($title,"&tilde;", "˜");
+	$string = strtr($title,"&ensp;", " ");
+	$string = strtr($title,"&emsp;", " ");
+	$string = strtr($title,"&thinsp;", " ");
+	$string = strtr($title,"&zwnj;", "‌");
+	$string = strtr($title,"&zwj;", "");
+	$string = strtr($title,"&lrm;", "");
+	$string = strtr($title,"&rlm;", "");
+	$string = strtr($title,"&ndash;", "–");
+	$string = strtr($title,"&mdash;", "—");
+	$string = strtr($title,"&lsquo;", "‘");
+	$string = strtr($title,"&rsquo;", "’");
+	$string = strtr($title,"&sbquo;", "‚");
+	$string = strtr($title,"&ldquo;", "“");
+	$string = strtr($title,"&rdquo;", "”");
+	$string = strtr($title,"&bdquo;", "„");
+	$string = strtr($title,"&dagger;", "†");
+	$string = strtr($title,"&Dagger;", "‡");
+	$string = strtr($title,"&permil;", "‰");
+	$string = strtr($title,"&lsaquo;", "‹");
+	$string = strtr($title,"&rsaquo;", "›");
+	$string = strtr($title,"&euro;", "€");
+    $string = strtr($title,"&#8221", "\"");
 	return $string;
 }
 
@@ -231,8 +231,10 @@ function find_same($string1, $string2){
 
     $const_dif = 30; //const of diffrence
     $const_dif2 = 1.01;
+    $string1Len = mb_strlen($string1);
+    $string2Len = mb_strlen($string2);
 
-    if (mb_strlen($string2) < mb_strlen($string1)){
+    if ($string2Len < $string1Len ){
         $string_temp = $string1;
         $string1 = $string2;
         $string2 = $string_temp;
@@ -255,12 +257,14 @@ function find_same($string1, $string2){
         $benchmark2 *= $key;
     }
     // get Benchmark value of $string1
+    $strLenGap = $string2Len -$string1Len;
+    $string1ArrayCount = count($string1_array);
 
-    for($i = 0; $i <= mb_strlen($string2)-mb_strlen($string1); $i++){
+    for($i = 0; $i <= $strLenGap; ++$i){
         $judge = 0;
         $judge2 = 1;
 
-        for ($j = $i; $j < $i + count($string1_array) ; $j++){
+        for ($j = $i; $j < $i + $string1ArrayCount ; ++$j){
             $judge += isset($string2_array[$j])?$string2_array[$j]:0;
             $judge2 *= isset($string2_array[$j])?$string2_array[$j]:1;
         }
@@ -385,24 +389,24 @@ foreach ($sources as $key => $value) {
 
                 //var_dump($feeds);
 
-                $feeds = str_replace('encoding="gb2312"', 'encoding="utf-8"', $feeds);
-                $feeds = str_replace('encoding="ascii"', 'encoding="utf-8"', $feeds);
-                $feeds = str_replace('encoding="gbk"', 'encoding="utf-8"', $feeds);
-                $feeds = str_replace('encoding="euc-cn"', 'encoding="utf-8"', $feeds);
-                $feeds = str_replace('encoding="cp936"', 'encoding="utf-8"', $feeds);
+                $feeds = strtr($feeds,'encoding="gb2312"', 'encoding="utf-8"');
+                $feeds = strtr($feeds,'encoding="ascii"', 'encoding="utf-8"');
+                $feeds = strtr($feeds,'encoding="gbk"', 'encoding="utf-8"');
+                $feeds = strtr($feeds,'encoding="euc-cn"', 'encoding="utf-8"');
+                $feeds = strtr($feeds,'encoding="cp936"', 'encoding="utf-8"');
 
-                $feeds = str_replace('encoding="GB2312"', 'encoding="utf-8"', $feeds);
-                $feeds = str_replace('encoding="ASCII"', 'encoding="utf-8"', $feeds);
-                $feeds = str_replace('encoding="GBK"', 'encoding="utf-8"', $feeds);
-                $feeds = str_replace('encoding="EUC-CN"', 'encoding="utf-8"', $feeds);
-                $feeds = str_replace('encoding="CP936"', 'encoding="utf-8"', $feeds);
+                $feeds = strtr($feeds,'encoding="GB2312"', 'encoding="utf-8"');
+                $feeds = strtr($feeds,'encoding="ASCII"', 'encoding="utf-8"');
+                $feeds = strtr($feeds,'encoding="GBK"', 'encoding="utf-8"');
+                $feeds = strtr($feeds,'encoding="EUC-CN"', 'encoding="utf-8"');
+                $feeds = strtr($feeds,'encoding="CP936"', 'encoding="utf-8"');
             }
 
             $seedsToLoad = array();
             //判断HTML的读取方式为正则还是RSS，并生成响应的数据
             if (isset($value['source_rexTemplate'])) {
 
-                $feeds = preg_replace("/[\t\n\r]+/", "", $feeds);
+                $feeds = preg_replace("/[\t\n\r]+/", "");
 
                 $pattern = $value['source_rexTemplate'];
                 //echo $pattern;
@@ -412,7 +416,7 @@ foreach ($sources as $key => $value) {
                 $seedCount = count($result[0]);
                 $elementCount = count($result);
 
-                for ($i = 0; $i < $seedCount; $i++) {
+                for ($i = 0; $i < $seedCount; ++$i) {
                     $seedToAdd = array();
 
                     
@@ -432,9 +436,9 @@ foreach ($sources as $key => $value) {
                     $title = $result[2][$i];    
                     
                     
-                    $title = str_replace(" ", "", $title);
-                    $title = str_replace("\n", "", $title);
-                    $title = str_replace("\t", "", $title);
+                    $title = strtr($title," ", "");
+                    $title = strtr($title,"\n", "");
+                    $title = strtr($title,"\t", "");
 
                     $postTime = time();
 
@@ -457,8 +461,8 @@ foreach ($sources as $key => $value) {
                     if (isset($seedToAdd['imageLink'])) {
                         $httpPos = strpos($seedToAdd['imageLink'], 'http');
                         if ($seedToAdd['imageLink'] != '' && $httpPos === false) {
-                            $seedToAdd['imageLink'] = str_replace('../', '', $seedToAdd['imageLink']);
-                            $seedToAdd['imageLink'] = str_replace('./', '', $seedToAdd['imageLink']);
+                            $seedToAdd['imageLink'] = strtr($seedToAdd['imageLink'],'../', '');
+                            $seedToAdd['imageLink'] = strtr($seedToAdd['imageLink'],'./', '');
                             $seedToAdd['imageLink'] = $value['source_homeURL'].$seedToAdd['imageLink'];
                         }    
                     }
@@ -484,9 +488,9 @@ foreach ($sources as $key => $value) {
                     $start = $start2;
                 }
                 $feeds = substr($feeds, $start);
-                $feeds = str_replace("<content:encoded>", "<contentEncoded>", $feeds);
-                $feeds = str_replace("</content:encoded>", "</contentEncoded>", $feeds);
-                $feeds = str_replace("CDATA<", "CDATA[<", $feeds);
+                $feeds = strtr($feeds,"<content:encoded>", "<contentEncoded>");
+                $feeds = strtr($feeds,"</content:encoded>", "</contentEncoded>");
+                $feeds = strtr($feeds,"CDATA<", "CDATA[<");
 
                 //var_dump($feeds);
                 $rss = simplexml_load_string($feeds, 'SimpleXMLElement', LIBXML_NOCDATA | LIBXML_COMPACT | LIBXML_PARSEHUGE);
@@ -512,27 +516,27 @@ foreach ($sources as $key => $value) {
 
                     $pubTime = $item->pubDate;
 
-                    $pubTime = str_replace("星期一", "Mon", $pubTime);
-                    $pubTime = str_replace("星期二", "Tue", $pubTime);
-                    $pubTime = str_replace("星期三", "Wed", $pubTime);
-                    $pubTime = str_replace("星期四", "Thu", $pubTime);
-                    $pubTime = str_replace("星期五", "Fri", $pubTime);
-                    $pubTime = str_replace("星期六", "Sat", $pubTime);
-                    $pubTime = str_replace("星期日", "Sun", $pubTime);
-                    $pubTime = str_replace("星期天", "Sun", $pubTime);
-                    $pubTime = str_replace("一月", "Jan", $pubTime);
-                    $pubTime = str_replace("二月", "Feb", $pubTime);
-                    $pubTime = str_replace("三月", "Mar", $pubTime);
-                    $pubTime = str_replace("四月", "Apr", $pubTime);
-                    $pubTime = str_replace("五月", "May", $pubTime);
-                    $pubTime = str_replace("六月", "Jun", $pubTime);
-                    $pubTime = str_replace("七月", "Jul", $pubTime);
-                    $pubTime = str_replace("八月", "Aug", $pubTime);
-                    $pubTime = str_replace("九月", "Sep", $pubTime);
-                    $pubTime = str_replace("十月", "Oct", $pubTime);
-                    $pubTime = str_replace("十一月", "Nov", $pubTime);
-                    $pubTime = str_replace("十二月", "Dec", $pubTime);
-                    $pubTime = str_replace("\n", "", $pubTime);
+                    $pubTime = strtr($pubTime,"星期一", "Mon");
+                    $pubTime = strtr($pubTime,"星期二", "Tue");
+                    $pubTime = strtr($pubTime,"星期三", "Wed");
+                    $pubTime = strtr($pubTime,"星期四", "Thu");
+                    $pubTime = strtr($pubTime,"星期五", "Fri");
+                    $pubTime = strtr($pubTime,"星期六", "Sat");
+                    $pubTime = strtr($pubTime,"星期日", "Sun");
+                    $pubTime = strtr($pubTime,"星期天", "Sun");
+                    $pubTime = strtr($pubTime,"一月", "Jan");
+                    $pubTime = strtr($pubTime,"二月", "Feb");
+                    $pubTime = strtr($pubTime,"三月", "Mar");
+                    $pubTime = strtr($pubTime,"四月", "Apr");
+                    $pubTime = strtr($pubTime,"五月", "May");
+                    $pubTime = strtr($pubTime,"六月", "Jun");
+                    $pubTime = strtr($pubTime,"七月", "Jul");
+                    $pubTime = strtr($pubTime,"八月", "Aug");
+                    $pubTime = strtr($pubTime,"九月", "Sep");
+                    $pubTime = strtr($pubTime,"十月", "Oct");
+                    $pubTime = strtr($pubTime,"十一月", "Nov");
+                    $pubTime = strtr($pubTime,"十二月", "Dec");
+                    $pubTime = strtr($pubTime,"\n", "");
 
                     if ($pubTime != "" && $pubTime != null) { //&& strlen($pubTime) > 24
                         //var_dump($pubTime);
@@ -544,9 +548,9 @@ foreach ($sources as $key => $value) {
                     //获得标题
                     $title = $item->title;
                     $title = (string)$title[0];
-                    $title = str_replace(" ", "", $title);
-                    $title = str_replace("\n", "", $title);
-                    $title = str_replace("\t", "", $title);
+                    $title = strtr($title," ", "");
+                    $title = strtr($title,"\n", "");
+                    $title = strtr($title,"\t", "");
 
                     //获取链接
                     $link = (string)$item->link;
@@ -609,10 +613,10 @@ foreach ($sources as $key => $value) {
 
 
                 //Split keywords
-                $titleLen = mb_strlen($title, 'utf-8');
+                $titleLen = mb_strlen($title, 'utf-8')-1;
                 $keywords = array();
                 $keywordDict = array();
-                for ($i = 0; $i < $titleLen - 1; $i++) {
+                for ($i = 0; $i < $titleLen; ++$i) {
                     $twoStr = mb_substr($title, $i, 2, 'utf-8');
                     array_push($keywords, $twoStr);
                     $keywordDict[$twoStr] = 1;
@@ -695,7 +699,7 @@ foreach ($sources as $key => $value) {
                         //处理文章的链接
                         if (isset($value['source_linkReplace'])) {
                             $linkToReplace = $seed['link'];
-                            $link = str_replace($value['source_linkReplace'][0], $value['source_linkReplace'][1], $linkToReplace);
+                            $link = strtr($linkToReplace,$value['source_linkReplace'][0], $value['source_linkReplace'][1]);
                         } else {
                             $link = $seed['link'];
                         }
@@ -720,17 +724,17 @@ foreach ($sources as $key => $value) {
 
                                 //var_dump($feeds);
 
-                                $feeds = str_replace('encoding="gb2312"', 'encoding="utf-8"', $feeds);
-                                $feeds = str_replace('encoding="ascii"', 'encoding="utf-8"', $feeds);
-                                $feeds = str_replace('encoding="gbk"', 'encoding="utf-8"', $feeds);
-                                $feeds = str_replace('encoding="ecu-cn"', 'encoding="utf-8"', $feeds);
-                                $feeds = str_replace('encoding="cp936"', 'encoding="utf-8"', $feeds);
+                                $feeds = strtr($feeds,'encoding="gb2312"', 'encoding="utf-8"');
+                                $feeds = strtr($feeds,'encoding="ascii"', 'encoding="utf-8"');
+                                $feeds = strtr($feeds,'encoding="gbk"', 'encoding="utf-8"');
+                                $feeds = strtr($feeds,'encoding="ecu-cn"', 'encoding="utf-8"');
+                                $feeds = strtr($feeds,'encoding="cp936"', 'encoding="utf-8"');
 
-                                $feeds = str_replace('encoding="GB2312"', 'encoding="utf-8"', $feeds);
-                                $feeds = str_replace('encoding="ASCII"', 'encoding="utf-8"', $feeds);
-                                $feeds = str_replace('encoding="GBK"', 'encoding="utf-8"', $feeds);
-                                $feeds = str_replace('encoding="EUC-CN"', 'encoding="utf-8"', $feeds);
-                                $feeds = str_replace('encoding="CP936"', 'encoding="utf-8"', $feeds);
+                                $feeds = strtr($feeds,'encoding="GB2312"', 'encoding="utf-8"');
+                                $feeds = strtr($feeds,'encoding="ASCII"', 'encoding="utf-8"');
+                                $feeds = strtr($feeds,'encoding="GBK"', 'encoding="utf-8"');
+                                $feeds = strtr($feeds,'encoding="EUC-CN"', 'encoding="utf-8"');
+                                $feeds = strtr($feeds,'encoding="CP936"', 'encoding="utf-8"');
                             }
 
 
@@ -773,14 +777,14 @@ foreach ($sources as $key => $value) {
                                 }
                             }
 
-                            $text = str_replace("style=", "", $text);
-                            $text = str_replace("width", "", $text);
-                            $text = str_replace("height", "", $text);
-                            $text = str_replace("font-size", "", $text);
-                            //$text = str_replace("size=", "", $text);
+                            $text = strtr($text,"style=", "");
+                            $text = strtr($text,"width", "");
+                            $text = strtr($text,"height", "");
+                            $text = strtr($text,"font-size", "");
+                            //$text = strtr($text,"size=", "");
                             //去掉3W互联网沙龙的第一张无关图片；
-                            $text = str_replace("\"http://mmbiz.qpic.cn/mmbiz/agEQQ7NdJSPvNmD077w8LlvW6UF4G0b50paUvp37W56uAI0BibsH4by9twNUQlvdUv6zqUdqwOibHicQgNYnYtfMQ/0?wx_fmt=png\"", "", $text);
-                            $text = str_replace("\"http://mmbiz.qpic.cn/mmbiz/agEQQ7NdJSNmJibkdPTYyoEjyweiaaOGNoNEFH4TL7jqX66MAew9q28wZkGW77UiakSINicQpKaSRtU8Ck1p0fibT2Q/0\"", "", $text);
+                            $text = strtr($text,"\"http://mmbiz.qpic.cn/mmbiz/agEQQ7NdJSPvNmD077w8LlvW6UF4G0b50paUvp37W56uAI0BibsH4by9twNUQlvdUv6zqUdqwOibHicQgNYnYtfMQ/0?wx_fmt=png\"", "");
+                            $text = strtr($text,"\"http://mmbiz.qpic.cn/mmbiz/agEQQ7NdJSNmJibkdPTYyoEjyweiaaOGNoNEFH4TL7jqX66MAew9q28wZkGW77UiakSINicQpKaSRtU8Ck1p0fibT2Q/0\"", "");
 
 
                             $text = preg_replace("<script.*?/script>", "", $text);
@@ -794,7 +798,7 @@ foreach ($sources as $key => $value) {
                             //处理Title
                             $title = $seed['title'];
                             $title = preg_replace("/<.+?>/", "", $title);
-                            $title = str_replace("&quot;", "", $title);
+                            $title = strtr($title,"&quot;", "");
 
 
                             if ($title != '' && $title != null && strlen($title) > 0) {
@@ -850,12 +854,12 @@ foreach ($sources as $key => $value) {
                                     $httpPos = strpos($seed['imageLink'], 'http');
                                     if ($seed['imageLink'] != '' && $httpPos === false) {
 
-                                        $seed['imageLink'] = str_replace('../', '', $seed['imageLink']);
-                                        $seed['imageLink'] = str_replace('./', '', $seed['imageLink']);
+                                        $seed['imageLink'] = strtr($seed['imageLink'],'../', '');
+                                        $seed['imageLink'] = strtr($seed['imageLink'],'./', '');
                                         $seed['imageLink'] = $value['source_homeURL'].$seed['imageLink'];
                                     }
                                     if ($value['source_name'] == 'TECH2IPO 创见') {
-                                        $seed['imageLink'] = str_replace("/0/","/192/",$seed['imageLink']);   
+                                        $seed['imageLink'] = strtr($seed['imageLink'],"/0/","/192/");
                                     }
 
                                 }
@@ -1021,17 +1025,17 @@ foreach ($uncompleteSeeds as $key => $seed) {
 
             //var_dump($feeds);
 
-            $html = str_replace('encoding="gb2312"', 'encoding="utf-8"', $html);
-            $html = str_replace('encoding="ascii"', 'encoding="utf-8"', $html);
-            $html = str_replace('encoding="gbk"', 'encoding="utf-8"', $html);
-            $html = str_replace('encoding="ecu-cn"', 'encoding="utf-8"', $html);
-            $html = str_replace('encoding="cp936"', 'encoding="utf-8"', $html);
+            $html = strtr($html,'encoding="gb2312"', 'encoding="utf-8"');
+            $html = strtr($html,'encoding="ascii"', 'encoding="utf-8"');
+            $html = strtr($html,'encoding="gbk"', 'encoding="utf-8"');
+            $html = strtr($html,'encoding="ecu-cn"', 'encoding="utf-8"');
+            $html = strtr($html,'encoding="cp936"', 'encoding="utf-8"');
 
-            $html = str_replace('encoding="GB2312"', 'encoding="utf-8"', $html);
-            $html = str_replace('encoding="ASCII"', 'encoding="utf-8"', $html);
-            $html = str_replace('encoding="GBK"', 'encoding="utf-8"', $html);
-            $html = str_replace('encoding="EUC-CN"', 'encoding="utf-8"', $html);
-            $html = str_replace('encoding="CP936"', 'encoding="utf-8"', $html);
+            $html = strtr($html,'encoding="GB2312"', 'encoding="utf-8"');
+            $html = strtr($html,'encoding="ASCII"', 'encoding="utf-8"');
+            $html = strtr($html,'encoding="GBK"', 'encoding="utf-8"');
+            $html = strtr($html,'encoding="EUC-CN"', 'encoding="utf-8"');
+            $html = strtr($html,'encoding="CP936"', 'encoding="utf-8"');
         }
 
 
@@ -1076,15 +1080,15 @@ foreach ($uncompleteSeeds as $key => $seed) {
             }
 
             $text = $cutHTML;
-            $text = str_replace("style=", "", $text);
-            $text = str_replace("width", "", $text);
-            $text = str_replace("height", "", $text);
-            $text = str_replace("font-size", "", $text);
-            //$text = str_replace("size=", "", $text);
+            $text = strtr($text,"style=", "");
+            $text = strtr($text,"width", "");
+            $text = strtr($text,"height", "");
+            $text = strtr($text,"font-size", "");
+            //$text = strtr($text,"size=", "");
 
-            $text = preg_replace("<script.*?/script>", "", $text);
-            $text = preg_replace("<link.*?>", "", $text);
-            $text = preg_replace("<iframe.*?/iframe>", "", $text);
+            $text = preg_replace("<script.*?/script>", "");
+            $text = preg_replace("<link.*?>", "");
+            $text = preg_replace("<iframe.*?/iframe>", "");
 
             $cleanedText = clear_unmeaningful_char($text);
             $textLen = mb_strlen($cleanedText,'utf-8');
@@ -1113,9 +1117,9 @@ foreach ($uncompleteSeeds as $key => $seed) {
             } 
 
             if ($source['source_name'] == '趋势网') {
-                $imageLink = str_replace("uploads/../../", "", $imageLink);    
+                $imageLink = strtr($imageLink,"uploads/../../", "");
             }else{
-                $imageLink = str_replace("../", "", $imageLink);
+                $imageLink = strtr($imageLink,"../", "");
             }
             
             if ($imgCount > 5 ) {
