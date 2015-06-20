@@ -470,17 +470,17 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 
 		        //var_dump($feeds);
 
-		        $html = strtr($html,'encoding="gb2312"', 'encoding="utf-8"');
-		        $html = strtr($html,'encoding="ascii"', 'encoding="utf-8"');
-		        $html = strtr($html,'encoding="gbk"', 'encoding="utf-8"');
-		        $html = strtr($html,'encoding="ecu-cn"', 'encoding="utf-8"');
-		        $html = strtr($html,'encoding="cp936"', 'encoding="utf-8"');
+		        $html = str_replace('encoding="gb2312"', 'encoding="utf-8"', $html);
+		        $html = str_replace('encoding="ascii"', 'encoding="utf-8"', $html);
+		        $html = str_replace('encoding="gbk"', 'encoding="utf-8"', $html);
+		        $html = str_replace('encoding="ecu-cn"', 'encoding="utf-8"', $html);
+		        $html = str_replace('encoding="cp936"', 'encoding="utf-8"', $html);
 
-		        $html = strtr($html,'encoding="GB2312"', 'encoding="utf-8"');
-		        $html = strtr($html,'encoding="ASCII"', 'encoding="utf-8"');
-		        $html = strtr($html,'encoding="GBK"', 'encoding="utf-8"');
-		        $html = strtr($html,'encoding="EUC-CN"', 'encoding="utf-8"');
-		        $html = strtr($html,'encoding="CP936"', 'encoding="utf-8"');
+		        $html = str_replace('encoding="GB2312"', 'encoding="utf-8"', $html);
+		        $html = str_replace('encoding="ASCII"', 'encoding="utf-8"', $html);
+		        $html = str_replace('encoding="GBK"', 'encoding="utf-8"', $html);
+		        $html = str_replace('encoding="EUC-CN"', 'encoding="utf-8"', $html);
+		        $html = str_replace('encoding="CP936"', 'encoding="utf-8"', $html);
 		    }
 
 
@@ -519,11 +519,11 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 		        }
 
 		        $text = $cutHTML;
-		        $text = strtr($text,"style=", "");
-		        $text = strtr($text,"width", "");
-		        $text = strtr($text,"height", "");
-		        $text = strtr($text,"font-size", "");
-		        //$text = strtr($text,"size=", "");
+		        $text = str_replace("style=", "", $text);
+		        $text = str_replace("width", "", $text);
+		        $text = str_replace("height", "", $text);
+		        $text = str_replace("font-size", "", $text);
+		        //$text = str_replace("size=", "", $text);
 
 		        $text = preg_replace("<script.*?/script>", "",$text);
 		        $text = preg_replace("<link.*?>", "",$text);
@@ -548,9 +548,9 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 		        } 
 
 		        if ($source['source_name'] == '趋势网') {
-		            $imageLink = strtr($imageLink,"uploads/../../", "");
+		            $imageLink = str_replace("uploads/../../", "", $imageLink);
 		        }else{
-		            $imageLink = strtr($imageLink,"../", "");
+		            $imageLink = str_replace("../", "", $imageLink);
 		        }
 		        
 		        $seed['seed_text'] = $text;
