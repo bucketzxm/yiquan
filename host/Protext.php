@@ -383,7 +383,7 @@ class Protext extends YqBase {
         $result[2]=$statics;
         $result[3]=$labelsParsed;
         //$result[3]=$segmentDict;
-
+        unset($keywordDict);
         return $result;
     }
     

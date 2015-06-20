@@ -187,7 +187,16 @@ function clear_unmeaningful_char($title){
             $seeds = $db->Proseed->find();
 
             foreach ($seeds as $key => $value) {
-                echo '<h3>'.$value['seed_title'].'  '.implode(';', $value['seed_industry']).'</h3>';
+                //echo '<h3>'.$value['seed_title'].'  '.implode(';', $value['seed_industry']).'</h3>';
+
+                $protext = new Protext;
+                $parserResult = $protext->parseIndustry($value['seed_text'],$value['seed_titleLower']);
+
+                if (isset($parserResult['seed_industryParsed'])) {
+                    echo '<h3>'.$value['seed_title'].':'.implode(';', $parserResult['seed_industryParsed']).'</3>';     
+                }else{
+                    echo '<h3>'.$value['seed_title'].'</3>';     
+                }
             }
 			
 			/*
@@ -230,26 +239,16 @@ function clear_unmeaningful_char($title){
 			}
             */
 	        
+            /*
 			$seeds = $db->Proseed->find();
 			foreach ($seeds as $key => $value) {
-                /*
+                
 				$cleanedText = clear_unmeaningful_char($value['seed_text']);
 				$value['seed_textLen'] = mb_strlen($cleanedText,'utf-8');
 				$db->Proseed->save($value);
-                */
-				
                 
-                $protext = new Protext;
-                $parserResult = $protext->parseIndustry($value['seed_text'],$value['seed_titleLower']);
-
-                if (isset($parserResult['seed_industryParsed'])) {
-                    echo '<h3>'.$value['seed_title'].':'.implode(';', $parserResult['seed_industryParsed']).'</3>';     
-                }else{
-                    echo '<h3>'.$value['seed_title'].'</3>';     
-                }
-				
-				
-			}
+	
+			}*/
             
 
 			/*
