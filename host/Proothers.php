@@ -197,7 +197,7 @@ function clear_unmeaningful_char($title){
                 }
 
                 if (isset($parserResult['seed_industryParsed'])) {
-                    echo '<h3>'.$value['seed_source'].' '.$value['seed_title'].':'.implode('@', $parserResult['seed_industryParsed']).' Detail:'.implode('|', $keywords).'</3>';     
+                    echo '<h3>'.$value['seed_source'].' '.$value['seed_title'].':'.implode('@', $parserResult['seed_industryParsed']).'</3>';     
                 }else{
                     echo '<h3>'.$value['seed_source'].' '.$value['seed_title'].'</3>';     
                 }
