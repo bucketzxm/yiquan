@@ -191,9 +191,13 @@ function clear_unmeaningful_char($title){
 
                 $protext = new Protext;
                 $parserResult = $protext->parseIndustry($value['seed_text'],$value['seed_titleLower']);
+                $keywords = array();
+                foreach ($parserResult['seed_textIndustryWords'] as $wordkey => $wordValue) {
+                    array_push($keywords, $wordkey);
+                }
 
                 if (isset($parserResult['seed_industryParsed'])) {
-                    echo '<h3>'.$value['seed_source'].' '.$value['seed_title'].':'.implode(';', $parserResult['seed_industryParsed']).'</3>';     
+                    echo '<h3>'.$value['seed_source'].' '.$value['seed_title'].':'.implode('@', $parserResult['seed_industryParsed']).' Detail:'.implode('|', $keywords).'</3>';     
                 }else{
                     echo '<h3>'.$value['seed_source'].' '.$value['seed_title'].'</3>';     
                 }
