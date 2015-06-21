@@ -372,7 +372,7 @@ class Protext extends YqBase {
         //判断keywordDict的标签
         $labelsParsed = array();
         foreach ($keywordDict as $theWord => $labelCount) {
-            if ($labelCount/$textLen > 0.002) {
+            if ($labelCount/$textLen > 0.003) {
                 array_push($labelsParsed, $theWord);
             }
         }
