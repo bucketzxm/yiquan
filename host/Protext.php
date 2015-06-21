@@ -387,7 +387,7 @@ class Protext extends YqBase {
             if (isset($industries[$industryParsed]['chineseSegment'])) {
                 foreach ($industries[$industryParsed]['chineseSegment'] as $cnSegment) {
                     if (isset($textDict[$cnSegment])) {
-                        if ($textDict[$cnSegment]/$textLen > 0.002 ) {
+                        if (count($textDict[$cnSegment])/$textLen > 0.002 ) {
                             array_push($labelsParsed, $cnSegment);
                         }
                     }
