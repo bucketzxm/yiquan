@@ -200,7 +200,12 @@ class Protext extends YqBase {
         $EnglishWords = array();
         preg_match_all("(\\d+.\\d+|\\w+)", $text, $allWords_eng);
         foreach ($allWords_eng[0] as $key0 => $Enword) {
-            $EnglishWords[strtolower($Enword)] = strtolower($Enword);
+            $Enword = strtolower($Enword);
+            if (isset($EnglishWords[$Enword])) {
+                $EnglishWords[$Enword] ++;    
+            }else{
+                $EnglishWords[$Enword] = 1;    
+            }
         }
     	$text = $this->clear_unmeaningful_text($text);
 
@@ -284,9 +289,9 @@ class Protext extends YqBase {
                     $keywordEn = strtolower($keywordEn);
                     if (isset($EnglishWords[$keywordEn])) {
                         if (isset($keywordDict[$keywordEn])) {
-                            $keywordDict[$keywordEn] += count($EnglishWords[$keywordEn]);
+                            $keywordDict[$keywordEn] += $EnglishWords[$keywordEn];
                         }else{
-                            $keywordDict[$keywordEn] = count($EnglishWords[$keywordEn]);
+                            $keywordDict[$keywordEn] = $EnglishWords[$keywordEn];
                         }
 
                         $wordCount += count($EnglishWords[$keywordEn]);  
@@ -330,6 +335,13 @@ class Protext extends YqBase {
     	        array_push($statics, $paragraphCount);
                 */
             }
+
+
+
+            //Parse industry segments CN
+
+
+            //Parse industry segments EN
             
         }
         /*
@@ -371,12 +383,32 @@ class Protext extends YqBase {
 
         //判断keywordDict的标签
         $labelsParsed = array();
+        foreach ($industryResult as $industryParsed) {
+            if (isset($industries[$industryParsed]['chineseSegment'])) {
+                foreach ($industries[$industryParsed]['chineseSegment'] as $cnSegment) {
+                    if ($textDict[$cnSegment]/$textLen > 0.002 ) {
+                        array_push($labelsParsed, $cnSegment);
+                    }
+                }
+            }    
+            if (isset($industries[$industryParsed]['englishSegment'])) {
+                foreach ($industries[$industryParsed]['englishSegment'] as $enSegment) {
+                    if ($EnglishWords[$enSegment]/$textLen > 0.002 ) {
+                        array_push($labelsParsed, $enSegment);
+                    }    
+                }
+            }
+        }
+
+
+        /*
+        
         foreach ($keywordDict as $theWord => $labelCount) {
             if ($labelCount/$textLen > 0.003) {
                 array_push($labelsParsed, $theWord);
             }
         }
-
+        */
 
         $result[0]=$keywordDict;
         $result[1]=$industryResult;
@@ -398,6 +430,12 @@ class Protext extends YqBase {
             }
             if (isset($dict['industry_ENDict'])) {
                 $industryDict[$dict['industry_name']]['english'] = $dict['industry_ENDict'];    
+            }
+            if (isset($dict['segment_words'])) {
+                $industryDict[$dict['industry_name']]['chineseSegment'] = $dict['segment_words'];
+            }
+            if (isset($dict['segment_ENDict'])) {
+                $industryDict[$dict['industry_name']]['englishSegment'] = $dict['segment_ENDict'];    
             }
             
         }
