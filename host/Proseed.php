@@ -349,16 +349,22 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 							)
 						),
 					'seed_time' => array ('$lt' => $time),
-					'$or' => array(
-						array('seed_textLen' => array('$gt'=> 400)),
-						array('seed_textLen' => 0)
-					),
-					'$or' => array (
-						array('seed_titleLower' => new MongoRegex ("/$keyword/")),
-						array('seed_industry' => new MongoRegex ("/$keyword/"))
-						//array('seed_sourceLower' => new MongoRegex ("/$keyword/"))
-						)
+					'$and' => array(
+						array(
+							'$or' => array(
+								array('seed_textLen' => array('$gt'=> 400)),
+								array('seed_textLen' => 0)
+							)
+						),
+						array(
+							'$or' => array (
+								array('seed_titleLower' => new MongoRegex ("/$keyword/")),
+								array('seed_industry' => new MongoRegex ("/$keyword/"))
+								//array('seed_sourceLower' => new MongoRegex ("/$keyword/"))
+							)		
+						),
 					)
+				)
 			)->sort(array('seed_time'=> -1))->limit(30);
 			/*
 			$unreadSeeds = array ();
