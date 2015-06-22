@@ -188,16 +188,16 @@ function clear_unmeaningful_char($title){
 
             foreach ($seeds as $key => $value) {
                 //echo '<h3>'.$value['seed_title'].'  '.implode(';', $value['seed_industry']).'</h3>';
-                /*
+                
                 $protext = new Protext;
                 $parserResult = $protext->parseIndustry($value['seed_text'],$value['seed_titleLower']);
                 $keywords = array();
                 foreach ($parserResult['seed_textIndustryWords'] as $wordkey => $wordValue) {
                     array_push($keywords, $wordkey);
                 }
-                */
-                if (isset($value['seed_industry'])) {
-                    echo '<h3>'.$value['seed_source'].' '.$value['seed_title'].':'.implode('@', $value['seed_industry']).'</3>';     
+                
+                if (isset($parserResult['seed_industryParsed'])) {
+                    echo '<h3>'.$value['seed_source'].' '.$value['seed_title'].':'.implode('@', $parserResult['seed_industryParsed']).'</3>';     
                 }else{
                     echo '<h3>'.$value['seed_source'].' '.$value['seed_title'].'</3>';     
                 }
