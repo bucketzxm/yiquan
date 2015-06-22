@@ -370,7 +370,7 @@ class Protext extends YqBase {
                     }    
                 }
                 
-                if (($matchCount/$textLen) > 0.01 ) {
+                if (($matchCount/$textLen) > 0.002 ) {
                     array_push($segmentDict, $dict['segment_name']);
                 }
             }
