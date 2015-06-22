@@ -344,7 +344,7 @@ class Protext extends YqBase {
             //Parse industry segments EN
             
         }
-        /*
+        
         //继续Parse Segment
         $segmentDict = array();
         foreach ($industryResult as $parsedIndustry) {
@@ -375,12 +375,12 @@ class Protext extends YqBase {
                 }
             }
         }
-        */
-        /*
+        
+        
         foreach ($segmentDict as $segment) {
             array_push($industryResult,$segment);
-        }*/
-
+        }
+        /*
         //判断keywordDict的标签
         $labelsParsed = array();
         foreach ($industryResult as $industryParsed) {
@@ -405,7 +405,7 @@ class Protext extends YqBase {
                 }
             }
         }
-
+        */
 
         /*
         
@@ -419,7 +419,7 @@ class Protext extends YqBase {
         $result[0]=$keywordDict;
         $result[1]=$industryResult;
         $result[2]=$statics;
-        $result[3]=$labelsParsed;
+        //$result[3]=$labelsParsed;
         //$result[3]=$segmentDict;
         unset($keywordDict);
         return $result;
@@ -480,12 +480,12 @@ class Protext extends YqBase {
                 }
             }
         }
-        
+        /*
         foreach ($parserResult[3] as $label) {
             if (!isset($seed['seed_industryParsed'][$label])) {
                 $seed['seed_industryParsed'][$label] = $label;
             }
-        }
+        }*/
 
         $seed['seed_textIndustryWords'] = $parserResult[0];
         //$seed['seed_segmentParsed'] = $parserResult[3];
