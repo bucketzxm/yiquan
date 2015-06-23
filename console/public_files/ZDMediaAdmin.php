@@ -36,11 +36,11 @@ include_once '401.php';
 					$a = new MediaView ();
 					switch ($_GET ['action']) {
 						
-						
+
 						case 'viewMedia' :
 							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
 								if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
-									$a->listAllMedia_table($a->getAllMediaInfo(),0,1000);
+									$a->listAllMedia_table($a->queryMedia(),0,1000);
 								}
 							}
 							break;

@@ -26,6 +26,30 @@ class Media extends YqBase{
 			echo (isset($value['text_closingTag'] )? $value['text_closingTag']: '');
 		}
 
+
+
+	function queryMedia($configs = []) {
+		$ans = [ ];
+		if (empty ( $configs )) {
+			$cus = $this->db->Prosource->find ()->sort ( array (
+					'source_name' => -1 
+			) );
+			while ( $cus->hasNext () ) {
+				$doc = $cus->getNext ();
+				$ans [] = $doc;
+			}
+		} else {
+			if (isset ( $configs ['type'] )) {
+				if ($configs ['type'] == 'findone') {
+					$ans = $this->db->Prosource->findOne ( array (
+							'_id' => new MongoId ( $configs ['value'] ) 
+					) );
+				}
+			}
+		}
+		return $ans;
+	}
+
 	
 		/*$arr['source_name']=$this->db->Prosource->find(array('source_name'=>$arr['source_name']));
 		$arr['source_description']=$this->db->Prosource->find(array('source_description'=>$arr['source_description']));
