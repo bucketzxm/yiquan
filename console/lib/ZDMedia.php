@@ -19,9 +19,9 @@ class Media extends YqBase{
 		foreach ($cus as $key => $value) {
 			echo $value['source_name'];
 			echo $value['source_description'];
-			echo $value['source_industry'];
-			echo $value['source_rssURL'];
-			echo $value['source_tag'];
+			echo implode(',', $value['source_industry']);
+			echo implode(',', $value['source_rssURL']);
+			echo implode(',', ['source_tag']);
 			echo $value['text_openingTag'];
 			echo $value['text_closingTag'];
 		}
