@@ -1239,5 +1239,69 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 	}
 
 
+	function queryMediaGroups($user_id){
+		if ($this->yiquan_version == 0) {
+			return - 2;
+		}
+		if ($this->checkToken () == 0) {
+			return - 3;
+		}
+		if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
+			return - 4;
+		}
+
+		$user = $this->db->Prouser->findOne(array('_id' => new MongoId($user_id)));
+
+		$groups = $this->db->ProMediaGroup->find()->limit(30);
+		$groupsToShow = array();
+		foreach ($groups as $key => $value) {
+		 	if (isset($user['user_mediaGroups'][$value])) {
+		 		$value['user_mediaGroupStatus'] = '1';
+		 	}else{
+		 		$value['user_mediaGroupStatus'] = '0';
+		 	}
+		 	array_push($groupsToShow,$value);
+		 }
+		 return json_encode($groupsToShow);
+	}
+
+	function followMediaGroup($user_id,$group_id){
+		if ($this->yiquan_version == 0) {
+			return - 2;
+		}
+		if ($this->checkToken () == 0) {
+			return - 3;
+		}
+		if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
+			return - 4;
+		}
+
+		$user = $this->db->Prouser->findOne(array('_id' => new MongoId($user_id)));
+		if (!isset($user['user_mediaGroups'][$group_id])) {
+			$user['user_mediaGroups'][$group_id] = $group_id;
+			$this->db->Prouser->save($user);
+		}
+		return 1;
+	}
+
+	function disfollowMediaGroup ($user_id,$group_id){
+		if ($this->yiquan_version == 0) {
+			return - 2;
+		}
+		if ($this->checkToken () == 0) {
+			return - 3;
+		}
+		if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
+			return - 4;
+		}
+
+		$user = $this->db->Prouser->findOne(array('_id' => new MongoId($user_id)));
+		if (isset($user['user_mediaGroups'][$group_id])) {
+			unset($user['user_mediaGroups'][$group_id]);
+			$this->db->Prouser->save($user);
+		}
+		return 1;
+	}
+
 }
 ?>
