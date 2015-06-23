@@ -31,9 +31,7 @@ class Media extends YqBase{
 	function queryMedia($configs = []) {
 		$ans = [ ];
 		if (empty ( $configs )) {
-			$cus = $this->db->Prosource->find ()->sort ( array (
-					'source_name' => -1 
-			) );
+			$cus = $this->db->Prosource->find ();
 			while ( $cus->hasNext () ) {
 				$doc = $cus->getNext ();
 				$ans [] = $doc;
