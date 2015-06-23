@@ -17,13 +17,13 @@ class Media extends YqBase{
 		$cus=$this->db->Prosource->find();
 			
 		foreach ($cus as $key => $value) {
-			echo is_notempty($value['source_name']);
-			echo is_notempty($value['source_description']);
-			echo is_notempty(implode(',', $value['source_industry']));
+			echo $value['source_name'];
+			echo (isset($value['source_description'] ? $value['source_description']: ''));
+			echo (isset($value['source_industry'] ? $value['source_industry']: ''));
 			echo is_notempty(implode(',', $value['source_rssURL']));
-			echo is_notempty(implode(',', ['source_tag']));
-			echo is_notempty($value['text_openingTag']);
-			echo is_notempty($value['text_closingTag']);
+			echo (isset($value['source_tag'] ? $value['source_tag']: ''));
+			echo (isset($value['text_openingTag'] ? $value['text_openingTag']: ''));
+			echo (isset($value['text_closingTag'] ? $value['text_closingingTag']: ''));
 		}
 
 	
