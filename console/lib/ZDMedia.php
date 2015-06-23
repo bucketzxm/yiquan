@@ -36,7 +36,7 @@ class Media extends YqBase{
 				$doc = $cus->getNext ();
 				$ans [] = $doc;
 			}
-		} else {
+		}/* else {
 			if (isset ( $configs ['type'] )) {
 				if ($configs ['type'] == 'findone') {
 					$ans = $this->db->Prosource->findOne ( array (
@@ -44,7 +44,7 @@ class Media extends YqBase{
 					) );
 				}
 			}
-		}
+		}*/
 		return $ans;
 	}
 
