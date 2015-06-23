@@ -8,8 +8,9 @@ require_once 'ZDMedia.php';
 function combiner($head,$tail){
 	$helper= function ($combine_helper) use ($content){
 		echo $head.$content.$tail;
-	return $helper;
 	}
+	return $helper;
+	
 }
 $th_combiner=combiner('<th>','</th>');
 $td_combiner=combiner('<td>','</th>');
