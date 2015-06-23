@@ -38,13 +38,13 @@ class MediaView extends Media{
 		for($i = $start; $i < min ( $start + $len, count ( $arr ) ); $i ++) {
 			echo '<tr>';
 			$uid = $arr [$i] ['_id']->{'$id'};
-			td_combiner((isset($arr['source_name'])? $arr['source_name']:''));
-			td_combiner((isset($arr['source_description']) ? $arr['source_description']: ''));
-			td_combiner((isset($arr['source_industry']) ? implode(',',$arr['source_industry']): ''));
+			td_combiner((isset($arr[i]['source_name'])? $arr[i]['source_name']:''));
+			td_combiner((isset($arr[i]['source_description']) ? $arr[i]['source_description']: ''));
+			td_combiner((isset($arr[i]['source_industry']) ? implode(',',$arr[i]['source_industry']): ''));
 			td_combiner(is_notempty($arr[$i]['source_rssURL']));
-			td_combiner((isset($arr['source_tag'] )? implode(',',$arr['source_tag']): ''));
-			td_combiner((isset($arr['text_openingTag']) ? $arr['text_openingTag']: ''));
-			td_combiner((isset($arr['text_closingTag'] )? $arr['text_closingTag']: ''));
+			td_combiner((isset($arr[i]['source_tag'] )? implode(',',$arr[i]['source_tag']): ''));
+			td_combiner((isset($arr[i]['text_openingTag']) ? $arr[i]['text_openingTag']: ''));
+			td_combiner((isset($arr[i]['text_closingTag'] )? $arr[i]['text_closingTag']: ''));
 			echo '</tr>';
 
 
