@@ -53,6 +53,7 @@ class Media extends YqBase{
 			$ans [] = $doc;
 
 		}
+		return $ans;
 	}
 		/*$arr['source_name']=$this->db->Prosource->find(array('source_name'=>$arr['source_name']));
 		$arr['source_description']=$this->db->Prosource->find(array('source_description'=>$arr['source_description']));
