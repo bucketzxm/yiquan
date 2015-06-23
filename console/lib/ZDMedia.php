@@ -39,7 +39,7 @@ class Media extends YqBase{
 		$arr['source_name']=$this->db->Prosource->find(array('source_name'=>$arr['source_name']));
 		$arr['source_description']=$this->db->Prosource->find(array('source_description'=>$arr['source_description']));
 		$arr['source_industry']=$this->db->Prosource->find(array('source_industry'=>$arr['source_description']));
-		$arr['source_rssURL']=$this->db->Prosource->find(array('source_rssURL'=>$arr['source_rssURL']);
+		$arr['source_rssURL']=$this->db->Prosource->find(array('source_rssURL'=>$arr['source_rssURL']));
 		$arr['source_tag']=$this->db->Prosource->find(array('source_tag'=>$arr['source_tag']));
 		$arr['text_openingTag']=$this->db->Prosource->find(array('text_openingTag'=>$arr['text_openingTag']));
 		$arr['text_closingTag']=$this->db->Prosource->find(array('text_closingTag'=>$arr['text_closingTag']));
