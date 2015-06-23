@@ -14,24 +14,14 @@ class Media extends YqBase{
 
 
 	function getAllmediaInfo($congifs=[]){
-		$ans = [ ];
-		if (empty ( $configs )) {
+		$cus=this->db->Prosource->find();
 			
-			while ( $cus->hasNext () ) {
-				$doc = $cus->getNext ();
-				$this->getMediaDetailInfo ( $doc );
-				$ans [] = $doc;
-			}
+		while ( $cus->hasNext () ) {
+			$doc = $cus->getNext ();
+			$this->getMediaDetailInfo ( $doc );
+			$ans [] = $doc;
 		}
-		else
-		{
-			
-			while ( $cus->hasNext () ) {
-				$doc = $cus->getNext ();
-				$this->getMediaDetailInfo ( $doc );
-				$ans [] = $doc;
-			}
-		}
+		
 	}
 
 
