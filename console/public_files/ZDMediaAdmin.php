@@ -36,6 +36,7 @@ include_once '401.php';
 					$a = new MediaView ();
 					switch ($_GET ['action']) {
 						
+						
 						case 'viewMedia' :
 							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
 								if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
