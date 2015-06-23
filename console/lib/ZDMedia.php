@@ -4,9 +4,6 @@ use Qiniu\Auth;
 use Qiniu\Storage\UploadManager;
 use Qiniu\Storage\BucketManager;
 ############################
-function is_notempty($name){
-	(isset($name) ? $name : '');
-}
 
 class Media extends YqBase{
 	protected $bcs_host = 'bcs.duapp.com';
