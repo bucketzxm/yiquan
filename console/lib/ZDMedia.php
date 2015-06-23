@@ -1,0 +1,48 @@
+<?php
+require_once 'YqBase.php';
+use Qiniu\Auth;
+use Qiniu\Storage\UploadManager;
+use Qiniu\Storage\BucketManager;
+############################
+
+class Media extends YqBase{
+	protected $bcs_host = 'bcs.duapp.com';
+
+
+
+
+
+
+	function getAllmediaInfo($congifs=[]){
+		$ans = [ ];
+		if (empty ( $configs )) {
+			
+			while ( $cus->hasNext () ) {
+				$doc = $cus->getNext ();
+				$this->getMediaDetailInfo ( $doc );
+				$ans [] = $doc;
+			}
+		}
+		else
+		{
+			
+			while ( $cus->hasNext () ) {
+				$doc = $cus->getNext ();
+				$this->getMediaDetailInfo ( $doc );
+				$ans [] = $doc;
+			}
+		}
+	}
+
+
+	function getMediaDetailInfo(&$arr){
+		$arr['source_name']=$this->db->Prosource->find(arr['source_name']);
+		$arr['source_description']=$this->db->Prosource->find(arr['source_description']);
+		$arr['source_industry']=$this->db->Prosource->find(arr['source_industry']);
+		$arr['source_rssURL']=$this->db->Prosource->find(arr['source_rssURL']);
+		$arr['source_tag']=$this->db->Prosource->find(arr['source_tag']);
+		$arr['text_openingTag']=$this->db->Prosource->find(arr['text_openingTag']);
+		$arr['text_closingTag']=$this->db->Prosource->find(arr['text_closingTag']);
+
+	}
+}
