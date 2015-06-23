@@ -72,7 +72,8 @@ class Prouser extends YqBase {
 							'user_readSeeds' => array (),
 							'user_keywords' => array (),
 							'user_searchWords' => array(),
-							'user_messageCheckTime' => time()
+							'user_messageCheckTime' => time(),
+							'user_mediaGroups' => array()
 					);
 					$this->db->Prouser->save ( $neo );
 

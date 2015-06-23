@@ -1255,12 +1255,13 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 		$groups = $this->db->ProMediaGroup->find()->limit(30);
 		$groupsToShow = array();
 		foreach ($groups as $key => $value) {
-		 	if (isset($user['user_mediaGroups'][$value])) {
-		 		$value['user_mediaGroupStatus'] = '1';
-		 	}else{
-		 		$value['user_mediaGroupStatus'] = '0';
-		 	}
-		 	array_push($groupsToShow,$value);
+			$value['user_mediaGroupStatus'] = '0';
+			if (isset($user['user_mediaGroups'])) {
+				if (isset($user['user_mediaGroups'][$value])) {
+		 			$value['user_mediaGroupStatus'] = '1';
+		 		}	
+			}
+			array_push($groupsToShow,$value);
 		 }
 		 return json_encode($groupsToShow);
 	}
