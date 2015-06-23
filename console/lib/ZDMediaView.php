@@ -35,16 +35,16 @@ class MediaView extends Media{
 		$th_combiner(('closingTag');
 
 
-	for($i = $start; $i < min ( $start + $len, count ( $arr ) ); $i ++) {
-		echo '<tr>';
-		$uid = $arr [$i] ['_id']->{'$id'};
-		$td_combiner(is_notempty($arr[$i]['source_name']));
-		$td_combiner(is_notempty($arr[$i]['source_description']));
-		$td_combiner(is_notempty($arr[$i]['source_rssURL']));
-		$td_combiner(is_notempty($arr[$i]['soure_tag']));
-		$td_combiner(is_notempty($arr[$i]['text_openingTag']));
-		$td_combiner(is_notempty($arr[$i]['tag_closingTag']));
-		echo '</tr>';
+		for($i = $start; $i < min ( $start + $len, count ( $arr ) ); $i ++) {
+			echo '<tr>';
+			$uid = $arr [$i] ['_id']->{'$id'};
+			$td_combiner(is_notempty($arr[$i]['source_name']));
+			$td_combiner(is_notempty($arr[$i]['source_description']));
+			$td_combiner(is_notempty($arr[$i]['source_rssURL']));
+			$td_combiner(is_notempty($arr[$i]['soure_tag']));
+			$td_combiner(is_notempty($arr[$i]['text_openingTag']));
+			$td_combiner(is_notempty($arr[$i]['tag_closingTag']));
+			echo '</tr>';
 
 
 
@@ -53,6 +53,6 @@ class MediaView extends Media{
 
 
 
-	}
+		}
 	}
 }
