@@ -38,7 +38,7 @@ class MediaView extends Media{
 		for($i = $start; $i < min ( $start + $len, count ( $arr ) ); $i ++) {
 			echo '<tr>';
 			$uid = $arr [$i] ['_id']->{'$id'};
-			td_combiner((issset($value['source_name'])? $value['source_name']:''));
+			td_combiner((isset($value['source_name'])? $value['source_name']:''));
 			td_combiner((isset($value['source_description']) ? $value['source_description']: ''));
 			td_combiner((isset($value['source_industry']) ? implode(',',$value['source_industry']): ''));
 			td_combiner(is_notempty($arr[$i]['source_rssURL']));
