@@ -25,7 +25,7 @@ class Media extends YqBase{
 			echo (isset($value['text_openingTag']) ? $value['text_openingTag']: '');
 			echo (isset($value['text_closingTag'] )? $value['text_closingTag']: '');
 		}
-
+	}
 
 
 	function queryMedia($configs = []) {
@@ -59,6 +59,6 @@ class Media extends YqBase{
 		$arr['text_openingTag']=$this->db->Prosource->find(array('text_openingTag'=>$arr['text_openingTag']));
 		$arr['text_closingTag']=$this->db->Prosource->find(array('text_closingTag'=>$arr['text_closingTag']));
 */
-	}
+	
 }
 ?>

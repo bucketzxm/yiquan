@@ -33,7 +33,7 @@ include_once '401.php';
           <div class="row">
 				<?php
 				if (isset ( $_GET ['action'] )) {
-					$a = new MediaView ();
+					$a = new MediaView();
 					switch ($_GET ['action']) {
 						
 
