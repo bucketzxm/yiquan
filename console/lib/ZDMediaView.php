@@ -32,7 +32,7 @@ class MediaView extends Media{
 		$th_combiner('网址或RSS地址');
 		$th_combiner( 'sourceTag');
 		$th_combiner('openingTag');
-		$th_combiner(('closingTag');
+		$th_combiner('closingTag');
 
 
 		for($i = $start; $i < min ( $start + $len, count ( $arr ) ); $i ++) {
