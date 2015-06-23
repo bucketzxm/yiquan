@@ -6,7 +6,7 @@ require_once 'ZDMedia.php';
 ####################
 
 function combiner($head,$tail){
-	$helper= function $(combine_helper) use ($content){
+	$helper= function ($combine_helper) use ($content){
 		echo $head.$content.$tail;
 	return $helper;
 	}
