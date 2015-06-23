@@ -37,7 +37,7 @@ if (! empty ( $GLOBALS ['TEMPLATE'] ['extra_head'] )) {
 				<ul class="nav navbar-nav">
 					<li class="active"><a href="zhidemain.php">主页</a></li>
 					
-					<li><a href="MediaAdmin.php">媒体管理</a></li>
+					<li><a href="ZDMediaAdmin.php">媒体管理</a></li>
 				
 					<li><a href="login.php?logout">退出</a></li>
 
