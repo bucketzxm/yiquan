@@ -4,6 +4,9 @@ use Qiniu\Auth;
 use Qiniu\Storage\UploadManager;
 use Qiniu\Storage\BucketManager;
 ############################
+function is_notempty($name){
+	(isset($name) ? $name : '');
+}
 
 class Media extends YqBase{
 	protected $bcs_host = 'bcs.duapp.com';
@@ -17,13 +20,13 @@ class Media extends YqBase{
 		$cus=$this->db->Prosource->find();
 			
 		foreach ($cus as $key => $value) {
-			echo $value['source_name'];
-			echo $value['source_description'];
-			echo implode(',', $value['source_industry']);
-			echo implode(',', $value['source_rssURL']);
-			echo implode(',', ['source_tag']);
-			echo $value['text_openingTag'];
-			echo $value['text_closingTag'];
+			echo is_notempty($value['source_name']);
+			echo is_notempty($value['source_description']);
+			echo is_notempty(implode(',', $value['source_industry']));
+			echo is_notempty(implode(',', $value['source_rssURL']));
+			echo is_notempty(implode(',', ['source_tag']));
+			echo is_notempty($value['text_openingTag']);
+			echo is_notempty($value['text_closingTag']);
 		}
 
 	
