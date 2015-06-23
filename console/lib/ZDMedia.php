@@ -19,9 +19,9 @@ class Media extends YqBase{
 		foreach ($cus as $key => $value) {
 			echo $value['source_name'];
 			echo (isset($value['source_description']) ? $value['source_description']: '');
-			echo (isset($value['source_industry']) ? (implode(',',$value['source_industry']): '');
+			echo (isset($value['source_industry']) ? implode(',',$value['source_industry']): '');
 			echo is_notempty(implode(',', $value['source_rssURL']));
-			echo (isset($value['source_tag'] )? (implode(',',$value['source_tag']): '');
+			echo (isset($value['source_tag'] )? implode(',',$value['source_tag']): '');
 			echo (isset($value['text_openingTag']) ? $value['text_openingTag']: '');
 			echo (isset($value['text_closingTag'] )? $value['text_closingingTag']: '');
 		}
