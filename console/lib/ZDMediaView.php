@@ -50,9 +50,6 @@ class MediaView extends Media{
 
 
 
-
-
-
 		}
 		echo '</table></div>';
 	}
