@@ -31,7 +31,7 @@ class MediaView extends Media{
 		th_combiner('行业或标签');
 		th_combiner('网址/RSS');
 		th_combiner( 'sourceTag');
-		th_combiner('openingTag');
+		th_combiner('startingTag');
 		th_combiner('closingTag');
 		echo '<tr></thead>';
 
@@ -44,7 +44,7 @@ class MediaView extends Media{
 			td_combiner((isset($arr[$i]['source_industry']) ? implode(',',$arr[$i]['source_industry']): ''));
 			td_combiner((isset($arr[$i]['source_rssURL'])? implode(',',$arr[$i]['source_rssURL']):''));
 			td_combiner((isset($arr[$i]['source_tag'])? implode(',',$arr[$i]['source_tag']): ''));
-			td_combiner((isset($arr[$i]['text_openingTag']) ? $arr[$i]['text_openingTag']: ''));
+			td_combiner((isset($arr[$i]['text_startingTag']) ? $arr[$i]['text_startingTag']: ''));
 			td_combiner((isset($arr[$i]['text_closingTag']) ? $arr[$i]['text_closingTag']: ''));
 			echo '</tr>';
 
