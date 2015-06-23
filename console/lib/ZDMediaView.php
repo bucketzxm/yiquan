@@ -28,7 +28,7 @@ class MediaView extends Media{
 
 		$th_combiner('媒体名称');
 		$th_combiner('媒体描述');
-		$th_combiner('媒体所在行业或所属标签';
+		$th_combiner('媒体所在行业或所属标签');
 		$th_combiner('网址或RSS地址');
 		$th_combiner( 'sourceTag');
 		$th_combiner('openingTag');
