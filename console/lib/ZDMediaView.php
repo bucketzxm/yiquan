@@ -33,7 +33,7 @@ class MediaView extends Media{
 		th_combiner( 'sourceTag');
 		th_combiner('openingTag');
 		th_combiner('closingTag');
-		echo '<tr></thead>'
+		echo '<tr></thead>';
 
 
 		for($i = $start; $i < min ( $start + $len, count ( $arr ) ); $i ++) {
