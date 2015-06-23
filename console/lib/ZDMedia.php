@@ -8,12 +8,7 @@ use Qiniu\Storage\BucketManager;
 class Media extends YqBase{
 	protected $bcs_host = 'bcs.duapp.com';
 
-
-
-
-
-
-	function getAllmediaInfo($congifs=[]){
+	/*function getAllmediaInfo($congifs=[]){
 		$cus=$this->db->Prosource->find();
 			
 		foreach ($cus as $key => $value) {
@@ -25,7 +20,7 @@ class Media extends YqBase{
 			echo (isset($value['text_openingTag']) ? $value['text_openingTag']: '');
 			echo (isset($value['text_closingTag'] )? $value['text_closingTag']: '');
 		}
-	}
+	}*/
 
 
 	function queryMedia($configs = []) {
