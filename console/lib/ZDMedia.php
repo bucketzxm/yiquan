@@ -23,7 +23,7 @@ class Media extends YqBase{
 			echo is_notempty(implode(',', $value['source_rssURL']));
 			echo (isset($value['source_tag'] )? implode(',',$value['source_tag']): '');
 			echo (isset($value['text_openingTag']) ? $value['text_openingTag']: '');
-			echo (isset($value['text_closingTag'] )? $value['text_closingingTag']: '');
+			echo (isset($value['text_closingTag'] )? $value['text_closingTag']: '');
 		}
 
 	
