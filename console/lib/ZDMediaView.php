@@ -42,7 +42,7 @@ class MediaView extends Media{
 			td_combiner((isset($arr[$i]['source_name'])? $arr[$i]['source_name']:''));
 			td_combiner((isset($arr[$i]['source_description']) ? $arr[$i]['source_description']: ''));
 			td_combiner((isset($arr[$i]['source_industry']) ? implode(',',$arr[$i]['source_industry']): ''));
-			td_combiner(is_notempty($arr[$i]['source_rssURL']));
+			td_combiner((isset($arr[$i]['source_rssURL'])? implode(',',$arr[$i]['source_rssURL']));
 			td_combiner((isset($arr[$i]['source_tag'] )? implode(',',$arr[$i]['source_tag']): ''));
 			td_combiner((isset($arr[$i]['text_openingTag']) ? $arr[$i]['text_openingTag']: ''));
 			td_combiner((isset($arr[$i]['text_closingTag'] )? $arr[$i]['text_closingTag']: ''));
