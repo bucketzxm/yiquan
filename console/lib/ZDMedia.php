@@ -14,7 +14,7 @@ class Media extends YqBase{
 
 
 	function getAllmediaInfo($congifs=[]){
-		$cus=this->db->Prosource->find();
+		$cus=$this->db->Prosource->find();
 			
 		while ( $cus->hasNext () ) {
 			$doc = $cus->getNext ();
