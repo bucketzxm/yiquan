@@ -10,7 +10,6 @@ function combiner($head,$tail){
 		echo $head.$content.$tail;
 	}
 	return $helper;
-	
 }
 $th_combiner=combiner('<th>','</th>');
 $td_combiner=combiner('<td>','</th>');
