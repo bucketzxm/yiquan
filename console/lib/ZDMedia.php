@@ -52,7 +52,8 @@ class Media extends YqBase{
 			$doc = $cus->getNext ();
 			$ans [] = $doc;
 
-	
+		}
+	}
 		/*$arr['source_name']=$this->db->Prosource->find(array('source_name'=>$arr['source_name']));
 		$arr['source_description']=$this->db->Prosource->find(array('source_description'=>$arr['source_description']));
 		$arr['source_industry']=$this->db->Prosource->find(array('source_industry'=>$arr['source_description']));
