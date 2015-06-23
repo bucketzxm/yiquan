@@ -12,7 +12,7 @@ $user = User::getById($_SESSION['userId']);
 ob_start();
 
 
-<?php
+
 $GLOBALS['TEMPLATE']['content'] = ob_get_contents();
 ob_end_clean();
 ob_start();
