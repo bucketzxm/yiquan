@@ -109,7 +109,7 @@ class GroupView extends Group {
 				foreach ($s_List as $key => $value) {
 					$cus=$this->db->Prosource->find( array('_id' => new MongoId("$value") ));
 					$media_List[]=$cus;
-					echo $media_List['source_name'].',';
+					echo $media_List[0]['source_name'].',';
 				echo '/td';
 				}
 					
