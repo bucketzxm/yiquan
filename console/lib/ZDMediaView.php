@@ -56,4 +56,12 @@ class MediaView extends Media{
 		}
 		echo '</table></div>';
 	}
+	function showDeleteView($id) {
+		echo '<form method="post" action="?action=delete">';
+		echo '确定删除该吗？';
+		echo $id;
+		echo '<input type="hidden" name="qid" value="' . $id . '" />';
+		echo '<div class="form-group"><input type="submit" value="确定" /></div>';
+		echo '</form>';
+	}
 }

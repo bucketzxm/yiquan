@@ -44,7 +44,20 @@ include_once '401.php';
 								}
 							}
 							break;
-						}
+							case 'delete' :
+								if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
+									if (isset ( $_GET ['mindex'] )) {
+										$a->showDeleteView ( $_GET ['mindex'] );
+									}
+								} else {
+									if ($a->deleteMedia ( $_POST ['qid'] )) {
+										echo '成功';
+									} else {
+										echo '失败';
+									}
+								}
+								break;
+							}
 					}
 					?>
 			

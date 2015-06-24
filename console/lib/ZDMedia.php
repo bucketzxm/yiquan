@@ -58,6 +58,29 @@ class Media extends YqBase{
 		$arr['text_openingTag']=$this->db->Prosource->find(array('text_openingTag'=>$arr['text_openingTag']));
 		$arr['text_closingTag']=$this->db->Prosource->find(array('text_closingTag'=>$arr['text_closingTag']));
 */
+	function updateMedia($arr) {
+		$row = $this->db->Prosource->findOne ( array (
+				'_id' => new MongoId ( $arr ['id'] ) 
+		) );
+		if ($row != null) {
+			$row ['agree_count'] = $arr ['agree_count'];
+			$row ['quote_remark'] = $arr ['remark'];
+			$row ['quote_signature'] = $arr ['signature'];
+			$row ['quote_editor'] = $arr ['editor'];
+			$row ['quote_public'] = $arr ['public'];
+		}
+		return $this->db->Prosource->save ( $row );
+	}
+	function deleteQuotes($Quoteid) {
+		try {
+			$this->db->Prosource->remove ( array (
+					'_id' => new MongoID ( $Prosourceid ) 
+			) );
+			return 1;
+		} catch ( Exception $e ) {
+			return - 1;
+		}
+	}
 	
 }
 ?>
