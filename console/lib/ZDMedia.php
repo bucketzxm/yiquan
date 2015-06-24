@@ -72,7 +72,7 @@ class Media extends YqBase{
 			if (isset($row ['text_startingTag']) && isset($arr['startingTag'])) {
 				$row ['text_startingTag'] = $arr ['startingtag'];
 
-			} else if ( not $arr['startingTag']==null){
+			} else if ($arr['startingTag']){
 				$obj = array( 'text_startingTag' => $arr['startingTag']);
 				$row->insert($obj);
 
