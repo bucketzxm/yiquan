@@ -64,8 +64,8 @@ class Media extends YqBase{
 		if ($row != null) {
 			$row ['source_name'] = $arr ['name'];
 			$row ['source_description'] = $arr ['description'];
-			$row ['source_industry'] = $arr ['industry'];
-			$row ['source_rssURL'] = $arr ['rssURL'];
+			$row ['source_industry'] = explode(',', $arr ['industry']);
+			$row ['source_rssURL'] = explode(',',$arr ['rssURL']);
 			$row ['source_tag'] = explode(',', $arr ['tag']);
 			$row ['text_startingTag'] = $arr ['startingtag'];
 			$row ['text_closingTag'] = $arr ['closingTag'];
