@@ -55,7 +55,7 @@ class Proseed extends YqBase {
 	}
 
 
-	function queryMySeedsByName($user_id,$time){
+	function queryMySeedsByName($user_id,$group_id,$time){
 		if ($this->yiquan_version == 0) {
 			return - 2;
 		}
@@ -172,18 +172,21 @@ class Proseed extends YqBase {
 						}
 					}
 				}
+			$mediaGroup = $this->db->ProMediaGroup->findOne(array('_id' => new MongoId($group_id)));
 
 			//foreach ($sources as $key => $source) {
 			$sourceSeeds = $this->db->Proseed->find (
 				array (
 					'$and' => array(
+						/*
 						array(
 							'$or' => array(
 								array ('seed_industry' => $user['current']['user_industry']),
 								array ('seed_industry' => $user['current']['user_interestA']),
 								array ('seed_industry' => $user['current']['user_interestB'])
 								)
-						),
+						),*/
+						array('seed_sourceID' => array('$in' => $mediaGroup['mediaGroup_sourceList'])),
 						array(
 							'$or' => array(
 								array ('seed_textLen' => array('$gt'=> 400)),
