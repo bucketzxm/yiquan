@@ -76,7 +76,7 @@ class Media extends YqBase{
 		) );
 		if ($row != null) {
 
-			if (isset($arr ['name'])) {
+			if (($arr ['name'] != '')) {
 				$row ['source_name'] = $arr ['name'];
 
 
