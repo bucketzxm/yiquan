@@ -277,6 +277,7 @@ class Proseed extends YqBase {
 					if ($readLog == null) {
 						$data = array (
 							'seed_id' => (string)$value1['_id'],
+							'source_id' => $value1['seed_sourceID'],
 							'user_id' => $user_id,
 							'read_time' => time(),
 							'read_type' => '0'
@@ -430,6 +431,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 						$data = array (
 							'seed_id' => (string)$value1['_id'],
 							'user_id' => $user_id,
+							'source_id' => $value1['seed_sourceID'],
 							'read_time' => time(),
 							'read_type' => '0'
 
@@ -1262,6 +1264,9 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 			$user['user_mediaGroups'][$group_id] = $group_id;
 			$this->db->Prouser->save($user);
 		}
+		$group = $this->db->ProMediaGroup->findOne(array('_id' => new MongoId($group_id)));
+		$group['mediaGroup_counts'] ++;
+		$this->db->ProMediaGroup->save($group);
 		return 1;
 	}
 
@@ -1281,6 +1286,10 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 			unset($user['user_mediaGroups'][$group_id]);
 			$this->db->Prouser->save($user);
 		}
+		$group = $this->db->ProMediaGroup->findOne(array('_id' => new MongoId($group_id)));
+		$group['mediaGroup_counts'] --;
+		$this->db->ProMediaGroup->save($group);
+
 		return 1;
 	}
 
@@ -1316,6 +1325,55 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 		return json_encode($mediaList);
 	}
 
+	function querySeedsBySource($user_id,$source_id,$time){
+		if ($this->yiquan_version == 0) {
+			return - 2;
+		}
+		
+		if ($this->checkQuoteToken () != 1) {
+			return - 3;
+		}
+		
+		if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
+			return - 4;
+		}
+		$time = (int)$time;
+
+		$result = array();
+		$seeds = $this->db->Proseed->find(array('seed_sourceID' => $source_id,'seed_time' => array('$lt' => $time)))->sort(array('seed_time' => -1))->limit(30);
+		foreach ($seeds as $key => $value) {
+			array_push($result,$value);
+		}
+		return json_encode($result);
+	}
+
+	function queryMyMediaGroups($user_id){
+		if ($this->yiquan_version == 0) {
+			return - 2;
+		}
+		
+		if ($this->checkQuoteToken () != 1) {
+			return - 3;
+		}
+		
+		if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
+			return - 4;
+		}
+		$user = $this->db->Prouser->find(array('_id' => new MongoId($user_id));
+		$result = array();
+		foreach ($user['user_mediaGroups'] as $key => $value) {
+			//计算最新一周未读的文章数量
+			$item = array();
+			$item['group_id'] = $value; 
+			$totalCount = $this->db->Proseed->count(array('seed_sourceID' => array('$in' => $value['mediaGroup_sourceList']),'seed_time' => array('$gt' => (time()-86400*7))));
+			$readCount = $this->db->Proread->count(array('user_id' => $user_id, 'source_id' => array('$in' => $value['mediaGroup_sourceList']), 'seed_time' => array('$gt' => (time()-86400*7))));
+			$item['unread_count'] = $totalCount-$readCount;
+			$source = $this->db->Prosource->findOne(array('_id' => new MongoId($value)));
+			$item['source_name'] = $source['source_name'];
+			array_push($result, $item);
+		}	
+		return json_encode($result);
+	}
 
 }
 ?>
