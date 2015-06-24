@@ -99,6 +99,8 @@ class MediaView extends Media{
 		th_combiner('行业或标签');
 		th_combiner('值得一读数量');
 		th_combiner( '阅读数量');
+		th_combiner( '值得一读率');
+
 		
 
 		echo '<tr></thead>';
@@ -111,6 +113,19 @@ class MediaView extends Media{
 			td_combiner((isset($arr[$i]['source_industry']) ? implode(',',$arr[$i]['source_industry']): ''));
 			td_combiner((isset($arr[$i]['agree_count']) ? $arr[$i]['agree_count']: ''));
 			td_combiner((isset($arr[$i]['read_count']) ? $arr[$i]['read_count']: ''));
+			if ((isset($arr[$i]['agree_count']) && (isset($arr[$i]['read_count'] )) {
+				$agree=$arr[$i]['agree_count'];
+				$read=$arr[$i]['read_count'];
+				if ($read==0) {
+					td_combiner('还没有人读过');
+					
+				}else {
+					$ratio=$agree/$read;
+					td_combiner("$ratio");
+
+				}
+			}
+
 
 			echo '</tr>';
 
