@@ -66,7 +66,7 @@ include_once '401.php';
 										'value' => $_GET ['mindex'] 
 								) ) );
 								} else if ($_SERVER ['REQUEST_METHOD'] == 'POST') {
-									if ($a->updateMeida ( $_POST )) {
+									if ($a->updateMedia ( $_POST )) {
 										echo '编辑成功';
 									} else {
 										echo '编辑异常';
