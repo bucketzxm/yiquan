@@ -18,6 +18,8 @@ ob_start ();
 			<ul class="nav nav-sidebar">
 				<li><a href="?action=查看信息组统计数据">查看信息组统计数据 <span class="sr-only">(current)</span></a></li>
 				<li><a href="?action=查看编辑信息组基本信息">查看编辑信息组基本信息 <span class="sr-only">(current)</span></a></li>
+				<li><a href="?action=查看编辑Group媒体信息">查看编辑Group媒体信息 <span class="sr-only">(current)</span></a></li>
+
 
 			</ul>
 		</div>
@@ -60,6 +62,11 @@ ob_start ();
 									echo '编辑异常';
 								}
 							}
+						case '查看编辑Group媒体信息' :
+							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
+								$a->listAllGroupMedia_table ( $a->queryGroup (), 0, 10000 );
+							}
+							break;							
 			
 
 	

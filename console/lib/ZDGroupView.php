@@ -1,5 +1,9 @@
 <?php
 require_once 'ZDGroup.php';
+require_once 'ZDMedia.php';
+require_once 'ZDMediaView.php';
+
+
 
 use Qiniu\Auth;
 use Qiniu\Storage\UploadManager;
@@ -73,6 +77,48 @@ class GroupView extends Group {
 			td_combiner((isset($arr[$i]['mediaGroup_detail'])? $arr[$i]['mediaGroup_detail']:''));
 			td_combiner((isset($arr[$i]['mediaGroup_thanknote'])? $arr[$i]['mediaGroup_thanknote']:''));
 		
+
+			echo '</tr>';
+
+		}
+		echo '</table></div>';
+	}
+
+
+
+
+
+		function listAllGroupMedia_table($arr, $start, $len){
+
+		echo '<div class="table-responsive"><table class="table table-striped">';
+		echo '<thead><tr>';
+		th_combiner('编辑操作');
+
+		th_combiner('Group名称');
+		th_combiner( 'Group媒体');
+
+		echo '<tr></thead>';
+
+
+		for($i = $start; $i < min ( $start + $len, count ( $arr ) ); $i ++) {
+			echo '<tr>';
+			$uid = $arr [$i] ['_id']->{'$id'};
+			echo '<td><a href="?action=editGroupMedia&mindex=' . $arr [$i] ['_id']->{'$id'} . '">编辑</a></td>';
+			
+			td_combiner((isset($arr[$i]['mediaGroup_title'])? $arr[$i]['mediaGroup_title']:''));
+			$media_List=[];
+
+			if isset($arr[$i]['mediaGroup_sourceList']){
+				$s_List=$arr[$i]['mediaGroup_sourceList'];
+				foreach ($s_List as $key => $value) {
+					$cus=$this->db->Prosource->find( array('_id' => new MongoId("$value") ));
+					$media_List[]=$cus['source_name'];
+				td_combiner(serialize($media_List));
+				}
+					
+
+				
+			}
 
 			echo '</tr>';
 
