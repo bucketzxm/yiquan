@@ -71,8 +71,8 @@ class MediaView extends Media{
 		echo '<textarea class="form-control" rows="3" cols="80" name="description">' . (isset($arr ['source_description']) ? $arr ['source_description']:'' ). '</textarea></div>';
 		echo '<div class="form-group"><h2>行业或标签</h2>';
 		echo '<textarea class="form-control" rows="3" cols="80" name="industry">' . (isset($arr ['source_industry']) ? implode(',', $arr ['source_industry']) :''). '</textarea></div>';
-		echo '<div class="form-group"><h2>sourceTag/RSS</h2>';
-		echo '<textarea class="form-control" rows="3" cols="80" name="tag">' . (isset($arr ['source_tag']) ? explode(',',$arr ['source_tag']) :'') . '</textarea></div>';
+		echo '<div class="form-group"><h2>sourceTag</h2>';
+		echo '<textarea class="form-control" rows="3" cols="80" name="tag">' . (isset($arr ['source_tag']) ? implode(',',$arr ['source_tag']) :'') . '</textarea></div>';
 		echo '<div class="form-group"><h2>startingTag</h2>';
 		echo '<textarea class="form-control" rows="3" cols="80" name="startingTag">' . (isset($arr ['text_startingTag']) ? $arr ['text_startingTag']:'' ). '</textarea></div>';
 		echo '<div class="form-group"><h2>closingTag</h2>';
