@@ -46,7 +46,7 @@ class MediaView extends Media{
 			td_combiner((isset($arr[$i]['source_rssURL'])? implode(',',$arr[$i]['source_rssURL']):''));
 			td_combiner(htmlentities($tag_content));
 			td_combiner((isset($arr[$i]['text_startingTag']) ? $arr[$i]['text_startingTag']: ''));
-			td_combiner((isset($arr[$i]['text_closingTag']) ? $arr[$i]['text_closingTag']: ''));
+			td_combiner(htmlentities((isset($arr[$i]['text_closingTag']) ? $arr[$i]['text_closingTag']: '')));
 
 			echo '</tr>';
 
