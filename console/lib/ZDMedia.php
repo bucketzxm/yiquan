@@ -70,13 +70,14 @@ class Media extends YqBase{
 			$row ['source_name'] = $arr ['name'];
 			$row ['source_tag'] = explode(',', $arr ['tag']);
 			if (isset($row ['text_startingTag']) && isset($arr['startingTag'])) {
-				$row ['text_startingTag'] = $arr ['startingtag'];
+				$row ['text_startingTag'] = $arr ['startingTag'];
 
 			} else if (isset($arr['startingTag'])){
 				echo $arr['startingTag'];
-				$row->insert(array( 'text_startingTag' => $arr['startingTag']));
+				$row['text_startingTag']=$arr['startingTag'];
 
 			} else {
+
 				unset($row ['text_startingTag']);
 			}
 			
