@@ -62,7 +62,7 @@ class Media extends YqBase{
 				'_id' => new MongoId ( $arr ['id'] ) 
 		) );
 		if ($row != null) {
-			$row ['souece_name'] = $arr ['name'];
+			$row ['source_name'] = $arr ['name'];
 			$row ['source_description'] = $arr ['description'];
 			$row ['source_industry'] = $arr ['industry'];
 			$row ['source_rssURL'] = $arr ['rssURL'];
