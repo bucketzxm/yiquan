@@ -56,7 +56,7 @@ class Group extends YqBase{
 
 
 			if ($arr ['thanknote']!= "") {
-				$row ['mediaGroup_thanknote'] = explode(',', $arr ['thanknote']);
+				$row ['mediaGroup_thanknote'] =  $arr ['thanknote'];
 
 			}  else {
 
