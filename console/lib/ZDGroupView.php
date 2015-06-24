@@ -38,7 +38,7 @@ class GroupView extends Group {
 			echo '<tr>';
 			$uid = $arr [$i] ['_id']->{'$id'};
 
-			$tag_content=(isset($arr[$i]['mediaGroup_title'])? $arr[$i]['mediaGroup_title']: '');
+			td_combiner((isset($arr[$i]['mediaGroup_title'])? $arr[$i]['mediaGroup_title']: ''));
 			td_combiner((isset($arr[$i]['mediaGroup_counts']['media_count'])? $arr[$i]['mediaGroup_counts']['media_count']:''));
 			td_combiner((isset($arr[$i]['mediaGroup_counts']['follower_count'])? $arr[$i]['mediaGroup_counts']['follower_count']:''));
 			td_combiner((isset($arr[$i]['mediaGroup_counts']['worth_count'])? $arr[$i]['mediaGroup_counts']['worth_count']:''));
