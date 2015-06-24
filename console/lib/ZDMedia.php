@@ -69,7 +69,7 @@ class Media extends YqBase{
 		if ($row != null) {
 			$row ['source_name'] = $arr ['name'];
 			$row ['source_tag'] = explode(',', $arr ['tag']);
-			if (isset(($arr['startingTag'])) {
+			if (isset($arr['startingTag'])) {
 				$row ['text_startingTag'] = $arr ['startingTag'];
 
 			}  else {
