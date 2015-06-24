@@ -108,7 +108,7 @@ class GroupView extends Group {
 			td_combiner((isset($arr[$i]['mediaGroup_title'])? $arr[$i]['mediaGroup_title']:''));
 			$media_List=[];
 
-			if isset($arr[$i]['mediaGroup_sourceList']){
+			if (isset($arr[$i]['mediaGroup_sourceList'])){
 				$s_List=$arr[$i]['mediaGroup_sourceList'];
 				foreach ($s_List as $key => $value) {
 					$cus=$this->db->Prosource->find( array('_id' => new MongoId("$value") ));
