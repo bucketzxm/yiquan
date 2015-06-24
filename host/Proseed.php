@@ -1299,7 +1299,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 
 		$user = $this->db->Prouser->findOne (array ('_id'=> new MongoId($user_id)));
 		$cursor = $this->db->Prosource->find(array(
-			'source_mediaGroups' => $group_id;
+			'source_mediaGroups' => $group_id
 
 			));
 		/*
