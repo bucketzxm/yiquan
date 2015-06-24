@@ -1237,7 +1237,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 		foreach ($groups as $key => $value) {
 			$value['user_mediaGroupStatus'] = '0';
 			if (isset($user['user_mediaGroups'])) {
-				if (isset($user['user_mediaGroups'][$value])) {
+				if (isset($user['user_mediaGroups'][(string)$value['_id']])) {
 		 			$value['user_mediaGroupStatus'] = '1';
 		 		}	
 			}
