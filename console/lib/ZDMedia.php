@@ -157,7 +157,7 @@ class Media extends YqBase{
 			}
 
 
-			if (($arr ['industry']!= "") {
+			if ($arr ['industry']!= "") {
 				$row ['source_industry'] = explode(',', $arr ['industry']);
 
 			}  else {
