@@ -28,13 +28,10 @@ class MediaView extends Media{
 		echo '<thead><tr>';
 
 		th_combiner('媒体名称');
-		th_combiner('媒体描述');
-		th_combiner('行业或标签');
 		th_combiner('网址/RSS');
 		th_combiner( 'sourceTag');
 		th_combiner('startingTag');
 		th_combiner('closingTag');
-		th_combiner('状态');
 		th_combiner('编辑操作');
 
 		echo '<tr></thead>';
@@ -45,12 +42,44 @@ class MediaView extends Media{
 			$uid = $arr [$i] ['_id']->{'$id'};
 			$tag_content=(isset($arr[$i]['source_tag'])? implode(',',$arr[$i]['source_tag']): '');
 			td_combiner((isset($arr[$i]['source_name'])? $arr[$i]['source_name']:''));
-			td_combiner((isset($arr[$i]['source_description']) ? $arr[$i]['source_description']: ''));
-			td_combiner((isset($arr[$i]['source_industry']) ? implode(',',$arr[$i]['source_industry']): ''));
 			td_combiner((isset($arr[$i]['source_rssURL'])? implode(',',$arr[$i]['source_rssURL']):''));
 			td_combiner(htmlentities($tag_content));
 			td_combiner((isset($arr[$i]['text_startingTag']) ? $arr[$i]['text_startingTag']: ''));
 			td_combiner((isset($arr[$i]['text_closingTag']) ? $arr[$i]['text_closingTag']: ''));
+			echo '<td><a href="?action=edit&mindex=' . $arr [$i] ['_id']->{'$id'} . '">编辑</a></td>';
+
+			echo '</tr>';
+
+
+
+
+
+		}
+		echo '</table></div>';
+	}
+
+	function listAllMediaBasic_table($arr, $start, $len){
+
+		echo '<div class="table-responsive"><table class="table table-striped">';
+		echo '<thead><tr>';
+
+		th_combiner('媒体名称');
+		th_combiner('媒体描述');
+		th_combiner('行业或标签');
+		th_combiner('网址/RSS');
+		th_combiner('状态');
+		th_combiner('编辑操作');
+
+		echo '<tr></thead>';
+
+
+		for($i = $start; $i < min ( $start + $len, count ( $arr ) ); $i ++) {
+			echo '<tr>';
+			$uid = $arr [$i] ['_id']->{'$id'};
+			td_combiner((isset($arr[$i]['source_name'])? $arr[$i]['source_name']:''));
+			td_combiner((isset($arr[$i]['source_description']) ? $arr[$i]['source_description']: ''));
+			td_combiner((isset($arr[$i]['source_industry']) ? implode(',',$arr[$i]['source_industry']): ''));
+			td_combiner((isset($arr[$i]['source_rssURL'])? implode(',',$arr[$i]['source_rssURL']):''));
 			td_combiner((isset($arr[$i]['source_status']) ? $arr[$i]['source_status']: ''));
 			echo '<td><a href="?action=edit&mindex=' . $arr [$i] ['_id']->{'$id'} . '">编辑</a></td>';
 
@@ -63,6 +92,7 @@ class MediaView extends Media{
 		}
 		echo '</table></div>';
 	}
+
 
 
 

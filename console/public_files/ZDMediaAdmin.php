@@ -17,7 +17,8 @@ include_once '401.php';
 	<div class="row">
 		<div class="col-sm-3 col-md-2 sidebar">
 			<ul class="nav nav-sidebar">
-				<li><a href="?action=viewMediatTag">查看编辑标签正则 <span class="sr-only">(current)</span></a></li>
+				<li><a href="?action=viewMediaBasic">查看编辑基本信息 <span class="sr-only">(current)</span></a></li>
+				<li><a href="?action=viewMediaTag">查看编辑标签正则 <span class="sr-only">(current)</span></a></li>
 				<li><a href="?action=viewMediaStat">查看媒体数据 <span class="sr-only">(current)</span></a></li>
 
 			</ul>
@@ -37,50 +38,46 @@ include_once '401.php';
 				if (isset ( $_GET ['action'] )) {
 					$a = new MediaView();
 					switch ($_GET ['action']) {
+
+						case 'viewMediaBasic' :
+							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
+								if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
+									$a->listAllMediaBasic_table($a->queryMedia(),0,1000);
+								}
+							}
+							break;
+						
 						
 
-						case 'viewMedia' :
+						case 'viewMediaTag' :
 							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
 								if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
 									$a->listAllMediaTag_table($a->queryMedia(),0,1000);
 								}
 							}
 							break;
-							case 'delete' :
-								if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
-									if (isset ( $_GET ['mindex'] )) {
-										$a->showDeleteView ( $_GET ['mindex'] );
-									}
-								} else {
-									if ($a->deleteMedia ( $_POST ['qid'] )) {
-										echo '成功';
-									} else {
-										echo '失败';
-									}
-								}
-								break;
-
+						
 							
-							case 'edit' :
-								if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
-									$a->showOneMedia_form ( $a->queryMediaStat ( array (
-										'type' => 'findone',
-										'value' => $_GET ['mindex'] 
-								) ) );
-								} else if ($_SERVER ['REQUEST_METHOD'] == 'POST') {
-									if ($a->updateMedia ( $_POST )) {
-										echo '编辑成功';
-									} else {
-										echo '编辑异常';
-									}
+						case 'edit' :
+							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
+								$a->showOneMedia_form ( $a->queryMediaStat ( array (
+									'type' => 'findone',
+									'value' => $_GET ['mindex'] 
+							) ) );
+							} else if ($_SERVER ['REQUEST_METHOD'] == 'POST') {
+								if ($a->updateMedia ( $_POST )) {
+									echo '编辑成功';
+								} else {
+									echo '编辑异常';
 								}
-								break;
-							case 'viewMediaStat':
+							}
+							break;
+						case 'viewMediaStat':
+							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
 								if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
-									if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
-										$a->listAllMediaStat_table($a->queryMedia(),0,1000);
-									}
+									$a->listAllMediaStat_table($a->queryMedia(),0,1000);
 								}
+							}
 						}
 					}
 					?>
