@@ -17,9 +17,9 @@ include_once '401.php';
 	<div class="row">
 		<div class="col-sm-3 col-md-2 sidebar">
 			<ul class="nav nav-sidebar">
-				<li><a href="?action=viewMediaBasic">查看编辑基本信息 <span class="sr-only">(current)</span></a></li>
-				<li><a href="?action=viewMediaTag">查看编辑标签正则 <span class="sr-only">(current)</span></a></li>
-				<li><a href="?action=viewMediaStat">查看媒体数据 <span class="sr-only">(current)</span></a></li>
+				<li><a href="?action=查看编辑基本信息">查看编辑基本信息 <span class="sr-only">(current)</span></a></li>
+				<li><a href="?action=>查看编辑标签正则">查看编辑标签正则 <span class="sr-only">(current)</span></a></li>
+				<li><a href="?action=>查看媒体数据">查看媒体数据 <span class="sr-only">(current)</span></a></li>
 
 			</ul>
 		</div>
@@ -39,7 +39,7 @@ include_once '401.php';
 					$a = new MediaView();
 					switch ($_GET ['action']) {
 
-						case 'viewMediaBasic' :
+						case '查看编辑基本信息' :
 							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
 								if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
 									$a->listAllMediaBasic_table($a->queryMedia(),0,1000);
@@ -49,7 +49,7 @@ include_once '401.php';
 						
 						
 
-						case 'viewMediaTag' :
+						case '查看编辑标签正则' :
 							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
 								if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
 									$a->listAllMediaTag_table($a->queryMedia(),0,1000);
@@ -86,7 +86,7 @@ include_once '401.php';
 								}
 							}
 							break;
-						case 'viewMediaStat':
+						case '查看媒体数据':
 							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
 								if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
 									$a->listAllMediaStat_table($a->queryMedia(),0,1000);
