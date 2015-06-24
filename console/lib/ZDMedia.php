@@ -62,6 +62,7 @@ class Media extends YqBase{
 		$arr['text_closingTag']=$this->db->Prosource->find(array('text_closingTag'=>$arr['text_closingTag']));
 */
 	function updateMediaTag($arr) {
+		$obj=array( );
 		$row = $this->db->Prosource->findOne ( array (
 				'_id' => new MongoId ( $arr ['id'] ) 
 		) );
