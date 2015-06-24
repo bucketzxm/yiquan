@@ -104,11 +104,13 @@ class GroupView extends Group {
 			$media_List=[];
 
 			if (isset($arr[$i]['mediaGroup_sourceList'])){
+				echo '<td>';
 				$s_List=$arr[$i]['mediaGroup_sourceList'];
 				foreach ($s_List as $key => $value) {
 					$cus=$this->db->Prosource->find( array('_id' => new MongoId("$value") ));
-					$media_List[]=array($cus['source_name']);
-				td_combiner(serialize($media_List));
+					$media_List[]=$cus;
+					echo $media_List['source_name'].',';
+				echo '/td';
 				}
 					
 
