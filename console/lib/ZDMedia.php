@@ -70,6 +70,7 @@ class Media extends YqBase{
 			$row ['source_tag'] = explode(',', $arr ['tag']);
 			$row ['text_startingTag'] = $arr ['startingtag'];
 			$row ['text_closingTag'] = $arr ['closingTag'];
+			$row['source_rexTemplate']=$arr['rexTemplate'];
 		}
 		return $this->db->Prosource->save ( $row );
 	}
