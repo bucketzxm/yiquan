@@ -26,13 +26,13 @@ class MediaView extends Media{
 
 		echo '<div class="table-responsive"><table class="table table-striped">';
 		echo '<thead><tr>';
+		th_combiner('编辑操作');
 
 		th_combiner('媒体名称');
 		th_combiner('网址/RSS');
 		th_combiner( 'sourceTag');
 		th_combiner('startingTag');
 		th_combiner('closingTag');
-		th_combiner('编辑操作');
 
 		echo '<tr></thead>';
 
@@ -40,13 +40,13 @@ class MediaView extends Media{
 		for($i = $start; $i < min ( $start + $len, count ( $arr ) ); $i ++) {
 			echo '<tr>';
 			$uid = $arr [$i] ['_id']->{'$id'};
+			echo '<td><a href="?action=editTag&mindex=' . $arr [$i] ['_id']->{'$id'} . '">编辑</a></td>';
 			$tag_content=(isset($arr[$i]['source_tag'])? implode(',',$arr[$i]['source_tag']): '');
 			td_combiner((isset($arr[$i]['source_name'])? $arr[$i]['source_name']:''));
 			td_combiner((isset($arr[$i]['source_rssURL'])? implode(',',$arr[$i]['source_rssURL']):''));
 			td_combiner(htmlentities($tag_content));
 			td_combiner((isset($arr[$i]['text_startingTag']) ? $arr[$i]['text_startingTag']: ''));
 			td_combiner((isset($arr[$i]['text_closingTag']) ? $arr[$i]['text_closingTag']: ''));
-			echo '<td><a href="?action=editTag&mindex=' . $arr [$i] ['_id']->{'$id'} . '">编辑</a></td>';
 
 			echo '</tr>';
 
