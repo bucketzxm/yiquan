@@ -15,13 +15,8 @@ use Qiniu\Storage\BucketManager;
 
 
 
-function th_combiner($content){
-	echo '<th>'.$content.'</th>';
-}
 
-function td_combiner($content){
-	echo '<td>'.$content.'</td>';
-}#####################################
+#####################################
 class GroupView extends Group {
 	// private $dbname = 'test';
 	private $table = 'Group';
