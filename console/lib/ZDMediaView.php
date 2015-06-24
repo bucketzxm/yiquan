@@ -125,7 +125,7 @@ class MediaView extends Media{
 		}
 		echo '</table></div>';
 	}
-	function showOneMedia_form($arr) {
+	function showOneMediaBasic_form($arr) {
 		echo '<div><form method="post" action="?action=edit">';
 		echo '<input type="hidden" class="form-control" name="id" value="' . $arr ['_id']->{'$id'} . '"/>';
 		echo '<div class="form-group"><h2>媒体名称</h2>';
@@ -134,6 +134,21 @@ class MediaView extends Media{
 		echo '<textarea class="form-control" rows="3" cols="80" name="description">' . (isset($arr ['source_description']) ? $arr ['source_description']:'' ). '</textarea></div>';
 		echo '<div class="form-group"><h2>行业或标签</h2>';
 		echo '<textarea class="form-control" rows="3" cols="80" name="industry">' . (isset($arr ['source_industry']) ? implode(',', $arr ['source_industry']) :''). '</textarea></div>';
+
+		echo '<div class="form-group"><h2>状态</h2>';
+		echo '<textarea class="form-control" rows="3" cols="80" name="status">' . (isset($arr ['source_status']) ? $arr ['source_status']:'') . '</textarea></div>';
+		echo '<div class="form-group"><h2>网址或RSS</h2>';
+		echo '<textarea class="form-control" rows="3" cols="80" name="rssURL">' . implode(',',$arr ['source_rssURL']) . '</textarea></div>';
+
+
+		echo '<div class="form-group"><input type="submit" value="提交" /></div>';
+		echo '</form></div>';
+	}
+	function showOneMediaTag_form($arr) {
+		echo '<div><form method="post" action="?action=edit">';
+		echo '<input type="hidden" class="form-control" name="id" value="' . $arr ['_id']->{'$id'} . '"/>';
+		echo '<div class="form-group"><h2>媒体名称</h2>';
+		echo '<textarea class="form-control" rows="3" cols="80" name="name">' . $arr ['source_name'] . '</textarea></div>';
 		echo '<div class="form-group"><h2>sourceTag</h2>';
 
 		echo '<textarea class="form-control" rows="3" cols="80" name="tag">' . (isset($arr ['source_tag']) ? implode(',',$arr ['source_tag']) :'') . '</textarea></div>';
@@ -141,10 +156,6 @@ class MediaView extends Media{
 		echo '<textarea class="form-control" rows="3" cols="80" name="startingTag">' . (isset($arr ['text_startingTag']) ? $arr ['text_startingTag']:'' ). '</textarea></div>';
 		echo '<div class="form-group"><h2>closingTag</h2>';
 		echo '<textarea class="form-control" rows="3" cols="80" name="closingTag">' . (isset($arr ['text_closingTag'])?$arr ['text_closingTag']:'') . '</textarea></div>';
-		echo '<div class="form-group"><h2>状态</h2>';
-		echo '<textarea class="form-control" rows="3" cols="80" name="status">' . (isset($arr ['source_status']) ? $arr ['source_status']:'') . '</textarea></div>';
-		echo '<div class="form-group"><h2>网址或RSS</h2>';
-		echo '<textarea class="form-control" rows="3" cols="80" name="rssURL">' . implode(',',$arr ['source_rssURL']) . '</textarea></div>';
 
 
 		echo '<div class="form-group"><input type="submit" value="提交" /></div>';
