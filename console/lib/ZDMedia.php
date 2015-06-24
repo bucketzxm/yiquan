@@ -72,15 +72,15 @@ class Media extends YqBase{
 			if (isset($row ['text_startingTag']) && isset($arr['startingTag'])) {
 				$row ['text_startingTag'] = $arr ['startingtag'];
 
-			} else if (isset($arr['startingTag'])){
-				$obj = array( 'text_startingTag' => $arr ['startingTag']);
+			} else if ($arr['startingTag']==null){
+				$obj = array( 'text_startingTag' => $arr['startingTag']);
 				$row->insert($obj);
 
 			} else {
 				unset($row ['text_startingTag']);
 			}
 			
-			$row ['text_closingTag'] = $arr ['closingTag'];
+			$row ['text_closingTag'] = $arr['closingTag'];
 			$row['source_rexTemplate']=$arr['rexTemplate'];
 		}
 		return $this->db->Prosource->save ( $row );
