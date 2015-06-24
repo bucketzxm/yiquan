@@ -60,7 +60,7 @@ include_once '401.php';
 							
 						case 'edit' :
 							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
-								$a->showOneMedia_form ( $a->queryMediaStat ( array (
+								$a->showOneMedia_form ( $a->queryMedia ( array (
 									'type' => 'findone',
 									'value' => $_GET ['mindex'] 
 							) ) );
