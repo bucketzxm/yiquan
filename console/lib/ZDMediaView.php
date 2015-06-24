@@ -69,7 +69,7 @@ class MediaView extends Media{
 
 
 
-	function listAllMedia_table($arr, $start, $len){
+	function listAllMediaStat_table($arr, $start, $len){
 
 		echo '<div class="table-responsive"><table class="table table-striped">';
 		echo '<thead><tr>';
