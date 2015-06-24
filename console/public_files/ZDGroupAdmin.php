@@ -17,6 +17,8 @@ ob_start ();
 		<div class="col-sm-3 col-md-2 sidebar">
 			<ul class="nav nav-sidebar">
 				<li><a href="?action=查看信息组统计数据">查看信息组统计数据 <span class="sr-only">(current)</span></a></li>
+				<li><a href="?action=查看编辑信息组基本信息">查看编辑信息组基本信息 <span class="sr-only">(current)</span></a></li>
+
 			</ul>
 		</div>
 		<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
@@ -40,6 +42,26 @@ ob_start ();
 								$a->listAllGroupStat_table ( $a->queryGroup (), 0, 10000 );
 							}
 							break;
+						case '查看编辑信息组基本信息'：
+							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
+								$a->listAllGroupBasic_table ( $a->queryGroup (), 0, 10000 );
+							}
+							break;
+						case 'editGroupBasic' :
+							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
+								$a->showOneGroupBasic_form ( $a->queryGroup ( array (
+									'type' => 'findone',
+									'value' => $_GET ['mindex'] 
+							) ) );
+							} else if ($_SERVER ['REQUEST_METHOD'] == 'POST') {
+								if ($a->updateGroupBasic ( $_POST )) {
+									echo '编辑成功';
+								} else {
+									echo '编辑异常';
+								}
+							}
+			
+
 	
 					}
 				}
