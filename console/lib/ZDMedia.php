@@ -45,7 +45,7 @@ class Media extends YqBase{
 
 
 
-	
+
 		/*$cus = $this->db->Prosource->find ();
 		while ( $cus->hasNext () ) {
 			$doc = $cus->getNext ();
@@ -61,7 +61,19 @@ class Media extends YqBase{
 		$arr['text_openingTag']=$this->db->Prosource->find(array('text_openingTag'=>$arr['text_openingTag']));
 		$arr['text_closingTag']=$this->db->Prosource->find(array('text_closingTag'=>$arr['text_closingTag']));
 */
-	function updateMedia($arr) {
+	function updateMediaTag($arr) {
+		$row = $this->db->Prosource->findOne ( array (
+				'_id' => new MongoId ( $arr ['id'] ) 
+		) );
+		if ($row != null) {
+			$row ['source_name'] = $arr ['name'];
+			$row ['source_tag'] = explode(',', $arr ['tag']);
+			$row ['text_startingTag'] = $arr ['startingtag'];
+			$row ['text_closingTag'] = $arr ['closingTag'];
+		}
+		return $this->db->Prosource->save ( $row );
+	}
+	function updateMediaBasic($arr) {
 		$row = $this->db->Prosource->findOne ( array (
 				'_id' => new MongoId ( $arr ['id'] ) 
 		) );
@@ -70,9 +82,6 @@ class Media extends YqBase{
 			$row ['source_description'] = $arr ['description'];
 			$row ['source_industry'] = explode(',', $arr ['industry']);
 			$row ['source_rssURL'] = explode(',',$arr ['rssURL']);
-			$row ['source_tag'] = explode(',', $arr ['tag']);
-			$row ['text_startingTag'] = $arr ['startingtag'];
-			$row ['text_closingTag'] = $arr ['closingTag'];
 			$row ['source_status'] = $arr ['status'];
 		}
 		return $this->db->Prosource->save ( $row );

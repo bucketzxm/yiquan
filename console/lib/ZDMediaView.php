@@ -46,13 +46,9 @@ class MediaView extends Media{
 			td_combiner(htmlentities($tag_content));
 			td_combiner((isset($arr[$i]['text_startingTag']) ? $arr[$i]['text_startingTag']: ''));
 			td_combiner((isset($arr[$i]['text_closingTag']) ? $arr[$i]['text_closingTag']: ''));
-			echo '<td><a href="?action=edit&mindex=' . $arr [$i] ['_id']->{'$id'} . '">编辑</a></td>';
+			echo '<td><a href="?action=editTag&mindex=' . $arr [$i] ['_id']->{'$id'} . '">编辑</a></td>';
 
 			echo '</tr>';
-
-
-
-
 
 		}
 		echo '</table></div>';
@@ -81,12 +77,9 @@ class MediaView extends Media{
 			td_combiner((isset($arr[$i]['source_industry']) ? implode(',',$arr[$i]['source_industry']): ''));
 			td_combiner((isset($arr[$i]['source_rssURL'])? implode(',',$arr[$i]['source_rssURL']):''));
 			td_combiner((isset($arr[$i]['source_status']) ? $arr[$i]['source_status']: ''));
-			echo '<td><a href="?action=edit&mindex=' . $arr [$i] ['_id']->{'$id'} . '">编辑</a></td>';
+			echo '<td><a href="?action=editBasic&mindex=' . $arr [$i] ['_id']->{'$id'} . '">编辑</a></td>';
 
 			echo '</tr>';
-
-
-
 
 
 		}
