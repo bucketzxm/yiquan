@@ -42,7 +42,7 @@ ob_start ();
 								$a->listAllGroupStat_table ( $a->queryGroup (), 0, 10000 );
 							}
 							break;
-						case '查看编辑信息组基本信息'：
+						case '查看编辑信息组基本信息' :
 							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
 								$a->listAllGroupBasic_table ( $a->queryGroup (), 0, 10000 );
 							}
