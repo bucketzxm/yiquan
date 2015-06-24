@@ -29,7 +29,6 @@ class MediaView extends Media{
 		th_combiner('编辑操作');
 
 		th_combiner('媒体名称');
-		th_combiner('网址/RSS');
 		th_combiner( 'sourceTag');
 		th_combiner('startingTag');
 		th_combiner('closingTag');
@@ -43,7 +42,6 @@ class MediaView extends Media{
 			echo '<td><a href="?action=editTag&mindex=' . $arr [$i] ['_id']->{'$id'} . '">编辑</a></td>';
 			$tag_content=(isset($arr[$i]['source_tag'])? implode(',',$arr[$i]['source_tag']): '');
 			td_combiner((isset($arr[$i]['source_name'])? $arr[$i]['source_name']:''));
-			td_combiner((isset($arr[$i]['source_rssURL'])? implode(',',$arr[$i]['source_rssURL']):''));
 			td_combiner(htmlentities($tag_content));
 			td_combiner((isset($arr[$i]['text_startingTag']) ? $arr[$i]['text_startingTag']: ''));
 			td_combiner(htmlentities((isset($arr[$i]['text_closingTag']) ? $arr[$i]['text_closingTag']: '')));
@@ -98,7 +96,6 @@ class MediaView extends Media{
 		echo '<thead><tr>';
 
 		th_combiner('媒体名称');
-		th_combiner('媒体描述');
 		th_combiner('行业或标签');
 		th_combiner('值得一读数量');
 		th_combiner( '阅读数量');
@@ -111,7 +108,6 @@ class MediaView extends Media{
 			echo '<tr>';
 			$uid = $arr [$i] ['_id']->{'$id'};
 			td_combiner((isset($arr[$i]['source_name'])? $arr[$i]['source_name']:''));
-			td_combiner((isset($arr[$i]['source_description']) ? $arr[$i]['source_description']: ''));
 			td_combiner((isset($arr[$i]['source_industry']) ? implode(',',$arr[$i]['source_industry']): ''));
 			td_combiner((isset($arr[$i]['agree_count']) ? $arr[$i]['agree_count']: ''));
 			td_combiner((isset($arr[$i]['read_count']) ? $arr[$i]['read_count']: ''));
