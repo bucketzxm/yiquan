@@ -58,6 +58,31 @@ class MediaView extends Media{
 		}
 		echo '</table></div>';
 	}
+	function showOneQuote_form($arr) {
+		echo '<div><form method="post" action="?action=edit">';
+		echo '<input type="hidden" class="form-control" name="id" value="' . $arr ['_id']->{'$id'} . '"/>';
+		echo '<div class="form-group"><h2>媒体名称</h2>';
+		echo '<textarea class="form-control" rows="3" cols="80" name="name">' . $arr ['source_name'] . '</textarea></div>';
+		echo '<div class="form-group"><h2>媒体描述</h2>';
+		echo '<textarea class="form-control" rows="3" cols="80" name="description">' . $arr ['source_description'] . '</textarea></div>';
+		echo '<div class="form-group"><h2>行业或标签</h2>';
+		echo '<textarea class="form-control" rows="3" cols="80" name="industry">' . $arr ['source_industry'] . '</textarea></div>';
+		echo '<div class="form-group"><h2>sourceTag/RSS</h2>';
+		echo '<textarea class="form-control" rows="3" cols="80" name="tag">' . $arr ['source_tag'] . '</textarea></div>';
+		echo '<div class="form-group"><h2>startingTag</h2>';
+		echo '<textarea class="form-control" rows="3" cols="80" name="startingTag">' . $arr ['text_startingTag'] . '</textarea></div>';
+		echo '<div class="form-group"><h2>closingTag</h2>';
+		echo '<textarea class="form-control" rows="3" cols="80" name="closingTag">' . $arr ['text_closingTag'] . '</textarea></div>';
+		echo '<div class="form-group"><h2>状态</h2>';
+		echo '<textarea class="form-control" rows="3" cols="80" name="status">' . $arr ['source_status'] . '</textarea></div>';
+		echo '<div class="form-group"><h2>网址或RSS</h2>';
+		echo '<textarea class="form-control" rows="3" cols="80" name="rssURL">' . $arr ['source_rss'] . '</textarea></div>';
+
+
+		echo '<div class="form-group"><input type="submit" value="提交" /></div>';
+		echo '</form></div>';
+	}
+
 	function showDeleteView($id) {
 		echo '<form method="post" action="?action=delete">';
 		echo '确定删除该吗？';

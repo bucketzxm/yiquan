@@ -63,11 +63,14 @@ class Media extends YqBase{
 				'_id' => new MongoId ( $arr ['id'] ) 
 		) );
 		if ($row != null) {
-			$row ['agree_count'] = $arr ['agree_count'];
-			$row ['quote_remark'] = $arr ['remark'];
-			$row ['quote_signature'] = $arr ['signature'];
-			$row ['quote_editor'] = $arr ['editor'];
-			$row ['quote_public'] = $arr ['public'];
+			$row ['souece_name'] = $arr ['name'];
+			$row ['source_description'] = $arr ['description'];
+			$row ['source_industry'] = $arr ['industry'];
+			$row ['source_rssURL'] = $arr ['rssURL'];
+			$row ['source_tag'] = $arr ['tag'];
+			$row ['text_startingTag'] = $arr ['startingtag'];
+			$row ['text_closingTag'] = $arr ['closingTag'];
+			$row ['source_status'] = $arr ['status'];
 		}
 		return $this->db->Prosource->save ( $row );
 	}

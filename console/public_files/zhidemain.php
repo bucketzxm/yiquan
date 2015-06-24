@@ -31,6 +31,7 @@ ob_start();
       <div class="container">
         <h1>这里是值得后台！</h1>
         <p><a class="btn btn-primary btn-lg" role="button" href="main.php">一圈后台</a></p>
+        <p><a class="btn btn-primary btn-lg" role="button" href="meiyanmain.php">每言后台</a></p>
       </div>
     </div>
 
