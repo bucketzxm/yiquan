@@ -1359,7 +1359,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 		if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
 			return - 4;
 		}
-		$user = $this->db->Prouser->find(array('_id' => new MongoId($user_id));
+		$user = $this->db->Prouser->findOne(array('_id' => new MongoId($user_id)));
 		$result = array();
 		foreach ($user['user_mediaGroups'] as $key => $value) {
 			//计算最新一周未读的文章数量
