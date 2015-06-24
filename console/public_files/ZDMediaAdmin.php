@@ -44,6 +44,35 @@ include_once '401.php';
 								}
 							}
 							break;
+							case 'delete' :
+								if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
+									if (isset ( $_GET ['mindex'] )) {
+										$a->showDeleteView ( $_GET ['mindex'] );
+									}
+								} else {
+									if ($a->deleteMedia ( $_POST ['qid'] )) {
+										echo '成功';
+									} else {
+										echo '失败';
+									}
+								}
+								break;
+
+							
+							case 'edit' :
+								if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
+									$a->showOneMedia_form ( $a->queryMedia ( array (
+										'type' => 'findone',
+										'value' => $_GET ['mindex'] 
+								) ) );
+								} else if ($_SERVER ['REQUEST_METHOD'] == 'POST') {
+									if ($a->updateMeida ( $_POST )) {
+										echo '编辑成功';
+									} else {
+										echo '编辑异常';
+									}
+								}
+								break;
 						}
 					}
 					?>
