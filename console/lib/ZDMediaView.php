@@ -33,7 +33,7 @@ class MediaView extends Media{
 		th_combiner( 'sourceTag');
 		th_combiner('startingTag');
 		th_combiner('closingTag');
-		th_combiner('状态')
+		th_combiner('状态');
 		echo '<tr></thead>';
 
 
