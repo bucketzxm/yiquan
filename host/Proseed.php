@@ -1367,7 +1367,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 			$item = array();
 			$item['group_id'] = $value; 
 			$totalCount = $this->db->Proseed->count(array('seed_sourceID' => array('$in' => $mediaGroup['mediaGroup_sourceList']),'seed_time' => array('$gt' => (time()-86400*7))));
-			$readCount = $this->db->Proread->find(array('user_id' => $user_id, 'source_id' => array('$in' => $value['mediaGroup_sourceList']), 'seed_time' => array('$gt' => (time()-86400*7))))->count();
+			$readCount = $this->db->Proread->count(array('user_id' => $user_id, 'source_id' => array('$in' => $value['mediaGroup_sourceList']), 'seed_time' => array('$gt' => (time()-86400*7))));
 			$item['unread_count'] = $totalCount-$readCount;
 			$source = $this->db->Prosource->findOne(array('_id' => new MongoId($value)));
 			$item['source_name'] = $source['source_name'];
