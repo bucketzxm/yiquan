@@ -113,7 +113,7 @@ class MediaView extends Media{
 			td_combiner((isset($arr[$i]['source_industry']) ? implode(',',$arr[$i]['source_industry']): ''));
 			td_combiner((isset($arr[$i]['agree_count']) ? $arr[$i]['agree_count']: ''));
 			td_combiner((isset($arr[$i]['read_count']) ? $arr[$i]['read_count']: ''));
-			if ((isset($arr[$i]['agree_count']) && (isset($arr[$i]['read_count'] )) {
+			if (isset($arr[$i]['agree_count']) && isset($arr[$i]['read_count'] )) {
 				$agree=$arr[$i]['agree_count'];
 				$read=$arr[$i]['read_count'];
 				if ($read==0) {
