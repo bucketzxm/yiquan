@@ -121,7 +121,8 @@ class MediaView extends Media{
 					
 				}else {
 					$ratio_persent=$agree/$read*100;
-					td_combiner("$ratio_persent".'%');
+					$ratio_round=round($ratio_persent,2);
+					td_combiner("$ratio_round".'%');
 
 				}
 			}
