@@ -5,7 +5,7 @@ use Qiniu\Auth;
 use Qiniu\Storage\UploadManager;
 use Qiniu\Storage\BucketManager;
 
-class Media extends YqBase{
+class Group extends YqBase{
 	protected $bcs_host = 'bcs.duapp.com';
 
 	
