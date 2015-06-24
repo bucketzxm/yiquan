@@ -22,7 +22,7 @@ function is_notempty($name){
 ###########
 
 class MediaView extends Media{
-	function listAllMedia_table($arr, $start, $len){
+	function listAllMediaTag_table($arr, $start, $len){
 
 		echo '<div class="table-responsive"><table class="table table-striped">';
 		echo '<thead><tr>';
