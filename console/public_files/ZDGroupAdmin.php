@@ -32,7 +32,7 @@ ob_start ();
           <div class="row">
 				<?php
 				if (isset ( $_GET ['action'] )) {
-					$a = new MyQuoteView ();
+					$a = new GroupView ();
 					switch ($_GET ['action']) {
 						
 						case '查看信息组统计数据' :
