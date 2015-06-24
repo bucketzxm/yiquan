@@ -87,7 +87,7 @@ class GroupView extends Group {
 		echo '<div class="form-group"><h2>Group介绍</h2>';
 		echo '<textarea class="form-control" rows="3" cols="80" name="detail">' . (isset($arr ['mediaGroup_detail']) ? $arr ['mediaGroup_detail']:'' ). '</textarea></div>';
 		echo '<div class="form-group"><h2>鸣谢</h2>';
-		echo '<textarea class="form-control" rows="3" cols="80" name="thanknote">' . (isset($arr ['mediaGroup_thanknote']) ? implode(',', $arr ['mediaGroup_thanknote']) :''). '</textarea></div>';
+		echo '<textarea class="form-control" rows="3" cols="80" name="thanknote">' . (isset($arr ['mediaGroup_thanknote']) ? $arr ['mediaGroup_thanknote']:''). '</textarea></div>';
 
 		
 
