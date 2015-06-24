@@ -62,7 +62,7 @@ class MediaView extends Media{
 		}
 		echo '</table></div>';
 	}
-	function showOneQuote_form($arr) {
+	function showOneMedia_form($arr) {
 		echo '<div><form method="post" action="?action=edit">';
 		echo '<input type="hidden" class="form-control" name="id" value="' . $arr ['_id']->{'$id'} . '"/>';
 		echo '<div class="form-group"><h2>媒体名称</h2>';
