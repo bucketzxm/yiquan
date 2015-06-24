@@ -25,7 +25,7 @@ class Media extends YqBase{
 
 	function queryMedia($configs = []) {
 		$ans = [ ];
-		/*if (empty ( $configs )) {
+		if (empty ( $configs )) {
 			$cus = $this->db->Prosource->find ();
 			while ( $cus->hasNext () ) {
 				$doc = $cus->getNext ();
@@ -41,15 +41,14 @@ class Media extends YqBase{
 			}
 		}
 		return $ans;
-	}*/
-		$cus = $this->db->Prosource->find ();
+	}
+		/*$cus = $this->db->Prosource->find ();
 		while ( $cus->hasNext () ) {
 			$doc = $cus->getNext ();
 			$ans [] = $doc;
 
 		}
-		return $ans;
-	}
+		return $ans;*/
 		/*$arr['source_name']=$this->db->Prosource->find(array('source_name'=>$arr['source_name']));
 		$arr['source_description']=$this->db->Prosource->find(array('source_description'=>$arr['source_description']));
 		$arr['source_industry']=$this->db->Prosource->find(array('source_industry'=>$arr['source_description']));
