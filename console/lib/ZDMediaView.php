@@ -34,6 +34,8 @@ class MediaView extends Media{
 		th_combiner('startingTag');
 		th_combiner('closingTag');
 		th_combiner('状态');
+		th_combiner('编辑操作')；
+
 		echo '<tr></thead>';
 
 
@@ -49,6 +51,8 @@ class MediaView extends Media{
 			td_combiner((isset($arr[$i]['text_startingTag']) ? $arr[$i]['text_startingTag']: ''));
 			td_combiner((isset($arr[$i]['text_closingTag']) ? $arr[$i]['text_closingTag']: ''));
 			td_combiner((isset($arr[$i]['source_status']) ? $arr[$i]['source_status']: ''));
+			echo '<td><a href="?action=edit&mindex=' . $arr [$i] ['_id']->{'$id'} . '">编辑</a></td>';
+
 			echo '</tr>';
 
 
