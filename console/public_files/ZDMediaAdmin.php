@@ -61,10 +61,7 @@ include_once '401.php';
 							
 							case 'edit' :
 								if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
-									$a->showOneMedia_form ( $a->queryMedia ( array (
-											'type' => 'findone',
-											'value' => $_GET ['mindex'] 
-									) ) );
+									$a->showOneMedia_form ( $a->queryMedia ();
 								} else if ($_SERVER ['REQUEST_METHOD'] == 'POST') {
 									if ($a->updateMeida ( $_POST )) {
 										echo '编辑成功';
