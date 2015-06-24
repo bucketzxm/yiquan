@@ -82,7 +82,7 @@ class Media extends YqBase{
 
 
 			}  else {
-
+				echo 'aaaa1';
 				unset($row ['source_name']);
 			}
 
