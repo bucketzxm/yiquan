@@ -120,8 +120,8 @@ class MediaView extends Media{
 					td_combiner('还没有人读过');
 					
 				}else {
-					$ratio=$agree/$read;
-					td_combiner("$ratio");
+					$ratio_persent=$agree/$read*100;
+					td_combiner("$ratio_persent".'%');
 
 				}
 			}
