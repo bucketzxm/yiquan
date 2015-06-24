@@ -38,6 +38,7 @@ if (! empty ( $GLOBALS ['TEMPLATE'] ['extra_head'] )) {
 					<li class="active"><a href="zhidemain.php">主页</a></li>
 					
 					<li><a href="ZDMediaAdmin.php">媒体管理</a></li>
+					<li><a href="ZDGroupAdmin.php">信息组管理管理</a></li>
 				
 					<li><a href="login.php?logout">退出</a></li>
 
