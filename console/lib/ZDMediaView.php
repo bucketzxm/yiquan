@@ -126,7 +126,7 @@ class MediaView extends Media{
 		echo '</table></div>';
 	}
 	function showOneMediaBasic_form($arr) {
-		echo '<div><form method="post" action="?action=edit">';
+		echo '<div><form method="post" action="?action=editBasic">';
 		echo '<input type="hidden" class="form-control" name="id" value="' . $arr ['_id']->{'$id'} . '"/>';
 		echo '<div class="form-group"><h2>媒体名称</h2>';
 		echo '<textarea class="form-control" rows="3" cols="80" name="name">' . $arr ['source_name'] . '</textarea></div>';
@@ -145,7 +145,7 @@ class MediaView extends Media{
 		echo '</form></div>';
 	}
 	function showOneMediaTag_form($arr) {
-		echo '<div><form method="post" action="?action=edit">';
+		echo '<div><form method="post" action="?action=editTag">';
 		echo '<input type="hidden" class="form-control" name="id" value="' . $arr ['_id']->{'$id'} . '"/>';
 		echo '<div class="form-group"><h2>媒体名称</h2>';
 		echo '<textarea class="form-control" rows="3" cols="80" name="name">' . $arr ['source_name'] . '</textarea></div>';
