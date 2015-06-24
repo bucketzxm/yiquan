@@ -19,6 +19,7 @@ function td_combiner($content){
 function is_notempty($name){
 	(isset($name) ? $name : '');
 }
+###########
 
 class MediaView extends Media{
 	function listAllMedia_table($arr, $start, $len){
@@ -62,6 +63,45 @@ class MediaView extends Media{
 		}
 		echo '</table></div>';
 	}
+
+
+
+
+
+
+	function listAllMedia_table($arr, $start, $len){
+
+		echo '<div class="table-responsive"><table class="table table-striped">';
+		echo '<thead><tr>';
+
+		th_combiner('媒体名称');
+		th_combiner('媒体描述');
+		th_combiner('行业或标签');
+		th_combiner('值得一读数量');
+		th_combiner( '阅读数量');
+		
+
+		echo '<tr></thead>';
+
+
+		for($i = $start; $i < min ( $start + $len, count ( $arr ) ); $i ++) {
+			echo '<tr>';
+			$uid = $arr [$i] ['_id']->{'$id'};
+			td_combiner((isset($arr[$i]['source_name'])? $arr[$i]['source_name']:''));
+			td_combiner((isset($arr[$i]['source_description']) ? $arr[$i]['source_description']: ''));
+			td_combiner((isset($arr[$i]['source_industry']) ? implode(',',$arr[$i]['source_industry']): ''));
+			td_combiner((isset($arr[$i]['agree_count']) ? $arr[$i]['agree_count']: ''));
+			td_combiner((isset($arr[$i]['read_count']) ? $arr[$i]['read_count']: ''));
+
+			echo '</tr>';
+
+
+
+
+
+		}
+		echo '</table></div>';
+	}
 	function showOneMedia_form($arr) {
 		echo '<div><form method="post" action="?action=edit">';
 		echo '<input type="hidden" class="form-control" name="id" value="' . $arr ['_id']->{'$id'} . '"/>';
@@ -72,7 +112,7 @@ class MediaView extends Media{
 		echo '<div class="form-group"><h2>行业或标签</h2>';
 		echo '<textarea class="form-control" rows="3" cols="80" name="industry">' . (isset($arr ['source_industry']) ? implode(',', $arr ['source_industry']) :''). '</textarea></div>';
 		echo '<div class="form-group"><h2>sourceTag</h2>';
-		
+
 		echo '<textarea class="form-control" rows="3" cols="80" name="tag">' . (isset($arr ['source_tag']) ? implode(',',$arr ['source_tag']) :'') . '</textarea></div>';
 		echo '<div class="form-group"><h2>startingTag</h2>';
 		echo '<textarea class="form-control" rows="3" cols="80" name="startingTag">' . (isset($arr ['text_startingTag']) ? $arr ['text_startingTag']:'' ). '</textarea></div>';

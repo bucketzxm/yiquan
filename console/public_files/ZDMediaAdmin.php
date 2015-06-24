@@ -18,6 +18,8 @@ include_once '401.php';
 		<div class="col-sm-3 col-md-2 sidebar">
 			<ul class="nav nav-sidebar">
 				<li><a href="?action=viewMedia">查看所有媒体 <span class="sr-only">(current)</span></a></li>
+				<li><a href="?action=viewMediaStat">查看媒体数据 <span class="sr-only">(current)</span></a></li>
+
 			</ul>
 		</div>
 		<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
@@ -61,7 +63,7 @@ include_once '401.php';
 							
 							case 'edit' :
 								if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
-									$a->showOneMedia_form ( $a->queryMedia ( array (
+									$a->showOneMedia_form ( $a->queryMediaStat ( array (
 										'type' => 'findone',
 										'value' => $_GET ['mindex'] 
 								) ) );
@@ -73,6 +75,12 @@ include_once '401.php';
 									}
 								}
 								break;
+							case 'viewMediaStat':
+								if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
+									if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
+										$a->listAllMediaStat_table($a->queryMedia(),0,1000);
+									}
+								}
 						}
 					}
 					?>
