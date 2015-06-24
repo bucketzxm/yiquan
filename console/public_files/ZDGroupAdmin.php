@@ -40,24 +40,12 @@ ob_start ();
 								$a->listAllGroupStat_table ( $a->queryGroup (), 0, 10000 );
 							}
 							break;
-				
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	
+					}
+				}
+				?>
+			
+			</div>
 
 
 		</div>
