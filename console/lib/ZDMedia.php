@@ -5,6 +5,14 @@ use Qiniu\Storage\UploadManager;
 use Qiniu\Storage\BucketManager;
 ############################
 
+
+############
+#  helper  #
+############
+
+
+
+###############################
 class Media extends YqBase{
 	protected $bcs_host = 'bcs.duapp.com';
 
@@ -67,8 +75,28 @@ class Media extends YqBase{
 				'_id' => new MongoId ( $arr ['id'] ) 
 		) );
 		if ($row != null) {
-			$row ['source_name'] = $arr ['name'];
-			$row ['source_tag'] = explode(',', $arr ['tag']);
+
+			if (isset($arr ['name'])) {
+				$row ['source_name'] = $arr ['name'];
+
+
+			}  else {
+
+				unset($row ['source_name']);
+			}
+
+
+
+			if (isset($arr ['tag'])) {
+				$row ['source_tag'] = explode(',', $arr ['tag']);
+
+			}  else {
+
+				unset($row ['source_tag']);
+			}
+
+
+
 			if (isset($arr['startingTag'])) {
 				$row ['text_startingTag'] = $arr ['startingTag'];
 
@@ -76,9 +104,30 @@ class Media extends YqBase{
 
 				unset($row ['text_startingTag']);
 			}
+
+
+			if (isset($arr['closingTag'])) {
+				$row ['text_closingTag'] = $arr['closingTag'];
+
+			}  else {
+
+				unset($row ['text_closingTag']);
+			}
+
+
+
+			if (isset($arr['rexTemplate'])) {
+				$row['source_rexTemplate']=$arr['rexTemplate'];
+
+			}  else {
+
+				unset($row['source_rexTemplate']);
+			}
+
+
 			
-			$row ['text_closingTag'] = $arr['closingTag'];
-			$row['source_rexTemplate']=$arr['rexTemplate'];
+			
+			
 		}
 		return $this->db->Prosource->save ( $row );
 	}
@@ -87,11 +136,50 @@ class Media extends YqBase{
 				'_id' => new MongoId ( $arr ['id'] ) 
 		) );
 		if ($row != null) {
-			$row ['source_name'] = $arr ['name'];
-			$row ['source_description'] = $arr ['description'];
-			$row ['source_industry'] = explode(',', $arr ['industry']);
-			$row ['source_rssURL'] = explode(',',$arr ['rssURL']);
-			$row ['source_status'] = $arr ['status'];
+
+			if (isset($arr ['name'])) {
+				$row ['source_name'] = $arr ['name'];
+
+			}  else {
+
+				unset($row ['source_name']);
+			}
+
+
+			if (isset($arr ['description'])) {
+				$row ['source_description'] = $arr ['description'];
+
+			}  else {
+
+				unset($row ['source_description']);
+			}
+
+
+			if (isset($arr ['industry'])) {
+				$row ['source_industry'] = explode(',', $arr ['industry']);
+
+			}  else {
+
+				unset($row ['source_industry']);
+			}
+
+
+			if (isset($arr ['rssURL'])) {
+				$row ['source_rssURL'] = explode(',',$arr ['rssURL']);
+			}  else {
+
+				unset($row ['source_rssURL']);
+			}			
+			
+
+			if (isset($arr ['status'])) {
+				$row ['source_status'] = $arr ['status'];
+			}  else {
+
+				unset($row ['source_status']);
+			}					
+			
+			
 		}
 		return $this->db->Prosource->save ( $row );
 	}
