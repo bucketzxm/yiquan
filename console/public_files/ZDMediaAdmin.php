@@ -58,7 +58,7 @@ include_once '401.php';
 								}
 								break;
 
-							}
+							
 							case 'edit' :
 								if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
 									$a->showOneMedia_form ( $a->queryMedia ( array (
@@ -73,7 +73,7 @@ include_once '401.php';
 									}
 								}
 								break;
-							}
+						}
 					}
 					?>
 			
