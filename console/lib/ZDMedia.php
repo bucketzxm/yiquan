@@ -77,19 +77,19 @@ class Media extends YqBase{
 		if ($row != null) {
 
 			if ($arr ['name'] != "") {
-				echo 'bbbbbbbbbb';
+				
 				echo $arr ['name'];
 				$row ['source_name'] = $arr ['name'];
 
 
 			}  else {
-				echo 'aaaa1';
+				
 				unset($row ['source_name']);
 			}
 
 
 
-			if (isset($arr ['tag'])) {
+			if ($arr ['tag']!= "") {
 				$row ['source_tag'] = explode(',', $arr ['tag']);
 
 			}  else {
@@ -99,7 +99,7 @@ class Media extends YqBase{
 
 
 
-			if (isset($arr['startingTag'])) {
+			if ($arr['startingTag']!= "") {
 				$row ['text_startingTag'] = $arr ['startingTag'];
 
 			}  else {
@@ -108,7 +108,7 @@ class Media extends YqBase{
 			}
 
 
-			if (isset($arr['closingTag'])) {
+			if ($arr['closingTag']!= "") {
 				$row ['text_closingTag'] = $arr['closingTag'];
 
 			}  else {
@@ -118,7 +118,7 @@ class Media extends YqBase{
 
 
 
-			if (isset($arr['rexTemplate'])) {
+			if ($arr['rexTemplate']!= "") {
 				$row['source_rexTemplate']=$arr['rexTemplate'];
 
 			}  else {
@@ -139,7 +139,7 @@ class Media extends YqBase{
 		) );
 		if ($row != null) {
 
-			if (isset($arr ['name'])) {
+			if ($arr ['name']!= "") {
 				$row ['source_name'] = $arr ['name'];
 
 			}  else {
@@ -148,7 +148,7 @@ class Media extends YqBase{
 			}
 
 
-			if (isset($arr ['description'])) {
+			if ($arr ['description']!= "") {
 				$row ['source_description'] = $arr ['description'];
 
 			}  else {
@@ -157,7 +157,7 @@ class Media extends YqBase{
 			}
 
 
-			if (isset($arr ['industry'])) {
+			if (($arr ['industry']!= "") {
 				$row ['source_industry'] = explode(',', $arr ['industry']);
 
 			}  else {
@@ -166,7 +166,7 @@ class Media extends YqBase{
 			}
 
 
-			if (isset($arr ['rssURL'])) {
+			if ($arr ['rssURL']!= "") {
 				$row ['source_rssURL'] = explode(',',$arr ['rssURL']);
 			}  else {
 
@@ -174,7 +174,7 @@ class Media extends YqBase{
 			}			
 			
 
-			if (isset($arr ['status'])) {
+			if ($arr ['status']!= "") {
 				$row ['source_status'] = $arr ['status'];
 			}  else {
 
