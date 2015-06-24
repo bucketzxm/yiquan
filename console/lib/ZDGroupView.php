@@ -21,7 +21,7 @@ function td_combiner($content){
 class GroupView extends Group {
 	// private $dbname = 'test';
 	private $table = 'Group';
-	function listAllgGroupStat_table($arr, $start, $len){
+	function listAllGroupStat_table($arr, $start, $len){
 
 		echo '<div class="table-responsive"><table class="table table-striped">';
 		echo '<thead><tr>';
