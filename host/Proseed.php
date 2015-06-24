@@ -983,31 +983,6 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 
 	}
 
-	function queryMediaList($user_id){
-		if ($this->yiquan_version == 0) {
-			return - 2;
-		}
-		
-		if ($this->checkQuoteToken () != 1) {
-			return - 3;
-		}
-		
-		if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
-			return - 4;
-		}
-
-		$user = $this->db->Prouser->findOne (array ('_id'=> new MongoId($user_id)));
-		$cursor = $this->db->Prosource->find(array ('$or' => array(
-							array ('source_industry' => $user['current']['user_industry']),
-							array ('source_industry' => $user['current']['user_interestA']),
-							array ('source_industry' => $user['current']['user_interestB'])
-							)));
-		$mediaList = array();
-		foreach ($cursor as $key => $value) {
-			array_push ($mediaList, $value);
-		}
-		return json_encode($mediaList);
-	}
 
 	function querySystemMessage($user_id){
 		if ($this->yiquan_version == 0) {
@@ -1239,7 +1214,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 	}
 
 
-	function queryMediaGroups($user_id){
+	function queryMediaGroups($user_id,$follower_count){
 		if ($this->yiquan_version == 0) {
 			return - 2;
 		}
@@ -1251,8 +1226,13 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 		}
 
 		$user = $this->db->Prouser->findOne(array('_id' => new MongoId($user_id)));
-
-		$groups = $this->db->ProMediaGroup->find()->limit(30);
+		$follower_count = (int)$follower_count;
+		if ($follower_count == 0) {
+			$groups = $this->db->ProMediaGroup->find()->sort(array ('mediaGroup_counts.follower_count' => -1))->limit(30);	
+		}else{
+			$groups = $this->db->ProMediaGroup->find(array('mediaGroup_counts.follower_count' => array ('$lt' => $follower_count)))->sort(array ('mediaGroup_counts.follower_count' => -1))->limit(30);
+		}
+		
 		$groupsToShow = array();
 		foreach ($groups as $key => $value) {
 			$value['user_mediaGroupStatus'] = '0';
@@ -1303,6 +1283,39 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 		}
 		return 1;
 	}
+
+	function queryMediaList($user_id,$group_id){
+		if ($this->yiquan_version == 0) {
+			return - 2;
+		}
+		
+		if ($this->checkQuoteToken () != 1) {
+			return - 3;
+		}
+		
+		if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
+			return - 4;
+		}
+
+		$user = $this->db->Prouser->findOne (array ('_id'=> new MongoId($user_id)));
+		$cursor = $this->db->Prosource->find(array(
+			'source_mediaGroups' => $group_id;
+
+			));
+		/*
+		$cursor = $this->db->Prosource->find(array ('$or' => array(
+							array ('source_industry' => $user['current']['user_industry']),
+							array ('source_industry' => $user['current']['user_interestA']),
+							array ('source_industry' => $user['current']['user_interestB'])
+							)));
+		*/
+		$mediaList = array();
+		foreach ($cursor as $key => $value) {
+			array_push ($mediaList, $value);
+		}
+		return json_encode($mediaList);
+	}
+
 
 }
 ?>
