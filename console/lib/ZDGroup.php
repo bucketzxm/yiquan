@@ -78,15 +78,28 @@ class Group extends YqBase{
 				'_id' => new MongoId ( $arr ['id'] ) 
 		) );
 		if ($row != null) {
+
+			if ($arr ['source_List']!= "") {
+				$source_listArr=explode(',',$arr['source_List']);
+				$row['mediaGroup_sourceList']=[];
+				foreach ($source_listArr as $key => $name) {
+					$cus=$this->db->Prosource->findOne( array('source_name' => $name));
+					
+					$id=(string)$cus['_id'];
+					$row['mediaGroup_sourceList'][$id]=$id;
+					
+				}
+			}  
+
 			
 			if ($arr['source_box']!=array()){
 				foreach ($arr['source_box'] as $key => $name) {
-					echo 'why!!!!!!!';
+					
 					$cus=$this->db->Prosource->findOne( array('source_name' => $name));
 
 					#$cus=$this->db->Prosource->findOne( array('_id' => new MongoId("$value") ));
 					if ($cus !=null){
-						echo 'aaaaaaaaaaaaaa';
+						
 					$id=(string)$cus['_id'];
 					$row['mediaGroup_sourceList'][$id]=$id;
 					}
@@ -95,18 +108,6 @@ class Group extends YqBase{
 
 
 
-
-				/*if ($arr ['source_List']!= "") {
-					$source_listArr=explode(',',$arr['source_List']);
-					$row['mediaGroup_sourceList']=[];
-					foreach ($source_listArr as $key => $name) {
-						$cus=$this->db->Prosource->findOne( array('source_name' => $name));
-						
-						$id=(string)$cus['_id'];
-						$row['mediaGroup_sourceList'][$id]=$id;
-						
-					}
-				}  */
 
 			
 
