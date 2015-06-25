@@ -171,7 +171,7 @@ class GroupView extends Group {
 			$source_name=$source_cur['source_name'];
 			
 			echo td_combiner("$source_name: ".'<input type="checkbox" name="source_box[]" value='."$source_name".'>') ;
-			if ($counter%5==1) {
+			if ($counter%5==4) {
 				echo '</tr>';
 			}
 		
