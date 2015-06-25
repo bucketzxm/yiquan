@@ -79,7 +79,7 @@ class Group extends YqBase{
 		) );
 		if ($row != null) {
 
-			if ($arr['source_box']==array()){
+			if ($arr['source_box[]']==array()){
 				echo '这///////';
 			}
 
