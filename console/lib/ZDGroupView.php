@@ -159,12 +159,12 @@ class GroupView extends Group {
 		foreach ($all_source as $key => $source_cur) {
 			$counter+=1;
 			$source_name=$source_cur['source_name'];
-			echo td_combiner("$source_name: ".'<input type="checkbox" name="source_box[]" value="$source_name" />') ;
+			echo td_combiner("$source_name: ".'<input type="checkbox" name="source_box[]" />') ;
 			if ($counter%5==0) {
 				echo '<br>';
 			}
 		}
-		
+
 
 		echo '<div class="form-group"><input type="submit" value="提交" /></div>';
 		echo '</form></div>';
