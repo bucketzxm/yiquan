@@ -173,7 +173,7 @@ class GroupView extends Group {
 			}
 		
 
-
+		}
 		echo '<div class="form-group"><input type="submit" value="提交" /></div>';
 		echo '</form></div>';
 	}
