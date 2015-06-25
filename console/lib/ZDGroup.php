@@ -79,8 +79,8 @@ class Group extends YqBase{
 		) );
 		if ($row != null) {
 
-			if ($arr['source_box']){
-				echo '啊哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈';
+			if ($arr['source_box']==array()){
+				echo '这///////';
 			}
 
 			if ($arr ['title']!= "") {
