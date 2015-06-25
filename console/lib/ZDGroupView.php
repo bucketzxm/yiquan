@@ -161,15 +161,13 @@ class GroupView extends Group {
 		$counter=0;
 		foreach ($all_source as $key => $source_cur) {
 			$counter+=1;
-			if ($counter%3==0) {
-				echo '<td>';
-			}
+			
 		
 			$source_name=$source_cur['source_name'];
 			echo '<div class="table-responsive"><table class="table table-striped">';
-			echo "$source_name: ".'<input type="checkbox" name="source_box[]" value='."$source_name".'>' ;
-			if ($counter%3==0) {
-				echo '</td>';
+			echo td_combiner("$source_name: ".'<input type="checkbox" name="source_box[]" value='."$source_name".'>') ;
+			if ($counter%3==1) {
+				echo '<br>';
 			}
 		
 
