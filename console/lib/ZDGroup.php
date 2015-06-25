@@ -70,6 +70,40 @@ class Group extends YqBase{
 	}
 
 
+
+
+
+	function updateMediaGroup($arr) {
+		$row = $this->db->ProMediaGroup->findOne ( array (
+				'_id' => new MongoId ( $arr ['id'] ) 
+		) );
+		if ($row != null) {
+
+			if ($arr ['title']!= "") {
+				$row ['mediaGroup_title'] = $arr ['title'];
+
+			}  else {
+
+				unset($row ['mediaGroup_title']);
+			}
+
+
+			/*if ($arr ['detail']!= "") {
+				$row ['mediaGroup_detail'] = $arr ['detail'];
+
+			}  else {
+
+				unset($row ['mediaGroup_detail']);
+			}*/
+
+
+		}
+		return $this->db->ProMediaGroup->save ( $row );
+	}
+
+
+
+
 		
 	
 	

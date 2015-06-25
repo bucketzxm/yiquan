@@ -101,7 +101,7 @@ class GroupView extends Group {
 			echo '<td><a href="?action=editGroupMedia&mindex=' . $arr [$i] ['_id']->{'$id'} . '">编辑</a></td>';
 			
 			td_combiner((isset($arr[$i]['mediaGroup_title'])? $arr[$i]['mediaGroup_title']:''));
-			$media_List=[];
+			
 
 			if (isset($arr[$i]['mediaGroup_sourceList'])){
 				echo '<td>';
@@ -122,8 +122,50 @@ class GroupView extends Group {
 		}
 		echo '</table></div>';
 	}
-	function showOneGroupBasic_form($arr) {
+	function showOneGroupMedia_form($arr) {
 		echo '<div><form method="post" action="?action=editGroupBasic">';
+		echo '<input type="hidden" class="form-control" name="id" value="' . $arr ['_id']->{'$id'} . '"/>';
+		echo '<div class="form-group"><h2>Group名称</h2>';
+		echo '<textarea class="form-control" rows="3" cols="80" name="title">' . $arr ['mediaGroup_title'] . '</textarea></div>';
+		
+		echo '<div class="form-group"><h2>Group媒体,请选择新添媒体，不要更改输入框内容</h2>';
+		if (isset($arr['mediaGroup_sourceList'])) {
+
+
+			$media_List= array();
+			$s_List=$arr['mediaGroup_sourceList'];
+			foreach ($s_List as $key=>$value) {
+				$cus=$this->db->Prosource->findOne( array('_id' => new MongoId("$value") ));
+				$media_List[]=$cus;
+
+			}
+			$s_names=[];
+			foreach ($media_List as $key=>$value) {
+				$s_names[]=$value['source_name'];
+
+			}
+		
+			echo '<textarea class="form-control" rows="3" cols="80" name="source_List">' . (isset($arr ['mediaGroup_sourceList']) ? implode(',', $s_names)). '</textarea></div>';
+
+
+
+		}
+
+
+		$a= new Media();
+		$all_source=$a->queryMedia();
+		foreach ($all_source as $key => $source_cur) {
+			$source_name=$source_cur['source_name'];
+			echo '<label><input type="checkbox" name="all_sourceList" value="$source_name" /></label>' ;
+		}
+
+
+		echo '<div class="form-group"><input type="submit" value="提交" /></div>';
+		echo '</form></div>';
+	}
+
+	function showOneGroupBasic_form($arr) {
+		echo '<div><form method="post" action="?action=editGroupMedia">';
 		echo '<input type="hidden" class="form-control" name="id" value="' . $arr ['_id']->{'$id'} . '"/>';
 		echo '<div class="form-group"><h2>Group名称</h2>';
 		echo '<textarea class="form-control" rows="3" cols="80" name="title">' . $arr ['mediaGroup_title'] . '</textarea></div>';

@@ -67,8 +67,20 @@ ob_start ();
 								$a->listAllGroupMedia_table ( $a->queryGroup (), 0, 10000 );
 							}
 							break;							
-			
-
+						case 'editGroupMedia' :
+							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
+								$a->showOneGroupMedia_form ( $a->queryGroup ( array (
+									'type' => 'findone',
+									'value' => $_GET ['mindex'] 
+								) ) );			
+							} else if ($_SERVER ['REQUEST_METHOD'] == 'POST') {
+								if ($a->updateMediaGroup ( $_POST )) {
+									echo '编辑成功';
+								} else {
+									echo '编辑异常';
+								}
+							}
+							break;
 	
 					}
 				}
