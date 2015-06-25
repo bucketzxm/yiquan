@@ -154,6 +154,7 @@ class GroupView extends Group {
 
 		$a= new Media();
 		$all_source=$a->queryMedia();
+		echo th_combiner('请选择');
 		#echo '<form action= "" method="post" name="source_List">';
 		$counter=0;
 		foreach ($all_source as $key => $source_cur) {
