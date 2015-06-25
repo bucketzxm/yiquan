@@ -104,13 +104,14 @@ class GroupView extends Group {
 			
 
 			if (isset($arr[$i]['mediaGroup_sourceList'])){
-				echo '<td>';
+				
 				$s_List=$arr[$i]['mediaGroup_sourceList'];
 				foreach ($s_List as $key => $value) {
+					echo '<td>';
 					$cus=$this->db->Prosource->findOne( array('_id' => new MongoId("$value") ));
 					
 					echo $cus['source_name'].',';
-				echo '</td>';
+					echo '</td>';
 				}
 					
 
@@ -128,7 +129,7 @@ class GroupView extends Group {
 		echo '<div class="form-group"><h2>Group名称</h2>';
 		echo '<textarea class="form-control" rows="3" cols="80" name="title">' . $arr ['mediaGroup_title'] . '</textarea></div>';
 		
-		echo '<div class="form-group"><h2>Group媒体,请选择新添媒体，不要更改输入框内容</h2>';
+		echo '<div class="form-group"><h2>Group媒体,请选择新添媒体,从输入框中删除媒体</h2>';
 		if (isset($arr['mediaGroup_sourceList'])) {
 
 
@@ -160,7 +161,8 @@ class GroupView extends Group {
 		foreach ($all_source as $key => $source_cur) {
 			$counter+=1;
 			$source_name=$source_cur['source_name'];
-			echo "$source_name: ".'<input type="checkbox" name="source_box[]" value='."$source_name".'>' ;
+			echo '<div class="table-responsive"><table class="table table-striped">';
+			echo td_combiner("$source_name: ".'<input type="checkbox" name="source_box[]" value='."$source_name".'>' );
 			if ($counter%5==0) {
 				echo '<br>';
 			}
