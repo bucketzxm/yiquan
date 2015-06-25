@@ -209,7 +209,7 @@ class GroupView extends Group {
 
 
 	function showOneGroupBasic_form($arr) {
-		echo '<div><form method="post" action="?action=editGroupMedia">';
+		echo '<div><form method="post" action="?action=editGroupBasic">';
 		echo '<input type="hidden" class="form-control" name="id" value="' . $arr ['_id']->{'$id'} . '"/>';
 		echo '<div class="form-group"><h2>Group名称</h2>';
 		echo '<textarea class="form-control" rows="3" cols="80" name="title">' . $arr ['mediaGroup_title'] . '</textarea></div>';
