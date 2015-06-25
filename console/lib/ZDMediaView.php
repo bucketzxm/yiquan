@@ -202,7 +202,6 @@ class MediaView extends Media{
 
 	function showNewMedia_form($arr=[]) {
 		echo '<div><form method="post" action="?action=添加新媒体">';
-		echo '<input type="hidden" class="form-control" name="id" value="' . $arr ['_id']->{'$id'} . '"/>';
 		echo '<div class="form-group"><h2>媒体名称</h2>';
 		echo '<textarea class="form-control" rows="3" cols="80" name="name">' . '' . '</textarea></div>';
 		echo '<div class="form-group"><h2>媒体描述</h2>';
