@@ -96,7 +96,7 @@ class Group extends YqBase{
 
 			if ($arr ['source_list']!= "") {
 				$source_listArr=explode(',',$arr['source_list']);
-				
+				$row['mediaGroup_sourceList']=[];
 				foreach ($source_listArr as $key => $name) {
 					$cus=$this->db->Prosource->findOne( array('source_name' => $name));
 					if ($cus !=null){
