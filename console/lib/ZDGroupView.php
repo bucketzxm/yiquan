@@ -137,10 +137,7 @@ class GroupView extends Group {
 		echo '<input type="hidden" class="form-control" name="id" value="' . $arr ['_id']->{'$id'} . '"/>';
 		echo '<div class="form-group"><h2>Group名称</h2>';
 		echo '<textarea class="form-control" rows="3" cols="80" name="title">' . $arr ['mediaGroup_title'] . '</textarea></div>';
-		echo '<div class="form-group"><h2>Group介绍</h2>';
-		echo '<textarea class="form-control" rows="3" cols="80" name="detail">' . $arr ['mediaGroup_detail']. '</textarea></div>';
-		echo '<div class="form-group"><h2>鸣谢</h2>';
-		echo '<textarea class="form-control" rows="3" cols="80" name="thanknote">' . $arr ['mediaGroup_thanknote']. '</textarea></div>';		
+
 		echo '<div class="form-group"><h2>Group媒体<br>请从输入框中删除媒体(最末逗号要清除),在下方菜单选择新添媒体</h2>';
 
 		if (isset($arr['mediaGroup_sourceList'])) {
