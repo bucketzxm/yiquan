@@ -102,12 +102,14 @@ class Group extends YqBase{
 					if ($cus !=null){
 						$id=(string)$cus['_id'];
 						$row['mediaGroup_sourceList'][$id]=$id;
+					}
 				}
-
 			}  else {
 
 				unset($row ['mediaGroup_sourceList']);
 			}
+
+			
 
 
 
