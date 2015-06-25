@@ -135,6 +135,93 @@ class Group extends YqBase{
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	function creatMediaGroup($arr) {
+		$row = [];
+		
+
+			if ($arr ['title']!= "") {
+				$row ['mediaGroup_title'] = $arr ['title'];
+
+			}  else {
+
+				echo '请输入信息组/行业/标签名称<br>';
+			}
+
+
+			if ($arr ['detail']!= "") {
+				$row ['mediaGroup_detail'] = $arr ['detail'];
+
+			}  else {
+
+				echo '请输入信息组描述';
+			}
+
+
+			if ($arr ['thanknote']!= "") {
+				$row ['mediaGroup_thanknote'] =  $arr ['thanknote'];
+
+			}  else {
+
+				echo '请输入鸣谢';
+			}
+
+
+			
+		
+			
+			
+			if ($arr['source_box']!=array()){
+				foreach ($arr['source_box'] as $key => $name) {
+					
+					$cus=$this->db->Prosource->findOne( array('source_name' => $name));
+
+					#$cus=$this->db->Prosource->findOne( array('_id' => new MongoId("$value") ));
+					if ($cus !=null){
+						
+					$id=(string)$cus['_id'];
+					$row['mediaGroup_sourceList'][$id]=$id;
+					}
+				}
+			}
+
+
+
+
+			
+
+
+
+	
+
+
+
+			
+			
+
+
+		}
+		return $this->db->ProMediaGroup->insert ( $row );
+	}
+
 		
 	
 	

@@ -129,6 +129,86 @@ class GroupView extends Group {
 		echo '<input type="hidden" class="form-control" name="id" value="' . $arr ['_id']->{'$id'} . '"/>';
 		echo '<div class="form-group"><h2>Group名称</h2>';
 		echo '<textarea class="form-control" rows="3" cols="80" name="title">' . $arr ['mediaGroup_title'] . '</textarea></div>';
+		echo '<div class="form-group"><h2>Group介绍</h2>';
+		echo '<textarea class="form-control" rows="3" cols="80" name="detail">' . ''. '</textarea></div>';
+		echo '<div class="form-group"><h2>鸣谢</h2>';
+		echo '<textarea class="form-control" rows="3" cols="80" name="thanknote">' . ''. '</textarea></div>';		
+		echo '<div class="form-group"><h2>Group媒体<br>请从输入框中删除媒体(最末逗号要清除),在下方菜单选择新添媒体</h2>';
+
+
+
+		$a= new Media();
+		$all_source=$a->queryMedia();
+	
+		#echo '<form action= "" method="post" name="source_List">';
+		$counter=0;
+		echo '<div class="table-responsive"><table class="table table-striped">';
+		echo '<thead><tr>';
+		echo '<th>请</th><th>选</th><th>择</th><th>媒</th><th>体</th></tr></thead>';
+		foreach ($all_source as $key => $source_cur) {
+			
+			
+			$source_name=$source_cur['source_name'];
+
+			if ($counter%5==0) {
+				echo '<tr>';
+			}
+		
+			
+			echo td_combiner("$source_name: ".'<input type="checkbox" name="source_box[]" value='."$source_name".'>') ;
+			if ($counter%5==4) {
+				echo '</tr>';
+			}
+		
+			$counter+=1;
+		}
+		
+
+
+		
+
+
+		echo '<div class="form-group"><input type="submit" value="提交" /></div>';
+		echo '</form></div>';
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	function showNewMediaGroup_form($arr=[]) {
+		echo '<div><form method="post" action="?action=添加新信息组">';
+
+		echo '<div class="form-group"><h2>Group名称</h2>';
+		echo '<textarea class="form-control" rows="3" cols="80" name="title">' . '' . '</textarea></div>';
 		
 		echo '<div class="form-group"><h2>Group媒体<br>请从输入框中删除媒体(最末逗号要清除),在下方菜单选择新添媒体</h2>';
 		if (isset($arr['mediaGroup_sourceList'])) {
@@ -199,7 +279,6 @@ class GroupView extends Group {
 		echo '<div class="form-group"><input type="submit" value="提交" /></div>';
 		echo '</form></div>';
 	}
-
 
 
 	
