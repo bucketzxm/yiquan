@@ -99,10 +99,10 @@ class Group extends YqBase{
 					$row['mediaGroup_sourceList']=[];
 					foreach ($source_listArr as $key => $name) {
 						$cus=$this->db->Prosource->findOne( array('source_name' => $name));
-						if ($cus !=null){
-							$id=(string)$cus['_id'];
-							$row['mediaGroup_sourceList'][$id]=$id;
-						}
+						
+						$id=(string)$cus['_id'];
+						$row['mediaGroup_sourceList'][$id]=$id;
+						
 					}
 				}  
 
