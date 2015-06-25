@@ -155,9 +155,14 @@ class GroupView extends Group {
 		$a= new Media();
 		$all_source=$a->queryMedia();
 		echo '<form action= "" method="post" name="source_List">';
+		$counter=0
 		foreach ($all_source as $key => $source_cur) {
+			$couter+=1
 			$source_name=$source_cur['source_name'];
 			echo "$source_name: ".'<input type="checkbox" name="source_box[]" value="$source_name" />' ;
+			if ($counter%5==0) {
+				echo '\n';
+			}
 		}
 
 
