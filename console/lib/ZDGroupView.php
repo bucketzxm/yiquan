@@ -159,7 +159,7 @@ class GroupView extends Group {
 	
 		#echo '<form action= "" method="post" name="source_List">';
 		$counter=0;
-		echo '<th>请</th><th>选</th><th>择</th><th>煤</th><th>体</th>';
+		echo '<tr><th>请</th><th>选</th><th>择</th><th>媒</th><th>体</th></tr>';
 		foreach ($all_source as $key => $source_cur) {
 			$counter+=1;
 			if ($counter%5==1) {
