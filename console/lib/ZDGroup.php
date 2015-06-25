@@ -154,7 +154,7 @@ class Group extends YqBase{
 
 
 
-	function creatMediaGroup($arr) {
+	function createMediaGroup($arr) {
 		$row = [];
 		
 

@@ -209,7 +209,12 @@ class GroupView extends Group {
 
 		echo '<div class="form-group"><h2>Group名称</h2>';
 		echo '<textarea class="form-control" rows="3" cols="80" name="title">' . '' . '</textarea></div>';
-		
+		echo '<div class="form-group"><h2>Group介绍</h2>';
+		echo '<textarea class="form-control" rows="3" cols="80" name="detail">' . ''. '</textarea></div>';
+		echo '<div class="form-group"><h2>鸣谢</h2>';
+		echo '<textarea class="form-control" rows="3" cols="80" name="thanknote">' . ''. '</textarea></div>';
+
+				
 		echo '<div class="form-group"><h2>Group媒体<br>请从输入框中删除媒体(最末逗号要清除),在下方菜单选择新添媒体</h2>';
 		if (isset($arr['mediaGroup_sourceList'])) {
 
@@ -259,21 +264,9 @@ class GroupView extends Group {
 		
 			$counter+=1;
 		}
-		echo '<div class="form-group"><input type="submit" value="提交" /></div>';
-		echo '</form></div>';
-	}
-
-	function showOneGroupBasic_form($arr) {
-		echo '<div><form method="post" action="?action=editGroupBasic">';
-		echo '<input type="hidden" class="form-control" name="id" value="' . $arr ['_id']->{'$id'} . '"/>';
-		echo '<div class="form-group"><h2>Group名称</h2>';
-		echo '<textarea class="form-control" rows="3" cols="80" name="title">' . $arr ['mediaGroup_title'] . '</textarea></div>';
-		echo '<div class="form-group"><h2>Group介绍</h2>';
-		echo '<textarea class="form-control" rows="3" cols="80" name="detail">' . (isset($arr ['mediaGroup_detail']) ? $arr ['mediaGroup_detail']:'' ). '</textarea></div>';
-		echo '<div class="form-group"><h2>鸣谢</h2>';
-		echo '<textarea class="form-control" rows="3" cols="80" name="thanknote">' . (isset($arr ['mediaGroup_thanknote']) ? $arr ['mediaGroup_thanknote']:''). '</textarea></div>';
-
-		
+	
+	
+	
 
 
 		echo '<div class="form-group"><input type="submit" value="提交" /></div>';
