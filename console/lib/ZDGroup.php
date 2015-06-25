@@ -73,11 +73,15 @@ class Group extends YqBase{
 
 
 
-	function updateMediaGroup($arr) {
+	function updateGroupMedia($arr) {
 		$row = $this->db->ProMediaGroup->findOne ( array (
 				'_id' => new MongoId ( $arr ['id'] ) 
 		) );
 		if ($row != null) {
+
+			if ($arr['source_box']){
+				echo '啊哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈';
+			}
 
 			if ($arr ['title']!= "") {
 				$row ['mediaGroup_title'] = $arr ['title'];
@@ -88,13 +92,8 @@ class Group extends YqBase{
 			}
 
 
-			/*if ($arr ['detail']!= "") {
-				$row ['mediaGroup_detail'] = $arr ['detail'];
-
-			}  else {
-
-				unset($row ['mediaGroup_detail']);
-			}*/
+			
+			
 
 
 		}

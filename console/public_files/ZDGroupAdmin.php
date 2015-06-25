@@ -74,7 +74,7 @@ ob_start ();
 									'value' => $_GET ['mindex'] 
 								) ) );			
 							} else if ($_SERVER ['REQUEST_METHOD'] == 'POST') {
-								if ($a->updateMediaGroup ( $_POST )) {
+								if ($a->updateGroupMedia ( $_POST )) {
 									echo '编辑成功';
 								} else {
 									echo '编辑异常';

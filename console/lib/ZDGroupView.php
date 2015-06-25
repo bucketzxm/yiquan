@@ -123,7 +123,7 @@ class GroupView extends Group {
 		echo '</table></div>';
 	}
 	function showOneGroupMedia_form($arr) {
-		echo '<div><form method="post" action="?action=editGroupBasic">';
+		echo '<div><form method="post" action="?action=editGroupMedia">';
 		echo '<input type="hidden" class="form-control" name="id" value="' . $arr ['_id']->{'$id'} . '"/>';
 		echo '<div class="form-group"><h2>Group名称</h2>';
 		echo '<textarea class="form-control" rows="3" cols="80" name="title">' . $arr ['mediaGroup_title'] . '</textarea></div>';
@@ -159,12 +159,12 @@ class GroupView extends Group {
 		foreach ($all_source as $key => $source_cur) {
 			$counter+=1;
 			$source_name=$source_cur['source_name'];
-			echo "$source_name: ".'<input type="checkbox" name="source_box[]" value="$source_name" />' ;
+			echo td_combiner("$source_name: ".'<input type="checkbox" name="source_box[]" value="$source_name" />') ;
 			if ($counter%5==0) {
 				echo '<br>';
 			}
 		}
-
+		echo '<input type="submit" name="editMediaList" value="editMediaList">';
 
 		echo '<div class="form-group"><input type="submit" value="提交" /></div>';
 		echo '</form></div>';
