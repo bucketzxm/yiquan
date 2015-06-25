@@ -220,7 +220,7 @@ class Media extends YqBase{
 
 			}  else {
 				
-				echo '请填入媒体名称';
+				echo '请填入媒体名称<br>';
 			}
 
 
@@ -258,7 +258,7 @@ class Media extends YqBase{
 
 			}  else {
 
-				echo '请填入媒体描述';
+				echo '请填入媒体描述<br>';
 			}
 
 
@@ -267,7 +267,7 @@ class Media extends YqBase{
 
 			}  else {
 
-				echo "请填入媒体所在行业或标签";
+				echo "请填入媒体所在行业或标签<br>";
 			}
 
 
@@ -275,7 +275,7 @@ class Media extends YqBase{
 				$row ['source_rssURL'] = explode(',',$arr ['rssURL']);
 			}  else {
 
-				echo "请填入RSS，若没有RSS请填入网站地址";
+				echo "请填入RSS，若没有RSS请填入网站地址<br>";
 			}			
 			
 
@@ -285,13 +285,13 @@ class Media extends YqBase{
 				$row ['source_status'] = $arr ['status'];
 			} else {
 
-				echo '输入媒体状态有误或未输入媒体状态';
+				echo '输入媒体状态有误或未输入媒体状态<br>';
 			}
 
 			if ($arr['homeURL'] !=''){
 				$row['source_homeURL']=$arr['homeURL'];
 			}	else {
-				echo '请输入HOME URL';
+				echo '请输入HOME URL<br>';
 			}				
 			
 			if ($arr['format'] !=''){
