@@ -96,7 +96,7 @@ class Group extends YqBase{
 
 
 
-				if ($arr ['source_List']!= "") {
+				/*if ($arr ['source_List']!= "") {
 					$source_listArr=explode(',',$arr['source_List']);
 					$row['mediaGroup_sourceList']=[];
 					foreach ($source_listArr as $key => $name) {
@@ -105,7 +105,7 @@ class Group extends YqBase{
 						$id=(string)$cus['_id'];
 						$row['mediaGroup_sourceList'][$id]=$id;
 						
-					}
+					}*/
 				}  
 
 			
