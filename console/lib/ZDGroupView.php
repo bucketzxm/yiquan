@@ -162,14 +162,14 @@ class GroupView extends Group {
 		echo '<th>请</th><th>选</th><th>择</th><th>煤</th><th>体</th>';
 		foreach ($all_source as $key => $source_cur) {
 			$counter+=1;
-			if ($counter%==1) {
+			if ($counter%5==1) {
 				echo '<tr>';
 			}
 		
 			$source_name=$source_cur['source_name'];
 			
 			echo td_combiner("$source_name: ".'<input type="checkbox" name="source_box[]" value='."$source_name".'>') ;
-			if ($counter%==1) {
+			if ($counter%5==1) {
 				echo '</tr>';
 			}
 		
