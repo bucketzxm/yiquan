@@ -111,8 +111,9 @@ class GroupView extends Group {
 					$cus=$this->db->Prosource->findOne( array('_id' => new MongoId("$value") ));
 					
 					echo $cus['source_name'].',';
-					echo '</td>';
+					
 				}
+				echo '</td>';
 					
 
 				
