@@ -161,7 +161,7 @@ class GroupView extends Group {
 		$counter=0;
 		echo '<div class="table-responsive"><table class="table table-striped">';
 		echo '<thead><tr>';
-		echo '<th>选</th><th>择</th><th>媒</th><th>体</th></tr></thead>';
+		echo '<th>请</th><th>选</th><th>择</th><th>媒</th><th>体</th></tr></thead>';
 		foreach ($all_source as $key => $source_cur) {
 			$counter+=1;
 			if ($counter%4==0) {
