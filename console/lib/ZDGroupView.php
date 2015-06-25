@@ -154,9 +154,10 @@ class GroupView extends Group {
 
 		$a= new Media();
 		$all_source=$a->queryMedia();
+		echo "<form action="" method="post" name="source_List">";
 		foreach ($all_source as $key => $source_cur) {
 			$source_name=$source_cur['source_name'];
-			echo '<label><input type="checkbox" name="all_sourceList" value="$source_name" /></label>' ;
+			echo "$source_name ".'<input type="checkbox" name="source_box[]" value="$source_name" />' ;
 		}
 
 
