@@ -85,7 +85,7 @@ class Group extends YqBase{
 
 					#$cus=$this->db->Prosource->findOne( array('_id' => new MongoId("$value") ));
 					$id=(string)$cus['_id'];
-					$row['mediaGroup_sourceList'][]=["$id"];
+					$row['mediaGroup_sourceList'][$id]=$id;
 				}
 			}else {
 
