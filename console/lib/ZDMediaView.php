@@ -184,4 +184,54 @@ class MediaView extends Media{
 		echo '<div class="form-group"><input type="submit" value="确定" /></div>';
 		echo '</form>';
 	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	function showNewMedia_form($arr=[]) {
+		echo '<div><form method="post" action="?action=添加新媒体">';
+		echo '<input type="hidden" class="form-control" name="id" value="' . $arr ['_id']->{'$id'} . '"/>';
+		echo '<div class="form-group"><h2>媒体名称</h2>';
+		echo '<textarea class="form-control" rows="3" cols="80" name="name">' . '' . '</textarea></div>';
+		echo '<div class="form-group"><h2>媒体描述</h2>';
+		echo '<textarea class="form-control" rows="3" cols="80" name="description">' . ''. '</textarea></div>';
+		echo '<div class="form-group"><h2>行业或标签,逗号隔开</h2>';
+		echo '<textarea class="form-control" rows="3" cols="80" name="industry">' . ''. '</textarea></div>';
+
+		echo '<div class="form-group"><h2>状态</h2>';
+		echo '<textarea class="form-control" rows="3" cols="80" name="status">' . '' . '</textarea></div>';
+		echo '<div class="form-group"><h2>网址或RSS</h2>';
+		echo '<textarea class="form-control" rows="3" cols="80" name="rssURL">' . '' . '</textarea></div>';
+		echo '<div class="form-group"><h2>Home URL</h2>';
+		echo '<textarea class="form-control" rows="3" cols="80" name="homeURL">' . '' . '</textarea></div>';
+	
+		echo '<div class="form-group"><h2>sourceTag，逗号隔开</h2>';
+
+		echo '<textarea class="form-control" rows="3" cols="80" name="tag">' . '' . '</textarea></div>';
+		echo '<div class="form-group"><h2>startingTag</h2>';
+		echo '<textarea class="form-control" rows="3" cols="80" name="startingTag">' . ''. '</textarea></div>';
+		echo '<div class="form-group"><h2>closingTag</h2>';
+		echo '<textarea class="form-control" rows="3" cols="80" name="closingTag">' . 
+		'' . '</textarea></div>';
+		echo '<div class="form-group"><h2>正则</h2>';
+		echo '<textarea class="form-control" rows="3" cols="80" name="rexTemplate">' . '' . '</textarea></div>';
+
+		echo '<div class="form-group"><h2>时间格式</h2>';
+		echo '<textarea class="form-control" rows="3" cols="80" name="format">' . 'D, d M Y H:i:s O' . '</textarea></div>';
+
+		echo '<div class="form-group"><input type="submit" value="提交" /></div>';
+		echo '</form></div>';
+	}
 }

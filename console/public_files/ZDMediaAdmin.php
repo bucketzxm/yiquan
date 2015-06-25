@@ -20,6 +20,7 @@ include_once '401.php';
 				<li><a href="?action=查看编辑基本信息">查看编辑基本信息 <span class="sr-only">(current)</span></a></li>
 				<li><a href="?action=查看编辑标签正则">查看编辑标签正则 <span class="sr-only">(current)</span></a></li>
 				<li><a href="?action=查看媒体数据">查看媒体数据 <span class="sr-only">(current)</span></a></li>
+				<li><a href="?action=添加新媒体">添加新媒体 <span class="sr-only">(current)</span></a></li>
 
 			</ul>
 		</div>
@@ -92,6 +93,26 @@ include_once '401.php';
 									$a->listAllMediaStat_table($a->queryMedia(),0,1000);
 								}
 							}
+
+
+						case '添加新媒体':
+							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
+								if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
+									$a->showNewMedia_form();
+								}
+							} else if ($_SERVER ['REQUEST_METHOD'] == 'POST') {
+								if ($a->createMedia ( $_POST )) {
+									echo '添加成功';
+								} else {
+									echo '添加异常';
+								}
+							}
+
+
+
+
+
+
 						}
 					}
 					?>

@@ -184,15 +184,122 @@ class Media extends YqBase{
 		}
 		return $this->db->Prosource->save ( $row );
 	}
-	function deleteQuotes($Quoteid) {
-		try {
-			$this->db->Prosource->remove ( array (
-					'_id' => new MongoID ( $Prosourceid ) 
-			) );
-			return 1;
-		} catch ( Exception $e ) {
-			return - 1;
-		}
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		function createMedia($arr) {
+			$row=[];
+		
+		
+		
+			if ($arr ['name'] != "") {
+				
+				$row ['source_name'] = $arr ['name'];
+
+
+			}  else {
+				
+				echo '请填入媒体名称';
+			}
+
+
+
+			if ($arr ['tag']!= "") {
+				$row ['source_tag'] = explode(',', $arr ['tag']);
+
+			}  e
+
+
+			if ($arr['startingTag']!= "") {
+				$row ['text_startingTag'] = $arr ['startingTag'];
+
+			}  
+
+
+			if ($arr['closingTag']!= "") {
+				$row ['text_closingTag'] = $arr['closingTag'];
+
+			}  
+
+
+
+			if ($arr['rexTemplate']!= "") {
+				$row['source_rexTemplate']=$arr['rexTemplate'];
+
+			}  
+
+
+			
+
+
+			if ($arr ['description']!= "") {
+				$row ['source_description'] = $arr ['description'];
+
+			}  else {
+
+				echo '请填入媒体描述';
+			}
+
+
+			if ($arr ['industry']!= "") {
+				$row ['source_industry'] = explode(',', $arr ['industry']);
+
+			}  else {
+
+				echo "请填入媒体所在行业或标签";
+			}
+
+
+			if ($arr ['rssURL']!= "") {
+				$row ['source_rssURL'] = explode(',',$arr ['rssURL']);
+			}  else {
+
+				echo "请填入RSS，若没有RSS请填入网站地址";
+			}			
+			
+
+			if ($arr ['status']== "active") {
+				$row ['source_status'] = $arr ['status'];
+			}  else if ($arr ['status']== "inactive") {
+				$row ['source_status'] = $arr ['status'];
+			} else {
+
+				echo '输入媒体状态有误或未输入媒体状态';
+			}
+
+			if ($arr['homeURL'] !=''){
+				$row['source_homeURL']=$arr['homeURL'];
+			}	else {
+				echo '请输入HOME URL';
+			}				
+			
+			if ($arr['format'] !=''){
+				$row['time_format']=$arr['format'];
+			}
+			
+		
+		return $this->db->Prosource->save ( $row );
 	}
 	
 }
