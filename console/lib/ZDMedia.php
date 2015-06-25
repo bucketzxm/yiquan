@@ -228,7 +228,7 @@ class Media extends YqBase{
 			if ($arr ['tag']!= "") {
 				$row ['source_tag'] = explode(',', $arr ['tag']);
 
-			}  e
+			}  
 
 
 			if ($arr['startingTag']!= "") {
