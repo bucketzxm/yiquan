@@ -85,12 +85,29 @@ class Group extends YqBase{
 
 					#$cus=$this->db->Prosource->findOne( array('_id' => new MongoId("$value") ));
 					if ($cus !=null){
-					$id=(string)$cus['_id'];
-					$row['mediaGroup_sourceList'][$id]=$id;
+						$id=(string)$cus['_id'];
+						$row['mediaGroup_sourceList'][$id]=$id;
 					}
 				}
 			}
 
+
+
+
+			if ($arr ['source_list']!= "") {
+				$source_listArr=explode(',',$arr['source_list']);
+				
+				foreach ($source_listArr as $key => $name) {
+					$cus=$this->db->Prosource->findOne( array('source_name' => $name));
+					if ($cus !=null){
+						$id=(string)$cus['_id'];
+						$row['mediaGroup_sourceList'][$id]=$id;
+				}
+
+			}  else {
+
+				unset($row ['mediaGroup_sourceList']);
+			}
 
 
 
@@ -101,6 +118,8 @@ class Group extends YqBase{
 
 				unset($row ['mediaGroup_title']);
 			}
+
+
 
 
 			
