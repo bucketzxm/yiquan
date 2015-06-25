@@ -155,7 +155,7 @@ class GroupView extends Group {
 		$a= new Media();
 		$all_source=$a->queryMedia();
 		echo '<form action= "" method="post" name="source_List">';
-		$counter=0
+		$counter=0;
 		foreach ($all_source as $key => $source_cur) {
 			$couter+=1
 			$source_name=$source_cur['source_name'];
