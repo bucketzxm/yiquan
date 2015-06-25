@@ -154,13 +154,13 @@ class GroupView extends Group {
 
 		$a= new Media();
 		$all_source=$a->queryMedia();
-		echo th_combiner('请选择');
+	
 		#echo '<form action= "" method="post" name="source_List">';
 		$counter=0;
 		foreach ($all_source as $key => $source_cur) {
 			$counter+=1;
 			$source_name=$source_cur['source_name'];
-			echo td_combiner("$source_name: ".'<input type="checkbox" name="source_box[]" />') ;
+			echo "$source_name: ".'<input type="checkbox" name="source_box[]" />' ;
 			if ($counter%5==0) {
 				echo '<br>';
 			}

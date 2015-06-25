@@ -79,8 +79,8 @@ class Group extends YqBase{
 		) );
 		if ($row != null) {
 
-			if ($arr['source_box[]']!=array()){
-				foreach ($arr['source_box[]'] as $key => $name) {
+			if ($arr['source_box']!=array()){
+				foreach ($arr['source_box'] as $key => $name) {
 					$cus=$this->db->Prosource->findOne( array('source_name' => $name));
 
 					#$cus=$this->db->Prosource->findOne( array('_id' => new MongoId("$value") ));
