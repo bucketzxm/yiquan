@@ -124,14 +124,46 @@ class GroupView extends Group {
 		}
 		echo '</table></div>';
 	}
+
+
+
+
+
+
+
+
 	function showOneGroupMedia_form($arr) {
 		echo '<div><form method="post" action="?action=editGroupMedia">';
 		echo '<input type="hidden" class="form-control" name="id" value="' . $arr ['_id']->{'$id'} . '"/>';
 		echo '<div class="form-group"><h2>Group名称</h2>';
 		echo '<textarea class="form-control" rows="3" cols="80" name="title">' . $arr ['mediaGroup_title'] . '</textarea></div>';
-
+		echo '<div class="form-group"><h2>Group介绍</h2>';
+		echo '<textarea class="form-control" rows="3" cols="80" name="detail">' . $arr ['mediaGroup_detail']. '</textarea></div>';
+		echo '<div class="form-group"><h2>鸣谢</h2>';
+		echo '<textarea class="form-control" rows="3" cols="80" name="thanknote">' . $arr ['mediaGroup_thanknote']. '</textarea></div>';		
 		echo '<div class="form-group"><h2>Group媒体<br>请从输入框中删除媒体(最末逗号要清除),在下方菜单选择新添媒体</h2>';
 
+		if (isset($arr['mediaGroup_sourceList'])) {
+
+
+			$media_List= array();
+			$s_List=$arr['mediaGroup_sourceList'];
+			foreach ($s_List as $key=>$value) {
+				$cus=$this->db->Prosource->findOne( array('_id' => new MongoId("$value") ));
+				$media_List[]=$cus;
+
+			}
+			$s_names=[];
+			foreach ($media_List as $key=>$value) {
+				$s_names[]=$value['source_name'];
+
+			}
+		
+			echo '<textarea class="form-control" rows="3" cols="80" name="source_List">' . implode(',', $s_names). '</textarea></div>';
+
+
+
+		}
 
 
 		$a= new Media();
@@ -162,16 +194,12 @@ class GroupView extends Group {
 		
 
 
-	
+		
 
 
 		echo '<div class="form-group"><input type="submit" value="提交" /></div>';
 		echo '</form></div>';
 	}
-
-
-
-
 
 
 
@@ -186,17 +214,24 @@ class GroupView extends Group {
 		echo '<div class="form-group"><h2>Group名称</h2>';
 		echo '<textarea class="form-control" rows="3" cols="80" name="title">' . $arr ['mediaGroup_title'] . '</textarea></div>';
 		echo '<div class="form-group"><h2>Group介绍</h2>';
-		echo '<textarea class="form-control" rows="3" cols="80" name="detail">' . ''. '</textarea></div>';
+		echo '<textarea class="form-control" rows="3" cols="80" name="detail">' . $arr ['mediaGroup_detail']. '</textarea></div>';
 		echo '<div class="form-group"><h2>鸣谢</h2>';
-		echo '<textarea class="form-control" rows="3" cols="80" name="thanknote">' . ''. '</textarea></div>';		
+		echo '<textarea class="form-control" rows="3" cols="80" name="thanknote">' . $arr ['mediaGroup_thanknote']. '</textarea></div>';		
 
 
-	
+
+		
 
 
 		echo '<div class="form-group"><input type="submit" value="提交" /></div>';
 		echo '</form></div>';
 	}
+
+
+
+
+
+
 
 
 
@@ -223,34 +258,14 @@ class GroupView extends Group {
 
 		echo '<div class="form-group"><h2>Group名称</h2>';
 		echo '<textarea class="form-control" rows="3" cols="80" name="title">' . '' . '</textarea></div>';
-		echo '<div class="form-group"><h2>Group介绍</h2>';
+	echo '<div class="form-group"><h2>Group介绍</h2>';
 		echo '<textarea class="form-control" rows="3" cols="80" name="detail">' . ''. '</textarea></div>';
 		echo '<div class="form-group"><h2>鸣谢</h2>';
 		echo '<textarea class="form-control" rows="3" cols="80" name="thanknote">' . ''. '</textarea></div>';
 
 				
-		echo '<div class="form-group"><h2>Group媒体<br>在下方菜单选择新添媒体</h2>';
-		if (isset($arr['mediaGroup_sourceList'])) {
+		echo '<div class="form-group"><h2>Group媒体<br>请在下方菜单选择新添媒体</h2>';
 
-
-			$media_List= array();
-			$s_List=$arr['mediaGroup_sourceList'];
-			foreach ($s_List as $key=>$value) {
-				$cus=$this->db->Prosource->findOne( array('_id' => new MongoId("$value") ));
-				$media_List[]=$cus;
-
-			}
-			$s_names=[];
-			foreach ($media_List as $key=>$value) {
-				$s_names[]=$value['source_name'];
-
-			}
-		
-			echo '<textarea class="form-control" rows="3" cols="80" name="source_List">' . implode(',', $s_names). '</textarea></div>';
-
-
-
-		}
 
 
 		$a= new Media();
