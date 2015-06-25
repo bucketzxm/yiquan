@@ -79,8 +79,11 @@ class Group extends YqBase{
 		) );
 		if ($row != null) {
 
-			if ($arr['source_box[]']==array()){
-				echo '这///////';
+			if ($arr['source_box[]']!=array()){
+				foreach ($arr['source_box[]'] as $key => $name) {
+					$cus=$this->db->Prosource->findOne( array('source_name' => "$name"));
+					$row['mediaGroup_sourceList'][]=$cus['_id'];
+				}
 			}
 
 			if ($arr ['title']!= "") {
