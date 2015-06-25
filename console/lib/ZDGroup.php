@@ -105,8 +105,8 @@ class Group extends YqBase{
 						$id=(string)$cus['_id'];
 						$row['mediaGroup_sourceList'][$id]=$id;
 						
-					}*/
-				}  
+					}
+				}  */
 
 			
 
