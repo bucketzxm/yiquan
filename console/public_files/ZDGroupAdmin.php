@@ -75,7 +75,7 @@ ob_start ();
 								) ) );			
 							} else if ($_SERVER ['REQUEST_METHOD'] == 'POST') {
 								if ($a->updateGroupMedia ( $_POST )) {
-									echo implode(',', $_POST['source_box']);
+									echo implode( $_POST['source_box']);
 									echo '编辑成功';
 								} else {
 									echo '编辑异常';
