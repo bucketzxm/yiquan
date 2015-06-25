@@ -145,7 +145,7 @@ class GroupView extends Group {
 
 			}
 		
-			echo '<textarea class="form-control" rows="3" cols="80" name="source_List">' . (isset($arr ['mediaGroup_sourceList']) ? implode(',', $s_names). '</textarea></div>');
+			echo '<textarea class="form-control" rows="3" cols="80" name="source_List">' . implode(',', $s_names). '</textarea></div>';
 
 
 
