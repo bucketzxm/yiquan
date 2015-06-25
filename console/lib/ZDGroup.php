@@ -78,9 +78,7 @@ class Group extends YqBase{
 				'_id' => new MongoId ( $arr ['id'] ) 
 		) );
 		if ($row != null) {
-			if ($arr['source_box']== array()){
-				echo'口亨';
-			}
+			
 			if ($arr['source_box']!=array()){
 				foreach ($arr['source_box'] as $key => $name) {
 					$cus=$this->db->Prosource->findOne( array('source_name' => $name));
@@ -91,9 +89,6 @@ class Group extends YqBase{
 					$row['mediaGroup_sourceList'][$id]=$id;
 					}
 				}
-			}else {
-
-				unset($row ['mediaGroup_sourceList']);
 			}
 
 
