@@ -159,15 +159,18 @@ class GroupView extends Group {
 	
 		#echo '<form action= "" method="post" name="source_List">';
 		$counter=0;
+		echo '<th>请</th><th>选</th><th>择</th><th>煤</th><th>体</th>';
 		foreach ($all_source as $key => $source_cur) {
 			$counter+=1;
-			
+			if ($counter%==1) {
+				echo '<tr>';
+			}
 		
 			$source_name=$source_cur['source_name'];
-			echo '<div class="table-responsive"><table class="table table-striped">';
-			echo "$source_name: ".'<input type="checkbox" name="source_box[]" value='."$source_name".'>' ;
-			if ($counter%3==1) {
-				echo '<br>';
+			
+			echo td_combiner("$source_name: ".'<input type="checkbox" name="source_box[]" value='."$source_name".'>') ;
+			if ($counter%==1) {
+				echo '</tr>';
 			}
 		
 
