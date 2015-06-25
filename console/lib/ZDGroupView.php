@@ -157,7 +157,7 @@ class GroupView extends Group {
 		echo '<form action= "" method="post" name="source_List">';
 		foreach ($all_source as $key => $source_cur) {
 			$source_name=$source_cur['source_name'];
-			echo "$source_name ".'<input type="checkbox" name="source_box[]" value="$source_name" />' ;
+			echo "$source_name: ".'<input type="checkbox" name="source_box[]" value="$source_name" />' ;
 		}
 
 
