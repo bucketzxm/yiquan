@@ -203,22 +203,11 @@ class Group extends YqBase{
 				}
 			}
 
-
-
-
-			
-
-
-
-	
-
-
-
 			
 			
 
 
-		}
+		
 		return $this->db->ProMediaGroup->insert ( $row );
 	}
 
