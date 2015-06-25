@@ -78,7 +78,7 @@ class Group extends YqBase{
 				'_id' => new MongoId ( $arr ['id'] ) 
 		) );
 		if ($row != null) {
-
+            //这几个case顺序不能换
 			if ($arr ['source_List']!= "") {
 				$source_listArr=explode(',',$arr['source_List']);
 				$row['mediaGroup_sourceList']=[];
