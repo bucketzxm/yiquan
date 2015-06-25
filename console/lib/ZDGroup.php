@@ -78,7 +78,7 @@ class Group extends YqBase{
 				'_id' => new MongoId ( $arr ['id'] ) 
 		) );
 		if ($row != null) {
-			if ($arr['source_box']== array(){
+			if ($arr['source_box']== array()){
 				echo'口亨';
 			}
 			if ($arr['source_box']!=array()){
