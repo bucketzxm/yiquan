@@ -299,7 +299,7 @@ class Media extends YqBase{
 			}
 			
 		
-		return $this->db->Prosource->save ( $row );
+		return $this->db->Prosource->insert( $row );
 	}
 	
 }
