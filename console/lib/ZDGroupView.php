@@ -163,7 +163,7 @@ class GroupView extends Group {
 		echo '<thead><tr>';
 		echo '<th>请</th><th>选</th><th>择</th><th>媒</th><th>体</th></tr></thead>';
 		foreach ($all_source as $key => $source_cur) {
-			$counter+=1;
+			
 			if ($counter%5==0) {
 				echo '<tr>';
 			}
@@ -175,7 +175,7 @@ class GroupView extends Group {
 				echo '</tr>';
 			}
 		
-
+			$counter+=1;
 		}
 		echo '<div class="form-group"><input type="submit" value="提交" /></div>';
 		echo '</form></div>';
