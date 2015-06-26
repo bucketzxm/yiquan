@@ -1305,7 +1305,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 		return 1;
 	}
 
-	function queryMediaList($user_id,$group_id){
+	function queryMediaList($user_id){
 		if ($this->yiquan_version == 0) {
 			return - 2;
 		}
@@ -1317,19 +1317,19 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 		if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
 			return - 4;
 		}
-
+		
 		$user = $this->db->Prouser->findOne (array ('_id'=> new MongoId($user_id)));
-		$cursor = $this->db->Prosource->find(array(
-			'source_mediaGroups' => $group_id
-
-			));
 		/*
+		$cursor = $this->db->Prosource->find(array(
+			'source_industry' => $group_id
+			));*/
+		
 		$cursor = $this->db->Prosource->find(array ('$or' => array(
 							array ('source_industry' => $user['current']['user_industry']),
 							array ('source_industry' => $user['current']['user_interestA']),
 							array ('source_industry' => $user['current']['user_interestB'])
 							)));
-		*/
+		
 		$mediaList = array();
 		foreach ($cursor as $key => $value) {
 			array_push ($mediaList, $value);
