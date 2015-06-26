@@ -78,7 +78,7 @@ class SeedView extends Seed{
 		echo '</form></div>';
 	}
 
-	function showDeleteView($id) {
+	function showDeleteSeedView($id) {
 		echo '<form method="post" action="?action=deleteSeed">';
 		echo '确定删除该吗？';
 		echo $id;

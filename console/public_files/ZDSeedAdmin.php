@@ -68,7 +68,7 @@ include_once '401.php';
 						case 'deleteSeed' :
 							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
 								if (isset ( $_GET ['mindex'] )) {
-									$a->showDeletSeedeView ( $_GET ['mindex'] );
+									$a->showDeletSeedView ( $_GET ['mindex'] );
 								}
 							} else {
 								if ($a->deleteSeed ( $_POST ['qid'] )) {
