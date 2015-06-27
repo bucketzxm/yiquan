@@ -41,7 +41,7 @@ include_once '401.php';
 						case '文章列表' :
 							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
 								if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
-									$a->listAllSeed_table($a->querySeed(),0,10000);
+									$a->listAllSeed_table($a->querySeed(),0,5000);
 								}
 							}
 							break;
