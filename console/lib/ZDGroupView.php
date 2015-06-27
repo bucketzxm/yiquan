@@ -246,9 +246,9 @@ class GroupView extends Group {
 			(isset($media['source_rationale']) ? $industry=$media['source_rationale']:$media='');
 
 			echo '<div class="form-group"><h2>'."$name".'行业'.'</h2>';
-			echo '<textarea class="form-control" rows="3" cols="80" name="industry">' . (isset($media['source_industry']) ? $industry=$media['source_industry']:""). '</textarea></div>';
+			echo '<textarea class="form-control" rows="3" cols="80" name="industry[]">' . (isset($media['source_industry']) ? $industry=$media['source_industry']:""). '</textarea></div>';
 			echo '<div class="form-group"><h2>'."$name".'推荐理由'.'</h2>';
-			echo '<textarea class="form-control" rows="3" cols="80" name="rationale">' . (isset($media['source_rationale']) ? $industry=$media['source_rationale']:""). '</textarea></div>';
+			echo '<textarea class="form-control" rows="3" cols="80" name="rationale[]">' . (isset($media['source_rationale']) ? $industry=$media['source_rationale']:""). '</textarea></div>';
 	
 		}
 
