@@ -197,9 +197,9 @@ class Group extends YqBase{
 					if ($value!="") {
 						$row ['mediaGroup_sourceList'][$key]['source_industry'] = $value;
 					}
-				}else{
+					else{
 						$row ['mediaGroup_sourceList'][$key]['source_industry'] = '还没有行业';
-
+					}
 				}
 
 			}  
