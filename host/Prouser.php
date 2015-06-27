@@ -616,7 +616,7 @@ class Prouser extends YqBase {
 		if ($ans != null) {
 			$gd = makeGuid ();
 			setcookie ( "user_id", $ans ['_id'], time () + 3600 * 2400, '/' );
-			setcookie ( "user_token", $gd, time () + 3600 * 2400, '/' );
+			setcookie ( "quser_token", $gd, time () + 3600 * 2400, '/' );
 			
 			// $_SESSION ['user_token'] = $gd;
 			$rt = $this->db->usertoken->findOne ( array (
@@ -628,7 +628,7 @@ class Prouser extends YqBase {
 				);
 			}
 			
-			$rt ['user_token'] = $gd;
+			$rt ['quser_token'] = $gd;
 			$this->db->usertoken->save ( $rt );
 			
 			if ($this->setRedis ( $ans ['_id'], $gd ) == false) {
@@ -670,7 +670,7 @@ class Prouser extends YqBase {
 					
 					$gd = makeGuid ();
 					setcookie ( "user_id", $ans ['_id'], time () + 3600 * 2400, '/' );
-					setcookie ( "user_token", $gd, time () + 3600 * 2400, '/' );
+					setcookie ( "quser_token", $gd, time () + 3600 * 2400, '/' );
 					
 					// $_SESSION ['user_token'] = $gd;
 					$rt = $this->db->usertoken->findOne ( array (
@@ -682,7 +682,7 @@ class Prouser extends YqBase {
 						);
 					}
 					
-					$rt ['user_token'] = $gd;
+					$rt ['quser_token'] = $gd;
 					$this->db->usertoken->save ( $rt );
 					
 					if ($this->setRedis ( $ans ['_id'], $gd ) == false) {
