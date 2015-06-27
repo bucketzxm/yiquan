@@ -126,7 +126,7 @@ class Group extends YqBase{
 				foreach ($keys as $key => $value) {
 					# code...
 				
-						unset($row['mediaGroup_sourceList'][$key]);
+						unset($row['mediaGroup_sourceList'][$value]);
 				}				
 			}  
 
