@@ -195,8 +195,11 @@ class Group extends YqBase{
 				foreach ($arr['industry'] as $key => $value) {
 
 					if ($value!="") {
-					$row ['mediaGroup_sourceList'][$key]['source_industry'] = $value;
+						$row ['mediaGroup_sourceList'][$key]['source_industry'] = $value;
 					}
+				}else{
+						$row ['mediaGroup_sourceList'][$key]['source_industry'] = '还没有行业';
+
 				}
 
 			}  
@@ -205,8 +208,12 @@ class Group extends YqBase{
 				foreach ($arr['rationale'] as $key => $value) {
 
 					if ($value!="") {
-					$row ['mediaGroup_sourceList'][$key]['source_rationale'] = $value;
+						$row ['mediaGroup_sourceList'][$key]['source_rationale'] = $value;
+					}else{
+						$row ['mediaGroup_sourceList'][$key]['source_industry'] = '还没有推荐理由';
+
 					}
+
 				}
 
 			}  
