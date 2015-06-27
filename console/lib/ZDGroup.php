@@ -103,14 +103,14 @@ class Group extends YqBase{
 					if ($id=="") {
 						unset($source_listArr[$key]);
 					}else{
-						$ids[]=$id;
+						$ids["$id"]=$id;
 					}
 
 					
 				}
 				$should_delete=[];
-				foreach ($ids as $key => $id) {
-						if (! isset($media_helper["$id"])) {
+				foreach ($media_helper as $key => $id) {
+						if (isset($ids["$id"])!=true) {
 							$should_delete["$id"]="$id";
 						}
 					}
