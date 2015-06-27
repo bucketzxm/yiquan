@@ -103,7 +103,7 @@ class Group extends YqBase{
 					/*$id=(string)$cus['_id'];
 					$row['mediaGroup_sourceList'][$id]=$id;*/
 						$id=(string)$cus['_id'];
-						$i=0
+						$i=0;
 						foreach ($row['mediaGroup_sourceList'] as $key => $source) {
 							if ($source['source_id']==$id) {
 								$i+=1;
