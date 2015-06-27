@@ -1235,24 +1235,30 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 		}
 
 		$user = $this->db->Prouser->findOne(array('_id' => new MongoId($user_id)));
+		$followedGroupIDs= array();
+		foreach ($user['user_mediaGroups'] as $key => $myGroup) {
+			array_push($followedGroupIDs,new MongoId($myGroup));
+		}
+
 		$follower_count = (int)$follower_count;
 		if ($follower_count == 0) {
-			$groups = $this->db->ProMediaGroup->find()->sort(array ('mediaGroup_counts.follower_count' => -1))->limit(30);	
+			$groups = $this->db->ProMediaGroup->find(array('_id' =>array('$nin' => $followedGroupIDs)))->sort(array ('mediaGroup_counts.follower_count' => -1))->limit(30);	
 		}else{
-			$groups = $this->db->ProMediaGroup->find(array('mediaGroup_counts.follower_count' => array ('$lt' => $follower_count)))->sort(array ('mediaGroup_counts.follower_count' => -1))->limit(30);
+			$groups = $this->db->ProMediaGroup->find(array('_id' =>array('$nin' => $followedGroupIDs),'mediaGroup_counts.follower_count' => array ('$lt' => $follower_count)))->sort(array ('mediaGroup_counts.follower_count' => -1))->limit(30);
 		}
 		
 		$groupsToShow = array();
 		foreach ($groups as $key => $value) {
 			$value['user_mediaGroupStatus'] = '0';
+			/*
 			if (isset($user['user_mediaGroups'])) {
 				if (isset($user['user_mediaGroups'][(string)$value['_id']])) {
 		 			$value['user_mediaGroupStatus'] = '1';
 		 		}	
-			}
+			}*/
 			array_push($groupsToShow,$value);
-		 }
-		 return json_encode($groupsToShow);
+		}
+		return json_encode($groupsToShow);
 	}
 
 	function followMediaGroup($user_id,$group_id){
@@ -1300,7 +1306,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 		return 1;
 	}
 
-	function queryMediaList($user_id){
+	function queryMediaList($user_id,$group_id){
 		if ($this->yiquan_version == 0) {
 			return - 2;
 		}
@@ -1314,21 +1320,32 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 		}
 		
 		$user = $this->db->Prouser->findOne (array ('_id'=> new MongoId($user_id)));
+		$group = $this->db->ProMediaGroup->findOne (array ('_id' => new MongoId($user_id)));
+		$mediaList = array();
+		foreach ($group['mediaGroup_sourceList'] as $key => $value) {
+			$source = $this->db->Prosource->findOne(array('_id' => new MongoId($value['source_id'])));
+			$value['source_name'] = $source['source_name'];
+			$value['source_description'] = $source['source_description'];
+			$value['source_image'] = $source['source_image'];
+			array_push($mediaList, $value);
+		}
+
+
 		/*
 		$cursor = $this->db->Prosource->find(array(
 			'source_industry' => $group_id
 			));*/
-		
+		/*
 		$cursor = $this->db->Prosource->find(array ('$or' => array(
 							array ('source_industry' => $user['current']['user_industry']),
 							array ('source_industry' => $user['current']['user_interestA']),
 							array ('source_industry' => $user['current']['user_interestB'])
 							)));
 		
-		$mediaList = array();
+		
 		foreach ($cursor as $key => $value) {
 			array_push ($mediaList, $value);
-		}
+		}*/
 		return json_encode($mediaList);
 	}
 
@@ -1371,13 +1388,13 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 		foreach ($user['user_mediaGroups'] as $key => $value) {
 			//计算最新一周未读的文章数量
 			$mediaGroup = $this->db->ProMediaGroup->findOne(array('_id' => new MongoId($value)));
-			$item = array();
-			$item['group_id'] = $value; 
-			$totalCount = $this->db->Proseed->count(array('seed_sourceID' => array('$in' => $mediaGroup['mediaGroup_sourceList']),'seed_time' => array('$gt' => (time()-86400*7))));
-			$readCount = $this->db->Proread->count(array('user_id' => $user_id, 'source_id' => array('$in' => $mediaGroup['mediaGroup_sourceList']), 'seed_time' => array('$gt' => (time()-86400*7))));
-			$item['unread_count'] = $totalCount-$readCount;
-			$item['group_name'] = $mediaGroup['mediaGroup_title'];
-			array_push($result, $item);
+			//$item = array();
+			//$item['group_id'] = $value; 
+			//$totalCount = $this->db->Proseed->count(array('seed_sourceID' => array('$in' => $mediaGroup['mediaGroup_sourceList']),'seed_time' => array('$gt' => (time()-86400*7))));
+			//$readCount = $this->db->Proread->count(array('user_id' => $user_id, 'source_id' => array('$in' => $mediaGroup['mediaGroup_sourceList']), 'seed_time' => array('$gt' => (time()-86400*7))));
+			//$mediaGroup['unread_count'] = $totalCount-$readCount;
+			//$item['group_name'] = $mediaGroup['mediaGroup_title'];
+			array_push($result, $mediaGroup);
 		}	
 		return json_encode($result);
 	}
