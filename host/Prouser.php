@@ -634,7 +634,6 @@ class Prouser extends YqBase {
 			if ($this->setRedis ( $ans ['_id'], $gd ) == false) {
 				return - 5; // redis wrong
 			}
-			
 			return json_encode ( $ans );
 		} else {
 			$res = $this->getWXUserInfo ( $access_token, $open_id );
