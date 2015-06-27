@@ -578,7 +578,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 
 	            foreach($parserResult['seed_industryParsed'] as $industryParsed){
                     array_push($seedIndustry,$industryParsed);
-                    $seed['seed_industryHotness'][$industryParsed] = 0;
+                    //$seed['seed_industryHotness'][$industryParsed] = 0;
                 };
 
                 foreach ($parserResult['seed_segmentParsed'] as $key2 => $segment) {
@@ -588,6 +588,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
                 }
 
 		        $seed['seed_industry'] = $seedIndustry;
+		        $seed['seed_hotness' ] = 100;
 		        $this->db->Proseed->save($seed);
 
 		        $textToDownload['seed_text'] = $seed['seed_text'];	
@@ -753,7 +754,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 						
 
 			$hotness = $seed['seed_hotness'];
-
+			/*
 			if (isset($seed['seed_industryHotness'][$user['current']['user_industry']])){
 				$hotness += $seed['seed_industryHotness'][$user['current']['user_industry']];
 			}
@@ -762,7 +763,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 			}
 			if (isset($seed['seed_industryHotness'][$user['current']['user_interestB']])){
 				$hotness += $seed['seed_industryHotness'][$user['current']['user_interestB']];
-			}
+			}*/
 
 			$priority = $hotness * ($matchness*20+100)/100;
 			
@@ -830,6 +831,14 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 
 			$this->db->Proworth->save ($data);
 
+			$cursor['seed_hotness'] += (int)$user['current']['user_weight']*10;
+			if(isset($cursor['seed_agreeCount'])){
+				$cursor['seed_agreeCount'] ++;
+			}else{
+				$cursor['seed_agreeCount'] = 1;
+			}
+
+			/*
 			if (in_array($user['current']['user_industry'],$cursor['seed_industry'])) {
 				$cursor['seed_industryHotness'][$user['current']['user_industry']] += (int)$user['current']['user_weight']*10;
 				if(isset($cursor['seed_agreeCount'])){
@@ -849,7 +858,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 				//$cursor['seed_hotnessTime'] = time();
 				$this->db->Proseed->save($cursor);
 			}
-
+			*/
 			$source['agree_count'] ++;
 			$this->db->Prosource->save($source);
 
@@ -1144,6 +1153,19 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 		//判断是否热度加1
 
 		$highReadTime = $seed['seed_textLen']*60*0.5/500;
+		
+		if ($read_time > $highReadTime ) {
+			$seed['seed_hotness'] += (int)$user['current']['user_weight']*1;
+			if(isset($seed['seed_agreeCount'])){
+				$seed['seed_agreeCount'] += ceil($user['current']['user_weight']/5);
+			}else{
+				$seed['seed_agreeCount'] = ceil($user['current']['user_weight']/5);
+			}
+		}else if($read_time > 60){
+			$seed['seed_hotness'] += 1;
+			$this->db->Proseed->save($seed);	
+		}
+		/*
 		if ($read_time > $highReadTime ) {
 			
 			if (in_array($user['current']['user_industry'],$seed['seed_industry'])) {
@@ -1170,6 +1192,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 				}
 			}
 		}
+		*/
 	}
 
 	function reportFormatBug($seed_id){
