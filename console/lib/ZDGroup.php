@@ -86,7 +86,7 @@ class Group extends YqBase{
 					$cus=$this->db->Prosource->findOne( array('source_name' => $name));
 					
 					$id=(string)$cus['_id'];
-					$row['mediaGroup_sourceList'][$id]=$id;
+					$row['mediaGroup_sourceList'][]['source_id']=$id;
 					
 				}
 			}  
