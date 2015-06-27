@@ -1388,6 +1388,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 		foreach ($user['user_mediaGroups'] as $key => $value) {
 			//计算最新一周未读的文章数量
 			$mediaGroup = $this->db->ProMediaGroup->findOne(array('_id' => new MongoId($value)));
+			$mediaGroup['user_mediaGroupStatus'] = '1';
 			//$item = array();
 			//$item['group_id'] = $value; 
 			//$totalCount = $this->db->Proseed->count(array('seed_sourceID' => array('$in' => $mediaGroup['mediaGroup_sourceList']),'seed_time' => array('$gt' => (time()-86400*7))));
