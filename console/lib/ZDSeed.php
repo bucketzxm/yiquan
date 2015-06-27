@@ -21,7 +21,7 @@ class Seed extends YqBase{
 	function querySeed($configs = []) {
 		$ans = [ ];
 		if (empty ( $configs )) {
-			$cus = $this->db->Proseed->find ()->limit(1000)->sort(array('seed_time'=>1));
+			$cus = $this->db->Proseed->find ({'seed_time'{$gt:time()-259200}));
 			while ( $cus->hasNext () ) {
 				$doc = $cus->getNext ();
 				$ans [] = $doc;
