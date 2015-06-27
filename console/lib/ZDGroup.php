@@ -81,12 +81,18 @@ class Group extends YqBase{
             //这几个case顺序不能换
 			if ($arr ['source_List']!= "") {
 				$source_listArr=explode(',',$arr['source_List']);
-				$row['mediaGroup_sourceList']=[];
+				
 				foreach ($source_listArr as $key => $name) {
+					$rationale=$row['mediaGroup_sourceList'][$key]['source_rationale'];
+
+					$row['mediaGroup_sourceList'][$key]=[];
 					$cus=$this->db->Prosource->findOne( array('source_name' => $name));
 					
 					$id=(string)$cus['_id'];
 					$row['mediaGroup_sourceList'][]['source_id']=$id;
+					$row['mediaGroup_sourceList'][]['source_industry']=$cus['source_industry'];
+					$row['mediaGroup_sourceList'][]['source_rationale']=$rationale;
+
 					
 				}
 			}  
