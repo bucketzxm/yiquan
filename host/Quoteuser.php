@@ -2277,47 +2277,6 @@ class Quoteuser extends YqBase {
 		}
 	}
 
-	function bindingByWeixin($user_id, $open_id, $access_token, $refresh_token) {
-		if ($this->yiquan_version == 0) {
-			return - 2;
-		}
-		if ($this->checkQuoteToken () != 1) {
-			return - 3;
-		}
-		if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
-			return - 4;
-		}
-		$user = $this->db->Quoteuser->findOne ( array (
-				'_id' => new MongoId ( $user_id ) 
-		) );
-
-		if ($user != null) {
-			if ($this->checkWeixinExist == 1) {
-				return - 3;
-			} else {
-				$res = $this->getWXUserInfo ( $access_token, $open_id );
-				try {
-					$userInfo = json_decode ( $res, TRUE );
-					if ($userInfo ['openid'] != null) {
-						$user ['weixin_Avatar'] = $userInfo ['headimgurl'];
-						$user ['weixin_openID'] = $open_id;
-						$user ['weixin_accessToken'] = $access_token;
-						$user ['weixin_refreshToken'] = $refresh_token;
-						$user ['user_city'] = $userInfo ['city'];
-						if ($user ['user_smallavatar'] == '') {
-							$user ['user_smallavatar'] = $userInfo ['headimgurl'];
-						}
-						$this->db->Quoteuser->save ( $user );
-						return json_encode ( $user );
-					}
-				} catch ( Exception $e ) {
-					return $e;
-				}
-			}
-		} else {
-			return - 2;
-		}
-	}
 }
 
 /*
