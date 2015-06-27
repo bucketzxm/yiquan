@@ -95,7 +95,7 @@ class Group extends YqBase{
 					$row['mediaGroup_sourceList'][$key]['source_industry']=$industry;
 					$row['mediaGroup_sourceList'][$key]['source_rationale']=$rationale;
 					if ($id=="") {
-						unset($s_List[$key]);
+						unset($source_listArr[$key]);
 					}
 
 					
