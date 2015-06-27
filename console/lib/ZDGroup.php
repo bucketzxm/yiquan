@@ -77,8 +77,14 @@ class Group extends YqBase{
 		$row = $this->db->ProMediaGroup->findOne ( array (
 				'_id' => new MongoId ( $arr ['id'] ) 
 		) );
+
 		if ($row != null) {
             //这几个case顺序不能换
+            $media_helper=[];
+            foreach ($row['mediaGroup_sourceList'] as $key => $media) {
+            	$helper_id=$media['source_id'];
+            	$media_helper["$helper_id]"]=$helper_id;
+            }
 			if ($arr ['source_List']!= "") {
 				$source_listArr=explode(',',$arr['source_List']);
 				
@@ -95,6 +101,9 @@ class Group extends YqBase{
 					$row['mediaGroup_sourceList'][$key]['source_industry']=$industry;
 					$row['mediaGroup_sourceList'][$key]['source_rationale']=$rationale;
 					if ($id=="") {
+						unset($source_listArr[$key]);
+					}
+					if (!isset($media_helper["$id"])) {
 						unset($source_listArr[$key]);
 					}
 
