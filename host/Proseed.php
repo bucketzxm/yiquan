@@ -1320,7 +1320,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 		}
 		
 		$user = $this->db->Prouser->findOne (array ('_id'=> new MongoId($user_id)));
-		$group = $this->db->ProMediaGroup->findOne (array ('_id' => new MongoId($user_id)));
+		$group = $this->db->ProMediaGroup->findOne (array ('_id' => new MongoId($group_id)));
 		$mediaList = array();
 		foreach ($group['mediaGroup_sourceList'] as $key => $value) {
 			$source = $this->db->Prosource->findOne(array('_id' => new MongoId($value['source_id'])));
