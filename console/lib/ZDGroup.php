@@ -110,7 +110,7 @@ class Group extends YqBase{
 				}
 				$should_delete=[];
 				foreach ($ids as $key => $id) {
-						if (not isset($media_helper["$id"])) {
+						if (! isset($media_helper["$id"])) {
 							$should_delete["$id"]="$id";
 						}
 					}
