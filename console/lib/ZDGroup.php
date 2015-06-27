@@ -182,7 +182,7 @@ class Group extends YqBase{
 				# code...
 			
 
-			if ($arr ['industry']!= array()) {
+			if ($arr ['industry']!= array()  && isset($arr['industry'])) {
 				foreach ($arr['industry'] as $key => $value) {
 
 					if ($value!="") {
