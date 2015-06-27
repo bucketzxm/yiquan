@@ -39,7 +39,7 @@ if (! empty ( $GLOBALS ['TEMPLATE'] ['extra_head'] )) {
 					
 					<li><a href="ZDMediaAdmin.php">媒体管理</a></li>
 					<li><a href="ZDGroupAdmin.php">信息组管理管理</a></li>
-				
+					<li><a href="ZDSeedAdmin.php">信息文章管理</a></li>
 					<li><a href="login.php?logout">退出</a></li>
 
 				</ul>
