@@ -83,7 +83,7 @@ class GroupView extends Group {
 
 
 
-		function listAllGroupMedia_table($arr, $start, $len){
+	function listAllGroupMedia_table($arr, $start, $len){
 
 		echo '<div class="table-responsive"><table class="table table-striped">';
 		echo '<thead><tr>';
@@ -107,8 +107,8 @@ class GroupView extends Group {
 				echo '<td>';
 				$s_List=$arr[$i]['mediaGroup_sourceList'];
 				foreach ($s_List as $key => $value) {
-					
-					$cus=$this->db->Prosource->findOne( array('_id' => new MongoId("$value") ));
+					$media_id=$value['source_id'];
+					$cus=$this->db->Prosource->findOne( array('_id' => new MongoId("$media_id") ));
 					
 					echo $cus['source_name'].',';
 					
