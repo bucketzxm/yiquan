@@ -146,7 +146,8 @@ class GroupView extends Group {
 			$media_List= array();
 			$s_List=$arr['mediaGroup_sourceList'];
 			foreach ($s_List as $key=>$value) {
-				$cus=$this->db->Prosource->findOne( array('_id' => new MongoId("$value") ));
+				$id=$value['source_id'];
+				$cus=$this->db->Prosource->findOne( array('_id' => new MongoId("$id") ));
 				$media_List[]=$cus;
 
 			}
