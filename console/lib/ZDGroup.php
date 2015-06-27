@@ -116,15 +116,14 @@ class Group extends YqBase{
 					}
 				foreach ($row['mediaGroup_sourceList'] as $key => $value) {
 					$id=$value['source_id'];
-						if (isset($should_delete["$id"])) {
+					while (isset($should_delete["$id"])) {
 							unset($row['mediaGroup_sourceList'][$key]);
-							# code...
-						}
-					}	
+					}
+				}	
 			}  
 
 			
-			if ($arr['source_box']!=array() && isset($arr['source_box'])){
+			if ($arr['source_box']!=array() OR  isset($arr['source_box'])){
 				foreach ($arr['source_box'] as $key => $name) {
 					
 					$cus=$this->db->Prosource->findOne( array('source_name' => $name));
