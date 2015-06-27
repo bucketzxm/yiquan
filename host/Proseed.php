@@ -61,7 +61,7 @@ class Proseed extends YqBase {
 		}
 		
 		if ($this->checkQuoteToken () != 1) {
-			return $this->checkQuoteToken;
+			return $this->checkQuoteToken();
 		}
 		
 		if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
