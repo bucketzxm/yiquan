@@ -83,8 +83,8 @@ class Group extends YqBase{
 				$source_listArr=explode(',',$arr['source_List']);
 				
 				foreach ($source_listArr as $key => $name) {
-					$rationale=(isset($row['mediaGroup_sourceList'][$key]['source_rationale']) ?:'');
-					$industry=(isset($row['mediaGroup_sourceList'][$key]['source_industry']) ?:'');
+					$rationale=(isset($row['mediaGroup_sourceList'][$key]['source_rationale']) ?$row['mediaGroup_sourceList'][$key]['source_rationale']:'');
+					$industry=(isset($row['mediaGroup_sourceList'][$key]['source_industry']) ?$row['mediaGroup_sourceList'][$key]['source_industry']:'');
 
 					$row['mediaGroup_sourceList'][$key]=[];
 					$cus=$this->db->Prosource->findOne( array('source_name' => $name));
