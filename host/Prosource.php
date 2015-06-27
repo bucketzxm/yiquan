@@ -898,6 +898,7 @@ foreach ($sources as $key => $value) {
                                     'seed_imageCount' => $seed['imageCount'],
                                     'seed_similar' => $seed_similar,
                                     'seed_completeStatus' => $completeStatus,
+                                    'seed_active' = '1'
                                     
                                 );
 

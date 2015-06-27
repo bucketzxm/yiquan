@@ -187,8 +187,11 @@ function clear_unmeaningful_char($title){
             $seeds = $db->Proseed->find();
 
             foreach ($seeds as $key => $value) {
+                $value['seed_active'] = '1';
+                $db->Proseed->save($value);
+
                 //echo '<h3>'.$value['seed_title'].'  '.implode(';', $value['seed_industry']).'</h3>';
-                
+                /*
                 $protext = new Protext;
                 $parserResult = $protext->parseIndustry($value['seed_text'],$value['seed_titleLower']);
                 $keywords = array();
@@ -201,6 +204,7 @@ function clear_unmeaningful_char($title){
                 }else{
                     echo '<h3>'.$value['seed_source'].' '.$value['seed_title'].'</3>';     
                 }
+                */
             }
 			
 			/*

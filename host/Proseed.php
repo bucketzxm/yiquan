@@ -130,11 +130,6 @@ class Proseed extends YqBase {
 					}
 				}
 
-				
-
-
-
-
 				$myDisagrees = $this->db->Proread->find (
 				array (
 					'user_id'=> $user_id,
@@ -212,8 +207,7 @@ class Proseed extends YqBase {
 							)
 						),
 					'seed_time' => array ('$gt' => (time()-86400*3)),
-
-
+					'seed_active' => '1', 
 					'_id' => array ('$nin' => $readSeeds)
 					)
 			);
@@ -376,7 +370,8 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 								//array('seed_sourceLower' => new MongoRegex ("/$keyword/"))
 							)		
 						),
-					)
+					),
+					'seed_active' => '1',
 				)
 			)->sort(array('seed_time'=> -1))->limit(30);
 			/*
