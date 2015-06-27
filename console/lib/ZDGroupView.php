@@ -88,6 +88,7 @@ class GroupView extends Group {
 		echo '<div class="table-responsive"><table class="table table-striped">';
 		echo '<thead><tr>';
 		th_combiner('编辑操作');
+		th_combiner('编辑媒体');
 
 		th_combiner('Group名称');
 		th_combiner( 'Group媒体');
@@ -99,6 +100,7 @@ class GroupView extends Group {
 			echo '<tr>';
 			$uid = $arr [$i] ['_id']->{'$id'};
 			echo '<td><a href="?action=editGroupMedia&mindex=' . $arr [$i] ['_id']->{'$id'} . '">编辑</a></td>';
+			echo '<td><a href="?action=编辑媒体行业及推荐理由&mindex=' . $arr [$i] ['_id']->{'$id'} . '">编辑</a></td>';
 			
 			td_combiner((isset($arr[$i]['mediaGroup_title'])? $arr[$i]['mediaGroup_title']:''));
 			
@@ -228,6 +230,34 @@ class GroupView extends Group {
 
 
 
+
+	function showMedias_form($arr) {
+		echo '<div><form method="post" action="?action=编辑媒体行业及推荐理由">';
+		echo '<input type="hidden" class="form-control" name="id" value="' . $arr ['_id']->{'$id'} . '"/>';
+		echo '<div class="form-group"><h2>Group名称</h2>';
+		echo '<textarea class="form-control" rows="3" cols="80" name="title">' . $arr ['mediaGroup_title'] . '</textarea></div>';
+
+		$medias=$arr['mediaGroup_sourceList'];
+		foreach ($medias as $key => $media) {
+			$name=$media['source_name'];
+			(isset($media['source_industry']) ? $industry=$media['source_industry']:);
+			(isset($media['source_rationale']) ? $industry=$media['source_rationale']:);
+
+			echo '<div class="form-group"><h2>'."$name".'行业'.'</h2>';
+			echo '<textarea class="form-control" rows="3" cols="80" name="industry">' . (isset($media['source_industry']) ? $industry=$media['source_industry']:""). '</textarea></div>';
+			echo '<div class="form-group"><h2>'."$name".'推荐理由'.'</h2>';
+			echo '<textarea class="form-control" rows="3" cols="80" name="rationale">' . (isset($media['source_rationale']) ? $industry=$media['source_rationale']:""). '</textarea></div>';
+	
+		}
+
+
+
+		
+
+
+		echo '<div class="form-group"><input type="submit" value="提交" /></div>';
+		echo '</form></div>';
+	}
 
 
 

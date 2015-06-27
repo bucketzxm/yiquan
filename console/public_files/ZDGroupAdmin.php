@@ -78,6 +78,7 @@ ob_start ();
 								if ($a->updateGroupMedia ( $_POST )) {
 
 									echo '编辑成功';
+
 								} else {
 									echo '编辑异常';
 								}
@@ -95,7 +96,24 @@ ob_start ();
 								} else {
 									echo '添加异常';
 								}
-							}	
+							}
+						case '编辑媒体行业及推荐理由'	:
+							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
+								$a->showMedias_form ( $a->queryGroup ( array (
+									'type' => 'findone',
+									'value' => $_GET ['mindex'] 
+								) ) );			
+							} else if ($_SERVER ['REQUEST_METHOD'] == 'POST') {
+								if ($a->updateMedias ( $_POST )) {
+
+									echo '编辑成功';
+
+								} else {
+									echo '编辑异常';
+								}
+							}
+							break;
+
 					}
 				}
 				?>

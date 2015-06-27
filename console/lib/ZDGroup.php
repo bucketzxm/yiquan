@@ -171,6 +171,88 @@ class Group extends YqBase{
 
 
 
+
+
+	function updateMedias($arr) {
+		$row = $this->db->ProMediaGroup->findOne ( array (
+				'_id' => new MongoId ( $arr ['id'] ) 
+		) );
+		if ($row != null) {
+
+				# code...
+			
+
+			if ($arr ['industry']!= array()) {
+				foreach ($arr['industry'] as $key => $value) {
+
+					if ($value!="") {
+					$row ['mediaGroup_sourceList'][$key]['source_industry'] = $value;
+					}
+				}
+
+			}  
+				
+			if ($arr ['rationale']!= array()) {
+				foreach ($arr['rationale'] as $key => $value) {
+
+					if ($value!="") {
+					$row ['mediaGroup_sourceList'][$key]['source_rationale'] = $value;
+					}
+				}
+
+			}  
+			
+
+			
+		}
+		return $this->db->ProMediaGroup->save ( $row );
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	function createMediaGroup($arr) {
 		$row = [];
 		
@@ -215,7 +297,7 @@ class Group extends YqBase{
 					if ($cus !=null){
 						
 					$id=(string)$cus['_id'];
-					$row['mediaGroup_sourceList'][$id]=$id;
+					$row['mediaGroup_sourceList'][]['source_name']=$id;
 					}
 				}
 			}
