@@ -90,6 +90,10 @@ class Group extends YqBase{
 					$cus=$this->db->Prosource->findOne( array('source_name' => $name));
 					
 					$id=(string)$cus['_id'];
+					if ($id=="") {
+						unset($s_List[$key]);
+					}
+
 					$row['mediaGroup_sourceList'][$key]['source_id']=$id;
 					$row['mediaGroup_sourceList'][$key]['source_industry']=$industry;
 					$row['mediaGroup_sourceList'][$key]['source_rationale']=$rationale;
@@ -110,6 +114,10 @@ class Group extends YqBase{
 					/*$id=(string)$cus['_id'];
 					$row['mediaGroup_sourceList'][$id]=$id;*/
 						$id=(string)$cus['_id'];
+						if ($id=="") {
+							unset($s_List[$key]);
+						}
+
 						$i=0;
 						foreach ($row['mediaGroup_sourceList'] as $key => $source) {
 							if (isset($source['source_id']) && $source['source_id']=="$id") {
