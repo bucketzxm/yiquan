@@ -87,7 +87,7 @@ class Group extends YqBase{
             }
 			if ($arr ['source_List']!= "") {
 				$source_listArr=explode(',',$arr['source_List']);
-				
+				$ids=[];
 				foreach ($source_listArr as $key => $name) {
 					$rationale=(isset($row['mediaGroup_sourceList'][$key]['source_rationale']) ?$row['mediaGroup_sourceList'][$key]['source_rationale']:'');
 					$industry=(isset($row['mediaGroup_sourceList'][$key]['source_industry']) ?$row['mediaGroup_sourceList'][$key]['source_industry']:'');
@@ -102,13 +102,25 @@ class Group extends YqBase{
 					$row['mediaGroup_sourceList'][$key]['source_rationale']=$rationale;
 					if ($id=="") {
 						unset($source_listArr[$key]);
-					}
-					if (!isset($media_helper["$id"])) {
-						unset($source_listArr[$key]);
+					}else{
+						$ids[]=$id;
 					}
 
 					
 				}
+				$should_delete=[];
+				foreach ($ids as $key => $id) {
+						if (not isset($media_helper["$id"])) {
+							$should_delete["$id"]="$id";
+						}
+					}
+				foreach ($row['mediaGroup_sourceList'] as $key => $value) {
+					$id=$value['source_id'];
+						if (isset($should_delete["$id"])) {
+							unset($row['mediaGroup_sourceList'][$key]);
+							# code...
+						}
+					}	
 			}  
 
 			
