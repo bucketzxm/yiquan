@@ -114,12 +114,20 @@ class Group extends YqBase{
 							$should_delete["$id"]="$id";
 						}
 					}
+				$keys=[]
 				foreach ($row['mediaGroup_sourceList'] as $key => $value) {
 					$id=$value['source_id'];
-					while (isset($should_delete["$id"])) {
-							unset($row['mediaGroup_sourceList'][$key]);
+					if (isset($should_delete["$id"])) {
+						$keys["$key"]=$key;
 					}
+
+
 				}	
+				foreach ($keys as $key => $value) {
+					# code...
+				
+						unset($row['mediaGroup_sourceList'][$key]);
+				}				
 			}  
 
 			
