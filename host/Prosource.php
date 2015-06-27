@@ -315,9 +315,10 @@ foreach ($seeds as $key => $seed) {
         $speed = 0;
     }*/
     $seed['seed_hotness'] = $seed['seed_hotness'] * exp((-0.05) * ((time() - $seed['seed_hotnessTime'])/3600));
+    /*
     foreach($seed['seed_industryHotness'] as $industry => $hotness){
         $seed['seed_industryHotness'][$industry] = $hotness * exp ((-0.05) * ((time() - $seed['seed_hotnessTime'])/3600));
-    }
+    }*/
     $seed['seed_hotnessTime'] = time();
     $db->Proseed->save($seed);
 }
@@ -898,12 +899,13 @@ foreach ($sources as $key => $value) {
                                     'seed_imageCount' => $seed['imageCount'],
                                     'seed_similar' => $seed_similar,
                                     'seed_completeStatus' => $completeStatus,
+                                    'seed_active' = '1'
                                     
                                 );
 
                                 //解析行业
                                 $seedIndustry = array();
-                                $industryHotness = array();
+                                //$industryHotness = array();
 
                                 if ($text != '') {
                                     $protext = new Protext; 
@@ -913,7 +915,7 @@ foreach ($sources as $key => $value) {
                                     foreach($parserResult['seed_industryParsed'] as $industryParsed){
 
                                         array_push($seedIndustry,$industryParsed);
-                                        $industryHotness[$industryParsed] = 0;
+                                        //$industryHotness[$industryParsed] = 0;
                                         /*
                                         $segmentResult = $protext->parseSegment($parserResult['seed_textIndustryWords'],$industryParsed);
                                         if (count($segmentResult) > 0) {
@@ -944,7 +946,7 @@ foreach ($sources as $key => $value) {
                                 
 
                                 $dataToSave['seed_industry'] = $seedIndustry;
-                                $dataToSave['seed_industryHotness'] = $industryHotness;
+                                //$dataToSave['seed_industryHotness'] = $industryHotness;
 
                                 
                                 
@@ -1138,9 +1140,10 @@ foreach ($uncompleteSeeds as $key => $seed) {
                 if (!in_array($industry,$seed['seed_industry'])) {
                     array_push($seed['seed_industry'],$industry);
                 }
+                /*
                 if (!isset($seed['seed_industryHotness'][$industry])) {
                     $seed['seed_industryHotness'][$industry] = 0;
-                }
+                }*/
                 /*
                 $segmentResult = $protext->parseSegment($parserResult['seed_textIndustryWords'],$industryParsed);
                 if (count($segmentResult) > 0) {

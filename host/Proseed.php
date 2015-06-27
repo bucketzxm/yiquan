@@ -130,11 +130,6 @@ class Proseed extends YqBase {
 					}
 				}
 
-				
-
-
-
-
 				$myDisagrees = $this->db->Proread->find (
 				array (
 					'user_id'=> $user_id,
@@ -212,8 +207,7 @@ class Proseed extends YqBase {
 							)
 						),
 					'seed_time' => array ('$gt' => (time()-86400*3)),
-
-
+					'seed_active' => '1', 
 					'_id' => array ('$nin' => $readSeeds)
 					)
 			);
@@ -376,7 +370,8 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 								//array('seed_sourceLower' => new MongoRegex ("/$keyword/"))
 							)		
 						),
-					)
+					),
+					'seed_active' => '1',
 				)
 			)->sort(array('seed_time'=> -1))->limit(30);
 			/*
@@ -583,7 +578,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 
 	            foreach($parserResult['seed_industryParsed'] as $industryParsed){
                     array_push($seedIndustry,$industryParsed);
-                    $seed['seed_industryHotness'][$industryParsed] = 0;
+                    //$seed['seed_industryHotness'][$industryParsed] = 0;
                 };
 
                 foreach ($parserResult['seed_segmentParsed'] as $key2 => $segment) {
@@ -593,6 +588,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
                 }
 
 		        $seed['seed_industry'] = $seedIndustry;
+		        $seed['seed_hotness' ] = 100;
 		        $this->db->Proseed->save($seed);
 
 		        $textToDownload['seed_text'] = $seed['seed_text'];	
@@ -758,7 +754,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 						
 
 			$hotness = $seed['seed_hotness'];
-
+			/*
 			if (isset($seed['seed_industryHotness'][$user['current']['user_industry']])){
 				$hotness += $seed['seed_industryHotness'][$user['current']['user_industry']];
 			}
@@ -767,7 +763,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 			}
 			if (isset($seed['seed_industryHotness'][$user['current']['user_interestB']])){
 				$hotness += $seed['seed_industryHotness'][$user['current']['user_interestB']];
-			}
+			}*/
 
 			$priority = $hotness * ($matchness*20+100)/100;
 			
@@ -835,6 +831,14 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 
 			$this->db->Proworth->save ($data);
 
+			$cursor['seed_hotness'] += (int)$user['current']['user_weight']*10;
+			if(isset($cursor['seed_agreeCount'])){
+				$cursor['seed_agreeCount'] ++;
+			}else{
+				$cursor['seed_agreeCount'] = 1;
+			}
+
+			/*
 			if (in_array($user['current']['user_industry'],$cursor['seed_industry'])) {
 				$cursor['seed_industryHotness'][$user['current']['user_industry']] += (int)$user['current']['user_weight']*10;
 				if(isset($cursor['seed_agreeCount'])){
@@ -854,7 +858,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 				//$cursor['seed_hotnessTime'] = time();
 				$this->db->Proseed->save($cursor);
 			}
-
+			*/
 			$source['agree_count'] ++;
 			$this->db->Prosource->save($source);
 
@@ -1149,6 +1153,19 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 		//判断是否热度加1
 
 		$highReadTime = $seed['seed_textLen']*60*0.5/500;
+		
+		if ($read_time > $highReadTime ) {
+			$seed['seed_hotness'] += (int)$user['current']['user_weight']*1;
+			if(isset($seed['seed_agreeCount'])){
+				$seed['seed_agreeCount'] += ceil($user['current']['user_weight']/5);
+			}else{
+				$seed['seed_agreeCount'] = ceil($user['current']['user_weight']/5);
+			}
+		}else if($read_time > 60){
+			$seed['seed_hotness'] += 1;
+			$this->db->Proseed->save($seed);	
+		}
+		/*
 		if ($read_time > $highReadTime ) {
 			
 			if (in_array($user['current']['user_industry'],$seed['seed_industry'])) {
@@ -1175,6 +1192,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 				}
 			}
 		}
+		*/
 	}
 
 	function reportFormatBug($seed_id){
@@ -1240,24 +1258,30 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 		}
 
 		$user = $this->db->Prouser->findOne(array('_id' => new MongoId($user_id)));
+		$followedGroupIDs= array();
+		foreach ($user['user_mediaGroups'] as $key => $myGroup) {
+			array_push($followedGroupIDs,new MongoId($myGroup));
+		}
+
 		$follower_count = (int)$follower_count;
 		if ($follower_count == 0) {
-			$groups = $this->db->ProMediaGroup->find()->sort(array ('mediaGroup_counts.follower_count' => -1))->limit(30);	
+			$groups = $this->db->ProMediaGroup->find(array('_id' =>array('$nin' => $followedGroupIDs)))->sort(array ('mediaGroup_counts.follower_count' => -1))->limit(30);	
 		}else{
-			$groups = $this->db->ProMediaGroup->find(array('mediaGroup_counts.follower_count' => array ('$lt' => $follower_count)))->sort(array ('mediaGroup_counts.follower_count' => -1))->limit(30);
+			$groups = $this->db->ProMediaGroup->find(array('_id' =>array('$nin' => $followedGroupIDs),'mediaGroup_counts.follower_count' => array ('$lt' => $follower_count)))->sort(array ('mediaGroup_counts.follower_count' => -1))->limit(30);
 		}
 		
 		$groupsToShow = array();
 		foreach ($groups as $key => $value) {
 			$value['user_mediaGroupStatus'] = '0';
+			/*
 			if (isset($user['user_mediaGroups'])) {
 				if (isset($user['user_mediaGroups'][(string)$value['_id']])) {
 		 			$value['user_mediaGroupStatus'] = '1';
 		 		}	
-			}
+			}*/
 			array_push($groupsToShow,$value);
-		 }
-		 return json_encode($groupsToShow);
+		}
+		return json_encode($groupsToShow);
 	}
 
 	function followMediaGroup($user_id,$group_id){
@@ -1317,23 +1341,34 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 		if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
 			return - 4;
 		}
-
+		
 		$user = $this->db->Prouser->findOne (array ('_id'=> new MongoId($user_id)));
-		$cursor = $this->db->Prosource->find(array(
-			'source_mediaGroups' => $group_id
+		$group = $this->db->ProMediaGroup->findOne (array ('_id' => new MongoId($group_id)));
+		$mediaList = array();
+		foreach ($group['mediaGroup_sourceList'] as $key => $value) {
+			$source = $this->db->Prosource->findOne(array('_id' => new MongoId($value['source_id'])));
+			$value['source_name'] = $source['source_name'];
+			$value['source_description'] = $source['source_description'];
+			$value['source_image'] = $source['source_image'];
+			array_push($mediaList, $value);
+		}
 
-			));
+
+		/*
+		$cursor = $this->db->Prosource->find(array(
+			'source_industry' => $group_id
+			));*/
 		/*
 		$cursor = $this->db->Prosource->find(array ('$or' => array(
 							array ('source_industry' => $user['current']['user_industry']),
 							array ('source_industry' => $user['current']['user_interestA']),
 							array ('source_industry' => $user['current']['user_interestB'])
 							)));
-		*/
-		$mediaList = array();
+		
+		
 		foreach ($cursor as $key => $value) {
 			array_push ($mediaList, $value);
-		}
+		}*/
 		return json_encode($mediaList);
 	}
 
@@ -1376,13 +1411,14 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 		foreach ($user['user_mediaGroups'] as $key => $value) {
 			//计算最新一周未读的文章数量
 			$mediaGroup = $this->db->ProMediaGroup->findOne(array('_id' => new MongoId($value)));
-			$item = array();
-			$item['group_id'] = $value; 
-			$totalCount = $this->db->Proseed->count(array('seed_sourceID' => array('$in' => $mediaGroup['mediaGroup_sourceList']),'seed_time' => array('$gt' => (time()-86400*7))));
-			$readCount = $this->db->Proread->count(array('user_id' => $user_id, 'source_id' => array('$in' => $mediaGroup['mediaGroup_sourceList']), 'seed_time' => array('$gt' => (time()-86400*7))));
-			$item['unread_count'] = $totalCount-$readCount;
-			$item['group_name'] = $mediaGroup['mediaGroup_title'];
-			array_push($result, $item);
+			$mediaGroup['user_mediaGroupStatus'] = '1';
+			//$item = array();
+			//$item['group_id'] = $value; 
+			//$totalCount = $this->db->Proseed->count(array('seed_sourceID' => array('$in' => $mediaGroup['mediaGroup_sourceList']),'seed_time' => array('$gt' => (time()-86400*7))));
+			//$readCount = $this->db->Proread->count(array('user_id' => $user_id, 'source_id' => array('$in' => $mediaGroup['mediaGroup_sourceList']), 'seed_time' => array('$gt' => (time()-86400*7))));
+			//$mediaGroup['unread_count'] = $totalCount-$readCount;
+			//$item['group_name'] = $mediaGroup['mediaGroup_title'];
+			array_push($result, $mediaGroup);
 		}	
 		return json_encode($result);
 	}
