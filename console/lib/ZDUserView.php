@@ -25,6 +25,8 @@ class ZDUserView extends ZDUser {
 			$cus = $this->db->callmethodlog->findOne(array('user_name' =>$uid, 'class'=>'Proseed' ));
 			if (isset($cus['date']) && time()-strtotime($cus['date'])<259200) {
 				echo '<td>' . '过去三天使用过'. '</td>';
+			}else{
+				echo '<td>' . '超过三天未使用'. '</td>';
 			}
 			echo '</tr>';
 		}
