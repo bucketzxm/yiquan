@@ -51,7 +51,7 @@ ob_start ();
 								$a->showOneWords_form ( $a->queryWords( array (
 									'type' => 'findone',
 									'value' => $_GET ['mindex'] 
-							) ) );echo 'aaa';
+							) ) );
 							} else if ($_SERVER ['REQUEST_METHOD'] == 'POST') {
 								if ($a->updateWords ( $_POST )) {
 									echo '编辑成功';
@@ -59,6 +59,7 @@ ob_start ();
 									echo '编辑异常';
 								}
 							}
+							break;
 
 						case '添加新行业':
 							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
@@ -72,6 +73,7 @@ ob_start ();
 									echo '添加异常';
 								}
 							}
+							break;
 					}						
 				}
 				
