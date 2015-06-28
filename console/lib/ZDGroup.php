@@ -109,7 +109,7 @@ class Group extends YqBase{
 
 					
 				}
-				$should_delete=[];
+				/*$should_delete=[];
 				foreach ($media_helper as $key => $id) {
 						if (isset($ids["$id"])!=true) {
 							$should_delete["$id"]="$id";
@@ -128,7 +128,7 @@ class Group extends YqBase{
 					# code...
 				
 						unset($row['mediaGroup_sourceList'][$value]);
-				}				
+				}	*/			
 			}  
 
 			
