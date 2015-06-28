@@ -77,11 +77,17 @@ class Group extends YqBase{
 		$row = $this->db->ProMediaGroup->findOne ( array (
 				'_id' => new MongoId ( $arr ['id'] ) 
 		) );
+
 		if ($row != null) {
             //这几个case顺序不能换
+            $media_helper=[];
+            foreach ($row['mediaGroup_sourceList'] as $key => $media) {
+            	$helper_id=$media['source_id'];
+            	$media_helper["$helper_id]"]=$helper_id;
+            }
 			if ($arr ['source_List']!= "") {
 				$source_listArr=explode(',',$arr['source_List']);
-				
+				$ids=[];
 				foreach ($source_listArr as $key => $name) {
 					$rationale=(isset($row['mediaGroup_sourceList'][$key]['source_rationale']) ?$row['mediaGroup_sourceList'][$key]['source_rationale']:'');
 					$industry=(isset($row['mediaGroup_sourceList'][$key]['source_industry']) ?$row['mediaGroup_sourceList'][$key]['source_industry']:'');
@@ -96,14 +102,36 @@ class Group extends YqBase{
 					$row['mediaGroup_sourceList'][$key]['source_rationale']=$rationale;
 					if ($id=="") {
 						unset($source_listArr[$key]);
+					}else{
+						$ids["$id"]=$id;
 					}
 
 					
 				}
+				$should_delete=[];
+				foreach ($media_helper as $key => $id) {
+						if (isset($ids["$id"])!=true) {
+							$should_delete["$id"]="$id";
+						}
+					}
+				$keys=[];
+				foreach ($row['mediaGroup_sourceList'] as $key => $value) {
+					$id=$value['source_id'];
+					if (isset($should_delete["$id"])) {
+						$keys["$key"]=$key;
+					}
+
+
+				}	
+				foreach ($keys as $key => $value) {
+					# code...
+				
+						unset($row['mediaGroup_sourceList'][$value]);
+				}				
 			}  
 
 			
-			if ($arr['source_box']!=array() && isset($arr['source_box'])){
+			if ($arr['source_box']!=array() OR  isset($arr['source_box'])){
 				foreach ($arr['source_box'] as $key => $name) {
 					
 					$cus=$this->db->Prosource->findOne( array('source_name' => $name));
