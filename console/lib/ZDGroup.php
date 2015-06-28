@@ -83,19 +83,20 @@ class Group extends YqBase{
             $media_helper=[];
             foreach ($row['mediaGroup_sourceList'] as $key => $media) {
             	$helper_id=$media['source_id'];
-            	$media_helper["$helper_id"]=$helper_id;
+            	$media_helper["$helper_id"]=$media;
             }
+			$row['mediaGroup_sourceList']=[];
+
 			if ($arr ['source_List']!= "") {
 				$source_listArr=explode(',',$arr['source_List']);
 				$ids=[];
 				foreach ($source_listArr as $key => $name) {
-					$rationale=(isset($row['mediaGroup_sourceList'][$key]['source_rationale']) ?$row['mediaGroup_sourceList'][$key]['source_rationale']:'');
-					$industry=(isset($row['mediaGroup_sourceList'][$key]['source_industry']) ?$row['mediaGroup_sourceList'][$key]['source_industry']:'');
 
-					$row['mediaGroup_sourceList'][$key]=[];
 					$cus=$this->db->Prosource->findOne( array('source_name' => $name));
 					
 					$id=(string)$cus['_id'];
+					$rationale=(isset($media_helper[$id]['source_rationale']) ?$media_helper[$id]['source_rationale']:'');
+					$industry=(isset($media_helper[$id]['source_industry']) ?$media_helper[$id]['source_industry']:'');
 
 					$row['mediaGroup_sourceList'][$key]['source_id']=$id;
 					$row['mediaGroup_sourceList'][$key]['source_industry']=$industry;
