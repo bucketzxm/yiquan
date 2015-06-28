@@ -5,7 +5,7 @@ use Qiniu\Storage\UploadManager;
 use Qiniu\Storage\BucketManager;
 /* Report all errors except E_NOTICE */
 // error_reporting ( E_ALL & ~ E_NOTICE );
-class Quoteuser extends YqBase {
+class ZDUser extends YqBase {
 	protected $bcs_host = 'bcs.duapp.com';
 
 	function getAllUsersInfo($configs = []) {
@@ -14,15 +14,13 @@ class Quoteuser extends YqBase {
 			$cus = $this->db->Prouser->find (  );
 			while ( $cus->hasNext () ) {
 				$doc = $cus->getNext ();
-				$this->getUserDetailInfo ( $doc );
+				#S$this->getUserDetailInfo ( $doc );
 				$ans [] = $doc;
 			}
 		}
 		else
 		{
-			$cus = $this->db->Quoteuser->find ( [ ], array (
-					'user_relationships' => false
-			) );
+			$cus = $this->db->Prouser->find ();
 			while ( $cus->hasNext () ) {
 				$doc = $cus->getNext ();
 				#$this->getUserDetailInfo ( $doc );
