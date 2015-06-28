@@ -44,15 +44,7 @@ class Words extends YqBase{
 
 		if ($row != null) {
             
-			
-			
-
-
-
-			
-
-
-
+		
 			if ($arr ['name']!= "") {
 				$row ['industry_name'] = $arr ['name'];
 

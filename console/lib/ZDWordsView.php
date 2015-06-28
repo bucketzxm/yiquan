@@ -94,7 +94,7 @@ class WordsView extends Words {
 
 
 	function showNewWords_form($arr=[]) {
-		echo '<div><form method="post" action="?action=添加新信息组">';
+		echo '<div><form method="post" action="?action=添加新行业">';
 
 		echo '<div class="form-group"><h2>行业名称</h2>';
 		echo '<textarea class="form-control" rows="3" cols="80" name="name">' . '' . '</textarea></div>';
