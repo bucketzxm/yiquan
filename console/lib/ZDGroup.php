@@ -83,7 +83,7 @@ class Group extends YqBase{
             $media_helper=[];
             foreach ($row['mediaGroup_sourceList'] as $key => $media) {
             	$helper_id=$media['source_id'];
-            	$media_helper["$helper_id]"]=$helper_id;
+            	$media_helper["$helper_id"]=$helper_id;
             }
 			if ($arr ['source_List']!= "") {
 				$source_listArr=explode(',',$arr['source_List']);
