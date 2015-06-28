@@ -55,7 +55,7 @@ class WordsView extends Words {
 
 
 	function showOneWords_form($arr) {
-		echo '<div><form method="post" action="?action=editGroupMedia">';
+		echo '<div><form method="post" action="?action=editWords">';
 		echo '<input type="hidden" class="form-control" name="id" value="' . $arr ['_id']->{'$id'} . '"/>';
 		echo '<div class="form-group"><h2>行业名称</h2>';
 		echo '<textarea class="form-control" rows="3" cols="80" name="name">' . (isset($arr ['industry_name'])?$arr ['industry_name']:'') . '</textarea></div>';
