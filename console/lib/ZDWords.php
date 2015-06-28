@@ -55,6 +55,7 @@ class Words extends YqBase{
 			}
 
 			if ($arr ['words']!= "" ) {
+				$row['industry_words']=[];
 				$words=explode(',', $arr['words']);
 
 
@@ -139,7 +140,7 @@ class Words extends YqBase{
 		
 			
 
-			
+
 			$row["para_name"]= "industry_dict";
 			
 			
