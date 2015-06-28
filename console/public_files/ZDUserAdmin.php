@@ -4,7 +4,7 @@ include_once '../lib/functions.php';
 include_once '../lib/YqUser.php';
 include_once '../lib/User.php';
 include_once '../lib/YqPlatformView.php';
-include_once '../lib/ZDUserserView.php';
+include_once '../lib/ZDUserView.php';
 // 401 file referenced since user should be logged in to view this page
 include_once '401.php';
 
