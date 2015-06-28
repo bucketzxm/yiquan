@@ -113,7 +113,8 @@ class Words extends YqBase{
 
 
 			if ($arr ['words']!= "") {
-				$row ['industry_words'] = explode(',', $arr ['detail']);
+				$row ['industry_words']=array( );
+				$row ['industry_words'] = explode(',', $arr ['words']);
 
 			}  else {
 

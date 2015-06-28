@@ -36,7 +36,7 @@ ob_start ();
 				<?php
 				if (isset ( $_GET ['action'] )) {
 					$a = new WordsView ();
-					echo '2'.$_GET ['action'];
+
 					switch ($_GET ['action']) {
 						
 						case '查看编辑行业关键词' :
@@ -49,13 +49,13 @@ ob_start ();
 
 						case 'editWords' :
 							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
-								echo '0'.$_SERVER ['REQUEST_METHOD'];
+								
 								$a->showOneWords_form ( $a->queryWords( array (
 									'type' => 'findone',
 									'value' => $_GET ['mindex'] 
 								) ) );
 							} else /*if ($_SERVER ['REQUEST_METHOD'] == 'POST') */{
-								echo '1'.$_SERVER ['REQUEST_METHOD'];
+								
 								if ($a->updateWords ( $_POST )) {
 									echo '编辑成功';
 								} else {
