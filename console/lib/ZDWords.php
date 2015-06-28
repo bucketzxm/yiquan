@@ -14,7 +14,7 @@ class Words extends YqBase{
 	function queryWords($configs = []) {
 		$ans = [ ];
 		if (empty ( $configs )) {
-			$cus = $this->db->Prosystem->find ('industry_name');
+			$cus = $this->db->Prosystem->find (array( "para_name"=> "industry_dict"));
 			while ( $cus->hasNext () ) {
 				$doc = $cus->getNext ();
 				$ans [] = $doc;
