@@ -699,7 +699,7 @@ class Prouser extends YqBase {
 		}
 	}
 
-	function updateUserProfile($user_id){
+	function getUserProfile($user_id){
 		if ($this->yiquan_version == 0) {
 			return - 2;
 		}
