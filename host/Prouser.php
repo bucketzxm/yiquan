@@ -699,5 +699,23 @@ class Prouser extends YqBase {
 		}
 	}
 
+	function updateUserProfile($user_id){
+		if ($this->yiquan_version == 0) {
+			return - 2;
+		}
+		if ($this->checkQuoteToken () != 1) {
+			return - 3;
+		}
+		if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
+			return - 4;
+		}
+
+		$user = $this->db->Prouser->findOne(array(
+			'_id' => new MongoId($user_id)));
+		return json_encode($user);
+	}
+
+
+
 }
 ?>

@@ -278,6 +278,24 @@ function find_same($string1, $string2){
     return false;
 }
 
+protected function QiniuUploadhtml_url(&$arr, $html) {
+    $auth = new Auth ( $this->qiniuAK, $this->qiniuSK );
+    $bucket = 'yiquan-topics';
+    $uploadMgr = new UploadManager ();
+    $bucketMgr = new BucketManager ( $auth );
+    $token = $auth->uploadToken ( $bucket );
+    
+    list ( $ret, $err ) = $uploadMgr->put ( $token, null, $html );
+    // var_dump($ret);
+    // var_dump($err);
+    if ($err == null) {
+        $arr ['topic_detailname'] = $ret ['key'];
+        $arr ['topic_detail'] = $this->topicsbucketUrl . '/' . $ret ['key'];
+    } else {
+        return $err;
+    }
+    return 1;
+}
 
 ini_set("max_execution_time", 2400);
 
