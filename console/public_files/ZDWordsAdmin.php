@@ -52,8 +52,8 @@ ob_start ();
 									'type' => 'findone',
 									'value' => $_GET ['mindex'] 
 							) ) );
-							} else if ($_SERVER ['REQUEST_METHOD'] == 'POST') {
-								echo '1';
+							} else /*if ($_SERVER ['REQUEST_METHOD'] == 'POST') */{
+								echo '1'.$_SERVER ['REQUEST_METHOD'];
 								if ($a->updateWords ( $_POST )) {
 									echo '编辑成功';
 								} else {
