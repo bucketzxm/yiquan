@@ -39,7 +39,7 @@ ob_start ();
 						
 						case '查看编辑行业关键词' :
 							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
-								$a->listAllWords_table ( $a->queryGroup (), 0, 10000 );
+								$a->listAllWords_table ( $a->queryWords (), 0, 10000 );
 							}
 							break;
 
@@ -47,7 +47,7 @@ ob_start ();
 
 						case 'editWords' :
 							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
-								$a->showOneWords_form ( $a->queryGroup ( array (
+								$a->showOneWords_form ( $a->queryWords( array (
 									'type' => 'findone',
 									'value' => $_GET ['mindex'] 
 							) ) );
