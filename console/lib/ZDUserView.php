@@ -17,9 +17,9 @@ class ZDUserView extends ZDUser {
 		
 		for($i = $start; $i < min ( $start + $len, count ( $arr ) ); $i ++) {
 			echo '<tr>';
-			$uid = (string)$arr ['_id'];
-			echo '<td>' . (isset ( $arr ['current']['user_name'] ) ? $arr  ['current']['user_name'] : '') . '</td>';
-			echo '<td>' . (isset ( $arr  ['current']['user_industry'] ) ? $arr  ['current']['user_industry'] : '') . '</td>';
+			$uid = (string)$arr [$i] ['_id'];
+			echo '<td>' . (isset ( $arr [$i] ['current']['user_name'] ) ? $arr [$i] ['current']['user_name'] : '') . '</td>';
+			echo '<td>' . (isset ( $arr [$i] ['current']['user_industry'] ) ? $arr [$i] ['current']['user_industry'] : '') . '</td>';
 			echo '<td>' . "$uid" . '</td>';
 
 			echo '</tr>';

@@ -39,7 +39,7 @@ ob_start ();
 							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
 								$a->listallusers_table ( $a->getAllUsersInfo ( array (
 										#'sortby' => 'QuoteCount',
-										'sorttype' => 'dasc' 
+										#'sorttype' => 'dasc' 
 								) ), 0, 1000 );
 							}
 							break;
