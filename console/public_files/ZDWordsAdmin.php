@@ -17,7 +17,7 @@ ob_start ();
 		<div class="col-sm-3 col-md-2 sidebar">
 			<ul class="nav nav-sidebar">
 				<li><a href="?action=查看编辑行业关键词">查看编辑行业关键词 <span class="sr-only">(current)</span></a></li>
-				<li><a href="?action=添加新行业">添加新行业 <span class="sr-only">(current)</span></a></li>
+				<li><a href="?action=添加新行业">添加新行业<span class="sr-only">(current)</span></a></li>
 
 
 			</ul>
@@ -64,9 +64,9 @@ ob_start ();
 
 						case '添加新行业':
 							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
-								if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
+								
 									$a->showNewWords_form();
-								}
+								
 							} else if ($_SERVER ['REQUEST_METHOD'] == 'POST') {
 								if ($a->createWords( $_POST )) {
 									echo '添加成功';
