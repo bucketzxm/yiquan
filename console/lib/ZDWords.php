@@ -79,7 +79,7 @@ class Words extends YqBase{
 
 
 			
-			
+			$row["para_name"]= "industry_dict";
 
 
 		}
@@ -139,7 +139,8 @@ class Words extends YqBase{
 		
 			
 
-
+			
+			$row["para_name"]= "industry_dict";
 			
 			
 
