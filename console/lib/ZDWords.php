@@ -60,7 +60,7 @@ class Words extends YqBase{
 
 
 				foreach ($words as $key => $value) {
-					$row ['industry_words'][$value]=$value;
+					$row ['industry_words']["$value"]=$value;
 				}
 				
 			}  else {
@@ -113,8 +113,12 @@ class Words extends YqBase{
 
 
 			if ($arr ['words']!= "") {
-				$row ['industry_words']=array( );
-				$row ['industry_words'] = explode(',', $arr ['words']);
+				$words=explode(',', $arr['words']);
+
+				foreach ($words as $key => $value) {
+					$row ['industry_words']["$value"]=$value;
+				}
+
 
 			}  else {
 

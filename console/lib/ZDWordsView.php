@@ -98,7 +98,7 @@ class WordsView extends Words {
 
 		echo '<div class="form-group"><h2>行业名称</h2>';
 		echo '<textarea class="form-control" rows="3" cols="80" name="name">' . '' . '</textarea></div>';
-	echo '<div class="form-group"><h2>中文关键词编辑，逗号隔开</h2>';
+		echo '<div class="form-group"><h2>中文关键词编辑，逗号隔开</h2>';
 		echo '<textarea class="form-control" rows="3" cols="80" name="words">' . ''. '</textarea></div>';
 		echo '<div class="form-group"><h2>英文关键词编辑，逗号隔开</h2>';
 		echo '<textarea class="form-control" rows="3" cols="80" name="ENDict">' . ''. '</textarea></div>';
