@@ -1,5 +1,7 @@
 <?php
 require_once 'ZDWords.php';
+require_once 'ZDMedia.php';
+require_once 'ZDMediaView.php';
 
 
 
