@@ -66,5 +66,5 @@ ob_end_clean ();
 
 <?php
 // display the page
-include_once '../templates/template-page-meiyanmain.php';
+include_once '../templates/template-page-zhidemain.php';
 ?>
