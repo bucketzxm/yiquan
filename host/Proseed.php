@@ -194,7 +194,7 @@ class Proseed extends YqBase {
 								array ('seed_industry' => $user['current']['user_interestB'])
 								)
 						),*/
-						array('seed_sourceID' => array('$in' => $sourceList)),
+						
 						array(
 							'$or' => array(
 								array ('seed_textLen' => array('$gt'=> 400)),
@@ -202,6 +202,7 @@ class Proseed extends YqBase {
 							)
 						)
 					),
+					'seed_sourceID' => array('$in' => $sourceList),
 					'$nor' => array(
 						array (
 							'$and' => array (
