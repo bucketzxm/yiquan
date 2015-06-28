@@ -51,7 +51,7 @@ ob_start ();
 								$a->showOneWords_form ( $a->queryWords( array (
 									'type' => 'findone',
 									'value' => $_GET ['mindex'] 
-							) ) );
+							) ) );echo '1';
 							} else if ($_SERVER ['REQUEST_METHOD'] == 'POST') {
 								if ($a->updateWords ( $_POST )) {
 									echo '编辑成功';
