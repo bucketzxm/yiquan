@@ -181,6 +181,7 @@ class Proseed extends YqBase {
 					}
 				}
 			}
+			array_push($sourceList, "558e041f09f7788d5f8b474c");
 
 			//foreach ($sources as $key => $source) {
 			$sourceSeeds = $this->db->Proseed->find (
