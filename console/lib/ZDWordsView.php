@@ -70,7 +70,7 @@ class WordsView extends Words {
 
 
 
-		}
+		
 
 
 
