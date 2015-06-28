@@ -168,7 +168,8 @@ class Proseed extends YqBase {
 					}
 				}
 
-			$mediaGroup = $this->db->ProMediaGroup->find(array('_id.$id' => array('$in' => $user['user_mediaGroups'])));
+
+			$mediaGroup = $this->db->ProMediaGroup->find(array('_id' => array( '$id' => array('$in' => $user['user_mediaGroups']))));
 			$sourceList = array ();
 			foreach ($mediaGroup as $keyMG => $group) {
 				foreach ($group['mediaGroup_sourceList'] as $keyS => $source) {
@@ -1422,6 +1423,9 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 		}	
 		return json_encode($result);
 	}
+
+
+
 
 }
 ?>
