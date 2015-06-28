@@ -12,6 +12,7 @@ class ZDUserView extends ZDUser {
 		echo '<th>用戶名</th>';
 		echo '<th>行业</th>';
 		echo '<th>ID</th>';
+		echo '<th>状态</th>';
 
 		echo '</tr></thead>';
 		
@@ -21,7 +22,10 @@ class ZDUserView extends ZDUser {
 			echo '<td>' . (isset ( $arr [$i] ['current']['user_name'] ) ? $arr [$i] ['current']['user_name'] : '') . '</td>';
 			echo '<td>' . (isset ( $arr [$i] ['current']['user_industry'] ) ? $arr [$i] ['current']['user_industry'] : '') . '</td>';
 			echo '<td>' . "$uid" . '</td>';
-
+			$cus = $this->db->callmethodlog->findOne(array('user_name' =>$uid, 'class'=>'Proseed' ));
+			if (isset($cus['date']) && time()-strtotime($cus['date'])<259200) {
+				echo '<td>' . '过去三天使用过'. '</td>';
+			}
 			echo '</tr>';
 		}
 		echo '</table></div>';
