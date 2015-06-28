@@ -59,9 +59,9 @@ class WordsView extends Words {
 		echo '<textarea class="form-control" rows="3" cols="80" name="name">' . (isset($arr ['industry_name'])?$arr ['industry_name']:'') . '</textarea></div>';
 
 		echo '<div class="form-group"><h2>中文关键词编辑<br>用英文逗号隔开，最末不要有逗号</h2>';
-		echo '<textarea class="form-control" rows="3" cols="80" name="words">' . (isset($arr ['industry_words'])?(implode(',',$arr ['industry_name']):'')) . '</textarea></div>';
+		echo '<textarea class="form-control" rows="3" cols="80" name="words">' . (isset($arr ['industry_words'])?implode(',',$arr ['industry_name']):'') . '</textarea></div>';
 		echo '<div class="form-group"><h2>英文关键词编辑<br>用英文逗号隔开，最末不要有逗号</h2>';
-		echo '<textarea class="form-control" rows="3" cols="80" name="ENDict">' . (isset($arr ['industry_ENDict'])?(implode(',',$arr ['industry_ENDict']):'')) . '</textarea></div>';
+		echo '<textarea class="form-control" rows="3" cols="80" name="ENDict">' . (isset($arr ['industry_ENDict'])?implode(',',$arr ['industry_ENDict']):'') . '</textarea></div>';
 
 
 
