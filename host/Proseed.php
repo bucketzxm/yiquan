@@ -169,15 +169,15 @@ class Proseed extends YqBase {
 				}
 
 			$userMediaGroups = array ();
-			foreach ($user['user_mediaGroups'] as $keymg => $userMediaGroup) {
+			foreach ($user['user_mediaGroups'] as $keymmg => $userMediaGroup) {
 				array_push($userMediaGroups, new MongoId($userMediaGroup));
 			}
 			$mediaGroup = $this->db->ProMediaGroup->find(array('_id' => array('$in' => $userMediaGroups)));
 			$sourceList = array ();
 			foreach ($mediaGroup as $keyMG => $group) {
 				foreach ($group['mediaGroup_sourceList'] as $keyS => $source) {
-					if (!isset($sourceList[$source])) {
-						$sourceList[$source] = $source;
+					if (!isset($sourceList[$source['source_id']])) {
+						$sourceList[$source['source_id']] = $source['source_id'];
 					}
 				}
 			}
