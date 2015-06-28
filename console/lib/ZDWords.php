@@ -58,16 +58,22 @@ class Words extends YqBase{
 
 			}  else {
 
-				unset($row ['industry_name']);
+				
 				echo "没有行业名";
 			}
 
 			if ($arr ['words']!= "" ) {
-				$row ['industry_words'] = explode(',', $arr['words']);
+				$words=explode(',', $arr['words']);
 
+
+
+				foreach ($words as $key => $value) {
+					$row ['industry_words'][$value]=$value;
+				}
+				
 			}  else {
 
-				unset($row ['industry_words']);
+				
 				echo "没有中文关键词";
 			}
 			if ($arr ['ENDict']!= "" ) {
@@ -75,7 +81,7 @@ class Words extends YqBase{
 
 			}  else {
 
-				unset($row ['industry_ENDict']);
+				
 				echo "没有英文关键词";
 			}
 
@@ -87,33 +93,6 @@ class Words extends YqBase{
 		}
 		return $this->db->Prosystem->save ( $row );
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
