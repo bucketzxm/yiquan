@@ -168,8 +168,11 @@ class Proseed extends YqBase {
 					}
 				}
 
-
-			$mediaGroup = $this->db->ProMediaGroup->find(array('_id' => array( '$id' => array('$in' => $user['user_mediaGroups']))));
+			$userMediaGroups = array ();
+			foreach ($user['user_mediaGroups'] as $keymg => $userMediaGroup) {
+				array_push($userMediaGroups, new MongoId($userMediaGroup));
+			}
+			$mediaGroup = $this->db->ProMediaGroup->find(array('_id' => array('$in' => $userMediaGroups)));
 			$sourceList = array ();
 			foreach ($mediaGroup as $keyMG => $group) {
 				foreach ($group['mediaGroup_sourceList'] as $keyS => $source) {
