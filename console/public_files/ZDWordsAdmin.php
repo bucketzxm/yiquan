@@ -48,7 +48,7 @@ ob_start ();
 
 						case 'editWords' :
 							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
-								echo '0'.$_SERVER ['REQUEST_METHOD'
+								echo '0'.$_SERVER ['REQUEST_METHOD'];
 								$a->showOneWords_form ( $a->queryWords( array (
 									'type' => 'findone',
 									'value' => $_GET ['mindex'] 
