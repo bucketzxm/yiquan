@@ -901,6 +901,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 			}else{
 				$cursor['seed_agreeCount'] = 1;
 			}
+			$this->db->Proseed->save($source);
 
 			/*
 			if (in_array($user['current']['user_industry'],$cursor['seed_industry'])) {
@@ -957,6 +958,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 		}else{
 			$cursor['seed_agreeCount'] = 1;
 		}
+		$this->db->Proseed->save($cursor);
 		$source['agree_count'] ++;
 		$this->db->Prosource->save($source);
 		
