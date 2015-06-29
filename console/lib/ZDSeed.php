@@ -120,8 +120,7 @@ class Seed extends YqBase{
 		
 		$ans = [ ];
 		$sst = $st;
-		while ( $sst <= $ed ) {
-			$seed = [ ];
+		/*while ( $sst <= $ed ) {
 			$cus = $this->db->Proseed->find ( array (
 					'seed_time' => array (
 							'$gte' => $sst,
@@ -130,7 +129,11 @@ class Seed extends YqBase{
 			) );
 
 
-			$c_notext=$this->db->Proseed->count ( array (
+			
+			
+			// var_dump(date('Y-m-d',$sst));
+		}*/
+		$c_notext=$this->db->Proseed->count ( array (
 					'seed_time' => array (
 							'$gte' => $sst,
 							'$lt' => strtotime ( '+1 day', $sst ) 
@@ -170,9 +173,6 @@ class Seed extends YqBase{
 			$ans ["$sst"] ['seed'] ['ratio'] = $ratio;
 
 			
-			
-			// var_dump(date('Y-m-d',$sst));
-		}
 		// var_dump($ans);
 		return $ans;
 	}
