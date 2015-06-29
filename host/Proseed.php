@@ -316,7 +316,7 @@ function querySeedsByGroup ($user_id,$group_id,$time){
 		return - 4;
 	}
 	$time = (int)$time;
-	$group = $this->db->ProMediaGroup->findOne(array('_id' => new MongoId($group_id));
+	$group = $this->db->ProMediaGroup->findOne(array('_id' => new MongoId($group_id)));
 	$groupSources = array();
 	foreach ($group['mediaGroup_sourceList'] as $key => $value) {
 		array_push($groupSources, new MongoId($value['source_id']));
