@@ -93,7 +93,7 @@ class SeedView extends Seed{
 		for($i = $start; $i < min ( $start + $len, count ( $ans ) ); $i ++) {
 			echo '<tr>';
 			td_combiner( $ans[$i]['source_name']);
-			$count=$this->db->Proseed->count( array('seed_source' => $ans[$i]['source_name']));
+			$count=$this->db->Proseed->count( array('seed_source' => $ans[$i]['source_name'],'seed_dbWriteTime'=>array('$gt'=>time()-259200)));
 			td_combiner($count);
 
 
