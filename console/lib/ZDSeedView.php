@@ -82,6 +82,7 @@ class SeedView extends Seed{
 		if ($cus!=null){
 			for($i = $start; $i < min ( $start + $len, count ( $cus ) ); $i ++) {
 				echo '<tr>';
+				echo $cus[$i]['source_name'];
 				td_combiner( $cus[$i]['source_name']);
 				$count=$this->db->Proseed->count( array('seed_source' => $cus[$i]['source_name']));
 				td_combiner($count);
