@@ -128,7 +128,13 @@ class Group extends YqBase{
 					# code...
 				
 						unset($row['mediaGroup_sourceList'][$value]);
-				}	*/			
+			
+
+
+
+				}	*/	
+
+
 			}  
 
 			
@@ -184,6 +190,15 @@ class Group extends YqBase{
 
 
 		}
+		$row['mediaGroup_counts']		['media_count']=count($row['mediaGroup_sourceList']);
+		$count=0
+		foreach ($row['mediaGroup_sourceList'] as $key => $value) {
+			$id=$value['source_id'];
+			$cus=$this->db->Prosource->findOne( array('_id' => $id));
+			$count+=$cus['agree_count'];
+		}
+		$row['mediaGroup_counts']		['worth_count']=$count;
+
 		return $this->db->ProMediaGroup->save ( $row );
 	}
 
