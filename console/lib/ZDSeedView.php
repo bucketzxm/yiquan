@@ -79,9 +79,8 @@ class SeedView extends Seed{
 
 
 			echo '<tr>';
-			td_combiner((isset($arr[$i]['seed_source'])? $arr[$i]['seed_source']:''));
 			$c_notext = $this->db->Proseed->count (array('seed_completeStatus'=>'completed', 'seed_text'=> ''));
-
+			td_combiner($c_notext);
 
 
 			echo '</tr>';
