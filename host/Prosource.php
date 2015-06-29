@@ -398,610 +398,615 @@ foreach ($sources as $key => $value) {
             curl_setopt($ch, CURLOPT_TIMEOUT, 10);
             $feeds = curl_exec($ch);
 
-            //HTML进行UTF-8转码
-            $encode = mb_detect_encoding($feeds, array('ASCII', 'UTF-8', 'GB2312', 'GBK', "EUC-CN", "CP936"));
+            if (curl_getinfo($ch,CURLINFO_HTTP_CODE) == 200) {
+                //HTML进行UTF-8转码
+                $encode = mb_detect_encoding($feeds, array('ASCII', 'UTF-8', 'GB2312', 'GBK', "EUC-CN", "CP936"));
 
-            if ($encode != 'UTF-8') {
-                //$encode = $encode . "//IGNORE"
-                $feeds = iconv($encode, 'UTF-8//IGNORE', $feeds);
+                if ($encode != 'UTF-8') {
+                    //$encode = $encode . "//IGNORE"
+                    $feeds = iconv($encode, 'UTF-8//IGNORE', $feeds);
 
-                //var_dump($feeds);
+                    //var_dump($feeds);
 
-                $feeds = str_replace('encoding="gb2312"', 'encoding="utf-8"', $feeds);
-                $feeds = str_replace('encoding="ascii"', 'encoding="utf-8"', $feeds);
-                $feeds = str_replace('encoding="gbk"', 'encoding="utf-8"', $feeds);
-                $feeds = str_replace('encoding="euc-cn"', 'encoding="utf-8"', $feeds);
-                $feeds = str_replace('encoding="cp936"', 'encoding="utf-8"', $feeds);
+                    $feeds = str_replace('encoding="gb2312"', 'encoding="utf-8"', $feeds);
+                    $feeds = str_replace('encoding="ascii"', 'encoding="utf-8"', $feeds);
+                    $feeds = str_replace('encoding="gbk"', 'encoding="utf-8"', $feeds);
+                    $feeds = str_replace('encoding="euc-cn"', 'encoding="utf-8"', $feeds);
+                    $feeds = str_replace('encoding="cp936"', 'encoding="utf-8"', $feeds);
 
-                $feeds = str_replace('encoding="GB2312"', 'encoding="utf-8"', $feeds);
-                $feeds = str_replace('encoding="ASCII"', 'encoding="utf-8"', $feeds);
-                $feeds = str_replace('encoding="GBK"', 'encoding="utf-8"', $feeds);
-                $feeds = str_replace('encoding="EUC-CN"', 'encoding="utf-8"', $feeds);
-                $feeds = str_replace('encoding="CP936"', 'encoding="utf-8"', $feeds);
-            }
+                    $feeds = str_replace('encoding="GB2312"', 'encoding="utf-8"', $feeds);
+                    $feeds = str_replace('encoding="ASCII"', 'encoding="utf-8"', $feeds);
+                    $feeds = str_replace('encoding="GBK"', 'encoding="utf-8"', $feeds);
+                    $feeds = str_replace('encoding="EUC-CN"', 'encoding="utf-8"', $feeds);
+                    $feeds = str_replace('encoding="CP936"', 'encoding="utf-8"', $feeds);
+                }
 
-            $seedsToLoad = array();
-            //判断HTML的读取方式为正则还是RSS，并生成响应的数据
-            if (isset($value['source_rexTemplate'])) {
+                $seedsToLoad = array();
+                //判断HTML的读取方式为正则还是RSS，并生成响应的数据
+                if (isset($value['source_rexTemplate'])) {
 
-                $feeds = preg_replace("/[\t\n\r]+/", "",$feeds);
+                    $feeds = preg_replace("/[\t\n\r]+/", "",$feeds);
 
-                $pattern = $value['source_rexTemplate'];
-                //echo $pattern;
-                preg_match_all($pattern, $feeds, $result);
+                    $pattern = $value['source_rexTemplate'];
+                    //echo $pattern;
+                    preg_match_all($pattern, $feeds, $result);
 
-                //var_dump($feeds);
-                $seedCount = count($result[0]);
-                $elementCount = count($result);
+                    //var_dump($feeds);
+                    $seedCount = count($result[0]);
+                    $elementCount = count($result);
 
-                for ($i = 0; $i < $seedCount; ++$i) {
-                    $seedToAdd = array();
+                    for ($i = 0; $i < $seedCount; ++$i) {
+                        $seedToAdd = array();
 
-                    
-                    $link = $result[1][$i];    
-                    
-                    
-                    //echo $link;
-                    //var_dump(strpos($link, 'http'));
-                    if (strpos($link, 'http') === false) {
-                        //echo "relative link detected";
-                        $link = $value['source_homeURL'] . $link;
-                    } else {
-                        //echo "definite link detected";
-                    }
-
-                    
-                    $title = $result[2][$i];    
-                    
-                    
-                    $title = str_replace(" ", "", $title);
-                    $title = str_replace("\n", "", $title);
-                    $title = str_replace("\t", "", $title);
-
-                    $postTime = time();
-
-                    
-
-                    $seedToAdd['title'] = $title;
-                    $seedToAdd['link'] = $link;
-                    $seedToAdd['postTime'] = $postTime;
-                    
-                    
-                    $wholeString = $result[0][$i];
-                    $imgPattern = "<(?:img|IMG).*?(?:src|data-url)=\"(.*?)\".*?>";
-
-                    preg_match_all($imgPattern, $wholeString, $imgResult);
-
-                    if (count($imgResult[0])>0) {
-                        $seedToAdd['imageLink'] = $imgResult[1][0];
                         
-                    }
-                    if (isset($seedToAdd['imageLink'])) {
-                        $httpPos = strpos($seedToAdd['imageLink'], 'http');
-                        if ($seedToAdd['imageLink'] != '' && $httpPos === false) {
-                            $seedToAdd['imageLink'] = str_replace('../', '', $seedToAdd['imageLink']);
-                            $seedToAdd['imageLink'] = str_replace('./', '', $seedToAdd['imageLink']);
-                            $seedToAdd['imageLink'] = $value['source_homeURL'].$seedToAdd['imageLink'];
-                        }    
-                    }
+                        $link = $result[1][$i];    
+                        
+                        
+                        //echo $link;
+                        //var_dump(strpos($link, 'http'));
+                        if (strpos($link, 'http') === false) {
+                            //echo "relative link detected";
+                            $link = $value['source_homeURL'] . $link;
+                        } else {
+                            //echo "definite link detected";
+                        }
 
-                    if (isset($value['source_parent`'])) {
-                        $sourceName = $value['source_parent'];
-                    }else{
-                        $sourceName = $value['source_name'];
-                    }
-                    if (mb_strpos($title, $sourceName) === false) {
-                        array_push($seedsToLoad, $seedToAdd);    
-                    }
-                    
+                        
+                        $title = $result[2][$i];    
+                        
+                        
+                        $title = str_replace(" ", "", $title);
+                        $title = str_replace("\n", "", $title);
+                        $title = str_replace("\t", "", $title);
 
-                }
-                //var_dump($seedsToLoad);
-
-            } else {
-
-                $start = strpos($feeds, "<?xml");
-                $start2 = strpos($feeds, "<rss");
-                if ($start > $start2) {
-                    $start = $start2;
-                }
-                $feeds = substr($feeds, $start);
-                $feeds = str_replace("<content:encoded>", "<contentEncoded>", $feeds);
-                $feeds = str_replace("</content:encoded>", "</contentEncoded>", $feeds);
-                $feeds = str_replace("CDATA<", "CDATA[<", $feeds);
-
-                //var_dump($feeds);
-                $rss = simplexml_load_string($feeds, 'SimpleXMLElement', LIBXML_NOCDATA | LIBXML_COMPACT | LIBXML_PARSEHUGE);
-
-                //Calculate average hotness
-                /*
-                $seeds = $db->Proseed->find(array ('seed_sourceID' => (string)$value['_id']))->count();
-                $likes = $db->Proworth->find(array ('like_seedSource' => (string)$value['_id']))->count();
-                $avgLikes = $likes/$seeds;
-                $value['average_hotness'] = $avgLikes;
-                $db->Prosource->save ($value);
-                */
-
-                //$rss = load_file($feedurl);
-                $rssItems = $rss->channel->item;
-
-                foreach ($rssItems as $item) {
-
-                    $seedToAdd = array();
-
-                    //开始处理时间（仅RSS需要，获得postTime）
-                    $aaa = new DateTime ();
-
-                    $pubTime = $item->pubDate;
-
-                    $pubTime = str_replace("星期一", "Mon", $pubTime);
-                    $pubTime = str_replace("星期二", "Tue", $pubTime);
-                    $pubTime = str_replace("星期三", "Wed", $pubTime);
-                    $pubTime = str_replace("星期四", "Thu", $pubTime);
-                    $pubTime = str_replace("星期五", "Fri", $pubTime);
-                    $pubTime = str_replace("星期六", "Sat", $pubTime);
-                    $pubTime = str_replace("星期日", "Sun", $pubTime);
-                    $pubTime = str_replace("星期天", "Sun", $pubTime);
-                    $pubTime = str_replace("一月", "Jan", $pubTime);
-                    $pubTime = str_replace("二月", "Feb", $pubTime);
-                    $pubTime = str_replace("三月", "Mar", $pubTime);
-                    $pubTime = str_replace("四月", "Apr", $pubTime);
-                    $pubTime = str_replace("五月", "May", $pubTime);
-                    $pubTime = str_replace("六月", "Jun", $pubTime);
-                    $pubTime = str_replace("七月", "Jul", $pubTime);
-                    $pubTime = str_replace("八月", "Aug", $pubTime);
-                    $pubTime = str_replace("九月", "Sep", $pubTime);
-                    $pubTime = str_replace("十月", "Oct", $pubTime);
-                    $pubTime = str_replace("十一月", "Nov", $pubTime);
-                    $pubTime = str_replace("十二月", "Dec", $pubTime);
-                    $pubTime = str_replace("\n", "", $pubTime);
-
-                    if ($pubTime != "" && $pubTime != null) { //&& strlen($pubTime) > 24
-                        //var_dump($pubTime);
-                        $postTime = $aaa->createFromFormat($value['time_format'], $pubTime)->getTimestamp();
-                    } else {
-                        //var_dump($pubTime);
                         $postTime = time();
-                    }
-                    //获得标题
-                    $title = $item->title;
-                    $title = (string)$title[0];
-                    $title = str_replace(" ", "", $title);
-                    $title = str_replace("\n", "", $title);
-                    $title = str_replace("\t", "", $title);
 
-                    //获取链接
-                    $link = (string)$item->link;
+                        
 
-                    //获取RSS内容
-                    $description = $item->description;
-                    $content = $item->contentEncoded;
+                        $seedToAdd['title'] = $title;
+                        $seedToAdd['link'] = $link;
+                        $seedToAdd['postTime'] = $postTime;
+                        
+                        
+                        $wholeString = $result[0][$i];
+                        $imgPattern = "<(?:img|IMG).*?(?:src|data-url)=\"(.*?)\".*?>";
 
+                        preg_match_all($imgPattern, $wholeString, $imgResult);
 
-                    $seedToAdd['postTime'] = $postTime;
-                    $seedToAdd['title'] = $title;
-                    $seedToAdd['link'] = $link;
-                    $seedToAdd['description'] = $description;
-                    $seedToAdd['content'] = $content;
+                        if (count($imgResult[0])>0) {
+                            $seedToAdd['imageLink'] = $imgResult[1][0];
+                            
+                        }
+                        if (isset($seedToAdd['imageLink'])) {
+                            $httpPos = strpos($seedToAdd['imageLink'], 'http');
+                            if ($seedToAdd['imageLink'] != '' && $httpPos === false) {
+                                $seedToAdd['imageLink'] = str_replace('../', '', $seedToAdd['imageLink']);
+                                $seedToAdd['imageLink'] = str_replace('./', '', $seedToAdd['imageLink']);
+                                $seedToAdd['imageLink'] = $value['source_homeURL'].$seedToAdd['imageLink'];
+                            }    
+                        }
 
-                    if ($postTime < $checkTime) {
-
-                    } else {
                         if (isset($value['source_parent`'])) {
                             $sourceName = $value['source_parent'];
                         }else{
                             $sourceName = $value['source_name'];
                         }
                         if (mb_strpos($title, $sourceName) === false) {
-                            array_push($seedsToLoad, $seedToAdd);
+                            array_push($seedsToLoad, $seedToAdd);    
                         }
+                        
+
+                    }
+                    //var_dump($seedsToLoad);
+
+                } else {
+
+                    $start = strpos($feeds, "<?xml");
+                    $start2 = strpos($feeds, "<rss");
+                    if ($start > $start2) {
+                        $start = $start2;
+                    }
+                    $feeds = substr($feeds, $start);
+                    $feeds = str_replace("<content:encoded>", "<contentEncoded>", $feeds);
+                    $feeds = str_replace("</content:encoded>", "</contentEncoded>", $feeds);
+                    $feeds = str_replace("CDATA<", "CDATA[<", $feeds);
+
+                    //var_dump($feeds);
+                    $rss = simplexml_load_string($feeds, 'SimpleXMLElement', LIBXML_NOCDATA | LIBXML_COMPACT | LIBXML_PARSEHUGE);
+
+                    //Calculate average hotness
+                    /*
+                    $seeds = $db->Proseed->find(array ('seed_sourceID' => (string)$value['_id']))->count();
+                    $likes = $db->Proworth->find(array ('like_seedSource' => (string)$value['_id']))->count();
+                    $avgLikes = $likes/$seeds;
+                    $value['average_hotness'] = $avgLikes;
+                    $db->Prosource->save ($value);
+                    */
+
+                    //$rss = load_file($feedurl);
+                    $rssItems = $rss->channel->item;
+
+                    foreach ($rssItems as $item) {
+
+                        $seedToAdd = array();
+
+                        //开始处理时间（仅RSS需要，获得postTime）
+                        $aaa = new DateTime ();
+
+                        $pubTime = $item->pubDate;
+
+                        $pubTime = str_replace("星期一", "Mon", $pubTime);
+                        $pubTime = str_replace("星期二", "Tue", $pubTime);
+                        $pubTime = str_replace("星期三", "Wed", $pubTime);
+                        $pubTime = str_replace("星期四", "Thu", $pubTime);
+                        $pubTime = str_replace("星期五", "Fri", $pubTime);
+                        $pubTime = str_replace("星期六", "Sat", $pubTime);
+                        $pubTime = str_replace("星期日", "Sun", $pubTime);
+                        $pubTime = str_replace("星期天", "Sun", $pubTime);
+                        $pubTime = str_replace("一月", "Jan", $pubTime);
+                        $pubTime = str_replace("二月", "Feb", $pubTime);
+                        $pubTime = str_replace("三月", "Mar", $pubTime);
+                        $pubTime = str_replace("四月", "Apr", $pubTime);
+                        $pubTime = str_replace("五月", "May", $pubTime);
+                        $pubTime = str_replace("六月", "Jun", $pubTime);
+                        $pubTime = str_replace("七月", "Jul", $pubTime);
+                        $pubTime = str_replace("八月", "Aug", $pubTime);
+                        $pubTime = str_replace("九月", "Sep", $pubTime);
+                        $pubTime = str_replace("十月", "Oct", $pubTime);
+                        $pubTime = str_replace("十一月", "Nov", $pubTime);
+                        $pubTime = str_replace("十二月", "Dec", $pubTime);
+                        $pubTime = str_replace("\n", "", $pubTime);
+
+                        if ($pubTime != "" && $pubTime != null) { //&& strlen($pubTime) > 24
+                            //var_dump($pubTime);
+                            $postTime = $aaa->createFromFormat($value['time_format'], $pubTime)->getTimestamp();
+                        } else {
+                            //var_dump($pubTime);
+                            $postTime = time();
+                        }
+                        //获得标题
+                        $title = $item->title;
+                        $title = (string)$title[0];
+                        $title = str_replace(" ", "", $title);
+                        $title = str_replace("\n", "", $title);
+                        $title = str_replace("\t", "", $title);
+
+                        //获取链接
+                        $link = (string)$item->link;
+
+                        //获取RSS内容
+                        $description = $item->description;
+                        $content = $item->contentEncoded;
+
+
+                        $seedToAdd['postTime'] = $postTime;
+                        $seedToAdd['title'] = $title;
+                        $seedToAdd['link'] = $link;
+                        $seedToAdd['description'] = $description;
+                        $seedToAdd['content'] = $content;
+
+                        if ($postTime < $checkTime) {
+
+                        } else {
+                            if (isset($value['source_parent`'])) {
+                                $sourceName = $value['source_parent'];
+                            }else{
+                                $sourceName = $value['source_name'];
+                            }
+                            if (mb_strpos($title, $sourceName) === false) {
+                                array_push($seedsToLoad, $seedToAdd);
+                            }
+                        }
+
                     }
 
                 }
 
-            }
+
+                //统一进行查重
+
+                $titles_cursor = $db->Proseed->find(array(
+                    'seed_dbWriteTime' => array('$gt' => (time() - 86400))));
 
 
-            //统一进行查重
+                $titles = array();
 
-            $titles_cursor = $db->Proseed->find(array(
-                'seed_dbWriteTime' => array('$gt' => (time() - 86400))));
-
-
-            $titles = array();
-
-            foreach ($titles_cursor as $keyx => $valuex) {
-                array_push($titles, $valuex);
-            }
-
-            $sourceTitles = array();
-            $sourceTitle_cursor = $db->Proseed->find(array(
-                'seed_sourceID' => (string)$value['_id'],
-                'seed_dbWriteTime' => array('$gt' => (time() - 86400*30))
-                ));
-            foreach ($sourceTitle_cursor as $keysx => $valuesx) {
-                array_push($sourceTitles, $valuesx);
-            }
-
-            foreach ($seedsToLoad as $key1 => $seed) {
-
-                //进行标题拆字
-                $title = $seed['title'];
-                $title = clear_unmeaningful_char($title);
-
-
-                //Split keywords
-                $titleLen = mb_strlen($title, 'utf-8')-1;
-                $keywords = array();
-                $keywordDict = array();
-                for ($i = 0; $i < $titleLen; ++$i) {
-                    $twoStr = mb_substr($title, $i, 2, 'utf-8');
-                    array_push($keywords, $twoStr);
-                    $keywordDict[$twoStr] = 1;
-                    //$threeStr = mb_substr($title, $i,3,'utf-8');
-                    //array_push($keywords,$threeStr);
-                }
-                preg_match_all("(\\d+.\\d+|\\w+)", $seed['title'], $keywords_eng);
-
-                foreach ($keywords_eng[0] as $keyy => $valuey) {
-                    array_push($keywords, strtolower($valuey));
-                    $keywordDict[strtolower($valuey)] = 1;
+                foreach ($titles_cursor as $keyx => $valuex) {
+                    array_push($titles, $valuex);
                 }
 
+                $sourceTitles = array();
+                $sourceTitle_cursor = $db->Proseed->find(array(
+                    'seed_sourceID' => (string)$value['_id'],
+                    'seed_dbWriteTime' => array('$gt' => (time() - 86400*30))
+                    ));
+                foreach ($sourceTitle_cursor as $keysx => $valuesx) {
+                    array_push($sourceTitles, $valuesx);
+                }
 
-                
+                foreach ($seedsToLoad as $key1 => $seed) {
 
-                    $same = false;
-
-                    $seed_similar = array();
-
-                    if (count($keywords) > 6){
-                    	foreach ($titles as $key3 => $title_name) {
-
-	                        if ( find_same2($keywords, $title_name['seed_keywordDict'])==1) {//$title_name['seed_industry'] == $industry &&
-	                            //echo '<p>' . $seed['title'] . '</p>';
-	                            //echo '<p>' . $title_name['seed_title'] . '</p>';
-	                            $same = true;
-	                            break;
-	                        }
-
-	                        if (find_same2($keywords, $title_name['seed_keywordDict'])==2) {//$title_name['seed_industry'] == $industry && 
-	                            array_push($seed_similar, (string)$title_name['_id']);
-	                        }
-	                    }
+                    //进行标题拆字
+                    $title = $seed['title'];
+                    $title = clear_unmeaningful_char($title);
 
 
-                        foreach ($sourceTitles as $key4 => $sourceTitle_name) {
-                            if ( find_same2($keywords, $sourceTitle_name['seed_keywordDict'])==1) {//$title_name['seed_industry'] == $industry &&
-                                //echo '<p>' . $seed['title'] . '</p>';
-                                //echo '<p>' . $title_name['seed_title'] . '</p>';
-                                $same = true;
-                                break;
-                            }
-                        }
+                    //Split keywords
+                    $titleLen = mb_strlen($title, 'utf-8')-1;
+                    $keywords = array();
+                    $keywordDict = array();
+                    for ($i = 0; $i < $titleLen; ++$i) {
+                        $twoStr = mb_substr($title, $i, 2, 'utf-8');
+                        array_push($keywords, $twoStr);
+                        $keywordDict[$twoStr] = 1;
+                        //$threeStr = mb_substr($title, $i,3,'utf-8');
+                        //array_push($keywords,$threeStr);
+                    }
+                    preg_match_all("(\\d+.\\d+|\\w+)", $seed['title'], $keywords_eng);
+
+                    foreach ($keywords_eng[0] as $keyy => $valuey) {
+                        array_push($keywords, strtolower($valuey));
+                        $keywordDict[strtolower($valuey)] = 1;
+                    }
 
 
-                    }else{
-                        foreach ($titles as $key3 => $title_name) {
-                        	if (find_same($title, $title_name['seed_title'])==true) {//$title_name['seed_industry'] == $industry && (
+                    
+
+                        $same = false;
+
+                        $seed_similar = array();
+
+                        if (count($keywords) > 6){
+                        	foreach ($titles as $key3 => $title_name) {
+
+    	                        if ( find_same2($keywords, $title_name['seed_keywordDict'])==1) {//$title_name['seed_industry'] == $industry &&
     	                            //echo '<p>' . $seed['title'] . '</p>';
     	                            //echo '<p>' . $title_name['seed_title'] . '</p>';
     	                            $same = true;
     	                            break;
     	                        }
 
-                        }
-
-                        foreach ($sourceTitles as $key4 => $sourceTitle_name) {
-                            if ( find_same($title, $sourceTitle_name['seed_title'])==true) {//$title_name['seed_industry'] == $industry &&
-                                //echo '<p>' . $seed['title'] . '</p>';
-                                //echo '<p>' . $sourceTitle_name['seed_title'] . '</p>';
-                                $same = true;
-                                break;
-                            }
-                        }
-
-                    }
-
-                    
+    	                        if (find_same2($keywords, $title_name['seed_keywordDict'])==2) {//$title_name['seed_industry'] == $industry && 
+    	                            array_push($seed_similar, (string)$title_name['_id']);
+    	                        }
+    	                    }
 
 
-                    if ($same == false) {
-
-                        //获取时间
-                        $postTime = $seed['postTime'];
-
-
-                        //修复Link
-
-                        //处理文章的链接
-                        if (isset($value['source_linkReplace'])) {
-                            $linkToReplace = $seed['link'];
-                            $link = str_replace($value['source_linkReplace'][0], $value['source_linkReplace'][1], $linkToReplace);
-                        } else {
-                            $link = $seed['link'];
-                        }
-                        //获取Text
-                        //对Text进行处理
-
-                        //处理正文（RSS）
-
-
-                        $text = '';
-                        if (isset($value['source_tag'])) {
-                            /*
-                            $oh = curl_init($link);
-                            curl_setopt($oh, CURLOPT_RETURNTRANSFER, true);
-                            $originalText = curl_exec($oh);
-
-                            $encode = mb_detect_encoding($originalText, array('ASCII','UTF-8','GB2312','GBK',"EUC-CN","CP936"));
-
-                            if ( $encode !='UTF-8' ){
-                                //$encode = $encode . "//IGNORE"
-                                $originalText = iconv($encode,'UTF-8//IGNORE',$originalText);
-
-                                //var_dump($feeds);
-
-                                $feeds = str_replace('encoding="gb2312"', 'encoding="utf-8"', $feeds);
-                                $feeds = str_replace('encoding="ascii"', 'encoding="utf-8"', $feeds);
-                                $feeds = str_replace('encoding="gbk"', 'encoding="utf-8"', $feeds);
-                                $feeds = str_replace('encoding="ecu-cn"', 'encoding="utf-8"', $feeds);
-                                $feeds = str_replace('encoding="cp936"', 'encoding="utf-8"', $feeds);
-
-                                $feeds = str_replace('encoding="GB2312"', 'encoding="utf-8"', $feeds);
-                                $feeds = str_replace('encoding="ASCII"', 'encoding="utf-8"', $feeds);
-                                $feeds = str_replace('encoding="GBK"', 'encoding="utf-8"', $feeds);
-                                $feeds = str_replace('encoding="EUC-CN"', 'encoding="utf-8"', $feeds);
-                                $feeds = str_replace('encoding="CP936"', 'encoding="utf-8"', $feeds);
+                            foreach ($sourceTitles as $key4 => $sourceTitle_name) {
+                                if ( find_same2($keywords, $sourceTitle_name['seed_keywordDict'])==1) {//$title_name['seed_industry'] == $industry &&
+                                    //echo '<p>' . $seed['title'] . '</p>';
+                                    //echo '<p>' . $title_name['seed_title'] . '</p>';
+                                    $same = true;
+                                    break;
+                                }
                             }
 
 
-                            //var_dump(curl_error($oh));
-                            $opening = strpos($originalText, $value['source_tag'][0]);
-                            $closing = strpos($originalText, $value['source_tag'][1]);
-                            //$text = $originalText;
-                            $text = substr($originalText, $opening,$closing-$opening);
-                            */
-                        } else {
+                        }else{
+                            foreach ($titles as $key3 => $title_name) {
+                            	if (find_same($title, $title_name['seed_title'])==true) {//$title_name['seed_industry'] == $industry && (
+        	                            //echo '<p>' . $seed['title'] . '</p>';
+        	                            //echo '<p>' . $title_name['seed_title'] . '</p>';
+        	                            $same = true;
+        	                            break;
+        	                        }
 
-                            $description = $seed['description'];
-                            $content = $seed['content'];
-                            $desString = $description;
-                            $contentString = $content;
-                            $desLen = strlen($desString);
-                            $contentLen = strlen($contentString);
+                            }
+
+                            foreach ($sourceTitles as $key4 => $sourceTitle_name) {
+                                if ( find_same($title, $sourceTitle_name['seed_title'])==true) {//$title_name['seed_industry'] == $industry &&
+                                    //echo '<p>' . $seed['title'] . '</p>';
+                                    //echo '<p>' . $sourceTitle_name['seed_title'] . '</p>';
+                                    $same = true;
+                                    break;
+                                }
+                            }
+
+                        }
+
+                        
 
 
-                            if ($desLen < $contentLen) {
-                                $text = (string)$contentString;
+                        if ($same == false) {
+
+                            //获取时间
+                            $postTime = $seed['postTime'];
+
+
+                            //修复Link
+
+                            //处理文章的链接
+                            if (isset($value['source_linkReplace'])) {
+                                $linkToReplace = $seed['link'];
+                                $link = str_replace($value['source_linkReplace'][0], $value['source_linkReplace'][1], $linkToReplace);
                             } else {
-                                $text = (string)$desString;
+                                $link = $seed['link'];
                             }
-                        }
+                            //获取Text
+                            //对Text进行处理
 
-                        if (true) {
+                            //处理正文（RSS）
 
-                            if (isset($value['text_closingTag'])) {
-                                $closingCursor = strpos($text, $value['text_closingTag']);
-                                if ($closingCursor != false) {
-                                    $text = substr($text, 0, $closingCursor);
+
+                            $text = '';
+                            if (isset($value['source_tag'])) {
+                                /*
+                                $oh = curl_init($link);
+                                curl_setopt($oh, CURLOPT_RETURNTRANSFER, true);
+                                $originalText = curl_exec($oh);
+
+                                $encode = mb_detect_encoding($originalText, array('ASCII','UTF-8','GB2312','GBK',"EUC-CN","CP936"));
+
+                                if ( $encode !='UTF-8' ){
+                                    //$encode = $encode . "//IGNORE"
+                                    $originalText = iconv($encode,'UTF-8//IGNORE',$originalText);
+
+                                    //var_dump($feeds);
+
+                                    $feeds = str_replace('encoding="gb2312"', 'encoding="utf-8"', $feeds);
+                                    $feeds = str_replace('encoding="ascii"', 'encoding="utf-8"', $feeds);
+                                    $feeds = str_replace('encoding="gbk"', 'encoding="utf-8"', $feeds);
+                                    $feeds = str_replace('encoding="ecu-cn"', 'encoding="utf-8"', $feeds);
+                                    $feeds = str_replace('encoding="cp936"', 'encoding="utf-8"', $feeds);
+
+                                    $feeds = str_replace('encoding="GB2312"', 'encoding="utf-8"', $feeds);
+                                    $feeds = str_replace('encoding="ASCII"', 'encoding="utf-8"', $feeds);
+                                    $feeds = str_replace('encoding="GBK"', 'encoding="utf-8"', $feeds);
+                                    $feeds = str_replace('encoding="EUC-CN"', 'encoding="utf-8"', $feeds);
+                                    $feeds = str_replace('encoding="CP936"', 'encoding="utf-8"', $feeds);
+                                }
+
+
+                                //var_dump(curl_error($oh));
+                                $opening = strpos($originalText, $value['source_tag'][0]);
+                                $closing = strpos($originalText, $value['source_tag'][1]);
+                                //$text = $originalText;
+                                $text = substr($originalText, $opening,$closing-$opening);
+                                */
+                            } else {
+
+                                $description = $seed['description'];
+                                $content = $seed['content'];
+                                $desString = $description;
+                                $contentString = $content;
+                                $desLen = strlen($desString);
+                                $contentLen = strlen($contentString);
+
+
+                                if ($desLen < $contentLen) {
+                                    $text = (string)$contentString;
+                                } else {
+                                    $text = (string)$desString;
                                 }
                             }
 
-                            if (isset($value['text_startingTag'])) {
-                                $startingCursor = strpos($text, $value['text_startingTag']);
-                                if ($startingCursor != false) {
-                                    $text = substr($text, $startingCursor, -1);
-                                }
-                            }
-
-                            $text = str_replace("style=", "", $text);
-                            $text = str_replace("width", "", $text);
-                            $text = str_replace("height", "", $text);
-                            $text = str_replace("font-size", "", $text);
-                            //$text = str_replace("size=", "", $text);
-                            //去掉3W互联网沙龙的第一张无关图片；
-                            $text = str_replace("\"http://mmbiz.qpic.cn/mmbiz/agEQQ7NdJSPvNmD077w8LlvW6UF4G0b50paUvp37W56uAI0BibsH4by9twNUQlvdUv6zqUdqwOibHicQgNYnYtfMQ/0?wx_fmt=png\"", "", $text);
-                            $text = str_replace("\"http://mmbiz.qpic.cn/mmbiz/agEQQ7NdJSNmJibkdPTYyoEjyweiaaOGNoNEFH4TL7jqX66MAew9q28wZkGW77UiakSINicQpKaSRtU8Ck1p0fibT2Q/0\"", "", $text);
-
-
-                            $text = preg_replace("<script.*?/script>", "", $text);
-                            $text = preg_replace("<link.*?>", "", $text);
-                            $text = preg_replace("<iframe.*?/iframe>", "", $text);
-
-                            $cleanedText = clear_unmeaningful_char($text);
-                            $textLen = mb_strlen($cleanedText,'utf-8');
-
-
-                            //处理Title
-                            $title = $seed['title'];
-                            $title = preg_replace("/<.+?>/", "", $title);
-                            $title = str_replace("&quot;", "", $title);
-
-
-                            if ($title != '' && $title != null && strlen($title) > 0) {
-
-
-
-                                //若来源为门户频道，则使用门户的父名称
-                                if (isset($value['source_parent'])) {
-                                    $sourceName = $value['source_parent'];
-                                } else {
-                                    $sourceName = $value['source_name'];
-                                }
-                                if (isset($value['source_tag'])) {
-                                    $sourceTag = $value['source_tag'];
-                                } else {
-                                    $sourceTag = array();
-                                }
-
-                                $textTag = array();
-                                if (isset($value['text_startingTag'])) {
-                                    array_push($textTag,$value['text_startingTag']);
-                                } else {
-                                    array_push($textTag,'');
-                                }
+                            if (true) {
 
                                 if (isset($value['text_closingTag'])) {
-                                    array_push($textTag,$value['text_closingTag']);
-                                } else {
-                                    array_push($textTag,'');
+                                    $closingCursor = strpos($text, $value['text_closingTag']);
+                                    if ($closingCursor != false) {
+                                        $text = substr($text, 0, $closingCursor);
+                                    }
                                 }
 
+                                if (isset($value['text_startingTag'])) {
+                                    $startingCursor = strpos($text, $value['text_startingTag']);
+                                    if ($startingCursor != false) {
+                                        $text = substr($text, $startingCursor, -1);
+                                    }
+                                }
 
-                                $seed['imageCount'] = 0;
+                                $text = str_replace("style=", "", $text);
+                                $text = str_replace("width", "", $text);
+                                $text = str_replace("height", "", $text);
+                                $text = str_replace("font-size", "", $text);
+                                //$text = str_replace("size=", "", $text);
+                                //去掉3W互联网沙龙的第一张无关图片；
+                                $text = str_replace("\"http://mmbiz.qpic.cn/mmbiz/agEQQ7NdJSPvNmD077w8LlvW6UF4G0b50paUvp37W56uAI0BibsH4by9twNUQlvdUv6zqUdqwOibHicQgNYnYtfMQ/0?wx_fmt=png\"", "", $text);
+                                $text = str_replace("\"http://mmbiz.qpic.cn/mmbiz/agEQQ7NdJSNmJibkdPTYyoEjyweiaaOGNoNEFH4TL7jqX66MAew9q28wZkGW77UiakSINicQpKaSRtU8Ck1p0fibT2Q/0\"", "", $text);
 
-                                //获取正文中的第一张图片：
-                                if (!isset($seed['imageLink'])) {
-                                    if ($text != '') {
-                                        $imageReg = "<(?:img|IMG).*?(?:src|data-url)=\"(.*?)\".*?>";
-                                        preg_match_all($imageReg, $text, $images);
-                                        $imgCount = count($images[0]);
-                                        if ($imgCount>0 && $imgCount<3) {
-                                            $seed['imageLink'] = $images[1][0];    
-                                        }else if ($imgCount >= 3){
-                                            $seed['imageLink'] = $images[1][0];
+
+                                $text = preg_replace("<script.*?/script>", "", $text);
+                                $text = preg_replace("<link.*?>", "", $text);
+                                $text = preg_replace("<iframe.*?/iframe>", "", $text);
+
+                                $cleanedText = clear_unmeaningful_char($text);
+                                $textLen = mb_strlen($cleanedText,'utf-8');
+
+
+                                //处理Title
+                                $title = $seed['title'];
+                                $title = preg_replace("/<.+?>/", "", $title);
+                                $title = str_replace("&quot;", "", $title);
+
+
+                                if ($title != '' && $title != null && strlen($title) > 0) {
+
+
+
+                                    //若来源为门户频道，则使用门户的父名称
+                                    if (isset($value['source_parent'])) {
+                                        $sourceName = $value['source_parent'];
+                                    } else {
+                                        $sourceName = $value['source_name'];
+                                    }
+                                    if (isset($value['source_tag'])) {
+                                        $sourceTag = $value['source_tag'];
+                                    } else {
+                                        $sourceTag = array();
+                                    }
+
+                                    $textTag = array();
+                                    if (isset($value['text_startingTag'])) {
+                                        array_push($textTag,$value['text_startingTag']);
+                                    } else {
+                                        array_push($textTag,'');
+                                    }
+
+                                    if (isset($value['text_closingTag'])) {
+                                        array_push($textTag,$value['text_closingTag']);
+                                    } else {
+                                        array_push($textTag,'');
+                                    }
+
+
+                                    $seed['imageCount'] = 0;
+
+                                    //获取正文中的第一张图片：
+                                    if (!isset($seed['imageLink'])) {
+                                        if ($text != '') {
+                                            $imageReg = "<(?:img|IMG).*?(?:src|data-url)=\"(.*?)\".*?>";
+                                            preg_match_all($imageReg, $text, $images);
+                                            $imgCount = count($images[0]);
+                                            if ($imgCount>0 && $imgCount<3) {
+                                                $seed['imageLink'] = $images[1][0];    
+                                            }else if ($imgCount >= 3){
+                                                $seed['imageLink'] = $images[1][0];
+                                            }else{
+                                                    $seed['imageLink'] = '';        
+                                            }
+                                            $seed['imageCount'] = $imgCount;
+
                                         }else{
-                                                $seed['imageLink'] = '';        
+                                            $seed['imageLink'] = '';
                                         }
-                                        $seed['imageCount'] = $imgCount;
+                                        $httpPos = strpos($seed['imageLink'], 'http');
+                                        if ($seed['imageLink'] != '' && $httpPos === false) {
 
-                                    }else{
-                                        $seed['imageLink'] = '';
-                                    }
-                                    $httpPos = strpos($seed['imageLink'], 'http');
-                                    if ($seed['imageLink'] != '' && $httpPos === false) {
+                                            $seed['imageLink'] = str_replace('../', '', $seed['imageLink']);
+                                            $seed['imageLink'] = str_replace('./', '', $seed['imageLink']);
+                                            $seed['imageLink'] = $value['source_homeURL'].$seed['imageLink'];
+                                        }
+                                        if ($value['source_name'] == 'TECH2IPO 创见') {
+                                            $seed['imageLink'] = str_replace("/0/","/192/", $seed['imageLink']);
+                                        }
 
-                                        $seed['imageLink'] = str_replace('../', '', $seed['imageLink']);
-                                        $seed['imageLink'] = str_replace('./', '', $seed['imageLink']);
-                                        $seed['imageLink'] = $value['source_homeURL'].$seed['imageLink'];
-                                    }
-                                    if ($value['source_name'] == 'TECH2IPO 创见') {
-                                        $seed['imageLink'] = str_replace("/0/","/192/", $seed['imageLink']);
                                     }
 
-                                }
-
-                                if ($seed['imageCount'] > 5 ) {
-                                    $title = $title.'（多图）';
-                                }
+                                    if ($seed['imageCount'] > 5 ) {
+                                        $title = $title.'（多图）';
+                                    }
 
 
-                                $completeStatus = 'completed';
-                                if ($text == '') {
-                                    $completeStatus = 'uncompleted';
-                                }
+                                    $completeStatus = 'completed';
+                                    if ($text == '') {
+                                        $completeStatus = 'uncompleted';
+                                    }
 
-                                $text = iconv($encode, 'UTF-8//IGNORE', $text);
+                                    $text = iconv($encode, 'UTF-8//IGNORE', $text);
 
-                                $dataToSave = array(
-                                    'seed_source' => $sourceName,
-                                    'seed_sourceLower' => strtolower($value['source_name']),
-                                    'seed_sourceID' => (string)$value['_id'],
-                                    'seed_title' => htmlspecialchars_decode($title),
-                                    'seed_titleLower' => strtolower(htmlspecialchars_decode($title)),
-                                    'seed_link' => $link,
-                                    'seed_text' => $text,
-                                    'seed_textLen' => $textLen,
-                                    'seed_time' => $postTime,
-                                    'seed_dbWriteTime' => time(),
-                                    'seed_keywords' => $keywords,
-                                    'seed_keywordDict' => $keywordDict,
-                                    'seed_hotness' => ((100 + (20 * $mediaAddition * 10)) * exp((-0.05) * ((time() - $postTime) / 3600))),
-                                    'seed_hotnessTime' => time(),
-                                    //'seed_industry' => $industry,
-                                    'seed_agreeCount' => rand(0,5),
-                                    'seed_sourceTag' => $sourceTag,
-                                    'seed_textTag' => $textTag,
-                                    'seed_imageLink' => $seed['imageLink'],
-                                    'seed_imageCount' => $seed['imageCount'],
-                                    'seed_similar' => $seed_similar,
-                                    'seed_completeStatus' => $completeStatus,
-                                    'seed_active' = '1'
-                                    
-                                );
+                                    $dataToSave = array(
+                                        'seed_source' => $sourceName,
+                                        'seed_sourceLower' => strtolower($value['source_name']),
+                                        'seed_sourceID' => (string)$value['_id'],
+                                        'seed_title' => htmlspecialchars_decode($title),
+                                        'seed_titleLower' => strtolower(htmlspecialchars_decode($title)),
+                                        'seed_link' => $link,
+                                        'seed_text' => $text,
+                                        'seed_textLen' => $textLen,
+                                        'seed_time' => $postTime,
+                                        'seed_dbWriteTime' => time(),
+                                        'seed_keywords' => $keywords,
+                                        'seed_keywordDict' => $keywordDict,
+                                        'seed_hotness' => ((100 + (20 * $mediaAddition * 10)) * exp((-0.05) * ((time() - $postTime) / 3600))),
+                                        'seed_hotnessTime' => time(),
+                                        //'seed_industry' => $industry,
+                                        'seed_agreeCount' => rand(0,5),
+                                        'seed_sourceTag' => $sourceTag,
+                                        'seed_textTag' => $textTag,
+                                        'seed_imageLink' => $seed['imageLink'],
+                                        'seed_imageCount' => $seed['imageCount'],
+                                        'seed_similar' => $seed_similar,
+                                        'seed_completeStatus' => $completeStatus,
+                                        'seed_active' = '1'
+                                        
+                                    );
 
-                                //解析行业
-                                $seedIndustry = array();
-                                //$industryHotness = array();
+                                    //解析行业
+                                    $seedIndustry = array();
+                                    //$industryHotness = array();
 
-                                if ($text != '') {
-                                    $protext = new Protext; 
-                                    $parserResult = $protext->parseIndustry($text,strtolower($title));    
-                                    $dataToSave['seed_textIndustryWords'] = $parserResult['seed_textIndustryWords'];
-                                    
-                                    foreach($parserResult['seed_industryParsed'] as $industryParsed){
+                                    if ($text != '') {
+                                        $protext = new Protext; 
+                                        $parserResult = $protext->parseIndustry($text,strtolower($title));    
+                                        $dataToSave['seed_textIndustryWords'] = $parserResult['seed_textIndustryWords'];
+                                        
+                                        foreach($parserResult['seed_industryParsed'] as $industryParsed){
 
-                                        array_push($seedIndustry,$industryParsed);
-                                        //$industryHotness[$industryParsed] = 0;
+                                            array_push($seedIndustry,$industryParsed);
+                                            //$industryHotness[$industryParsed] = 0;
+                                            /*
+                                            $segmentResult = $protext->parseSegment($parserResult['seed_textIndustryWords'],$industryParsed);
+                                            if (count($segmentResult) > 0) {
+                                                foreach ($segmentResult as $segment) {
+                                                    array_push($seedIndustry, $segment);
+                                                }
+                                            }
+                                            */
+                                        };
                                         /*
-                                        $segmentResult = $protext->parseSegment($parserResult['seed_textIndustryWords'],$industryParsed);
-                                        if (count($segmentResult) > 0) {
-                                            foreach ($segmentResult as $segment) {
-                                                array_push($seedIndustry, $segment);
+                                        foreach ($parserResult['seed_segmentParsed'] as $key2 => $segment) {
+                                            if (!in_array($segment,$seedIndustry)) {
+                                                array_push($seedIndustry,$segment);
                                             }
                                         }
                                         */
-                                    };
-                                    /*
-                                    foreach ($parserResult['seed_segmentParsed'] as $key2 => $segment) {
-                                        if (!in_array($segment,$seedIndustry)) {
-                                            array_push($seedIndustry,$segment);
-                                        }
                                     }
-                                    */
+
+                                    /*
+                                    if (isset($value['source_industry'])){
+                                        foreach ($value['source_industry'] as $key2 => $industry) {
+                                            if (!in_array($industry,$seedIndustry)) {
+                                                array_push($seedIndustry,$industry);
+                                                $industryHotness[$industry] = 0;
+                                            }
+                                        }    
+                                    }*/
+                                    
+
+                                    $dataToSave['seed_industry'] = $seedIndustry;
+                                    //$dataToSave['seed_industryHotness'] = $industryHotness;
+
+                                    
+                                    
+                                
+
+
+                                    //var_dump($keywords);
+                                    //var_dump($proseed->save($seed));
+                                    //var_dump($seed);
+                                    //var_dump($dataToSave);
+                                    $proseed->save($dataToSave);
+                                    array_push($titles, $dataToSave);
+                                    array_push($sourceTitles, $dataToSave);
+
+                                    foreach ($dataToSave['seed_similar'] as $keyzzz => $valuezzz) {
+                                    	$news = $proseed -> findOne(array('_id'=> new MongoId($valuezzz)));
+                                    	array_push($news['seed_similar'], (string)$dataToSave['_id']);
+                                    	$proseed->save($news);
+                                    }
+
                                 }
 
-                                /*
-                                if (isset($value['source_industry'])){
-                                    foreach ($value['source_industry'] as $key2 => $industry) {
-                                        if (!in_array($industry,$seedIndustry)) {
-                                            array_push($seedIndustry,$industry);
-                                            $industryHotness[$industry] = 0;
-                                        }
-                                    }    
-                                }*/
-                                
+                                //}
 
-                                $dataToSave['seed_industry'] = $seedIndustry;
-                                //$dataToSave['seed_industryHotness'] = $industryHotness;
-
-                                
-                                
-                            
-
-
-                                //var_dump($keywords);
-                                //var_dump($proseed->save($seed));
-                                //var_dump($seed);
-                                //var_dump($dataToSave);
-                                $proseed->save($dataToSave);
-                                array_push($titles, $dataToSave);
-                                array_push($sourceTitles, $dataToSave);
-
-                                foreach ($dataToSave['seed_similar'] as $keyzzz => $valuezzz) {
-                                	$news = $proseed -> findOne(array('_id'=> new MongoId($valuezzz)));
-                                	array_push($news['seed_similar'], (string)$dataToSave['_id']);
-                                	$proseed->save($news);
-                                }
-
+                                echo "<h2>" . $value['source_name'] . "," . $title . "," . $link . "," . $postTime . ",". $textLen."</h2>";
                             }
-
-                            //}
-
-                            echo "<h2>" . $value['source_name'] . "," . $title . "," . $link . "," . $postTime . ",". $textLen."</h2>";
                         }
-                    }
-                //}
+                    //}
 
+                }
+
+                $value['check_time'] = time();
+                $prosource->save($value);
             }
-
         } catch (Exception $e) {
             var_dump($e);
         }
+
+        
     }
-    $value['check_time'] = time();
-    $prosource->save($value);
+    
 }
 
 
