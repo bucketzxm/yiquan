@@ -875,7 +875,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 		}
 
 		//找到这个user
-		$user = $this->db->Prouser->findOne (array ('_id' => new MongoId ($user_id)),array ('current' => 1));
+		$user = $this->db->Prouser->findOne (array ('_id' => new MongoId ($user_id)));
 		$cursor = $this->db->Proseed->findOne (array ('_id'=> new MongoId($seed_id)));
 		$existWorth = $this->db->Proworth->findOne (array ('like_user'=>$user_id,'like_seed'=>$seed_id));
 		$source = $this->db->Prosource->findOne (array ('_id' => new MongoId($cursor['seed_sourceID'])));
@@ -886,8 +886,8 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 			$data = array (
 				'like_user' => $user_id,
 				'like_seed' => $seed_id,
-				'like_weight' => $user['current']['user_weight'],
-				'like_industry' => $user['current']['user_industry'],
+				'like_weight' => $user['user_weight'],
+				//'like_industry' => $user['user_industry'],
 				'like_seedSource' => $cursor['seed_sourceID'],
 				'like_comment' => $like_comment,
 				'like_time' => time()
@@ -895,7 +895,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 
 			$this->db->Proworth->save ($data);
 
-			$cursor['seed_hotness'] += (int)$user['current']['user_weight']*10;
+			$cursor['seed_hotness'] += (int)$user['user_weight']*10;
 			if(isset($cursor['seed_agreeCount'])){
 				$cursor['seed_agreeCount'] ++;
 			}else{
@@ -946,12 +946,12 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 		}
 
 		//找到这个user
-		$user = $this->db->Prouser->findOne (array ('_id' => new MongoId ($user_id)),array ('current' => 1));
+		$user = $this->db->Prouser->findOne (array ('_id' => new MongoId ($user_id)));
 		$cursor = $this->db->Proseed->findOne (array ('_id'=> new MongoId($seed_id)));
 		$existWorth = $this->db->Proworth->findOne (array ('like_user'=>$user_id,'like_seed'=>$seed_id));
 		$source = $this->db->Prosource->findOne (array ('_id' => new MongoId($cursor['seed_sourceID'])));
 
-		$cursor['seed_hotness'] += (int)$user['current']['user_weight']*10;
+		$cursor['seed_hotness'] += (int)$user['user_weight']*10;
 		if(isset($cursor['seed_agreeCount'])){
 			$cursor['seed_agreeCount'] ++;
 		}else{
@@ -1086,9 +1086,9 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 			$users = $this->db->Prouser->find (array ('_id' => new MongoId($value['like_user'])));
 			foreach ($users as $key => $user) {
 				$value['user_id'] = (string)$user['_id'];
-				$value['user_name'] = $user['current']['user_name'];
-				$value['user_company'] = $user['current']['user_company'];
-				$value['user_title'] = $user['current']['user_title'];
+				$value['user_name'] = $user['user_nickname'];
+				//$value['user_company'] = $user['current']['user_company'];
+				//$value['user_title'] = $user['current']['user_title'];
 			}
 
 			array_push ($result,$value);
@@ -1148,7 +1148,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 		foreach ($cursor as $key => $value){
 			if ($value['message_senderID'] != 'system') {
 				$user = $this->db->Prouser->findOne(array('_id'=> new MongoId($value['message_senderID'])));
-				$value['sender_name'] = $user['current']['user_name'];	
+				$value['sender_name'] = $user['user_nickname'];	
 			}else{
 				$value['sender_name'] = '值得一读团队';
 			}
@@ -1251,11 +1251,11 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 		$highReadTime = $seed['seed_textLen']*60*0.5/500;
 		
 		if ($read_time > $highReadTime ) {
-			$seed['seed_hotness'] += (int)$user['current']['user_weight']*1;
+			$seed['seed_hotness'] += (int)$user['user_weight']*1;
 			if(isset($seed['seed_agreeCount'])){
-				$seed['seed_agreeCount'] += ceil($user['current']['user_weight']/5);
+				$seed['seed_agreeCount'] += ceil($user['user_weight']/5);
 			}else{
-				$seed['seed_agreeCount'] = ceil($user['current']['user_weight']/5);
+				$seed['seed_agreeCount'] = ceil($user['user_weight']/5);
 			}
 		}else if($read_time > 60){
 			$seed['seed_hotness'] += 1;

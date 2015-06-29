@@ -52,7 +52,7 @@ class Prouser extends YqBase {
 			if ($this->yiquan_version == 0) {
 				return - 2;
 			}
-			$this->logCallMethod ( $user_name, __METHOD__ );
+		
 
 		try{
 			$res = $this->checkRegisterCode($user_mobile,$code);
@@ -660,7 +660,8 @@ class Prouser extends YqBase {
 							'user_mediaGroups' => array(),
 							'user_searchWords' => array(),
 							'user_messageCheckTime' => 0,
-							'user_gender' => $userInfo['sex']
+							'user_gender' => $userInfo['sex'],
+							'user_weight' => 1,
 					);
 					$this->db->Prouser->save ( $neo );
 					
