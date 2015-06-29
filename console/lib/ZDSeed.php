@@ -146,7 +146,7 @@ class Seed extends YqBase{
 
 			}*/
 			
-			$ans ["$sst"] ['seed'] ['notextcount'] = $c_notext;
+			$ans ["$sst"] ['seed'] ['没有文章数'] = $c_notext;
 
 
 
@@ -163,14 +163,14 @@ class Seed extends YqBase{
 							'$lt' => strtotime ( '+1 day', $sst ) 
 					) ,'seed_completeStatus'=>'uncompleted'
 			) );
-			$ans ["$sst"] ['seed'] ['uncompletedcount'] = $c_uncompleted;
+			$ans ["$sst"] ['seed'] ['uncompleted数量'] = $c_uncompleted;
 			
 			if ($c_all==0) {
 				$ratio='今日无文章';
 			}else{
 				$ratio=round($c_notext/$c_all*100,2).'%';
 			}
-			$ans ["$sst"] ['seed'] ['ratio'] = $ratio;
+			$ans ["$sst"] ['seed'] ['文章为空比例'] = $ratio;
 
 			
 		// var_dump($ans);
