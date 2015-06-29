@@ -1399,7 +1399,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 			$this->db->Prouser->save($user);
 		}
 		$group = $this->db->ProMediaGroup->findOne(array('_id' => new MongoId($group_id)));
-		$group['mediaGroup_counts'] ++;
+		$group['mediaGroup_counts']['follower_count'] ++;
 		$this->db->ProMediaGroup->save($group);
 		return 1;
 	}
@@ -1421,7 +1421,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 			$this->db->Prouser->save($user);
 		}
 		$group = $this->db->ProMediaGroup->findOne(array('_id' => new MongoId($group_id)));
-		$group['mediaGroup_counts'] --;
+		$group['mediaGroup_counts']['follower_count'] --;
 		$this->db->ProMediaGroup->save($group);
 
 		return 1;
