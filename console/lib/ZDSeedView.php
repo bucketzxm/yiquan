@@ -80,7 +80,7 @@ class SeedView extends Seed{
 			$ans [] = $doc;
 		}
 		
-		return $ans;
+	
 		
 
 
@@ -89,24 +89,12 @@ class SeedView extends Seed{
 
 
 		echo '<tr></thead>';
-		if ($ans!=null){
-			for($i = $start; $i < min ( $start + $len, count ( $ans ) ); $i ++) {
-				echo '<tr>';
-
-				td_combiner( $ans[$i]['source_name']);
-				$count=$this->db->Proseed->count( array('seed_source' => $ans[$i]['source_name']));
-				td_combiner($count);
-
-			}
-
-
 		
-
-	
-
-
-
-
+		for($i = $start; $i < min ( $start + $len, count ( $ans ) ); $i ++) {
+			echo '<tr>';
+			td_combiner( $ans[$i]['source_name']);
+			$count=$this->db->Proseed->count( array('seed_source' => $ans[$i]['source_name']));
+			td_combiner($count);
 
 
 			echo '</tr>';
