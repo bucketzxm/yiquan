@@ -20,6 +20,7 @@ include_once '401.php';
 				<li><a href="?action=文章列表">文章列表 <span class="sr-only">(current)</span></a></li>
 				<li><a href="?action=媒体文章数据">媒体文章数据 <span class="sr-only">(current)</span></a></li>
 				<li><a href="?action=文章统计数据">文章统计数据 <span class="sr-only">(current)</span></a></li>
+				<li><a href="?action=查询">按日期查询 <span class="sr-only">(current)</span></a></li>
 
 
 			</ul>
@@ -92,6 +93,35 @@ include_once '401.php';
 									echo '失败';
 								}
 							}
+
+
+							break;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+						case '查询' :
+							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
+								$a->getDailyReportSearchform ();
+							}
+							if ($_SERVER ['REQUEST_METHOD'] == 'POST') {
+								$a->getDailyReport ( $a->getReport ( array (
+										'startday' => strtotime ( $_POST ['starttime'] ) 
+								) ) );
+							}
+							break;
+
 
 
 						}

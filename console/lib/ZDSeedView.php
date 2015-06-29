@@ -133,6 +133,7 @@ class SeedView extends Seed{
 		
 		for($i = $start; $i < min ( $start + $len, count ( $ans ) ); $i ++) {
 			echo '<tr>';
+
 			td_combiner( $ans[$i]['source_name']);
 			$count=$this->db->Proseed->count( array('seed_source' => $ans[$i]['source_name'],'seed_dbWriteTime'=>array('$gt'=>time()-259200)));
 			td_combiner($count);
@@ -195,11 +196,37 @@ class SeedView extends Seed{
 	}
 
 
+#################################################################################
+	function getDailyReport($arr) {
+		// var_dump($arr);
+		foreach ( $arr as $key => $v ) {
+			// var_dump($key);
+			echo '<div class="table-responsive"><h2>' . date ( 'Y-m-d', $key ) . '</h2><hr/>';
+			echo '<h3>文章统计</h3><hr/>';
+			echo '<table class="table table-striped">';
+			echo '<thead><tr><th>内容</th><th>值</th></tr></thead>';
+			foreach ( $v ['active'] as $key2 => $v2 ) {
+				echo '<tr><td>' . $this->tochinese ( $key2 ) . '</td><td>' . $v2 . '</td></tr>';
+			}
+			echo '</table><hr/>';
+			
+			
+			
+			echo '</div>';
+		}
+	}
 
 
 
 
-
+	function getDailyReportSearchform() {
+		echo '<div><form method="post" action="?action=查询">';
+		echo '<script language=javascript src="images/DatePicker.js"></script>';
+		echo '<div class="form-group"><h2>选择开始时间</h2></div>';
+		echo '<input name="starttime" id="sttime" type="text" onfocus="setday(this)" readonly="readonly" />';
+		echo '<input type="submit" value="查询" />';
+		echo '</form></div>';
+	}
 
 
 

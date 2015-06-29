@@ -108,6 +108,74 @@ class Seed extends YqBase{
 	}
 
 
+######################################################################
+	function getReport($configs = []) {
+		$st = time ();
+		$ed = time ();
+		if (! isset ( $configs ['startday'] )) {
+			$st = strtotime ( date ( 'Y-m-d', strtotime ( '-1 week' ) ) );
+		} else {
+			$st = $configs ['startday'];
+		}
+		
+		$ans = [ ];
+		$sst = $st;
+		while ( $sst <= $ed ) {
+			$seed = [ ];
+			$cus = $this->db->Proseed->find ( array (
+					'seed_time' => array (
+							'$gte' => $sst,
+							'$lt' => strtotime ( '+1 day', $sst ) 
+					) 
+			) );
+
+
+			$c_notext=$this->db->Proseed->count ( array (
+					'seed_time' => array (
+							'$gte' => $sst,
+							'$lt' => strtotime ( '+1 day', $sst ) 
+					) ,'seed_completeStatus'=>'completed','seed_text'=>''
+			) );
+			/*while ( $cus->hasNext () ) {
+				$doc = $cus->getNext ();
+				if ($doc ['quote_ownerID'] != '') {
+					$activeuser [$doc ['quote_ownerID']] = 1;
+
+			}*/
+			
+			$ans ["$sst"] ['seed'] ['notextcount'] = $c_notext;
+
+
+
+			$c_all=$this->db->Proseed->count ( array (
+					'seed_time' => array (
+							'$gte' => $sst,
+							'$lt' => strtotime ( '+1 day', $sst ) 
+					) 
+			) );
+
+			$c_uncompleted=$this->db->Proseed->count ( array (
+					'seed_time' => array (
+							'$gte' => $sst,
+							'$lt' => strtotime ( '+1 day', $sst ) 
+					) ,'seed_completeStatus'=>'uncompleted'
+			) );
+			$ans ["$sst"] ['seed'] ['uncompletedcount'] = $c_uncompleted;
+			
+			if ($c_all==0) {
+				$ratio='今日无文章';
+			}else{
+				$ratio=round($c_notext/$c_all*100,2).'%';
+			}
+			$ans ["$sst"] ['seed'] ['ratio'] = $ratio;
+
+			
+			
+			// var_dump(date('Y-m-d',$sst));
+		}
+		// var_dump($ans);
+		return $ans;
+	}
 
 
 	
