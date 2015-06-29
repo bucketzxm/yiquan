@@ -206,7 +206,7 @@ class SeedView extends Seed{
 			echo '<table class="table table-striped">';
 			echo '<thead><tr><th>内容</th><th>值</th></tr></thead>';
 			foreach ( $v ['seed'] as $key2 => $v2 ) {
-				echo '<tr><td>' . $this-> $key2 . '</td><td>' . $v2 . '</td></tr>';
+				echo '<tr><td>' .  $key2 . '</td><td>' . $v2 . '</td></tr>';
 			}
 			echo '</table><hr/>';
 			
