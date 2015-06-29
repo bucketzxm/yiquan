@@ -65,6 +65,45 @@ class SeedView extends Seed{
 		echo '</table></div>';
 	}
 
+
+
+	function listAllSeedStat_table($arr, $start, $len){
+
+		echo '<div class="table-responsive"><table class="table table-striped">';
+		echo '<thead><tr>';
+		$cus=$this->db->Prosource->find( array('source_status' => $active));
+
+
+		th_combiner('媒体名称');
+		th_combiner( '近三天·文章数目');
+
+
+		echo '<tr></thead>';
+		if ($cus!=null){
+			for($i = $start; $i < min ( $start + $len, count ( $cus ) ); $i ++) {
+				echo '<tr>';
+				td_combiner((isset($cus[$i]['source_name'])? $cus[$i]['source_name']:''));
+				$count=$this->db->Proseed->count( array('seed_source' => $cus[$i]['source_name']));
+				td_combiner($count);
+
+			}
+
+
+		}
+
+	
+
+
+
+
+
+
+			echo '</tr>';
+
+		}
+		echo '</table></div>';
+	}
+
 	function showOneSeed_form($arr) {
 		echo '<div><form method="post" action="?action=editSeed">';
 		echo '<input type="hidden" class="form-control" name="id" value="' . $arr ['_id']->{'$id'} . '"/>';
