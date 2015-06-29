@@ -32,6 +32,7 @@ class SeedView extends Seed{
 		th_combiner('文章名称');
 		th_combiner( '所属媒体');
 		th_combiner('行业或标签');
+		th_combiner('有无文章');
 
 		th_combiner('值得一读数');
 		th_combiner('热度');
@@ -50,8 +51,52 @@ class SeedView extends Seed{
 
 			$industry=(isset($arr[$i]['seed_industry'])? implode(',',$arr[$i]['seed_industry']): '');
 			td_combiner($industry);
+			if (strlen($arr[$i]['seed_text'])<=1) {
+				td_combiner("没有文章");
+			}else{
+				td_combiner("有文章");
+			}
 			td_combiner((isset($arr[$i]['seed_agreeCount']) ? $arr[$i]['seed_agreeCount']: ''));
 			td_combiner((isset($arr[$i]['seed_hotness']) ? $arr[$i]['seed_hotness']: ''));
+
+			echo '</tr>';
+
+		}
+		echo '</table></div>';
+	}
+
+
+
+	function listAllSeedStat_table($arr, $start, $len){
+
+		echo '<div class="table-responsive"><table class="table table-striped">';
+		echo '<thead><tr>';
+		$cus=$this->db->Prosource->find( array('source_status' => 'active'));
+
+		th_combiner('媒体名称');
+		th_combiner( '近三天·文章数目');
+
+
+		echo '<tr></thead>';
+		if ($cus!=null){
+			for($i = $start; $i < min ( $start + $len, count ( $cus ) ); $i ++) {
+				echo '<tr>';
+
+				td_combiner( $cus['source_name']);
+				$count=$this->db->Proseed->count( array('seed_source' => $cus[$i]['source_name']));
+				td_combiner($count);
+
+			}
+
+
+		
+
+	
+
+
+
+
+
 
 			echo '</tr>';
 
