@@ -51,7 +51,7 @@ class SeedView extends Seed{
 
 			$industry=(isset($arr[$i]['seed_industry'])? implode(',',$arr[$i]['seed_industry']): '');
 			td_combiner($industry);
-			if ($arr[$i]['seed_text']=="") {
+			if (strlen($arr[$i]['seed_text'])==0) {
 				td_combiner("没有文章");
 			}else if(strlen($arr[$i]['seed_text']<=150)){
 				td_combiner("文章过短");
