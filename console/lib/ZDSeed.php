@@ -171,6 +171,7 @@ class Seed extends YqBase{
 				$ratio=round($c_notext/$c_all*100,2).'%';
 			}
 			$ans ["$sst"] ['seed'] ['文章为空比例'] = $ratio;
+			$ans ["$sst"] ['seed'] ['今日文章总数'] = $c_all;
 
 			
 		// var_dump($ans);
