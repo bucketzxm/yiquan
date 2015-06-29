@@ -191,7 +191,7 @@ class Group extends YqBase{
 
 		}
 		$row['mediaGroup_counts']		['media_count']=count($row['mediaGroup_sourceList']);
-		$count=0
+		$count=0;
 		foreach ($row['mediaGroup_sourceList'] as $key => $value) {
 			$id=$value['source_id'];
 			$cus=$this->db->Prosource->findOne( array('_id' => $id));
