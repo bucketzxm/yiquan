@@ -154,11 +154,11 @@ class SeedView extends Seed{
 			td_combiner($count_notext);
 			$count_all=$this->db->Proseed->count( array('seed_source' => $ans[$i]['source_name']));
 			if($count_all!=0){
-				$notext_ratio=round($count_notext/$count_all*100,2);
+				$notext_ratio=round($count_notext/$count_all*100,2).'%';
 			}else{
 				$notext_ratio='没有文章';
 			}
-			td_combiner($notext_ratio.'%');
+			td_combiner($notext_ratio);
 
 			echo '</tr>';
 
