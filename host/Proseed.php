@@ -181,7 +181,7 @@ class Proseed extends YqBase {
 					}
 				}
 			}
-			array_push($sourceList, "5542329709f778a5068b457f");
+			//array_push($sourceList, "5542329709f778a5068b457f");
 
 			//foreach ($sources as $key => $source) {
 			$sourceSeeds = $this->db->Proseed->find (
@@ -303,6 +303,64 @@ class Proseed extends YqBase {
 			return $e;
 		}
 	}
+function querySeedsByGroup ($user_id,$group_id,$time){
+	if ($this->yiquan_version == 0) {
+		return - 2;
+	}
+	
+	if ($this->checkQuoteToken () != 1) {
+		return - 3;
+	}
+	
+	if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
+		return - 4;
+	}
+	$time = (int)$time;
+	$group = $this->db->ProMediaGroup->findOne(array('_id' => new MongoId($group_id));
+	$groupSources = array();
+	foreach ($group['mediaGroup_sourceList'] as $key => $value) {
+		array_push($groupSources, new MongoId($value['source_id']));
+	}
+	$sourceSeeds = $this->db->Proseed->find (
+		array (
+			'$and' => array(
+				/*
+				array(
+					'$or' => array(
+						array ('seed_industry' => $user['current']['user_industry']),
+						array ('seed_industry' => $user['current']['user_interestA']),
+						array ('seed_industry' => $user['current']['user_interestB'])
+						)
+				),*/
+				
+				array(
+					'$or' => array(
+						array ('seed_textLen' => array('$gt'=> 400)),
+						array ('seed_textLen' => array('$lt'=> 1))
+					)
+				)
+			),
+			'seed_sourceID' => array('$in' => $groupSources),
+			'$nor' => array(
+				array (
+					'$and' => array (
+						array ('seed_completeStatus' => 'completed'),
+						array ('seed_text' => '')
+						)
+					)
+				),
+			'seed_time' => array ('$lt' => $time),
+			'seed_active' => '1', 
+			))->sort(array('seed_time' => -1))->limit(30);
+	$results = array();
+	foreach ($sourceSeeds as $keys => $source) {
+		unset($source['seed_text']);
+		array_push($results, $source);
+	}
+	return json_encode($results);
+
+}
+
 
 function queryMySeedsByKeyword($user_id,$time,$keyword){
 		if ($this->yiquan_version == 0) {
