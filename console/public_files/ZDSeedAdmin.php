@@ -19,6 +19,7 @@ include_once '401.php';
 			<ul class="nav nav-sidebar">
 				<li><a href="?action=文章列表">文章列表 <span class="sr-only">(current)</span></a></li>
 				<li><a href="?action=媒体文章数据">媒体文章数据 <span class="sr-only">(current)</span></a></li>
+				<li><a href="?action=文章统计数据">文章统计数据 <span class="sr-only">(current)</span></a></li>
 
 
 			</ul>
@@ -51,6 +52,13 @@ include_once '401.php';
 							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
 								if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
 									$a->listAllSeedStat_table($a->querySeed(),0,5000);
+								}
+							}
+							break;
+						case '文章统计数据' :
+							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
+								if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
+									$a->listSeedStat_table();
 								}
 							}
 							break;

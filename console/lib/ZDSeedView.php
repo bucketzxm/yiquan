@@ -66,6 +66,38 @@ class SeedView extends Seed{
 	}
 
 
+	function listSeedStat_table($arr=[]){
+
+		echo '<div class="table-responsive"><table class="table table-striped">';
+		echo '<thead><tr>';
+
+		th_combiner('complete但是没有文章');
+
+		th_combiner('uncompleted');
+
+		echo '<tr></thead>';
+
+
+			echo '<tr>';
+			td_combiner((isset($arr[$i]['seed_source'])? $arr[$i]['seed_source']:''));
+			$c_notext = $this->db->Proseed->count (array('seed_completeStatus'=>'completed', "seed_text": ""));
+
+
+
+			echo '</tr>';
+
+			echo '<tr>';
+			
+
+			$c_uncompleted = $this->db->Proseed->count (array('seed_completeStatus'=>'uncompleted'));
+			td_combiner($c_uncompleted);
+
+			echo '</tr>';
+		}
+		echo '</table></div>';
+	}
+
+
 
 	function listAllSeedStat_table($arr, $start, $len){
 
