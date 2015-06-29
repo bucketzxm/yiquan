@@ -72,6 +72,7 @@ class SeedView extends Seed{
 		echo '<thead><tr>';
 
 		th_combiner('complete但是没有文章');
+		th_combiner('没有文章率');
 
 		th_combiner('uncompleted');
 
@@ -81,9 +82,10 @@ class SeedView extends Seed{
 			echo '<tr>';
 			$c_notext = $this->db->Proseed->count (array('seed_completeStatus'=>'completed', 'seed_text'=> ''));
 			td_combiner($c_notext);
-
-
-			
+			$c_all = $this->db->Proseed->count ();
+			$notext_ratio=round($c_notext/$c_all*100,2);
+			td_combiner($notext_ratio.'%');
+		
 			
 
 			$c_uncompleted = $this->db->Proseed->count (array('seed_completeStatus'=>'uncompleted'));
@@ -122,6 +124,8 @@ class SeedView extends Seed{
 		th_combiner( '四天前·文章数目');
 		th_combiner( '五天前·文章数目');
 		th_combiner( '六天前·文章数目');
+		th_combiner( '没文章总数');
+		th_combiner( '没文章总率');
 
 
 
@@ -146,6 +150,11 @@ class SeedView extends Seed{
 			td_combiner($count_d5);
 			$count_d6=$this->db->Proseed->count( array('seed_source' => $ans[$i]['source_name'],'seed_dbWriteTime'=>array('$lt'=>time()-518400,'$gt'=>time()-604800)));
 			td_combiner($count_d6);
+			$count_notext=$this->db->Proseed->count( array('seed_source' => $ans[$i]['source_name'],'seed_text'=>''));
+			td_combiner($count_notext);
+			$count_all=$this->db->Proseed->count( array('seed_source' => $ans[$i]['source_name']));
+			$notext_ratio=round($count_notext/$count_all*100,2);
+			td_combiner($notext_ratio.'%');
 
 			echo '</tr>';
 
