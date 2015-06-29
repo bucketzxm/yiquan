@@ -86,6 +86,14 @@ class SeedView extends Seed{
 
 		th_combiner('媒体名称');
 		th_combiner( '近三天·文章数目');
+		th_combiner( '24小时内·文章数目');
+		th_combiner( '昨天·文章数目');
+		th_combiner( '前天·文章数目');
+		th_combiner( '三天前·文章数目');
+		th_combiner( '四天前·文章数目');
+		th_combiner( '五天前·文章数目');
+		th_combiner( '六天前·文章数目');
+
 
 
 		echo '<tr></thead>';
@@ -95,7 +103,20 @@ class SeedView extends Seed{
 			td_combiner( $ans[$i]['source_name']);
 			$count=$this->db->Proseed->count( array('seed_source' => $ans[$i]['source_name'],'seed_dbWriteTime'=>array('$gt'=>time()-259200)));
 			td_combiner($count);
-
+			$count_d0=$this->db->Proseed->count( array('seed_source' => $ans[$i]['source_name'],'seed_dbWriteTime'=>array('$gt'=>time()-86400)));
+			td_combiner($count_d0);
+			$count_d1=$this->db->Proseed->count( array('seed_source' => $ans[$i]['source_name'],'seed_dbWriteTime'=>array('$lt'=>time()-86400,'$gt'=>time()-172800)));
+			td_combiner($count_d1);
+			$count_d2=$this->db->Proseed->count( array('seed_source' => $ans[$i]['source_name'],'seed_dbWriteTime'=>array('$lt'=>time()-172800,'$gt'=>time()-259200)));
+			td_combiner($count_d2);
+			$count_d3=$this->db->Proseed->count( array('seed_source' => $ans[$i]['source_name'],'seed_dbWriteTime'=>array('$lt'=>time()-259200,'$gt'=>time()-345600)));
+			td_combiner($count_d3);
+			$count_d4=$this->db->Proseed->count( array('seed_source' => $ans[$i]['source_name'],'seed_dbWriteTime'=>array('$lt'=>time()-345600,'$gt'=>time()-432000)));
+			td_combiner($count_d4);
+			$count_d5=$this->db->Proseed->count( array('seed_source' => $ans[$i]['source_name'],'seed_dbWriteTime'=>array('$lt'=>time()-432000,'$gt'=>time()-518400)));
+			td_combiner($count_d5);
+			$count_d6=$this->db->Proseed->count( array('seed_source' => $ans[$i]['source_name'],'seed_dbWriteTime'=>array('$lt'=>time()-518400,'$gt'=>time()-604800)));
+			td_combiner($count_d6);
 
 			echo '</tr>';
 
