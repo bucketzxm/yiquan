@@ -72,7 +72,7 @@ class SeedView extends Seed{
 		echo '<div class="table-responsive"><table class="table table-striped">';
 		echo '<thead><tr>';
 		$cus=$this->db->Prosource->find( array('source_status' => 'active'));
-
+		echo $cus;
 
 		th_combiner('媒体名称');
 		th_combiner( '近三天·文章数目');
@@ -82,7 +82,7 @@ class SeedView extends Seed{
 		if ($cus!=null){
 			for($i = $start; $i < min ( $start + $len, count ( $cus ) ); $i ++) {
 				echo '<tr>';
-				echo $cus[$i]['source_name'];
+
 				td_combiner( $cus[$i]['source_name']);
 				$count=$this->db->Proseed->count( array('seed_source' => $cus[$i]['source_name']));
 				td_combiner($count);
