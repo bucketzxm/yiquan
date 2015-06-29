@@ -83,9 +83,7 @@ class SeedView extends Seed{
 			td_combiner($c_notext);
 
 
-			echo '</tr>';
-
-			echo '<tr>';
+			
 			
 
 			$c_uncompleted = $this->db->Proseed->count (array('seed_completeStatus'=>'uncompleted'));
