@@ -89,7 +89,7 @@ class SeedView extends Seed{
 
 
 		echo '<tr></thead>';
-		if ($cus!=null){
+		if ($ans!=null){
 			for($i = $start; $i < min ( $start + $len, count ( $ans ) ); $i ++) {
 				echo '<tr>';
 
