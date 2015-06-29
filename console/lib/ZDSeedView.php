@@ -89,7 +89,7 @@ class SeedView extends Seed{
 			}
 
 
-		}
+		
 
 	
 
