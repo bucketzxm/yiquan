@@ -32,6 +32,7 @@ class SeedView extends Seed{
 		th_combiner('文章名称');
 		th_combiner( '所属媒体');
 		th_combiner('行业或标签');
+		th_combiner('有无文章');
 
 		th_combiner('值得一读数');
 		th_combiner('热度');
@@ -50,6 +51,13 @@ class SeedView extends Seed{
 
 			$industry=(isset($arr[$i]['seed_industry'])? implode(',',$arr[$i]['seed_industry']): '');
 			td_combiner($industry);
+			if ($arr[$i]['seed_text']=="") {
+				td_combiner("没有文章");
+			}else if(strlen($arr[$i]['seed_text']<=150)){
+				td_combiner("文章过短");
+			}else{
+				td_combiner("有文章");
+			}
 			td_combiner((isset($arr[$i]['seed_agreeCount']) ? $arr[$i]['seed_agreeCount']: ''));
 			td_combiner((isset($arr[$i]['seed_hotness']) ? $arr[$i]['seed_hotness']: ''));
 
