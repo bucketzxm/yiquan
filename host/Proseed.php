@@ -932,6 +932,38 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 
 	}
 
+	function likeSeedWithout($user_id,$seed_id){
+		if ($this->yiquan_version == 0) {
+			return - 2;
+		}
+		
+		if ($this->checkQuoteToken () != 1) {
+			return - 3;
+		}
+		
+		if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
+			return - 4;
+		}
+
+		//找到这个user
+		$user = $this->db->Prouser->findOne (array ('_id' => new MongoId ($user_id)),array ('current' => 1));
+		$cursor = $this->db->Proseed->findOne (array ('_id'=> new MongoId($seed_id)));
+		$existWorth = $this->db->Proworth->findOne (array ('like_user'=>$user_id,'like_seed'=>$seed_id));
+		$source = $this->db->Prosource->findOne (array ('_id' => new MongoId($cursor['seed_sourceID'])));
+
+		$cursor['seed_hotness'] += (int)$user['current']['user_weight']*10;
+		if(isset($cursor['seed_agreeCount'])){
+			$cursor['seed_agreeCount'] ++;
+		}else{
+			$cursor['seed_agreeCount'] = 1;
+		}
+		$source['agree_count'] ++;
+		$this->db->Prosource->save($source);
+		
+		return 1;
+
+	}
+
 	function addLikeComment($user_id,$seed_id,$like_comment,$like_public){
 		if ($this->yiquan_version == 0) {
 			return - 2;
