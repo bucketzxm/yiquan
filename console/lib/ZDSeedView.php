@@ -226,7 +226,7 @@ class SeedView extends Seed{
 
 
 
-	function getReport($arr) {
+	/*function getReport($arr) {
 		// var_dump($arr);
 		foreach ( $arr as $key => $v ) {
 			// var_dump($key);
@@ -243,7 +243,7 @@ class SeedView extends Seed{
 			
 			echo '</div>';
 		}
-	}
+	}*/
 
 
 
