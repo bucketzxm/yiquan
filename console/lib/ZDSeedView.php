@@ -205,6 +205,35 @@ class SeedView extends Seed{
 			echo '<h3>文章统计</h3><hr/>';
 			echo '<table class="table table-striped">';
 			echo '<thead><tr><th>内容</th><th>值</th></tr></thead>';
+			foreach ( $v ['seed'] as $key2 => $v2 ) {
+				echo '<tr><td>' . $this->tochinese ( $key2 ) . '</td><td>' . $v2 . '</td></tr>';
+			}
+			echo '</table><hr/>';
+			
+			
+			
+			echo '</div>';
+		}
+	}
+	
+
+
+
+
+
+
+
+
+
+
+	function getReport($arr) {
+		// var_dump($arr);
+		foreach ( $arr as $key => $v ) {
+			// var_dump($key);
+			echo '<div class="table-responsive"><h2>' . date ( 'Y-m-d', $key ) . '</h2><hr/>';
+			echo '<h3>文章统计</h3><hr/>';
+			echo '<table class="table table-striped">';
+			echo '<thead><tr><th>内容</th><th>值</th></tr></thead>';
 			foreach ( $v ['active'] as $key2 => $v2 ) {
 				echo '<tr><td>' . $this->tochinese ( $key2 ) . '</td><td>' . $v2 . '</td></tr>';
 			}
