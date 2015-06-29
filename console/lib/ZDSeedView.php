@@ -93,7 +93,7 @@ class SeedView extends Seed{
 			td_combiner($c_uncompleted);
 
 			echo '</tr>';
-		}
+		
 		echo '</table></div>';
 	}
 
