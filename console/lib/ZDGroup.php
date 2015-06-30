@@ -354,24 +354,28 @@ class Group extends YqBase{
 
 			
 		
+			$count=0;
 			
-			
-			if ($arr['source_box']!=array()){
+			if ($arr['source_box']!=array()|| isset($arr['source_box'])){
 				foreach ($arr['source_box'] as $key => $name) {
 					
 					$cus=$this->db->Prosource->findOne( array('source_name' => $name));
 
 					#$cus=$this->db->Prosource->findOne( array('_id' => new MongoId("$value") ));
 					if ($cus !=null){
-						
-					$id=(string)$cus['_id'];
-					$row['mediaGroup_sourceList'][]['source_id']=$id;
+						$count+=$cus['agree_count'];
+	
+						$id=(string)$cus['_id'];
+						$row['mediaGroup_sourceList'][]['source_id']=$id;
 					}
 				}
 			}
 
 			
+		$row['mediaGroup_counts']	['media_count']=count($row['mediaGroup_sourceList']);
 			
+
+		$row['mediaGroup_counts']		['worth_count']=$count;
 
 
 		
