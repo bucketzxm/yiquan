@@ -69,7 +69,7 @@ ob_start ();
 								$a->listAllGroupMedia_table ( $a->queryGroup (), 0, 10000 );
 							}
 							break;							
-						case '查看编辑Group媒体信息' :
+						case '查看' :
 							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
 								$a->listAllSeed_table ( $a->queryGroup (), 0, 10000 );
 							}
