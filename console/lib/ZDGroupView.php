@@ -463,7 +463,7 @@ class GroupView extends Group {
 					
 					$ans=[];
 
-					$s_cus=$this->db->Proseed->find(array('seed_sourceID'=>$media_id,'seed_dbWriteTime'=>array('$gt'=>time()-259200 )))->sort('seed_hotness');
+					$s_cus=$this->db->Proseed->find(array('seed_sourceID'=>$media_id,'seed_dbWriteTime'=>array('$gt'=>time()-259200 )))->sort(array('seed_hotness'=>-1));
 					while ( $s_cus->hasNext () ) {
 						$doc = $s_cus->getNext ();
 						$ans [] = $doc;
