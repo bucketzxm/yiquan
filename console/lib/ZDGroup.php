@@ -235,7 +235,7 @@ class Group extends YqBase{
 				# code...
 			
 
-			if ($arr ['industry']!= array()  && isset($arr['industry'])) {
+			if ($arr ['industry']!= array() ||  isset($arr['industry'])) {
 				foreach ($arr['industry'] as $key => $value) {
 
 					if ($value!="") {
@@ -365,7 +365,7 @@ class Group extends YqBase{
 					if ($cus !=null){
 						
 					$id=(string)$cus['_id'];
-					$row['mediaGroup_sourceList'][]['source_name']=$id;
+					$row['mediaGroup_sourceList'][]['source_id']=$id;
 					}
 				}
 			}
