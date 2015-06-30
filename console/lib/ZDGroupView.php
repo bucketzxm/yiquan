@@ -474,13 +474,13 @@ class GroupView extends Group {
 						$name=$cus['source_name'];
 						$title=$ans[$i]['seed_title'];
 						$hotness=$ans[$i]['seed_hotness'];
-						$res["$hotness"."$title"]='<td>'."$name".'</td>'.'<td>'."$title".'</td>'.'<td>'."$hotness".'</td>';
+						$res[]=[$hotness,'<td>'."$name".'</td>'.'<td>'."$title".'</td>'.'<td>'."$hotness".'</td>'];
 						
 					}
-					krsort($res);
+					rsort($res);
 					foreach ($res as $key => $value) {
 						echo '<tr>';
-						echo $value;
+						echo $value[1];
 						echo '</tr>';
 					}
 
