@@ -409,9 +409,10 @@ class GroupView extends Group {
 					
 					
 					$ans=[];
+
 					$s_cus=$this->db->Proseed->find(array('seed_sourceID'=>$media_id,'seed_dbWriteTime'=>array('$gt'=>time()-259200 )));
-					while ( $cus->hasNext () ) {
-						$doc = $cus->getNext ();
+					while ( $s_cus->hasNext () ) {
+						$doc = $s_cus->getNext ();
 						$ans [] = $doc;
 					}
 					
