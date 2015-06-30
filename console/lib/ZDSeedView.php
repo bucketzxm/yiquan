@@ -36,6 +36,7 @@ class SeedView extends Seed{
 
 		th_combiner('值得一读数');
 		th_combiner('热度');
+		th_combiner('小编指数');
 
 		echo '<tr></thead>';
 
@@ -58,6 +59,7 @@ class SeedView extends Seed{
 			}
 			td_combiner((isset($arr[$i]['seed_agreeCount']) ? $arr[$i]['seed_agreeCount']: ''));
 			td_combiner((isset($arr[$i]['seed_hotness']) ? $arr[$i]['seed_hotness']: ''));
+			td_combiner((isset($arr[$i]['editor_point']) ? $arr[$i]['editor_point']: '没有编辑过'));
 
 			echo '</tr>';
 
@@ -176,6 +178,8 @@ class SeedView extends Seed{
 		echo '<textarea class="form-control" rows="3" cols="80" name="agreeCount">' . (isset($arr ['seed_agreeCount']) ? $arr ['seed_agreeCount']:'' ). '</textarea></div>';
 		echo '<div class="form-group"><h2>热度</h2>';
 		echo '<textarea class="form-control" rows="3" cols="80" name="hotness">' . (isset($arr ['seed_hotness']) ? $arr ['seed_hotness']:'') . '</textarea></div>';
+		echo '<div class="form-group"><h2>小编指数</h2>';
+		echo '<textarea class="form-control" rows="3" cols="80" name="point">' . (isset($arr ['editor_point']) ? $arr ['editor_point']:'没有编辑过') . '</textarea></div>';
 
 		echo '<div class="form-group"><h2>行业或标签,逗号隔开</h2>';
 		echo '<textarea class="form-control" rows="3" cols="80" name="industry">' . (isset($arr ['seed_industry']) ? implode(',', $arr ['seed_industry']) :''). '</textarea></div>';

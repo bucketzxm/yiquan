@@ -86,6 +86,13 @@ class Seed extends YqBase{
 
 				unset($row ['seed_agreeCount']);
 			}
+			if ($arr['point']!= "") {
+				$row ['editor_point'] = $arr['point'];
+
+			}  else {
+
+				unset($row ['editor_point']);
+			}
 
 
 
