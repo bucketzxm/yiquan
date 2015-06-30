@@ -474,13 +474,13 @@ class GroupView extends Group {
 						$name=$cus['source_name'];
 						$title=$ans[$i]['seed_title'];
 						$hotness=$ans[$i]['seed_hotness'];
-						$res[]=array('a'=>$hotness,'b'=>'<td>'."$name".'</td>'.'<td>'."$title".'</td>'.'<td>'."$hotness".'</td>');
+						$res["$title"]=array('a'=>$hotness,'b'=>'<td>'."$name".'</td>'.'<td>'."$title".'</td>'.'<td>'."$hotness".'</td>');
 						
 					}
 					foreach ($res as $key => $value) {
 						$ind[$key]=$value['a'];
 					}
-					array_multisort($ind,$res);
+					array_reverse(array_multisort($ind,$res));
 					foreach ($res as $key => $value) {
 						echo '<tr>';
 						echo $value['b'];
