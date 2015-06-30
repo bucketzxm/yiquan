@@ -293,7 +293,7 @@ class GroupView extends Group {
 
 		echo '<div class="form-group"><h2>Group名称</h2>';
 		echo '<textarea class="form-control" rows="3" cols="80" name="title">' . '' . '</textarea></div>';
-	echo '<div class="form-group"><h2>Group介绍</h2>';
+		echo '<div class="form-group"><h2>Group介绍</h2>';
 		echo '<textarea class="form-control" rows="3" cols="80" name="detail">' . ''. '</textarea></div>';
 		echo '<div class="form-group"><h2>鸣谢</h2>';
 		echo '<textarea class="form-control" rows="3" cols="80" name="thanknote">' . ''. '</textarea></div>';
