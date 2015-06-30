@@ -474,7 +474,7 @@ class GroupView extends Group {
 						$name=$cus['source_name'];
 						$title=$ans[$i]['seed_title'];
 						$hotness=$ans[$i]['seed_hotness'];
-						$res[]=['a'=>$hotness,'b'=>'<td>'."$name".'</td>'.'<td>'."$title".'</td>'.'<td>'."$hotness".'</td>'];
+						$res[]=array('a'=>$hotness,'b'=>'<td>'."$name".'</td>'.'<td>'."$title".'</td>'.'<td>'."$hotness".'</td>');
 						
 					}
 					foreach ($res as $key => $value) {
