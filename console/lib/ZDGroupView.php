@@ -481,8 +481,7 @@ class GroupView extends Group {
 						$ind[$key]=$value['a'];
 					}
 					array_multisort($ind,$res);
-					array_reverse($res);
-					
+				
 
 				}
 				foreach ($res as $key => $value) {
