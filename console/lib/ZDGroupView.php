@@ -456,6 +456,7 @@ class GroupView extends Group {
 			if (isset($arr[$i]['mediaGroup_sourceList'])){
 				
 				$s_List=$arr[$i]['mediaGroup_sourceList'];
+				$res=[];
 				foreach ($s_List as $key => $value) {
 					$media_id=$value['source_id'];
 					$cus=$this->db->Prosource->findOne( array('_id' => new MongoId("$media_id") ));
@@ -470,11 +471,16 @@ class GroupView extends Group {
 					}
 					
 					for($i = 0; $i < min ( 5000, count ( $ans ) ); $i ++) {
+						$name=$cus['source_name'];
+						$title=$ans[$i]['seed_title'];
+						$hotness=$ans[$i]['seed_hotness'];
+						$res["$hotness"."$title"]='<td>'."$name".'</td>'.'<td>'."$title".'</td>'.'<td>'."$hotness".'</td>';
+						
+					}
+					krsort($res);
+					foreach ($res as $key => $value) {
 						echo '<tr>';
-						td_combiner($cus['source_name']);
-						td_combiner($ans[$i]['seed_title']);
-						td_combiner($ans[$i]['seed_hotness']);
-
+						echo $value;
 						echo '</tr>';
 					}
 
