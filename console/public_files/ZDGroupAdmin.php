@@ -20,6 +20,7 @@ ob_start ();
 				<li><a href="?action=查看编辑信息组基本信息">查看编辑信息组基本信息 <span class="sr-only">(current)</span></a></li>
 				<li><a href="?action=查看编辑Group媒体信息">查看编辑Group媒体信息 <span class="sr-only">(current)</span></a></li>
 				<li><a href="?action=添加新信息组">添加新信息组 <span class="sr-only">(current)</span></a></li>
+				<li><a href="?action=查看信息组文章">查看信息组文章 <span class="sr-only">(current)</span></a></li>
 
 
 			</ul>
@@ -68,6 +69,19 @@ ob_start ();
 								$a->listAllGroupMedia_table ( $a->queryGroup (), 0, 10000 );
 							}
 							break;							
+						case '查看编辑Group媒体信息' :
+							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
+								$a->listAllSeed_table ( $a->queryGroup (), 0, 10000 );
+							}
+							break;							
+
+
+
+						case '查看信息组文章' :
+							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
+								$a->listAllGroupSeed_table ( $a->queryGroup (), 0, 10000 );
+							}
+							break;				
 						case 'editGroupMedia' :
 							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
 								$a->showOneGroupMedia_form ( $a->queryGroup ( array (
