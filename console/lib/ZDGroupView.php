@@ -343,6 +343,7 @@ class GroupView extends Group {
 		echo '<div class="table-responsive"><table class="table table-striped">';
 		echo '<thead><tr>';
 		th_combiner('查看操作');
+		th_combiner('按热度查看');
 
 		th_combiner('Group名称');
 		th_combiner( 'Group媒体');
@@ -354,6 +355,7 @@ class GroupView extends Group {
 			echo '<tr>';
 			$uid = $arr [$i] ['_id']->{'$id'};
 			echo '<td><a href="?action=查看&mindex=' . $arr [$i] ['_id']->{'$id'} . '">查看</a></td>';
+			echo '<td><a href="?action=热度查看&mindex=' . $arr [$i] ['_id']->{'$id'} . '">查看</a></td>';
 			
 			td_combiner((isset($arr[$i]['mediaGroup_title'])? $arr[$i]['mediaGroup_title']:''));
 			
@@ -420,6 +422,59 @@ class GroupView extends Group {
 						echo '<tr>';
 						td_combiner($cus['source_name']);
 						td_combiner($ans[$i]['seed_title']);
+						echo '</tr>';
+					}
+
+				}
+			}
+
+			
+
+		}
+		echo '</table></div>';
+	}
+
+
+	function listAllSeedbyhotness_table($arr, $start, $len){
+
+		echo '<div class="table-responsive"><table class="table table-striped">';
+		echo '<thead><tr>';
+
+		th_combiner( 'Group媒体');
+		th_combiner('文章');
+		th_combiner('热度');
+
+		echo '<tr></thead>';
+
+
+		for($i = $start; $i < min ( $start + $len, count ( $arr ) ); $i ++) {
+			echo '<tr>';
+			$uid = $arr [$i] ['_id']->{'$id'};
+			
+			
+
+			if (isset($arr[$i]['mediaGroup_sourceList'])){
+				
+				$s_List=$arr[$i]['mediaGroup_sourceList'];
+				foreach ($s_List as $key => $value) {
+					$media_id=$value['source_id'];
+					$cus=$this->db->Prosource->findOne( array('_id' => new MongoId("$media_id") ));
+					
+					
+					$ans=[];
+
+					$s_cus=$this->db->Proseed->find(array('seed_sourceID'=>$media_id,'seed_dbWriteTime'=>array('$gt'=>time()-259200 )))-》sort('seed_hotness');
+					while ( $s_cus->hasNext () ) {
+						$doc = $s_cus->getNext ();
+						$ans [] = $doc;
+					}
+					
+					for($i = 0; $i < min ( 5000, count ( $ans ) ); $i ++) {
+						echo '<tr>';
+						td_combiner($cus['source_name']);
+						td_combiner($ans[$i]['seed_title']);
+						td_combiner($ans[$i]['seed_hotness']);
+
 						echo '</tr>';
 					}
 

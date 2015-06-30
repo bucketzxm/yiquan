@@ -74,6 +74,11 @@ ob_start ();
 								$a->listAllSeed_table ( $a->queryGroup (), 0, 10000 );
 							}
 							break;							
+						case '热度查看' :
+							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
+								$a->listAllSeedbyhotness_table ( $a->queryGroup (), 0, 10000 );
+							}
+							break;							
 
 
 
