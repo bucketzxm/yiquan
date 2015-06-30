@@ -116,6 +116,7 @@ ob_start ();
 									echo '添加异常';
 								}
 							}
+							break;
 						case '编辑媒体行业及推荐理由'	:
 							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
 								$a->showMedias_form ( $a->queryGroup ( array (
