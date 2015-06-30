@@ -477,7 +477,7 @@ class GroupView extends Group {
 						$res[]=[$hotness,'<td>'."$name".'</td>'.'<td>'."$title".'</td>'.'<td>'."$hotness".'</td>'];
 						
 					}
-					rsort($res);
+					array_multisort(0,$res);
 					foreach ($res as $key => $value) {
 						echo '<tr>';
 						echo $value[1];
