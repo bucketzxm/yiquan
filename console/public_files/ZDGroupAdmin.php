@@ -64,6 +64,7 @@ ob_start ();
 									echo '编辑异常';
 								}
 							}
+							break;
 						case '查看编辑Group媒体信息' :
 							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
 								$a->listAllGroupMedia_table ( $a->queryGroup (), 0, 10000 );
