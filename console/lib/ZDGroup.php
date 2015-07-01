@@ -233,7 +233,7 @@ class Group extends YqBase{
 					if ($value!="") {
 						$row ['mediaGroup_sourceList'][$key]['source_rationale'] = $value;
 					}else{
-						$row ['mediaGroup_sourceList'][$key]['source_industry'] = '还没有推荐理由';
+						$row ['mediaGroup_sourceList'][$key]['source_rationale'] = '还没有推荐理由';
 
 					}
 
