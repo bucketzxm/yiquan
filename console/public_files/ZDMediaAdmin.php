@@ -93,7 +93,7 @@ include_once '401.php';
 									$a->listAllMediaStat_table($a->queryMedia(),0,1000);
 								}
 							}
-
+							break;
 
 						case '添加新媒体':
 							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {

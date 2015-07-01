@@ -205,27 +205,6 @@ class Group extends YqBase{
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	function updateMedias($arr) {
 		$row = $this->db->ProMediaGroup->findOne ( array (
 				'_id' => new MongoId ( $arr ['id'] ) 
@@ -275,47 +254,6 @@ class Group extends YqBase{
 		$row['mediaGroup_counts']		['worth_count']=$count;
 		return $this->db->ProMediaGroup->save ( $row );
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -386,16 +324,6 @@ class Group extends YqBase{
 	
 	
 }
-
-
-
-
-
-
-
-
-
-
 
 
 

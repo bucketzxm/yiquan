@@ -80,9 +80,6 @@ class GroupView extends Group {
 	}
 
 
-
-
-
 	function listAllGroupMedia_table($arr, $start, $len){
 
 		echo '<div class="table-responsive"><table class="table table-striped">';
@@ -126,12 +123,6 @@ class GroupView extends Group {
 		}
 		echo '</table></div>';
 	}
-
-
-
-
-
-
 
 
 	function showOneGroupMedia_form($arr) {
@@ -205,12 +196,6 @@ class GroupView extends Group {
 	}
 
 
-
-
-
-
-
-
 	function showOneGroupBasic_form($arr) {
 		echo '<div><form method="post" action="?action=editGroupBasic">';
 		echo '<input type="hidden" class="form-control" name="id" value="' . $arr ['_id']->{'$id'} . '"/>';
@@ -229,9 +214,6 @@ class GroupView extends Group {
 		echo '<div class="form-group"><input type="submit" value="提交" /></div>';
 		echo '</form></div>';
 	}
-
-
-
 
 
 	function showMedias_form($arr) {
@@ -265,27 +247,6 @@ class GroupView extends Group {
 		echo '<div class="form-group"><input type="submit" value="提交" /></div>';
 		echo '</form></div>';
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 	function showNewMediaGroup_form($arr=[]) {
