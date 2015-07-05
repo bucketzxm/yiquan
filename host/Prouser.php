@@ -121,7 +121,7 @@ class Prouser extends YqBase {
 	}
 
 
-	function updateUserProfile ($user_id,$user_name,$user_gender,$user_city,$user_industry,$user_company,$user_title,$user_interestA,$user_interestB,$user_seniority,$profile_type){
+	function updateUserProfile ($user_id,$user_industry,$user_seniority){
 			if ($this->yiquan_version == 0) {
 				return - 2;
 			}
@@ -140,7 +140,7 @@ class Prouser extends YqBase {
 				$para = $this->db->Prosystem->findOne(array('para_name'=>'user_count'));
 
 				if ($user[$profile_type]['user_industry'] != null) {
-					$para[$user[$profile_type]['user_industry']] --;
+					$para[$user['user_industry']] --;
 				}
 				if (isset($para[$user[$profile_type]['user_industry']])) {
 					$para[$user_industry] ++;
@@ -149,15 +149,15 @@ class Prouser extends YqBase {
 				}
 				$this->db->Prosystem->save($para);
 
-				$user[$profile_type]['user_name'] = $user_name;
-				$user[$profile_type]['user_city'] = $user_city;
+//				$user[$profile_type]['user_name'] = $user_name;
+//				$user[$profile_type]['user_city'] = $user_city;
 				$user[$profile_type]['user_industry'] = $user_industry;
 				$user[$profile_type]['user_seniority'] = $user_seniority;
-				$user[$profile_type]['user_interestA'] = $user_interestA;
-				$user[$profile_type]['user_interestB'] = $user_interestB;
-				$user[$profile_type]['user_company'] = $user_company;
-				$user[$profile_type]['user_title'] = $user_title;
-				$user[$profile_type]['user_gender'] = $user_gender;
+//				$user[$profile_type]['user_interestA'] = $user_interestA;
+//				$user[$profile_type]['user_interestB'] = $user_interestB;
+//				$user[$profile_type]['user_company'] = $user_company;
+//				$user[$profile_type]['user_title'] = $user_title;
+//				$user[$profile_type]['user_gender'] = $user_gender;
 
 				if ($user_seniority == '1-3年'){
 					$user[$profile_type]['user_weight'] = 3;	
