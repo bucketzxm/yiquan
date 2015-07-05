@@ -139,10 +139,10 @@ class Prouser extends YqBase {
 				//Update user count
 				$para = $this->db->Prosystem->findOne(array('para_name'=>'user_count'));
 
-				if ($user[$profile_type]['user_industry'] != null) {
+				if ($user['user_industry'] != null) {
 					$para[$user['user_industry']] --;
 				}
-				if (isset($para[$user[$profile_type]['user_industry']])) {
+				if (isset($para[$user['user_industry']])) {
 					$para[$user_industry] ++;
 				}else{
 					$para[$user_industry] = 1;
@@ -151,8 +151,8 @@ class Prouser extends YqBase {
 
 //				$user[$profile_type]['user_name'] = $user_name;
 //				$user[$profile_type]['user_city'] = $user_city;
-				$user[$profile_type]['user_industry'] = $user_industry;
-				$user[$profile_type]['user_seniority'] = $user_seniority;
+				$user['user_industry'] = $user_industry;
+				$user['user_seniority'] = $user_seniority;
 //				$user[$profile_type]['user_interestA'] = $user_interestA;
 //				$user[$profile_type]['user_interestB'] = $user_interestB;
 //				$user[$profile_type]['user_company'] = $user_company;
@@ -160,15 +160,15 @@ class Prouser extends YqBase {
 //				$user[$profile_type]['user_gender'] = $user_gender;
 
 				if ($user_seniority == '1-3年'){
-					$user[$profile_type]['user_weight'] = 3;	
+					$user['user_weight'] = 3;	
 				}else if ($user_seniority == '3-5年'){
-					$user[$profile_type]['user_weight'] = 6;	
+					$user['user_weight'] = 6;	
 				}else if ($user_seniority == '5-10年'){
-					$user[$profile_type]['user_weight'] = 10;	
+					$user['user_weight'] = 10;	
 				}else if ($user_seniority == '10年以上'){
-					$user[$profile_type]['user_weight'] = 15;	
+					$user['user_weight'] = 15;	
 				}else{
-					$user[$profile_type]['user_weight'] = 1;	
+					$user['user_weight'] = 1;	
 				}
 				
 				$this->db->Prouser->save ($user);
