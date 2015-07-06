@@ -1344,7 +1344,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 	}
 
 
-	function queryMediaGroups($user_id,$group_type){
+	function queryMediaGroups($user_id){
 		if ($this->yiquan_version == 0) {
 			return - 2;
 		}
@@ -1368,10 +1368,10 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 			$groups = $this->db->ProMediaGroup->find(array('_id' =>array('$nin' => $followedGroupIDs),'mediaGroup_counts.follower_count' => array ('$lt' => $follower_count)))->sort(array ('mediaGroup_counts.follower_count' => -1))->limit(30);
 		}
 		*/
-		$groups = $this->db->ProMediaGroup->find(array('group_type' => $group_type));
-
-		$groupsToShow = array();
-		foreach ($groups as $key => $value) {
+		$bizGroups = $this->db->ProMediaGroup->find(array('group_type' => 'business'));
+		$lifeGroups = $this->db->ProMediaGroup->find(array('group_type' => 'life'));
+		$bizGroupsToShow = array();
+		foreach ($bizGroups as $key => $value) {
 			$value['user_mediaGroupStatus'] = '0';
 			
 			if (isset($user['user_mediaGroups'])) {
@@ -1379,9 +1379,26 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 		 			$value['user_mediaGroupStatus'] = '1';
 		 		}	
 			}
-			array_push($groupsToShow,$value);
+			array_push($bizGroupsToShow,$value);
 		}
-		return json_encode($groupsToShow);
+
+		$lifeGroupsToShow = array();
+		foreach ($lifeGroups as $key1 => $value1) {
+			$value1['user_mediaGroupStatus'] = '0';
+			
+			if (isset($user['user_mediaGroups'])) {
+				if (isset($user['user_mediaGroups'][(string)$value1['_id']])) {
+		 			$value1['user_mediaGroupStatus'] = '1';
+		 		}	
+			}
+			array_push($lifeGroupsToShow,$value1);
+		}
+
+		$results = array();
+		array_push($results, $bizGroupsToShow);
+		array_push($results, $lifeGroupsToShow);
+
+		return json_encode($results);
 	}
 
 	function followMediaGroup($user_id,$group_id){
