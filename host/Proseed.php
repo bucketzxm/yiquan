@@ -1368,7 +1368,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 			$groups = $this->db->ProMediaGroup->find(array('_id' =>array('$nin' => $followedGroupIDs),'mediaGroup_counts.follower_count' => array ('$lt' => $follower_count)))->sort(array ('mediaGroup_counts.follower_count' => -1))->limit(30);
 		}
 		*/
-		$bizGroups = $this->db->ProMediaGroup->find(array('group_type' => 'business'));
+		$bizGroups = $this->db->ProMediaGroup->find(array('group_type' => 'business'))->sort(array('group_rank' => 1));
 		$lifeGroups = $this->db->ProMediaGroup->find(array('group_type' => 'life'));
 		$bizGroupsToShow = array();
 		foreach ($bizGroups as $key => $value) {
