@@ -1344,7 +1344,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 	}
 
 
-	function queryMediaGroups($user_id,$follower_count){
+	function queryMediaGroups($user_id,$group_type){
 		if ($this->yiquan_version == 0) {
 			return - 2;
 		}
@@ -1354,7 +1354,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 		if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
 			return - 4;
 		}
-
+		/*
 		$user = $this->db->Prouser->findOne(array('_id' => new MongoId($user_id)));
 		$followedGroupIDs= array();
 		foreach ($user['user_mediaGroups'] as $key => $myGroup) {
@@ -1367,16 +1367,18 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 		}else{
 			$groups = $this->db->ProMediaGroup->find(array('_id' =>array('$nin' => $followedGroupIDs),'mediaGroup_counts.follower_count' => array ('$lt' => $follower_count)))->sort(array ('mediaGroup_counts.follower_count' => -1))->limit(30);
 		}
-		
+		*/
+		$groups = $this->db->ProMediaGroup->find(array('group_type' => $group_type));
+
 		$groupsToShow = array();
 		foreach ($groups as $key => $value) {
 			$value['user_mediaGroupStatus'] = '0';
-			/*
+			
 			if (isset($user['user_mediaGroups'])) {
 				if (isset($user['user_mediaGroups'][(string)$value['_id']])) {
 		 			$value['user_mediaGroupStatus'] = '1';
 		 		}	
-			}*/
+			}
 			array_push($groupsToShow,$value);
 		}
 		return json_encode($groupsToShow);
@@ -1520,9 +1522,29 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 		}	
 		return json_encode($result);
 	}
+	/*
+	function queryChannelList($user_id,$channel_name){
+		if ($this->yiquan_version == 0) {
+			return - 2;
+		}
+		
+		if ($this->checkQuoteToken () != 1) {
+			return - 3;
+		}
+		
+		if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
+			return - 4;
+		}
 
 
-
+		$channels = $this->db->Prosystem->find(array('para_name'=>'name','channel_type' => $channel_name));
+		$results = array();
+		foreach ($channels as $key => $value) {
+			array_push($results, $value);
+		}
+		return json_encode($results);
+	}
+	*/
 
 }
 ?>
