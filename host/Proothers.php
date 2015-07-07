@@ -187,11 +187,19 @@ function clear_unmeaningful_char($title){
             $seeds = $db->Proseed->find();
 
             $sources = $db->Prosource->find();
-
+            
+            $mediaGroups = $db->ProMediaGroup->find();
+            foreach ($mediaGroups as $key => $value) {
+                if (!isset($value['mediaGroup_counts']['follower_count'])) {
+                    $value['mediaGroup_counts']['follower_count'] = 0;
+                    $db->ProMediaGroup->save($value);
+                }
+            }
+            /*
             foreach ($sources as $key => $value) {
                 $value['source_status'] = 'inactive';
                 $db->Prosource->save($value);
-            }
+            }*/
 
             //foreach ($seeds as $key => $value) {
              //   $value['seed_active'] = '1';
