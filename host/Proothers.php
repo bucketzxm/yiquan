@@ -186,9 +186,16 @@ function clear_unmeaningful_char($title){
 			$sources = $db->Prosource->find();
             $seeds = $db->Proseed->find();
 
-            foreach ($seeds as $key => $value) {
-                $value['seed_active'] = '1';
-                $db->Proseed->save($value);
+            $sources = $db->Prosource->find();
+
+            foreach ($sources as $key => $value) {
+                $value['source_status'] = 'inactive';
+                $db->Prosource->save($value);
+            }
+
+            //foreach ($seeds as $key => $value) {
+             //   $value['seed_active'] = '1';
+              //  $db->Proseed->save($value);
 
                 //echo '<h3>'.$value['seed_title'].'  '.implode(';', $value['seed_industry']).'</h3>';
                 /*
@@ -205,7 +212,7 @@ function clear_unmeaningful_char($title){
                     echo '<h3>'.$value['seed_source'].' '.$value['seed_title'].'</3>';     
                 }
                 */
-            }
+            //}
 			
 			/*
 			foreach ($sources as $key => $source) {
