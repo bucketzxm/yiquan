@@ -197,7 +197,7 @@ function clear_unmeaningful_char($title){
             }*/
             
             foreach ($sources as $key => $value) {
-                $value['source_status'] = 'inactive';
+                $value['source_status'] = 'active';
                 $db->Prosource->save($value);
             }
 
