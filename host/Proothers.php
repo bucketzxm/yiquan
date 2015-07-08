@@ -195,16 +195,16 @@ function clear_unmeaningful_char($title){
                     $db->ProMediaGroup->save($value);
                 }
             }*/
-            /*
+            
             foreach ($sources as $key => $value) {
                 //$value['source_status'] = 'active';
-                if (!isset($value['source_domain'])) {
-                    $value['source_domain'] = 'business';
+                if (!isset($value['source_image'])) {
+                    $value['source_image'] = '';
                     $db->Prosource->save($value);
                 }
+            }
 
-                
-            }*/
+
 
             foreach($seeds as $seedKey => $seed){
 
