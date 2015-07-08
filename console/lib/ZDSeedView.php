@@ -180,7 +180,7 @@ class SeedView extends Seed{
 		echo '<div><form method="post" action="?action=editSeed">';
 		echo '<input type="hidden" class="form-control" name="id" value="' . $arr ['_id']->{'$id'} . '"/>';
 		echo '<div class="form-group"><h2>文章名称</h2>';
-		echo '<textarea class="form-control" rows="3" cols="80" name="title">' . $arr ['seed_title'] . '</textarea></div>';
+		echo '<textarea class="form-control" rows="3" cols="80" name="title" >' . $arr ['seed_title'] . '</textarea></div>';
 		echo '<div class="form-group"><h2>值得一读数量</h2>';
 		echo '<textarea class="form-control" rows="3" cols="80" name="agreeCount">' . (isset($arr ['seed_agreeCount']) ? $arr ['seed_agreeCount']:'' ). '</textarea></div>';
 		echo '<div class="form-group"><h2>热度</h2>';
@@ -238,7 +238,7 @@ class SeedView extends Seed{
 			$counter = 0;
 			echo '<div class="table-responsive"><table class="table table-striped">';
 			echo '<thead><tr>';
-			echo '<th>生活模式</th><th></th><th></th><th></th><th></th></tr></thead>';
+			echo '<th>商业内容模式</th><th></th><th></th><th></th><th></th></tr></thead>';
 			foreach ($modeList['mode_list'] as $key => $source_cur) {
 				
 				$source_name=$source_cur;///['mediaGroup_title'];//['source_name'];
@@ -261,7 +261,7 @@ class SeedView extends Seed{
 			$counter = 0;
 			echo '<div class="table-responsive"><table class="table table-striped">';
 			echo '<thead><tr>';
-			echo '<th>生活模式</th><th></th><th></th><th></th><th></th></tr></thead>';
+			echo '<th>生活内容模式</th><th></th><th></th><th></th><th></th></tr></thead>';
 			foreach ($modeList['mode_list'] as $key => $source_cur) {
 				
 				$source_name=$source_cur;///['mediaGroup_title'];//['source_name'];
