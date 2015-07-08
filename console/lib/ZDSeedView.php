@@ -26,8 +26,7 @@ class SeedView extends Seed{
 
 		echo '<div class="table-responsive"><table class="table table-striped">';
 		echo '<thead><tr>';
-		th_combiner('编辑');
-		th_combiner('删除');
+		
 
 		th_combiner('标题');
 		th_combiner( '来源');
@@ -36,7 +35,10 @@ class SeedView extends Seed{
 
 		th_combiner('值得');
 		th_combiner('热度');
-		th_combiner('编辑推荐');
+		th_combiner('推荐');
+
+		th_combiner('编辑');
+		th_combiner('删除');
 
 		echo '<tr></thead>';
 
@@ -44,8 +46,7 @@ class SeedView extends Seed{
 		for($i = $start; $i < min ( $start + $len, count ( $arr ) ); $i ++) {
 			echo '<tr>';
 			$uid = $arr [$i] ['_id']->{'$id'};
-			echo '<td><a href="?action=editSeed&mindex=' . $arr [$i] ['_id']->{'$id'} . '">编辑</a></td>';
-			echo '<td><a href="?action=deleteSeed&mindex=' . $arr [$i] ['_id']->{'$id'} . '">删除</a></td>';
+			
 			td_combiner((isset($arr[$i]['seed_title'])? $arr[$i]['seed_title']:''));
 			td_combiner((isset($arr[$i]['seed_source'])? $arr[$i]['seed_source']:''));
 
@@ -61,6 +62,9 @@ class SeedView extends Seed{
 			td_combiner((isset($arr[$i]['seed_hotness']) ? floor($arr[$i]['seed_hotness']): ''));
 			td_combiner((isset($arr[$i]['editor_point']) ? $arr[$i]['editor_point']: '0'));
 
+			echo '<td><a href="?action=editSeed&mindex=' . $arr [$i] ['_id']->{'$id'} . '">编辑</a></td>';
+			echo '<td><a href="?action=deleteSeed&mindex=' . $arr [$i] ['_id']->{'$id'} . '">删除</a></td>';
+			
 			echo '</tr>';
 
 		}
