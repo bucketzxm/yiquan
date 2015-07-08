@@ -186,7 +186,8 @@ class SeedView extends Seed{
 		echo '<div class="form-group"><h2>热度</h2>';
 		echo '<textarea class="form-control" rows="3" cols="80" name="hotness">' . (isset($arr ['seed_hotness']) ? $arr ['seed_hotness']:'') . '</textarea></div>';
 		echo '<div class="form-group"><h2>小编指数</h2>';
-		echo '<textarea class="form-control" rows="3" cols="80" name="point">' . (isset($arr ['editor_point']) ? $arr ['editor_point']:'没有编辑过') . '</textarea></div>';
+		echo '<h4>-1：未编辑；</h4><h4>0：一般收入；1：推荐；2：极力推荐；</h4><h4>-2：营销；-3：质量太差</h4>'
+		echo '<textarea class="form-control" rows="3" cols="80" name="rating">' . (isset($arr ['seed_editorRating']) ? $arr ['editor_editorRating']:'-1') . '</textarea></div>';
 
 		echo '<div class="form-group"><h2>行业或标签,逗号隔开</h2>';
 		echo '<textarea class="form-control" rows="3" cols="80" name="industry">' . (isset($arr ['seed_industry']) ? implode(',', $arr ['seed_industry']) :''). '</textarea></div>';
