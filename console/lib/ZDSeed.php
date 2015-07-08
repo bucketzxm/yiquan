@@ -115,9 +115,15 @@ class Seed extends YqBase{
 			if ($arr['source_box']!=array() OR  isset($arr['source_box'])){
 				foreach ($arr['source_box'] as $key => $name) {
 					
-					if (!in_array($name, $row['seed_industry'])) {
+					if (isset($row['seed_industry'])) {
+						if (!in_array($name, $row['seed_industry'])) {
+							array_push($row['seed_industry'], $name);
+						}	
+					}else{
+						$row['seed_industry'] = array();
 						array_push($row['seed_industry'], $name);
 					}
+					
 				}
 			}
 
