@@ -263,11 +263,13 @@ class SeedView extends Seed{
 			echo '</table></div>';
 
 			$mediaGroups = $this->db->ProMediaGroup->find(array('group_type' => 'business'))->sort(array('group_rank' => 1));
+			echo '<h2>'.'行业细分'.'</h2>';
 			foreach ($mediaGroups as $keyGroup => $valueGroup) {
-				echo '<h3>'.$valueGroup['mediaGroup_title'].'</h3>';
+				$counter = 0;
+				
 				echo '<div class="table-responsive"><table class="table table-striped">';
 				echo '<thead><tr>';
-				echo '<th>商业内容模式</th><th></th><th></th><th></th><th></th></tr></thead>';
+				echo '<th>'.$valueGroup['mediaGroup_title'].'</th><th></th><th></th><th></th><th></th></tr></thead>';
 				foreach ($valueGroup['mediaGroup_segments'] as $key => $source_cur) {
 					
 					$source_name=$source_cur;///['mediaGroup_title'];//['source_name'];
