@@ -218,6 +218,10 @@ function clear_unmeaningful_char($title){
                     */
                     switch ($seed['seed_editorRating']) {
 
+                        case '0' :
+                            $seed['seed_editorRating'] = 0;
+                            break;                        
+
                         case '1' :
                             $seed['seed_editorRating'] = 1;
                             break;
