@@ -38,6 +38,66 @@ class Seed extends YqBase{
 		return $ans;
 	}
 
+	function queryBizSeedToReview($configs = []) {
+		$ans = [ ];
+		if (empty ( $configs )) {
+			$cus = $this->db->Proseed->find (array('seed_domain' => 'business','seed_editorRating' => -1,'seed_dbWriteTime'=>array('$gt'=>(time()-86400))))->sort(array('seed_dbWriteTime' => -1));
+			while ( $cus->hasNext () ) {
+				$doc = $cus->getNext ();
+				$ans [] = $doc;
+			}
+		} else {
+			if (isset ( $configs ['type'] )) {
+				if ($configs ['type'] == 'findone') {
+					$ans = $this->db->Proseed->findOne ( array (
+							'_id' => new MongoId ( $configs ['value'] ) 
+					) );
+				}
+			}
+		}
+		return $ans;
+	}
+
+	function queryBizSeedPassed($configs = []) {
+		$ans = [ ];
+		if (empty ( $configs )) {
+			$cus = $this->db->Proseed->find (array('seed_domain' => 'business','seed_editorRating' => array('$gte' => 0),'seed_dbWriteTime'=>array('$gt'=>(time()-86400))))->sort(array('seed_dbWriteTime' => -1));
+			while ( $cus->hasNext () ) {
+				$doc = $cus->getNext ();
+				$ans [] = $doc;
+			}
+		} else {
+			if (isset ( $configs ['type'] )) {
+				if ($configs ['type'] == 'findone') {
+					$ans = $this->db->Proseed->findOne ( array (
+							'_id' => new MongoId ( $configs ['value'] ) 
+					) );
+				}
+			}
+		}
+		return $ans;
+	}
+
+	function queryBizSeedDead($configs = []) {
+		$ans = [ ];
+		if (empty ( $configs )) {
+			$cus = $this->db->Proseed->find (array('seed_domain' => 'business','seed_editorRating' => array('$lt' => -1),'seed_dbWriteTime'=>array('$gt'=>(time()-86400))))->sort(array('seed_dbWriteTime' => -1));
+			while ( $cus->hasNext () ) {
+				$doc = $cus->getNext ();
+				$ans [] = $doc;
+			}
+		} else {
+			if (isset ( $configs ['type'] )) {
+				if ($configs ['type'] == 'findone') {
+					$ans = $this->db->Proseed->findOne ( array (
+							'_id' => new MongoId ( $configs ['value'] ) 
+					) );
+				}
+			}
+		}
+		return $ans;
+	}
+
 	function queryLifeSeedToReview($configs = []) {
 		$ans = [ ];
 		if (empty ( $configs )) {
