@@ -184,7 +184,7 @@ function clear_unmeaningful_char($title){
 			));
 			$db = $mongoClient->yiquan;
 			$sources = $db->Prosource->find();
-            $seeds = $db->Proseed->find();
+            $seeds = $db->Proseed->find(array('seed_domain' => 'life'));
 
             $sources = $db->Prosource->find();
             /*
@@ -217,10 +217,10 @@ function clear_unmeaningful_char($title){
                     }
                     */
 
-                    if (!isset($seed['seed_editorRating'])) {
-                        $seed['seed_editorRating'] = -1;
+                    
+                        $seed['seed_industry'] = array();
                         $db->Proseed->save($seed);
-                    }
+                    
                     //$seed['seed_domain'] = $source['source_domain'];
                     
                 
