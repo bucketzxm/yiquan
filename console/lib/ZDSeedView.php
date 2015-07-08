@@ -47,9 +47,9 @@ class SeedView extends Seed{
 			echo '<tr>';
 			$uid = $arr [$i] ['_id']->{'$id'};
 			th_combiner($i+1);
-			td_combiner((isset($arr[$i]['seed_title'])? $arr[$i]['seed_title']:''));
+			echo '<td><a href="'.$arr[$i]['seed_link'].'">'.(isset($arr[$i]['seed_title'])? $arr[$i]['seed_title']:'').'</a></td>';
+			//td_combiner((isset($arr[$i]['seed_title'])? $arr[$i]['seed_title']:''));
 			td_combiner((isset($arr[$i]['seed_source'])? $arr[$i]['seed_source']:''));
-
 
 			$industry=(isset($arr[$i]['seed_industry'])? implode(',',$arr[$i]['seed_industry']): '');
 			td_combiner($industry);
