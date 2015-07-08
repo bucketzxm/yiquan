@@ -195,21 +195,28 @@ function clear_unmeaningful_char($title){
                     $db->ProMediaGroup->save($value);
                 }
             }*/
-            
+            /*
             foreach ($sources as $key => $value) {
                 //$value['source_status'] = 'active';
                 if (!isset($value['source_image'])) {
                     $value['source_image'] = '';
                     $db->Prosource->save($value);
                 }
-            }
-
-
+            }*/
 
             foreach($seeds as $seedKey => $seed){
 
                     $source = $db->Prosource->findOne(array('_id' => new MongoId($seed['seed_sourceID'])));
-                    $seed['seed_domain'] = $source['source_domain'];
+                    if (isset($source['source_blackList'])) {
+                        foreach ($source['source_blackList'] as $key => $value) {
+                            if (strpos($seed['seed_titleLower'], $value) !== false) {
+                                $seed['seed_active'] = '0';
+                                break;
+                            }
+                        }    
+                    }
+                    
+                    //$seed['seed_domain'] = $source['source_domain'];
                     $db->Proseed->save($seed);
                 
             }
