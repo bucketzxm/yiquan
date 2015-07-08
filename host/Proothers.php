@@ -195,7 +195,7 @@ function clear_unmeaningful_char($title){
                     $db->ProMediaGroup->save($value);
                 }
             }*/
-            
+            /*
             foreach ($sources as $key => $value) {
                 //$value['source_status'] = 'active';
                 if (!isset($value['source_domain'])) {
@@ -204,11 +204,12 @@ function clear_unmeaningful_char($title){
                 }
 
                 
-            }
+            }*/
 
             foreach($seeds as $seedKey => $seed){
                 if (!isset($seed['seed_domain'])) {
-                    $seed['seed_domain'] = 'business';
+                    $source = $db->Prosource->findOne(array('_id' => new MongoId($seed['seed_sourceID'])));
+                    $seed['seed_domain'] = $source['source_domain'];
                     $db->Proseed->save($seed);
                 }
             }
