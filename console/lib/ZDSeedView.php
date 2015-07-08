@@ -58,7 +58,7 @@ class SeedView extends Seed{
 				td_combiner("有");
 			}
 			td_combiner((isset($arr[$i]['seed_agreeCount']) ? $arr[$i]['seed_agreeCount']: ''));
-			td_combiner((isset($arr[$i]['seed_hotness']) ? $arr[$i]['seed_hotness']: ''));
+			td_combiner((isset($arr[$i]['seed_hotness']) ? floor($arr[$i]['seed_hotness']): ''));
 			td_combiner((isset($arr[$i]['editor_point']) ? $arr[$i]['editor_point']: '0'));
 
 			echo '</tr>';
