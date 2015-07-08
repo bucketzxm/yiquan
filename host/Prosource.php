@@ -883,6 +883,11 @@ foreach ($sources as $key => $value) {
 
                                     $text = iconv($encode, 'UTF-8//IGNORE', $text);
 
+                                    $sourceDomain = 'business';
+                                    if (isset($value['source_domain'])) {
+                                        $sourceDomain = $value['source_domain'];
+                                    }
+
                                     $dataToSave = array(
                                         'seed_source' => $sourceName,
                                         'seed_sourceLower' => strtolower($value['source_name']),
@@ -906,6 +911,7 @@ foreach ($sources as $key => $value) {
                                         'seed_imageCount' => $seed['imageCount'],
                                         'seed_similar' => $seed_similar,
                                         'seed_completeStatus' => $completeStatus,
+                                        'seed_domain' => $sourceDomain,
                                         'seed_active' => '1'
                                         
                                     );
