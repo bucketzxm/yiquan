@@ -174,6 +174,9 @@ class SeedView extends Seed{
 	}
 
 	function showOneSeed_form($arr) {
+
+		echo $arr['seed_text'];
+
 		echo '<div><form method="post" action="?action=editSeed">';
 		echo '<input type="hidden" class="form-control" name="id" value="' . $arr ['_id']->{'$id'} . '"/>';
 		echo '<div class="form-group"><h2>文章名称</h2>';
@@ -216,7 +219,7 @@ class SeedView extends Seed{
 		echo '<div class="form-group"><input type="submit" value="提交" /></div>';
 		echo '</form></div>';
 
-		echo $arr['seed_text'];
+
 
 	}
 
