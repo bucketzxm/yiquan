@@ -232,9 +232,9 @@ class SeedView extends Seed{
 		}
 		echo '</table></div>';
 
-		$modeLists = $this->db->Prosystem->find(array('para_nam' => 'life_modes'));
+		$modeList = $this->db->Prosystem->findOne(array('para_name' => 'life_modes'));
 
-		foreach ($modeLists as $keyPara => $modeList) {
+		
 			$counter = 0;
 			echo '<div class="table-responsive"><table class="table table-striped">';
 			echo '<thead><tr>';
@@ -251,7 +251,7 @@ class SeedView extends Seed{
 				}
 				$counter+=1;
 			}	
-		}
+		
 		echo '</table></div>';
 
 		echo '<div class="form-group"><input type="submit" value="提交" /></div>';
