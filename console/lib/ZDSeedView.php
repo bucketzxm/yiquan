@@ -26,17 +26,17 @@ class SeedView extends Seed{
 
 		echo '<div class="table-responsive"><table class="table table-striped">';
 		echo '<thead><tr>';
-		th_combiner('编辑操作');
-		th_combiner('删除操作');
+		th_combiner('编辑');
+		th_combiner('删除');
 
-		th_combiner('文章名称');
-		th_combiner( '所属媒体');
+		th_combiner('标题');
+		th_combiner( '来源');
 		th_combiner('行业或标签');
-		th_combiner('有无文章');
+		th_combiner('正文');
 
-		th_combiner('值得一读数');
+		th_combiner('值得');
 		th_combiner('热度');
-		th_combiner('小编指数');
+		th_combiner('编辑推荐');
 
 		echo '<tr></thead>';
 
@@ -53,13 +53,13 @@ class SeedView extends Seed{
 			$industry=(isset($arr[$i]['seed_industry'])? implode(',',$arr[$i]['seed_industry']): '');
 			td_combiner($industry);
 			if (strlen($arr[$i]['seed_text'])<=1) {
-				td_combiner("没有文章");
+				td_combiner("无");
 			}else{
-				td_combiner("有文章");
+				td_combiner("有");
 			}
 			td_combiner((isset($arr[$i]['seed_agreeCount']) ? $arr[$i]['seed_agreeCount']: ''));
 			td_combiner((isset($arr[$i]['seed_hotness']) ? $arr[$i]['seed_hotness']: ''));
-			td_combiner((isset($arr[$i]['editor_point']) ? $arr[$i]['editor_point']: '没有编辑过'));
+			td_combiner((isset($arr[$i]['editor_point']) ? $arr[$i]['editor_point']: '0'));
 
 			echo '</tr>';
 
