@@ -58,6 +58,46 @@ class Seed extends YqBase{
 		return $ans;
 	}
 
+	function queryLifeSeedPassed($configs = []) {
+		$ans = [ ];
+		if (empty ( $configs )) {
+			$cus = $this->db->Proseed->find (array('seed_domain' => 'life','seed_editorRating' => array('$gte' => 0),'seed_dbWriteTime'=>array('$gt'=>(time()-86400))))->sort(array('seed_dbWriteTime' => -1));
+			while ( $cus->hasNext () ) {
+				$doc = $cus->getNext ();
+				$ans [] = $doc;
+			}
+		} else {
+			if (isset ( $configs ['type'] )) {
+				if ($configs ['type'] == 'findone') {
+					$ans = $this->db->Proseed->findOne ( array (
+							'_id' => new MongoId ( $configs ['value'] ) 
+					) );
+				}
+			}
+		}
+		return $ans;
+	}
+
+	function queryLifeSeedDead($configs = []) {
+		$ans = [ ];
+		if (empty ( $configs )) {
+			$cus = $this->db->Proseed->find (array('seed_domain' => 'life','seed_editorRating' => array('$lt' => -1),'seed_dbWriteTime'=>array('$gt'=>(time()-86400))))->sort(array('seed_dbWriteTime' => -1));
+			while ( $cus->hasNext () ) {
+				$doc = $cus->getNext ();
+				$ans [] = $doc;
+			}
+		} else {
+			if (isset ( $configs ['type'] )) {
+				if ($configs ['type'] == 'findone') {
+					$ans = $this->db->Proseed->findOne ( array (
+							'_id' => new MongoId ( $configs ['value'] ) 
+					) );
+				}
+			}
+		}
+		return $ans;
+	}
+
 	function updateSeed($arr) {
 		
 		$row = $this->db->Proseed->findOne ( array (

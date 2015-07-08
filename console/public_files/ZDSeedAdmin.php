@@ -19,6 +19,8 @@ include_once '401.php';
 			<ul class="nav nav-sidebar">
 				<li><a href="?action=文章列表">文章列表 <span class="sr-only">(current)</span></a></li>
 				<li><a href="?action=生活文章-待审核">生活文章-待审核 <span class="sr-only">(current)</span></a></li>
+				<li><a href="?action=生活文章-已通过">生活文章-已通过 <span class="sr-only">(current)</span></a></li>
+				<li><a href="?action=生活文章-已枪毙">生活文章-已枪毙 <span class="sr-only">(current)</span></a></li>
 				<li><a href="?action=媒体文章数据">媒体文章数据 <span class="sr-only">(current)</span></a></li>
 				<li><a href="?action=文章统计数据">文章统计数据 <span class="sr-only">(current)</span></a></li>
 				<li><a href="?action=查询">按日期查询 <span class="sr-only">(current)</span></a></li>
@@ -54,6 +56,22 @@ include_once '401.php';
 							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
 								if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
 									$a->listAllSeed_table($a->queryLifeSeedToReview(),0,5000);
+								}
+							}
+							break;
+
+						case '生活文章-已通过' :
+							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
+								if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
+									$a->listAllSeed_table($a->queryLifeSeedPassed(),0,5000);
+								}
+							}
+							break;
+
+						case '生活文章-已枪毙' :
+							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
+								if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
+									$a->listAllSeed_table($a->queryLifeSeedDead(),0,5000);
 								}
 							}
 							break;
