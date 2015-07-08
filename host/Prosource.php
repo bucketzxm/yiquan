@@ -801,12 +801,15 @@ foreach ($sources as $key => $value) {
                                 $title = str_replace("&quot;", "", $title);
 
                                 $titleBlack = false;
-                                foreach ($value['source_blackList'] as $blackKey => $blackWord) {
-                                    if (strpos($title, $blackWord) !== false) {
-                                        $titleBlack = true;
-                                        break;
-                                    }
+                                if (isset($value['source_blackList'])) {
+                                    foreach ($value['source_blackList'] as $blackKey => $blackWord) {
+                                        if (strpos($title, $blackWord) !== false) {
+                                            $titleBlack = true;
+                                            break;
+                                        }
+                                    }    
                                 }
+                                
 
                                 if ($title != '' && $title != null && strlen($title) > 0 && $titleBlack == false) {
 
