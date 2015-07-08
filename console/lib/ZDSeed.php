@@ -38,10 +38,10 @@ class Seed extends YqBase{
 		return $ans;
 	}
 
-	function queryLifeSeed($configs = []) {
+	function queryLifeSeedToReview($configs = []) {
 		$ans = [ ];
 		if (empty ( $configs )) {
-			$cus = $this->db->Proseed->find (array('seed_domain' => 'life','seed_dbWriteTime'=>array('$gt'=>(time()-86400))))->sort(array('seed_dbWriteTime' => -1));
+			$cus = $this->db->Proseed->find (array('seed_domain' => 'life','seed_editorRating' => -1,'seed_dbWriteTime'=>array('$gt'=>(time()-86400))))->sort(array('seed_dbWriteTime' => -1));
 			while ( $cus->hasNext () ) {
 				$doc = $cus->getNext ();
 				$ans [] = $doc;
