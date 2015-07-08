@@ -187,33 +187,45 @@ class SeedView extends Seed{
 		echo '<textarea class="form-control" rows="3" cols="80" name="hotness">' . (isset($arr ['seed_hotness']) ? $arr ['seed_hotness']:'') . '</textarea></div>';
 		echo '<div class="form-group"><h2>小编指数</h2>';
 		echo '<h4>-1：未编辑；</h4><h4>0：一般收入；1：推荐；2：极力推荐；</h4><h4>-2：营销；-3：质量太差</h4>';
-		echo '<textarea class="form-control" rows="3" cols="80" name="rating">' . (isset($arr ['seed_editorRating']) ? $arr ['editor_editorRating']:'-1') . '</textarea></div>';
+		echo '<textarea class="form-control" rows="3" cols="80" name="rating">' . (isset($arr ['seed_editorRating']) ? $arr ['seed_editorRating']:'-1') . '</textarea></div>';
 
 		echo '<div class="form-group"><h2>行业或标签,逗号隔开</h2>';
 		echo '<textarea class="form-control" rows="3" cols="80" name="industry">' . (isset($arr ['seed_industry']) ? implode(',', $arr ['seed_industry']) :''). '</textarea></div>';
 
 		//Label System
 
-		$all_labels = $this->db->ProMediaGroup->find();
+		$all_labels = $this->db->ProMediaGroup->find(array('group_type' => 'business'));
 		$counter = 0;
 		echo '<div class="table-responsive"><table class="table table-striped">';
 		echo '<thead><tr>';
-		echo '<th>请</th><th>选</th><th>择</th><th>标</th><th>签</th></tr></thead>';
+		echo '<th>商业栏目</th><th></th><th></th><th></th><th></th></tr></thead>';
 		foreach ($all_labels as $key => $source_cur) {
 			
-			
 			$source_name=$source_cur['mediaGroup_title'];//['source_name'];
-
 			if ($counter%5==0) {
 				echo '<tr>';
 			}
-		
-			
 			echo td_combiner("$source_name: ".'<input type="checkbox" name="source_box[]" value='."$source_name".'>') ;
 			if ($counter%5==4) {
 				echo '</tr>';
 			}
-		
+			$counter+=1;
+		}
+		$all_labels = $this->db->ProMediaGroup->find(array('group_type' => 'life'));
+		$counter = 0;
+		echo '<div class="table-responsive"><table class="table table-striped">';
+		echo '<thead><tr>';
+		echo '<th>生活栏目</th><th></th><th></th><th></th><th></th></tr></thead>';
+		foreach ($all_labels as $key => $source_cur) {
+			
+			$source_name=$source_cur['mediaGroup_title'];//['source_name'];
+			if ($counter%5==0) {
+				echo '<tr>';
+			}
+			echo td_combiner("$source_name: ".'<input type="checkbox" name="source_box[]" value='."$source_name".'>') ;
+			if ($counter%5==4) {
+				echo '</tr>';
+			}
 			$counter+=1;
 		}
 
