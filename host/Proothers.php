@@ -216,10 +216,24 @@ function clear_unmeaningful_char($title){
                         }    
                     }
                     */
+                    switch ($seed['seed_editorRating']) {
 
+                        case '1' :
+                            $seed['seed_editorRating'] = 1;
+                            break;
+                        
+                        case '2' :
+                            $seed['seed_editorRating'] = 2;
+                            break;
+                        case '-2' :
+                            $seed['seed_editorRating'] = -2;
+                            break;
+                        case '-3' :
+                            $seed['seed_editorRating'] = -3;
+                            break;
+                    }
                     
-                        $seed['seed_industry'] = array();
-                        $db->Proseed->save($seed);
+                    $db->Proseed->save($seed);
                     
                     //$seed['seed_domain'] = $source['source_domain'];
                     

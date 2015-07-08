@@ -144,7 +144,7 @@ class Seed extends YqBase{
 				unset($row ['seed_agreeCount']);
 			}
 			if ($arr['rating']!= "") {
-				$row ['seed_editorRating'] = $arr['rating'];
+				$row ['seed_editorRating'] = (int)$arr['rating'];
 
 			}  else {
 
