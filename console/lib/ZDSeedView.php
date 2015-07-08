@@ -190,7 +190,7 @@ class SeedView extends Seed{
 
 		//Label System
 		$all_labels = ['a','b','c'];
-
+		$counter = 0;
 		echo '<div class="table-responsive"><table class="table table-striped">';
 		echo '<thead><tr>';
 		echo '<th>请</th><th>选</th><th>择</th><th>标</th><th>签</th></tr></thead>';
@@ -215,6 +215,9 @@ class SeedView extends Seed{
 
 		echo '<div class="form-group"><input type="submit" value="提交" /></div>';
 		echo '</form></div>';
+
+		echo $arr['seed_text'];
+
 	}
 
 	function showDeleteSeedView($id) {
