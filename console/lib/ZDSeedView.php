@@ -261,6 +261,29 @@ class SeedView extends Seed{
 			}	
 		
 			echo '</table></div>';
+
+			$mediaGroups = $this->db->ProMediaGroup->find(array('group_type' => 'business'))->sort(array('group_rank' => 1));
+			foreach ($mediaGroups as $keyGroup => $valueGroup) {
+				echo '<h3>'.$valueGroup['mediaGroup_title'].'</h3>';
+				echo '<div class="table-responsive"><table class="table table-striped">';
+				echo '<thead><tr>';
+				echo '<th>商业内容模式</th><th></th><th></th><th></th><th></th></tr></thead>';
+				foreach ($valueGroup['mediaGroup_segments'] as $key => $source_cur) {
+					
+					$source_name=$source_cur;///['mediaGroup_title'];//['source_name'];
+					if ($counter%5==0) {
+						echo '<tr>';
+					}
+					echo td_combiner("$source_name: ".'<input type="checkbox" name="source_box[]" value='."$source_name".'>') ;
+					if ($counter%5==4) {
+						echo '</tr>';
+					}
+					$counter+=1;
+				}	
+			
+				echo '</table></div>';
+			}
+
 		}
 		
 		if ($arr['seed_domain'] == 'life') {
