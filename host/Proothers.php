@@ -205,7 +205,7 @@ function clear_unmeaningful_char($title){
             }*/
 
             foreach($seeds as $seedKey => $seed){
-
+                    /*
                     $source = $db->Prosource->findOne(array('_id' => new MongoId($seed['seed_sourceID'])));
                     if (isset($source['source_blackList'])) {
                         foreach ($source['source_blackList'] as $key => $value) {
@@ -215,9 +215,14 @@ function clear_unmeaningful_char($title){
                             }
                         }    
                     }
-                    
+                    */
+
+                    if (!isset($seed['seed_editorRating'])) {
+                        $seed['seed_editorRating'] = -1;
+                        $db->Proseed->save($seed);
+                    }
                     //$seed['seed_domain'] = $source['source_domain'];
-                    $db->Proseed->save($seed);
+                    
                 
             }
 
