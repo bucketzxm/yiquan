@@ -212,6 +212,7 @@ class SeedView extends Seed{
 			$counter+=1;
 		}
 		echo '</table></div>';
+
 		$all_labels = $this->db->ProMediaGroup->find(array('group_type' => 'life'));
 		$counter = 0;
 		echo '<div class="table-responsive"><table class="table table-striped">';
@@ -220,6 +221,25 @@ class SeedView extends Seed{
 		foreach ($all_labels as $key => $source_cur) {
 			
 			$source_name=$source_cur['mediaGroup_title'];//['source_name'];
+			if ($counter%5==0) {
+				echo '<tr>';
+			}
+			echo td_combiner("$source_name: ".'<input type="checkbox" name="source_box[]" value='."$source_name".'>') ;
+			if ($counter%5==4) {
+				echo '</tr>';
+			}
+			$counter+=1;
+		}
+		echo '</table></div>';
+
+		$all_labels = $this->db->Prosystem->find(array('para_nam' => 'life_modes'));
+		$counter = 0;
+		echo '<div class="table-responsive"><table class="table table-striped">';
+		echo '<thead><tr>';
+		echo '<th>生活模式</th><th></th><th></th><th></th><th></th></tr></thead>';
+		foreach ($all_labels['mode_list'] as $key => $source_cur) {
+			
+			$source_name=$source_cur;///['mediaGroup_title'];//['source_name'];
 			if ($counter%5==0) {
 				echo '<tr>';
 			}
