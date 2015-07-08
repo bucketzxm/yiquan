@@ -188,6 +188,29 @@ class SeedView extends Seed{
 		echo '<div class="form-group"><h2>行业或标签,逗号隔开</h2>';
 		echo '<textarea class="form-control" rows="3" cols="80" name="industry">' . (isset($arr ['seed_industry']) ? implode(',', $arr ['seed_industry']) :''). '</textarea></div>';
 
+		//Label System
+		$all_labels = ['a','b','c'];
+
+		echo '<div class="table-responsive"><table class="table table-striped">';
+		echo '<thead><tr>';
+		echo '<th>请</th><th>选</th><th>择</th><th>标</th><th>签</th></tr></thead>';
+		foreach ($all_labels as $key => $source_cur) {
+			
+			
+			$source_name=$source_cur;//['source_name'];
+
+			if ($counter%5==0) {
+				echo '<tr>';
+			}
+		
+			
+			echo td_combiner("$source_name: ".'<input type="checkbox" name="source_box[]" value='."$source_name".'>') ;
+			if ($counter%5==4) {
+				echo '</tr>';
+			}
+		
+			$counter+=1;
+		}
 
 
 		echo '<div class="form-group"><input type="submit" value="提交" /></div>';
