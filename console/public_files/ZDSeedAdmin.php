@@ -91,17 +91,22 @@ include_once '401.php';
 							}
 							break;
 						case 'deleteSeed' :
+							/*
 							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
 								if (isset ( $_GET ['mindex'] )) {
 									$a->showDeleteSeedView ( $_GET ['mindex'] );
 								}
 							} else {
-								if ($a->deleteSeed ( $_POST ['qid'] )) {
+								if ($a->deleteSeed ( $_POST ['qid'] ) == 1) {
 									echo '成功';
 								} else {
 									echo '失败';
 								}
 							}
+							*/
+							$a->deleteSeed ( $_GET ['mindex'] );
+
+							echo "<script> {window.alert('枪毙成功');} </script>";
 
 
 							break;

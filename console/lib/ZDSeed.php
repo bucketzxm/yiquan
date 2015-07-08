@@ -135,9 +135,12 @@ class Seed extends YqBase{
 	}
 	function deleteSeed($Seedid) {
 		try {
-			$this->db->Proseed->remove ( array (
+
+			$seedToDelete = $this->db->Proseed->findOne ( array (
 					'_id' => new MongoID ( $Seedid ) 
 			) );
+			$seedToDelete['seed_editorRating'] = -2;
+			$this->db->Proseed->save($seedToDelete);
 			return 1;
 		} catch ( Exception $e ) {
 			return - 1;

@@ -38,7 +38,7 @@ class SeedView extends Seed{
 		th_combiner('推荐');
 
 		th_combiner('编辑');
-		//th_combiner('删除');
+		th_combiner('枪毙');
 
 		echo '<tr></thead>';
 
@@ -63,7 +63,7 @@ class SeedView extends Seed{
 			td_combiner((isset($arr[$i]['seed_editorRating']) ? $arr[$i]['seed_editorRating']: '-1'));
 
 			echo '<td><a href="?action=editSeed&mindex=' . $arr [$i] ['_id']->{'$id'} . '">编辑</a></td>';
-			//echo '<td><a href="?action=deleteSeed&mindex=' . $arr [$i] ['_id']->{'$id'} . '">删除</a></td>';
+			echo '<td><a href="?action=deleteSeed&mindex=' . $arr [$i] ['_id']->{'$id'} . '">枪毙</a></td>';
 
 			echo '</tr>';
 
