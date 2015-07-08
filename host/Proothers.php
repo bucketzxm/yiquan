@@ -207,11 +207,11 @@ function clear_unmeaningful_char($title){
             }*/
 
             foreach($seeds as $seedKey => $seed){
-                if (!isset($seed['seed_domain'])) {
+
                     $source = $db->Prosource->findOne(array('_id' => new MongoId($seed['seed_sourceID'])));
                     $seed['seed_domain'] = $source['source_domain'];
                     $db->Proseed->save($seed);
-                }
+                
             }
 
 
