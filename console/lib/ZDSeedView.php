@@ -198,7 +198,7 @@ class SeedView extends Seed{
 		$counter = 0;
 		echo '<div class="table-responsive"><table class="table table-striped">';
 		echo '<thead><tr>';
-		echo '<th>商业栏目</th><th></th><th></th><th></th><th></th></tr></thead>';
+		echo '<th>商业栏目(必填)</th><th></th><th></th><th></th><th></th></tr></thead>';
 		foreach ($all_labels as $key => $source_cur) {
 			
 			$source_name=$source_cur['mediaGroup_title'];//['source_name'];
@@ -213,23 +213,27 @@ class SeedView extends Seed{
 		}
 		echo '</table></div>';
 
-		$all_labels = $this->db->ProMediaGroup->find(array('group_type' => 'life'));
-		$counter = 0;
-		echo '<div class="table-responsive"><table class="table table-striped">';
-		echo '<thead><tr>';
-		echo '<th>生活栏目</th><th></th><th></th><th></th><th></th></tr></thead>';
-		foreach ($all_labels as $key => $source_cur) {
-			
-			$source_name=$source_cur['mediaGroup_title'];//['source_name'];
-			if ($counter%5==0) {
-				echo '<tr>';
-			}
-			echo td_combiner("$source_name: ".'<input type="checkbox" name="source_box[]" value='."$source_name".'>') ;
-			if ($counter%5==4) {
-				echo '</tr>';
-			}
-			$counter+=1;
-		}
+
+		$modeList = $this->db->Prosystem->findOne(array('para_name' => 'business_functions'));
+
+		
+			$counter = 0;
+			echo '<div class="table-responsive"><table class="table table-striped">';
+			echo '<thead><tr>';
+			echo '<th>商业智能</th><th></th><th></th><th></th><th></th></tr></thead>';
+			foreach ($modeList['mode_list'] as $key => $source_cur) {
+				
+				$source_name=$source_cur;///['mediaGroup_title'];//['source_name'];
+				if ($counter%5==0) {
+					echo '<tr>';
+				}
+				echo td_combiner("$source_name: ".'<input type="checkbox" name="source_box[]" value='."$source_name".'>') ;
+				if ($counter%5==4) {
+					echo '</tr>';
+				}
+				$counter+=1;
+			}	
+		
 		echo '</table></div>';
 
 		$modeList = $this->db->Prosystem->findOne(array('para_name' => 'business_modes'));
@@ -252,6 +256,25 @@ class SeedView extends Seed{
 				$counter+=1;
 			}	
 		
+		echo '</table></div>';
+
+		$all_labels = $this->db->ProMediaGroup->find(array('group_type' => 'life'));
+		$counter = 0;
+		echo '<div class="table-responsive"><table class="table table-striped">';
+		echo '<thead><tr>';
+		echo '<th>生活栏目（必填）</th><th></th><th></th><th></th><th></th></tr></thead>';
+		foreach ($all_labels as $key => $source_cur) {
+			
+			$source_name=$source_cur['mediaGroup_title'];//['source_name'];
+			if ($counter%5==0) {
+				echo '<tr>';
+			}
+			echo td_combiner("$source_name: ".'<input type="checkbox" name="source_box[]" value='."$source_name".'>') ;
+			if ($counter%5==4) {
+				echo '</tr>';
+			}
+			$counter+=1;
+		}
 		echo '</table></div>';
 
 
