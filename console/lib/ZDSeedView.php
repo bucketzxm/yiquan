@@ -232,12 +232,12 @@ class SeedView extends Seed{
 		}
 		echo '</table></div>';
 
-		$all_labels = $this->db->Prosystem->find(array('para_nam' => 'life_modes'));
+		$modeList = $this->db->Prosystem->findOne(array('para_nam' => 'life_modes'));
 		$counter = 0;
 		echo '<div class="table-responsive"><table class="table table-striped">';
 		echo '<thead><tr>';
 		echo '<th>生活模式</th><th></th><th></th><th></th><th></th></tr></thead>';
-		foreach ($all_labels['mode_list'] as $key => $source_cur) {
+		foreach ($modeList['mode_list'] as $key => $source_cur) {
 			
 			$source_name=$source_cur;///['mediaGroup_title'];//['source_name'];
 			if ($counter%5==0) {
