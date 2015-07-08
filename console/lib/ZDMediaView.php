@@ -57,13 +57,13 @@ class MediaView extends Media{
 		echo '<div class="table-responsive"><table class="table table-striped">';
 		echo '<thead><tr>';
 
-		th_combiner('媒体模块');
-		th_combiner('媒体名称');
+		th_combiner('模块');
+		th_combiner('名称');
 		//th_combiner('媒体描述');
 		th_combiner('行业或标签');
 		th_combiner('网址/RSS');
 		th_combiner('状态');
-		th_combiner('编辑操作');
+		th_combiner('编辑');
 
 		echo '<tr></thead>';
 
@@ -71,7 +71,7 @@ class MediaView extends Media{
 		for($i = $start; $i < min ( $start + $len, count ( $arr ) ); $i ++) {
 			echo '<tr>';
 			$uid = $arr [$i] ['_id']->{'$id'};
-			td_combiner((isset($arr[$i]['source_domain'])? $arr[$i]['source_domain']:''));
+			td_combiner((isset($arr[$i]['source_domain'])? substr($arr[$i]['source_domain'], 0,4):''));
 			td_combiner((isset($arr[$i]['source_name'])? $arr[$i]['source_name']:''));
 			//td_combiner((isset($arr[$i]['source_description']) ? $arr[$i]['source_description']: ''));
 			td_combiner((isset($arr[$i]['source_industry']) ? implode(',',$arr[$i]['source_industry']): ''));
