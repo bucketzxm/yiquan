@@ -195,11 +195,16 @@ function clear_unmeaningful_char($title){
                     $db->ProMediaGroup->save($value);
                 }
             }*/
-            /*
+            
             foreach ($sources as $key => $value) {
-                $value['source_status'] = 'active';
-                $db->Prosource->save($value);
-            }*/
+                //$value['source_status'] = 'active';
+                if (!isset($value['source_domain'])) {
+                    $value['source_domain'] = 'life';
+                    $db->Prosource->save($value);
+                }
+
+                
+            }
 
             //foreach ($seeds as $key => $value) {
              //   $value['seed_active'] = '1';
@@ -222,13 +227,12 @@ function clear_unmeaningful_char($title){
                 */
             //}
 			
-			
+			/*
 			foreach ($sources as $key => $source) {
 				$source['check_time'] = time() - 1000000000;
 				$db->Prosource->save($source);
-			}
+			}*/
             
-
 			
 			/*
 			//修改行业字典
