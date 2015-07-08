@@ -193,7 +193,8 @@ class SeedView extends Seed{
 		echo '<textarea class="form-control" rows="3" cols="80" name="industry">' . (isset($arr ['seed_industry']) ? implode(',', $arr ['seed_industry']) :''). '</textarea></div>';
 
 		//Label System
-		$all_labels = ['a','b','c'];
+
+		$all_labels = $this->db->ProMediaGroup->find();
 		$counter = 0;
 		echo '<div class="table-responsive"><table class="table table-striped">';
 		echo '<thead><tr>';
@@ -201,7 +202,7 @@ class SeedView extends Seed{
 		foreach ($all_labels as $key => $source_cur) {
 			
 			
-			$source_name=$source_cur;//['source_name'];
+			$source_name=$source_cur['mediaGroup_title'];//['source_name'];
 
 			if ($counter%5==0) {
 				echo '<tr>';
