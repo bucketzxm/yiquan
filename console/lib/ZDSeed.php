@@ -38,9 +38,6 @@ class Seed extends YqBase{
 		return $ans;
 	}
 
-
-
-
 	function updateSeed($arr) {
 		
 		$row = $this->db->Proseed->findOne ( array (
@@ -95,7 +92,14 @@ class Seed extends YqBase{
 			}
 
 
-
+			if ($arr['source_box']!=array() OR  isset($arr['source_box'])){
+				foreach ($arr['source_box'] as $key => $name) {
+					
+					if (!in_array($name, $row['seed_industry'])) {
+						array_push($row['seed_industry'], $name);
+					}
+				}
+			}
 
 			
 			
