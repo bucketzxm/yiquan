@@ -199,12 +199,20 @@ function clear_unmeaningful_char($title){
             foreach ($sources as $key => $value) {
                 //$value['source_status'] = 'active';
                 if (!isset($value['source_domain'])) {
-                    $value['source_domain'] = 'life';
+                    $value['source_domain'] = 'business';
                     $db->Prosource->save($value);
                 }
 
                 
             }
+
+            foreach($seeds as $seedKey => $seed){
+                if (!isset($seed['seed_domain'])) {
+                    $seed['seed_domain'] = 'business';
+                    $db->Proseed->save($seed);
+                }
+            }
+
 
             //foreach ($seeds as $key => $value) {
              //   $value['seed_active'] = '1';
