@@ -277,6 +277,29 @@ class SeedView extends Seed{
 		
 		echo '</table></div>';
 
+		$modeList = $this->db->Prosystem->findOne(array('para_name' => 'life_segments'));
+
+		
+			$counter = 0;
+			echo '<div class="table-responsive"><table class="table table-striped">';
+			echo '<thead><tr>';
+			echo '<th>生活细分</th><th></th><th></th><th></th><th></th></tr></thead>';
+			foreach ($modeList['mode_list'] as $key => $source_cur) {
+				
+				$source_name=$source_cur;///['mediaGroup_title'];//['source_name'];
+				if ($counter%5==0) {
+					echo '<tr>';
+				}
+				echo td_combiner("$source_name: ".'<input type="checkbox" name="source_box[]" value='."$source_name".'>') ;
+				if ($counter%5==4) {
+					echo '</tr>';
+				}
+				$counter+=1;
+			}	
+		
+		echo '</table></div>';
+
+
 		echo '<div class="form-group"><input type="submit" value="提交" /></div>';
 		echo '</form></div>';
 
