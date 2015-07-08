@@ -250,7 +250,7 @@ class Proseed extends YqBase {
 			//排序
 			arsort($res);
 			//删选
-			$topRes = array_slice($res,0,30);
+			$topRes = array_slice($res,0,10);
 
 			$results = array ();
 			foreach ($topRes as $key => $value) {
@@ -351,7 +351,7 @@ function querySeedsByGroup ($user_id,$group_id,$time){
 				),
 			'seed_time' => array ('$lt' => $time),
 			'seed_active' => '1', 
-			))->sort(array('seed_time' => -1))->limit(30);
+			))->sort(array('seed_time' => -1))->limit(10);
 	$results = array();
 	foreach ($sourceSeeds as $keys => $source) {
 		unset($source['seed_text']);
@@ -437,7 +437,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 					),
 					'seed_active' => '1',
 				)
-			)->sort(array('seed_time'=> -1))->limit(30);
+			)->sort(array('seed_time'=> -1))->limit(10);
 			/*
 			$unreadSeeds = array ();
 			foreach ($sourceSeeds as $key => $seed) {
@@ -1003,7 +1003,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 			return - 4;
 		}
 		$time = (int)$time;
-		$cursor = $this->db->Proworth->find(array ('like_user'=> $user_id,'like_time'=> array('$lt' => $time)))->sort(array('like_time'=> -1))->limit(30);
+		$cursor = $this->db->Proworth->find(array ('like_user'=> $user_id,'like_time'=> array('$lt' => $time)))->sort(array('like_time'=> -1))->limit(10);
 		$myLikedSeeds = array ();
 		foreach ($cursor as $key => $value) {
 			$seed = $this->db->Proseed->find(array ('_id'=> new MongoId($value['like_seed'])));
@@ -1113,7 +1113,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 			return - 4;
 		}
 
-		$cursor = $this->db->Promessage->find (array ('message_type' => 'system'))->sort(array ('message_postTime'=> -1))->limit (30);
+		$cursor = $this->db->Promessage->find (array ('message_type' => 'system'))->sort(array ('message_postTime'=> -1))->limit (10);
 		$systemMessages = array();
 		foreach ($cursor as $key => $value) {
 			array_push($systemMessages,$value);
@@ -1145,7 +1145,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 						)
 					)
 				)
-			)->sort (array ('message_postTime'=> -1))->limit (30);
+			)->sort (array ('message_postTime'=> -1))->limit (10);
 		$feedbackMessages = array();
 		foreach ($cursor as $key => $value){
 			if ($value['message_senderID'] != 'system') {
@@ -1504,7 +1504,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 		$time = (int)$time;
 
 		$result = array();
-		$seeds = $this->db->Proseed->find(array('seed_sourceID' => $source_id,'seed_time' => array('$lt' => $time)))->sort(array('seed_time' => -1))->limit(30);
+		$seeds = $this->db->Proseed->find(array('seed_sourceID' => $source_id,'seed_time' => array('$lt' => $time)))->sort(array('seed_time' => -1))->limit(10);
 		foreach ($seeds as $key => $value) {
 			array_push($result,$value);
 		}
