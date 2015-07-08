@@ -194,7 +194,7 @@ class SeedView extends Seed{
 
 		//Label System
 
-		$all_labels = $this->db->ProMediaGroup->find(array('group_type' => 'business'));
+		$all_labels = $this->db->ProMediaGroup->find(array('group_type' => 'business'))->sort(array('group_rank' => 1));
 		$counter = 0;
 		echo '<div class="table-responsive"><table class="table table-striped">';
 		echo '<thead><tr>';
@@ -211,6 +211,7 @@ class SeedView extends Seed{
 			}
 			$counter+=1;
 		}
+		echo '</table></div>';
 		$all_labels = $this->db->ProMediaGroup->find(array('group_type' => 'life'));
 		$counter = 0;
 		echo '<div class="table-responsive"><table class="table table-striped">';
@@ -228,7 +229,7 @@ class SeedView extends Seed{
 			}
 			$counter+=1;
 		}
-
+		echo '</table></div>';
 
 		echo '<div class="form-group"><input type="submit" value="提交" /></div>';
 		echo '</form></div>';
