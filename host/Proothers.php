@@ -200,15 +200,18 @@ function clear_unmeaningful_char($title){
                 //$value['source_status'] = 'active';
                 if (isset($value['source_image'])) {
                     
-                    $start = strpos($value['source_image'], '.com/');
-                    $end = strpos($value['source_image'], '.png');
-                    if ($end === false) {
-                        $end = strpos($value['source_image'], '.jpg');
-                    }
+                    if ($value['source_image'] != '') {
+                        $start = strpos($value['source_image'], '.com/');
+                        $end = strpos($value['source_image'], '.png');
+                        if ($end === false) {
+                            $end = strpos($value['source_image'], '.jpg');
+                        }
 
-                    $imageName = substr($value['source_image'], $start,$end-$start);
-                    echo '<h3>'.$imageName.'</h3>';
-                    //$db->Prosource->save($value);
+                        $imageName = substr($value['source_image'], $start,$end-$start);
+                        echo '<h3>'.$imageName.'</h3>';
+                        //$db->Prosource->save($value);    
+                    }
+                    
                 }
             }
             /*
