@@ -1467,7 +1467,8 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 			$value['source_name'] = $source['source_name'];
 			$value['source_description'] = $source['source_description'];
 			$value['source_image'] = $source['source_image'];
-			array_push($mediaList, $value);
+			$value['source_imageName'] = $source['source_imageName'];
+ 			array_push($mediaList, $value);
 		}
 
 
