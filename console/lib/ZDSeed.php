@@ -196,7 +196,13 @@ class Seed extends YqBase{
 				//unset($row ['seed_industry']);
 			}
 
+			if ($arr ['seedDomain']!= "") {
+				$row ['seed_domain'] = $arr['seedDomain'];
 
+			}  else {
+				//$row['seed_industry'] = array();
+				//unset($row ['seed_industry']);
+			}			
 
 			if ($arr['hotness']!= "") {
 				$row ['seed_hotness'] = $arr ['hotness'];
