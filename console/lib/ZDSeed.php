@@ -172,17 +172,28 @@ class Seed extends YqBase{
 
 			}  else {
 				
-				unset($row ['seed_title']);
+				$row['seed_title'] = '';
+				//unset($row ['seed_title']);
 			}
 
 
+			if ($arr ['imageLink'] != "") {
+				
+				$row ['seed_imageLink'] = $arr ['imageLink'];
+
+
+			}  else {
+				
+				$row['seed_imageLink'] = '';
+				//unset($row ['seed_title']);
+			}
 
 			if ($arr ['industry']!= "") {
 				$row ['seed_industry'] = explode(',', $arr ['industry']);
 
 			}  else {
-
-				unset($row ['seed_industry']);
+				$row['seed_industry'] = array();
+				//unset($row ['seed_industry']);
 			}
 
 
@@ -192,7 +203,7 @@ class Seed extends YqBase{
 
 			}  else {
 
-				unset($row ['seed_hotness']);
+				//unset($row ['seed_hotness']);
 			}
 
 
@@ -201,14 +212,14 @@ class Seed extends YqBase{
 
 			}  else {
 
-				unset($row ['seed_agreeCount']);
+				//unset($row ['seed_agreeCount']);
 			}
 			if ($arr['rating']!= "") {
 				$row ['seed_editorRating'] = (int)$arr['rating'];
 
 			}  else {
 
-				unset($row ['seed_editorRating']);
+				//unset($row ['seed_editorRating']);
 			}
 
 
