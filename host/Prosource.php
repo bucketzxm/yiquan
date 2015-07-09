@@ -924,7 +924,7 @@ foreach ($sources as $key => $value) {
                                     $seedIndustry = array();
                                     //$industryHotness = array();
 
-                                    if ($text != '') {
+                                    if ($text != '' && $sourceDomain = 'business') {
                                         $protext = new Protext; 
                                         $parserResult = $protext->parseIndustry($text,strtolower($title));    
                                         $dataToSave['seed_textIndustryWords'] = $parserResult['seed_textIndustryWords'];
@@ -1116,9 +1116,7 @@ foreach ($uncompleteSeeds as $key => $seed) {
             $textLen = mb_strlen($cleanedText,'utf-8');
 
 
-            //解析行业
-            $protext = new Protext;
-            $parserResult = $protext->parseIndustry($text,strtolower($seed['seed_titleLower']));        
+            
 
 
             $imgPattern = "<(?:img|IMG).*?(?:src|data-url)=\"(.*?)\".*?>";
@@ -1156,31 +1154,38 @@ foreach ($uncompleteSeeds as $key => $seed) {
             $seed['seed_imageLink'] = $imageLink;
             $seed['seed_imageCount'] = $imgCount;
             $seed['seed_completeStatus'] = 'completed';
-            $seed['seed_textIndustryWords'] = $parserResult['seed_textIndustryWords'];
-            foreach ($parserResult['seed_industryParsed'] as $key1 => $industry) {
-                if (!in_array($industry,$seed['seed_industry'])) {
-                    array_push($seed['seed_industry'],$industry);
-                }
-                /*
-                if (!isset($seed['seed_industryHotness'][$industry])) {
-                    $seed['seed_industryHotness'][$industry] = 0;
-                }*/
-                /*
-                $segmentResult = $protext->parseSegment($parserResult['seed_textIndustryWords'],$industryParsed);
-                if (count($segmentResult) > 0) {
-                    foreach ($segmentResult as $segment) {
-                        array_push($seedIndustry, $segment);
-                    }
-                }
-                */
-            }
-            /*
-            foreach ($parserResult['seed_segmentParsed'] as $key2 => $segment) {
-                if (!in_array($segment,$seed['seed_industry'])) {
-                    array_push($seed['seed_industry'],$segment);
-                }
-            }*/
 
+            //解析行业
+            if ($seed['seed_text'] != '' && $seed['seed_domain'] == 'business' ) {
+                $protext = new Protext;
+                $parserResult = $protext->parseIndustry($text,strtolower($seed['seed_titleLower']));        
+                $seed['seed_textIndustryWords'] = $parserResult['seed_textIndustryWords'];
+                foreach ($parserResult['seed_industryParsed'] as $key1 => $industry) {
+                    if (!in_array($industry,$seed['seed_industry'])) {
+                        array_push($seed['seed_industry'],$industry);
+                    }
+                    /*
+                    if (!isset($seed['seed_industryHotness'][$industry])) {
+                        $seed['seed_industryHotness'][$industry] = 0;
+                    }*/
+                    /*
+                    $segmentResult = $protext->parseSegment($parserResult['seed_textIndustryWords'],$industryParsed);
+                    if (count($segmentResult) > 0) {
+                        foreach ($segmentResult as $segment) {
+                            array_push($seedIndustry, $segment);
+                        }
+                    }
+                    */
+                }
+                /*
+                foreach ($parserResult['seed_segmentParsed'] as $key2 => $segment) {
+                    if (!in_array($segment,$seed['seed_industry'])) {
+                        array_push($seed['seed_industry'],$segment);
+                    }
+                }*/
+
+            }
+            
             $db->Proseed->save($seed);
             echo $seed['seed_source'].','.$seed['seed_title'].','.$seed['seed_imageLink'];
     }else{
