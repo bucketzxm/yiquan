@@ -349,7 +349,7 @@ function querySeedsByGroup ($user_id,$group_id,$time){
 						array ('seed_text' => '')
 						)
 					)
-				),
+				), 
 			'seed_time' => array ('$lt' => $time),
 			'seed_active' => '1', 
 			))->sort(array('seed_time' => -1))->limit(10);
@@ -1506,7 +1506,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 		$time = (int)$time;
 
 		$result = array();
-		$seeds = $this->db->Proseed->find(array('seed_sourceID' => $source_id,'seed_time' => array('$lt' => $time)))->sort(array('seed_time' => -1))->limit(10);
+		$seeds = $this->db->Proseed->find(array('seed_sourceID' => $source_id,'seed_editorRating' => array('$gte' => 0),'seed_time' => array('$lt' => $time)))->sort(array('seed_time' => -1))->limit(10);
 		foreach ($seeds as $key => $value) {
 			array_push($result,$value);
 		}
