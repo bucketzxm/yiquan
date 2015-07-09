@@ -208,8 +208,9 @@ function clear_unmeaningful_char($title){
                         }
 
                         $imageName = substr($value['source_image'], $start+5,$end-$start-5);
-                        echo '<h3>'.$imageName.'</h3>';
-                        //$db->Prosource->save($value);    
+                        $value['source_imageName'] = $imageName;
+                        //echo '<h3>'.$imageName.'</h3>';
+                        $db->Prosource->save($value);    
                     }
                     
                 }
