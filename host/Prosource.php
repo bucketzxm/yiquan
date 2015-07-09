@@ -924,7 +924,7 @@ foreach ($sources as $key => $value) {
                                     $seedIndustry = array();
                                     //$industryHotness = array();
 
-                                    if ($text != '' && $sourceDomain = 'business') {
+                                    if ($text != '' && $sourceDomain == 'business') {
                                         $protext = new Protext; 
                                         $parserResult = $protext->parseIndustry($text,strtolower($title));    
                                         $dataToSave['seed_textIndustryWords'] = $parserResult['seed_textIndustryWords'];
