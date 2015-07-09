@@ -195,17 +195,17 @@ function clear_unmeaningful_char($title){
                     $db->ProMediaGroup->save($value);
                 }
             }*/
-            /*
+            
             foreach ($sources as $key => $value) {
                 //$value['source_status'] = 'active';
-                if (!isset($value['source_image'])) {
-                    $value['source_image'] = '';
+                if (!isset($value['source_imageName'])) {
+                    $value['source_imageName'] = '';
                     $db->Prosource->save($value);
                 }
-            }*/
-
+            }
+            /*
             foreach($seeds as $seedKey => $seed){
-                    /*
+                    
                     $source = $db->Prosource->findOne(array('_id' => new MongoId($seed['seed_sourceID'])));
                     if (isset($source['source_blackList'])) {
                         foreach ($source['source_blackList'] as $key => $value) {
@@ -215,7 +215,7 @@ function clear_unmeaningful_char($title){
                             }
                         }    
                     }
-                    */
+                    
                     switch ($seed['seed_editorRating']) {
 
                         case '0' :
@@ -242,7 +242,7 @@ function clear_unmeaningful_char($title){
                     //$seed['seed_domain'] = $source['source_domain'];
                     
                 
-            }
+            }*/
 
 
             //foreach ($seeds as $key => $value) {
