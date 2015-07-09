@@ -199,7 +199,7 @@ class Proseed extends YqBase {
 						array(
 							'$or' => array(
 								array ('seed_textLen' => array('$gt'=> 400)),
-								array ('seed_textLen' => array('$lt'=> 1))
+								//array ('seed_textLen' => array('$lt'=> 1))
 							)
 						)
 					),
