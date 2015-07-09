@@ -176,8 +176,8 @@ class SeedView extends Seed{
 	function showOneSeed_form($arr) {
 
 		echo '<h3><a href="'.$arr['seed_link'].'" target="_blank">查看原文</a></h3>';
-
-		echo '<img src="'.$arr['seed_imageLink'].'" width= 100% />';		
+		echo '<h3>文章题图</h3>';
+				
 
 		echo '<div>'.$arr['seed_text'].'</div>';
 
@@ -185,6 +185,9 @@ class SeedView extends Seed{
 		echo '<input type="hidden" class="form-control" name="id" value="' . $arr ['_id']->{'$id'} . '"/>';
 		echo '<div class="form-group"><h2>文章名称</h2>';
 		echo '<textarea class="form-control" rows="3" cols="80" name="title" >' . $arr ['seed_title'] . '</textarea></div>';
+		echo '<div class="form-group"><h2>文章题图</h2>';		
+		echo '<img src="'.$arr['seed_imageLink'].'" width= 50% />';
+		echo '<textarea class="form-control" rows="3" cols="80" name="imageLink">' . (isset($arr ['seed_imageLink']) ? $arr ['seed_imageLink']:'' ). '</textarea></div>';
 		echo '<div class="form-group"><h2>值得一读数量</h2>';
 		echo '<textarea class="form-control" rows="3" cols="80" name="agreeCount">' . (isset($arr ['seed_agreeCount']) ? $arr ['seed_agreeCount']:'' ). '</textarea></div>';
 		
