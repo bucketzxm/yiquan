@@ -31,8 +31,8 @@ class SeedView extends Seed{
 		th_combiner('标题');
 		th_combiner( '来源');
 		th_combiner('行业或标签');
-		th_combiner('正文');
-
+		//th_combiner('正文');
+		th_combiner('时间');
 		th_combiner('值得');
 		th_combiner('热度');
 		th_combiner('推荐');
@@ -53,11 +53,14 @@ class SeedView extends Seed{
 
 			$industry=(isset($arr[$i]['seed_industry'])? implode(',',$arr[$i]['seed_industry']): '');
 			td_combiner($industry);
+			/*
 			if (strlen($arr[$i]['seed_text'])<=1) {
 				td_combiner("无");
 			}else{
 				td_combiner("有");
-			}
+			}*/
+
+			td_combiner((isset($arr[$i]['seed_time']) ? date("m-d",$arr[$i]['seed_time']): ''));
 			td_combiner((isset($arr[$i]['seed_agreeCount']) ? $arr[$i]['seed_agreeCount']: ''));
 			td_combiner((isset($arr[$i]['seed_hotness']) ? floor($arr[$i]['seed_hotness']): ''));
 			td_combiner((isset($arr[$i]['seed_editorRating']) ? $arr[$i]['seed_editorRating']: '-1'));
