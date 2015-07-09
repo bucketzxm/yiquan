@@ -187,15 +187,23 @@ function clear_unmeaningful_char($title){
             $seeds = $db->Proseed->find(array('seed_domain' => 'life'));
 
             $sources = $db->Prosource->find();
-            /*
-            $mediaGroups = $db->ProMediaGroup->find();
+
+            
+            $mediaGroups = $db->ProMediaGroup->find(array('group_type' => 'business'));
+
+            $bizGroups = array();
             foreach ($mediaGroups as $key => $value) {
+                $bizGroups[$value['mediaGroup_title']] = $value['mediaGroup_title'];
+                /*
                 if (!isset($value['mediaGroup_counts']['follower_count'])) {
                     $value['mediaGroup_counts']['follower_count'] = 0;
                     $db->ProMediaGroup->save($value);
-                }
-            }*/
-            
+                }*/
+            }
+
+
+
+            /*
             foreach ($sources as $key => $value) {
                 //$value['source_status'] = 'active';
                 if (isset($value['source_image'])) {
@@ -214,10 +222,21 @@ function clear_unmeaningful_char($title){
                     }
                     
                 }
-            }
-            /*
+            }*/
+            
             foreach($seeds as $seedKey => $seed){
                     
+                    foreach ($seed['seed_industry'] as $key => $value) {
+                        if (isset($bizGroups[$value])) {
+                            $key = array_search($value, $seed['seed_industry']);
+                            array_splice($seed['seed_indusdtry'], $key,1);
+                        }
+                    }
+                    echo '<h3>'.implode(',', $seed['seed_industry']).'</h3>';
+
+
+                    /*
+
                     $source = $db->Prosource->findOne(array('_id' => new MongoId($seed['seed_sourceID'])));
                     if (isset($source['source_blackList'])) {
                         foreach ($source['source_blackList'] as $key => $value) {
@@ -253,8 +272,8 @@ function clear_unmeaningful_char($title){
                     
                     //$seed['seed_domain'] = $source['source_domain'];
                     
-                
-            }*/
+                    */
+            }
 
 
             //foreach ($seeds as $key => $value) {
