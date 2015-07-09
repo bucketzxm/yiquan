@@ -229,7 +229,7 @@ function clear_unmeaningful_char($title){
                         $seedIndustries = array ();
                         foreach ($seed['seed_industry'] as $key => $value) {
                             if (!isset($bizGroups[$value])) {
-                                array_push($value, $seedIndustries);
+                                array_push($seedIndustries, $value);
                             }
                         }
                         echo '<h3>'.implode(',', $seedIndustries).'</h3>';
