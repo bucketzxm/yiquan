@@ -41,7 +41,7 @@ class Seed extends YqBase{
 	function queryBizSeedToReview($configs = []) {
 		$ans = [ ];
 		if (empty ( $configs )) {
-			$cus = $this->db->Proseed->find (array('seed_domain' => 'business','seed_editorRating' => -1,'seed_dbWriteTime'=>array('$gt'=>(time()-86400))))->sort(array('seed_dbWriteTime' => -1));
+			$cus = $this->db->Proseed->find (array('seed_domain' => 'business','seed_editorRating' => -1,'seed_dbWriteTime'=>array('$gt'=>(time()-86400*3))))->limit(500)->sort(array('seed_dbWriteTime' => -1));
 			while ( $cus->hasNext () ) {
 				$doc = $cus->getNext ();
 				$ans [] = $doc;
@@ -61,7 +61,7 @@ class Seed extends YqBase{
 	function queryBizSeedPassed($configs = []) {
 		$ans = [ ];
 		if (empty ( $configs )) {
-			$cus = $this->db->Proseed->find (array('seed_domain' => 'business','seed_editorRating' => array('$gte' => 0),'seed_dbWriteTime'=>array('$gt'=>(time()-86400))))->sort(array('seed_dbWriteTime' => -1));
+			$cus = $this->db->Proseed->find (array('seed_domain' => 'business','seed_editorRating' => array('$gte' => 0),'seed_dbWriteTime'=>array('$gt'=>(time()-86400*3))))->sort(array('seed_dbWriteTime' => -1));
 			while ( $cus->hasNext () ) {
 				$doc = $cus->getNext ();
 				$ans [] = $doc;
@@ -81,7 +81,7 @@ class Seed extends YqBase{
 	function queryBizSeedDead($configs = []) {
 		$ans = [ ];
 		if (empty ( $configs )) {
-			$cus = $this->db->Proseed->find (array('seed_domain' => 'business','seed_editorRating' => array('$lt' => -1),'seed_dbWriteTime'=>array('$gt'=>(time()-86400))))->sort(array('seed_dbWriteTime' => -1));
+			$cus = $this->db->Proseed->find (array('seed_domain' => 'business','seed_editorRating' => array('$lt' => -1),'seed_dbWriteTime'=>array('$gt'=>(time()-86400*3))))->sort(array('seed_dbWriteTime' => -1));
 			while ( $cus->hasNext () ) {
 				$doc = $cus->getNext ();
 				$ans [] = $doc;
