@@ -236,10 +236,10 @@ function clear_unmeaningful_char($title){
                                 array_push($seedIndustries, $value);
                             }
                         }
-                        echo '<h3>'.implode(',', $seedIndustries).'</h3>';
+                        $seed['seed_industry'] = $seedIndustries;
                     }
                     
-
+                    $db->Proseed->save($seed);
 
                     /*
 
