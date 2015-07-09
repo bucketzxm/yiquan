@@ -340,7 +340,8 @@ function querySeedsByGroup ($user_id,$group_id,$time){
 					)
 				)
 			),
-			'seed_sourceID' => array('$in' => $groupSources),
+			//'seed_sourceID' => array('$in' => $groupSources),
+			'seed_industry' => $group['mediaGroup_title'],
 			'$nor' => array(
 				array (
 					'$and' => array (
