@@ -189,11 +189,11 @@ function clear_unmeaningful_char($title){
             $sources = $db->Prosource->find();
 
             
-            $mediaGroups = $db->ProMediaGroup->find(array('group_type' => 'business'));
+            $mediaGroups = $db->Prosystem->find(array('para_name' => 'industry_dict'));
 
             $bizGroups = array();
             foreach ($mediaGroups as $key => $value) {
-                $bizGroups[$value['mediaGroup_title']] = $value['mediaGroup_title'];
+                $bizGroups[$value['industry_name']] = $value['industry_name'];
                 /*
                 if (!isset($value['mediaGroup_counts']['follower_count'])) {
                     $value['mediaGroup_counts']['follower_count'] = 0;
