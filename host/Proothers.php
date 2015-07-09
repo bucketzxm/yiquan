@@ -198,7 +198,7 @@ function clear_unmeaningful_char($title){
             
             foreach ($sources as $key => $value) {
                 //$value['source_status'] = 'active';
-                if (!isset($value['source_image'])) {
+                if (isset($value['source_image'])) {
                     
                     $start = strpos($value['source_image'], '.com/');
                     $end = strpos($value['source_image'], '.png');
