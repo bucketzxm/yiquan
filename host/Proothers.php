@@ -226,13 +226,13 @@ function clear_unmeaningful_char($title){
             
             foreach($seeds as $seedKey => $seed){
                     if (isset($seed['seed_industry'])) {
+                        $seedIndustries = array ();
                         foreach ($seed['seed_industry'] as $key => $value) {
-                            if (isset($bizGroups[$value])) {
-                                $key = array_search($value, $seed['seed_industry']);
-                                array_splice($seed['seed_indusdtry'], $key,1);
+                            if (!isset($bizGroups[$value])) {
+                                array_push($value, $seedIndustries);
                             }
                         }
-                        echo '<h3>'.implode(',', $seed['seed_industry']).'</h3>';
+                        echo '<h3>'.implode(',', $seedIndustries).'</h3>';
                     }
                     
 
