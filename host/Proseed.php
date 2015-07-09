@@ -1371,7 +1371,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 		}
 		*/
 		$bizGroups = $this->db->ProMediaGroup->find(array('group_type' => 'business'))->sort(array('group_rank' => 1));
-		$lifeGroups = $this->db->ProMediaGroup->find(array('group_type' => 'life'));
+		$lifeGroups = $this->db->ProMediaGroup->find(array('group_type' => 'life'))->sort(array('group_rank' => 1));
 		$bizGroupsToShow = array();
 		foreach ($bizGroups as $key => $value) {
 			$value['user_mediaGroupStatus'] = '0';
