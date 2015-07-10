@@ -900,7 +900,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 
 		}else{
 			$existWorth['like_status'] = 'active';
-			$this->db->Proworth->save ($data);			
+			$this->db->Proworth->save ($existWorth);			
 		}
 
 			$cursor['seed_hotness'] += (int)$user['user_weight']*10;
