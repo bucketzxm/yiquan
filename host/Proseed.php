@@ -898,6 +898,10 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 
 			$this->db->Proworth->save ($data);
 
+		}else{
+			$existWorth['like_status'] = 'active';
+		}
+		
 			$cursor['seed_hotness'] += (int)$user['user_weight']*10;
 			if(isset($cursor['seed_agreeCount'])){
 				$cursor['seed_agreeCount'] ++;
@@ -928,10 +932,12 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 			}
 			*/
 			$source['agree_count'] ++;
+			
 			$this->db->Prosource->save($source);
-
-		}
 		
+		
+		
+
 		return 1;
 
 	}
