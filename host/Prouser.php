@@ -431,7 +431,7 @@ class Prouser extends YqBase {
 		$build = (int) $build;
 		$latestBuild = $this->db->Prosystem->findOne(array ('para_name' => "version_control"));
 		if ($build < $latestBuild['iOS']) {
-			return 1;
+			return $latestBuild['note'];
 		}else{
 			return 0;
 		}
