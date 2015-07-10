@@ -215,7 +215,7 @@ function clear_unmeaningful_char($title){
                 }
 
             }
-
+            /*
             $segments = $db->Prosystem->find(array('para_name' => 'segment'));
 
             foreach ($segments as $keys => $values) {
