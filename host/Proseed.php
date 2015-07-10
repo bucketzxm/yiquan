@@ -1370,7 +1370,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 		}
 		$result[0] = $userSearchWords;
 		//获得业内搜索的词
-		$circleWords = $this->db->Prowords->find(array('word_industry'=> $user['current']['user_industry']))->sort(array('word_hotness' => -1))->limit(10);
+		$circleWords = $this->db->Prowords->find(array('word_industry'=> $user['user_industry']))->sort(array('word_hotness' => -1))->limit(10);
 		foreach ($circleWords as $key => $value) {
 			array_push($circleSearchWords, $value['word_name']);
 		}
