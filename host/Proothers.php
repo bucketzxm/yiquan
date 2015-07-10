@@ -189,25 +189,31 @@ function clear_unmeaningful_char($title){
             $sources = $db->Prosource->find();
 
             $worths = $db->Proworth->find();
-
+            /*
             foreach ($worths as $key => $value) {
                 if (!isset($value['like_status'])) {
                     $value['like_status'] = 'active';
                     $db->Proworth->save($value);
                 }
-            }
+            }*/
 
-            /*
+            
             $mediaGroups = $db->Prosystem->find(array('para_name' => 'industry_dict'));
 
-            $bizGroups = array();
+            //$bizGroups = array();
             foreach ($mediaGroups as $key => $value) {
-                $bizGroups[$value['industry_name']] = $value['industry_name'];
-                
+                //$bizGroups[$value['industry_name']] = $value['industry_name'];
+                /*
                 if (!isset($value['mediaGroup_counts']['follower_count'])) {
                     $value['mediaGroup_counts']['follower_count'] = 0;
                     $db->ProMediaGroup->save($value);
+                }*/
+
+                if (!isset($value['mediaGroup_image'])) {
+                    $value['mediaGroup_image'] = 'channel_'.$value['mediaGroup_image'];
+                    $db->ProMediaGroup->save($value);
                 }
+
             }
 
             $segments = $db->Prosystem->find(array('para_name' => 'segment'));
