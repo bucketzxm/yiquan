@@ -892,7 +892,8 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 				//'like_industry' => $user['user_industry'],
 				'like_seedSource' => $cursor['seed_sourceID'],
 				'like_comment' => $like_comment,
-				'like_time' => time()
+				'like_time' => time(),
+				'like_status' => 'active'
 				);
 
 			$this->db->Proworth->save ($data);
@@ -931,6 +932,33 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 
 		}
 		
+		return 1;
+
+	}
+
+	function dislikeSeed($user_id,$seed_id){
+		if ($this->yiquan_version == 0) {
+			return - 2;
+		}
+		
+		if ($this->checkQuoteToken () != 1) {
+			return - 3;
+		}
+		
+		if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
+			return - 4;
+		}
+
+		//找到这个user
+		$user = $this->db->Prouser->findOne (array ('_id' => new MongoId ($user_id)));
+		$cursor = $this->db->Proseed->findOne (array ('_id'=> new MongoId($seed_id)));
+		$existWorth = $this->db->Proworth->findOne (array ('like_user'=>$user_id,'like_seed'=>$seed_id));
+		//$source = $this->db->Prosource->findOne (array ('_id' => new MongoId($cursor['seed_sourceID'])));
+
+		if ($existWorth != null) {
+			$existWorth['like_status'] = 'inactive';
+			$this->db->Proworth->save($existWorth);
+		}
 		return 1;
 
 	}
