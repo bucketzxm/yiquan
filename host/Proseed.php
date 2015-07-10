@@ -422,11 +422,12 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 							)
 						),
 					'seed_time' => array ('$lt' => $time),
+					'seed_editorRating' => array ('$gte' => 0),
 					'$and' => array(
 						array(
 							'$or' => array(
 								array('seed_textLen' => array('$gt'=> 400)),
-								array('seed_textLen' => 0)
+								//array('seed_textLen' => 0)
 							)
 						),
 						array(
