@@ -198,7 +198,7 @@ function clear_unmeaningful_char($title){
             }*/
 
             
-            $mediaGroups = $db->Prosystem->find(array('para_name' => 'industry_dict'));
+            $mediaGroups = $db->ProMediaGroup->find();
 
             //$bizGroups = array();
             foreach ($mediaGroups as $key => $value) {
@@ -209,7 +209,7 @@ function clear_unmeaningful_char($title){
                     $db->ProMediaGroup->save($value);
                 }*/
 
-                if (!isset($value['mediaGroup_image'])) {
+                if (isset($value['mediaGroup_image'])) {
                     $value['mediaGroup_image'] = 'channel_'.$value['mediaGroup_image'];
                     $db->ProMediaGroup->save($value);
                 }
