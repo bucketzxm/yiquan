@@ -188,24 +188,33 @@ function clear_unmeaningful_char($title){
 
             $sources = $db->Prosource->find();
 
-            
+            $worths = $db->Proworth->find();
+
+            foreach ($worths as $key => $value) {
+                if (!isset($value['like_status'])) {
+                    $value['like_status'] = 'active';
+                    $db->Proworth->save($value);
+                }
+            }
+
+            /*
             $mediaGroups = $db->Prosystem->find(array('para_name' => 'industry_dict'));
 
             $bizGroups = array();
             foreach ($mediaGroups as $key => $value) {
                 $bizGroups[$value['industry_name']] = $value['industry_name'];
-                /*
+                
                 if (!isset($value['mediaGroup_counts']['follower_count'])) {
                     $value['mediaGroup_counts']['follower_count'] = 0;
                     $db->ProMediaGroup->save($value);
-                }*/
+                }
             }
 
             $segments = $db->Prosystem->find(array('para_name' => 'segment'));
 
             foreach ($segments as $keys => $values) {
                 $bizGroups[$values['segment_name']] = $values['segment_name'];
-            }
+            }*/
 
             /*
             foreach ($sources as $key => $value) {
@@ -227,7 +236,7 @@ function clear_unmeaningful_char($title){
                     
                 }
             }*/
-            
+             /*
             foreach($seeds as $seedKey => $seed){
                     if (isset($seed['seed_industry'])) {
                         $seedIndustries = array ();
@@ -238,10 +247,10 @@ function clear_unmeaningful_char($title){
                         }
                         $seed['seed_industry'] = $seedIndustries;
                     }
-                    
+
                     $db->Proseed->save($seed);
 
-                    /*
+                   
 
                     $source = $db->Prosource->findOne(array('_id' => new MongoId($seed['seed_sourceID'])));
                     if (isset($source['source_blackList'])) {
@@ -278,8 +287,8 @@ function clear_unmeaningful_char($title){
                     
                     //$seed['seed_domain'] = $source['source_domain'];
                     
-                    */
-            }
+                    
+            }*/
 
 
             //foreach ($seeds as $key => $value) {
