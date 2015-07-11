@@ -1412,8 +1412,8 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 		foreach ($bizGroups as $key => $value) {
 			$value['user_mediaGroupStatus'] = '0';
 			
-			if (isset($user['user_mediaGroups'])) {
-				if (isset($user['user_mediaGroups'][(string)$value['_id']])) {
+			if (isset($user['user_industryInterested'])) {
+				if (isset($user['user_industryInterested'][(string)$value['_id']])) {
 		 			$value['user_mediaGroupStatus'] = '1';
 		 		}	
 			}
@@ -1424,8 +1424,8 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 		foreach ($lifeGroups as $key1 => $value1) {
 			$value1['user_mediaGroupStatus'] = '0';
 			
-			if (isset($user['user_mediaGroups'])) {
-				if (isset($user['user_mediaGroups'][(string)$value1['_id']])) {
+			if (isset($user['user_lifeInterested'])) {
+				if (isset($user['user_lifeInterested'][(string)$value1['_id']])) {
 		 			$value1['user_mediaGroupStatus'] = '1';
 		 		}	
 			}
