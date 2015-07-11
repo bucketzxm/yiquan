@@ -80,8 +80,8 @@ class Proseed extends YqBase {
 				$businessRatio = 0.3;
 			}
 
-			$businessSeedQuota = floor(10* $businessRatio);
-
+			$businessSeedQuota = floor(10 * $businessRatio);
+			$lifeSeedQuota = 10 - $businessSeedQuota;
 			/////找到我读过的话题
 
 			//$sources = $this->db->Prosource->find(array ('source_industry' => $user['current']['user_industry']));
@@ -183,13 +183,13 @@ class Proseed extends YqBase {
 
 
 			//获取User Business Groups
-			$userMediaGroups = array ();
-			foreach ($user['user_industryInterested'] as $keymmg => $userMediaGroup) {
-				array_push($userMediaGroups, new MongoId($userMediaGroup));
+			$userBusinessGroups = array ();
+			foreach ($user['user_industryInterested'] as $keymmg => $userBusinessGroup) {
+				array_push($userBusinessGroups, new MongoId($userBusinessGroup));
 			}
-			$mediaGroup = $this->db->ProMediaGroup->find(array('_id' => array('$in' => $userMediaGroups)));
+			$businessGroups = $this->db->ProMediaGroup->find(array('_id' => array('$in' => $userBusinessGroups)));
 			$industryList = array ();
-			foreach ($mediaGroup as $keyMG => $group) {
+			foreach ($businessGroups as $keyMG => $group) {
 				/*
 				foreach ($group['mediaGroup_sourceList'] as $keyS => $source) {
 					if (!isset($sourceList[$source['source_id']])) {
@@ -202,77 +202,14 @@ class Proseed extends YqBase {
 			}
 			//array_push($sourceList, "5542329709f778a5068b457f");
 
-			//foreach ($sources as $key => $source) {
-			$sourceSeeds = array();
-			foreach ($industryList as $key456 => $likedIndustry) {
-				$industrySeeds = $this->db->Proseed->find (
-				array (
-					'$and' => array(
-						/*
-						array(
-							'$or' => array(
-								array ('seed_industry' => $user['current']['user_industry']),
-								array ('seed_industry' => $user['current']['user_interestA']),
-								array ('seed_industry' => $user['current']['user_interestB'])
-								)
-						),*/
-						
-						array(
-							'$or' => array(
-								array ('seed_textLen' => array('$gt'=> 400)),
-								//array ('seed_textLen' => array('$lt'=> 1))
-							)
-						)
-					),
-					//'seed_sourceID' => array('$in' => $sourceList),
-					'seed_industry' => $likedIndustry,
-					'$nor' => array(
-						array (
-							'$and' => array (
-								array ('seed_completeStatus' => 'completed'),
-								array ('seed_text' => '')
-								)
-							)
-						),
-					'seed_time' => array ('$gt' => (time()-86400*3)),
-					'seed_active' => '1', 
-					'_id' => array ('$nin' => $readSeeds)
-					)
-				);
+			//获得商业的Seeds
+			$sourceBusiniessSeeds = $this->getSelectedSeeds($industryList,$readSeeds);
 
-				foreach ($industrySeeds as $key455 => $industrySeed) {
-					if (!isset($sourceSeeds[(string)$industrySeed['_id']])) {
-						$sourceSeeds[(string)$industrySeed['_id']] = $industrySeed;
-					}
-				}
-
-			}
-			
-				/*
-				foreach ($sourceSeeds as $key => $value) {
-					
-					if (in_array ((string)$value['_id'],$seeds)) {
-						# code...
-					}else{
-						array_push ($seeds,(string)$value['_id']);
-					}
-				}*/
-
-			//}
-			/*
-			$unreadSeeds = array ();
-			foreach ($sourceSeeds as $key => $seed) {
-				$cursor = $this->db->Proread->findOne(array ('seed_id' => $seed,'user_id'=>$user_id));
-				//if ($cursor == null) {
-					array_push($unreadSeeds,(string)$seed['_id']);
-				//}
-			}*/
-			
 			$res = array ();
 			$res1 = array ();
 			//计算所有新闻的热度
-			foreach ($sourceSeeds as $sourceSeedKey => $sourceSeed) {
-				$stats = $this->getHotness($user,$sourceSeed,$agreeWords,count($seedIDs),$disAgreeWords,count($disSeedIDs),$agreeLabels,$disAgreeLabels);
+			foreach ($sourceBusinessSeeds as $sourceSeedKey => $sourceBusinessSeed) {
+				$stats = $this->getHotness($user,$sourceBusinessSeed,$agreeWords,count($seedIDs),$disAgreeWords,count($disSeedIDs),$agreeLabels,$disAgreeLabels);
 				//return $stats;
 				$res[(string)$sourceSeed['_id']] = $stats['priority'];
 				$res1[(string)$sourceSeed['_id']] = $stats['priorityType'];
@@ -281,7 +218,57 @@ class Proseed extends YqBase {
 			//排序
 			arsort($res);
 			//删选
-			$topRes = array_slice($res,0,$businessSeedQuota);
+			$topBusinessRes = array_slice($res,0,$businessSeedQuota);
+
+
+
+			//获取User Life Groups
+			$userLifeGroups = array ();
+			foreach ($user['user_lifeInterested'] as $keymlf => $userLifeGroup) {
+				array_push($userLifeGroups, new MongoId($userLifeGroup));
+			}
+			$lifeGroups = $this->db->ProMediaGroup->find(array('_id' => array('$in' => $userLifeGroups)));
+			$lifeList = array ();
+			foreach ($lifeGroups as $keyLF => $lifegroup) {
+				/*
+				foreach ($group['mediaGroup_sourceList'] as $keyS => $source) {
+					if (!isset($sourceList[$source['source_id']])) {
+						$sourceList[$source['source_id']] = $source['source_id'];
+					}
+				}
+				*/
+				array_push($lifeList, $lifegroup['mediaGroup_title']);
+
+			}
+			//array_push($sourceList, "5542329709f778a5068b457f");
+
+			//获得商业的Seeds
+			$sourceLifeSeeds = $this->getSelectedSeeds($lifeList,$readSeeds);
+
+			$res = array ();
+			$res1 = array ();
+			//计算所有新闻的热度
+			foreach ($sourceLifeSeeds as $sourceSeedKeyL => $sourceLifeSeed) {
+				$stats = $this->getHotness($user,$sourceLifeSeed,$agreeWords,count($seedIDs),$disAgreeWords,count($disSeedIDs),$agreeLabels,$disAgreeLabels);
+				//return $stats;
+				$res[(string)$sourceSeed['_id']] = $stats['priority'];
+				$res1[(string)$sourceSeed['_id']] = $stats['priorityType'];
+				
+			}
+			//排序
+			arsort($res);
+			//删选
+			$topLifeRes = array_slice($res,0,$lifeSeedQuota);
+
+
+			$topRes = array();
+			foreach ($topBusinessRes as $tbResKey => $tbResValue) {
+				$topRes[$tbResKey] = $tbResKey;
+			}
+			foreach ($topBusinessRes as $tlResKey => $tlResValue) {
+				$topRes[$tlResKey] = $tlResValue;
+			}
+			arsort($topRes);
 
 			$results = array ();
 			foreach ($topRes as $key => $value) {
@@ -334,6 +321,77 @@ class Proseed extends YqBase {
 			return $e;
 		}
 	}
+
+function getSelectedSeeds($industryList,$readSeeds){
+
+	//foreach ($sources as $key => $source) {
+			$sourceSeeds = array();
+			foreach ($industryList as $key456 => $likedIndustry) {
+				$industrySeeds = $this->db->Proseed->find (
+				array (
+					'$and' => array(
+						/*
+						array(
+							'$or' => array(
+								array ('seed_industry' => $user['current']['user_industry']),
+								array ('seed_industry' => $user['current']['user_interestA']),
+								array ('seed_industry' => $user['current']['user_interestB'])
+								)
+						),*/
+						
+						array(
+							'$or' => array(
+								array ('seed_textLen' => array('$gt'=> 400)),
+								//array ('seed_textLen' => array('$lt'=> 1))
+							)
+						)
+					),
+					//'seed_sourceID' => array('$in' => $sourceList),
+					'seed_industry' => $likedIndustry,
+					'$nor' => array(
+						array (
+							'$and' => array (
+								array ('seed_completeStatus' => 'completed'),
+								//array ('seed_text' => '')
+								)
+							)
+						),
+					'seed_dbWriteTime' => array ('$gt' => (time()-86400*3)),
+					'seed_active' => '1', 
+					'_id' => array ('$nin' => $readSeeds)
+					)
+				);
+
+				foreach ($industrySeeds as $key455 => $industrySeed) {
+					if (!isset($sourceSeeds[(string)$industrySeed['_id']])) {
+						$sourceSeeds[(string)$industrySeed['_id']] = $industrySeed;
+					}
+				}
+
+			}
+			
+				/*
+				foreach ($sourceSeeds as $key => $value) {
+					
+					if (in_array ((string)$value['_id'],$seeds)) {
+						# code...
+					}else{
+						array_push ($seeds,(string)$value['_id']);
+					}
+				}*/
+
+			//}
+			/*
+			$unreadSeeds = array ();
+			foreach ($sourceSeeds as $key => $seed) {
+				$cursor = $this->db->Proread->findOne(array ('seed_id' => $seed,'user_id'=>$user_id));
+				//if ($cursor == null) {
+					array_push($unreadSeeds,(string)$seed['_id']);
+				//}
+			}*/
+			return $sourceSeeds;
+}
+
 function querySeedsByGroup ($user_id,$group_id,$time){
 	if ($this->yiquan_version == 0) {
 		return - 2;
