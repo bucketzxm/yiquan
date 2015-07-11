@@ -1579,8 +1579,8 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 		}	
 		return json_encode($result);
 	}
-	/*
-	function queryChannelList($user_id,$channel_name){
+	
+	function queryLikedChannel($user_id){
 		if ($this->yiquan_version == 0) {
 			return - 2;
 		}
@@ -1593,15 +1593,19 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 			return - 4;
 		}
 
-
-		$channels = $this->db->Prosystem->find(array('para_name'=>'name','channel_type' => $channel_name));
 		$results = array();
-		foreach ($channels as $key => $value) {
+		$user = $this->db->Prouser->findOne(array('_id' =>new MongoId($user_id)));
+		foreach ($user['user_industryInterested'] as $key => $value) {
 			array_push($results, $value);
+		}
+		foreach ($user['user_lifeInterested'] as $key1 => $value1) {
+			array_push($results, $value1);
 		}
 		return json_encode($results);
 	}
-	*/
+	
+
+
 
 }
 ?>
