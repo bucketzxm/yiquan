@@ -216,7 +216,7 @@ class Prouser extends YqBase {
 					$para['mediaGroup_counts']['follower_count'] ++;
 					$this->db->ProMediaGroup->save($para);
 
-					$lifeToSave[$industryValue] = $industryValue;
+					$lifeToSave[$lifeValue] = $lifeValue;
 				}
 
 				$user = $this->db->Prouser->findOne(array ('_id'=>new MongoId ($user_id)));
