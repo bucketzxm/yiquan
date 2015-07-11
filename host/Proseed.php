@@ -271,7 +271,7 @@ class Proseed extends YqBase {
 
 
 			arsort($topRes);
-
+			/*
 			$results = array ();
 			foreach ($topRes as $key => $value) {
 				$selectedSeed = $this->db->Proseed->find(
@@ -289,7 +289,8 @@ class Proseed extends YqBase {
 						unset($value1['seed_text']);	
 					}
 					
-					/*
+					
+					****
 					$item = array ();
 					$item['_id'] = $value1['_id'];
 					$item['seed_source'] = $value1['seed_source'];
@@ -301,7 +302,8 @@ class Proseed extends YqBase {
 					$item['seed_agreeCount'] = $value1['seed_agreeCount'];
 					$item['seed_hotness'] = $value;
 					$item['seed_priorityType'] = $res1[$key];
-					*/
+					****
+					
 					array_push ($results,$value1);
 
 					//增加用户阅读的记录：
@@ -318,6 +320,7 @@ class Proseed extends YqBase {
 					}
 				}
 			}
+			*/
 			return count($sourceBusinessSeeds);//json_encode($results);
 		}catch (Exception $e){
 			return $e;
