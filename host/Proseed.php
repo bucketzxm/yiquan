@@ -203,7 +203,7 @@ class Proseed extends YqBase {
 			//array_push($sourceList, "5542329709f778a5068b457f");
 
 			//获得商业的Seeds
-			$sourceBusinessSeeds = ['1','2'];//$this->getSelectedSeeds($industryList,$readSeeds);
+			$sourceBusinessSeeds = $this->getSelectedSeeds($industryList,$readSeeds);
 
 			$res = array ();
 			$res1 = array ();
