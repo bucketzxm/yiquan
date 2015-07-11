@@ -245,20 +245,20 @@ class Proseed extends YqBase {
 			//获得商业的Seeds
 			$sourceLifeSeeds = $this->getSelectedSeeds($lifeList,$readSeeds);
 
-			$res = array ();
-			$res1 = array ();
+			$liferes = array ();
+			$liferes1 = array ();
 			//计算所有新闻的热度
 			foreach ($sourceLifeSeeds as $sourceSeedKeyL => $sourceLifeSeed) {
 				$stats = $this->getHotness($user,$sourceLifeSeed,$agreeWords,count($seedIDs),$disAgreeWords,count($disSeedIDs),$agreeLabels,$disAgreeLabels);
 				//return $stats;
-				$res[(string)$sourceLifeSeed['_id']] = $stats['priority'];
-				$res1[(string)$sourceLifeSeed['_id']] = $stats['priorityType'];
+				$liferes[(string)$sourceLifeSeed['_id']] = $stats['priority'];
+				$liferes1[(string)$sourceLifeSeed['_id']] = $stats['priorityType'];
 				
 			}
 			//排序
 			arsort($res);
 			//删选
-			$topLifeRes = array_slice($res,0,$lifeSeedQuota);
+			$topLifeRes = array_slice($liferes,0,$lifeSeedQuota);
 
 
 			$topRes = array();
@@ -318,7 +318,7 @@ class Proseed extends YqBase {
 					}
 				}
 			}
-			return count($topBusinessRes);//json_encode($results);
+			return count($res);//json_encode($results);
 		}catch (Exception $e){
 			return $e;
 		}
