@@ -349,7 +349,7 @@ function getSelectedSeeds($industryList,$readSeeds){
 						)
 					),
 					//'seed_sourceID' => array('$in' => $sourceList),
-					//'seed_industry' => $likedIndustry,
+					'seed_industry' => $likedIndustry,
 					'$nor' => array(
 						array (
 							'$and' => array (
@@ -365,9 +365,13 @@ function getSelectedSeeds($industryList,$readSeeds){
 				);
 
 				foreach ($industrySeeds as $key455 => $industrySeed) {
+					/*
 					if (!isset($sourceSeeds[(string)$industrySeed['_id']])) {
 						$sourceSeeds[(string)$industrySeed['_id']] = $industrySeed;
 					}
+					*/
+
+					array_push($sourceSeeds, $industrySeed);
 				}
 
 			}
@@ -391,7 +395,7 @@ function getSelectedSeeds($industryList,$readSeeds){
 					array_push($unreadSeeds,(string)$seed['_id']);
 				//}
 			}*/
-			return $industrySeeds;//$sourceSeeds;
+			return $sourceSeeds;//$sourceSeeds;
 }
 
 function querySeedsByGroup ($user_id,$group_id,$time){
