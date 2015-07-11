@@ -184,7 +184,7 @@ function clear_unmeaningful_char($title){
 			));
 			$db = $mongoClient->yiquan;
 			$sources = $db->Prosource->find();
-            $seeds = $db->Proseed->find(array('seed_domain' => 'life'));
+            $seeds = $db->Proseed->find();
 
             $sources = $db->Prosource->find();
 
@@ -197,23 +197,24 @@ function clear_unmeaningful_char($title){
                 }
             }*/
 
-            
+            /*
             $mediaGroups = $db->ProMediaGroup->find();
 
             //$bizGroups = array();
             foreach ($mediaGroups as $key => $value) {
                 //$bizGroups[$value['industry_name']] = $value['industry_name'];
-                /*
+                
                 if (!isset($value['mediaGroup_counts']['follower_count'])) {
                     $value['mediaGroup_counts']['follower_count'] = 0;
                     $db->ProMediaGroup->save($value);
-                }*/
+                }
 
                 if (isset($value['para_name'])) {
                     $db->ProMediaGroup->remove($value);
                 }
 
-            }
+            }*/
+
             /*
             $segments = $db->Prosystem->find(array('para_name' => 'segment'));
 
@@ -241,8 +242,8 @@ function clear_unmeaningful_char($title){
                     
                 }
             }*/
+
              /*
-            foreach($seeds as $seedKey => $seed){
                     if (isset($seed['seed_industry'])) {
                         $seedIndustries = array ();
                         foreach ($seed['seed_industry'] as $key => $value) {
@@ -292,8 +293,8 @@ function clear_unmeaningful_char($title){
                     
                     //$seed['seed_domain'] = $source['source_domain'];
                     
-                    
-            }*/
+             */       
+            }
 
 
             //foreach ($seeds as $key => $value) {
