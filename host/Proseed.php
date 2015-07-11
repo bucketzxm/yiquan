@@ -363,9 +363,9 @@ function getSelectedSeeds($industryList,$readSeeds){
 								)
 							)
 						),
-					'seed_dbWriteTime' => array ('$gt' => (time()-86400*3)),
+					'seed_time' => array ('$gt' => (time()-86400*3)),
 					'seed_active' => '1', 
-					//'_id' => array ('$nin' => $readSeeds)
+					'_id' => array ('$nin' => $readSeeds)
 					)
 				);
 
