@@ -363,7 +363,7 @@ function getSelectedSeeds($industryList,$readSeeds){
 					'seed_active' => '1', 
 					'_id' => array ('$nin' => $readSeeds)
 					)
-				)
+				);
 
 				foreach ($industrySeeds as $key455 => $industrySeed) {
 					
