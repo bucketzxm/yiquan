@@ -200,22 +200,28 @@ class Prouser extends YqBase {
 				$industryInterested = explode(',', $user_industryInterested);
 				$lifeInterested = explode(',', $user_lifeInterested);
 
+				$industryToSave = array();
+				$lifeToSave = array ();
 				//Update user count
 				foreach ($industryInterested as $keyIndus => $industryValue) {
 					$para = $this->db->ProMediaGroup->findOne(array('mediaGroup_title'=>$industryValue));
 					$para['mediaGroup_counts']['follower_count'] ++;
 					$this->db->ProMediaGroup->save($para);
+
+					$industryToSave[$industryValue] = $industryValue;
 				}
 
 				foreach ($lifeInterested as $keyLife => $lifeValue) {
 					$para = $this->db->ProMediaGroup->findOne(array('mediaGroup_title'=>$industryValue));
 					$para['mediaGroup_counts']['follower_count'] ++;
 					$this->db->ProMediaGroup->save($para);
+
+					$lifeToSave[$industryValue] = $industryValue;
 				}
 
 				$user = $this->db->Prouser->findOne(array ('_id'=>new MongoId ($user_id)));
-				$user['user_industryInterested'] = $industryInterested;
-				$user['user_lifeInterested'] = $lifeInterested;
+				$user['user_industryInterested'] = $industryToSave;
+				$user['user_lifeInterested'] = $lifeToSave;
 
 
 				$this->db->Prouser->save ($user);
