@@ -263,11 +263,13 @@ class Proseed extends YqBase {
 
 			$topRes = array();
 			foreach ($topBusinessRes as $tbResKey => $tbResValue) {
-				$topRes[$tbResKey] = $tbResKey;
+				$topRes[$tbResKey] = $tbResValue;
 			}
-			foreach ($topBusinessRes as $tlResKey => $tlResValue) {
+			foreach ($topLifeRes as $tlResKey => $tlResValue) {
 				$topRes[$tlResKey] = $tlResValue;
 			}
+
+
 			arsort($topRes);
 
 			$results = array ();
