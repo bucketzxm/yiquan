@@ -211,8 +211,8 @@ class Proseed extends YqBase {
 			foreach ($sourceBusinessSeeds as $sourceSeedKey => $sourceBusinessSeed) {
 				$stats = $this->getHotness($user,$sourceBusinessSeed,$agreeWords,count($seedIDs),$disAgreeWords,count($disSeedIDs),$agreeLabels,$disAgreeLabels);
 				//return $stats;
-				$res[(string)$sourceSeed['_id']] = $stats['priority'];
-				$res1[(string)$sourceSeed['_id']] = $stats['priorityType'];
+				$res[(string)$sourceBusinessSeed['_id']] = $stats['priority'];
+				$res1[(string)$sourceBusinessSeed['_id']] = $stats['priorityType'];
 				
 			}
 			//排序
@@ -251,8 +251,8 @@ class Proseed extends YqBase {
 			foreach ($sourceLifeSeeds as $sourceSeedKeyL => $sourceLifeSeed) {
 				$stats = $this->getHotness($user,$sourceLifeSeed,$agreeWords,count($seedIDs),$disAgreeWords,count($disSeedIDs),$agreeLabels,$disAgreeLabels);
 				//return $stats;
-				$res[(string)$sourceSeed['_id']] = $stats['priority'];
-				$res1[(string)$sourceSeed['_id']] = $stats['priorityType'];
+				$res[(string)$sourceLifeSeed['_id']] = $stats['priority'];
+				$res1[(string)$sourceLifeSeed['_id']] = $stats['priorityType'];
 				
 			}
 			//排序
