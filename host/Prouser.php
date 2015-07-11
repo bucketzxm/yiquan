@@ -214,8 +214,8 @@ class Prouser extends YqBase {
 				}
 
 				$user = $this->db->Prouser->findOne(array ('_id'=>new MongoId ($user_id)));
-				$user['user_industryInterested'] = $user_industryInterested;
-				$user['user_lifeInterested'] = $user_lifeInterested;
+				$user['user_industryInterested'] = $industryInterested;
+				$user['user_lifeInterested'] = $lifeInterested;
 
 
 				$this->db->Prouser->save ($user);
