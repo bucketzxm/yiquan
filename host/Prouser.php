@@ -180,6 +180,52 @@ class Prouser extends YqBase {
 			
 	}
 
+		function updateUserInterests ($user_id,$user_industryInterested,$user_lifeInterested){
+			if ($this->yiquan_version == 0) {
+				return - 2;
+			}
+			if ($this->checkQuoteToken () != 1) {
+				return - 3;
+			}
+			if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
+				return - 4;
+			}
+			
+
+			try {
+
+
+
+				//Split the string
+				$industryInterested = explode(',', $user_industryInterested);
+				$lifeInterested = explode(',', $user_lifeInterested);
+
+				//Update user count
+				foreach ($industryInterested as $keyIndus => $industryValue) {
+					$para = $this->db->ProMediaGroup->findOne(array('mediaGroup_title'=>$industryValue));
+					$para['mediaGroup_counts']['follower_count'] ++;
+					$this->db->ProMediaGroup->save($para);
+				}
+
+				foreach ($lifeInterested as $keyLife => $lifeValue) {
+					$para = $this->db->ProMediaGroup->findOne(array('mediaGroup_title'=>$industryValue));
+					$para['mediaGroup_counts']['follower_count'] ++;
+					$this->db->ProMediaGroup->save($para);
+				}
+
+				$user = $this->db->Prouser->findOne(array ('_id'=>new MongoId ($user_id)));
+				$user['user_industryInterested'] = $user_industryInterested;
+				$user['user_lifeInterested'] = $user_lifeInterested;
+
+
+				$this->db->Prouser->save ($user);
+				return json_encode($user);
+				
+			}catch (Exception $e){
+				return $e;
+			}
+			
+	}
 
 	function findMyPros($user_id){
 			if ($this->yiquan_version == 0) {

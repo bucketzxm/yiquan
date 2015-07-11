@@ -209,9 +209,8 @@ function clear_unmeaningful_char($title){
                     $db->ProMediaGroup->save($value);
                 }*/
 
-                if (isset($value['mediaGroup_image'])) {
-                    $value['mediaGroup_image'] = 'channel_'.$value['mediaGroup_image'];
-                    $db->ProMediaGroup->save($value);
+                if (isset($value['para_name'])) {
+                    $db->ProMediaGroup->remove($value);
                 }
 
             }
