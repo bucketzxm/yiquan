@@ -1392,8 +1392,9 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 		if (! isset ( $_COOKIE ['user_id'] ) || $_COOKIE ['user_id'] != $user_id) {
 			return - 4;
 		}
-		/*
+		
 		$user = $this->db->Prouser->findOne(array('_id' => new MongoId($user_id)));
+		/*
 		$followedGroupIDs= array();
 		foreach ($user['user_mediaGroups'] as $key => $myGroup) {
 			array_push($followedGroupIDs,new MongoId($myGroup));
