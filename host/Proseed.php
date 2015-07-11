@@ -71,6 +71,19 @@ class Proseed extends YqBase {
 		try {
 
 			$user = $this->db->Prouser->findOne (array ('_id' => new MongoId ($user_id)));
+			
+			//计算商业和生活的比例
+			$businessRatio = $user['user_seedRead']['business_read'] / $user['user_seedRead']['total_read']; 
+			if ($businessRatio>0.7) {
+				$businessRatio = 0.7;
+			}else if ($businessRatio < 0.3){
+				$businessRatio = 0.3;
+			}
+
+			$businessSeedQuota = floor(10* $businessRatio);
+
+			/////找到我读过的话题
+
 			//$sources = $this->db->Prosource->find(array ('source_industry' => $user['current']['user_industry']));
 			//获得我的行业关注的媒体的人
 			$readSeeds = array ();
@@ -168,23 +181,31 @@ class Proseed extends YqBase {
 					}
 				}
 
+
+			//获取User Business Groups
 			$userMediaGroups = array ();
-			foreach ($user['user_mediaGroups'] as $keymmg => $userMediaGroup) {
+			foreach ($user['user_industryInterested'] as $keymmg => $userMediaGroup) {
 				array_push($userMediaGroups, new MongoId($userMediaGroup));
 			}
 			$mediaGroup = $this->db->ProMediaGroup->find(array('_id' => array('$in' => $userMediaGroups)));
-			$sourceList = array ();
+			$industryList = array ();
 			foreach ($mediaGroup as $keyMG => $group) {
+				/*
 				foreach ($group['mediaGroup_sourceList'] as $keyS => $source) {
 					if (!isset($sourceList[$source['source_id']])) {
 						$sourceList[$source['source_id']] = $source['source_id'];
 					}
 				}
+				*/
+				array_push($industryList, $group['mediaGroup_title']);
+
 			}
 			//array_push($sourceList, "5542329709f778a5068b457f");
 
 			//foreach ($sources as $key => $source) {
-			$sourceSeeds = $this->db->Proseed->find (
+			$sourceSeeds = array();
+			foreach ($industryList as $key456 => $likedIndustry) {
+				$industrySeeds = $this->db->Proseed->find (
 				array (
 					'$and' => array(
 						/*
@@ -203,7 +224,8 @@ class Proseed extends YqBase {
 							)
 						)
 					),
-					'seed_sourceID' => array('$in' => $sourceList),
+					//'seed_sourceID' => array('$in' => $sourceList),
+					'seed_industry' => $likedIndustry,
 					'$nor' => array(
 						array (
 							'$and' => array (
@@ -216,7 +238,16 @@ class Proseed extends YqBase {
 					'seed_active' => '1', 
 					'_id' => array ('$nin' => $readSeeds)
 					)
-			);
+				);
+
+				foreach ($industrySeeds as $key455 => $industrySeed) {
+					if (!isset($sourceSeeds[(string)$industrySeed['_id']])) {
+						$sourceSeeds[(string)$industrySeed['_id']] = $industrySeed;
+					}
+				}
+
+			}
+			
 				/*
 				foreach ($sourceSeeds as $key => $value) {
 					
@@ -250,7 +281,7 @@ class Proseed extends YqBase {
 			//排序
 			arsort($res);
 			//删选
-			$topRes = array_slice($res,0,10);
+			$topRes = array_slice($res,0,$businessSeedQuota);
 
 			$results = array ();
 			foreach ($topRes as $key => $value) {
@@ -536,6 +567,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 		//找到seed_id的内容
 		$seed = $this->db->Proseed->findOne(array('_id'=> new MongoId($seed_id)));
 		if ($seed['seed_text'] == '') {
+			/*
 			$feedurl = $seed['seed_link'];
 
 		    //$feeds = file_get_contents($feedurl);
@@ -659,7 +691,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 		        $this->db->Proseed->save($seed);
 
 		        $textToDownload['seed_text'] = $seed['seed_text'];	
-
+		    */
 
 
 
@@ -698,6 +730,20 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 				);*/
 			$this->db->Proread->save ($readLog);
 		}
+
+		//修改阅读和点击的数量
+		$user = $this->db->Prouser->findOne(array('_id' => new MongoId($user_id)));
+		$user['user_seedRead']['total_read'] ++;
+
+		if ($seed['seed_domain'] == 'business'){
+			$user['user_seedRead']['business_read'] ++;
+		}
+
+		if ($seed['seed_domain'] == 'life'){
+			$user['user_seedRead']['life_read'] ++;
+		}
+		$this->db->Prouser->save($user);
+
 
 		if ($textToDownload['seed_text'] == '') {
 			return 1;

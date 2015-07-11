@@ -714,6 +714,12 @@ class Prouser extends YqBase {
 							'user_messageCheckTime' => 0,
 							'user_gender' => $userInfo['sex'],
 							'user_weight' => 1,
+							'user_seedRead' => array(
+								'total_read' => 2,
+								'business_read' => 1,
+								'life_read' => 1
+
+								)
 					);
 					$this->db->Prouser->save ( $neo );
 					
