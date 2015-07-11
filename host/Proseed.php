@@ -1453,14 +1453,14 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 
 		$user = $this->db->Prouser->findOne(array('_id' => new MongoId($user_id)));
 		$group = $this->db->ProMediaGroup->findOne(array('_id' => new MongoId($group_id)));
-		if ($group['group_domain'] == 'business') {
+		if ($group['group_type'] == 'business') {
 			if (!isset($user['user_industryInterested'][$group_id])) {
 				$user['user_industryInterested'][$group_id] = $group_id;
 				$this->db->Prouser->save($user);
 			}
 		}
 
-		if ($group['group_domain'] == 'life') {
+		if ($group['group_type'] == 'life') {
 			if (!isset($user['user_lifeInterested'][$group_id])) {
 				$user['user_lifeInterested'][$group_id] = $group_id;
 				$this->db->Prouser->save($user);
@@ -1485,14 +1485,14 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 		$user = $this->db->Prouser->findOne(array('_id' => new MongoId($user_id)));
 		$group = $this->db->ProMediaGroup->findOne(array('_id' => new MongoId($group_id)));
 
-		if ($group['group_domain'] == 'business') {
+		if ($group['group_type'] == 'business') {
 			if (isset($user['user_industryInterested'][$group_id])) {
 				unset($user['user_industryInterested'][$group_id]);
 				$this->db->Prouser->save($user);
 			}
 		}
 
-		if ($group['group_domain'] == 'life') {
+		if ($group['group_type'] == 'life') {
 			if (isset($user['user_lifeInterested'][$group_id])) {
 				unset($user['user_lifeInterested'][$group_id]);
 				$this->db->Prouser->save($user);
