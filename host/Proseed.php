@@ -337,14 +337,14 @@ function getSelectedSeeds($industryList,$readSeeds){
 				array (
 					
 					'$and' => array(
-						
+						/*
 						array(
 							'$or' => array(
 								array ('seed_industry' => $user['current']['user_industry']),
 								array ('seed_industry' => $user['current']['user_interestA']),
 								array ('seed_industry' => $user['current']['user_interestB'])
 								)
-						),
+						),*/
 						
 						array(
 							'$or' => array(
@@ -363,7 +363,7 @@ function getSelectedSeeds($industryList,$readSeeds){
 								)
 							)
 						),
-					'seed_time' => array ('$gt' => (time()-86400*3)),
+					'seed_dbWriteTime' => array ('$gt' => (time()-86400*3)),
 					'seed_active' => '1', 
 					'_id' => array ('$nin' => $readSeeds)
 					)
