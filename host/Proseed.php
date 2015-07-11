@@ -333,7 +333,7 @@ function getSelectedSeeds($industryList,$readSeeds){
 			$sourceSeeds = array();
 			foreach ($industryList as $key456 => $likedIndustry) {
 				$industrySeeds = $this->db->Proseed->find (
-				/*
+				
 				array (
 					
 					'$and' => array(
@@ -365,9 +365,9 @@ function getSelectedSeeds($industryList,$readSeeds){
 						),
 					'seed_dbWriteTime' => array ('$gt' => (time()-86400*3)),
 					'seed_active' => '1', 
-					'_id' => array ('$nin' => $readSeeds)
-					)*/
-				)->limit(500);
+					//'_id' => array ('$nin' => $readSeeds)
+					)
+				);
 
 				foreach ($industrySeeds as $key455 => $industrySeed) {
 					
