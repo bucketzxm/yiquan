@@ -203,7 +203,7 @@ class Proseed extends YqBase {
 			//array_push($sourceList, "5542329709f778a5068b457f");
 
 			//获得商业的Seeds
-			$sourceBusinessSeeds = $this->getSelectedSeeds($industryList,$readSeeds);
+			$sourceBusinessSeeds = $industryList;//$this->getSelectedSeeds($industryList,$readSeeds);
 
 			$res = array ();
 			$res1 = array ();
@@ -321,7 +321,7 @@ class Proseed extends YqBase {
 				}
 			}
 			*/
-			return ['1','2'];//count($sourceBusinessSeeds);//json_encode($results);
+			return count($sourceBusinessSeeds);//json_encode($results);
 		}catch (Exception $e){
 			return $e;
 		}
@@ -399,7 +399,7 @@ function getSelectedSeeds($industryList,$readSeeds){
 					array_push($unreadSeeds,(string)$seed['_id']);
 				//}
 			}*/
-			return $sourceSeeds;
+			return ['1','2'];//$sourceSeeds;
 }
 
 function querySeedsByGroup ($user_id,$group_id,$time){
