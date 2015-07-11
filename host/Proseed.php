@@ -203,7 +203,7 @@ class Proseed extends YqBase {
 			//array_push($sourceList, "5542329709f778a5068b457f");
 
 			//获得商业的Seeds
-			$sourceBusiniessSeeds = ['1','2'];// $this->getSelectedSeeds($industryList,$readSeeds);
+			$sourceBusinessSeeds = $this->getSelectedSeeds($industryList,$readSeeds);
 
 			$res = array ();
 			$res1 = array ();
@@ -330,17 +330,17 @@ function getSelectedSeeds($industryList,$readSeeds){
 			$sourceSeeds = array();
 			foreach ($industryList as $key456 => $likedIndustry) {
 				$industrySeeds = $this->db->Proseed->find (
-				/*
+				
 				array (
 					'$and' => array(
-						
+						/*
 						array(
 							'$or' => array(
 								array ('seed_industry' => $user['current']['user_industry']),
 								array ('seed_industry' => $user['current']['user_interestA']),
 								array ('seed_industry' => $user['current']['user_interestB'])
 								)
-						),
+						),*/
 						
 						array(
 							'$or' => array(
@@ -362,17 +362,17 @@ function getSelectedSeeds($industryList,$readSeeds){
 					'seed_dbWriteTime' => array ('$gt' => (time()-86400*3)),
 					'seed_active' => '1', 
 					'_id' => array ('$nin' => $readSeeds)
-					)*/
-				)->limit(500);
+					)
+				)
 
 				foreach ($industrySeeds as $key455 => $industrySeed) {
-					/*
+					
 					if (!isset($sourceSeeds[(string)$industrySeed['_id']])) {
 						$sourceSeeds[(string)$industrySeed['_id']] = $industrySeed;
 					}
-					*/
+					
 
-					array_push($sourceSeeds, $industrySeed);
+					//array_push($sourceSeeds, $industrySeed);
 				}
 
 			}
@@ -396,7 +396,7 @@ function getSelectedSeeds($industryList,$readSeeds){
 					array_push($unreadSeeds,(string)$seed['_id']);
 				//}
 			}*/
-			return $sourceSeeds;//$sourceSeeds;
+			return $sourceSeeds;
 }
 
 function querySeedsByGroup ($user_id,$group_id,$time){
