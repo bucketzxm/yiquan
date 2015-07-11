@@ -318,7 +318,7 @@ class Proseed extends YqBase {
 					}
 				}
 			}
-			return json_encode($industryList);//json_encode($results);
+			return count($sourceBusinessSeeds);//json_encode($results);
 		}catch (Exception $e){
 			return $e;
 		}
@@ -391,7 +391,7 @@ function getSelectedSeeds($industryList,$readSeeds){
 					array_push($unreadSeeds,(string)$seed['_id']);
 				//}
 			}*/
-			return $sourceSeeds;
+			return $industrySeeds;//$sourceSeeds;
 }
 
 function querySeedsByGroup ($user_id,$group_id,$time){
