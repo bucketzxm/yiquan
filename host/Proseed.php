@@ -400,7 +400,7 @@ function getSelectedSeeds($industryList,$readSeeds){
 					array_push($unreadSeeds,(string)$seed['_id']);
 				//}
 			}*/
-			return ['1','2'];//$sourceSeeds;
+			return $sourceSeeds;
 }
 
 function querySeedsByGroup ($user_id,$group_id,$time){
