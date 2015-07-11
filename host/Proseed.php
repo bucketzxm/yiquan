@@ -318,7 +318,7 @@ class Proseed extends YqBase {
 					}
 				}
 			}
-			return count($industryList);//json_encode($results);
+			return json_encode($industryList);//json_encode($results);
 		}catch (Exception $e){
 			return $e;
 		}
