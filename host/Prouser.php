@@ -209,6 +209,7 @@ class Prouser extends YqBase {
 					$this->db->ProMediaGroup->save($para);
 
 					$industryToSave[$industryValue] = $industryValue;
+					$firstIndustry = $industryValue;
 				}
 				/*
 				foreach ($lifeInterested as $keyLife => $lifeValue) {
@@ -223,7 +224,7 @@ class Prouser extends YqBase {
 				$user['user_industryInterested'] = $industryToSave;
 				//$user['user_lifeInterested'] = $lifeToSave;
 
-				$user['user_industry'] = $industryToSave[0]; 
+				$user['user_industry'] = $firstIndustry; 
 				$this->db->Prouser->save ($user);
 				return json_encode($user);
 				
