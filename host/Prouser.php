@@ -223,7 +223,7 @@ class Prouser extends YqBase {
 				$user['user_industryInterested'] = $industryToSave;
 				//$user['user_lifeInterested'] = $lifeToSave;
 
-
+				$user['user_industry'] = $industryToSave[0]; 
 				$this->db->Prouser->save ($user);
 				return json_encode($user);
 				
