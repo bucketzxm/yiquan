@@ -204,7 +204,7 @@ class Prouser extends YqBase {
 				$lifeToSave = array ();
 				//Update user count
 				foreach ($industryInterested as $keyIndus => $industryValue) {
-					$para = $this->db->ProMediaGroup->findOne(array('mediaGroup_title'=>$industryValue));
+					$para = $this->db->ProMediaGroup->findOne(array('_id'=>new MongoId($industryValue)));
 					$para['mediaGroup_counts']['follower_count'] ++;
 					$firstIndustry = $para['mediaGroup_title'];
 					$this->db->ProMediaGroup->save($para);
