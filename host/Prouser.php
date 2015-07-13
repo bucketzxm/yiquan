@@ -198,7 +198,7 @@ class Prouser extends YqBase {
 
 				//Split the string
 				$industryInterested = explode(',', $user_industryInterested);
-				$lifeInterested = explode(',', $user_lifeInterested);
+				//$lifeInterested = explode(',', $user_lifeInterested);
 
 				$industryToSave = array();
 				$lifeToSave = array ();
@@ -210,18 +210,18 @@ class Prouser extends YqBase {
 
 					$industryToSave[$industryValue] = $industryValue;
 				}
-
+				/*
 				foreach ($lifeInterested as $keyLife => $lifeValue) {
 					$para = $this->db->ProMediaGroup->findOne(array('mediaGroup_title'=>$industryValue));
 					$para['mediaGroup_counts']['follower_count'] ++;
 					$this->db->ProMediaGroup->save($para);
 
 					$lifeToSave[$lifeValue] = $lifeValue;
-				}
+				}*/
 
 				$user = $this->db->Prouser->findOne(array ('_id'=>new MongoId ($user_id)));
 				$user['user_industryInterested'] = $industryToSave;
-				$user['user_lifeInterested'] = $lifeToSave;
+				//$user['user_lifeInterested'] = $lifeToSave;
 
 
 				$this->db->Prouser->save ($user);
