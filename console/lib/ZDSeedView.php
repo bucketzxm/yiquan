@@ -177,14 +177,20 @@ class SeedView extends Seed{
 
 			$count_d0e=$this->db->Proseed->count( array('seed_sourceID' =>  (string)$ans[$i]['_id'],'seed_editorRating' => -1,'seed_dbWriteTime'=>array('$gt'=>time()-86400)));
 			$count_d0=$this->db->Proseed->count( array('seed_sourceID' =>  (string)$ans[$i]['_id'],'seed_dbWriteTime'=>array('$gt'=>time()-86400)));
-			$stat_d0 = $count_d0e.'/'. $count_d0; 
+			$stat_d0 = $count_d0e.' / '. $count_d0; 
 			td_combiner($stat_d0);
+			$count_d1e=$this->db->Proseed->count( array('seed_sourceID' =>  (string)$ans[$i]['_id'],'seed_dbWriteTime'=>array('$lt'=>time()-86400,'$gt'=>time()-172800)));
 			$count_d1=$this->db->Proseed->count( array('seed_sourceID' =>  (string)$ans[$i]['_id'],'seed_dbWriteTime'=>array('$lt'=>time()-86400,'$gt'=>time()-172800)));
-			td_combiner($count_d1);
+			$stat_d1 = $count_d1e.' / '. $count_d1; 
+			td_combiner($stat_d1);
+			$count_d2e=$this->db->Proseed->count( array('seed_sourceID' =>  (string)$ans[$i]['_id'],'seed_dbWriteTime'=>array('$lt'=>time()-172800,'$gt'=>time()-259200)));
 			$count_d2=$this->db->Proseed->count( array('seed_sourceID' =>  (string)$ans[$i]['_id'],'seed_dbWriteTime'=>array('$lt'=>time()-172800,'$gt'=>time()-259200)));
-			td_combiner($count_d2);
+			$stat_d2 = $count_d2e.' / '. $count_d2; 
+			td_combiner($stat_d2);
+			$count_d3e=$this->db->Proseed->count( array('seed_sourceID' =>  (string)$ans[$i]['_id'],'seed_dbWriteTime'=>array('$lt'=>time()-259200,'$gt'=>time()-345600)));
 			$count_d3=$this->db->Proseed->count( array('seed_sourceID' =>  (string)$ans[$i]['_id'],'seed_dbWriteTime'=>array('$lt'=>time()-259200,'$gt'=>time()-345600)));
-			td_combiner($count_d3);
+			$stat_d3 = $count_d3e.' / '. $count_d3; 
+			td_combiner($stat_d3);
 			/*
 			$count_d4=$this->db->Proseed->count( array('seed_sourceID' => (string)$ans[$i]['_id'],'seed_dbWriteTime'=>array('$lt'=>time()-345600,'$gt'=>time()-432000)));
 			td_combiner($count_d4);
