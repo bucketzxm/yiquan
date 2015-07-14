@@ -128,7 +128,7 @@ class SeedView extends Seed{
 		}
 
 		foreach ($mediaChannels as $keys => $values) {
-			echo '<h3><a href="?action=媒体分类查看&channel='.$values.'">'.$keys.' '.$values."</a></h3>";
+			echo '<h3><a href="?action=mediabychannel&channel='.$keys.'">'.$keys.' '.$values."</a></h3>";
 		}
 		//echo '<h3><a href="?action=媒体分类查看&channel='.'空白'.'">'.'空白 '.$mediaChannels['blank']."</a></h3>";
 
@@ -142,7 +142,7 @@ class SeedView extends Seed{
 
 		$ans = [ ];
 		
-		$cus=$this->db->Prosource->find( array('source_industry' => $channel,'source_status' => 'active'));
+		$cus=$this->db->Prosource->find(array('source_industry' => $channel,'source_status' => 'active'));
 		while ( $cus->hasNext () ) {
 			$doc = $cus->getNext ();
 			$ans [] = $doc;
