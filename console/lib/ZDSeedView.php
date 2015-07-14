@@ -168,7 +168,7 @@ class SeedView extends Seed{
 
 		echo '<tr></thead>';
 		
-		for($i = $start; $i < min ( $start + $len, count ( $ans ) ); $i ++) {
+		for($i = 0; $i < count($ans); $i ++) {
 			echo '<tr>';
 			td_combiner( $ans[$i]['source_industry'][0]);
 			td_combiner( $ans[$i]['source_name']);
