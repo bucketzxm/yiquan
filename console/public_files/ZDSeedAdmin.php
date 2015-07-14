@@ -122,7 +122,7 @@ include_once '401.php';
 							break;
 												
 
-						case 'meidabychannel' :
+						case 'mediabychannel' :
 							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
 								$channel = $_GET ['channel'];
 								$a->listAllSeedStat_table($channel);
