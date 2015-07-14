@@ -121,7 +121,7 @@ class Prouser extends YqBase {
 	}
 
 
-	function updateUserProfile ($user_id,$user_nickname){
+	function updateUserProfile ($user_id,$user_nickname,$user_intro){
 			if ($this->yiquan_version == 0) {
 				return - 2;
 			}
@@ -173,6 +173,7 @@ class Prouser extends YqBase {
 				}
 				*/
 				$user['user_nickname'] = $user_nickname;
+				$user['user_intro'] = $user_intro;
 				$this->db->Prouser->save ($user);
 				return json_encode($user);
 				
@@ -710,6 +711,7 @@ class Prouser extends YqBase {
 							'user_bigavatarname' => '',
 							'user_smallavatarname' => '',
 							'user_city' => $userInfo ['city'],
+							'user_intro' => '',
 							'user_province' => $userInfo['province'],
 							'weixin_Avatar' => $userInfo ['headimgurl'],
 							'weixin_openID' => $open_id,
