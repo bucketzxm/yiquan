@@ -105,7 +105,25 @@ class SeedView extends Seed{
 		echo '</table></div>';
 	}
 
+	function listAllMediaCategories(){
+		$mediaChannels = array();
+		$sources = $this->db->Prosource->find();
+		foreach ($sources as $key => $value) {
+			if (isset($value['source_industry'][0])) {
+				if (!in_array($value['source_industry'][0], $mediaChannels)) {
+					array_push($mediaChannels, $value['source_industry'][0]);
+				}	
+			}
+			
+		}
 
+		foreach ($mediaChannels as $keys => $values) {
+			echo '<h3><a href="?action=媒体分类查看&channel='.$values.'">'.$values."</a></h3>";
+		}
+		echo '<h3><a href="?action=媒体分类查看&channel='.'空白'.'">'.$values."</a></h3>";
+
+
+	}
 
 	function listAllSeedStat_table($arr, $start, $len){
 

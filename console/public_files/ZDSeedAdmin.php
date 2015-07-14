@@ -108,7 +108,8 @@ include_once '401.php';
 						case '媒体文章数据' :
 							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
 								if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
-									$a->listAllSeedStat_table($a->querySeed(),0,5000);
+									$a->listAllMediaCategories();
+									//$a->listAllSeedStat_table($a->querySeed(),0,5000);
 								}
 							}
 							break;
