@@ -38,6 +38,30 @@ class Seed extends YqBase{
 		return $ans;
 	}
 
+	function querySeedByChannel($channel) {
+		$ans = array(0);
+
+			$cus = $this->db->Proseed->find (array('seed_dbWriteTime'=>array('$gt'=>(time()-86400))))->sort(array('seed_dbWriteTime' => -1));
+			while ( $cus->hasNext () ) {
+				$doc = $cus->getNext ();
+				$ans [] = $doc;
+			}
+		
+		return $ans;
+	}
+
+	function querySeedBySource($source) {
+		$ans = array(0);
+
+			$cus = $this->db->Proseed->find (array('seed_sourceID' => $source,'seed_dbWriteTime'=>array('$gt'=>(time()-86400*3))))->sort(array('seed_dbWriteTime' => -1));
+			while ( $cus->hasNext () ) {
+				$doc = $cus->getNext ();
+				$ans [] = $doc;
+			}
+		
+		return $ans;
+	}	
+
 	function queryBizSeedToReview($configs = []) {
 		$ans = [ ];
 		if (empty ( $configs )) {

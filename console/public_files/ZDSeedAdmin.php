@@ -126,10 +126,18 @@ include_once '401.php';
 							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
 								$channel = $_GET ['channel'];
 								$a->listAllSeedStat_table($channel);
-								echo 'here is the list';
+								
 							}
 							break;
 							
+						case 'seedbysource' :
+							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
+								$source = $_GET ['source'];
+								$a->listAllSeed_table($a->querySeedBySource($source));
+							}
+							break;
+
+
 						case 'editSeed' :
 							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
 								$a->showOneSeed_form ( $a->querySeed ( array (

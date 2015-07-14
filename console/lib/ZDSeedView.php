@@ -22,7 +22,7 @@ function is_notempty($name){
 ###########
 
 class SeedView extends Seed{
-	function listAllSeed_table($arr, $start, $len){
+	function listAllSeed_table($arr){
 
 		echo '<div class="table-responsive"><table class="table table-striped">';
 		echo '<thead><tr>';
@@ -43,7 +43,7 @@ class SeedView extends Seed{
 		echo '<tr></thead>';
 
 
-		for($i = $start; $i < min ( $start + $len, count ( $arr ) ); $i ++) {
+		for($i = 0; $i < count ( $arr ); $i ++) {
 			echo '<tr>';
 			$uid = $arr [$i] ['_id']->{'$id'};
 			th_combiner($i+1);
@@ -171,7 +171,9 @@ class SeedView extends Seed{
 		for($i = 0; $i < count($ans); $i ++) {
 			echo '<tr>';
 			td_combiner( $ans[$i]['source_industry'][0]);
-			td_combiner( $ans[$i]['source_name']);
+			
+			echo '<td><a href="?action=seedbysource&source='.(string)$ans[$i]['_id'].'">'.$ans[$i]['source_name'].'</a></td>';
+			//td_combiner( $ans[$i]['source_name']);
 			//$count=$this->db->Proseed->count( array('seed_sourceID' => (string)$ans[$i]['_id'],'seed_dbWriteTime'=>array('$gt'=>time()-259200)));
 			//td_combiner($count);
 
@@ -187,8 +189,8 @@ class SeedView extends Seed{
 			$count_d2=$this->db->Proseed->count( array('seed_sourceID' =>  (string)$ans[$i]['_id'],'seed_dbWriteTime'=>array('$lt'=>time()-172800,'$gt'=>time()-259200)));
 			$stat_d2 = $count_d2e.' / '. $count_d2; 
 			td_combiner($stat_d2);
-			$count_d3e=$this->db->Proseed->count( array('seed_sourceID' =>  (string)$ans[$i]['_id'],'seed_dbWriteTime'=>array('$lt'=>time()-259200,'$gt'=>time()-345600)));
-			$count_d3=$this->db->Proseed->count( array('seed_sourceID' =>  (string)$ans[$i]['_id'],'seed_dbWriteTime'=>array('$lt'=>time()-259200,'$gt'=>time()-345600)));
+			$count_d3e=$this->db->Proseed->count( array('seed_sourceID' =>  (string)$ans[$i]['_id'],'seed_dbWriteTime'=>array('$lt'=>time()-259200)));
+			$count_d3=$this->db->Proseed->count( array('seed_sourceID' =>  (string)$ans[$i]['_id'],'seed_dbWriteTime'=>array('$lt'=>time()-259200)));
 			$stat_d3 = $count_d3e.' / '. $count_d3; 
 			td_combiner($stat_d3);
 			/*
