@@ -364,7 +364,7 @@ foreach ($sources as $key => $value) {
     } else {
         $mediaAddition = 0;
     }
-p
+
     //读取每个Source的URL地址
     foreach ($value['source_rssURL'] as $keyz => $url) {
         try {
@@ -379,6 +379,7 @@ p
             curl_setopt($ch, CURLOPT_TIMEOUT, 10);
             $feeds = curl_exec($ch);
 
+            $value['loading_status'] = curl_getinfo($ch,CURLINFO_HTTP_CODE);
             if (curl_getinfo($ch,CURLINFO_HTTP_CODE) == 200) {
                 //HTML进行UTF-8转码
                 $encode = mb_detect_encoding($feeds, array('ASCII', 'UTF-8', 'GB2312', 'GBK', "EUC-CN", "CP936"));
@@ -995,9 +996,10 @@ p
 
                 }
 
-                $value['check_time'] = time();
-                $prosource->save($value);
+                
             }
+            $value['check_time'] = time();
+            $prosource->save($value);
         } catch (Exception $e) {
             var_dump($e);
         }

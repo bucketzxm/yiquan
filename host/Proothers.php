@@ -225,7 +225,7 @@ function clear_unmeaningful_char($title){
             
             foreach ($sources as $key => $value) {
                 //$value['source_status'] = 'active';
-                echo '<h3>'.$value['source_name'].'  '.date('Y-m-d H:i',$value['check_time']).'</h3>';
+                echo '<h3>'.$value['source_name'].' '.$value['loading_status'].' '.date('Y-m-d H:i',$value['check_time']).'</h3>';
 
                 /*
                 if (isset($value['source_image'])) {
