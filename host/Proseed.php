@@ -1165,7 +1165,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 
 			foreach ($seed as $key => $item) {
 				$item['like_comment'] = $value['like_comment'];
-				$item['like_public']
+				$item['like_public'] = $value['like_public'];
 				if ($value['seed_text'] == '') {
 					$item['seed_textStatus'] = '0';
 				}else{
