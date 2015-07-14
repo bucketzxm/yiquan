@@ -245,7 +245,7 @@ function clear_unmeaningful_char($title){
                     }
                     
                 }*/
-            }
+            //}
 
              /*
                     if (isset($seed['seed_industry'])) {
