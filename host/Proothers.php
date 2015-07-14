@@ -183,7 +183,7 @@ function clear_unmeaningful_char($title){
 			    		'db'=>$dbname
 			));
 			$db = $mongoClient->yiquan;
-			$sources = $db->Prosource->find();
+			$sources = $db->Prosource->find(array('source_domain' => 'life'));
             $seeds = $db->Proseed->find();
 
             $sources = $db->Prosource->find();
@@ -222,9 +222,13 @@ function clear_unmeaningful_char($title){
                 $bizGroups[$values['segment_name']] = $values['segment_name'];
             }*/
 
-            /*
+            
             foreach ($sources as $key => $value) {
                 //$value['source_status'] = 'active';
+                
+                $value['source_status'] = 'inactive';
+                $db->Prosource->save($value);    
+                /*
                 if (isset($value['source_image'])) {
                     
                     if ($value['source_image'] != '') {
@@ -237,11 +241,11 @@ function clear_unmeaningful_char($title){
                         $imageName = substr($value['source_image'], $start+5,$end-$start-5);
                         $value['source_imageName'] = $imageName;
                         //echo '<h3>'.$imageName.'</h3>';
-                        $db->Prosource->save($value);    
+                        
                     }
                     
-                }
-            }*/
+                }*/
+            }
 
              /*
                     if (isset($seed['seed_industry'])) {
