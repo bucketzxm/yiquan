@@ -107,7 +107,7 @@ class SeedView extends Seed{
 
 	function listAllMediaCategories(){
 		$mediaChannels = array();
-		$sources = $this->db->Prosource->find(array('source_domain'=>'business')));
+		$sources = $this->db->Prosource->find(array('source_domain'=>'business'));
 		foreach ($sources as $key => $value) {
 			if (isset($value['source_industry'][0])) {
 				if (isset($mediaChannels[$value['source_industry'][0]])) {
