@@ -225,8 +225,10 @@ function clear_unmeaningful_char($title){
             
             foreach ($sources as $key => $value) {
                 //$value['source_status'] = 'active';
+                if ($value['source_domain']== 'business') {
+                    $value['source_status'] = 'active';    
+                }
                 
-                $value['source_status'] = 'inactive';
                 $db->Prosource->save($value);    
                 /*
                 if (isset($value['source_image'])) {
