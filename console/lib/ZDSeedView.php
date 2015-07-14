@@ -123,16 +123,16 @@ class SeedView extends Seed{
 	
 		
 
-
-		th_combiner('媒体名称');
-		th_combiner( '近三天·文章数目');
+		th_combiner('类别');
+		th_combiner('名称');
+		//th_combiner( '近三天·文章数目');
 		th_combiner( '24小时内·文章数目');
 		th_combiner( '昨天·文章数目');
 		th_combiner( '前天·文章数目');
 		th_combiner( '三天前·文章数目');
-		th_combiner( '四天前·文章数目');
-		th_combiner( '五天前·文章数目');
-		th_combiner( '六天前·文章数目');
+		//th_combiner( '四天前·文章数目');
+		//th_combiner( '五天前·文章数目');
+		//th_combiner( '六天前·文章数目');
 		th_combiner( '没文章总数');
 		th_combiner( '没文章总率');
 
@@ -142,10 +142,10 @@ class SeedView extends Seed{
 		
 		for($i = $start; $i < min ( $start + $len, count ( $ans ) ); $i ++) {
 			echo '<tr>';
-
+			td_combiner( $ans[$i]['source_industry'][0]);
 			td_combiner( $ans[$i]['source_name']);
-			$count=$this->db->Proseed->count( array('seed_sourceID' => (string)$ans[$i]['_id'],'seed_dbWriteTime'=>array('$gt'=>time()-259200)));
-			td_combiner($count);
+			//$count=$this->db->Proseed->count( array('seed_sourceID' => (string)$ans[$i]['_id'],'seed_dbWriteTime'=>array('$gt'=>time()-259200)));
+			//td_combiner($count);
 			$count_d0=$this->db->Proseed->count( array('seed_sourceID' =>  (string)$ans[$i]['_id'],'seed_dbWriteTime'=>array('$gt'=>time()-86400)));
 			td_combiner($count_d0);
 			$count_d1=$this->db->Proseed->count( array('seed_sourceID' =>  (string)$ans[$i]['_id'],'seed_dbWriteTime'=>array('$lt'=>time()-86400,'$gt'=>time()-172800)));
@@ -154,12 +154,14 @@ class SeedView extends Seed{
 			td_combiner($count_d2);
 			$count_d3=$this->db->Proseed->count( array('seed_sourceID' =>  (string)$ans[$i]['_id'],'seed_dbWriteTime'=>array('$lt'=>time()-259200,'$gt'=>time()-345600)));
 			td_combiner($count_d3);
+			/*
 			$count_d4=$this->db->Proseed->count( array('seed_sourceID' => (string)$ans[$i]['_id'],'seed_dbWriteTime'=>array('$lt'=>time()-345600,'$gt'=>time()-432000)));
 			td_combiner($count_d4);
 			$count_d5=$this->db->Proseed->count( array('seed_sourceID' =>  (string)$ans[$i]['_id'],'seed_dbWriteTime'=>array('$lt'=>time()-432000,'$gt'=>time()-518400)));
 			td_combiner($count_d5);
 			$count_d6=$this->db->Proseed->count( array('seed_sourceID' =>  (string)$ans[$i]['_id'],'seed_dbWriteTime'=>array('$lt'=>time()-518400,'$gt'=>time()-604800)));
 			td_combiner($count_d6);
+			*/
 			$count_notext=$this->db->Proseed->count( array('seed_sourceID' => (string)$ans[$i]['_id'],'seed_text'=>''));
 			td_combiner($count_notext);
 			$count_all=$this->db->Proseed->count( array('seed_sourceID' => (string)$ans[$i]['_id']));

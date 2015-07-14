@@ -17,16 +17,17 @@ include_once '401.php';
 	<div class="row">
 		<div class="col-sm-3 col-md-2 sidebar">
 			<ul class="nav nav-sidebar">
-				<li><a href="?action=文章列表">文章列表 <span class="sr-only">(current)</span></a></li>
+				<li><a href="?action=媒体文章数据">媒体文章数据 <span class="sr-only">(current)</span></a></li>
+				
 				<li><a href="?action=商业文章-待审核">商业文章-待审核 <span class="sr-only">(current)</span></a></li>
 				<li><a href="?action=商业文章-已通过">商业文章-已通过 <span class="sr-only">(current)</span></a></li>
 				<li><a href="?action=商业文章-已枪毙">商业文章-已枪毙 <span class="sr-only">(current)</span></a></li>
-				<li><a href="?action=生活文章-待审核">生活文章-待审核 <span class="sr-only">(current)</span></a></li>
+				<!--<li><a href="?action=生活文章-待审核">生活文章-待审核 <span class="sr-only">(current)</span></a></li>
 				<li><a href="?action=生活文章-已通过">生活文章-已通过 <span class="sr-only">(current)</span></a></li>
-				<li><a href="?action=生活文章-已枪毙">生活文章-已枪毙 <span class="sr-only">(current)</span></a></li>
-				<li><a href="?action=媒体文章数据">媒体文章数据 <span class="sr-only">(current)</span></a></li>
+				<li><a href="?action=生活文章-已枪毙">生活文章-已枪毙 <span class="sr-only">(current)</span></a></li>-->
 				<li><a href="?action=文章统计数据">文章统计数据 <span class="sr-only">(current)</span></a></li>
 				<li><a href="?action=查询">按日期查询 <span class="sr-only">(current)</span></a></li>
+				<li><a href="?action=文章列表">文章列表 <span class="sr-only">(current)</span></a></li>
 
 
 			</ul>

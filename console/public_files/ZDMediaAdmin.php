@@ -17,7 +17,7 @@ include_once '401.php';
 	<div class="row">
 		<div class="col-sm-3 col-md-2 sidebar">
 			<ul class="nav nav-sidebar">
-				<li><a href="?action=查看编辑基本信息">查看编辑基本信息 <span class="sr-only">(current)</span></a></li>
+				<li><a href="?action=查看编辑基本信息">活跃媒体基本信息 <span class="sr-only">(current)</span></a></li>
 				<li><a href="?action=查看编辑标签正则">查看编辑标签正则 <span class="sr-only">(current)</span></a></li>
 				<li><a href="?action=查看媒体数据">查看媒体数据 <span class="sr-only">(current)</span></a></li>
 				<li><a href="?action=添加新媒体">添加新媒体 <span class="sr-only">(current)</span></a></li>
