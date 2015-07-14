@@ -122,7 +122,11 @@ include_once '401.php';
 							break;
 												
 
-
+						case '媒体分类查看' :
+							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
+								$channel = $_GET ['channel'];
+								$a->listAllSeedStat_table($channel);
+							}
 							
 						case 'editSeed' :
 							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {

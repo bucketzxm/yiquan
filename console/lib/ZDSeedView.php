@@ -135,14 +135,14 @@ class SeedView extends Seed{
 
 	}
 
-	function listAllSeedStat_table($arr, $start, $len){
+	function listAllSeedStat_table($channel){
 
 		echo '<div class="table-responsive"><table class="table table-striped">';
 		echo '<thead><tr>';
 
 		$ans = [ ];
 		
-		$cus=$this->db->Prosource->find( array('source_status' => 'active'));
+		$cus=$this->db->Prosource->find( array('source_industry' => $channel,'source_status' => 'active'));
 		while ( $cus->hasNext () ) {
 			$doc = $cus->getNext ();
 			$ans [] = $doc;
