@@ -128,6 +128,7 @@ include_once '401.php';
 								$a->listAllSeedStat_table($channel);
 								echo 'here is the list';
 							}
+							break;
 							
 						case 'editSeed' :
 							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
