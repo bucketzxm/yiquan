@@ -174,7 +174,10 @@ class SeedView extends Seed{
 			td_combiner( $ans[$i]['source_name']);
 			//$count=$this->db->Proseed->count( array('seed_sourceID' => (string)$ans[$i]['_id'],'seed_dbWriteTime'=>array('$gt'=>time()-259200)));
 			//td_combiner($count);
+
+			$count_d0e=$this->db->Proseed->count( array('seed_sourceID' =>  (string)$ans[$i]['_id'],'seed_editorRating' => -1,'seed_dbWriteTime'=>array('$gt'=>time()-86400)));
 			$count_d0=$this->db->Proseed->count( array('seed_sourceID' =>  (string)$ans[$i]['_id'],'seed_dbWriteTime'=>array('$gt'=>time()-86400)));
+			$stat_d0 = $count_d0e.'/'. $count_d0; 
 			td_combiner($count_d0);
 			$count_d1=$this->db->Proseed->count( array('seed_sourceID' =>  (string)$ans[$i]['_id'],'seed_dbWriteTime'=>array('$lt'=>time()-86400,'$gt'=>time()-172800)));
 			td_combiner($count_d1);
