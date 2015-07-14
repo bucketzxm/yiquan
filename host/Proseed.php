@@ -1245,7 +1245,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 			foreach ($users as $key => $user) {
 				$value['user_id'] = (string)$user['_id'];
 				$value['user_name'] = $user['user_nickname'];
-				$value['user_intro'] = $user['user_intro'];P
+				$value['user_intro'] = $user['user_intro'];
 				//$value['user_company'] = $user['current']['user_company'];
 				//$value['user_title'] = $user['current']['user_title'];
 			}
