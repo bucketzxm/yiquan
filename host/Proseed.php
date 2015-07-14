@@ -1010,7 +1010,8 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 				'like_seedSource' => $cursor['seed_sourceID'],
 				'like_comment' => $like_comment,
 				'like_time' => time(),
-				'like_status' => 'active'
+				'like_status' => 'active',
+				'like_public' => '1'
 				);
 
 			$this->db->Proworth->save ($data);
@@ -1164,6 +1165,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 
 			foreach ($seed as $key => $item) {
 				$item['like_comment'] = $value['like_comment'];
+				$item['like_public']
 				if ($value['seed_text'] == '') {
 					$item['seed_textStatus'] = '0';
 				}else{
