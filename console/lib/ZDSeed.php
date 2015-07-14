@@ -53,7 +53,7 @@ class Seed extends YqBase{
 	function querySeedBySource($source) {
 		$ans = array();
 
-			$cus = $this->db->Proseed->find (array('seed_sourceID' => $source,'seed_dbWriteTime'=>array('$gt'=>(time()-86400*3))))->sort(array('seed_dbWriteTime' => -1));
+			$cus = $this->db->Proseed->find (array('seed_sourceID' => $source,'seed_editorRating' => -1,'seed_dbWriteTime'=>array('$gt'=>(time()-86400*3))))->sort(array('seed_dbWriteTime' => -1));
 			while ( $cus->hasNext () ) {
 				$doc = $cus->getNext ();
 				$ans [] = $doc;
