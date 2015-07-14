@@ -107,20 +107,30 @@ class SeedView extends Seed{
 
 	function listAllMediaCategories(){
 		$mediaChannels = array();
-		$sources = $this->db->Prosource->find();
+		$sources = $this->db->Prosource->find(array('source_domain'=>'business')));
 		foreach ($sources as $key => $value) {
 			if (isset($value['source_industry'][0])) {
-				if (!in_array($value['source_industry'][0], $mediaChannels)) {
-					array_push($mediaChannels, $value['source_industry'][0]);
+				if (isset($mediaChannels[$value['source_industry'][0]])) {
+					$mediaChannels[$value] ++;
+				}else{
+					$mediaChannels[$value] = 0;
+
+				}	
+			}else{
+				if (isset($mediaChannels['blank'])) {
+					$mediaChannels['blank'] ++;
+				}else{
+					$mediaChannels['blank'] = 0;
+
 				}	
 			}
 			
 		}
 
 		foreach ($mediaChannels as $keys => $values) {
-			echo '<h3><a href="?action=媒体分类查看&channel='.$values.'">'.$values."</a></h3>";
+			echo '<h3><a href="?action=媒体分类查看&channel='.$values.'">'.$keys.' '.$values."</a></h3>";
 		}
-		echo '<h3><a href="?action=媒体分类查看&channel='.'空白'.'">'.$values."</a></h3>";
+		echo '<h3><a href="?action=媒体分类查看&channel='.'空白'.'">'.'空白 '.$mediaChannels['blank']."</a></h3>";
 
 
 	}
