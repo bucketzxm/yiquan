@@ -39,7 +39,7 @@ class Seed extends YqBase{
 	}
 
 	function querySeedByChannel($channel) {
-		$ans = array(0);
+		$ans = array();
 
 			$cus = $this->db->Proseed->find (array('seed_dbWriteTime'=>array('$gt'=>(time()-86400))))->sort(array('seed_dbWriteTime' => -1));
 			while ( $cus->hasNext () ) {
@@ -51,7 +51,7 @@ class Seed extends YqBase{
 	}
 
 	function querySeedBySource($source) {
-		$ans = array(0);
+		$ans = array();
 
 			$cus = $this->db->Proseed->find (array('seed_sourceID' => $source,'seed_dbWriteTime'=>array('$gt'=>(time()-86400*3))))->sort(array('seed_dbWriteTime' => -1));
 			while ( $cus->hasNext () ) {
