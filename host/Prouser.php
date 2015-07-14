@@ -121,7 +121,7 @@ class Prouser extends YqBase {
 	}
 
 
-	function updateUserProfile ($user_id,$user_industry,$user_seniority){
+	function updateUserProfile ($user_id,$user_nickname){
 			if ($this->yiquan_version == 0) {
 				return - 2;
 			}
@@ -137,6 +137,7 @@ class Prouser extends YqBase {
 				$user = $this->db->Prouser->findOne(array ('_id'=>new MongoId ($user_id)));
 
 				//Update user count
+				/*
 				$para = $this->db->Prosystem->findOne(array('para_name'=>'user_count'));
 
 				if ($user['user_industry'] != null) {
@@ -170,7 +171,8 @@ class Prouser extends YqBase {
 				}else{
 					$user['user_weight'] = 1;	
 				}
-				
+				*/
+				$user['user_nickname'] = $user_nickname;
 				$this->db->Prouser->save ($user);
 				return json_encode($user);
 				
@@ -708,6 +710,7 @@ class Prouser extends YqBase {
 							'user_bigavatarname' => '',
 							'user_smallavatarname' => '',
 							'user_city' => $userInfo ['city'],
+							'user_province' => $userInfo['province'],
 							'weixin_Avatar' => $userInfo ['headimgurl'],
 							'weixin_openID' => $open_id,
 							'weixin_accessToken' => $access_token,
