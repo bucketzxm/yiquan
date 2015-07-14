@@ -186,7 +186,7 @@ function clear_unmeaningful_char($title){
 			$sources = $db->Prosource->find(array('source_domain' => 'life'));
             $seeds = $db->Proseed->find();
 
-            $sources = $db->Prosource->find();
+            $sources = $db->Prosource->find(array('source_domain' => 'business','source_status' => 'active'));
 
             $worths = $db->Proworth->find();
             /*
@@ -225,7 +225,7 @@ function clear_unmeaningful_char($title){
             
             foreach ($sources as $key => $value) {
                 //$value['source_status'] = 'active';
-                echo $value['source_name'].'  '.date('Y-m-d H:i',$value['check_time']);
+                echo '<h3>'.$value['source_name'].'  '.date('Y-m-d H:i',$value['check_time']).'</h3>';
 
                 /*
                 if (isset($value['source_image'])) {
