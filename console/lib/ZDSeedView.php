@@ -113,14 +113,14 @@ class SeedView extends Seed{
 				if (isset($mediaChannels[$value['source_industry'][0]])) {
 					$mediaChannels[$value['source_industry'][0]] ++;
 				}else{
-					$mediaChannels[$value['source_industry'][0]] = 0;
+					$mediaChannels[$value['source_industry'][0]] = 1;
 
 				}	
 			}else{
 				if (isset($mediaChannels['blank'])) {
 					$mediaChannels['blank'] ++;
 				}else{
-					$mediaChannels['blank'] = 0;
+					$mediaChannels['blank'] = 1;
 
 				}	
 			}
@@ -130,7 +130,7 @@ class SeedView extends Seed{
 		foreach ($mediaChannels as $keys => $values) {
 			echo '<h3><a href="?action=媒体分类查看&channel='.$values.'">'.$keys.' '.$values."</a></h3>";
 		}
-		echo '<h3><a href="?action=媒体分类查看&channel='.'空白'.'">'.'空白 '.$mediaChannels['blank']."</a></h3>";
+		//echo '<h3><a href="?action=媒体分类查看&channel='.'空白'.'">'.'空白 '.$mediaChannels['blank']."</a></h3>";
 
 
 	}
