@@ -111,9 +111,9 @@ class SeedView extends Seed{
 		foreach ($sources as $key => $value) {
 			if (isset($value['source_industry'][0])) {
 				if (isset($mediaChannels[$value['source_industry'][0]])) {
-					$mediaChannels[$value] ++;
+					$mediaChannels[$value['source_industry'][0]] ++;
 				}else{
-					$mediaChannels[$value] = 0;
+					$mediaChannels[$value['source_industry'][0]] = 0;
 
 				}	
 			}else{
