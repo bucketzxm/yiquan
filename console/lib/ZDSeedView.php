@@ -142,7 +142,7 @@ class SeedView extends Seed{
 		//th_combiner( '近三天·文章数目');
 		th_combiner( '小类');
 		th_combiner( '数量');
-
+		th_combiner( '操作');
 
 		foreach ($mediaChannels as $keys => $values) {
 			foreach ($values as $keyss => $valuess) {
@@ -150,12 +150,13 @@ class SeedView extends Seed{
 				td_combiner($keys);
 				td_combiner($keyss);
 				td_combiner($valuess);
+				echo '<h3><a href="?action=媒体分类查看&channel='.$keyss.'">'.'查看'.'</a></h3>';
 				echo '</tr>';
 			}
 
 		}
 		echo '</table></div>';
-		//echo '<h3><a href="?action=媒体分类查看&channel='.'空白'.'">'.'空白 '.$mediaChannels['blank']."</a></h3>";
+		
 
 
 	}
