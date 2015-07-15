@@ -929,7 +929,7 @@ class Seed extends YqBase{
 
 		                }
 
-		                var_dump($seedsToLoad);
+
 		                //统一进行查重
 
 		                $titles_cursor = $this->db->Proseed->find(array(
