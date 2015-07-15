@@ -690,7 +690,7 @@ class Seed extends YqBase{
 		    echo "<h2>" . $value['source_name'] . "</h2>";
 			$checkTime = $value['check_time'];
 		    echo "<h2>" . date("Y-m-d H:i",$checkTime). "</h2>";
-		    $checkTime = $value['check_time']-86400;
+		    $checkTime = $value['check_time']-86400*3;
 
 
 
