@@ -150,7 +150,7 @@ class SeedView extends Seed{
 				td_combiner($keys);
 				td_combiner($keyss);
 				td_combiner($valuess);
-				echo '<td><a href="?action=媒体分类查看&channel='.$keyss.'">'.'查看'.'</a></td>';
+				echo '<td><a href="?action=mediabychannel&channel='.$keyss.'">'.'查看'.'</a></td>';
 				echo '</tr>';
 			}
 
