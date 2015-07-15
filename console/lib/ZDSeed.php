@@ -955,7 +955,7 @@ class Seed extends YqBase{
 
 		                    //进行标题拆字
 		                    $title = $seed['title'];
-		                    $title = clear_unmeaningful_char($title);
+		                    $title = $this->clear_unmeaningful_char($title);
 
 
 		                    //Split keywords
@@ -1137,7 +1137,7 @@ class Seed extends YqBase{
 		                                $text = preg_replace("<link.*?>", "", $text);
 		                                $text = preg_replace("<iframe.*?/iframe>", "", $text);
 
-		                                $cleanedText = clear_unmeaningful_char($text);
+		                                $cleanedText = $this->clear_unmeaningful_char($text);
 		                                $textLen = mb_strlen($cleanedText,'utf-8');
 
 
@@ -1459,7 +1459,7 @@ class Seed extends YqBase{
 		            $text = preg_replace("<link.*?>", "",$text);
 		            $text = preg_replace("<iframe.*?/iframe>", "",$text);
 
-		            $cleanedText = clear_unmeaningful_char($text);
+		            $cleanedText = $this->clear_unmeaningful_char($text);
 		            $textLen = mb_strlen($cleanedText,'utf-8');
 
 
