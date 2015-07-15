@@ -152,6 +152,16 @@ include_once '401.php';
 								}
 							}
 							break;
+
+						case 'loadSingleSource':
+
+							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
+								$source = $_GET ['source'];
+								$a->loadSingleSource($source);
+							}
+
+							break;
+
 						case 'deleteSeed' :
 							/*
 							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
@@ -170,7 +180,6 @@ include_once '401.php';
 
 							echo '枪毙成功';
 							//echo "<script> {window.alert('枪毙成功');} </script>";
-
 
 							break;
 
