@@ -724,6 +724,7 @@ class Seed extends YqBase{
 
 		            $value['loading_status'] = curl_getinfo($ch,CURLINFO_HTTP_CODE);
 		            if (curl_getinfo($ch,CURLINFO_HTTP_CODE) == 200) {
+		                var_dump($feeds);
 		                //HTML进行UTF-8转码
 		                $encode = mb_detect_encoding($feeds, array('ASCII', 'UTF-8', 'GB2312', 'GBK', "EUC-CN", "CP936"));
 
@@ -732,7 +733,6 @@ class Seed extends YqBase{
 		                    $feeds = iconv($encode, 'UTF-8//IGNORE', $feeds);
 
 		                    //var_dump($feeds);
-
 		                    $feeds = str_replace('encoding="gb2312"', 'encoding="utf-8"', $feeds);
 		                    $feeds = str_replace('encoding="ascii"', 'encoding="utf-8"', $feeds);
 		                    $feeds = str_replace('encoding="gbk"', 'encoding="utf-8"', $feeds);
