@@ -723,8 +723,8 @@ class Seed extends YqBase{
 		            $feeds = curl_exec($ch);
 
 		            $value['loading_status'] = curl_getinfo($ch,CURLINFO_HTTP_CODE);
-		            var_dump($feeds);
-		            echo curl_getinfo($ch,CURLINFO_HTTP_CODE);
+		            
+		            
 		            if (curl_getinfo($ch,CURLINFO_HTTP_CODE) == 200) {
 		                
 		                //HTML进行UTF-8转码
@@ -913,7 +913,7 @@ class Seed extends YqBase{
 		                        $seedToAdd['content'] = $content;
 
 		                        if ($postTime < $checkTime) {
-
+		                        	echo "issue with the check time";
 		                        } else {
 		                            if (isset($value['source_parent`'])) {
 		                                $sourceName = $value['source_parent'];
@@ -929,7 +929,7 @@ class Seed extends YqBase{
 
 		                }
 
-
+		                var_dump($seedsToLoad);
 		                //统一进行查重
 
 		                $titles_cursor = $this->db->Proseed->find(array(
