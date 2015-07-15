@@ -137,6 +137,9 @@ class SeedView extends Seed{
 		th_combiner( '小类');
 		th_combiner( '数量');
 
+
+		echo '<div class="table-responsive"><table class="table table-striped">';
+		echo '<thead><tr>';
 		echo '<tr></thead>';
 		
 
@@ -150,6 +153,7 @@ class SeedView extends Seed{
 			}
 
 		}
+		echo '</table></div>';
 		//echo '<h3><a href="?action=媒体分类查看&channel='.'空白'.'">'.'空白 '.$mediaChannels['blank']."</a></h3>";
 
 
