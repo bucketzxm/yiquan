@@ -131,17 +131,18 @@ class SeedView extends Seed{
 			
 		}
 
-				//th_combiner('类别');
-		th_combiner('大类');
-		//th_combiner( '近三天·文章数目');
-		th_combiner( '小类');
-		th_combiner( '数量');
 
 
 		echo '<div class="table-responsive"><table class="table table-striped">';
 		echo '<thead><tr>';
 		echo '<tr></thead>';
 		
+						//th_combiner('类别');
+		th_combiner('大类');
+		//th_combiner( '近三天·文章数目');
+		th_combiner( '小类');
+		th_combiner( '数量');
+
 
 		foreach ($mediaChannels as $keys => $values) {
 			foreach ($values as $keyss => $valuess) {
