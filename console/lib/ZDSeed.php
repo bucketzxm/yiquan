@@ -688,6 +688,7 @@ class Seed extends YqBase{
 		//依次读取每个Source
 		foreach ($sources as $key => $value) {
 		    echo "<h2>" . $value['source_name'] . "</h2>";
+		    echo "<h2>" . date("Y-m-d H:i",$checkTime). "</h2>";
 		    $checkTime = $value['check_time'];
 
 
