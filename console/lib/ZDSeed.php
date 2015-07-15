@@ -635,7 +635,7 @@ class Seed extends YqBase{
 
 	function loadSingleSource($sourceID){
 		
-		$sources = $this->db->Prosource->find(array('_id' = new MongoId($sourceID)));
+		$sources = $this->db->Prosource->find(array('_id' => new MongoId($sourceID)));
 
 
 		//提出一个月以前的
