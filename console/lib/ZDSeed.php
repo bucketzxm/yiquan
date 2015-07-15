@@ -660,11 +660,11 @@ class Seed extends YqBase{
 		        $seed['seed_industryHotness'][$industry] = $hotness * exp ((-0.05) * ((time() - $seed['seed_hotnessTime'])/3600));
 		    }*/
 		    $seed['seed_hotnessTime'] = time();
-		    $db->Proseed->save($seed);
+		    $this->db->Proseed->save($seed);
 		}
 
 
-		$words = $db->Prowords->find();
+		$words = $this->db->Prowords->find();
 		foreach ($words as $key1 => $word) {
 		    if (floor((time() - $word['word_checkTime'])/86400) >0) {
 		        $newHotness = $word['word_hotness'] * exp((-0.05) * floor((time() - $word['word_checkTime'])/86400)); 
@@ -679,7 +679,7 @@ class Seed extends YqBase{
 		        }
 		        
 		        $word['word_checkTime'] = time();
-		        $db->Prowords->save($word);
+		        $this->db->Prowords->save($word);
 		    }
 		}
 
@@ -928,7 +928,7 @@ class Seed extends YqBase{
 
 		                //统一进行查重
 
-		                $titles_cursor = $db->Proseed->find(array(
+		                $titles_cursor = $this->db->Proseed->find(array(
 		                    'seed_dbWriteTime' => array('$gt' => (time() - 86400))));
 
 
@@ -939,7 +939,7 @@ class Seed extends YqBase{
 		                }
 
 		                $sourceTitles = array();
-		                $sourceTitle_cursor = $db->Proseed->find(array(
+		                $sourceTitle_cursor = $this->db->Proseed->find(array(
 		                    'seed_sourceID' => (string)$value['_id'],
 		                    'seed_dbWriteTime' => array('$gt' => (time() - 86400*30))
 		                    ));
@@ -1359,7 +1359,7 @@ class Seed extends YqBase{
 
 		//找到所有的没有图片和正文的新闻
 
-		$uncompleteSeeds = $db->Proseed->find(array('seed_sourceID' => $sourceID,'seed_dbWriteTime'=> array ('$gt' => (time()-86400)),'seed_text' => '','seed_completeStatus' => 'uncompleted'));
+		$uncompleteSeeds = $this->db->Proseed->find(array('seed_sourceID' => $sourceID,'seed_dbWriteTime'=> array ('$gt' => (time()-86400)),'seed_text' => '','seed_completeStatus' => 'uncompleted'));
 
 		foreach ($uncompleteSeeds as $key => $seed) {
 		    
@@ -1413,7 +1413,7 @@ class Seed extends YqBase{
 
 		            
 
-		            $source = $db->Prosource->findOne(array('_id' => new MongoId($seed['seed_sourceID'])));
+		            $source = $this->db->Prosource->findOne(array('_id' => new MongoId($seed['seed_sourceID'])));
 
 		            $source_openTag = $source['source_tag'][0];
 		            $source_closeTag = $source['source_tag'][1];
