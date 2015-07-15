@@ -1320,14 +1320,14 @@ class Seed extends YqBase{
 		                                    //var_dump($proseed->save($seed));
 		                                    //var_dump($seed);
 		                                    //var_dump($dataToSave);
-		                                    $proseed->save($dataToSave);
+		                                    $this->db->Proseed->save($dataToSave);
 		                                    array_push($titles, $dataToSave);
 		                                    array_push($sourceTitles, $dataToSave);
 
 		                                    foreach ($dataToSave['seed_similar'] as $keyzzz => $valuezzz) {
-		                                    	$news = $proseed -> findOne(array('_id'=> new MongoId($valuezzz)));
+		                                    	$news = $this->db->Proseed -> findOne(array('_id'=> new MongoId($valuezzz)));
 		                                    	array_push($news['seed_similar'], (string)$dataToSave['_id']);
-		                                    	$proseed->save($news);
+		                                    	$this->db->Proseed->save($news);
 		                                    }
 
 		                                }
