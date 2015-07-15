@@ -109,26 +109,46 @@ class SeedView extends Seed{
 		$mediaChannels = array();
 		$sources = $this->db->Prosource->find(array('source_domain'=>'business', 'source_status' => 'active'));
 		foreach ($sources as $key => $value) {
-			if (isset($value['source_industry'][0])) {
-				if (isset($mediaChannels[$value['source_industry'][0]])) {
-					$mediaChannels[$value['source_industry'][0]] ++;
+
+
+			if (isset($value['source_industry'][1])) {
+				$firstCategory = $value['source_industry'][0];
+				$secondCategory = $value['source_industry'][1];	
+				if (isset($mediaChannels[$firstCategory][$secondCategory])) {
+					$mediaChannels[$firstCategory][$secondCategory] ++;
 				}else{
-					$mediaChannels[$value['source_industry'][0]] = 1;
+					$mediaChannels[$firstCategory][$secondCategory] = 1;
 
 				}	
 			}else{
-				if (isset($mediaChannels['blank'])) {
-					$mediaChannels['blank'] ++;
+				if (isset($mediaChannels['blank']['blank'])) {
+					$mediaChannels['blank']['blank'] ++;
 				}else{
-					$mediaChannels['blank'] = 1;
+					$mediaChannels['blank']['blank'] = 1;
 
 				}	
 			}
 			
 		}
 
+				//th_combiner('类别');
+		th_combiner('大类');
+		//th_combiner( '近三天·文章数目');
+		th_combiner( '小类');
+		th_combiner( '数量');
+
+		echo '<tr></thead>';
+		
+
 		foreach ($mediaChannels as $keys => $values) {
-			echo '<h3><a href="?action=mediabychannel&channel='.$keys.'">'.$keys.' '.$values."</a></h3>";
+			foreach ($values as $keyss => $valuess) {
+				echo '<tr>';
+				td_combiner($keys);
+				td_combiner($keyss);
+				td_combiner($valuess);
+				echo '</tr>';
+			}
+
 		}
 		//echo '<h3><a href="?action=媒体分类查看&channel='.'空白'.'">'.'空白 '.$mediaChannels['blank']."</a></h3>";
 
