@@ -986,21 +986,21 @@ class Seed extends YqBase{
 		                        if (count($keywords) > 6){
 		                        	foreach ($titles as $key3 => $title_name) {
 
-		    	                        if ( find_same2($keywords, $title_name['seed_keywordDict'])==1) {//$title_name['seed_industry'] == $industry &&
+		    	                        if ( $this->find_same2($keywords, $title_name['seed_keywordDict'])==1) {//$title_name['seed_industry'] == $industry &&
 		    	                            //echo '<p>' . $seed['title'] . '</p>';
 		    	                            //echo '<p>' . $title_name['seed_title'] . '</p>';
 		    	                            $same = true;
 		    	                            break;
 		    	                        }
 
-		    	                        if (find_same2($keywords, $title_name['seed_keywordDict'])==2) {//$title_name['seed_industry'] == $industry && 
+		    	                        if ($this->find_same2($keywords, $title_name['seed_keywordDict'])==2) {//$title_name['seed_industry'] == $industry && 
 		    	                            array_push($seed_similar, (string)$title_name['_id']);
 		    	                        }
 		    	                    }
 
 
 		                            foreach ($sourceTitles as $key4 => $sourceTitle_name) {
-		                                if ( find_same2($keywords, $sourceTitle_name['seed_keywordDict'])==1) {//$title_name['seed_industry'] == $industry &&
+		                                if ( $this->find_same2($keywords, $sourceTitle_name['seed_keywordDict'])==1) {//$title_name['seed_industry'] == $industry &&
 		                                    //echo '<p>' . $seed['title'] . '</p>';
 		                                    //echo '<p>' . $title_name['seed_title'] . '</p>';
 		                                    $same = true;
@@ -1011,7 +1011,7 @@ class Seed extends YqBase{
 
 		                        }else{
 		                            foreach ($titles as $key3 => $title_name) {
-		                            	if (find_same($title, $title_name['seed_title'])==true) {//$title_name['seed_industry'] == $industry && (
+		                            	if ($this->find_same($title, $title_name['seed_title'])==true) {//$title_name['seed_industry'] == $industry && (
 		        	                            //echo '<p>' . $seed['title'] . '</p>';
 		        	                            //echo '<p>' . $title_name['seed_title'] . '</p>';
 		        	                            $same = true;
@@ -1021,7 +1021,7 @@ class Seed extends YqBase{
 		                            }
 
 		                            foreach ($sourceTitles as $key4 => $sourceTitle_name) {
-		                                if ( find_same($title, $sourceTitle_name['seed_title'])==true) {//$title_name['seed_industry'] == $industry &&
+		                                if ( $this->find_same($title, $sourceTitle_name['seed_title'])==true) {//$title_name['seed_industry'] == $industry &&
 		                                    //echo '<p>' . $seed['title'] . '</p>';
 		                                    //echo '<p>' . $sourceTitle_name['seed_title'] . '</p>';
 		                                    $same = true;
