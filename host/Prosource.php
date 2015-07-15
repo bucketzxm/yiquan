@@ -413,7 +413,7 @@ foreach ($sources as $key => $value) {
                     //echo $pattern;
                     preg_match_all($pattern, $feeds, $result);
 
-                    //var_dump($feeds);
+                    var_dump($result);
                     $seedCount = count($result[0]);
                     $elementCount = count($result);
 
