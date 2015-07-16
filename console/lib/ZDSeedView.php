@@ -185,6 +185,7 @@ class SeedView extends Seed{
 		//th_combiner('类别');
 		th_combiner('名称');
 		//th_combiner( '近三天·文章数目');
+		th_combiner('主页');
 		th_combiner( '更新时间');
 		th_combiner( '更新状态');
 		th_combiner( '更新数量');
@@ -209,6 +210,7 @@ class SeedView extends Seed{
 			//td_combiner( $ans[$i]['source_industry'][0]);
 			
 			echo '<td><a href="?action=seedbysource&source='.(string)$ans[$i]['_id'].'">'.$ans[$i]['source_name'].'</a></td>';
+			echo '<td><a href="'.$ans[$i]['source_rssURL'][0].'">'.'前往'.'</a></td>';
 			echo '<td>'.date('m-d H:i',$ans[$i]['check_time']).'</td>';
 			echo '<td>'.$ans[$i]['loading_status'].'</td>';
 			echo '<td>'.(isset($ans[$i]['lastLoadedCount'])? $ans[$i]['lastLoadedCount']:'').'</td>';
