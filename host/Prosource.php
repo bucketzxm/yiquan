@@ -886,10 +886,9 @@ foreach ($sources as $key => $value) {
                                         $completeStatus = 'uncompleted';
                                     }
 
+                                    echo 'check false'.$text;
                                     $text = iconv($encode, 'UTF-8//IGNORE', $text);
-                                    if ($text == false) {
-                                        $text = '';
-                                    }
+                                    
 
                                     $sourceDomain = 'business';
                                     if (isset($value['source_domain'])) {
