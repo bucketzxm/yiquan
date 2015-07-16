@@ -723,7 +723,7 @@ class Seed extends YqBase{
 		            $feeds = curl_exec($ch);
 
 		            $value['loading_status'] = curl_getinfo($ch,CURLINFO_HTTP_CODE);
-		            
+		            $loadingCount = 0;
 		            
 		            if (curl_getinfo($ch,CURLINFO_HTTP_CODE) == 200) {
 		                
@@ -1321,6 +1321,7 @@ class Seed extends YqBase{
 		                                    //var_dump($seed);
 		                                    //var_dump($dataToSave);
 		                                    $this->db->Proseed->save($dataToSave);
+		                                    $loadingCount += 1;
 		                                    array_push($titles, $dataToSave);
 		                                    array_push($sourceTitles, $dataToSave);
 
@@ -1344,6 +1345,7 @@ class Seed extends YqBase{
 		                
 		            }
 		            $value['check_time'] = time();
+		            $value['lastLoadedCount'] = $loadingCount;
 		            $this->db->Prosource->save($value);
 		        } catch (Exception $e) {
 		            var_dump($e);

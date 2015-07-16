@@ -211,7 +211,7 @@ class SeedView extends Seed{
 			echo '<td><a href="?action=seedbysource&source='.(string)$ans[$i]['_id'].'">'.$ans[$i]['source_name'].'</a></td>';
 			echo '<td>'.date('m-d H:i',$ans[$i]['check_time']).'</td>';
 			echo '<td>'.$ans[$i]['loading_status'].'</td>';
-			echo '<td>'.$ans[$i]['lastLoadedCount'].'</td>';
+			echo '<td>'.(isset($ans[$i]['lastLoadedCount'])? $ans[$i]['lastLoadedCount']:'').'</td>';
 			echo '<td><a href="?action=loadSingleSource&source='.(string)$ans[$i]['_id'].'">'.'操作'.'</a></td>';
 			//td_combiner( $ans[$i]['source_name']);
 			//$count=$this->db->Proseed->count( array('seed_sourceID' => (string)$ans[$i]['_id'],'seed_dbWriteTime'=>array('$gt'=>time()-259200)));
