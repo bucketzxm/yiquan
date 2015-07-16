@@ -210,7 +210,7 @@ class SeedView extends Seed{
 			//td_combiner( $ans[$i]['source_industry'][0]);
 			
 			echo '<td><a href="?action=seedbysource&source='.(string)$ans[$i]['_id'].'">'.$ans[$i]['source_name'].'</a></td>';
-			echo '<td><a href="'.$ans[$i]['source_rssURL'][0].'">'.'前往'.'</a></td>';
+			echo '<td><a href="'.$ans[$i]['source_rssURL'][0].'" target="_blank">'.'前往'.'</a></td>';
 			echo '<td>'.date('m-d H:i',$ans[$i]['check_time']).'</td>';
 			echo '<td>'.$ans[$i]['loading_status'].'</td>';
 			echo '<td>'.(isset($ans[$i]['lastLoadedCount'])? $ans[$i]['lastLoadedCount']:'').'</td>';
