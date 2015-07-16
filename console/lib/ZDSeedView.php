@@ -150,7 +150,12 @@ class SeedView extends Seed{
 				td_combiner($keys);
 				td_combiner($keyss);
 				td_combiner($valuess);
-				echo '<td><a href="?action=mediabychannel&channel='.$keyss.'">'.'查看'.'</a></td>';
+				if ($keyss == 'blank') {
+					echo '<td><a href="?action=mediabychannel&channel=空白">'.'查看'.'</a></td>';
+				}else{
+					echo '<td><a href="?action=mediabychannel&channel='.$keyss.'">'.'查看'.'</a></td>';	
+				}
+				
 				echo '</tr>';
 			}
 
@@ -182,6 +187,7 @@ class SeedView extends Seed{
 		//th_combiner( '近三天·文章数目');
 		th_combiner( '更新时间');
 		th_combiner( '更新状态');
+		th_combiner( '更新数量');
 		th_combiner( '操作');
 		th_combiner( '24小时内·文章数目');
 		th_combiner( '昨天·文章数目');
@@ -205,6 +211,7 @@ class SeedView extends Seed{
 			echo '<td><a href="?action=seedbysource&source='.(string)$ans[$i]['_id'].'">'.$ans[$i]['source_name'].'</a></td>';
 			echo '<td>'.date('m-d H:i',$ans[$i]['check_time']).'</td>';
 			echo '<td>'.$ans[$i]['loading_status'].'</td>';
+			echo '<td>'.$ans[$i]['lastLoadedCount'].'</td>';
 			echo '<td><a href="?action=loadSingleSource&source='.(string)$ans[$i]['_id'].'">'.'操作'.'</a></td>';
 			//td_combiner( $ans[$i]['source_name']);
 			//$count=$this->db->Proseed->count( array('seed_sourceID' => (string)$ans[$i]['_id'],'seed_dbWriteTime'=>array('$gt'=>time()-259200)));
