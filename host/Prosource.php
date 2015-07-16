@@ -887,7 +887,9 @@ foreach ($sources as $key => $value) {
                                     }
 
                                     $codedText = iconv($encode, 'UTF-8//IGNORE', $text);
-                                    if ($codedText != false) {
+                                    if ($codedText === false) {
+                                        
+                                    }else{
                                         $text = $codedText;
                                     }
 
