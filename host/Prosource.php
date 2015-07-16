@@ -380,6 +380,7 @@ foreach ($sources as $key => $value) {
             $feeds = curl_exec($ch);
 
             $value['loading_status'] = curl_getinfo($ch,CURLINFO_HTTP_CODE);
+            $loadingCount = 0;
             if (curl_getinfo($ch,CURLINFO_HTTP_CODE) == 200) {
                 //HTML进行UTF-8转码
                 $encode = mb_detect_encoding($feeds, array('ASCII', 'UTF-8', 'GB2312', 'GBK', "EUC-CN", "CP936"));
@@ -976,6 +977,7 @@ foreach ($sources as $key => $value) {
                                     //var_dump($seed);
                                     //var_dump($dataToSave);
                                     $proseed->save($dataToSave);
+                                    $loadingCount += 1;
                                     array_push($titles, $dataToSave);
                                     array_push($sourceTitles, $dataToSave);
 
@@ -999,6 +1001,7 @@ foreach ($sources as $key => $value) {
                 
             }
             $value['check_time'] = time();
+            $value['lastLoadedCount'] = $loadingCount;
             $prosource->save($value);
         } catch (Exception $e) {
             var_dump($e);
