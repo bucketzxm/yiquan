@@ -173,7 +173,7 @@ class SeedView extends Seed{
 
 		$ans = [ ];
 		
-		$cus=$this->db->Prosource->find(array('source_industry' => $channel,'source_status' => 'active'));
+		$cus=$this->db->Prosource->find(array('source_industry' => $channel,'source_domain' => 'business','source_status' => 'active'));
 		while ( $cus->hasNext () ) {
 			$doc = $cus->getNext ();
 			$ans [] = $doc;
