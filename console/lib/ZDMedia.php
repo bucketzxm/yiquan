@@ -156,6 +156,14 @@ class Media extends YqBase{
 			}
 
 
+			if ($arr ['domain']!= "") {
+				$row ['source_domain'] = $arr ['domain'];
+
+			}  else {
+
+				//unset($row ['source_description']);
+			}
+
 			if ($arr ['industry']!= "") {
 				$row ['source_industry'] = explode(',', $arr ['industry']);
 
@@ -250,7 +258,7 @@ class Media extends YqBase{
 			}  
 
 
-			
+					
 
 
 			if ($arr ['description']!= "") {
