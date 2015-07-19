@@ -65,8 +65,8 @@ class SeedView extends Seed{
 			td_combiner((isset($arr[$i]['seed_hotness']) ? floor($arr[$i]['seed_hotness']): ''));
 			td_combiner((isset($arr[$i]['seed_editorRating']) ? $arr[$i]['seed_editorRating']: '-1'));
 
-			echo '<td><a href="?action=editSeed&mindex=' . $arr [$i] ['_id']->{'$id'} . '">编辑</a></td>';
-			echo '<td><a href="?action=deleteSeed&mindex=' . $arr [$i] ['_id']->{'$id'} . '">枪毙</a></td>';
+			echo '<td><a href="?action=editSeed&mindex=' . $arr [$i] ['_id']->{'$id'} . '" target="_blank">编辑</a></td>';
+			echo '<td><a href="?action=deleteSeed&mindex=' . $arr [$i] ['_id']->{'$id'} . '" target="_blank">枪毙</a></td>';
 
 			echo '</tr>';
 
@@ -274,17 +274,17 @@ class SeedView extends Seed{
 		echo '<div class="form-group"><h2>文章题图</h2>';		
 		echo '<img src="'.$arr['seed_imageLink'].'" width= 50% />';
 		echo '<textarea class="form-control" rows="3" cols="80" name="imageLink">' . (isset($arr ['seed_imageLink']) ? $arr ['seed_imageLink']:'' ). '</textarea></div>';
-		echo '<div class="form-group"><h2>值得一读数量</h2>';
-		echo '<textarea class="form-control" rows="3" cols="80" name="agreeCount">' . (isset($arr ['seed_agreeCount']) ? $arr ['seed_agreeCount']:'' ). '</textarea></div>';
+		//echo '<div class="form-group"><h2>值得一读数量</h2>';
+		//echo '<textarea class="form-control" rows="3" cols="80" name="agreeCount">' . (isset($arr ['seed_agreeCount']) ? $arr ['seed_agreeCount']:'' ). '</textarea></div>';
 		
 		echo '<div class="form-group"><h2>文章所属领域</h2>';
 		echo '<textarea class="form-control" rows="3" cols="80" name="seedDomain">' . (isset($arr ['seed_domain']) ? $arr ['seed_domain']:'' ). '</textarea></div>';
 
-		echo '<div class="form-group"><h2>热度</h2>';
-		echo '<textarea class="form-control" rows="3" cols="80" name="hotness">' . (isset($arr ['seed_hotness']) ? $arr ['seed_hotness']:'') . '</textarea></div>';
+		//echo '<div class="form-group"><h2>热度</h2>';
+		//echo '<textarea class="form-control" rows="3" cols="80" name="hotness">' . (isset($arr ['seed_hotness']) ? $arr ['seed_hotness']:'') . '</textarea></div>';
 		echo '<div class="form-group"><h2>小编指数</h2>';
-		echo '<h4>-1：未编辑；</h4><h4>0：一般收入；1：推荐；2：极力推荐；</h4><h4>-2：营销；-3：质量太差</h4>';
-		echo '<textarea class="form-control" rows="3" cols="80" name="rating">' . (isset($arr ['seed_editorRating']) ? $arr ['seed_editorRating']:'-1') . '</textarea></div>';
+		//echo '<h4>-1：未编辑；</h4><h4>0：一般收入；1：推荐；2：极力推荐；</h4><h4>-2：营销；-3：质量太差</h4>';
+		echo '<textarea class="form-control" rows="3" cols="80" name="rating">' . 0 . '</textarea></div>';//(isset($arr ['seed_editorRating']) ? $arr ['seed_editorRating']:'-1')
 
 		echo '<div class="form-group"><h2>行业或标签,逗号隔开</h2>';
 		echo '<textarea class="form-control" rows="3" cols="80" name="industry">' . (isset($arr ['seed_industry']) ? implode(',', $arr ['seed_industry']) :''). '</textarea></div>';
