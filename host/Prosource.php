@@ -877,7 +877,7 @@ foreach ($sources as $key => $value) {
                                     }
 
                                     if ($seed['imageCount'] > 5 ) {
-                                        $title = $title.'（多图）';
+                                        //$title = $title.'（多图）';
                                     }
 
 
@@ -1153,7 +1153,7 @@ foreach ($uncompleteSeeds as $key => $seed) {
             }
             
             if ($imgCount > 5 ) {
-                $seed['seed_title'] = $seed['seed_title'].'（多图）';
+                //$seed['seed_title'] = $seed['seed_title'].'（多图）';
             }
         
             $encodeAgain = mb_detect_encoding($text, array('ASCII', 'UTF-8', 'GB2312', 'GBK', "EUC-CN", "CP936"));
