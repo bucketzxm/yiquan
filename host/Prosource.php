@@ -889,6 +889,9 @@ foreach ($sources as $key => $value) {
                                     echo 'check false'.$text;
                                     $text = iconv($encode, 'UTF-8//IGNORE', $text);
                                     
+                                    if ($text == false) {
+                                        $text = '';
+                                    }
 
                                     $sourceDomain = 'business';
                                     if (isset($value['source_domain'])) {
@@ -928,14 +931,14 @@ foreach ($sources as $key => $value) {
                                     $seedIndustry = array();
                                     //$industryHotness = array();
 
-                                    if ($text != '' && $sourceDomain == 'business') {
-                                        $protext = new Protext; 
-                                        $parserResult = $protext->parseIndustry($text,strtolower($title));    
-                                        $dataToSave['seed_textIndustryWords'] = $parserResult['seed_textIndustryWords'];
+                                    //**if ($text != '' && $sourceDomain == 'business') {
+                                        //**$protext = new Protext; 
+                                        //**$parserResult = $protext->parseIndustry($text,strtolower($title));    
+                                        //**$dataToSave['seed_textIndustryWords'] = $parserResult['seed_textIndustryWords'];
                                         
-                                        foreach($parserResult['seed_industryParsed'] as $industryParsed){
+                                        //**foreach($parserResult['seed_industryParsed'] as $industryParsed){
 
-                                            array_push($seedIndustry,$industryParsed);
+                                            //**array_push($seedIndustry,$industryParsed);
                                             //$industryHotness[$industryParsed] = 0;
                                             /*
                                             $segmentResult = $protext->parseSegment($parserResult['seed_textIndustryWords'],$industryParsed);
@@ -945,7 +948,7 @@ foreach ($sources as $key => $value) {
                                                 }
                                             }
                                             */
-                                        };
+                                        //**};
                                         /*
                                         foreach ($parserResult['seed_segmentParsed'] as $key2 => $segment) {
                                             if (!in_array($segment,$seedIndustry)) {
@@ -953,7 +956,7 @@ foreach ($sources as $key => $value) {
                                             }
                                         }
                                         */
-                                    }
+                                    //**}
 
                                     /*
                                     if (isset($value['source_industry'])){
@@ -966,7 +969,7 @@ foreach ($sources as $key => $value) {
                                     }*/
                                     
 
-                                    $dataToSave['seed_industry'] = $seedIndustry;
+                                    //**$dataToSave['seed_industry'] = $seedIndustry;
                                     //$dataToSave['seed_industryHotness'] = $industryHotness;
 
                                     
