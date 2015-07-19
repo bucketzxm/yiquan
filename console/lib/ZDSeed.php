@@ -227,7 +227,7 @@ class Seed extends YqBase{
 				//$row['seed_industry'] = array();
 				//unset($row ['seed_industry']);
 			}			
-
+			/*
 			if ($arr['hotness']!= "") {
 				$row ['seed_hotness'] = $arr ['hotness'];
 
@@ -243,7 +243,7 @@ class Seed extends YqBase{
 			}  else {
 
 				//unset($row ['seed_agreeCount']);
-			}
+			}*/
 			if ($arr['rating']!= "") {
 				$row ['seed_editorRating'] = (int)$arr['rating'];
 
