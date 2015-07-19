@@ -279,7 +279,10 @@ class SeedView extends Seed{
 		//echo '<div class="form-group"><h2>热度</h2>';
 		//echo '<textarea class="form-control" rows="3" cols="80" name="hotness">' . (isset($arr ['seed_hotness']) ? $arr ['seed_hotness']:'') . '</textarea></div>';
 		echo '<div class="form-group"><h2>小编指数</h2>';
-		//echo '<h4>-1：未编辑；</h4><h4>0：一般收入；1：推荐；2：极力推荐；</h4><h4>-2：营销；-3：质量太差</h4>';
+		if ($arr['seed_editorRating' == 0]) {
+			echo '<h4>1：一般；2推荐：；3: 极力推荐</h4>';	
+		}
+		
 		echo '<textarea class="form-control" rows="3" cols="80" name="rating">' . 0 . '</textarea></div>';//(isset($arr ['seed_editorRating']) ? $arr ['seed_editorRating']:'-1')
 
 		echo '<div class="form-group"><h2>行业或标签,逗号隔开</h2>';
