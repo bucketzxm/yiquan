@@ -262,10 +262,10 @@ class SeedView extends Seed{
 	function showOneSeed_form($arr) {
 
 		echo '<h3><a href="'.$arr['seed_link'].'" target="_blank">查看原文</a></h3>';
-		echo '<h3>文章题图</h3>';
+		//echo '<h3>文章题图</h3>';
 				
 
-		echo '<div>'.$arr['seed_text'].'</div>';
+		//echo '<div>'.$arr['seed_text'].'</div>';
 
 		echo '<div><form method="post" action="?action=editSeed">';
 		echo '<input type="hidden" class="form-control" name="id" value="' . $arr ['_id']->{'$id'} . '"/>';
