@@ -180,8 +180,6 @@ class SeedView extends Seed{
 		}
 		
 	
-		
-
 		//th_combiner('类别');
 		th_combiner('名称');
 		//th_combiner( '近三天·文章数目');
@@ -199,8 +197,6 @@ class SeedView extends Seed{
 		//th_combiner( '六天前·文章数目');
 		th_combiner( '没文章总数');
 		th_combiner( '没文章总率');
-
-
 
 
 		echo '<tr></thead>';
@@ -291,79 +287,35 @@ class SeedView extends Seed{
 
 		//Label System
 		if ($arr['seed_domain'] == 'business') {
-			$all_labels = $this->db->ProMediaGroup->find(array('group_type' => 'business'))->sort(array('group_rank' => 1));
-			$counter = 0;
-			echo '<div class="table-responsive"><table class="table table-striped">';
-			echo '<thead><tr>';
-			echo '<th>商业栏目(必填)</th><th></th><th></th><th></th><th></th></tr></thead>';
-			foreach ($all_labels as $key => $source_cur) {
-				
-				$source_name=$source_cur['mediaGroup_title'];//['source_name'];
-				if ($counter%5==0) {
-					echo '<tr>';
-				}
-				echo td_combiner("$source_name: ".'<input type="checkbox" name="source_box[]" value='."$source_name".'>') ;
-				if ($counter%5==4) {
-					echo '</tr>';
-				}
-				$counter+=1;
-			}
-			echo '</table></div>';
-
-
-			$modeList = $this->db->Prosystem->findOne(array('para_name' => 'business_functions'));
-
-		
-			$counter = 0;
-			echo '<div class="table-responsive"><table class="table table-striped">';
-			echo '<thead><tr>';
-			echo '<th>商业职能</th><th></th><th></th><th></th><th></th></tr></thead>';
-			foreach ($modeList['mode_list'] as $key => $source_cur) {
-				
-				$source_name=$source_cur;///['mediaGroup_title'];//['source_name'];
-				if ($counter%5==0) {
-					echo '<tr>';
-				}
-				echo td_combiner("$source_name: ".'<input type="checkbox" name="source_box[]" value='."$source_name".'>') ;
-				if ($counter%5==4) {
-					echo '</tr>';
-				}
-				$counter+=1;
-			}	
-		
-			echo '</table></div>';
-
-			$modeList = $this->db->Prosystem->findOne(array('para_name' => 'business_modes'));
-
-		
-			$counter = 0;
-			echo '<div class="table-responsive"><table class="table table-striped">';
-			echo '<thead><tr>';
-			echo '<th>商业内容模式</th><th></th><th></th><th></th><th></th></tr></thead>';
-			foreach ($modeList['mode_list'] as $key => $source_cur) {
-				
-				$source_name=$source_cur;///['mediaGroup_title'];//['source_name'];
-				if ($counter%5==0) {
-					echo '<tr>';
-				}
-				echo td_combiner("$source_name: ".'<input type="checkbox" name="source_box[]" value='."$source_name".'>') ;
-				if ($counter%5==4) {
-					echo '</tr>';
-				}
-				$counter+=1;
-			}	
-		
-			echo '</table></div>';
-
-			$mediaGroups = $this->db->ProMediaGroup->find(array('group_type' => 'business'))->sort(array('group_rank' => 1));
-			echo '<h2>'.'行业细分'.'</h2>';
-			foreach ($mediaGroups as $keyGroup => $valueGroup) {
+			if ($arr['seed_editorRating'] == -1) {
+				$all_labels = $this->db->ProMediaGroup->find(array('group_type' => 'business'))->sort(array('group_rank' => 1));
 				$counter = 0;
-				
 				echo '<div class="table-responsive"><table class="table table-striped">';
 				echo '<thead><tr>';
-				echo '<th>'.$valueGroup['mediaGroup_title'].'</th><th></th><th></th><th></th><th></th></tr></thead>';
-				foreach ($valueGroup['mediaGroup_segments'] as $key => $source_cur) {
+				echo '<th>商业栏目(必填)</th><th></th><th></th><th></th><th></th></tr></thead>';
+				foreach ($all_labels as $key => $source_cur) {
+					
+					$source_name=$source_cur['mediaGroup_title'];//['source_name'];
+					if ($counter%5==0) {
+						echo '<tr>';
+					}
+					echo td_combiner("$source_name: ".'<input type="checkbox" name="source_box[]" value='."$source_name".'>') ;
+					if ($counter%5==4) {
+						echo '</tr>';
+					}
+					$counter+=1;
+				}
+				echo '</table></div>';
+
+
+				$modeList = $this->db->Prosystem->findOne(array('para_name' => 'business_functions'));
+
+			
+				$counter = 0;
+				echo '<div class="table-responsive"><table class="table table-striped">';
+				echo '<thead><tr>';
+				echo '<th>商业职能</th><th></th><th></th><th></th><th></th></tr></thead>';
+				foreach ($modeList['mode_list'] as $key => $source_cur) {
 					
 					$source_name=$source_cur;///['mediaGroup_title'];//['source_name'];
 					if ($counter%5==0) {
@@ -377,9 +329,108 @@ class SeedView extends Seed{
 				}	
 			
 				echo '</table></div>';
+
+				$modeList = $this->db->Prosystem->findOne(array('para_name' => 'business_modes'));
+
+			
+				$counter = 0;
+				echo '<div class="table-responsive"><table class="table table-striped">';
+				echo '<thead><tr>';
+				echo '<th>商业内容模式</th><th></th><th></th><th></th><th></th></tr></thead>';
+				foreach ($modeList['mode_list'] as $key => $source_cur) {
+					
+					$source_name=$source_cur;///['mediaGroup_title'];//['source_name'];
+					if ($counter%5==0) {
+						echo '<tr>';
+					}
+					echo td_combiner("$source_name: ".'<input type="checkbox" name="source_box[]" value='."$source_name".'>') ;
+					if ($counter%5==4) {
+						echo '</tr>';
+					}
+					$counter+=1;
+				}	
+			
+				echo '</table></div>';
+
+				$mediaGroups = $this->db->ProMediaGroup->find(array('group_type' => 'business'))->sort(array('group_rank' => 1));
+				echo '<h2>'.'行业细分'.'</h2>';
+				foreach ($mediaGroups as $keyGroup => $valueGroup) {
+					$counter = 0;
+					
+					echo '<div class="table-responsive"><table class="table table-striped">';
+					echo '<thead><tr>';
+					echo '<th>'.$valueGroup['mediaGroup_title'].'</th><th></th><th></th><th></th><th></th></tr></thead>';
+					foreach ($valueGroup['mediaGroup_segments'] as $key => $source_cur) {
+						
+						$source_name=$source_cur;///['mediaGroup_title'];//['source_name'];
+						if ($counter%5==0) {
+							echo '<tr>';
+						}
+						echo td_combiner("$source_name: ".'<input type="checkbox" name="source_box[]" value='."$source_name".'>') ;
+						if ($counter%5==4) {
+							echo '</tr>';
+						}
+						$counter+=1;
+					}	
+				
+					echo '</table></div>';
+				}
+
 			}
 
+			if (($arr['seed_editorRating'] == 0) {
+				//推荐标签
+				$modeList = $this->db->Prosystem->findOne(array('para_name' => 'business_recommendation'));
+
+			
+				$counter = 0;
+				echo '<div class="table-responsive"><table class="table table-striped">';
+				echo '<thead><tr>';
+				echo '<th>商业内容模式</th><th></th><th></th><th></th><th></th></tr></thead>';
+				foreach ($modeList['mode_list'] as $key => $source_cur) {
+					
+					$source_name=$source_cur;///['mediaGroup_title'];//['source_name'];
+					if ($counter%5==0) {
+						echo '<tr>';
+					}
+					echo td_combiner("$source_name: ".'<input type="checkbox" name="source_box[]" value='."$source_name".'>') ;
+					if ($counter%5==4) {
+						echo '</tr>';
+					}
+					$counter+=1;
+				}	
+			
+				echo '</table></div>';
+
+
+				//专业程度标签
+				$modeList = $this->db->Prosystem->findOne(array('para_name' => 'business_seniority'));
+			
+				$counter = 0;
+				echo '<div class="table-responsive"><table class="table table-striped">';
+				echo '<thead><tr>';
+				echo '<th>商业内容模式</th><th></th><th></th><th></th><th></th></tr></thead>';
+				foreach ($modeList['mode_list'] as $key => $source_cur) {
+					
+					$source_name=$source_cur;///['mediaGroup_title'];//['source_name'];
+					if ($counter%5==0) {
+						echo '<tr>';
+					}
+					echo td_combiner("$source_name: ".'<input type="checkbox" name="source_box[]" value='."$source_name".'>') ;
+					if ($counter%5==4) {
+						echo '</tr>';
+					}
+					$counter+=1;
+				}	
+			
+				echo '</table></div>';
+
+
+			}
+
+
 		}
+			
 		
 		if ($arr['seed_domain'] == 'life') {
 			$all_labels = $this->db->ProMediaGroup->find(array('group_type' => 'life'));
