@@ -1270,14 +1270,14 @@ class Seed extends YqBase{
 		                                    $seedIndustry = array();
 		                                    //$industryHotness = array();
 
-		                                    if ($text != '' && $sourceDomain == 'business') {
-		                                        $protext = new Protext; 
-		                                        $parserResult = $protext->parseIndustry($text,strtolower($title));    
-		                                        $dataToSave['seed_textIndustryWords'] = $parserResult['seed_textIndustryWords'];
+		                                    //**if ($text != '' && $sourceDomain == 'business') {
+		                                        //**$protext = new Protext; 
+		                                        //**$parserResult = $protext->parseIndustry($text,strtolower($title));    
+		                                        //**$dataToSave['seed_textIndustryWords'] = $parserResult['seed_textIndustryWords'];
 		                                        
-		                                        foreach($parserResult['seed_industryParsed'] as $industryParsed){
+		                                        //**foreach($parserResult['seed_industryParsed'] as $industryParsed){
 
-		                                            array_push($seedIndustry,$industryParsed);
+		                                            //**array_push($seedIndustry,$industryParsed);
 		                                            //$industryHotness[$industryParsed] = 0;
 		                                            /*
 		                                            $segmentResult = $protext->parseSegment($parserResult['seed_textIndustryWords'],$industryParsed);
@@ -1287,7 +1287,7 @@ class Seed extends YqBase{
 		                                                }
 		                                            }
 		                                            */
-		                                        };
+		                                        //**};
 		                                        /*
 		                                        foreach ($parserResult['seed_segmentParsed'] as $key2 => $segment) {
 		                                            if (!in_array($segment,$seedIndustry)) {
@@ -1295,7 +1295,7 @@ class Seed extends YqBase{
 		                                            }
 		                                        }
 		                                        */
-		                                    }
+		                                    //**}
 
 		                                    /*
 		                                    if (isset($value['source_industry'])){
@@ -1308,7 +1308,7 @@ class Seed extends YqBase{
 		                                    }*/
 		                                    
 
-		                                    $dataToSave['seed_industry'] = $seedIndustry;
+		                                    //**$dataToSave['seed_industry'] = $seedIndustry;
 		                                    //$dataToSave['seed_industryHotness'] = $industryHotness;
 
 		                                    
@@ -1505,14 +1505,14 @@ class Seed extends YqBase{
 		            $seed['seed_completeStatus'] = 'completed';
 
 		            //解析行业
-		            if ($seed['seed_text'] != '' && $seed['seed_domain'] == 'business' ) {
-		                $protext = new Protext;
-		                $parserResult = $protext->parseIndustry($text,strtolower($seed['seed_titleLower']));        
-		                $seed['seed_textIndustryWords'] = $parserResult['seed_textIndustryWords'];
-		                foreach ($parserResult['seed_industryParsed'] as $key1 => $industry) {
-		                    if (!in_array($industry,$seed['seed_industry'])) {
-		                        array_push($seed['seed_industry'],$industry);
-		                    }
+		            //**if ($seed['seed_text'] != '' && $seed['seed_domain'] == 'business' ) {
+		                //**$protext = new Protext;
+		                //**$parserResult = $protext->parseIndustry($text,strtolower($seed['seed_titleLower']));        
+		                //**$seed['seed_textIndustryWords'] = $parserResult['seed_textIndustryWords'];
+		                //**foreach ($parserResult['seed_industryParsed'] as $key1 => $industry) {
+		                    //**if (!in_array($industry,$seed['seed_industry'])) {
+		                        //**array_push($seed['seed_industry'],$industry);
+		                    //**}
 		                    /*
 		                    if (!isset($seed['seed_industryHotness'][$industry])) {
 		                        $seed['seed_industryHotness'][$industry] = 0;
@@ -1525,7 +1525,7 @@ class Seed extends YqBase{
 		                        }
 		                    }
 		                    */
-		                }
+		                //**}
 		                /*
 		                foreach ($parserResult['seed_segmentParsed'] as $key2 => $segment) {
 		                    if (!in_array($segment,$seed['seed_industry'])) {
@@ -1533,7 +1533,7 @@ class Seed extends YqBase{
 		                    }
 		                }*/
 
-		            }
+		            //**}
 		            
 		            $this->db->Proseed->save($seed);
 		            echo $seed['seed_source'].','.$seed['seed_title'].','.$seed['seed_imageLink'];
