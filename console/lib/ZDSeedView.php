@@ -378,7 +378,7 @@ class SeedView extends Seed{
 
 			}
 
-			if (($arr['seed_editorRating'] == 0) {
+			if ($arr['seed_editorRating'] == 0) {
 				//推荐标签
 				$modeList = $this->db->Prosystem->findOne(array('para_name' => 'business_recommendation'));
 
