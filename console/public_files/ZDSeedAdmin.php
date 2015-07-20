@@ -19,6 +19,7 @@ include_once '401.php';
 			<ul class="nav nav-sidebar">
 				<li><a href="?action=媒体文章数据">商业文章初审 <span class="sr-only">(current)</span></a></li>
 				<li><a href="?action=商业文章复审">商业文章复审 <span class="sr-only">(current)</span></a></li>
+				<li><a href="?action=商业文章终审">商业文章终审 <span class="sr-only">(current)</span></a></li>
 				<li><a href="?action=商业文章-已通过">商业文章-已通过 <span class="sr-only">(current)</span></a></li>
 				<li><a href="?action=商业文章-已枪毙">商业文章-已枪毙 <span class="sr-only">(current)</span></a></li>
 				<!--<li><a href="?action=生活文章-待审核">生活文章-待审核 <span class="sr-only">(current)</span></a></li>
@@ -58,7 +59,15 @@ include_once '401.php';
 						case '商业文章复审' :
 							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
 								if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
-									$a->listAllSeed_table($a->queryBizSeedToReview(),0,5000);
+									$a->listAllSeed_table($a->queryBizSeedToReview('1'),0,5000);
+								}
+							}
+							break;
+
+						case '商业文章终审' :
+							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
+								if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
+									$a->listAllSeed_table($a->queryBizSeedToReview('2'),0,5000);
 								}
 							}
 							break;

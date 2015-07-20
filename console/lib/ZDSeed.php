@@ -62,21 +62,27 @@ class Seed extends YqBase{
 		return $ans;
 	}	
 
-	function queryBizSeedToReview($configs = []) {
+	function queryBizSeedToReview($code) {
 		$ans = [ ];
-		if (empty ( $configs )) {
-			$cus = $this->db->Proseed->find (array('seed_domain' => 'business','seed_editorRating' => 0,'seed_text' => array('$ne' => ''),'seed_dbWriteTime'=>array('$gt'=>(time()-86400*3))))->limit(500)->sort(array('seed_dbWriteTime' => -1));
+		if ($code == '1') {
+			$cus = $this->db->Proseed->find (array('seed_domain' => 'business','seed_editorRating' => 0,'seed_industry' => [],'seed_text' => array('$ne' => ''),'seed_dbWriteTime'=>array('$gt'=>(time()-86400*3))))->limit(500)->sort(array('seed_dbWriteTime' => -1));
 			while ( $cus->hasNext () ) {
 				$doc = $cus->getNext ();
 				$ans [] = $doc;
 			}
-		} else {
+		} else if ($code == '2'){
+			/*
 			if (isset ( $configs ['type'] )) {
 				if ($configs ['type'] == 'findone') {
 					$ans = $this->db->Proseed->findOne ( array (
 							'_id' => new MongoId ( $configs ['value'] ) 
 					) );
 				}
+			}*/
+			$cus = $this->db->Proseed->find (array('seed_domain' => 'business','seed_editorRating' => 0,'seed_industry' => array ('$ne' => []),'seed_text' => array('$ne' => ''),'seed_dbWriteTime'=>array('$gt'=>(time()-86400*3))))->limit(500)->sort(array('seed_dbWriteTime' => -1));
+			while ( $cus->hasNext () ) {
+				$doc = $cus->getNext ();
+				$ans [] = $doc;
 			}
 		}
 		return $ans;
