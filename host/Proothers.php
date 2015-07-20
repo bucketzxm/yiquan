@@ -189,6 +189,9 @@ function clear_unmeaningful_char($title){
             $sources = $db->Prosource->find(array('source_domain' => 'business','source_status' => 'active'));
 
             $worths = $db->Proworth->find();
+            
+
+
             /*
             foreach ($worths as $key => $value) {
                 if (!isset($value['like_status'])) {
@@ -223,9 +226,9 @@ function clear_unmeaningful_char($title){
             }*/
 
             
-            foreach ($sources as $key => $value) {
+            //foreach ($sources as $key => $value) {
                 //$value['source_status'] = 'active';
-                echo '<h3>'.$value['source_name'].' '.$value['loading_status'].' '.date('Y-m-d H:i',$value['check_time']).'</h3>';
+                //echo '<h3>'.$value['source_name'].' '.$value['loading_status'].' '.date('Y-m-d H:i',$value['check_time']).'</h3>';
 
                 /*
                 if (isset($value['source_image'])) {
@@ -297,10 +300,16 @@ function clear_unmeaningful_char($title){
                     //$seed['seed_domain'] = $source['source_domain'];
                     
              */       
-            }
+            //}
 
 
-            //foreach ($seeds as $key => $value) {
+            foreach ($seeds as $key => $value) {
+
+                if ($value['seed_dbWriteTime'] < time()-86400*3) {
+                    $value['seed_industry'] = array();
+
+                    $db->Proseed->save($value);
+                }
              //   $value['seed_active'] = '1';
               //  $db->Proseed->save($value);
 
@@ -319,7 +328,7 @@ function clear_unmeaningful_char($title){
                     echo '<h3>'.$value['seed_source'].' '.$value['seed_title'].'</3>';     
                 }
                 */
-            //}
+            }
 			
 			/*
 			foreach ($sources as $key => $source) {
