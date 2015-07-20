@@ -355,7 +355,7 @@ function getSelectedSeeds($industryList,$readSeeds){
 					),
 					//'seed_sourceID' => array('$in' => $sourceList),
 					'seed_industry' => $likedIndustry,
-					'seed_editorRating' => array('$gte' => 0),
+					'seed_editorRating' => array('$gt' => 0),
 					'$nor' => array(
 						array (
 							'$and' => array (
@@ -443,7 +443,7 @@ function querySeedsByGroup ($user_id,$group_id,$time){
 			),
 			//'seed_sourceID' => array('$in' => $groupSources),
 			'seed_industry' => $group['mediaGroup_title'],
-			'seed_editorRating' => array ('$gte' => 0),
+			'seed_editorRating' => array ('$gt' => 0),
 			'$nor' => array(
 				array (
 					'$and' => array (
@@ -523,7 +523,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 							)
 						),
 					'seed_time' => array ('$lt' => $time),
-					'seed_editorRating' => array ('$gte' => 0),
+					'seed_editorRating' => array ('$gt' => 0),
 					'$and' => array(
 						array(
 							'$or' => array(
@@ -1684,7 +1684,7 @@ function queryMySeedsByKeyword($user_id,$time,$keyword){
 		$time = (int)$time;
 
 		$result = array();
-		$seeds = $this->db->Proseed->find(array('seed_sourceID' => $source_id,'seed_editorRating' => array('$gte' => 0),'seed_time' => array('$lt' => $time)))->sort(array('seed_time' => -1))->limit(10);
+		$seeds = $this->db->Proseed->find(array('seed_sourceID' => $source_id,'seed_editorRating' => array('$gt' => 0),'seed_time' => array('$lt' => $time)))->sort(array('seed_time' => -1))->limit(10);
 		foreach ($seeds as $key => $value) {
 			array_push($result,$value);
 		}
