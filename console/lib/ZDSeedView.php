@@ -294,7 +294,7 @@ class SeedView extends Seed{
 
 		//Label System
 		if ($arr['seed_domain'] == 'business') {
-			if ($arr['seed_editorRating'] == -1) {
+			if ($arr['seed_editorRating'] == 0 && !isset($arr['seed_industry'][0])) {
 				$all_labels = $this->db->ProMediaGroup->find(array('group_type' => 'business'))->sort(array('group_rank' => 1));
 				$counter = 0;
 				echo '<div class="table-responsive"><table class="table table-striped">';
@@ -385,7 +385,7 @@ class SeedView extends Seed{
 
 			}
 
-			if ($arr['seed_editorRating'] == 0) {
+			if ($arr['seed_editorRating'] == 0 && isset($arr['seed_industry'][0])) {
 				//推荐标签
 				$modeList = $this->db->Prosystem->findOne(array('para_name' => 'business_recommendation'));
 
