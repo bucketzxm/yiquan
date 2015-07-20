@@ -65,7 +65,11 @@ class SeedView extends Seed{
 			td_combiner((isset($arr[$i]['seed_hotness']) ? floor($arr[$i]['seed_hotness']): ''));
 			td_combiner((isset($arr[$i]['seed_editorRating']) ? $arr[$i]['seed_editorRating']: '-1'));
 
-			echo '<td><a href="?action=editSeed&mindex=' . $arr [$i] ['_id']->{'$id'} . '" target="_blank">编辑</a></td>';
+			if ($arr[$i]['seed_editorRating'] == -1) {
+				echo '<td><a href="?action=passSeed&mindex=' . $arr [$i] ['_id']->{'$id'} . '" target="_blank">通过</a></td>';	
+			}else {
+				echo '<td><a href="?action=editSeed&mindex=' . $arr [$i] ['_id']->{'$id'} . '" target="_blank">编辑</a></td>';	
+			}
 			echo '<td><a href="?action=deleteSeed&mindex=' . $arr [$i] ['_id']->{'$id'} . '" target="_blank">枪毙</a></td>';
 
 			echo '</tr>';

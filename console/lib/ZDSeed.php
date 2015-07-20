@@ -294,6 +294,20 @@ class Seed extends YqBase{
 		}
 	}
 
+	function passSeed($Seedid) {
+		try {
+
+			$seedToDelete = $this->db->Proseed->findOne ( array (
+					'_id' => new MongoID ( $Seedid ) 
+			) );
+			$seedToDelete['seed_editorRating'] = 0;
+			$this->db->Proseed->save($seedToDelete);
+			return 1;
+		} catch ( Exception $e ) {
+			return - 1;
+		}
+	}
+
 
 ######################################################################
 	function getReport($configs = []) {
