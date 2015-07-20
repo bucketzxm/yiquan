@@ -192,7 +192,7 @@ include_once '401.php';
 
 							break;
 
-						case 'deleteSeed' :
+						case 'passSeed' :
 							/*
 							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
 								if (isset ( $_GET ['mindex'] )) {
