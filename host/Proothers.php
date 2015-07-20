@@ -305,7 +305,7 @@ function clear_unmeaningful_char($title){
 
             foreach ($seeds as $key => $value) {
 
-                if ($value['seed_dbWriteTime'] < time()-86400*3) {
+                if ($value['seed_dbWriteTime'] < time()-86400) {
                     $value['seed_industry'] = array();
 
                     $db->Proseed->save($value);
