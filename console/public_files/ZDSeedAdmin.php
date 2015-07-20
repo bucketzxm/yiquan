@@ -208,7 +208,7 @@ include_once '401.php';
 							*/
 							$a->passSeed ( $_GET ['mindex'] );
 
-							echo '枪毙成功';
+							echo '通过成功';
 							//echo "<script> {window.alert('枪毙成功');} </script>";
 
 							break;
