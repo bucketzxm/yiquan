@@ -356,7 +356,7 @@ function getSelectedSeeds($industryList,$readSeeds){
 					),
 					//'seed_sourceID' => array('$in' => $sourceList),
 					//'seed_industry' => $likedIndustry,
-					'seed_sourceID' => array('$in' => $industryList),
+					'seed_sourceID' => $likedIndustry,
 					'seed_editorRating' => array('$gt' => 0),
 					'$nor' => array(
 						array (
