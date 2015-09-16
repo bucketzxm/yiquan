@@ -190,14 +190,15 @@ class Proseed extends YqBase {
 			$businessGroups = $this->db->ProMediaGroup->find(array('_id' => array('$in' => $userBusinessGroups)));
 			$industryList = array ();
 			foreach ($businessGroups as $keyMG => $group) {
-				/*
+				
 				foreach ($group['mediaGroup_sourceList'] as $keyS => $source) {
-					if (!isset($sourceList[$source['source_id']])) {
-						$sourceList[$source['source_id']] = $source['source_id'];
+					if (isset($source['source_id'])) {
+						//$sourceList[$source['source_id']] = $source['source_id'];
+						array_push($industryList, $source['source_id']);
 					}
 				}
-				*/
-				array_push($industryList, $group['mediaGroup_title']);
+				
+
 
 			}
 			//array_push($sourceList, "5542329709f778a5068b457f");
