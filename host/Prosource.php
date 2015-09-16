@@ -923,7 +923,7 @@ foreach ($sources as $key => $value) {
                                         'seed_completeStatus' => $completeStatus,
                                         'seed_domain' => $sourceDomain,
                                         'seed_active' => '1',
-                                        'seed_editorRating' => -1
+                                        'seed_editorRating' => 1
                                         
                                     );
 
