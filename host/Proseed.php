@@ -230,14 +230,15 @@ class Proseed extends YqBase {
 			$lifeGroups = $this->db->ProMediaGroup->find(array('_id' => array('$in' => $userLifeGroups)));
 			$lifeList = array ();
 			foreach ($lifeGroups as $keyLF => $lifegroup) {
-				/*
-				foreach ($group['mediaGroup_sourceList'] as $keyS => $source) {
-					if (!isset($sourceList[$source['source_id']])) {
-						$sourceList[$source['source_id']] = $source['source_id'];
+				
+				foreach ($lifegroup['mediaGroup_sourceList'] as $keyS => $source) {
+					if (isset($source['source_id'])) {
+						//$sourceList[$source['source_id']] = $source['source_id'];
+						array_push($lifeList, $source['source_id']);
 					}
 				}
-				*/
-				array_push($lifeList, $lifegroup['mediaGroup_title']);
+				
+				
 
 			}
 			//array_push($sourceList, "5542329709f778a5068b457f");
@@ -354,7 +355,8 @@ function getSelectedSeeds($industryList,$readSeeds){
 						)
 					),
 					//'seed_sourceID' => array('$in' => $sourceList),
-					'seed_industry' => $likedIndustry,
+					//'seed_industry' => $likedIndustry,
+					'seed_sourceID' => array('$in' => $industryList),
 					'seed_editorRating' => array('$gt' => 0),
 					'$nor' => array(
 						array (
