@@ -68,26 +68,24 @@ while ($daysCount <= 5) {
                 }
 
 
-                    $feeds = preg_replace("/[\t\n\r]+/", "",$feeds);
+                $feeds = preg_replace("/[\t\n\r]+/", "",$feeds);
 
-                    $pattern = "<li class=\"product-item.*?>.*?<a class=\"upvote-link vote-up\" href=\"(.*?)\">.*?<span class=\"vote-count\">(.*?)</span>.*?<a class=\"post-url\".*?>(.*?)</a>.*?<span class=\"post-tagline\">(.*?)</span>.*?<ul class=\"product-meta right\">";
-                    //echo $pattern;
-                    preg_match_all($pattern, $feeds, $result);
+                $pattern = "<li class=\"product-item.*?>.*?<a class=\"upvote-link vote-up\" href=\"(.*?)\">.*?<span class=\"vote-count\">(.*?)</span>.*?<a class=\"post-url\".*?>(.*?)</a>.*?<span class=\"post-tagline\">(.*?)</span>.*?<ul class=\"product-meta right\">";
+                //echo $pattern;
+                preg_match_all($pattern, $feeds, $result);
 
-                    var_dump($result);
-                    $seedCount = count($result[0]);
-                    $elementCount = count($result);
+                var_dump($result);
+                $seedCount = count($result[0]);
+                $elementCount = count($result);
 
-                    for ($i = 0; $i < $seedCount; ++$i) {
-                        $len = strlen($result[1][$i]);
-                        echo substr($result[1][$i],$len-10,10)." ".$result[2][$i]." ".$result[3][$i]." ".$result[4][$i]."</br>";
-                        
-                        
+                for ($i = 0; $i < $seedCount; ++$i) {
+                    $len = strlen($result[1][$i]);
+                    echo substr($result[1][$i],$len-10,10)." ".$result[2][$i]." ".$result[3][$i]." ".$result[4][$i]."</br>";   
 
-                    }
-                    //var_dump($seedsToLoad);
+                }
+                //var_dump($seedsToLoad);
 
-
+            }
 
 
         
