@@ -22,9 +22,10 @@ $db = $mongoClient->yiquan;
 
 $daysCount = 444;
 $daysCount = 0;
+$url = "http://next.36kr.com/posts.html?start_on=2015-09-20";
 while ($daysCount <= 5) {
     $timeStr = "-".$daysCount." day";
-    $url = "http://next.36kr.com/posts.html?start_on=".date("Y-m-d",strtotime($timeStr));
+    
     
 
     
@@ -73,15 +74,19 @@ while ($daysCount <= 5) {
                 //$pattern = '/<span class=\"vote-count\">(.*?)<\/span>.*?<a class=\"post-url\"/';
                 /*$pattern = '/<span class=\"vote-count\">(.*?)<\/span>.*?<a class=\"post-url\".*?>(.*?)<\/a>.*?<span class=\"post-tagline\">(.*?)<\/span>/';*/
                 $pattern = '/<section class=\"post\">.*?<small>(.*?)<\/small>(.*?)<\/section>/';
+                $next = '/<a class=\"load-more-notes\".*?href=\"(.*?)\">/';
+                
+                echo $url,'</br>';
 
                 //echo $pattern;
                 preg_match_all($pattern, $feeds, $result);
-
+                preg_match_all($next, $feeds, $nextResult);
+                $url = 'http://next.36kr.com' . $nextResult[1][0];
                 //var_dump($result);
                 $seedCount = count($result[0]);
                 $elementCount = count($result);
 
-                echo $url,'</br>';
+                
                 for ($i = 0; $i < $seedCount; ++$i) {
                     echo $result[1][$i],'</br>';
                     $product = '/<span class=\"vote-count\">(.*?)<\/span>.*?<a class=\"post-url\".*?>(.*?)<\/a>.*?<span class=\"post-tagline\">(.*?)<\/span>/';
