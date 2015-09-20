@@ -52,7 +52,7 @@ while ($daysCount <= 5) {
                     //$encode = $encode . "//IGNORE"
                     $feeds = iconv($encode, 'UTF-8//IGNORE', $feeds);
 
-                    //var_dump($feeds);
+                    var_dump($feeds);
 
                     $feeds = str_replace('encoding="gb2312"', 'encoding="utf-8"', $feeds);
                     $feeds = str_replace('encoding="ascii"', 'encoding="utf-8"', $feeds);
@@ -69,7 +69,7 @@ while ($daysCount <= 5) {
 
 
                 $feeds = preg_replace("/[\t\n\r]+/", "",$feeds);
-                $pattern = "<a class=\"upvote-link vote-up\" href=\"(.*?)\">.*?<ul class=\"product-meta right\">";
+                $pattern = "<a class=\"upvote-link vote-up\" href=\"(.*?)\">";
                 /*
                 $pattern = "<li class=\"product-item.*?<a class=\"upvote-link vote-up\" href=\"(.*?)\">.*?<span class=\"vote-count\">(.*?)</span>.*?<a class=\"post-url\".*?>(.*?)<\/a>.*?<span class=\"post-tagline\">(.*?)<\/span>.*?<ul class=\"product-meta right\">";
                 */
