@@ -30,7 +30,7 @@ while ($daysCount <= 5) {
     
     //读取每个Source的URL地址
     
-        try {
+        
 
             //读取每个URL地址的网页HTML
             $feedurl = $url;
@@ -90,7 +90,7 @@ while ($daysCount <= 5) {
 
 
 
-        }
+        
                 
     
     
