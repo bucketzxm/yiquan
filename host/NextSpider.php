@@ -70,7 +70,7 @@ while ($daysCount <= 5) {
 
                 $feeds = preg_replace("/[\t\n\r]+/", "",$feeds);
                 
-                $pattern = "<a class=\"post-url.*?>(.*?)</a>";
+                $pattern = "<a class=\"vote-count\">";
                 /*$pattern = "<span class=\"vote-count\">(.*?)</span>.*?<a class=\"post-url.*?>(.*?)</a>.*?<span class=\"post-tagline\">(.*?)</span>";*/
                 
                 //echo $pattern;
