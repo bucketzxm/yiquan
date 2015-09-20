@@ -70,13 +70,13 @@ while ($daysCount <= 5) {
 
                 $feeds = preg_replace("/[\t\n\r]+/", "",$feeds);
                 
-                $pattern = '/<span class=\"vote-count\">(.*?)<\/span>.*?<a class=\"post-url\"/';
-                /*$pattern = '/<span class=\"vote-count\">(.*?)<\/span>.*?<a class=\"post-url\".*?>(.*?)<\/a>.*?<span class=\"post-tagline\">(.*?)<\/span>/';
-                */
+                //$pattern = '/<span class=\"vote-count\">(.*?)<\/span>.*?<a class=\"post-url\"/';
+                $pattern = '/<span class=\"vote-count\">(.*?)<\/span>.*?<a class=\"post-url\".*?>(.*?)<\/a>.*?<span class=\"post-tagline\">(.*?)<\/span>/';
+                
                 //echo $pattern;
                 preg_match_all($pattern, $feeds, $result);
 
-                var_dump($result);
+                //var_dump($result);
                 $seedCount = count($result[0]);
                 $elementCount = count($result);
 
