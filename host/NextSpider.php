@@ -22,16 +22,14 @@ $db = $mongoClient->yiquan;
 
 $daysCount = 444;
 $daysCount = 0;
-while ($daysCount <= 444) {
+while ($daysCount <= 5) {
     $timeStr = "-".$daysCount." day";
-    echo date("Y-m-d",strtotime($timeStr));
-    $daysCount ++;    
-}
+    $url = "http://next.36kr.com/posts.html?start_on=".date("Y-m-d",strtotime($timeStr));
+    
 
-
-    /*
+    
     //读取每个Source的URL地址
-    foreach ($value['source_rssURL'] as $keyz => $url) {
+    
         try {
 
             //读取每个URL地址的网页HTML
@@ -68,12 +66,37 @@ while ($daysCount <= 444) {
                     $feeds = str_replace('encoding="EUC-CN"', 'encoding="utf-8"', $feeds);
                     $feeds = str_replace('encoding="CP936"', 'encoding="utf-8"', $feeds);
                 }
+
+
+                    $feeds = preg_replace("/[\t\n\r]+/", "",$feeds);
+
+                    $pattern = "<li class=\"product-item.*?>.*?<a class=\"upvote-link vote-up\" href=\"(.*?)\">.*?<span class=\"vote-count\">(.*?)</span>.*?<a class=\"post-url\".*?>(.*?)</a>.*?<span class=\"post-tagline\">(.*?)</span>.*?<ul class=\"product-meta right\">";
+                    //echo $pattern;
+                    preg_match_all($pattern, $feeds, $result);
+
+                    var_dump($result);
+                    $seedCount = count($result[0]);
+                    $elementCount = count($result);
+
+                    for ($i = 0; $i < $seedCount; ++$i) {
+                        $len = strlen($result[1][$i]);
+                        echo substr($result[1][$i],$len-10,10)." ".$result[2][$i]." ".$result[3][$i]." ".$result[4][$i]."</br>";
+                        
+                        
+
+                    }
+                    //var_dump($seedsToLoad);
+
+
+
+
         }
                 
-    }
-    */
+    
+    
 
-
+    $daysCount ++;    
+}
 
 
 
