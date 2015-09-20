@@ -24,7 +24,7 @@ $daysCount = 444;
 $daysCount = 0;
 while ($daysCount <= 444) {
     $timeStr = "-".$daysCount." day";
-    echo date("Y-m-d",strtotime($timeStr);
+    echo date("Y-m-d",strtotime($timeStr));
     $daysCount ++;    
 }
 
