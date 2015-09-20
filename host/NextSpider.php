@@ -81,7 +81,7 @@ while ($daysCount <= 5) {
                 $seedCount = count($result[0]);
                 $elementCount = count($result);
 
-                echo date("Y-m-d",strtotime($timeStr)),'</br>';
+                echo $url,'</br>';
                 for ($i = 0; $i < $seedCount; ++$i) {
                     echo $result[1][$i],'</br>';
                     $product = '/<span class=\"vote-count\">(.*?)<\/span>.*?<a class=\"post-url\".*?>(.*?)<\/a>.*?<span class=\"post-tagline\">(.*?)<\/span>/';
