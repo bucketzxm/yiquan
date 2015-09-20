@@ -81,14 +81,15 @@ while ($daysCount <= 5) {
                 $seedCount = count($result[0]);
                 $elementCount = count($result);
 
+                echo date("Y-m-d",strtotime($timeStr)),'</br>';
                 for ($i = 0; $i < $seedCount; ++$i) {
                     echo $result[1][$i],'</br>';
                     $product = '/<span class=\"vote-count\">(.*?)<\/span>.*?<a class=\"post-url\".*?>(.*?)<\/a>.*?<span class=\"post-tagline\">(.*?)<\/span>/';
                     preg_match_all($product, $result[2][$i], $products);
-                    $productCount = count($result[0]);
+                    $productCount = count($products[0]);
                     
                     for ($j=0; $j < $productCount; $j++) { 
-                        echo $products[1][$i]." ".$products[2][$i]." ".$products[3][$i]."</br>";   
+                        echo $products[1][$j]." ".$products[2][$j]." ".$products[3][$j]."</br>";   
                     }
  
                     //substr($result[1][$i],$len-10,10)
