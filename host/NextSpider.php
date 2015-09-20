@@ -72,7 +72,7 @@ while ($daysCount <= 5) {
                 
                 //$pattern = '/<span class=\"vote-count\">(.*?)<\/span>.*?<a class=\"post-url\"/';
                 /*$pattern = '/<span class=\"vote-count\">(.*?)<\/span>.*?<a class=\"post-url\".*?>(.*?)<\/a>.*?<span class=\"post-tagline\">(.*?)<\/span>/';*/
-                $pattern = '/<section class=\"post\">(.*?)<\/section>/';
+                $pattern = '/<section class=\"post\">.*?<small>(.*?)<\/small>(.*?)<\/section>/';
 
                 //echo $pattern;
                 preg_match_all($pattern, $feeds, $result);
@@ -82,8 +82,15 @@ while ($daysCount <= 5) {
                 $elementCount = count($result);
 
                 for ($i = 0; $i < $seedCount; ++$i) {
-                    $len = strlen($result[1][$i]);
-                    echo $result[1][$i]." ".$result[2][$i]." ".$result[3][$i]."</br>";   
+                    echo $result[1][$i],'</br>';
+                    $product = '/<span class=\"vote-count\">(.*?)<\/span>.*?<a class=\"post-url\".*?>(.*?)<\/a>.*?<span class=\"post-tagline\">(.*?)<\/span>/';
+                    preg_match_all($product, $result[2][$i], $products);
+                    $productCount = count($result[0]);
+                    
+                    for ($j=0; $j < $productCount; $j++) { 
+                        echo $products[1][$i]." ".$products[2][$i]." ".$products[3][$i]."</br>";   
+                    }
+ 
                     //substr($result[1][$i],$len-10,10)
                 }
                 //var_dump($seedsToLoad);
