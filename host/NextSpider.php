@@ -70,8 +70,8 @@ while ($daysCount <= 5) {
 
                 //$feeds = preg_replace("/[\t\n\r]+/", "",$feeds);
                 
-                $pattern = '/<span class=\"vote-count\">(.*?)<\/span>/';
-                /*$pattern = <span class=\"vote-count\">(.*?)</span>.*?<a class=\"post-url.*?>(.*?)</a>.*?<span class=\"post-tagline\">(.*?)</span>";*/
+                
+                $pattern = '/<span class=\"vote-count\">(.*?)<\/span>.*?<a class=\"post-url.*?>(.*?)<\/a>.*?<span class=\"post-tagline\">(.*?)<\/span>/';
                 
                 //echo $pattern;
                 preg_match_all($pattern, $feeds, $result);
@@ -82,7 +82,7 @@ while ($daysCount <= 5) {
 
                 for ($i = 0; $i < $seedCount; ++$i) {
                     $len = strlen($result[1][$i]);
-                    echo $result[1][$i]." ".$result[2][$i]." ".$result[3][$i]." ".$result[4][$i]."</br>";   
+                    echo $result[1][$i]." ".$result[2][$i]." ".$result[3][$i]."</br>";   
                     //substr($result[1][$i],$len-10,10)
                 }
                 //var_dump($seedsToLoad);
