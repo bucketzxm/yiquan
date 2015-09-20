@@ -52,7 +52,7 @@ while ($daysCount <= 5) {
                     //$encode = $encode . "//IGNORE"
                     $feeds = iconv($encode, 'UTF-8//IGNORE', $feeds);
 
-                    var_dump($feeds);
+                    //var_dump($feeds);
 
                     $feeds = str_replace('encoding="gb2312"', 'encoding="utf-8"', $feeds);
                     $feeds = str_replace('encoding="ascii"', 'encoding="utf-8"', $feeds);
@@ -76,7 +76,7 @@ while ($daysCount <= 5) {
                 //echo $pattern;
                 preg_match_all($pattern, $feeds, $result);
 
-                var_dump($result);
+                //var_dump($result);
                 $seedCount = count($result[0]);
                 $elementCount = count($result);
 
