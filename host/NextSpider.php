@@ -69,10 +69,10 @@ while ($daysCount <= 5) {
 
 
                 $feeds = preg_replace("/[\t\n\r]+/", "",$feeds);
-                $pattern = "<a class=\"upvote-link vote-up\" href=\"(.*?)\">";
-                /*
-                $pattern = "<li class=\"product-item.*?<a class=\"upvote-link vote-up\" href=\"(.*?)\">.*?<span class=\"vote-count\">(.*?)</span>.*?<a class=\"post-url\".*?>(.*?)<\/a>.*?<span class=\"post-tagline\">(.*?)<\/span>.*?<ul class=\"product-meta right\">";
-                */
+                
+                
+                $pattern = "<span class=\"vote-count\">(.*?)</span>.*?<a class=\"post-url\".*?>(.*?)</a>.*?<span class=\"post-tagline\">(.*?)</span>";
+                
                 //echo $pattern;
                 preg_match_all($pattern, $feeds, $result);
 
