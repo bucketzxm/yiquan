@@ -82,8 +82,8 @@ while ($daysCount <= 5) {
 
                 for ($i = 0; $i < $seedCount; ++$i) {
                     $len = strlen($result[1][$i]);
-                    echo substr($result[1][$i],$len-10,10)." ".$result[2][$i]." ".$result[3][$i]." ".$result[4][$i]."</br>";   
-
+                    echo $result[1][$i]." ".$result[2][$i]." ".$result[3][$i]." ".$result[4][$i]."</br>";   
+                    //substr($result[1][$i],$len-10,10)
                 }
                 //var_dump($seedsToLoad);
 
