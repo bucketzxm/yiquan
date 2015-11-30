@@ -210,7 +210,7 @@ class MoStudent extends YqBase {
 		
 		
 		$ans = $this->db->MoStudent->findOne ( array (
-				'student_username' => new MongoId($user_name);
+				'student_username' => $user_name
 		) );
 		
 		if ($ans == null)
