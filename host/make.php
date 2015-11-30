@@ -42,6 +42,8 @@ if($host=='host'){
 
 	access_url ( 'http://yiquanhost.oneto-tech.com/Prouser_server.php?reb' );
 
+	access_url ( 'http://yiquandev.oneto-tech.com/MoSession_server.php?reb' );
+
 	echo 'ok';
 }elseif ($host=='dev') {
 	access_url ( 'http://yiquandev.oneto-tech.com/Topic_server.php?reb' );
@@ -69,6 +71,8 @@ if($host=='host'){
 	access_url ( 'http://yiquandev.oneto-tech.com/Proseed_server.php?reb' );
 
 	access_url ( 'http://yiquandev.oneto-tech.com/Prouser_server.php?reb' );
+
+	access_url ( 'http://yiquandev.oneto-tech.com/MoSession_server.php?reb' );
 
 	echo 'ok';
 }else{
