@@ -23,7 +23,7 @@ function wdo() {
 	// var_dump("<br>".$wsdl);
 	try{
 		$fp = fopen ( "$q[0].wsdl", "w" );
-		echo "success";
+		echo "success:". $q [0];
 	}
 	catch(Exception $e) {
 		echo "error";
