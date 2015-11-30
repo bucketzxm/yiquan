@@ -81,7 +81,7 @@ class MoStudent extends YqBase {
 				      "student_address" => ''
 				    ),
 				    "user_state" => 1
-			)
+			
 			);
 			$this->db->user->save ( $neo );
 			
