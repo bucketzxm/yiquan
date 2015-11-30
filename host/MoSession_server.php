@@ -34,7 +34,7 @@ function wdo() {
 
 if (isset ( $_GET ['reb'] )) {
 	wdo ();
-} else {
+} else if (isset ($_GET ['new'])){
 	// sleep ( 1 );
 	// Enciende el servidor o despliega WSDL
 	// $servidorSoap = new SoapServer(null,array("uri"=>"server.php"));
