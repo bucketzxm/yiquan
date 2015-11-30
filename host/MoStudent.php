@@ -197,7 +197,7 @@ class MoStudent extends YqBase {
 	/*
 	 * made by wwq getuserbyname_xml指将指定用户名的用户的所有信息以json方式返回 接受参数为 用户名 返回值 一个xml字符串 soap客户端使用方法 $soap = new SoapClient ( "http://yiquanhost.duapp.com/userclass.wsdl" ); $result2 = $soap->getuserbyname_xml ( 'wang' ); echo $result2 . "<br/>";
 	 */
-	function getStudentByID($id) {
+	function getStudentByName($user_name) {
 		if ($this->yiquan_version == 0) {
 			return - 2;
 		}
@@ -210,7 +210,7 @@ class MoStudent extends YqBase {
 		
 		
 		$ans = $this->db->MoStudent->findOne ( array (
-				'_id' => new MongoId($id);
+				'student_username' => new MongoId($user_name);
 		) );
 		
 		if ($ans == null)
