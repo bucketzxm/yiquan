@@ -161,7 +161,7 @@ class MoStudent extends YqBase {
 			
 			if ($ans == null)
 				return 2; // no user
-			else if ($ans ['student_password'] != $user_pwd;//crypt ( $user_pwd, $ans ['student_password'] ))
+			else if ($ans ['student_password'] != $user_pwd)//crypt ( $user_pwd, $ans ['student_password'] ))
 				return 3; // wrong pwd
 			else if ($ans ['user_state'] != 1)
 				return 4;
