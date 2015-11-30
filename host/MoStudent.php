@@ -74,12 +74,12 @@ class MoStudent extends YqBase {
 				    "student_clubsNum" => 0,
 				    "student_clubIDs" => array (),
 				    "student_graduationYear" => '',
-				    "student_contactInfo" => array {
+				    "student_contactInfo" => array (
 				      "student_mobile" => '',
 				      "student_qq" => '',
 				      "student_email" => '',
 				      "student_address" => ''
-				    },
+				    ),
 				    "user_state" => 1
 			)
 			);
