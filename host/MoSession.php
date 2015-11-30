@@ -89,5 +89,24 @@ class MoSession extends YqBase {
 		
 	}
 
+	function cardsByClassID($id){
+
+		$theClass = $this->db->MoClass->findOne(array('_id' => new MongoId($id)));
+		if ($theClass != nil) {
+			$cards = $theClass['class_cards'];
+			$results = array();
+			foreach ($cards as $key => $value) {
+				$theCard = $this->db->MoCard->findOne(array('_id' => new MongoId($value)));
+				if ($theCard != nil) {
+					array_push($results, $theCard);
+				}
+			}
+			return json_encode($results);
+		}else{
+			return -1;
+		}
+
+	}
+
 }
 ?>
