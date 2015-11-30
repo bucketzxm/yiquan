@@ -75,7 +75,7 @@ class MoSession extends YqBase {
 			$classesToLearn = $student['student_classesToLearn'];
 			$results = array();
 			foreach ($classesToLearn as $key => $value) {
-				$theClass = $this->db->MoClass->findOne(array('_id'=> new MongoId($id)));
+				$theClass = $this->db->MoClass->findOne(array('_id'=> new MongoId($value)));
 				array_push($results, $$theClass);
 			}
 			return json_encode($results);
