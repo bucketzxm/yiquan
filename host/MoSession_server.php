@@ -38,7 +38,7 @@ if (isset ( $_GET ['reb'] )) {
 	// sleep ( 1 );
 	// Enciende el servidor o despliega WSDL
 	// $servidorSoap = new SoapServer(null,array("uri"=>"server.php"));
-	$servidorSoap = new SoapServer (null,array("location"=>"http://yiquandev.oneto-tech.com/$q[0].php","uri"=>"$q[0].php"));//( "$q[0].wsdl" );
+	$servidorSoap = new SoapServer ( "$q[0].wsdl" );//(null,array("location"=>"http://yiquandev.oneto-tech.com/$q[0].php","uri"=>"$q[0].php"));//
 	
 	// $servidorSoap = new SoapServer ( null, array (
 	// "location" => "http://127.0.0.1/$p[1].php",
