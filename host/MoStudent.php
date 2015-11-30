@@ -62,7 +62,7 @@ class MoStudent extends YqBase {
 					'student_bigavatar' => '',
 					'student_bigavatarname' => '',
 					'student_smallavatarname' => '',
-					'student_profile' = array (),
+					'student_profile' => array (),
 					"student_nameCN" =>'',
     				"student_nameEN" => '',
     				"student_gender" => '',
