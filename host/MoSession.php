@@ -46,8 +46,8 @@ class MoSession extends YqBase {
 	// postTime
 	// title
 	
-	function sessionsByCurriculum ($id){
-		$sessions = $this->db->MoSession->find(array('_id' => new MongoId ($id)));
+	function sessionsByCurriculum (){
+		$sessions = $this->db->MoSession->find();
 		
 		if (!is_null($session)) {
 			$results = array();
@@ -55,7 +55,7 @@ class MoSession extends YqBase {
 				array_push($results, $value);
 			}
 			return json_encode($results);
-				
+
 		}else{
 			return "No results found";
 		}
