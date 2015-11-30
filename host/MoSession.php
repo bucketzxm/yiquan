@@ -72,7 +72,7 @@ class MoSession extends YqBase {
 
 		$student = $this->db->MoStudent->findOne(array('_id'=> new MongoId($id)));
 		if ($student != nil) {
-			$classesToLearn = $student['student_classesToLearn'];
+			$classesToLearn = $student['student_classToLearn'];
 			$results = array();
 			foreach ($classesToLearn as $key => $value) {
 				$theClass = $this->db->MoClass->findOne(array('_id'=> new MongoId($value)));
