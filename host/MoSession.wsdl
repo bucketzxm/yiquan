@@ -1,0 +1,309 @@
+<?xml version="1.0" ?>
+<definitions name="Reply" targetNamespace="urn:Reply" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="urn:Reply" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+<types xmlns="http://schemas.xmlsoap.org/wsdl/" />
+<portType name="ReplyPort"><operation name="queryAllReplyByTopic">
+<input message="tns:queryAllReplyByTopicRequest" />
+<output message="tns:queryAllReplyByTopicResponse" />
+</operation>
+<operation name="addReply">
+<input message="tns:addReplyRequest" />
+<output message="tns:addReplyResponse" />
+</operation>
+<operation name="likeReply">
+<input message="tns:likeReplyRequest" />
+<output message="tns:likeReplyResponse" />
+</operation>
+<operation name="deleteReply">
+<input message="tns:deleteReplyRequest" />
+<output message="tns:deleteReplyResponse" />
+</operation>
+<operation name="countMyReplyByName">
+<input message="tns:countMyReplyByNameRequest" />
+<output message="tns:countMyReplyByNameResponse" />
+</operation>
+<operation name="queryRepliedTopicByName">
+<input message="tns:queryRepliedTopicByNameRequest" />
+<output message="tns:queryRepliedTopicByNameResponse" />
+</operation>
+<operation name="queryMyReplyAgreedTopicByName">
+<input message="tns:queryMyReplyAgreedTopicByNameRequest" />
+<output message="tns:queryMyReplyAgreedTopicByNameResponse" />
+</operation>
+<operation name="queryMyAgreedReplyByName">
+<input message="tns:queryMyAgreedReplyByNameRequest" />
+<output message="tns:queryMyAgreedReplyByNameResponse" />
+</operation>
+<operation name="countMyRepliedTopicByName">
+<input message="tns:countMyRepliedTopicByNameRequest" />
+<output message="tns:countMyRepliedTopicByNameResponse" />
+</operation>
+<operation name="countMyReplyAgreeByName">
+<input message="tns:countMyReplyAgreeByNameRequest" />
+<output message="tns:countMyReplyAgreeByNameResponse" />
+</operation>
+<operation name="countMyAgreedReplyByName">
+<input message="tns:countMyAgreedReplyByNameRequest" />
+<output message="tns:countMyAgreedReplyByNameResponse" />
+</operation>
+<operation name="verifyUserAndWriteLog">
+<input message="tns:verifyUserAndWriteLogRequest" />
+<output message="tns:verifyUserAndWriteLogResponse" />
+</operation>
+<operation name="checkagent">
+<input message="tns:checkagentRequest" />
+<output message="tns:checkagentResponse" />
+</operation>
+<operation name="checkToken">
+<input message="tns:checkTokenRequest" />
+<output message="tns:checkTokenResponse" />
+</operation>
+<operation name="logCallMethod">
+<input message="tns:logCallMethodRequest" />
+<output message="tns:logCallMethodResponse" />
+</operation>
+<operation name="getCurrentUsername">
+<input message="tns:getCurrentUsernameRequest" />
+<output message="tns:getCurrentUsernameResponse" />
+</operation>
+</portType>
+<binding name="ReplyBinding" type="tns:ReplyPort">
+<soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http" />
+<operation name="queryAllReplyByTopic">
+<soap:operation soapAction="urn:Reply#Reply#queryAllReplyByTopic" />
+<input><soap:body use="encoded" namespace="urn:Reply" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:Reply" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="addReply">
+<soap:operation soapAction="urn:Reply#Reply#addReply" />
+<input><soap:body use="encoded" namespace="urn:Reply" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:Reply" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="likeReply">
+<soap:operation soapAction="urn:Reply#Reply#likeReply" />
+<input><soap:body use="encoded" namespace="urn:Reply" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:Reply" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="deleteReply">
+<soap:operation soapAction="urn:Reply#Reply#deleteReply" />
+<input><soap:body use="encoded" namespace="urn:Reply" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:Reply" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="countMyReplyByName">
+<soap:operation soapAction="urn:Reply#Reply#countMyReplyByName" />
+<input><soap:body use="encoded" namespace="urn:Reply" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:Reply" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="queryRepliedTopicByName">
+<soap:operation soapAction="urn:Reply#Reply#queryRepliedTopicByName" />
+<input><soap:body use="encoded" namespace="urn:Reply" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:Reply" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="queryMyReplyAgreedTopicByName">
+<soap:operation soapAction="urn:Reply#Reply#queryMyReplyAgreedTopicByName" />
+<input><soap:body use="encoded" namespace="urn:Reply" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:Reply" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="queryMyAgreedReplyByName">
+<soap:operation soapAction="urn:Reply#Reply#queryMyAgreedReplyByName" />
+<input><soap:body use="encoded" namespace="urn:Reply" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:Reply" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="countMyRepliedTopicByName">
+<soap:operation soapAction="urn:Reply#Reply#countMyRepliedTopicByName" />
+<input><soap:body use="encoded" namespace="urn:Reply" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:Reply" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="countMyReplyAgreeByName">
+<soap:operation soapAction="urn:Reply#Reply#countMyReplyAgreeByName" />
+<input><soap:body use="encoded" namespace="urn:Reply" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:Reply" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="countMyAgreedReplyByName">
+<soap:operation soapAction="urn:Reply#Reply#countMyAgreedReplyByName" />
+<input><soap:body use="encoded" namespace="urn:Reply" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:Reply" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="verifyUserAndWriteLog">
+<soap:operation soapAction="urn:Reply#Reply#verifyUserAndWriteLog" />
+<input><soap:body use="encoded" namespace="urn:Reply" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:Reply" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="checkagent">
+<soap:operation soapAction="urn:Reply#Reply#checkagent" />
+<input><soap:body use="encoded" namespace="urn:Reply" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:Reply" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="checkToken">
+<soap:operation soapAction="urn:Reply#Reply#checkToken" />
+<input><soap:body use="encoded" namespace="urn:Reply" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:Reply" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="logCallMethod">
+<soap:operation soapAction="urn:Reply#Reply#logCallMethod" />
+<input><soap:body use="encoded" namespace="urn:Reply" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:Reply" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+<operation name="getCurrentUsername">
+<soap:operation soapAction="urn:Reply#Reply#getCurrentUsername" />
+<input><soap:body use="encoded" namespace="urn:Reply" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</input>
+<output>
+<soap:body use="encoded" namespace="urn:Reply" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+</output>
+</operation>
+</binding>
+<service name="Reply">
+<documentation />
+<port name="ReplyPort" binding="tns:ReplyBinding"><soap:address location="http://yiquanhost.oneto-tech.com/Reply_server.php" />
+</port>
+</service>
+<message name="queryAllReplyByTopicRequest">
+<part name="topic_id" type="xsd:string" />
+<part name="user_name" type="xsd:string" />
+<part name="reply_loadTime" type="xsd:string" />
+<part name="maxSize" type="xsd:string" />
+</message>
+<message name="queryAllReplyByTopicResponse">
+<part name="queryAllReplyByTopic" type="xsd:string" />
+</message>
+<message name="addReplyRequest">
+<part name="topic_id" type="xsd:string" />
+<part name="reply_senderName" type="xsd:string" />
+<part name="reply_content" type="xsd:string" />
+<part name="reply_visibility" type="xsd:string" />
+</message>
+<message name="addReplyResponse">
+<part name="addReply" type="xsd:string" />
+</message>
+<message name="likeReplyRequest">
+<part name="reply_id" type="xsd:string" />
+<part name="user_name" type="xsd:string" />
+</message>
+<message name="likeReplyResponse">
+<part name="likeReply" type="xsd:string" />
+</message>
+<message name="deleteReplyRequest">
+<part name="topic_id" type="xsd:string" />
+</message>
+<message name="deleteReplyResponse">
+<part name="deleteReply" type="xsd:string" />
+</message>
+<message name="countMyReplyByNameRequest">
+<part name="user_name" type="xsd:string" />
+</message>
+<message name="countMyReplyByNameResponse">
+<part name="countMyReplyByName" type="xsd:string" />
+</message>
+<message name="queryRepliedTopicByNameRequest">
+<part name="user_name" type="xsd:string" />
+<part name="time" type="xsd:string" />
+</message>
+<message name="queryRepliedTopicByNameResponse">
+<part name="queryRepliedTopicByName" type="xsd:string" />
+</message>
+<message name="queryMyReplyAgreedTopicByNameRequest">
+<part name="user_name" type="xsd:string" />
+<part name="time" type="xsd:string" />
+</message>
+<message name="queryMyReplyAgreedTopicByNameResponse">
+<part name="queryMyReplyAgreedTopicByName" type="xsd:string" />
+</message>
+<message name="queryMyAgreedReplyByNameRequest">
+<part name="user_name" type="xsd:string" />
+<part name="time" type="xsd:string" />
+</message>
+<message name="queryMyAgreedReplyByNameResponse">
+<part name="queryMyAgreedReplyByName" type="xsd:string" />
+</message>
+<message name="countMyRepliedTopicByNameRequest">
+<part name="user_name" type="xsd:string" />
+</message>
+<message name="countMyRepliedTopicByNameResponse">
+<part name="countMyRepliedTopicByName" type="xsd:string" />
+</message>
+<message name="countMyReplyAgreeByNameRequest">
+<part name="user_name" type="xsd:string" />
+</message>
+<message name="countMyReplyAgreeByNameResponse">
+<part name="countMyReplyAgreeByName" type="xsd:string" />
+</message>
+<message name="countMyAgreedReplyByNameRequest">
+<part name="user_name" type="xsd:string" />
+</message>
+<message name="countMyAgreedReplyByNameResponse">
+<part name="countMyAgreedReplyByName" type="xsd:string" />
+</message>
+<message name="verifyUserAndWriteLogRequest">
+<part name="methodname" type="xsd:string" />
+</message>
+<message name="verifyUserAndWriteLogResponse">
+<part name="verifyUserAndWriteLog" type="xsd:string" />
+</message>
+<message name="checkagentRequest">
+</message>
+<message name="checkagentResponse">
+<part name="checkagent" type="xsd:string" />
+</message>
+<message name="checkTokenRequest">
+</message>
+<message name="checkTokenResponse">
+<part name="checkToken" type="xsd:string" />
+</message>
+<message name="logCallMethodRequest">
+<part name="user_name" type="xsd:string" />
+<part name="classandname" type="xsd:string" />
+</message>
+<message name="logCallMethodResponse">
+<part name="logCallMethod" type="xsd:string" />
+</message>
+<message name="getCurrentUsernameRequest">
+</message>
+<message name="getCurrentUsernameResponse">
+<part name="getCurrentUsername" type="xsd:string" />
+</message>
+</definitions>
