@@ -46,5 +46,7 @@ if (isset ( $_GET ['reb'] )) {
 	// ) );
 	$servidorSoap->setClass ( $q [0] );
 	$servidorSoap->handle ();
+
+	echo "New build $q[0].wsdl";
 }
 ?>
