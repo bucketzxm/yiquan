@@ -46,10 +46,8 @@ class MoSession extends YqBase {
 	// title
 	
 	function sessionsByCurriculum (){
-		
-		return "great";
 
-		/*
+		
 		$sessions = $this->db->MoSession->find();
 		
 		$results = array();
@@ -57,7 +55,7 @@ class MoSession extends YqBase {
 			array_push($results, $value);
 		}
 		return json_encode($results);
-		*/		
+				
 	}
 
 }
