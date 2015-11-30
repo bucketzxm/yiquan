@@ -49,16 +49,14 @@ class MoSession extends YqBase {
 	function sessionsByCurriculum (){
 		$sessions = $this->db->MoSession->find();
 		
-		if (!is_null($session)) {
-			$results = array();
-			foreach ($sessions as $key => $value) {
-				array_push($results, $value);
-			}
-			return json_encode($results);
-
-		}else{
-			return "No results found";
+		
+		$results = array();
+		foreach ($sessions as $key => $value) {
+			array_push($results, $value);
 		}
+		return json_encode($results);
+
+		
 		
 	}
 
