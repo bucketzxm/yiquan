@@ -1,6 +1,5 @@
 <?php
 require_once 'YqBase.php';
-
     
 class MoSession extends YqBase {
 	private $collection;
@@ -47,17 +46,18 @@ class MoSession extends YqBase {
 	// title
 	
 	function sessionsByCurriculum (){
-		$sessions = $this->db->MoSession->find();
 		
+		return "great";
+
+		/*
+		$sessions = $this->db->MoSession->find();
 		
 		$results = array();
 		foreach ($sessions as $key => $value) {
 			array_push($results, $value);
 		}
 		return json_encode($results);
-
-		
-		
+		*/		
 	}
 
 }
