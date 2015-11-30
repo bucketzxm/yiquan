@@ -80,6 +80,7 @@ class MoStudent extends YqBase {
 				      "student_email" => '',
 				      "student_address" => ''
 				    ),
+				    "student_classToLearn"=> array(),
 				    "user_state" => 1
 			
 			);
