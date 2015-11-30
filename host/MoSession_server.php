@@ -2,7 +2,7 @@
 ini_set ( 'soap.wsdl_cache_enabled', '0' );
 $w = $_SERVER ['PHP_SELF'];
 $p = explode ( "/", $w );
-$q = explode ( "_", $p [1] );
+$q = explode ( "_", $p[count($p) - 1] );
 // var_dump($q);
 // $p = array(4) { [0]=> string(0) "" [1]=> string(15) "appiduea6ns5q1g" [2]=> string(5) "haozi" [3]=> string(16) "Topic_server.php" }
 include ($q [0] . ".php"); // 你要生成的文件
