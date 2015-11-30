@@ -62,7 +62,7 @@ class MoSession extends YqBase {
 
 		$classes = $this->db->MoClass->find(array('session_id' => $id));
 		$results = array();
-		foreach ($classes $key => $value) {
+		foreach ($classes as $key => $value) {
 			array_push($results, $value);
 		}
 		return json_encode($results);
