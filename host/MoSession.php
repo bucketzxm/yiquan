@@ -47,9 +47,15 @@ class MoSession extends YqBase {
 	// title
 	
 	function sessionsByCurriculum ($id){
-		$session = $this->db->MoSession->find(array('_id' => new MongoId ($id)));
+		$sessions = $this->db->MoSession->find(array('_id' => new MongoId ($id)));
+		
 		if (!is_null($session)) {
-			return json_encode($session);	
+			$results = array();
+			foreach ($sessions as $key => $value) {
+				array_push($results, $value);
+			}
+			return json_encode($results);
+				
 		}else{
 			return "No results found";
 		}
