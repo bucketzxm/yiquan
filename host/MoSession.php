@@ -108,5 +108,44 @@ class MoSession extends YqBase {
 
 	}
 
+	function pinCardByUser($user_id,$card_id,$pin_action){
+		$pinnedCard = $this->db->MoStudy->findOne(
+				array(
+					'study_type' => 'card',
+					'student_id' => $user_id,
+					'card_id' => $card_id
+					)
+			);
+
+		if ($pin_action == 'pin') {
+			if ($pinnedCard != null) {
+			$pinnedCard['pin_status'] = 'pinned';
+			$pinnedCard['pin_time'] = time();
+			$this->db->MoStudy->save ($pinnedCard);
+			}else{
+				$newPin = array(
+					'study_type' => 'card',
+					'student_id' => $user_id,
+					'card_id' => $card_id,
+					'pin_time' => time(),
+					'pin_status' = 'pinned'
+					);
+				$this->db->MoStudy->save ($newPin);
+			}	
+		}else if ($pin_action == 'unpin'){
+			if ($pinnedCard != null) {
+				$pinnedCard['pin_status'] = 'unpinned';
+				$pinnedCard['pin_time'] = time();
+				$this->db->MoStudy->save ($pinnedCard);
+			}else{
+
+			}
+
+		}
+		
+		return 1;
+	}
+
+	
 }
 ?>
