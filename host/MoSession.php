@@ -202,9 +202,9 @@ class MoSession extends YqBase {
 	}
 
 
-	function updateClassCursor($user_id,$class_id,$cursor){
+	function updateClassCursor($user_id,$class_id,$cursor_ToUpdate){
 
-		$cursorInt = (int)$cursor;
+		$cursorInt = (int)$cursor_ToUpdate;
 
 		if ($cursorInt > 1) {
 			$record = $this->db->MoStudy->findOne(array(
