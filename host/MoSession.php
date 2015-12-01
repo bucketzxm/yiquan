@@ -106,7 +106,7 @@ class MoSession extends YqBase {
 
 			$pinnedCards = array();
 			foreach ($pinnedCursor as $cardkey => $card) {
-				$pinnedCards[$card] = $card;
+				$pinnedCards[$card['card_id']] = $card['card_id'];
 			}
 			//Find all cards of the class
 			$cards = $theClass['class_cards'];
