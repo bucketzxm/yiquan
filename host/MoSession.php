@@ -127,7 +127,7 @@ class MoSession extends YqBase {
 			$cards = $theClass['class_cards'];
 			
 			$results = array();
-			$cards = array();
+			$cardsGot = array();
 			foreach ($cards as $key => $value) {
 				$theCard = $this->db->MoCard->findOne(array('_id' => new MongoId($value)));
 				if ($theCard != nil) {
@@ -138,10 +138,10 @@ class MoSession extends YqBase {
 						$theCard['pin_status'] = 'unpinned';
 					}
 
-					array_push($cards, $theCard);
+					array_push($cardsGot, $theCard);
 				}
 			}
-			$results['cards'] = $cards;
+			$results['cards'] = $cardsGot;
 
 			//Find the cursor
 			$cursor = $this->db->MoStudy->findOne(array(
@@ -153,7 +153,7 @@ class MoSession extends YqBase {
 			if ($cursor != null) {
 				$results['cursor']= $cursor['card_cursor'];	
 			}else{
-				$results['cursor'] = 1;
+				$results['cursor'] = 0;
 			}
 
 			return json_encode($results);
