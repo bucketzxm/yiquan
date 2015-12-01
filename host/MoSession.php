@@ -128,7 +128,7 @@ class MoSession extends YqBase {
 					'student_id' => $user_id,
 					'card_id' => $card_id,
 					'pin_time' => time(),
-					'pin_status' = 'pinned'
+					'pin_status' => 'pinned'
 					);
 				$this->db->MoStudy->save ($newPin);
 			}	
