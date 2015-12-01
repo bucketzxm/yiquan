@@ -204,9 +204,9 @@ class MoSession extends YqBase {
 
 	function updateClassCursor($user_id,$class_id,$cursor){
 
-		$cursor = (int)$cursor;
+		$cursorInt = (int)$cursor;
 
-		if ($cursor > 1) {
+		if ($cursorInt > 1) {
 			$record = $this->db->MoStudy->findOne(array(
 					'student_id' => $user_id,
 					'study_type' => 'cursor',
@@ -219,14 +219,14 @@ class MoSession extends YqBase {
 						'student_id' => $user_id,
 						'study_type' => 'cursor',
 						'class_id' => $class_id,
-						'card_cursor' => $cursor
+						'card_cursor' => $cursorInt
 					);
 
 				$this->db->MoStudy->save($newCursor);
 
 			}else{
 				if ($cursor > $record['card_cursor']) {
-					$record['card_cursor'] = $cursor;
+					$record['card_cursor'] = $cursorInt;
 					$this->db->MoStudy->save($record);
 				}
 
