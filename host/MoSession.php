@@ -202,7 +202,7 @@ class MoSession extends YqBase {
 	}
 
 
-	function updateClassCursor($user_id,$class_id,$cursor_ToUpdate){
+	function updateClassCursor($class_id,$user_id,$cursor_ToUpdate){
 
 		$cursorInt = (int)$cursor_ToUpdate;
 
