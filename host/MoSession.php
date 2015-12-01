@@ -204,7 +204,7 @@ class MoSession extends YqBase {
 
 	function updateClassCursor($user_class_id,$card_position){
 
-		$idArray = explode($user_class_id, '/');
+		$idArray = explode('/',$user_class_id);
 		$user_id = $idArray[0];
 		$class_id = $idArray[1];
 
