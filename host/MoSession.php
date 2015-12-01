@@ -89,15 +89,38 @@ class MoSession extends YqBase {
 		
 	}
 
-	function cardsByClassID($id){
+	function cardsByClassID($user_id,$class_id){
 
-		$theClass = $this->db->MoClass->findOne(array('_id' => new MongoId($id)));
+		$theClass = $this->db->MoClass->findOne(array('_id' => new MongoId($class_id)));
 		if ($theClass != nil) {
+			
+			//Find all the pinned cards by that user
+			$pinnedCursor = $this->db->MoStudy->find(array(
+				'student_id' => $user_id, 
+				'card_id' => array (
+						'$in' => $theClass['class_cards']
+					),
+				'pin_status' => "pinned"
+
+				));
+
+			$pinnedCards = array();
+			foreach ($pinnedCursor as $cardkey => $card) {
+				$pinnedCards[$card] = $card;
+			}
+			//Find all cards of the class
 			$cards = $theClass['class_cards'];
 			$results = array();
 			foreach ($cards as $key => $value) {
 				$theCard = $this->db->MoCard->findOne(array('_id' => new MongoId($value)));
 				if ($theCard != nil) {
+
+					if (isset($pinnedCards[(string)$theCard['_id']])) {
+						$theCard['pin_status'] = 'pinned';
+					}else{
+						$theCard['pin_status'] = 'unpinned';
+					}
+
 					array_push($results, $theCard);
 				}
 			}
