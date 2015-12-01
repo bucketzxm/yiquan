@@ -77,6 +77,21 @@ class MoSession extends YqBase {
 			foreach ($classesToLearn as $key => $value) {
 				$theClass = $this->db->MoClass->findOne(array('_id'=> new MongoId($value)));
 				if ($theClass != nil) {
+
+					$theClass['my_cursor'] = 0;
+
+					//Find the update cursor
+					$cursor = $this->db->MoStudy->findOne(array(
+						'student_id' => $user_id,
+						'study_type' => 'cursor',
+						'class_id' => (string)$theClass['_id']
+
+						));
+					if ($cursor != null) {
+						$theClass['my_cursor'] = $cursor['card_cursor'];
+					}
+
+
 					array_push($results, $theClass);
 				}
 				
@@ -110,7 +125,9 @@ class MoSession extends YqBase {
 			}
 			//Find all cards of the class
 			$cards = $theClass['class_cards'];
+			
 			$results = array();
+			$cards = array();
 			foreach ($cards as $key => $value) {
 				$theCard = $this->db->MoCard->findOne(array('_id' => new MongoId($value)));
 				if ($theCard != nil) {
@@ -121,9 +138,24 @@ class MoSession extends YqBase {
 						$theCard['pin_status'] = 'unpinned';
 					}
 
-					array_push($results, $theCard);
+					array_push($cards, $theCard);
 				}
 			}
+			$results['cards'] = $cards;
+
+			//Find the cursor
+			$cursor = $this->db->MoStudy->findOne(array(
+					'student_id' => $user_id,
+					'study_type' => 'cursor',
+					'class_id' => $class_id
+				));
+
+			if ($cursor != null) {
+				$results['cursor']= $cursor['card_cursor'];	
+			}else{
+				$results['cursor'] = 1;
+			}
+
 			return json_encode($results);
 		}else{
 			return -1;
@@ -167,6 +199,42 @@ class MoSession extends YqBase {
 		}
 		
 		return 1;
+	}
+
+
+	function updateClassCursor($user_id,$class_id,$cursor){
+
+		$cursor = (int)$cursor;
+
+		if ($cursor > 1) {
+			$record = $this->db->MoStudy->findOne(array(
+					'student_id' => $user_id,
+					'study_type' => 'cursor',
+					'class_id' => $class_id,
+				));
+
+			if ($record == null) {
+				
+				$newCursor = array(
+						'student_id' => $user_id,
+						'study_type' => 'cursor',
+						'class_id' => $class_id,
+						'card_cursor' => $cursor
+					);
+
+				$this->db->MoStudy->save($newCursor);
+
+			}else{
+				if ($cursor > $record['card_cursor']) {
+					$record['card_cursor'] = $cursor;
+					$this->db->MoStudy->save($record);
+				}
+
+			}
+		}
+			
+
+
 	}
 
 	
