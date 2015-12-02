@@ -112,10 +112,9 @@ class MoSession extends YqBase {
 			//Find all the pinned cards by that user
 			$pinnedCursor = $this->db->MoStudy->find(array(
 				'student_id' => $user_id, 
-				'card_id' => array (
-						'$in' => $theClass['class_cards']
-					),
-				'pin_status' => "pinned"
+				'class_id' => $class_id,
+				'pin_status' => "pinned",
+				'study_type' => 'card'
 
 				));
 
@@ -172,6 +171,12 @@ class MoSession extends YqBase {
 					)
 			);
 
+		$card = $this->db->MoCard->findOne(
+				array(
+					'_id' => new MongoId ($card_id)
+					)
+			);
+
 		if ($pin_action == 'pin') {
 			if ($pinnedCard != null) {
 			$pinnedCard['pin_status'] = 'pinned';
@@ -182,6 +187,7 @@ class MoSession extends YqBase {
 					'study_type' => 'card',
 					'student_id' => $user_id,
 					'card_id' => $card_id,
+					'class_id' => $card['class_id'],
 					'pin_time' => time(),
 					'pin_status' => 'pinned'
 					);
