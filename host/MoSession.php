@@ -45,10 +45,23 @@ class MoSession extends YqBase {
 	// postTime
 	// title
 	
-	function sessionsByCurriculum (){
+	function curriculumByStudent (){
 
 		
-		$sessions = $this->db->MoSession->find();
+		$sessions = $this->db->MoCurriculum->find();
+		
+		$results = array();
+		foreach ($sessions as $key => $value) {
+			array_push($results, $value);
+		}
+		return json_encode($results);
+				
+	}
+
+	function sessionsByCurriculum ($curriculum_id){
+
+		
+		$sessions = $this->db->MoSession->find(array('curriculum_id' => $curriculum_id))->sort(array('session_num' => 1));
 		
 		$results = array();
 		foreach ($sessions as $key => $value) {
