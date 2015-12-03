@@ -65,7 +65,7 @@ class MoSession extends YqBase {
 		
 		$results = array();
 		foreach ($sessions as $key => $value) {
-			array_push($results, $value);
+			array_push($results, $value);	
 		}
 		return json_encode($results);
 				
@@ -95,7 +95,7 @@ class MoSession extends YqBase {
 
 					//Find the update cursor
 					$cursor = $this->db->MoStudy->findOne(array(
-						'student_id' => $user_id,
+						'student_id' => $id,
 						'study_type' => 'cursor',
 						'class_id' => (string)$theClass['_id']
 
