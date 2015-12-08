@@ -233,7 +233,7 @@ class MoSession extends YqBase {
 
 		$cursorInt = (int)$card_position;
 
-		if ($cursorInt > 1) {
+		if ($cursorInt > 0) {
 			$record = $this->db->MoStudy->findOne(array(
 					'student_id' => $user_id,
 					'study_type' => 'cursor',
