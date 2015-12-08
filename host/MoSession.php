@@ -84,11 +84,15 @@ class MoSession extends YqBase {
 	function myClassesByStudentID ($id){
 
 		$student = $this->db->MoStudent->findOne(array('_id'=> new MongoId($id)));
-		if ($student != nil) {
-			$classesToLearn = $student['student_classToLearn'];
+		$classCursors = $this->db->MoStudy->find(array('student_id' => $id,'study_type' => 'cursor'));
+
+		//插入排序的代码
+
+		if ($classCursors != nil) {
+			//$classesToLearn = $student['student_classToLearn'];
 			$results = array();
-			foreach ($classesToLearn as $key => $value) {
-				$theClass = $this->db->MoClass->findOne(array('_id'=> new MongoId($value)));
+			foreach ($classCursors as $key => $value) {
+				$theClass = $this->db->MoClass->findOne(array('_id'=> new MongoId($value['class_id'])));
 				if ($theClass != nil) {
 
 					$theClass['my_cursor'] = 0;
