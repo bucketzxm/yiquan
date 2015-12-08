@@ -124,7 +124,7 @@ class MoSession extends YqBase {
 	function pinnedClassesByStudentID ($id){
 
 		$student = $this->db->MoStudent->findOne(array('_id'=> new MongoId($id)));
-		$classCursors = $this->db->MoStudy->find(array('student_id' => $id,'study_type' => 'card'));
+		$classCursors = $this->db->MoStudy->find(array('student_id' => $id,'study_type' => 'card','pin_status' =>'pinned'));
 
 		//Build class id array
 		$pinnedClassIDs = array();
