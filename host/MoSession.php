@@ -136,7 +136,7 @@ class MoSession extends YqBase {
 
 		//插入排序的代码
 
-		if (count($pinnedClassIDs) > 0) {
+		//if (count($pinnedClassIDs) > 0) {
 			//$classesToLearn = $student['student_classToLearn'];
 			$results = array();
 			foreach ($pinnedClassIDs as $keyID => $valueID) {
@@ -163,9 +163,9 @@ class MoSession extends YqBase {
 			}
 			return json_encode($results);
 
-		}else{
-			return -1;
-		}
+		//}else{
+		//	return -1;
+		//}
 		
 	}
 
