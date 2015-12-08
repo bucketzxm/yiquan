@@ -121,6 +121,55 @@ class MoSession extends YqBase {
 		
 	}
 
+	function pinnedClassesByStudentID ($id){
+
+		$student = $this->db->MoStudent->findOne(array('_id'=> new MongoId($id)));
+		$classCursors = $this->db->MoStudy->find(array('student_id' => $id,'study_type' => 'card'));
+
+		//Build class id array
+		$pinnedClassIDs = array();
+		foreach ($classCursors as $key => $value) {
+			if (!in_array($value['class_id'], $pinnedClassIDs)) {
+				array_push($pinnedClassIDs, $value['class_id']);
+			}
+		}
+
+		//插入排序的代码
+
+		if (count($pinnedClassIDs) > 0) {
+			//$classesToLearn = $student['student_classToLearn'];
+			$results = array();
+			foreach ($pinnedClassIDs as $keyID => $valueID) {
+				$theClass = $this->db->MoClass->findOne(array('_id'=> new MongoId($valueID)));
+				if ($theClass != nil) {
+
+					$theClass['my_cursor'] = 0;
+
+					//Find the update cursor
+					$cursor = $this->db->MoStudy->findOne(array(
+						'student_id' => $id,
+						'study_type' => 'cursor',
+						'class_id' => (string)$theClass['_id']
+
+						));
+					if ($cursor != null) {
+						$theClass['my_cursor'] = $cursor['card_cursor'];
+					}
+
+
+					array_push($results, $theClass);
+				}
+				
+			}
+			return json_encode($results);
+
+		}else{
+			return -1;
+		}
+		
+	}
+
+
 	function cardsByClassID($user_id,$class_id){
 
 		$theClass = $this->db->MoClass->findOne(array('_id' => new MongoId($class_id)));
