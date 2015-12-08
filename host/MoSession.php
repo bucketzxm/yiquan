@@ -149,7 +149,8 @@ class MoSession extends YqBase {
 					$cursor = $this->db->MoStudy->find(array(
 						'student_id' => $id,
 						'study_type' => 'card',
-						'class_id' => (string)$theClass['_id']
+						'class_id' => (string)$theClass['_id'],
+						'pin_status' => 'pinned'
 
 						))->count();
 					//if ($cursor != null) {
