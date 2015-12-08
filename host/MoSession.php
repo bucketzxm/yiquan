@@ -71,11 +71,17 @@ class MoSession extends YqBase {
 				
 	}
 
-	function classesBySessionID ($id){
+	function classesBySessionID ($class_id,$user_id){
 
-		$classes = $this->db->MoClass->find(array('session_id' => $id));
+		$classes = $this->db->MoClass->find(array('session_id' => $class_id));
 		$results = array();
 		foreach ($classes as $key => $value) {
+			$cursor = $this->db->MoStudy->findOne(array('class_id'=> (string)$value['_id'],'study_type'=>'cursor','student_id'=>$user_id));
+			if ($cursor == nil) {
+				$value['my_cursor'] = 0;
+			}else{
+				$value['my_cursor'] = 1;
+			}
 			array_push($results, $value);
 		}
 		return json_encode($results);
