@@ -84,7 +84,7 @@ class MoSession extends YqBase {
 	function myClassesByStudentID ($id){
 
 		$student = $this->db->MoStudent->findOne(array('_id'=> new MongoId($id)));
-		$classCursors = $this->db->MoStudy->find(array('student_id' => $id,'study_type' => 'cursor'));
+		$classCursors = $this->db->MoStudy->find(array('student_id' => $id,'study_type' => 'cursor'))->sort(array('cursor_time' =>1)));
 
 		//插入排序的代码
 
