@@ -146,15 +146,15 @@ class MoSession extends YqBase {
 					$theClass['my_cursor'] = 0;
 
 					//Find the update cursor
-					$cursor = $this->db->MoStudy->findOne(array(
+					$cursor = $this->db->MoStudy->find(array(
 						'student_id' => $id,
-						'study_type' => 'cursor',
+						'study_type' => 'card',
 						'class_id' => (string)$theClass['_id']
 
-						));
-					if ($cursor != null) {
-						$theClass['my_cursor'] = $cursor['card_cursor'];
-					}
+						))->count();
+					//if ($cursor != null) {
+						$theClass['pinnedCard_Num'] = $cursor;
+					//}
 
 
 					array_push($results, $theClass);
