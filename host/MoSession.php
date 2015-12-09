@@ -180,7 +180,13 @@ class MoSession extends YqBase {
 		
 	}
 
-	function pinnedCardsByClassID($user_id,$class_id){
+	function pinnedCardsByClassID($user_class_id){
+
+		$idArray = explode('/',$user_class_id);
+		$user_id = $idArray[0];
+		$class_id = $idArray[1];
+
+
 		$pinnedCards = $this->db->MoStudy->find(array('study_type' =>'card','student_id'=>$user_id,'class_id'=>$class_id,'pin_status' => 'pinned'));
 		$pinnedCardIDs = array();
 		foreach ($pinnedCards as $key => $value) {
