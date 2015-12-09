@@ -197,7 +197,7 @@ class MoSession extends YqBase {
 		$results = array();
 		$resultCards = array();
 		foreach ($theCards as $keycard => $card) {
-			array_push($resutCards, $card);
+			array_push($resultCards, $card);
 		}
 		$results['cards'] = $resultCards;
 		$results['cursor'] = 0;
