@@ -184,7 +184,7 @@ class MoSession extends YqBase {
 		$pinnedCards = $this->db->MoStudy->find(array('study_type' =>'card','student_id'=>$user_id,'class_id'=>$class_id,'pin_status' => 'pinned'));
 		$pinnedCardIDs = array();
 		foreach ($pinnedCards as $key => $value) {
-			array_push($pinnedCardIDs, new MongoId($value));
+			array_push($pinnedCardIDs, new MongoId($value['card_id']));
 		}
 
 		$theCards = $this->db->MoCard->find(array('_id' => array('$in' => $pinnedCardIDs)));
