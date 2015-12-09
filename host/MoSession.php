@@ -81,7 +81,7 @@ class MoSession extends YqBase {
 		$results = array();
 		foreach ($classes as $key => $value) {
 			$cursor = $this->db->MoStudy->findOne(array('class_id'=> (string)$value['_id'],'study_type'=>'cursor','student_id'=>$user_id));
-			if ($cursor == nil) {
+			if ($cursor == null) {
 				$value['my_cursor'] = 0;
 			}else{
 				$value['my_cursor'] = 1;
