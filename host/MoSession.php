@@ -259,9 +259,11 @@ class MoSession extends YqBase {
 				));
 
 			if ($cursor != null) {
-				$results['cursor']= $cursor['card_cursor'];	
+				$results['card_cursor']= $cursor['card_cursor'];	
+				$results['activity_cursor'] = $cursor['activity_cursor'];
 			}else{
-				$results['cursor'] = 0;
+				$results['card_cursor'] = 0;
+				$results['activity_cursor'] = 0;
 			}
 
 			return json_encode($results);
