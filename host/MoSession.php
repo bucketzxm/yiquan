@@ -249,6 +249,8 @@ class MoSession extends YqBase {
 			}
 			$results['cards'] = $cardsGot;
 
+			//get the Card Num
+			$results['card_num'] = $theClass['class_cardNum'];
 			//Find the cursor
 			$cursor = $this->db->MoStudy->findOne(array(
 					'student_id' => $user_id,
