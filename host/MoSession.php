@@ -232,7 +232,7 @@ class MoSession extends YqBase {
 			foreach ($cards as $key => $value) {
 				$section = array();
 				foreach ($value as $section => $singleCard) {
-					$theCard = $this->db->MoCard->findOne(array('_id' => new MongoId($value)));
+					$theCard = $this->db->MoCard->findOne(array('_id' => new MongoId($singleCard)));
 					if ($theCard != nil) {
 
 						if (isset($pinnedCards[(string)$theCard['_id']])) {
