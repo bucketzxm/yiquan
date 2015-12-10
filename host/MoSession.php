@@ -230,7 +230,7 @@ class MoSession extends YqBase {
 			$results = array();
 			$cardsGot = array();
 			foreach ($cards as $key => $value) {
-				$section = array();
+				$sectionResult = array();
 				foreach ($value as $section => $singleCard) {
 					$theCard = $this->db->MoCard->findOne(array('_id' => new MongoId($singleCard)));
 					if ($theCard != nil) {
@@ -241,10 +241,10 @@ class MoSession extends YqBase {
 							$theCard['pin_status'] = 'unpinned';
 						}
 
-						array_push($section, $theCard);
+						array_push($sectionResult, $theCard);
 					}
 				}
-				array_push($cardsGot, $section);
+				array_push($cardsGot, $sectionResult);
 				
 			}
 			$results['cards'] = $cardsGot;
