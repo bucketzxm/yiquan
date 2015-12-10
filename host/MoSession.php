@@ -353,8 +353,22 @@ class MoSession extends YqBase {
 
 			}
 		}
-			
+	}
 
+	function testsByCard($user_card_id){
+
+		$idArray = explode('/',$user_class_id);
+		$user_id = $idArray[0];
+		$card_id = $idArray[1];
+
+		$theCard = $this->db->MoCard->findOne(array('_id' => new MongoId($card_id)));
+		$testResult = array();
+		foreach ($theCard['card_tests'] as $key => $value) {
+			$theTest = $this->db->MoTest->findOne(array('_id' => new MongoId($value)));
+			array_push($testResult, $theTest);
+		}
+
+		return json_encode($testResult);
 
 	}
 
