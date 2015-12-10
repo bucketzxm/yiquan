@@ -357,7 +357,7 @@ class MoSession extends YqBase {
 
 	function testsByCard($user_card_id){
 
-		$idArray = explode('/',$user_class_id);
+		$idArray = explode('/',$user_card_id);
 		$user_id = $idArray[0];
 		$card_id = $idArray[1];
 
