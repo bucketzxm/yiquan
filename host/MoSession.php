@@ -406,7 +406,9 @@ class MoSession extends YqBase {
 
 		for ($i=0; $i < count($theCard['card_tests']); $i++) { 
 			$theTest = $this->db->MoTest->findOne(array('_id' => new MongoId($theCard['card_tests'][$i]));
-			$theTest['user_answer'] = $theAnswers[$i];
+			if ($theAnswers != nil) {
+				$theTest['user_answer'] = $theAnswers[$i];
+			}
 			array_push($testResult, $theTest);
 		}
 
