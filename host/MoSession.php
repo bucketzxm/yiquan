@@ -417,7 +417,7 @@ class MoSession extends YqBase {
 	}
 
 	function uploadAnswersByActivity ($user_class_card_id,$answers,$activity_cursor){
-		$idArray = explode('/',$user_class_id);
+		$idArray = explode('/',$user_class_card_id);
 		$user_id = $idArray[0];
 		$class_id = $idArray[1];
 		$card_id = $idArray[2];
