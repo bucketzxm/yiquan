@@ -398,9 +398,15 @@ class MoSession extends YqBase {
 		$card_id = $idArray[1];
 
 		$theCard = $this->db->MoCard->findOne(array('_id' => new MongoId($card_id)));
+		$theRecord = $this->db->MoStudy->findOne(array('student_id'=> $user_id,'class_id' => $theCard['class_id'],'study_type' =>'cursor'));
+
+		$theAnswers = $theRecord['activity_answers'][$card_id];
+
 		$testResult = array();
-		foreach ($theCard['card_tests'] as $key => $value) {
-			$theTest = $this->db->MoTest->findOne(array('_id' => new MongoId($value)));
+
+		for ($i=0; $i < count($theCard['card_tests']); $i++) { 
+			$theTest = $this->db->MoTest->findOne(array('_id' => new MongoId($theCard['card_tests'][$i]));
+			$theTest['user_answer'] = $theAnswers[$i];
 			array_push($testResult, $theTest);
 		}
 
@@ -408,11 +414,11 @@ class MoSession extends YqBase {
 
 	}
 
-	function uploadAnswersByActivity ($user_class_id,$answers,$activity_cursor){
+	function uploadAnswersByActivity ($user_class_card_id,$answers,$activity_cursor,$){
 		$idArray = explode('/',$user_class_id);
 		$user_id = $idArray[0];
 		$class_id = $idArray[1];
-
+		$card_id = $idArray[2];
 		$answerArray = explode('/',$answers);
 
 
@@ -427,7 +433,7 @@ class MoSession extends YqBase {
 			 if ($studyRecord['activity_answers'] == nil) {
 			 	$studyRecord['activity_answers'] == array();
 			 }
-			 $studyRecord['activity_answers'][(string)$activity_cursor] = $answerArray;
+			 $studyRecord['activity_answers'][$card_id] = $answerArray;
 
 			 $this->db->MoStudy->save($studyRecord);
 		} 
