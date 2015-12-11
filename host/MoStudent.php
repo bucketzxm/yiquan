@@ -296,7 +296,18 @@ class MoStudent extends YqBase {
 		}
 	}
 	
+	function resetPassword($user_id, $newpassword) {
+		
+		$row = $this->db->MoStudent->findOne ( array (
+				'_id' => new MongoId($user_id) 
+		) );
 
+		$row ['student_password'] = $newpassword;
+		
+		$this->db->MoStudent->save ( $row );
+		
+		return 1;
+	}
 
 }
 
