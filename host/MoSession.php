@@ -77,7 +77,7 @@ class MoSession extends YqBase {
 		$session_id = $idArray[0];
 		$user_id = $idArray[1];
 
-		$classes = $this->db->MoClass->find(array('session_id' => $session_id));
+		$classes = $this->db->MoClass->find(array('session_id' => $session_id))->sort(array('class_num' => 1));
 		$results = array();
 		foreach ($classes as $key => $value) {
 			$cursor = $this->db->MoStudy->findOne(array('class_id'=> (string)$value['_id'],'study_type'=>'cursor','student_id'=>$user_id));
