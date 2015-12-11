@@ -463,8 +463,8 @@ class MoSession extends YqBase {
 		$user_id = $idArray[0];
 		$class_id = $idArray[1];
 
-		$record = $this->db->MoStudy->findOne(array('student_id' => $user_id,'class_id' => $class_id));
-		if (is_null($record)) {
+		$record = $this->db->MoStudy->findOne(array('student_id' => $user_id,'class_id' => $class_id,'study_type' ='cursor'));
+		if ($record == null) {
 			$newRecord = array(
 					'study_type' => 'cursor',
 					'student_id' => $user_id,
@@ -478,8 +478,6 @@ class MoSession extends YqBase {
 			$this->db->MoStudy->save($newRecord);
 
 			return 1;
-		}else{
-			return 2;
 		}
 
 
