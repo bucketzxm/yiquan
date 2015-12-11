@@ -457,5 +457,31 @@ class MoSession extends YqBase {
 
 		return 1;
 	}
+
+	function addClassToPlan ($user_class_id){
+		$idArray = explode('/',$user_class_id);
+		$user_id = $idArray[0];
+		$class_id = $idArray[1];
+
+		$record = $this->db->MoStudy->findOne(array('student_id' => $user_id,'class_id' => $class_id));
+		if ($record == null) {
+			$newRecord = array(
+					'study_type' => 'cursor',
+					'student_id' => $user_id,
+					'class_id' => $class_id,
+					'class_status' =>'progress',
+					'card_cursor' => 0,
+					'activity_cursor' => 0,
+					'cursor_time' => 0
+				);
+
+			$this->db->MoStudy->save($newRecord);
+
+			return 1;
+		}
+
+
+	}
+
 }
 ?>
