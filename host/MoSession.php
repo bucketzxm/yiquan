@@ -98,12 +98,12 @@ class MoSession extends YqBase {
 
 		//插入排序的代码
 
-		if ($classCursors != nil) {
+		if ($classCursors != null) {
 			//$classesToLearn = $student['student_classToLearn'];
 			$results = array();
 			foreach ($classCursors as $key => $value) {
 				$theClass = $this->db->MoClass->findOne(array('_id'=> new MongoId($value['class_id'])));
-				if ($theClass != nil) {
+				if ($theClass != null) {
 
 					$theClass['my_cursor'] = 0;
 
@@ -151,7 +151,7 @@ class MoSession extends YqBase {
 			$results = array();
 			foreach ($pinnedClassIDs as $keyID => $valueID) {
 				$theClass = $this->db->MoClass->findOne(array('_id'=> new MongoId($valueID)));
-				if ($theClass != nil) {
+				if ($theClass != null) {
 
 					$theClass['my_cursor'] = 0;
 
@@ -200,7 +200,7 @@ class MoSession extends YqBase {
 			$results = array();
 			foreach ($completedClassIDs as $keyID => $valueID) {
 				$theClass = $this->db->MoClass->findOne(array('_id'=> new MongoId($valueID)));
-				if ($theClass != nil) {
+				if ($theClass != null) {
 
 					array_push($results, $theClass);
 				}
@@ -243,7 +243,7 @@ class MoSession extends YqBase {
 	function cardsByClassID($user_id,$class_id){
 
 		$theClass = $this->db->MoClass->findOne(array('_id' => new MongoId($class_id)));
-		if ($theClass != nil) {
+		if ($theClass != null) {
 			
 			//Find all the pinned cards by that user
 			$pinnedCursor = $this->db->MoStudy->find(array(
@@ -267,7 +267,7 @@ class MoSession extends YqBase {
 				$sectionResult = array();
 				foreach ($value as $section => $singleCard) {
 					$theCard = $this->db->MoCard->findOne(array('_id' => new MongoId($singleCard)));
-					if ($theCard != nil) {
+					if ($theCard != null) {
 
 						if (isset($pinnedCards[(string)$theCard['_id']])) {
 							$theCard['pin_status'] = 'pinned';
@@ -405,8 +405,8 @@ class MoSession extends YqBase {
 		$testResult = array();
 
 		for ($i=0; $i < count($theCard['card_tests']); $i++) { 
-			$theTest = $this->db->MoTest->findOne(array('_id' => new MongoId($theCard['card_tests'][$i]));
-			if ($theAnswers != nil) {
+			$theTest = $this->db->MoTest->findOne(array('_id' => new MongoId($theCard['card_tests'][$i])));
+			if ($theAnswers != null) {
 				$theTest['user_answer'] = $theAnswers[$i];
 			}
 			array_push($testResult, $theTest);
@@ -427,12 +427,12 @@ class MoSession extends YqBase {
 
 		$activity_cursor = (int)$activity_cursor;
 		$studyRecord = $this->db->MoStudy->findOne(array('student_id' => $user_id,'class_id' => $class_id,'study_type' => 'cursor'));
-		if ($studyRecord != nil) {
+		if ($studyRecord != null) {
 			if ($studyRecord['activity_cursor'] < $activity_cursor+1) {
 			 		$studyRecord['activity_cursor'] = $activity_cursor+1;
 			 	} 
 
-			 if ($studyRecord['activity_answers'] == nil) {
+			 if ($studyRecord['activity_answers'] == null) {
 			 	$studyRecord['activity_answers'] == array();
 			 }
 			 $studyRecord['activity_answers'][$card_id] = $answerArray;
