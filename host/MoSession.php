@@ -478,6 +478,8 @@ class MoSession extends YqBase {
 			$this->db->MoStudy->save($newRecord);
 
 			return 1;
+		}else{
+			return 2;
 		}
 
 
