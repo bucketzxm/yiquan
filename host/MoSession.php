@@ -396,7 +396,7 @@ class MoSession extends YqBase {
 			 $this->db->MoStudy->save($studyRecord);
 		} 
 
-		return $activity_cursor+1;
+		return $studyRecord['activity_cursor'];
 
 	}
 }
