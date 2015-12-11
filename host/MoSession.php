@@ -391,7 +391,7 @@ class MoSession extends YqBase {
 			 if ($studyRecord['activity_answers'] == nil) {
 			 	$studyRecord['activity_answers'] == array();
 			 }
-			 $studyRecord['activity_answers'][$activity_cursor] = $answerArray;
+			 $studyRecord['activity_answers'][(string)$activity_cursor] = $answerArray;
 
 			 $this->db->MoStudy->save($studyRecord);
 		} 
