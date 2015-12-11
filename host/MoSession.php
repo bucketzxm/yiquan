@@ -94,7 +94,7 @@ class MoSession extends YqBase {
 	function myClassesByStudentID ($id){
 
 		$student = $this->db->MoStudent->findOne(array('_id'=> new MongoId($id)));
-		$classCursors = $this->db->MoStudy->find(array('student_id' => $id,'study_type' => 'cursor'))->sort(array('cursor_time' =>1));
+		$classCursors = $this->db->MoStudy->find(array('student_id' => $id,'study_type' => 'cursor','class_status' => 'progress'))->sort(array('cursor_time' =>1));
 
 		//插入排序的代码
 
@@ -397,6 +397,17 @@ class MoSession extends YqBase {
 		} 
 
 		return $studyRecord['activity_cursor'];
+
+	}
+
+	function finishClassByStudent($user_class_id){
+		$idArray = explode('/',$user_class_id);
+		$user_id = $idArray[0];
+		$class_id = $idArray[1];
+
+		$record = $this->db->MoStudy->findOne(array('student_id' =>$user_id,'class_id' =>$class_id));
+		$record['class_status'] = 'completed';
+		$this->db->MoStudy->save($record);
 
 	}
 }
