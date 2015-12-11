@@ -83,8 +83,10 @@ class MoSession extends YqBase {
 			$cursor = $this->db->MoStudy->findOne(array('class_id'=> (string)$value['_id'],'study_type'=>'cursor','student_id'=>$user_id));
 			if ($cursor == null) {
 				$value['my_cursor'] = 0;
-			}else{
+			}else if ($cursor['class_status'] == 'progress'){
 				$value['my_cursor'] = 1;
+			}else if ($cursor['class_status'] == 'completed'){
+				$value['my_cursor'] = 2;
 			}
 			array_push($results, $value);
 		}
