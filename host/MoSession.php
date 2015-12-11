@@ -385,7 +385,7 @@ class MoSession extends YqBase {
 		$studyRecord = $this->db->MoStudy->findOne(array('student_id' => $user_id,'class_id' => $class_id,'study_type' => 'cursor'));
 		if ($studyRecord != nil) {
 			if ($studyRecord['activity_cursor'] <= $activity_cursor) {
-			 		$studyRecord['activity_cursor'] = $activity_cursor+1
+			 		$studyRecord['activity_cursor'] = $activity_cursor+1;
 			 	} 
 
 			 if ($studyRecord['activity_answers'] == nil) {
