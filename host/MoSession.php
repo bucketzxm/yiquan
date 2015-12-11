@@ -180,6 +180,40 @@ class MoSession extends YqBase {
 		
 	}
 
+	function completedClassesByStudentID ($id){
+
+		$student = $this->db->MoStudent->findOne(array('_id'=> new MongoId($id)));
+		$classCursors = $this->db->MoStudy->find(array('student_id' => $id,'study_type' => 'cursor','class_status' =>'completed'));
+
+		//Build class id array
+		$completedClassIDs = array();
+		foreach ($classCursors as $key => $value) {
+			if (!in_array($value['class_id'], $completedClassIDs)) {
+				array_push($completedClassIDs, $value['class_id']);
+			}
+		}
+
+		//插入排序的代码
+
+		//if (count($pinnedClassIDs) > 0) {
+			//$classesToLearn = $student['student_classToLearn'];
+			$results = array();
+			foreach ($completedClassIDs as $keyID => $valueID) {
+				$theClass = $this->db->MoClass->findOne(array('_id'=> new MongoId($valueID)));
+				if ($theClass != nil) {
+
+					array_push($results, $theClass);
+				}
+				
+			}
+			return json_encode($results);
+
+		//}else{
+		//	return -1;
+		//}
+		
+	}
+
 	function pinnedCardsByClassID($user_class_id){
 
 		$idArray = explode('/',$user_class_id);
