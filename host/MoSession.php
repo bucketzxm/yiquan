@@ -409,6 +409,7 @@ class MoSession extends YqBase {
 		$record['class_status'] = 'completed';
 		$this->db->MoStudy->save($record);
 
+		return 1;
 	}
 }
 ?>
