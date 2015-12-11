@@ -372,6 +372,32 @@ class MoSession extends YqBase {
 
 	}
 
-	
+	function uploadAnswersByActivity ($user_class_id,$answers,$activity_cursor){
+		$idArray = explode('/',$user_class_id);
+		$user_id = $idArray[0];
+		$class_id = $idArray[1];
+
+		$answerArray = explode('/',$answers);
+
+
+
+		$activity_cursor = (int)$activity_cursor;
+		$studyRecord = $this->db->MoStudy->findOne(array('student_id' => $user_id,'class_id' => $class_id,'study_type' => 'cursor'));
+		if ($studyRecord != nil) {
+			if ($studyRecord['activity_cursor'] <= $activity_cursor) {
+			 		$studyRecord['activity_cursor'] = $activity_cursor+1
+			 	} 
+
+			 if ($studyRecord['activity_answers'] == nil) {
+			 	$studyRecord['activity_answers'] == array();
+			 }
+			 $studyRecord['activity_answers'][$activity_cursor] = $answerArray;
+
+			 $this->db->MoStudy->save($studyRecord);
+		} 
+
+		return $activity_cursor+1;
+
+	}
 }
 ?>
