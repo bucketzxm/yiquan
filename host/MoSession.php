@@ -231,11 +231,14 @@ class MoSession extends YqBase {
 
 		$theCards = $this->db->MoCard->find(array('_id' => array('$in' => $pinnedCardIDs)));
 		$results = array();
+		$resultsSection = array();
 		$resultCards = array();
 		foreach ($theCards as $keycard => $card) {
 			array_push($resultCards, $card);
 		}
-		$results['cards'] = $resultCards;
+
+		array_push($resultsSection,$resultCards);
+		$results['cards'] = $resultsSection;
 		$results['cursor'] = 0;
 
 		return json_encode($results);
