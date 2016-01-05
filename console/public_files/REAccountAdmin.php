@@ -62,6 +62,15 @@ include_once '401.php';
 							}
 							break;
 
+
+						case '联系人明细' :
+
+							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
+						
+									$a->showDetailsByContact($a->getDetailsByContact($_GET ['mindex']));
+						
+							}
+							break;
 						}
 					}
 					?>

@@ -60,6 +60,28 @@ class Seed extends YqBase{
 	}
 
 
+	function getDetailsByContact($contact) {
+		
+		$results = array();
+
+		//基本信息
+		$cursor = $this->db->REContact->findOne(array('_id' => new MongoId ($contact)));
+
+		array_push($results, $cursor);
+
+
+		//动作记录
+		$actionCursor = $this->db->REAction->find(array('contact_id' => $contact))->sort(array('action_time' => -1));
+		$actions = array();
+		foreach ($actionCursor as $keyaction => $action) {
+			array_push($actions, $action);
+		}
+		array_push($results, $actions);		
+
+		return $results;
+	}
+
+
 	
 }
 ?>

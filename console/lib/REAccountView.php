@@ -121,7 +121,7 @@ class SeedView extends Seed{
 		th_combiner('办公室直线');
 		th_combiner('电子邮箱');
 		th_combiner('QQ号码');
-		
+		th_combiner('详细');
 
 		for ($i=0; $i < count($contactArr); $i++) { 
 			echo '<tr></thead>';
@@ -134,7 +134,9 @@ class SeedView extends Seed{
 			echo '<td>'.$contactArr[$i]['contact_telephone'].'</td>';
 			echo '<td>'.$contactArr[$i]['contact_email'].'</td>';
 			echo '<td>'.$contactArr[$i]['contact_qq'].'</td>';
+			echo '<td><a href="?action=联系人明细&mindex='.(string)$contactArr[$i]['_id'].'">'.'查看'.'</a></td>';
 			echo '<tr>';	
+
 		}
 		
 		
@@ -143,6 +145,98 @@ class SeedView extends Seed{
 		//联系记录
 		$actionArr = $results[2];
 		echo '<h4>学校交互记录</h4>';	
+		echo '<div class="table-responsive"><table class="table table-striped">';
+		echo '<thead><tr>';
+		
+		th_combiner('日期');
+		th_combiner('交互类型');
+		th_combiner('交互状态');
+		th_combiner('联系人');
+		th_combiner('发起人');
+		th_combiner('交互目的');
+		th_combiner('交互笔记');
+		
+
+
+		for ($j=0; $j < count($actionArr); $j++) { 
+		
+			$contactID = $actionArr[$j]['contact_id'];
+			$contactCursor = $this->db->REContact->findOne(array('_id' => new MongoId ($contactID)));
+			$combinedString = $contactCursor['contact_position'].$contactCursor['contact_lastName'].$contactCursor['contact_givenName'];
+			echo '<tr></thead>';
+			echo '<td>'.date("Y-m-d",$actionArr[$j]['action_time']).'</td>';
+			echo '<td>'.$actionArr[$j]['action_type'].'</td>';
+			echo '<td>'.$actionArr[$j]['action_status'].'</td>';
+			echo '<td>'.$combinedString.'</td>';
+			echo '<td>'.$actionArr[$j]['action_sender'].'</td>';
+			echo '<td>'.$actionArr[$j]['action_purpose'].'</td>';
+			echo '<td>'.$actionArr[$j]['action_note'].'</td>';
+			echo '<tr>';	
+		}
+
+		echo '</table></div>';	
+
+
+
+	}
+
+	function showDetailsByContact ($results){
+
+		$profileArr = $results[0];
+
+		//学校类型
+		echo '<h4>基本信息</h4>';
+		echo '<div class="table-responsive"><table class="table table-striped">';
+		echo '<thead><tr>';
+		
+		th_combiner('职位');
+		th_combiner('姓');
+		th_combiner('名');
+		th_combiner('称谓');
+		th_combiner('角色');
+		th_combiner('手机');
+		th_combiner('办公室直线');
+		th_combiner('电子邮箱');
+		th_combiner('QQ号码');
+		
+			echo '<tr></thead>';
+			echo '<td>'.$profileArr['contact_position'].'</td>';
+			echo '<td>'.$profileArr['contact_lastName'].'</td>';
+			echo '<td>'.$profileArr['contact_givenName'].'</td>';
+			echo '<td>'.$profileArr['contact_prefix'].'</td>';
+			echo '<td>'.$profileArr['contact_role'].'</td>';
+			echo '<td>'.$profileArr['contact_mobile'].'</td>';
+			echo '<td>'.$profileArr['contact_telephone'].'</td>';
+			echo '<td>'.$profileArr['contact_email'].'</td>';
+			echo '<td>'.$profileArr['contact_qq'].'</td>';
+			echo '<tr>';	
+		
+		echo '</table></div>';		
+
+		//学校地点
+		echo '<div class="table-responsive"><table class="table table-striped">';
+		echo '<thead><tr>';
+		
+		
+		th_combiner('编制');
+		th_combiner('学科');
+		th_combiner('爱好');
+		
+			echo '<tr></thead>';
+				echo '<td>'.$profileArr['account_employer'].'</td>';	
+				echo '<td>'.$profileArr['account_discipline'].'</td>';	
+				echo '<td>'.$profileArr['account_interests'].'</td>';
+	
+			echo '<tr>';	
+		
+		echo '</table></div>';
+
+
+
+
+		//联系记录
+		$actionArr = $results[1];
+		echo '<h4>联系人交互记录</h4>';	
 		echo '<div class="table-responsive"><table class="table table-striped">';
 		echo '<thead><tr>';
 		
