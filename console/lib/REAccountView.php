@@ -42,11 +42,15 @@ class SeedView extends Seed{
 		th_combiner('城市');
 		th_combiner('学校名称');
 		th_combiner('学校类型');
+		th_combiner('每届人数');
+		th_combiner('开发状态');
 		for ($i=0; $i < count($arr); $i++) { 
 			echo '<tr></thead>';
 				echo '<td>'.$arr[$i]['account_city'].'</td>';	
 				echo '<td>'.$arr[$i]['account_name'].'</td>';
 				echo '<td>'.$arr[$i]['account_type'].'</td>';
+				echo '<td>'.$arr[$i]['account_size'].'</td>';
+				echo '<td>'.$arr[$i]['account_status'].'</td>';
 			echo '<tr>';	
 		}
 		echo '</table></div>';
