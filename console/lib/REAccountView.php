@@ -157,7 +157,7 @@ class SeedView extends Seed{
 		}
 		
 		
-		echo '</table><p>添加该学校的联系人</p></br></div>';	
+		echo '</table><p><a href="?action=添加学校联系人&mindex='.(string)$profileArr['_id'].'">'.'添加该学校的联系人'.'</a></p></br></div>';	
 	
 
 		//联系记录
@@ -193,7 +193,7 @@ class SeedView extends Seed{
 		}
 
 		
-		echo '</table><p>添加该学校的交互记录</p></div>';	
+		echo '</table><p><a href="?action=添加学校交互记录&mindex='.(string)$profileArr['_id'].'">'.'添加该学校的交互记录</a></p></div>';	
 
 
 
@@ -293,7 +293,18 @@ class SeedView extends Seed{
 
 	}
 
-	
+	function addContactByAccount ($account){
+
+		echo '<div><form method="post" action="?action=addNewContact">';
+		echo '<input type="hidden" class="form-control" name="id" value="' . $$account. '"/>';
+		echo '<div class="form-group"><h2>媒体名称</h2>';
+		echo '<textarea class="form-control" rows="3" cols="80" name="name"></textarea></div>';
+		echo '<div class="form-group"><input type="submit" value="提交" /></div>';
+		echo '</form></div>';
+
+
+
+	}
 
 	function showDeleteSeedView($id) {
 		echo '<form method="post" action="?action=deleteSeed">';

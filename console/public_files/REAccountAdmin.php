@@ -71,6 +71,26 @@ include_once '401.php';
 						
 							}
 							break;
+
+
+						case '添加学校联系人' :
+
+							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
+						
+									$a->addContactByAccount($_GET ['mindex']);
+						
+							}
+							break;
+
+
+						case '添加学校交互记录' :
+
+							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
+						
+									$a->addActionByAccount($_GET ['mindex']);
+						
+							}
+							break;
 						}
 					}
 					?>
