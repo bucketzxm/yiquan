@@ -136,6 +136,7 @@ class SeedView extends Seed{
 		th_combiner('办公室直线');
 		th_combiner('电子邮箱');
 		th_combiner('QQ号码');
+		th_combiner('客情关系');
 		th_combiner('详细');
 
 		for ($i=0; $i < count($contactArr); $i++) { 
@@ -149,13 +150,14 @@ class SeedView extends Seed{
 			echo '<td>'.$contactArr[$i]['contact_telephone'].'</td>';
 			echo '<td>'.$contactArr[$i]['contact_email'].'</td>';
 			echo '<td>'.$contactArr[$i]['contact_qq'].'</td>';
+			echo '<td>'.$contactArr[$i]['contact_relationship'].'</td>';
 			echo '<td><a href="?action=联系人明细&mindex='.(string)$contactArr[$i]['_id'].'">'.'查看'.'</a></td>';
 			echo '<tr>';	
 
 		}
 		
 		
-		echo '</table><p>添加联系人</p></br></div>';	
+		echo '</table><p>添加该学校的联系人</p></br></div>';	
 	
 
 		//联系记录
@@ -191,7 +193,7 @@ class SeedView extends Seed{
 		}
 
 		
-		echo '</table><p>添加交互记录</p></div>';	
+		echo '</table><p>添加该学校的交互记录</p></div>';	
 
 
 
@@ -215,6 +217,7 @@ class SeedView extends Seed{
 		th_combiner('办公室直线');
 		th_combiner('电子邮箱');
 		th_combiner('QQ号码');
+		th_combiner('客情关系');
 		
 			echo '<tr></thead>';
 			echo '<td>'.$profileArr['contact_position'].'</td>';
@@ -226,6 +229,7 @@ class SeedView extends Seed{
 			echo '<td>'.$profileArr['contact_telephone'].'</td>';
 			echo '<td>'.$profileArr['contact_email'].'</td>';
 			echo '<td>'.$profileArr['contact_qq'].'</td>';
+			echo '<td>'.$profileArr['contact_relationship'].'</td>';
 			echo '<tr>';	
 		
 		echo '</table></div>';		
