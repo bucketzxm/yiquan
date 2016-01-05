@@ -1,5 +1,5 @@
 <?php
-require_once 'ZDSeed.php';
+require_once 'REAccount.php';
 
 ####################
 #    combiners     #
@@ -29,7 +29,19 @@ class SeedView extends Seed{
 		
 		th_combiner('省份');
 		echo '<tr></thead>';
-			echo '<td><a href="?action=accountInRegion&mindex=上海" target="_blank">上海</a></td>';	
+			echo '<td><a href="?action=accountInRegion&mindex=浙江" target="_blank">浙江</a></td>';	
+		echo '<tr>';
+		echo '</table></div>';
+	}
+
+	function showAccountsByRegion($arr){
+
+		echo '<div class="table-responsive"><table class="table table-striped">';
+		echo '<thead><tr>';
+		
+		th_combiner('学校名称');
+		echo '<tr></thead>';
+			echo '<td>'.$arr.'</td>';	
 		echo '<tr>';
 		echo '</table></div>';
 	}

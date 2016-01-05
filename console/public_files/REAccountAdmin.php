@@ -38,12 +38,20 @@ include_once '401.php';
 
 						case '学校信息查询' :
 							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
-								if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
+						
 									$a->listChinaProvinces();
-								}
+						
 							}
 							break;
 						
+						case 'accountInRegion' :
+
+							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
+						
+									$a->showAccountsByRegion($a->getAccountsByRegion($_GET ['mindex']));
+						
+							}
+							break;
 						
 
 
