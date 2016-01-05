@@ -151,6 +151,7 @@ class SeedView extends Seed{
 		th_combiner('交互状态');
 		th_combiner('联系人');
 		th_combiner('发起人');
+		th_combiner('交互目的');
 		th_combiner('交互笔记');
 		
 
@@ -166,6 +167,7 @@ class SeedView extends Seed{
 			echo '<td>'.$actionArr[$j]['action_status'].'</td>';
 			echo '<td>'.$combinedString.'</td>';
 			echo '<td>'.$actionArr[$j]['action_sender'].'</td>';
+			echo '<td>'.$actionArr[$j]['action_purpose'].'</td>';
 			echo '<td>'.$actionArr[$j]['action_note'].'</td>';
 			echo '<tr>';	
 		}
