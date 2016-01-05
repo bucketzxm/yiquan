@@ -104,6 +104,21 @@ class SeedView extends Seed{
 		
 		echo '</table></div>';
 
+		//补充更说明
+
+		echo '<div class="table-responsive"><table class="table table-striped">';
+		echo '<thead><tr>';
+		
+		
+		th_combiner('补充说明');
+		
+		
+			echo '<tr></thead>';
+				echo '<td>'.$profileArr['account_supplement'].'</td>';	
+		
+			echo '<tr>';	
+		
+		echo '</table></div>';
 
 
 		//学校联系人
