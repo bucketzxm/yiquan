@@ -172,6 +172,7 @@ class SeedView extends Seed{
 			echo '<tr>';	
 		}
 
+		echo '</table></div>';	
 
 
 
