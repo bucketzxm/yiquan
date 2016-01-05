@@ -116,8 +116,7 @@ class SeedView extends Seed{
 		th_combiner('姓');
 		th_combiner('名');
 		th_combiner('称谓');
-		th_combiner('编制');
-		th_combiner('学科');
+		th_combiner('角色');
 		th_combiner('手机');
 		th_combiner('办公室直线');
 		th_combiner('电子邮箱');
@@ -130,8 +129,7 @@ class SeedView extends Seed{
 			echo '<td>'.$contactArr[$i]['contact_lastName'].'</td>';
 			echo '<td>'.$contactArr[$i]['contact_givenName'].'</td>';
 			echo '<td>'.$contactArr[$i]['contact_prefix'].'</td>';
-			echo '<td>'.$contactArr[$i]['contact_employer'].'</td>';
-			echo '<td>'.$contactArr[$i]['contact_discipline'].'</td>';
+			echo '<td>'.$contactArr[$i]['contact_role'].'</td>';
 			echo '<td>'.$contactArr[$i]['contact_mobile'].'</td>';
 			echo '<td>'.$contactArr[$i]['contact_telephone'].'</td>';
 			echo '<td>'.$contactArr[$i]['contact_email'].'</td>';
