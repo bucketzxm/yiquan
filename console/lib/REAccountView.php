@@ -157,18 +157,18 @@ class SeedView extends Seed{
 		
 
 
-		for ($i=0; $i < count($contactArr); $i++) { 
+		for ($j=0; $j < count($actionArr); $j++) { 
 		
-			$contactID = $actionArr[$i]['contact_id'];
+			$contactID = $actionArr[$j]['contact_id'];
 			$contactCursor = $this->db->REContact->findOne(array('_id' => new MongoId ($contactID)));
 			$combinedString = $contactCursor['contact_position'].$contactCursor['contact_lastName'].$contactCursor['contact_givenName'];
 			echo '<tr></thead>';
-			echo '<td>'.date("Y-m-d",$actionArr[$i]['action_time']).'</td>';
-			echo '<td>'.$actionArr[$i]['action_type'].'</td>';
-			echo '<td>'.$actionArr[$i]['action_status'].'</td>';
+			echo '<td>'.date("Y-m-d",$actionArr[$j]['action_time']).'</td>';
+			echo '<td>'.$actionArr[$j]['action_type'].'</td>';
+			echo '<td>'.$actionArr[$j]['action_status'].'</td>';
 			echo '<td>'.$combinedString.'</td>';
-			echo '<td>'.$actionArr[$i]['action_sender'].'</td>';
-			echo '<td>'.$actionArr[$i]['action_note'].'</td>';
+			echo '<td>'.$actionArr[$j]['action_sender'].'</td>';
+			echo '<td>'.$actionArr[$j]['action_note'].'</td>';
 			echo '<tr>';	
 		}
 
