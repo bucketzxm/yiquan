@@ -73,15 +73,15 @@ class SeedView extends Seed{
 		th_combiner('学校类型');
 		th_combiner('每届人数');
 		th_combiner('开发状态');
-		for ($i=0; $i < count($profileArr); $i++) { 
+		
 			echo '<tr></thead>';
-				echo '<td>'.$profileArr[$i]['account_name'].'</td>';
-				echo '<td>'.$profileArr[$i]['account_category'].'</td>';
-				echo '<td>'.$profileArr[$i]['account_type'].'</td>';
-				echo '<td>'.$profileArr[$i]['account_size'].'</td>';
-				echo '<td>'.$profileArr[$i]['account_status'].'</td>';
+				echo '<td>'.$profileArr['account_name'].'</td>';
+				echo '<td>'.$profileArr['account_category'].'</td>';
+				echo '<td>'.$profileArr['account_type'].'</td>';
+				echo '<td>'.$profileArr['account_size'].'</td>';
+				echo '<td>'.$profileArr['account_status'].'</td>';
 			echo '<tr>';	
-		}
+		
 		echo '</table></div>';		
 
 		//学校地点
@@ -93,14 +93,14 @@ class SeedView extends Seed{
 		th_combiner('省份');
 		th_combiner('城市');
 		th_combiner('学校地址');
-		for ($i=0; $i < count($profileArr); $i++) { 
+		
 			echo '<tr></thead>';
-				echo '<td>'.$profileArr[$i]['account_province'].'</td>';	
-				echo '<td>'.$profileArr[$i]['account_city'].'</td>';	
-				echo '<td>'.$profileArr[$i]['account_address'].'</td>';
+				echo '<td>'.$profileArr['account_province'].'</td>';	
+				echo '<td>'.$profileArr['account_city'].'</td>';	
+				echo '<td>'.$profileArr['account_address'].'</td>';
 	
 			echo '<tr>';	
-		}
+		
 		echo '</table></div>';	
 
 
