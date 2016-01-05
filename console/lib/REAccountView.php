@@ -64,7 +64,7 @@ class SeedView extends Seed{
 		$profileArr = $results[0];
 
 		//学校类型
-		echo '<p>学校类型</p>';
+		echo '<h4>基本信息</h4>';
 		echo '<div class="table-responsive"><table class="table table-striped">';
 		echo '<thead><tr>';
 		
@@ -87,7 +87,6 @@ class SeedView extends Seed{
 		echo '</table></div>';		
 
 		//学校地点
-		echo '<p>学校地点</p>';
 		echo '<div class="table-responsive"><table class="table table-striped">';
 		echo '<thead><tr>';
 		
@@ -101,6 +100,40 @@ class SeedView extends Seed{
 				echo '<td>'.$profileArr['account_city'].'</td>';	
 				echo '<td>'.$profileArr['account_address'].'</td>';
 	
+			echo '<tr>';	
+		
+		echo '</table></div>';
+
+
+
+		//学校联系人
+		$contactArr = $results[1];
+		echo '<h4>学校联系人</h4>';	
+		echo '<div class="table-responsive"><table class="table table-striped">';
+		echo '<thead><tr>';
+		
+		th_combiner('职位');
+		th_combiner('姓');
+		th_combiner('名');
+		th_combiner('称谓');
+		th_combiner('编制');
+		th_combiner('学科');
+		th_combiner('手机');
+		th_combiner('办公室直线');
+		th_combiner('电子邮箱');
+		th_combiner('QQ号码');
+		
+			echo '<tr></thead>';
+				echo '<td>'.$contactArr['contact_position'].'</td>';
+				echo '<td>'.$contactArr['contact_lastName'].'</td>';
+				echo '<td>'.$contactArr['contact_givenName'].'</td>';
+				echo '<td>'.$contactArr['contact_prefix'].'</td>';
+				echo '<td>'.$contactArr['contact_employer'].'</td>';
+				echo '<td>'.$contactArr['contact_discipline'].'</td>';
+				echo '<td>'.$contactArr['contact_mobile'].'</td>';
+				echo '<td>'.$contactArr['contact_telephone'].'</td>';
+				echo '<td>'.$contactArr['contact_email'].'</td>';
+				echo '<td>'.$contactArr['contact_qq'].'</td>';
 			echo '<tr>';	
 		
 		echo '</table></div>';	
