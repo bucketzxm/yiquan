@@ -20,7 +20,13 @@ class Seed extends YqBase{
 
 	function getAccountsByRegion($region) {
 		
-		return $region.'的内容';
+		$cursor = $this->db->REAccount->find(array('account_province' => $region));
+
+		$results = array();
+		foreach ($cursor as $key => $value) {
+			array_push($results, $value);
+		}
+		return $results;
 	}
 
 	

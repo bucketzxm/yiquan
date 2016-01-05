@@ -39,10 +39,16 @@ class SeedView extends Seed{
 		echo '<div class="table-responsive"><table class="table table-striped">';
 		echo '<thead><tr>';
 		
+		th_combiner('城市');
 		th_combiner('学校名称');
-		echo '<tr></thead>';
-			echo '<td>'.$arr.'</td>';	
-		echo '<tr>';
+		th_combiner('学校类型');
+		for ($i=0; $i < count($arr); $i++) { 
+			echo '<tr></thead>';
+				echo '<td>'.$arr[$i]['account_city'].'</td>';	
+				echo '<td>'.$arr[$i]['account_name'].'</td>';
+				echo '<td>'.$arr[$i]['account_type'].'</td>';
+			echo '<tr>';	
+		}
 		echo '</table></div>';
 	}
 
