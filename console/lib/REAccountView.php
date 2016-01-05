@@ -223,9 +223,9 @@ class SeedView extends Seed{
 		th_combiner('爱好');
 		
 			echo '<tr></thead>';
-				echo '<td>'.$profileArr['account_employer'].'</td>';	
-				echo '<td>'.$profileArr['account_discipline'].'</td>';	
-				echo '<td>'.$profileArr['account_interests'].'</td>';
+				echo '<td>'.$profileArr['contact_employer'].'</td>';	
+				echo '<td>'.$profileArr['contact_discipline'].'</td>';	
+				echo '<td>'.$profileArr['contact_interests'].'</td>';
 	
 			echo '<tr>';	
 		
@@ -243,7 +243,7 @@ class SeedView extends Seed{
 		th_combiner('日期');
 		th_combiner('交互类型');
 		th_combiner('交互状态');
-		th_combiner('联系人');
+		
 		th_combiner('发起人');
 		th_combiner('交互目的');
 		th_combiner('交互笔记');
@@ -254,12 +254,12 @@ class SeedView extends Seed{
 		
 			$contactID = $actionArr[$j]['contact_id'];
 			$contactCursor = $this->db->REContact->findOne(array('_id' => new MongoId ($contactID)));
-			$combinedString = $contactCursor['contact_position'].$contactCursor['contact_lastName'].$contactCursor['contact_givenName'];
+			
 			echo '<tr></thead>';
 			echo '<td>'.date("Y-m-d",$actionArr[$j]['action_time']).'</td>';
 			echo '<td>'.$actionArr[$j]['action_type'].'</td>';
 			echo '<td>'.$actionArr[$j]['action_status'].'</td>';
-			echo '<td>'.$combinedString.'</td>';
+			
 			echo '<td>'.$actionArr[$j]['action_sender'].'</td>';
 			echo '<td>'.$actionArr[$j]['action_purpose'].'</td>';
 			echo '<td>'.$actionArr[$j]['action_note'].'</td>';
