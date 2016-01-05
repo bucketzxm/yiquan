@@ -123,18 +123,22 @@ class SeedView extends Seed{
 		th_combiner('电子邮箱');
 		th_combiner('QQ号码');
 		
+
+		for ($i=0; $i < count($contactArr); $i++) { 
 			echo '<tr></thead>';
-				echo '<td>'.$contactArr['contact_position'].'</td>';
-				echo '<td>'.$contactArr['contact_lastName'].'</td>';
-				echo '<td>'.$contactArr['contact_givenName'].'</td>';
-				echo '<td>'.$contactArr['contact_prefix'].'</td>';
-				echo '<td>'.$contactArr['contact_employer'].'</td>';
-				echo '<td>'.$contactArr['contact_discipline'].'</td>';
-				echo '<td>'.$contactArr['contact_mobile'].'</td>';
-				echo '<td>'.$contactArr['contact_telephone'].'</td>';
-				echo '<td>'.$contactArr['contact_email'].'</td>';
-				echo '<td>'.$contactArr['contact_qq'].'</td>';
+			echo '<td>'.$contactArr[$i]['contact_position'].'</td>';
+			echo '<td>'.$contactArr[$i]['contact_lastName'].'</td>';
+			echo '<td>'.$contactArr[$i]['contact_givenName'].'</td>';
+			echo '<td>'.$contactArr[$i]['contact_prefix'].'</td>';
+			echo '<td>'.$contactArr[$i]['contact_employer'].'</td>';
+			echo '<td>'.$contactArr[$i]['contact_discipline'].'</td>';
+			echo '<td>'.$contactArr[$i]['contact_mobile'].'</td>';
+			echo '<td>'.$contactArr[$i]['contact_telephone'].'</td>';
+			echo '<td>'.$contactArr[$i]['contact_email'].'</td>';
+			echo '<td>'.$contactArr[$i]['contact_qq'].'</td>';
 			echo '<tr>';	
+		}
+		
 		
 		echo '</table></div>';	
 
