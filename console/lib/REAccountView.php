@@ -59,7 +59,7 @@ class SeedView extends Seed{
 	}
 
 
-	function showDetailsByRegion ($results){
+	function showDetailsByAccount ($results){
 
 		$profileArr = $results[0];
 
