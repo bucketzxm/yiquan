@@ -155,8 +155,8 @@ class SeedView extends Seed{
 		}
 		
 		
-		echo '</table></div>';	
-		echo '<p>添加联系人</p>';
+		echo '</table><p>添加联系人</p></br></div>';	
+	
 
 		//联系记录
 		$actionArr = $results[2];
@@ -190,8 +190,8 @@ class SeedView extends Seed{
 			echo '<tr>';	
 		}
 
-		echo '<p>添加交互记录</p>';
-		echo '</table></div>';	
+		
+		echo '</table><p>添加交互记录</p></div>';	
 
 
 
