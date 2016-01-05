@@ -29,7 +29,7 @@ class SeedView extends Seed{
 		
 		th_combiner('省份');
 		echo '<tr></thead>';
-			echo '<td><a href="?action=该省学校名单&mindex=浙江" target="_blank">浙江</a></td>';	
+			echo '<td><a href="?action=该省学校名单&mindex=浙江">浙江</a></td>';	
 		echo '<tr>';
 		echo '</table></div>';
 	}
@@ -64,13 +64,14 @@ class SeedView extends Seed{
 		$profileArr = $results[0];
 
 		//学校类型
-		echo '<h3>学校类型</h3>';
+		echo '<p>学校类型</p>';
 		echo '<div class="table-responsive"><table class="table table-striped">';
 		echo '<thead><tr>';
 		
 		th_combiner('学校名称');
 		th_combiner('学校类别');
 		th_combiner('学校类型');
+		th_combiner('课程类型');
 		th_combiner('每届人数');
 		th_combiner('开发状态');
 		
@@ -78,6 +79,7 @@ class SeedView extends Seed{
 				echo '<td>'.$profileArr['account_name'].'</td>';
 				echo '<td>'.$profileArr['account_category'].'</td>';
 				echo '<td>'.$profileArr['account_type'].'</td>';
+				echo '<td>'.$profileArr['account_curriculum'].'</td>';
 				echo '<td>'.$profileArr['account_size'].'</td>';
 				echo '<td>'.$profileArr['account_status'].'</td>';
 			echo '<tr>';	
@@ -85,7 +87,7 @@ class SeedView extends Seed{
 		echo '</table></div>';		
 
 		//学校地点
-		echo '<h3>学校地点</h3>';
+		echo '<p>学校地点</p>';
 		echo '<div class="table-responsive"><table class="table table-striped">';
 		echo '<thead><tr>';
 		
