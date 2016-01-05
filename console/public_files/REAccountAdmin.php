@@ -69,6 +69,6 @@ ob_end_clean ();
 
 <?php
 // display the page
-include_once '../templates/template-page-zhidemain.php';
+include_once '../templates/template-page-reachableedumain.php';
 ?>
 								
