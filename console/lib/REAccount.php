@@ -33,17 +33,28 @@ class Seed extends YqBase{
 		
 		$results = array();
 
-		$cursor = $this->db->REAccount->findOne(array('account_name' => $account));
+		//基本信息
+		$cursor = $this->db->REAccount->findOne(array('_id' => new MongoId ($account)));
 
 		array_push($results, $cursor);
 
-		$contactCursor = $this->db->REContact->find(array('account_name' => $account));
+
+		//联系人
+		$contactCursor = $this->db->REContact->find(array('account_id' => $account));
 
 		$contacts = array();
 		foreach ($contactCursor as $key => $contact) {
 			array_push($contacts, $contact);
 		}
 		array_push($results, $contacts);
+
+		//动作记录
+		$actionCursor = $this->db->REAction->find(array('account_id' => $account))->sort(array('action_time' => -1))->limit(10);
+		$actions = array();
+		foreach ($actionCursor as $keyaction => $action) {
+			array_push($actions, $action);
+		}
+		array_push($results, $actions);		
 
 		return $results;
 	}

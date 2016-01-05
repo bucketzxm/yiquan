@@ -49,7 +49,7 @@ class SeedView extends Seed{
 			echo '<tr></thead>';
 				echo '<td>'.$arr[$i]['account_province'].'</td>';	
 				echo '<td>'.$arr[$i]['account_city'].'</td>';	
-				echo '<td><a href="?action=学校明细&mindex='.$arr[$i]['account_name'].'">'.$arr[$i]['account_name'].'</a></td>';
+				echo '<td><a href="?action=学校明细&mindex='.(string)$arr[$i]['_id'].'">'.$arr[$i]['account_name'].'</a></td>';
 				echo '<td>'.$arr[$i]['account_type'].'</td>';
 				echo '<td>'.$arr[$i]['account_size'].'</td>';
 				echo '<td>'.$arr[$i]['account_status'].'</td>';
@@ -141,6 +141,38 @@ class SeedView extends Seed{
 		
 		
 		echo '</table></div>';	
+
+		//联系记录
+		$actionArr = $results[2];
+		echo '<h4>学校交互记录</h4>';	
+		echo '<div class="table-responsive"><table class="table table-striped">';
+		echo '<thead><tr>';
+		
+		th_combiner('日期');
+		th_combiner('交互类型');
+		th_combiner('交互状态');
+		th_combiner('联系人');
+		th_combiner('发起人');
+		th_combiner('交互笔记');
+		
+
+
+		for ($i=0; $i < count($contactArr); $i++) { 
+		
+			$contactID = $actionArr[$i]['contact_id'];
+			$contactCursor = $this->db->REContact->findOne(array('_id' => new MongoId ($contactID)));
+			$combinedString = $contactCursor['contact_position'].$contactCursor['contact_lastName'].$contactCursor['contact_givenName'];
+			echo '<tr></thead>';
+			echo '<td>'.date("Y-m-d",$actionArr[$i]['action_time']).'</td>';
+			echo '<td>'.$actionArr[$i]['action_type'].'</td>';
+			echo '<td>'.$actionArr[$i]['action_status'].'</td>';
+			echo '<td>'.$combinedString.'</td>';
+			echo '<td>'.$actionArr[$i]['action_sender'].'</td>';
+			echo '<td>'.$actionArr[$i]['action_note'].'</td>';
+			echo '<tr>';	
+		}
+
+
 
 
 	}
