@@ -29,7 +29,7 @@ class SeedView extends Seed{
 		
 		th_combiner('省份');
 		echo '<tr></thead>';
-			echo '<td><a href="?action=accountInRegion&mindex=浙江" target="_blank">浙江</a></td>';	
+			echo '<td><a href="?action=该省学校名单&mindex=浙江" target="_blank">浙江</a></td>';	
 		echo '<tr>';
 		echo '</table></div>';
 	}
@@ -39,6 +39,7 @@ class SeedView extends Seed{
 		echo '<div class="table-responsive"><table class="table table-striped">';
 		echo '<thead><tr>';
 		
+		th_combiner('省份');
 		th_combiner('城市');
 		th_combiner('学校名称');
 		th_combiner('学校类型');
@@ -46,8 +47,9 @@ class SeedView extends Seed{
 		th_combiner('开发状态');
 		for ($i=0; $i < count($arr); $i++) { 
 			echo '<tr></thead>';
+				echo '<td>'.$arr[$i]['account_province'].'</td>';	
 				echo '<td>'.$arr[$i]['account_city'].'</td>';	
-				echo '<td>'.$arr[$i]['account_name'].'</td>';
+				echo '<td><a href="?action=学校明细&mindex='.$arr[$i]['account_name'].'">'.$arr[$i]['account_name'].'</a></td>';
 				echo '<td>'.$arr[$i]['account_type'].'</td>';
 				echo '<td>'.$arr[$i]['account_size'].'</td>';
 				echo '<td>'.$arr[$i]['account_status'].'</td>';
@@ -56,6 +58,53 @@ class SeedView extends Seed{
 		echo '</table></div>';
 	}
 
+
+	function showDetailsByRegion ($results){
+
+		$profileArr = $results[0];
+
+		//学校类型
+		echo '<h3>学校类型</h3>';
+		echo '<div class="table-responsive"><table class="table table-striped">';
+		echo '<thead><tr>';
+		
+		th_combiner('学校名称');
+		th_combiner('学校类别');
+		th_combiner('学校类型');
+		th_combiner('每届人数');
+		th_combiner('开发状态');
+		for ($i=0; $i < count($profileArr); $i++) { 
+			echo '<tr></thead>';
+				echo '<td>'.$profileArr[$i]['account_name'].'</td>';
+				echo '<td>'.$profileArr[$i]['account_category'].'</td>';
+				echo '<td>'.$profileArr[$i]['account_type'].'</td>';
+				echo '<td>'.$profileArr[$i]['account_size'].'</td>';
+				echo '<td>'.$profileArr[$i]['account_status'].'</td>';
+			echo '<tr>';	
+		}
+		echo '</table></div>';		
+
+		//学校地点
+		echo '<h3>学校地点</h3>';
+		echo '<div class="table-responsive"><table class="table table-striped">';
+		echo '<thead><tr>';
+		
+		
+		th_combiner('省份');
+		th_combiner('城市');
+		th_combiner('学校地址');
+		for ($i=0; $i < count($profileArr); $i++) { 
+			echo '<tr></thead>';
+				echo '<td>'.$profileArr[$i]['account_province'].'</td>';	
+				echo '<td>'.$profileArr[$i]['account_city'].'</td>';	
+				echo '<td>'.$profileArr[$i]['account_address'].'</td>';
+	
+			echo '<tr>';	
+		}
+		echo '</table></div>';	
+
+
+	}
 
 	
 

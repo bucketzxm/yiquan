@@ -29,6 +29,18 @@ class Seed extends YqBase{
 		return $results;
 	}
 
+	function getDetailsByAccount($account) {
+		
+		$results = array();
+
+		$cursor = $this->db->REAccount->findOne(array('account_name' => $account));
+
+		array_push($results, $cursor);
+
+		return $results;
+	}
+
+
 	
 }
 ?>

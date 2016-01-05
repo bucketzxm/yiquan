@@ -44,7 +44,7 @@ include_once '401.php';
 							}
 							break;
 						
-						case 'accountInRegion' :
+						case '该省学校名单' :
 
 							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
 						
@@ -52,8 +52,15 @@ include_once '401.php';
 						
 							}
 							break;
-						
 
+						case '学校明细' :
+
+							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
+						
+									$a->showDetailsByAccount($a->getDetailsByAccount($_GET ['mindex']));
+						
+							}
+							break;
 
 						}
 					}
