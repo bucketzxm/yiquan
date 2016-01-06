@@ -335,7 +335,7 @@ class SeedView extends Seed{
 		echo '<div class="form-group"><h4>交互对象</h4>';
 		echo '<select name="contact_id">';
 
-		for ($i=0; $i < count($contacts); $i++ { 
+		for ($i=0; $i < count($contacts); $i++) { 
 			echo '<option value="'.(string)$contacts[$i]['_id'].'">'.$contacts[$i]['contact_position'].$contacts[$i]['contact_lastName'].$contacts[$i]['contact_givenName'].'</option>';			
 		}
 		echo '</select>';
