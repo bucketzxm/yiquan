@@ -82,6 +82,16 @@ include_once '401.php';
 							}
 							break;
 
+						case '提交学校联系人' :
+
+							if ($_SERVER ['REQUEST_METHOD'] == 'POST') {
+								if ($a->updateContactByAccount($_POST)) {
+									echo '<p>添加学校联系人成功</p>'
+								}
+									
+							}
+							break;
+
 
 						case '添加学校交互记录' :
 

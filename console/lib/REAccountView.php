@@ -297,10 +297,10 @@ class SeedView extends Seed{
 
 	function addContactByAccount ($account){
 
-		echo '<div><form method="post" action="?action=addNewContact">';
+		echo '<div><form method="post" action="提交学校联系人">';
 		echo '<input type="hidden" class="form-control" name="id" value="' .$account. '"/>';
-		echo '<div class="form-group"><h2>媒体名称</h2>';
-		echo '<input type="text" class="form-control" rows="3" cols="80" name="name" placeholder="姓"></div>';
+		echo '<div class="form-group"><h4>联系人信息</h4>';
+		echo '<input type="text" class="form-control" rows="3" cols="80" name="lastName" placeholder="姓"></div>';
 		echo '<div class="form-group"><input type="submit" value="提交" /></div>';
 		echo '</form></div>';
 

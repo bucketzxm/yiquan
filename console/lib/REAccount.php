@@ -84,6 +84,16 @@ class Seed extends YqBase{
 	}
 
 
+	function updateContactByAccount($arr){
+		$row = array();
+
+		if ($arr['lastName'] != null) {
+			$row['contact_lastName'] = $arr['lastName'];
+		}
+
+		$this->db->REContact->save($row);
+	}
+
 	
 }
 ?>
