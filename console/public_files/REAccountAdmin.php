@@ -155,7 +155,7 @@ include_once '401.php';
 								$a->completeActionByID($_GET['mindex']);
 							}
 							break;	
-						}
+						
 
 						case '更改学校补充说明' :
 
