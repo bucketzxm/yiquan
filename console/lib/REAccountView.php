@@ -490,6 +490,7 @@ class SeedView extends Seed{
 			echo '<option value="公立学校">公立学校</option>';
 			echo '<option value="私立学校">私立学校</option>';
 			echo '<option value="第三方机构">第三方机构</option>';
+			echo '<option value="不详">不详</option>';
 		echo '</select>';
 		echo '<h4>学科</h4>';
 		echo '<select name="discipline">';
