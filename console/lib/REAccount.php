@@ -118,6 +118,7 @@ class Seed extends YqBase{
 			$row['action_sender'] = $arr['sender'];
 			$row['action_note'] = $arr['note'];
 			$row['account_id'] = $arr['account_id'];
+			$row['contact_id'] = $arr['contact_id'];
 			$row['action_time'] = time();
 
 
