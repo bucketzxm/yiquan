@@ -173,6 +173,7 @@ class SeedView extends Seed{
 		echo '</select>';
 		echo '<input type="text" class="form-control" rows="3" cols="80" name="size" placeholder="招生规模">';
 		echo '<input type="text" class="form-control" rows="3" cols="80" name="address" placeholder="学校地址">';
+		echo '<input type="text" class="form-control" rows="3" cols="80" name="website" placeholder="学校网址">';
 		echo '<input type="text" class="form-control" rows="3" cols="80" name="supplement" placeholder="补充信息">';
 		echo '</div>';
 
@@ -219,12 +220,12 @@ class SeedView extends Seed{
 		th_combiner('省份');
 		th_combiner('城市');
 		th_combiner('学校地址');
-		
+		th_combiner('学校网址');
 			echo '<tr></thead>';
 				echo '<td>'.$profileArr['account_province'].'</td>';	
 				echo '<td>'.$profileArr['account_city'].'</td>';	
 				echo '<td>'.$profileArr['account_address'].'</td>';
-	
+				echo '<td>'.$profileArr['account_website'].'</td>';
 			echo '<tr>';	
 		
 		echo '</table></div>';

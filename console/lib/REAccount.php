@@ -32,6 +32,7 @@ class Seed extends YqBase{
 		$row['account_address'] = $arr['address'];
 		$row['account_type'] = $arr['type'];
 		$row['account_supplement'] = $arr['supplement'];
+		$row['account_website'] = $arr['website'];
 		$this->db->REAccount->save($row);
 	}
 
