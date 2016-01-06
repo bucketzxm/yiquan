@@ -87,7 +87,7 @@ class Seed extends YqBase{
 	function updateContactByAccount($arr){
 		$row = array();
 
-		if ($arr['lastName'] != null) {
+		
 			$row['contact_lastName'] = $arr['lastName'];
 			$row['contact_givenName'] = $arr['givenName'];
 			$row['contact_position'] = $arr['position'];
@@ -103,7 +103,6 @@ class Seed extends YqBase{
 			$row['contact_interests'] = $arr['interests'];
 			$row['account_id'] = $arr['account_id'];
 
-		}
 
 		$this->db->REContact->save($row);
 	}
