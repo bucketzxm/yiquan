@@ -156,6 +156,24 @@ include_once '401.php';
 							}
 							break;	
 						}
+
+						case '更改学校补充说明' :
+
+							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
+						
+								$a->changeAccountSupplementByID($_GET['accountID'],$_GET['supplement']);
+							}
+							break;	
+
+						case '提交新的学校补充说明' :
+
+							if ($_SERVER ['REQUEST_METHOD'] == 'POST') {
+						
+								$a->updateAccountSupplementByID($_POST['account_id'],$_POST['supplement']);
+							}
+							break;	
+
+						}
 					}
 					?>
 			

@@ -194,5 +194,15 @@ class Seed extends YqBase{
 		$this->db->REAction->save($cursor);
 	}
 
+	function updateAccountSupplementByID ($accountID, $supplement){
+
+		$cursor = $this->db->REAccount->findOne(array('_id' => new MongoId($accountID)));
+		$cursor['account_supplement'] = $supplement;
+
+		$this->db->REAccount->save($cursor);
+
+	}
+
+
 }
 ?>

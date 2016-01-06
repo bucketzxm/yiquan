@@ -246,6 +246,8 @@ class SeedView extends Seed{
 		
 		echo '</table></div>';
 
+		echo '<p><a href="?action=更改学校补充说明&accountID='.(string)$profileArr['_id'].'&supplement="'.$profileArr['account_supplement'].'">更改补充说明</a></p>';
+
 
 		//学校联系人
 		$contactArr = $results[1];
@@ -561,6 +563,20 @@ class SeedView extends Seed{
 		echo '<div class="form-group"><input type="submit" value="提交" /></div>';
 		echo '</form></div>';
 	}
+
+
+	function changeAccountSupplementByID($accountID,$supplement){
+		echo '<h3>修改学校补充说明</h3>';
+		echo '<div><form method="post" action="?action=提交新的学校补充说明">';
+		echo '<input type="hidden" class="form-control" name="account_id" value="'.$accountID. '"/>';
+		echo '<div class="form-group"><h4>补充说明</h4>';
+		echo '<input type="textarea" class="form-control" rows="3" cols="80" name="supplement" value="'.$supplement.'"></div>';
+		echo '<div class="form-group"><input type="submit" value="提交" /></div>';
+		echo '</form></div>';
+
+
+	}
+
 
 	function showDeleteSeedView($id) {
 		echo '<form method="post" action="?action=deleteSeed">';
