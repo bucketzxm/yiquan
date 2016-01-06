@@ -89,6 +89,7 @@ class Seed extends YqBase{
 
 		if ($arr['lastName'] != null) {
 			$row['contact_lastName'] = $arr['lastName'];
+			$row['account_id'] = $arr['acount_id'];
 		}
 
 		$this->db->REContact->save($row);

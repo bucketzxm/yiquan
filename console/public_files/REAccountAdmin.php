@@ -86,7 +86,7 @@ include_once '401.php';
 
 							if ($_SERVER ['REQUEST_METHOD'] == 'POST') {
 								if ($a->updateContactByAccount($_POST)) {
-									echo '<p>添加学校联系人成功</p>';
+									echo '添加学校联系人成功';
 								}
 									
 							}
