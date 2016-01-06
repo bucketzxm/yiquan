@@ -243,10 +243,13 @@ class SeedView extends Seed{
 				echo '<td>'.$profileArr['account_supplement'].'</td>';	
 		
 			echo '<tr>';	
-		
+			
+			echo '<tr></thead>';
+				echo '<td><a href="?action=更改学校补充说明&accountID='.(string)$profileArr['_id'].'&supplement="'.$profileArr['account_supplement'].'">更改补充说明</a></td>';
+			echo '<tr>';	
 		echo '</table></div>';
 
-		echo '<p><a href="?action=更改学校补充说明&accountID='.(string)$profileArr['_id'].'&supplement="'.$profileArr['account_supplement'].'">更改补充说明</a></p>';
+		
 
 
 		//学校联系人
