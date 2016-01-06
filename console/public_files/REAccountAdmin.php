@@ -100,7 +100,7 @@ include_once '401.php';
 								$contactCursor = $this->db->REContact->find(array('account_id' => $_GET['mindex']));
 								$contacts = array();
 								foreach ($contactCursor as $key => $value) {
-									array_push($contacts, $value)
+									array_push($contacts, $value);
 								}
 									$a->addActionByAccount($_GET ['mindex'],$contacts);
 						
