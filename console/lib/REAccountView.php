@@ -486,8 +486,8 @@ class SeedView extends Seed{
 			echo '<option value="行政">行政</option>';
 			echo '<option value="不详>不详</option>';
 		echo '</select>';
-		echo '<input type="text" class="form-control" rows="3" cols="80" name="interests" placeholder="爱好"></div>';
-		echo '<div class="form-group"><input type="submit" value="提交" />';
+		echo '<input type="text" class="form-control" rows="3" cols="80" name="interests" placeholder="爱好">';
+		echo '<div class="form-group"><input type="submit" value="提交" /></div>';
 		echo '</form></div>';
 
 	}
