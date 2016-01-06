@@ -29,6 +29,17 @@ class Seed extends YqBase{
 		return $results;
 	}
 
+	function getContactsByAccount($account) {
+		
+		$cursor = $this->db->REContact->find(array('account_id' => $account));
+
+		$results = array();
+		foreach ($cursor as $key => $value) {
+			array_push($results, $value);
+		}
+		return $results;
+	}
+
 	function getDetailsByAccount($account) {
 		
 		$results = array();

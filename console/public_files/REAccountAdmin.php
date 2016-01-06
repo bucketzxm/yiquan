@@ -97,8 +97,7 @@ include_once '401.php';
 
 							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
 
-								$contactCursor = $this->db->REContact->find(array('account_id' => $_GET['mindex']));
-								$contacts = array();
+								$contacts = $a->getContactsByAccount($_GET ['mindex']);
 								foreach ($contactCursor as $key => $value) {
 									array_push($contacts, $value);
 								}
