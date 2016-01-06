@@ -376,11 +376,13 @@ class SeedView extends Seed{
 		th_combiner('编制');
 		th_combiner('学科');
 		th_combiner('爱好');
+		th_combiner('补充说明');
 		
 			echo '<tr></thead>';
 				echo '<td>'.$profileArr['contact_employer'].'</td>';	
 				echo '<td>'.$profileArr['contact_discipline'].'</td>';	
 				echo '<td>'.$profileArr['contact_interests'].'</td>';
+				echo '<td>'.$profileArr['contact_supplement'].'</td>';
 	
 			echo '<tr>';	
 		
@@ -494,6 +496,7 @@ class SeedView extends Seed{
 			echo '<option value="不详">不详</option>';
 		echo '</select></div>';
 		echo '<div class="form-group"><input type="text" class="form-control" rows="3" cols="80" name="interests" placeholder="爱好"></div>';
+		echo '<div class="form-group"><input type="text" class="form-control" rows="3" cols="80" name="supplement" placeholder="补充说明"></div>';
 		echo '<div class="form-group"><input type="submit" value="提交" /></div>';
 		echo '</form></div>';
 

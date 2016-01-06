@@ -144,6 +144,7 @@ class Seed extends YqBase{
 			$row['contact_employer'] = $arr['employer'];
 			$row['contact_discipline'] = $arr['discipline'];
 			$row['contact_interests'] = $arr['interests'];
+			$row['contact_supplement'] = $arr['supplement'];
 			$row['account_id'] = $arr['account_id'];
 
 
