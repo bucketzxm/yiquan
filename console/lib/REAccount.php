@@ -17,6 +17,23 @@ class Seed extends YqBase{
 	protected $bcs_host = 'bcs.duapp.com';
 
 
+	function updateNewAccount($arr){
+
+	$row = array();
+
+
+		$row['account_name'] = $arr['name'];
+		$row['account_province'] = $arr['province'];
+		$row['account_category'] = $arr['category'];
+		$row['account_curriculum'] = $arr['curriculum'];
+		$row['account_city'] = $arr['city'];
+		$row['account_status'] = $arr['status'];
+		$row['account_size'] = $arr['size'];
+		$row['account_address'] = $arr['address'];
+		$row['account_type'] = $arr['type'];
+		$this->db->REAccount->save($row);
+	}
+
 
 	function getAccountsByRegion($region) {
 		

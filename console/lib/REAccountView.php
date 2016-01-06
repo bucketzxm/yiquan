@@ -36,6 +36,7 @@ class SeedView extends Seed{
 
 	function showAccountsByRegion($arr){
 
+		echo '<p><a href="?action=添加学校">添加学校</a></p>';
 		echo '<div class="table-responsive"><table class="table table-striped">';
 		echo '<thead><tr>';
 		
@@ -56,6 +57,81 @@ class SeedView extends Seed{
 			echo '<tr>';	
 		}
 		echo '</table></div>';
+	}
+
+	function addNewAccount(){
+
+		echo '<h3>学校信息</h3>';
+		echo '<div><form method="post" action="?action=提交学校信息">';
+		echo '<div class="form-group"><h4>基本信息</h4>';
+		echo '<input type="text" class="form-control" rows="3" cols="80" name="name" placeholder="学校名称">';
+		echo '<p>选择学校所在省份</p>';
+		echo '<select name="province">';
+			echo '<option value="安徽">安徽</option>';
+			echo '<option value="北京">北京</option>';
+			echo '<option value="重庆">重庆</option>';
+			echo '<option value="福建">福建</option>';
+			echo '<option value="甘肃">甘肃</option>';
+			echo '<option value="广东">广东</option>';
+			echo '<option value="广西">广西</option>';
+			echo '<option value="贵州">贵州</option>';
+			echo '<option value="海南">海南</option>';
+			echo '<option value="河北">河北</option>';
+			echo '<option value="河南">河南</option>';
+			echo '<option value="黑龙江">黑龙江</option>';
+			echo '<option value="湖北">湖北</option>';
+			echo '<option value="湖南">湖南</option>';
+			echo '<option value="吉林">吉林</option>';
+			echo '<option value="江苏">江苏</option>';
+			echo '<option value="江西">江西</option>';
+			echo '<option value="辽宁">辽宁</option>';
+			echo '<option value="内蒙古">内蒙古</option>';
+			echo '<option value="宁夏">宁夏</option>';
+			echo '<option value="青海">青海</option>';
+			echo '<option value="山东">山东</option>';
+			echo '<option value="山西">山西</option>';
+			echo '<option value="陕西">陕西</option>';
+			echo '<option value="上海">上海</option>';
+			echo '<option value="四川">四川</option>';
+			echo '<option value="天津">天津</option>';
+			echo '<option value="西藏">西藏</option>';
+			echo '<option value="新疆">新疆</option>';
+			echo '<option value="云南">云南</option>';
+			echo '<option value="浙江">浙江</option>';
+		echo '</select>';
+		echo '<p>选择学校类型</p>';
+		echo '<select name="type">';
+			echo '<option value="公立高中国际部">公立高中国际部</option>';
+			echo '<option value="普通高中">普通高中</option>';
+			echo '<option value="民办国际学校">民办国际学校</option>';
+		echo '</select>';
+		echo '<p>选择学校学段</p>';
+		echo '<select name="category">';
+			echo '<option value="大学">大学</option>';
+			echo '<option value="高中">高中</option>';
+			echo '<option value="初中">初中</option>';
+			echo '<option value="小学">小学</option>';
+		echo '</select>';
+		echo '<p>选择学校课程体系</p>';
+			echo '<option value="国内">国内高中课程</option>';
+			echo '<option value="IB">IB</option>';
+			echo '<option value="A Level">A Level/剑桥</option>';
+			echo '<option value="AP">AP/中美</option>';
+			echo '<option value="中加">中加</option>';
+		echo '<select name="curriculum">';
+		echo '</select>';
+		echo '<input type="text" class="form-control" rows="3" cols="80" name="city" placeholder="所在城市">';
+		echo '<p>选择学校开发状态</p>';
+		echo '<select name="status">';
+			echo '<option value="激活">激活</option>';
+			echo '<option value="未激活">未激活</option>';
+		echo '</select>';
+		echo '<input type="text" class="form-control" rows="3" cols="80" name="size" placeholder="招生规模">';
+		echo '<input type="text" class="form-control" rows="3" cols="80" name="address" placeholder="学校地址">';
+		echo '<div class="form-group"><input type="submit" value="提交" /></div>';
+		echo '</form></div>';
+
+
 	}
 
 

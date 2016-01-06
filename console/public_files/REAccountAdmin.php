@@ -53,6 +53,24 @@ include_once '401.php';
 							}
 							break;
 
+						case '添加学校' :
+
+							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
+						
+									$a->addNewAccount();
+						
+							}
+							break;
+
+						case '提交学校信息' :
+
+							if ($_SERVER ['REQUEST_METHOD'] == 'POST') {
+						
+									$a->updateNewAccount($_POST);
+						
+							}
+							break;
+
 						case '学校明细' :
 
 							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
