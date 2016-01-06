@@ -89,7 +89,20 @@ class Seed extends YqBase{
 
 		if ($arr['lastName'] != null) {
 			$row['contact_lastName'] = $arr['lastName'];
+			$row['contact_givenName'] = $arr['givenName'];
+			$row['contact_position'] = $arr['position'];
+			$row['contact_prefix'] = $arr['prefix'];
+			$row['contact_role'] = $arr['role'];
+			$row['contact_relationship'] = $arr['relationship'];
+			$row['contact_mobile'] = $arr['mobile'];
+			$row['contact_telephone'] = $arr['telephone'];
+			$row['contact_email'] = $arr['email'];
+			$row['contact_qq'] = $arr['qqnumber'];
+			$row['contact_employer'] = $arr['employer'];
+			$row['contact_discipline'] = $arr['discipline'];
+			$row['contact_interests'] = $arr['interests'];
 			$row['account_id'] = $arr['account_id'];
+
 		}
 
 		$this->db->REContact->save($row);
