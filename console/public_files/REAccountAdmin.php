@@ -98,7 +98,8 @@ include_once '401.php';
 							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
 
 								$contacts = $a->getContactsByAccount($_GET ['mindex']);
-								$a->addActionByAccount($_GET ['mindex'],$contacts);
+								$projects = $a->getProjectsByAccount($_GET ['mindex']);
+								$a->addActionByAccount($_GET ['mindex'],$contacts,$projects);
 						
 							}
 							break;

@@ -40,6 +40,19 @@ class Seed extends YqBase{
 		return $results;
 	}
 
+	function getContactsByAccount($account) {
+		
+		$accountCursor = $this->db->REAccount->findOne(array('_id' => new MongoId($account)));
+		$cursor = $this->db->REProject->find(array('project_accountCategory' => $accountCursor['account_category']));
+
+		$results = array();
+		foreach ($cursor as $key => $value) {
+			array_push($results, $value);
+		}
+		return $results;
+	}
+
+
 	function getDetailsByAccount($account) {
 		
 		$results = array();
@@ -130,6 +143,7 @@ class Seed extends YqBase{
 			$row['action_note'] = $arr['note'];
 			$row['account_id'] = $arr['account_id'];
 			$row['contact_id'] = $arr['contact_id'];
+			$row['project_id'] = $arr['project_id'];
 			$row['action_time'] = time();
 
 

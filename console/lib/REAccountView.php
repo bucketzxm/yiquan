@@ -322,7 +322,7 @@ class SeedView extends Seed{
 	}
 
 
-	function addActionByAccount ($account,$contacts){
+	function addActionByAccount ($account,$contacts,$projects){
 
 		echo '<h3>交互记录信息</h3>';
 		echo '<div><form method="post" action="?action=提交学校交互记录">';
@@ -340,6 +340,12 @@ class SeedView extends Seed{
 		}
 		echo '</select>';
 		echo '<div class="form-group"><h4>涉及项目</h4></div>';
+		echo '<select name="project_id">';
+
+		for ($j=0; $j < count($projects); $j++) { 
+			echo '<option value="'.(string)$projects[$j]['_id'].'">'.$projects[$j]['project_name'].'</option>';			
+		}
+		echo '</select>';
 		echo '<div class="form-group"><h4>交互笔记</h4>';
 		echo '<input type="textarea" class="form-control" rows="3" cols="80" name="note" placeholder="交互笔记"></div>';
 		echo '<div class="form-group"><input type="submit" value="提交" /></div>';
