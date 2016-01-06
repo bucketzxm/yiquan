@@ -53,7 +53,7 @@ class Seed extends YqBase{
 		$actions = array();
 		foreach ($actionCursor as $keyaction => $action) {
 			$projectCursor = $this->db->REProject->findOne(array('_id' => new MongoId($action['project_id'])));
-			$action['project_name'] = $projectCursor['project_name'];
+			$action['action_project'] = $projectCursor['project_name'];
 			array_push($actions, $action);
 		}
 		array_push($results, $actions);		
