@@ -466,7 +466,7 @@ class SeedView extends Seed{
 			echo '<option value="封闭">封闭</option>';
 			echo '<option value="不详">不详</option>';
 		echo '</select>';
-		echo '<div class="form-group"><h4>联系方式</h4>';
+		echo '<h4>联系方式</h4>';
 		echo '<input type="text" class="form-control" rows="3" cols="80" name="mobile" placeholder="手机">';
 		echo '<input type="text" class="form-control" rows="3" cols="80" name="telephone" placeholder="直线座机">';
 		echo '<input type="text" class="form-control" rows="3" cols="80" name="email" placeholder="电子邮箱">';
@@ -485,8 +485,8 @@ class SeedView extends Seed{
 			echo '<option value="数理化">数理化</option>';
 			echo '<option value="行政">行政</option>';
 			echo '<option value="不详>不详</option>';
-		echo '</select>';
-		echo '<input type="text" class="form-control" rows="3" cols="80" name="interests" placeholder="爱好"></div>';
+		echo '</select></div>';
+		echo '<div class="form-group"><input type="text" class="form-control" rows="3" cols="80" name="interests" placeholder="爱好"></div>';
 		echo '<div class="form-group"><input type="submit" value="提交" /></div>';
 		echo '</form></div>';
 
