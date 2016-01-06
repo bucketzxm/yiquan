@@ -52,6 +52,8 @@ class Seed extends YqBase{
 		$actionCursor = $this->db->REAction->find(array('account_id' => $account))->sort(array('action_time' => -1))->limit(10);
 		$actions = array();
 		foreach ($actionCursor as $keyaction => $action) {
+			$projectCursor = $this->db->REProject->findOne(array('_id' => new MongoId($action['project_id'])));
+			$action['project_name'] = $projectCursor['project_name'];
 			array_push($actions, $action);
 		}
 		array_push($results, $actions);		
