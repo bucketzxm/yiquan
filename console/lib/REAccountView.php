@@ -297,24 +297,24 @@ class SeedView extends Seed{
 
 	function addContactByAccount ($account){
 
+		echo '<h3>联系人信息</h3>';
 		echo '<div><form method="post" action="?action=提交学校联系人">';
 		echo '<input type="hidden" class="form-control" name="account_id" value="'.$account. '"/>';
-		echo '<div class="form-group"><h4>联系人信息</h4>';
-		echo '<p>基本信息</p>';
-		echo '<input type="text" class="form-control" rows="3" cols="80" name="lastName" placeholder="姓"></div>';
-		echo '<input type="text" class="form-control" rows="3" cols="80" name="givenName" placeholder="名"></div>';
-		echo '<input type="text" class="form-control" rows="3" cols="80" name="position" placeholder="职位"></div>';
-		echo '<input type="text" class="form-control" rows="3" cols="80" name="prefix" placeholder="女士"></div>';
-		echo '<input type="text" class="form-control" rows="3" cols="80" name="role" placeholder="角色"></div>';
+		echo '<div class="form-group"><h4>基本信息</h4>';
+		echo '<input type="text" class="form-control" rows="3" cols="80" name="lastName" placeholder="姓">';
+		echo '<input type="text" class="form-control" rows="3" cols="80" name="givenName" placeholder="名">';
+		echo '<input type="text" class="form-control" rows="3" cols="80" name="position" placeholder="职位">';
+		echo '<input type="text" class="form-control" rows="3" cols="80" name="prefix" placeholder="女士">';
+		echo '<input type="text" class="form-control" rows="3" cols="80" name="role" placeholder="角色">';
 		echo '<input type="text" class="form-control" rows="3" cols="80" name="relationship" placeholder="客情关系"></div>';
-		echo '<p>联系方式</p>';
-		echo '<input type="text" class="form-control" rows="3" cols="80" name="mobile" placeholder="手机"></div>';
-		echo '<input type="text" class="form-control" rows="3" cols="80" name="telephone" placeholder="直线座机"></div>';
-		echo '<input type="text" class="form-control" rows="3" cols="80" name="email" placeholder="电子邮箱"></div>';
+		echo '<div class="form-group"><h4>联系方式</h4>';
+		echo '<input type="text" class="form-control" rows="3" cols="80" name="mobile" placeholder="手机">';
+		echo '<input type="text" class="form-control" rows="3" cols="80" name="telephone" placeholder="直线座机">';
+		echo '<input type="text" class="form-control" rows="3" cols="80" name="email" placeholder="电子邮箱">';
 		echo '<input type="text" class="form-control" rows="3" cols="80" name="qqnumber" placeholder="QQ号码"></div>';
-		echo '<p>补充信息</p>';
-		echo '<input type="text" class="form-control" rows="3" cols="80" name="employer" placeholder="编制"></div>';
-		echo '<input type="text" class="form-control" rows="3" cols="80" name="discipline" placeholder="学科"></div>';
+		echo '<div class="form-group"><h4>补充信息</h4>';
+		echo '<input type="text" class="form-control" rows="3" cols="80" name="employer" placeholder="编制">';
+		echo '<input type="text" class="form-control" rows="3" cols="80" name="discipline" placeholder="学科">';
 		echo '<input type="text" class="form-control" rows="3" cols="80" name="interests" placeholder="爱好"></div>';
 		echo '<div class="form-group"><input type="submit" value="提交" /></div>';
 		echo '</form></div>';
