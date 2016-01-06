@@ -27,9 +27,20 @@ class SeedView extends Seed{
 		echo '<div class="table-responsive"><table class="table table-striped">';
 		echo '<thead><tr>';
 		
-		th_combiner('省份');
+		th_combiner('华东');
 		echo '<tr></thead>';
+			echo '<td><a href="?action=该省学校名单&mindex=上海">上海</a></td>';	
 			echo '<td><a href="?action=该省学校名单&mindex=浙江">浙江</a></td>';	
+			echo '<td><a href="?action=该省学校名单&mindex=江苏">江苏</a></td>';	
+			echo '<td><a href="?action=该省学校名单&mindex=安徽">安徽</a></td>';	
+		echo '<tr>';
+
+		th_combiner('华北');
+		echo '<tr></thead>';
+			echo '<td><a href="?action=该省学校名单&mindex=上海">上海</a></td>';	
+			echo '<td><a href="?action=该省学校名单&mindex=浙江">浙江</a></td>';	
+			echo '<td><a href="?action=该省学校名单&mindex=江苏">江苏</a></td>';	
+			echo '<td><a href="?action=该省学校名单&mindex=安徽">安徽</a></td>';	
 		echo '<tr>';
 		echo '</table></div>';
 	}
