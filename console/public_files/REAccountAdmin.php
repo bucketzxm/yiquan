@@ -98,10 +98,7 @@ include_once '401.php';
 							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
 
 								$contacts = $a->getContactsByAccount($_GET ['mindex']);
-								foreach ($contactCursor as $key => $value) {
-									array_push($contacts, $value);
-								}
-									$a->addActionByAccount($_GET ['mindex'],$contacts);
+								$a->addActionByAccount($_GET ['mindex'],$contacts);
 						
 							}
 							break;
