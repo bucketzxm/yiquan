@@ -131,6 +131,22 @@ include_once '401.php';
 									
 							}
 							break;
+
+						case '修改交互笔记' :
+
+							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
+								$action = $a->getActionByID($_GET['actionID']);
+								$a->changeActionByID($action);
+							
+							break;
+
+						case '提交新的交互笔记' :
+
+							if ($_SERVER ['REQUEST_METHOD'] == 'POST') {
+						
+								$a->updateActionNoteByID($_POST);
+							
+							break;	
 						}
 					}
 					?>

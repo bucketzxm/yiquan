@@ -300,7 +300,7 @@ class SeedView extends Seed{
 		th_combiner('项目');
 		th_combiner('目的');
 		th_combiner('笔记');
-		
+		th_combiner('修改');
 
 
 		for ($j=0; $j < count($actionArr); $j++) { 
@@ -317,6 +317,7 @@ class SeedView extends Seed{
 			echo '<td>'.$actionArr[$j]['action_project'].'</td>';
 			echo '<td>'.$actionArr[$j]['action_purpose'].'</td>';
 			echo '<td>'.$actionArr[$j]['action_note'].'</td>';
+			echo '<td><a href="?action=修改交互笔记&actionID='.(string)$actionArr[$j]['_id'].'">修改</a></td>';
 			echo '<tr>';	
 		}
 
@@ -536,6 +537,18 @@ class SeedView extends Seed{
 		echo '</select></div>';
 		echo '<div class="form-group"><h4>交互笔记</h4>';
 		echo '<input type="textarea" class="form-control" rows="3" cols="80" name="note" placeholder="交互笔记"></div>';
+		echo '<div class="form-group"><input type="submit" value="提交" /></div>';
+		echo '</form></div>';
+	}
+
+
+	function changeActionByID($action){
+
+		echo '<h3>修改交互笔记</h3>';
+		echo '<div><form method="post" action="?action=提交新的交互笔记">';
+		echo '<input type="hidden" class="form-control" name="action_id" value="'.(string)$action['_id']. '"/>';
+		echo '<div class="form-group"><h4>交互笔记</h4>';
+		echo '<input type="textarea" class="form-control" rows="3" cols="80" name="note" placeholder="'.$action['action_note'].'"></div>';
 		echo '<div class="form-group"><input type="submit" value="提交" /></div>';
 		echo '</form></div>';
 	}

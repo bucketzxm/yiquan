@@ -169,5 +169,21 @@ class Seed extends YqBase{
 		$this->db->REAction->save($row);
 	}
 	
+
+	function getActionByID($action_id){
+
+		$action = $this->db->REAction->findOne(array('_id' => new MongoId($action_id)));
+		return $action;
+	}
+
+	function updateActionNoteByID($arr){
+
+		$cursor = $this->db->REAction->findOne(array('_id' => new MongoId($arr['action_id'])));
+
+		$cursor['action_note'] = $arr['note'];
+		$this->db->REAction->save($cursor);
+
+
+	}
 }
 ?>
