@@ -454,24 +454,39 @@ class SeedView extends Seed{
 		echo '<div><form method="post" action="?action=提交学校交互记录">';
 		echo '<input type="hidden" class="form-control" name="account_id" value="'.$account. '"/>';
 		echo '<div class="form-group"><h4>基本信息</h4>';
-		echo '<input type="text" class="form-control" rows="3" cols="80" name="type" placeholder="交互类型">';
-		echo '<input type="text" class="form-control" rows="3" cols="80" name="status" placeholder="交互状态">';
-		echo '<input type="text" class="form-control" rows="3" cols="80" name="purpose" placeholder="交互目的">';
-		echo '<input type="text" class="form-control" rows="3" cols="80" name="sender" placeholder="发起人"></div>';
+		echo '<div class="form-group"><h4>交互目的</h4></div>';
+		echo '<select name="purpose">';
+			echo '<option value="项目宣传">项目宣传</option>';
+		echo '</select></div>';
+		echo '<div class="form-group"><h4>交互形式</h4></div>';
+		echo '<select name="type">';
+			echo '<option value="电话">电话</option>';
+			echo '<option value="邮件">邮件</option>';
+			echo '<option value="面谈">面谈</option>';
+			echo '<option value="快递">快递</option>';
+		echo '</select></div>';
+		echo '<select name="status">';
+			echo '<option value="未完成">未完成</option>';
+			echo '<option value="已完成">已完成</option>';
+		echo '</select></div>';
+		echo '<select name="sender">';
+			echo '<option value="程艳">程艳</option>';
+			echo '<option value="朱伦">朱伦</option>';
+		echo '</select></div>';
 		echo '<div class="form-group"><h4>交互对象</h4>';
 		echo '<select name="contact_id">';
 
 		for ($i=0; $i < count($contacts); $i++) { 
 			echo '<option value="'.(string)$contacts[$i]['_id'].'">'.$contacts[$i]['contact_position'].$contacts[$i]['contact_lastName'].$contacts[$i]['contact_givenName'].'</option>';			
 		}
-		echo '</select>';
+		echo '</select></div>';
 		echo '<div class="form-group"><h4>涉及项目</h4></div>';
 		echo '<select name="project_id">';
 
 		for ($j=0; $j < count($projects); $j++) { 
 			echo '<option value="'.(string)$projects[$j]['_id'].'">'.$projects[$j]['project_name'].'</option>';			
 		}
-		echo '</select>';
+		echo '</select></div>';
 		echo '<div class="form-group"><h4>交互笔记</h4>';
 		echo '<input type="textarea" class="form-control" rows="3" cols="80" name="note" placeholder="交互笔记"></div>';
 		echo '<div class="form-group"><input type="submit" value="提交" /></div>';
