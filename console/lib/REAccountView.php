@@ -553,7 +553,7 @@ class SeedView extends Seed{
 		echo '<div><form method="post" action="?action=提交新的交互笔记">';
 		echo '<input type="hidden" class="form-control" name="action_id" value="'.(string)$action['_id']. '"/>';
 		echo '<div class="form-group"><h4>交互笔记</h4>';
-		echo '<input type="textarea" class="form-control" rows="3" cols="80" name="note" placeholder="'.$action['action_note'].'"></div>';
+		echo '<input type="textarea" class="form-control" rows="3" cols="80" name="note" value="'.$action['action_note'].'"></div>';
 		echo '<div class="form-group"><input type="submit" value="提交" /></div>';
 		echo '</form></div>';
 	}
