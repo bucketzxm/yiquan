@@ -96,8 +96,13 @@ include_once '401.php';
 						case '添加学校交互记录' :
 
 							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
-						
-									$a->addActionByAccount($_GET ['mindex']);
+
+								$contactCursor = $this->db->REContact->find(array('account_id' => $_GET['mindex']));
+								$contacts = array();
+								foreach ($contactCursor as $key => $value) {
+									array_push($contacts, $value)
+								}
+									$a->addActionByAccount($_GET ['mindex'],$contacts);
 						
 							}
 							break;
