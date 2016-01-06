@@ -40,7 +40,7 @@ class Seed extends YqBase{
 		return $results;
 	}
 
-	function getContactsByAccount($account) {
+	function getProjectsByAccount($account) {
 		
 		$accountCursor = $this->db->REAccount->findOne(array('_id' => new MongoId($account)));
 		$cursor = $this->db->REProject->find(array('project_accountCategory' => $accountCursor['account_category']));
