@@ -63,7 +63,7 @@ class SeedView extends Seed{
 
 		echo '<h3>学校信息</h3>';
 		echo '<div><form method="post" action="?action=提交学校信息">';
-		echo '<div class="form-group"><h4>基本信息</h4>';
+		//echo '<div class="form-group"><h4>基本信息</h4>';
 		echo '<input type="text" class="form-control" rows="3" cols="80" name="name" placeholder="学校名称">';
 		echo '<p>选择学校所在省份</p>';
 		echo '<select name="province">';
@@ -101,8 +101,8 @@ class SeedView extends Seed{
 		echo '</select>';
 		echo '<p>选择学校类型</p>';
 		echo '<select name="type">';
-			echo '<option value="公立高中国际部">公立高中国际部</option>';
 			echo '<option value="普通高中">普通高中</option>';
+			echo '<option value="公立高中国际部">公立高中国际部</option>';
 			echo '<option value="民办国际学校">民办国际学校</option>';
 		echo '</select>';
 		echo '<p>选择学校学段</p>';
@@ -113,21 +113,25 @@ class SeedView extends Seed{
 			echo '<option value="小学">小学</option>';
 		echo '</select>';
 		echo '<p>选择学校课程体系</p>';
+		echo '<select name="curriculum">';
 			echo '<option value="国内">国内高中课程</option>';
 			echo '<option value="IB">IB</option>';
 			echo '<option value="A Level">A Level/剑桥</option>';
 			echo '<option value="AP">AP/中美</option>';
 			echo '<option value="中加">中加</option>';
-		echo '<select name="curriculum">';
 		echo '</select>';
 		echo '<input type="text" class="form-control" rows="3" cols="80" name="city" placeholder="所在城市">';
 		echo '<p>选择学校开发状态</p>';
 		echo '<select name="status">';
-			echo '<option value="激活">激活</option>';
 			echo '<option value="未激活">未激活</option>';
+			echo '<option value="激活">激活</option>';
 		echo '</select>';
 		echo '<input type="text" class="form-control" rows="3" cols="80" name="size" placeholder="招生规模">';
 		echo '<input type="text" class="form-control" rows="3" cols="80" name="address" placeholder="学校地址">';
+		echo '<input type="text" class="form-control" rows="3" cols="80" name="supplement" placeholder="补充信息">';
+		echo '</div>';
+
+
 		echo '<div class="form-group"><input type="submit" value="提交" /></div>';
 		echo '</form></div>';
 
