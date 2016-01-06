@@ -425,7 +425,7 @@ class SeedView extends Seed{
 
 		echo '<h3>联系人信息</h3>';
 		echo '<div><form method="post" action="?action=提交学校联系人">';
-		echo '<input type="hidden" class="form-control" name="account_id" value="'.$account. '"/>';
+		echo '<div><input type="hidden" class="form-control" name="account_id" value="'.$account. '"/>';
 		echo '<h4>基本信息</h4>';
 		echo '<input type="text" class="form-control" rows="3" cols="80" name="lastName" placeholder="姓">';
 		echo '<input type="text" class="form-control" rows="3" cols="80" name="givenName" placeholder="名">';
@@ -486,7 +486,7 @@ class SeedView extends Seed{
 			echo '<option value="行政">行政</option>';
 			echo '<option value="不详>不详</option>';
 		echo '</select>';
-		echo '<input type="text" class="form-control" rows="3" cols="80" name="interests" placeholder="爱好">';
+		echo '<input type="text" class="form-control" rows="3" cols="80" name="interests" placeholder="爱好"></div>';
 		echo '<div class="form-group"><input type="submit" value="提交" /></div>';
 		echo '</form></div>';
 
