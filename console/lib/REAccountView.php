@@ -480,6 +480,7 @@ class SeedView extends Seed{
 		echo '<h4>编制</h4>';
 		echo '<select name="employer">';
 			echo '<option value="公立学校">公立学校</option>';
+			echo '<option value="私立学校">私立学校</option>';
 			echo '<option value="第三方机构">第三方机构</option>';
 		echo '</select>';
 		echo '<h4>学科</h4>';
@@ -490,7 +491,7 @@ class SeedView extends Seed{
 			echo '<option value="历史">历史</option>';
 			echo '<option value="数理化">数理化</option>';
 			echo '<option value="行政">行政</option>';
-			echo '<option value="不详>不详</option>';
+			echo '<option value="不详">不详</option>';
 		echo '</select></div>';
 		echo '<div class="form-group"><input type="text" class="form-control" rows="3" cols="80" name="interests" placeholder="爱好"></div>';
 		echo '<div class="form-group"><input type="submit" value="提交" /></div>';
