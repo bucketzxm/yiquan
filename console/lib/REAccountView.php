@@ -152,7 +152,6 @@ class SeedView extends Seed{
 		echo '</select>';
 		echo '<p>选择学校学段</p>';
 		echo '<select name="category">';
-			echo '<option value="大学">大学</option>';
 			echo '<option value="高中">高中</option>';
 			echo '<option value="初中">初中</option>';
 			echo '<option value="小学">小学</option>';
@@ -164,6 +163,8 @@ class SeedView extends Seed{
 			echo '<option value="A Level">A Level/剑桥</option>';
 			echo '<option value="AP">AP/中美</option>';
 			echo '<option value="中加">中加</option>';
+			echo '<option value="综合">综合</option>';
+			echo '<option value="不详">不详</option>';
 		echo '</select>';
 		echo '<input type="text" class="form-control" rows="3" cols="80" name="city" placeholder="所在城市">';
 		echo '<p>选择学校开发状态</p>';
