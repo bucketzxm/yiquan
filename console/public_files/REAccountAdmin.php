@@ -147,6 +147,14 @@ include_once '401.php';
 								$a->updateActionNoteByID($_POST);
 							}
 							break;	
+
+						case '完成交互状态' :
+
+							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
+						
+								$a->completeActionByID($_GET['mindex']);
+							}
+							break;	
 						}
 					}
 					?>

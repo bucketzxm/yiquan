@@ -294,7 +294,7 @@ class SeedView extends Seed{
 		
 		th_combiner('日期');
 		th_combiner('类型');
-		th_combiner('状态');
+		th_combiner('状态（点击完成）');
 		th_combiner('联系人');
 		th_combiner('发起人');
 		th_combiner('项目');
@@ -311,13 +311,18 @@ class SeedView extends Seed{
 			echo '<tr></thead>';
 			echo '<td>'.date("Y-m-d",$actionArr[$j]['action_time']).'</td>';
 			echo '<td>'.$actionArr[$j]['action_type'].'</td>';
-			echo '<td>'.$actionArr[$j]['action_status'].'</td>';
+			if ($actionArr[$j]['action_status'] == '待完成') {
+				echo '<td><a href="?action=完成交互状态&mindex='.(string)$actionArr[$j]['_id'].'">'.$actionArr[$j]['action_status'].'</a></td>';
+			}else{
+				echo '<td>'.$actionArr[$j]['action_status'].'</td>';	
+			}
+			
 			echo '<td>'.$combinedString.'</td>';
 			echo '<td>'.$actionArr[$j]['action_sender'].'</td>';
 			echo '<td>'.$actionArr[$j]['action_project'].'</td>';
 			echo '<td>'.$actionArr[$j]['action_purpose'].'</td>';
 			echo '<td>'.$actionArr[$j]['action_note'].'</td>';
-			echo '<td><a href="?action=修改交互笔记&actionID='.(string)$actionArr[$j]['_id'].'">修改</a></td>';
+			echo '<td><a href="?action=修改交互笔记&actionID='.(string)$actionArr[$j]['_id'].'">修改笔记</a></td>';
 			echo '<tr>';	
 		}
 

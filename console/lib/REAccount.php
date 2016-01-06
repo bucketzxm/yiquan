@@ -182,8 +182,16 @@ class Seed extends YqBase{
 
 		$cursor['action_note'] = $arr['note'];
 		$this->db->REAction->save($cursor);
-
-
 	}
+
+	function completeActionByID($actionID){
+
+		$cursor = $this->db->REAction->findOne(array('_id' => new MongoId($actionID)));
+		if ($cursor['action_status'] == '待完成') {
+			$cursor['action_status'] = '已完成';
+		}
+		$this->db->REAction->save($cursor);
+	}
+
 }
 ?>
