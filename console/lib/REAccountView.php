@@ -444,7 +444,7 @@ class SeedView extends Seed{
 			echo '<option value="任课老师">任课老师</option>';
 			echo '<option value="不详">不详</option>';
 		echo '</select>';
-		echo '<h4>c称谓</h4>';
+		echo '<h4>称谓</h4>';
 		echo '<select name="prefix">';
 			echo '<option value="女士">女士</option>';
 			echo '<option value="先生">先生</option>';
