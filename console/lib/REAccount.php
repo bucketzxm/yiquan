@@ -107,6 +107,22 @@ class Seed extends YqBase{
 		$this->db->REContact->save($row);
 	}
 
+
+	function updateActionByAccount($arr){
+		$row = array();
+
+		
+			$row['action_type'] = $arr['type'];
+			$row['action_status'] = $arr['status'];
+			$row['action_purpose'] = $arr['purpose'];
+			$row['action_sender'] = $arr['sender'];
+			$row['action_note'] = $arr['note'];
+			$row['account_id'] = $arr['account_id'];
+			$row['action_time'] = time();
+
+
+		$this->db->REAction->save($row);
+	}
 	
 }
 ?>

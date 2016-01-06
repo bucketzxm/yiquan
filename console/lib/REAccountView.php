@@ -319,8 +319,25 @@ class SeedView extends Seed{
 		echo '<div class="form-group"><input type="submit" value="提交" /></div>';
 		echo '</form></div>';
 
+	}
 
 
+	function addActionByAccount ($account){
+
+		echo '<h3>交互记录信息</h3>';
+		echo '<div><form method="post" action="?action=提交学校交互记录">';
+		echo '<input type="hidden" class="form-control" name="account_id" value="'.$account. '"/>';
+		echo '<div class="form-group"><h4>基本信息</h4>';
+		echo '<input type="text" class="form-control" rows="3" cols="80" name="type" placeholder="交互类型">';
+		echo '<input type="text" class="form-control" rows="3" cols="80" name="status" placeholder="交互状态">';
+		echo '<input type="text" class="form-control" rows="3" cols="80" name="purpose" placeholder="交互目的">';
+		echo '<input type="text" class="form-control" rows="3" cols="80" name="sender" placeholder="发起人"></div>';
+		echo '<div class="form-group"><h4>交互对象</h4>';
+		echo '<div class="form-group"><h4>涉及项目</h4>';
+		echo '<div class="form-group"><h4>交互笔记</h4>';
+		echo '<input type="textarea" class="form-control" rows="3" cols="80" name="note" placeholder="交互笔记"></div>';
+		echo '<div class="form-group"><input type="submit" value="提交" /></div>';
+		echo '</form></div>';
 	}
 
 	function showDeleteSeedView($id) {

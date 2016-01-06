@@ -101,6 +101,16 @@ include_once '401.php';
 						
 							}
 							break;
+
+						case '提交学校交互记录' :
+
+							if ($_SERVER ['REQUEST_METHOD'] == 'POST') {
+								if ($a->updateActionByAccount($_POST)) {
+									echo '添加学校联系人成功';
+								}
+									
+							}
+							break;
 						}
 					}
 					?>
