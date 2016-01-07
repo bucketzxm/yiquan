@@ -158,10 +158,10 @@ class SeedView extends Seed{
 		echo '</select>';
 		echo '<p>选择学校课程体系</p>';
 		echo '<select name="curriculum">';
-			echo '<option value="国内">国内高中课程</option>';
+			echo '<option value="国内高中课程">国内高中课程</option>';
 			echo '<option value="IB">IB</option>';
-			echo '<option value="A Level">A Level/剑桥</option>';
-			echo '<option value="AP">AP/中美</option>';
+			echo '<option value="A Level/剑桥">A Level/剑桥</option>';
+			echo '<option value="AP/中美">AP/中美</option>';
 			echo '<option value="中加">中加</option>';
 			echo '<option value="中澳">中澳</option>';
 			echo '<option value="中德">中德</option>';
