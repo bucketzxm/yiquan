@@ -26,10 +26,10 @@ $mongoClient = new MongoClient("mongodb://{$host}:{$port}",array(
 ));
 $db = $mongoClient->yiquan;
 
-$accountCursor = $db->REAccount->find();
+$accountCursor = $db->REContact->find();
 foreach ($accountCursor as $key => $value) {
     
-    echo '<h4>'.$value['account_name'].';'.(string)$value['_id'].'</h4>';
+    echo '<h4>'.$value['account_id'].';'.$value['contact_lastName'].$value['contact_givenName'].';'.(string)$value['_id'].'</h4>';
 }
 
 
