@@ -20,7 +20,7 @@ class Seed extends YqBase{
 	function getAllProjects (){
 
 		$results = array();
-		$cursor = $this->db->REProject->find();
+		$cursor = $this->db->REProject->find(array('project_type' =>'产品'));
 
 		foreach ($cursor as $key => $value) {
 			array_push($results, $value);
