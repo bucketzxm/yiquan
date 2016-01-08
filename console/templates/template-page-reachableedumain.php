@@ -37,8 +37,8 @@ if (! empty ( $GLOBALS ['TEMPLATE'] ['extra_head'] )) {
 				<ul class="nav navbar-nav">
 					<li class="active"><a href="reachableedumain.php">主页</a></li>
 					<li><a href="REAccountAdmin.php">学校管理</a></li>
-					<li><a href="REContactAdmin.php">联系人管理</a></li>
 					<li><a href="REApplicationAdmin.php">报名表管理</a></li>
+					<li><a href="REContactAdmin.php">联系人管理</a></li>
 					<li><a href="RESalesAdmin.php">渠道工作管理</a></li>
 					<li><a href="login.php?logout">退出</a></li>
 
