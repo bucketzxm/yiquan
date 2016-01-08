@@ -22,7 +22,7 @@ function is_notempty($name){
 ###########
 
 class SeedView extends Seed{
-	function listChinaProvinces(){
+
 
 		
 
