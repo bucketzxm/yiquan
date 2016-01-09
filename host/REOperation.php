@@ -1,6 +1,6 @@
 <?php
 require_once 'YqBase.php';
-require_once 'PHPMailer/class.PHPMailer.php';
+require_once 'PHPMailer/class.phpmailer.php';
 
 function load_file($url) {
     $ch = curl_init($url);
