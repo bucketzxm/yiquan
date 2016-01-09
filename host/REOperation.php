@@ -10,6 +10,35 @@ function load_file($url) {
 }
 
 
+function setMails ($number){
+
+	$mail = new PHPMailer;
+
+    $mail->CharSet = 'UTF-8';
+    $mail->isSMTP();
+    $mail->Host = 'hwsmtp.exmail.qq.com';
+    $mail->SMTPAuth = true;
+    $mail->Username = 'material@youthimpactchina.com';
+    $mail->Password = 'Yis2016';
+    $mail->SMTPSecure = 'ssl';
+    $mail->Port = 465;
+    $mail->SetFrom('material@youthimpactchina.com', 'Youth Impact China');
+    $mail->addAddress('yan.cheng@youthimpactchina.com', 'Cheng Yan');
+    $mail->addAddress('zhu.lun@youthimpactchina.com', 'Zhu Lun');
+    $mail->isHTML(false);
+
+    $mail->Subject =
+        "自动测试邮件发送：" .$number;
+    $mail->Body =
+		'<h3>邮件内容'.$number.'</h3>';
+    if(!$mail->send()) {
+        header("Location: /");
+    } else {
+        echo '您的邮件'.$number.'已经发送成功';
+    }
+
+}
+
 
 ini_set("max_execution_time", 2400);
 
@@ -26,13 +55,9 @@ $mongoClient = new MongoClient("mongodb://{$host}:{$port}",array(
 ));
 $db = $mongoClient->yiquan;
 
-$accountCursor = $db->REContact->find();
-foreach ($accountCursor as $key => $value) {
-    
-    echo '<h4>'.$value['account_id'].';'.$value['contact_lastName'].$value['contact_givenName'].';'.(string)$value['_id'].'</h4>';
+for ($i=0; $i < 3; $i++) { 
+	setMails($i);
 }
-
-
 
 
 
