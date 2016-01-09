@@ -44,6 +44,14 @@ include_once '401.php';
 							}
 							break;
 
+						case '显示项目报名表' :
+							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
+						
+									$a->listApplicationsByProject($a->getApplicationsByProject($_GET['projectID']));
+						
+							}
+							break;
+
 						}
 					}
 					?>

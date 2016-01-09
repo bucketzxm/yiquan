@@ -37,6 +37,35 @@ class SeedView extends Seed{
 	}
 	
 
+	function listApplicationsByProject ($arr){
+
+
+		echo '<h4>项目报名表</h4>';	
+		echo '<div class="table-responsive"><table class="table table-striped">';
+		echo '<thead><tr>';
+		
+		th_combiner('姓名');
+		th_combiner('学校');
+		th_combiner('协议状态');
+		th_combiner('缴费状态');
+		
+
+
+		for ($j=0; $j < count($arr); $j++) { 
+		
+			
+			echo '<tr></thead>';
+			echo '<td>'.$arr[$j]['applicant_name'].'</td>';
+			echo '<td>'.$arr[$j]['applicant_accountName'].'</td>';
+			echo '<td>'.$arr[$j]['application_agreement'].'</td>';
+			echo '<td>'.$arr[$j]['application_paymnet'].'</td>';
+			echo '<tr>';	
+		}
+
+
+
+	}
+
 
 
 
