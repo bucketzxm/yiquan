@@ -38,7 +38,7 @@ class Seed extends YqBase{
 			$studentCursor = $this->db->REStudent->findOne(array('_id' => new MongoId($value['student_id'])));
 
 			$value['applicant_name'] = $studentCursor['student_lastName']. $studentCursor['student_givenName'];
-
+			$value['applicant_id'] = (string)$studentCursor['_id'];
 			$value['applicant_accountName'] = $accountCursor['account_name'];
 			array_push($results, $value);
 
@@ -46,6 +46,13 @@ class Seed extends YqBase{
 
 		return $results;
 
+	}
+
+
+	function getApplicantDetailsByID($studentID){
+
+		$cursor = $this->db->REStudent->findOne(array('_id' => new MongoId($studentID)));
+		return $cursor;
 	}
 
 
