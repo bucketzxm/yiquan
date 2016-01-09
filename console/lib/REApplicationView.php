@@ -58,7 +58,7 @@ class SeedView extends Seed{
 			echo '<td>'.$arr[$j]['applicant_name'].'</td>';
 			echo '<td>'.$arr[$j]['applicant_accountName'].'</td>';
 			echo '<td>'.$arr[$j]['application_agreement'].'</td>';
-			echo '<td>'.$arr[$j]['application_paymnet'].'</td>';
+			echo '<td>'.$arr[$j]['application_payment'].'</td>';
 			echo '<tr>';	
 		}
 
