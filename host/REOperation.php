@@ -24,18 +24,23 @@ function setMails ($number){
     $mail->SMTPSecure = 'ssl';
     $mail->Port = 465;
     $mail->SetFrom('material@youthimpactchina.com', 'Youth Impact China');
-    $mail->addAddress('yan.cheng@youthimpactchina.com', 'Cheng Yan');
     $mail->addAddress('zhu.lun@youthimpactchina.com', 'Zhu Lun');
-    $mail->isHTML(false);
+    $mail->isHTML(true);
+    $mail->addAttachment('a.jpg','测试附件图片');
 
     $mail->Subject =
         "自动测试邮件发送：" .$number;
     $mail->Body =
-		'<h3>邮件内容'.$number.'</h3>';
+		'<h3>邮件内容'.$number.'</h3>'.
+		'<ul>'.
+		'<li>One</li>'.
+		'<li>Two</li>'.
+		'<li>Three</li>'.
+		'</ul>';
     if(!$mail->send()) {
         header("Location: /");
     } else {
-        echo '您的邮件'.$number.'已经发送成功';
+        echo '<h4>您的邮件'.$number.'已经发送成功</h4>';
     }
 
 }
@@ -56,7 +61,7 @@ $mongoClient = new MongoClient("mongodb://{$host}:{$port}",array(
 ));
 $db = $mongoClient->yiquan;
 
-for ($i=0; $i < 3; $i++) { 
+for ($i=0; $i < 2; $i++) { 
 	setMails($i);
 }
 
