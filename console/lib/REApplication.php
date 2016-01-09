@@ -52,6 +52,9 @@ class Seed extends YqBase{
 	function getApplicantDetailsByID($studentID){
 
 		$cursor = $this->db->REStudent->findOne(array('_id' => new MongoId($studentID)));
+		$accountCursor = $this->db->REAccount->findOne(array('_id'=> new MongoId($cursor['student_accountID'])));
+		$cursor['student_accountName'] = $accountCursor['account_name'];
+ 
 		return $cursor;
 	}
 
