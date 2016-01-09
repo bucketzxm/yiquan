@@ -25,6 +25,7 @@ function setMails ($number){
     $mail->Port = 465;
     $mail->SetFrom('material@youthimpactchina.com', 'Youth Impact China');
     $mail->addAddress('zhu.lun@youthimpactchina.com', 'Zhu Lun');
+    $mail->addBCC('zhulun@oneto-tech.com', 'Youth Impact China');
     $mail->isHTML(true);
     $mail->addAttachment('a.jpg','测试附件图片');
 
