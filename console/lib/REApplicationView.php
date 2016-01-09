@@ -32,15 +32,15 @@ class SeedView extends Seed{
 		// var_dump($arr);
 		foreach ( $arr as $key => $v ) {
 			
-			echo '<h4><a href="?action=显示项目报名表&projectID='.(string)$v['_id'].'">'.$v['project_name'].'</a></h4>';
+			echo '<h4><a href="?action=显示项目报名表&projectID='.(string)$v['_id'].'&projectName='.$v['project_name'].'">'.$v['project_name'].'</a></h4>';
 		}
 	}
 	
 
-	function listApplicationsByProject ($arr){
+	function listApplicationsByProject ($projectName,$arr){
 
 
-		echo '<h4>项目报名表</h4>';	
+		echo '<h4>'.$projectName.'</h4>';	
 		echo '<div class="table-responsive"><table class="table table-striped">';
 		echo '<thead><tr>';
 		
@@ -62,6 +62,7 @@ class SeedView extends Seed{
 			echo '<tr>';	
 		}
 
+		echo '</table></div>';	
 
 
 	}

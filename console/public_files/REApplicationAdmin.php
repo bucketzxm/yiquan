@@ -47,7 +47,7 @@ include_once '401.php';
 						case '显示项目报名表' :
 							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
 						
-									$a->listApplicationsByProject($a->getApplicationsByProject($_GET['projectID']));
+									$a->listApplicationsByProject($_GET['projectName'],$a->getApplicationsByProject($_GET['projectID']));
 						
 							}
 							break;
