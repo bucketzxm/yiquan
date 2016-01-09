@@ -1,6 +1,6 @@
 <?php
 require_once 'YqBase.php';
-require 'PHPMailer-master/class.PHPMailer.php';
+require_once 'PHPMailer/class.PHPMailer.php';
 
 function load_file($url) {
     $ch = curl_init($url);
@@ -13,7 +13,7 @@ function load_file($url) {
 
 function setMails ($number){
 
-	$mail = new PHPMailer;
+	$mail = new PHPMailer();
 
     $mail->CharSet = 'UTF-8';
     $mail->isSMTP();
