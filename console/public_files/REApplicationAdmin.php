@@ -52,7 +52,6 @@ include_once '401.php';
 							}
 							break;
 
-						}
 
 						case '显示学生明细' :
 							if ($_SERVER ['REQUEST_METHOD'] == 'GET') {
